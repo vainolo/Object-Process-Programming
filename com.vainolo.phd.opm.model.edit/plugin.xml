@@ -13,7 +13,7 @@
    <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
       <factory
             uri="www.vainolo.com/phd/opm"
-            class="opm.provider.OPMItemProviderAdapterFactory"
+            class="com.vainolo.phd.opm.model.provider.OPMItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
                org.eclipse.emf.edit.provider.IStructuredItemContentProvider

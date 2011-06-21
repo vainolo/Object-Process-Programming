@@ -5,7 +5,10 @@
     modelPluginID="com.vainolo.phd.opm.model" modelName="OPM" importerID="org.eclipse.emf.importer.ecore"
     complianceLevel="6.0" copyrightFields="false">
   <foreignModel>opm.ecore</foreignModel>
-  <genPackages prefix="OPM" disposableProviderFactory="true" ecorePackage="opm.ecore#/">
+  <genPackages prefix="OPM" basePackage="com.vainolo.phd" disposableProviderFactory="true"
+      interfacePackageSuffix="model" metaDataPackageSuffix="model" classPackageSuffix="model.impl"
+      utilityPackageSuffix="model.util" providerPackageSuffix="model.provider" presentationPackageSuffix="model.presentation"
+      testsPackageSuffix="model.tests" ecorePackage="opm.ecore#/">
     <genClasses ecoreClass="opm.ecore#//ObjectProcessDiagram">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference opm.ecore#//ObjectProcessDiagram/objects"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference opm.ecore#//ObjectProcessDiagram/processes"/>

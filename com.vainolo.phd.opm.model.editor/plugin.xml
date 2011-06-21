@@ -15,9 +15,9 @@
             id="org.eclipse.emf.ecore.Wizard.category.ID"
             name="%_UI_Wizard_category"/>
       <wizard
-            id="opm.presentation.OPMModelWizardID"
+            id="com.vainolo.phd.opm.model.presentation.OPMModelWizardID"
             name="%_UI_OPMModelWizard_label"
-            class="opm.presentation.OPMModelWizard"
+            class="com.vainolo.phd.opm.model.presentation.OPMModelWizard"
             category="org.eclipse.emf.ecore.Wizard.category.ID"
             icon="icons/full/obj16/OPMModelFile.gif">
          <description>%_UI_OPMModelWizard_description</description>
@@ -27,12 +27,12 @@
 
    <extension point="org.eclipse.ui.editors">
       <editor
-            id="opm.presentation.OPMEditorID"
+            id="com.vainolo.phd.opm.model.presentation.OPMEditorID"
             name="%_UI_OPMEditor_label"
             icon="icons/full/obj16/OPMModelFile.gif"
             extensions="opm"
-            class="opm.presentation.OPMEditor"
-            contributorClass="opm.presentation.OPMActionBarContributor">
+            class="com.vainolo.phd.opm.model.presentation.OPMEditor"
+            contributorClass="com.vainolo.phd.opm.model.presentation.OPMActionBarContributor">
       </editor>
    </extension>
 

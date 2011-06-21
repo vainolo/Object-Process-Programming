@@ -13,7 +13,7 @@
    <extension point="org.eclipse.emf.ecore.generated_package">
       <package
             uri="www.vainolo.com/phd/opm"
-            class="opm.OPMPackage"
+            class="com.vainolo.phd.opm.model.OPMPackage"
             genModel="model/opm.genmodel"/>
    </extension>
 
