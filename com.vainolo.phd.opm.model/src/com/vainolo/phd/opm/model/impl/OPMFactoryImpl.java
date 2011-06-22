@@ -8,7 +8,9 @@ package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.*;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -75,6 +77,36 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
+	public Object createFromString(EDataType eDataType, String initialValue) {
+		switch (eDataType.getClassifierID()) {
+			case OPMPackage.RECTANGLE:
+				return createRectangleFromString(eDataType, initialValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String convertToString(EDataType eDataType, Object instanceValue) {
+		switch (eDataType.getClassifierID()) {
+			case OPMPackage.RECTANGLE:
+				return convertRectangleToString(eDataType, instanceValue);
+			default:
+				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public ObjectProcessDiagram createObjectProcessDiagram() {
 		ObjectProcessDiagramImpl objectProcessDiagram = new ObjectProcessDiagramImpl();
 		return objectProcessDiagram;
@@ -118,6 +150,50 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	public OPMThing createOPMThing() {
 		OPMThingImpl opmThing = new OPMThingImpl();
 		return opmThing;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Create a <code>Rectangle</code> instance from a <code>String</code>. The expected
+	 * representation is "x,y,width,height". Illegal representations will return a null
+	 * value. 
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Rectangle createRectangleFromString(EDataType eDataType, String initialValue) {
+		if(initialValue == null) {
+			return null;
+		}
+		initialValue.replaceAll("\\s", "");
+		String[] values = initialValue.split(",");
+		if(values.length != 4) {
+			return null;
+		}
+
+		Rectangle rect = new Rectangle();
+		try {
+			rect.setLocation(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
+			rect.setSize(Integer.parseInt(values[2]), Integer.parseInt(values[3]));
+		} catch(NumberFormatException e) {
+			EcorePlugin.INSTANCE.log(e);
+			rect = null;
+		}
+		return rect;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * Convert a <code>Rectangle</code> to a <code>String</code> representation. The
+	 * <code>Rectangle</code> is represented as "x,y,width,heigth". 
+	 * <!-- end-user-doc -->
+	 * @generated NOT 
+	 */
+	public String convertRectangleToString(EDataType eDataType, Object instanceValue) {
+		if(instanceValue == null) {
+			return null;
+		}
+		Rectangle rect = (Rectangle) instanceValue;
+		return rect.x+","+rect.y+","+rect.width+","+rect.height;
 	}
 
 	/**

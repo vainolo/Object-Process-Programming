@@ -27,7 +27,8 @@ public class OPMObjectEditPart extends AbstractGraphicalEditPart {
 		ObjectProcessDiagramEditPart parent = (ObjectProcessDiagramEditPart) getParent();
 		
 		figure.getLabel().setText(model.getName());
-		Rectangle layout = new Rectangle(rand.nextInt(300), rand.nextInt(300), 50, 50);
+		Rectangle layout = new Rectangle(model.getConstraints().x, model.getConstraints().y, 
+				model.getConstraints().width, model.getConstraints().height);
 		parent.setLayoutConstraint(this, figure, layout);
 	}
 }

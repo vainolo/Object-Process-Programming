@@ -14,8 +14,10 @@ import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMThing;
 import com.vainolo.phd.opm.model.ObjectProcessDiagram;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -62,6 +64,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * @generated
 	 */
 	private EClass opmThingEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType rectangleEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -192,6 +201,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getOPMObject_Constraints() {
+		return (EAttribute)opmObjectEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getOPMProcess() {
 		return opmProcessEClass;
 	}
@@ -282,6 +300,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getRectangle() {
+		return rectangleEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OPMFactory getOPMFactory() {
 		return (OPMFactory)getEFactoryInstance();
 	}
@@ -313,6 +340,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		opmObjectEClass = createEClass(OPM_OBJECT);
 		createEAttribute(opmObjectEClass, OPM_OBJECT__NAME);
 		createEReference(opmObjectEClass, OPM_OBJECT__OPD);
+		createEAttribute(opmObjectEClass, OPM_OBJECT__CONSTRAINTS);
 
 		opmProcessEClass = createEClass(OPM_PROCESS);
 		createEAttribute(opmProcessEClass, OPM_PROCESS__NAME);
@@ -326,6 +354,9 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		opmThingEClass = createEClass(OPM_THING);
 		createEReference(opmThingEClass, OPM_THING__INCOMING_LINKS);
 		createEReference(opmThingEClass, OPM_THING__OUTGOING_LINKS);
+
+		// Create data types
+		rectangleEDataType = createEDataType(RECTANGLE);
 	}
 
 	/**
@@ -368,6 +399,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOPMObject_Name(), ecorePackage.getEString(), "name", null, 0, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOPMObject_Opd(), this.getObjectProcessDiagram(), this.getObjectProcessDiagram_Objects(), "opd", null, 0, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getOPMObject_Constraints(), this.getRectangle(), "constraints", null, 0, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(opmProcessEClass, OPMProcess.class, "OPMProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOPMProcess_Name(), ecorePackage.getEString(), "name", null, 0, 1, OPMProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -381,6 +413,9 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		initEClass(opmThingEClass, OPMThing.class, "OPMThing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getOPMThing_IncomingLinks(), this.getOPMLink(), this.getOPMLink_Target(), "incomingLinks", null, 0, -1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOPMThing_OutgoingLinks(), this.getOPMLink(), this.getOPMLink_Source(), "outgoingLinks", null, 0, -1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize data types
+		initEDataType(rectangleEDataType, Rectangle.class, "Rectangle", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);
