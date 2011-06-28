@@ -321,6 +321,17 @@ public interface OPMPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '<em>Point</em>' data type.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.draw2d.geometry.Point
+	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
+	 * @generated
+	 */
+	int POINT = 6;
+
+
+	/**
 	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram <em>Object Process Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -525,6 +536,17 @@ public interface OPMPackage extends EPackage {
 	EDataType getRectangle();
 
 	/**
+	 * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Point <em>Point</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for data type '<em>Point</em>'.
+	 * @see org.eclipse.draw2d.geometry.Point
+	 * @model instanceClass="org.eclipse.draw2d.geometry.Point"
+	 * @generated
+	 */
+	EDataType getPoint();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -709,6 +731,16 @@ public interface OPMPackage extends EPackage {
 		 * @generated
 		 */
 		EDataType RECTANGLE = eINSTANCE.getRectangle();
+
+		/**
+		 * The meta object literal for the '<em>Point</em>' data type.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see org.eclipse.draw2d.geometry.Point
+		 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
+		 * @generated
+		 */
+		EDataType POINT = eINSTANCE.getPoint();
 
 	}
 

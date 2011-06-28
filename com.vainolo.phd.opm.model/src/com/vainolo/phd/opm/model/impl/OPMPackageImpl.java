@@ -14,6 +14,7 @@ import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMThing;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -71,6 +72,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * @generated
 	 */
 	private EDataType rectangleEDataType = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EDataType pointEDataType = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -309,6 +317,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EDataType getPoint() {
+		return pointEDataType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OPMFactory getOPMFactory() {
 		return (OPMFactory)getEFactoryInstance();
 	}
@@ -357,6 +374,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 		// Create data types
 		rectangleEDataType = createEDataType(RECTANGLE);
+		pointEDataType = createEDataType(POINT);
 	}
 
 	/**
@@ -416,6 +434,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 		// Initialize data types
 		initEDataType(rectangleEDataType, Rectangle.class, "Rectangle", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+		initEDataType(pointEDataType, Point.class, "Point", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

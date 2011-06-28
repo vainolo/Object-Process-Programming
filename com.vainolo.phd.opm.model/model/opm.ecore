@@ -37,4 +37,5 @@
         eType="#//OPMLink" eOpposite="#//OPMLink/source"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Rectangle" instanceClassName="org.eclipse.draw2d.geometry.Rectangle"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Point" instanceClassName="org.eclipse.draw2d.geometry.Point"/>
 </ecore:EPackage>

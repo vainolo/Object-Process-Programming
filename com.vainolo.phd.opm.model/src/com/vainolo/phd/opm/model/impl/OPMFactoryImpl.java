@@ -8,6 +8,7 @@ package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.*;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -82,6 +83,8 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 		switch (eDataType.getClassifierID()) {
 			case OPMPackage.RECTANGLE:
 				return createRectangleFromString(eDataType, initialValue);
+			case OPMPackage.POINT:
+				return createPointFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -97,6 +100,8 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 		switch (eDataType.getClassifierID()) {
 			case OPMPackage.RECTANGLE:
 				return convertRectangleToString(eDataType, instanceValue);
+			case OPMPackage.POINT:
+				return convertPointToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -194,6 +199,45 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 		}
 		Rectangle rect = (Rectangle) instanceValue;
 		return rect.x+","+rect.y+","+rect.width+","+rect.height;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Point createPointFromString(EDataType eDataType, String initialValue) {
+		if(initialValue == null) {
+			return null;
+		}
+		initialValue.replaceAll("\\s", "");
+		String[] values = initialValue.split(",");
+		if(values.length != 2) {
+			return null;
+		}
+		
+		Point point = new Point();
+		try { 
+			point.setLocation(Integer.parseInt(values[0]), Integer.parseInt(values[1]));
+		} catch(NumberFormatException e) {
+			EcorePlugin.INSTANCE.log(e);
+			point = null;		
+		}
+		return point;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String convertPointToString(EDataType eDataType, Object instanceValue) {
+		if(instanceValue == null) {
+			return null;
+		}
+		Point p = (Point)instanceValue;
+		return p.x+","+p.y;
+		
 	}
 
 	/**
