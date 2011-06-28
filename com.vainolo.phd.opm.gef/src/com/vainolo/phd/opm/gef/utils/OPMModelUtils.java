@@ -4,15 +4,15 @@ import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.model.ObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
 public enum OPMModelUtils {
 	INSTANCE;
 	
 	private OPMFactory factory = OPMFactory.eINSTANCE;
 	
-	public ObjectProcessDiagram createModel() {
-		ObjectProcessDiagram opd = factory.createObjectProcessDiagram();
+	public OPMObjectProcessDiagram createModel() {
+		OPMObjectProcessDiagram opd = factory.createOPMObjectProcessDiagram();
 		OPMObject object1 = factory.createOPMObject();
 		object1.setName("O1");
 		opd.getObjects().add(object1);

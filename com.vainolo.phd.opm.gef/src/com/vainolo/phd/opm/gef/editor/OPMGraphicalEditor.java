@@ -17,14 +17,13 @@ import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
 
 import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
-import com.vainolo.phd.opm.gef.utils.OPMModelUtils;
 import com.vainolo.phd.opm.model.OPMPackage;
-import com.vainolo.phd.opm.model.ObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
 public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
 	private Resource opdResource;
-	private ObjectProcessDiagram opd;
+	private OPMObjectProcessDiagram opd;
 	
 	public OPMGraphicalEditor() {
 		setEditDomain(new DefaultEditDomain(this));
@@ -62,7 +61,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			opdResource = resourceSet.createResource(URI.createURI(file.getLocationURI().toString()));
 			try {
 				opdResource.load(null);
-				opd = (ObjectProcessDiagram) opdResource.getContents().get(0);
+				opd = (OPMObjectProcessDiagram) opdResource.getContents().get(0);
 			} catch(IOException e) {
 				// TODO do something smarter.
 				e.printStackTrace();

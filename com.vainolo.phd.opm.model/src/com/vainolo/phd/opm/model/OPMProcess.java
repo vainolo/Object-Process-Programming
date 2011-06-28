@@ -53,7 +53,7 @@ public interface OPMProcess extends OPMThing {
 
 	/**
 	 * Returns the value of the '<em><b>Opd</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.ObjectProcessDiagram#getProcesses <em>Processes</em>}'.
+	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getProcesses <em>Processes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Opd</em>' container reference isn't clear,
@@ -61,13 +61,13 @@ public interface OPMProcess extends OPMThing {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Opd</em>' container reference.
-	 * @see #setOpd(ObjectProcessDiagram)
+	 * @see #setOpd(OPMObjectProcessDiagram)
 	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMProcess_Opd()
-	 * @see com.vainolo.phd.opm.model.ObjectProcessDiagram#getProcesses
+	 * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getProcesses
 	 * @model opposite="processes" transient="false"
 	 * @generated
 	 */
-	ObjectProcessDiagram getOpd();
+	OPMObjectProcessDiagram getOpd();
 
 	/**
 	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMProcess#getOpd <em>Opd</em>}' container reference.
@@ -77,6 +77,6 @@ public interface OPMProcess extends OPMThing {
 	 * @see #getOpd()
 	 * @generated
 	 */
-	void setOpd(ObjectProcessDiagram value);
+	void setOpd(OPMObjectProcessDiagram value);
 
 } // OPMProcess

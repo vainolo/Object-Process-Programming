@@ -7,8 +7,8 @@
 package com.vainolo.phd.opm.model.tests;
 
 import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
-import com.vainolo.phd.opm.model.ObjectProcessDiagram;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +64,7 @@ public class OPMExample {
 			System.out.println("Enter a list of file paths or URIs that have content like this:");
 			try {
 				Resource resource = resourceSet.createResource(URI.createURI("http:///My.opm"));
-				ObjectProcessDiagram root = OPMFactory.eINSTANCE.createObjectProcessDiagram();
+				OPMObjectProcessDiagram root = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
 				resource.getContents().add(root);
 				resource.save(System.out, null);
 			}

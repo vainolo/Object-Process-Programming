@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface OPMLink extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Opd</b></em>' container reference.
-	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.ObjectProcessDiagram#getLinks <em>Links</em>}'.
+	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLinks <em>Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Opd</em>' container reference isn't clear,
@@ -37,13 +37,13 @@ public interface OPMLink extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Opd</em>' container reference.
-	 * @see #setOpd(ObjectProcessDiagram)
+	 * @see #setOpd(OPMObjectProcessDiagram)
 	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMLink_Opd()
-	 * @see com.vainolo.phd.opm.model.ObjectProcessDiagram#getLinks
+	 * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLinks
 	 * @model opposite="links" transient="false"
 	 * @generated
 	 */
-	ObjectProcessDiagram getOpd();
+	OPMObjectProcessDiagram getOpd();
 
 	/**
 	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMLink#getOpd <em>Opd</em>}' container reference.
@@ -53,7 +53,7 @@ public interface OPMLink extends EObject {
 	 * @see #getOpd()
 	 * @generated
 	 */
-	void setOpd(ObjectProcessDiagram value);
+	void setOpd(OPMObjectProcessDiagram value);
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' reference.

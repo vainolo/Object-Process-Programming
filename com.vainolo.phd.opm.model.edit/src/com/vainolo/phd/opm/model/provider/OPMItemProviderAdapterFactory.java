@@ -76,26 +76,26 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
 	}
 
 	/**
-	 * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.ObjectProcessDiagram} instances.
+	 * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram} instances.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ObjectProcessDiagramItemProvider objectProcessDiagramItemProvider;
+	protected OPMObjectProcessDiagramItemProvider opmObjectProcessDiagramItemProvider;
 
 	/**
-	 * This creates an adapter for a {@link com.vainolo.phd.opm.model.ObjectProcessDiagram}.
+	 * This creates an adapter for a {@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram}.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
-	public Adapter createObjectProcessDiagramAdapter() {
-		if (objectProcessDiagramItemProvider == null) {
-			objectProcessDiagramItemProvider = new ObjectProcessDiagramItemProvider(this);
+	public Adapter createOPMObjectProcessDiagramAdapter() {
+		if (opmObjectProcessDiagramItemProvider == null) {
+			opmObjectProcessDiagramItemProvider = new OPMObjectProcessDiagramItemProvider(this);
 		}
 
-		return objectProcessDiagramItemProvider;
+		return opmObjectProcessDiagramItemProvider;
 	}
 
 	/**
@@ -289,7 +289,7 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
 	 * @generated
 	 */
 	public void dispose() {
-		if (objectProcessDiagramItemProvider != null) objectProcessDiagramItemProvider.dispose();
+		if (opmObjectProcessDiagramItemProvider != null) opmObjectProcessDiagramItemProvider.dispose();
 		if (opmObjectItemProvider != null) opmObjectItemProvider.dispose();
 		if (opmProcessItemProvider != null) opmProcessItemProvider.dispose();
 		if (opmLinkItemProvider != null) opmLinkItemProvider.dispose();

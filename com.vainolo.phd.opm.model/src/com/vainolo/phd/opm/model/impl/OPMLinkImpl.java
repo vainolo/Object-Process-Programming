@@ -7,9 +7,9 @@
 package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMThing;
-import com.vainolo.phd.opm.model.ObjectProcessDiagram;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -82,9 +82,9 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ObjectProcessDiagram getOpd() {
+	public OPMObjectProcessDiagram getOpd() {
 		if (eContainerFeatureID() != OPMPackage.OPM_LINK__OPD) return null;
-		return (ObjectProcessDiagram)eContainer();
+		return (OPMObjectProcessDiagram)eContainer();
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOpd(ObjectProcessDiagram newOpd, NotificationChain msgs) {
+	public NotificationChain basicSetOpd(OPMObjectProcessDiagram newOpd, NotificationChain msgs) {
 		msgs = eBasicSetContainer((InternalEObject)newOpd, OPMPackage.OPM_LINK__OPD, msgs);
 		return msgs;
 	}
@@ -102,7 +102,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setOpd(ObjectProcessDiagram newOpd) {
+	public void setOpd(OPMObjectProcessDiagram newOpd) {
 		if (newOpd != eInternalContainer() || (eContainerFeatureID() != OPMPackage.OPM_LINK__OPD && newOpd != null)) {
 			if (EcoreUtil.isAncestor(this, newOpd))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -110,7 +110,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOpd != null)
-				msgs = ((InternalEObject)newOpd).eInverseAdd(this, OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS, ObjectProcessDiagram.class, msgs);
+				msgs = ((InternalEObject)newOpd).eInverseAdd(this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS, OPMObjectProcessDiagram.class, msgs);
 			msgs = basicSetOpd(newOpd, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -249,7 +249,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 			case OPMPackage.OPM_LINK__OPD:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetOpd((ObjectProcessDiagram)otherEnd, msgs);
+				return basicSetOpd((OPMObjectProcessDiagram)otherEnd, msgs);
 			case OPMPackage.OPM_LINK__SOURCE:
 				if (source != null)
 					msgs = ((InternalEObject)source).eInverseRemove(this, OPMPackage.OPM_THING__OUTGOING_LINKS, OPMThing.class, msgs);
@@ -289,7 +289,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case OPMPackage.OPM_LINK__OPD:
-				return eInternalContainer().eInverseRemove(this, OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS, ObjectProcessDiagram.class, msgs);
+				return eInternalContainer().eInverseRemove(this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS, OPMObjectProcessDiagram.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -323,7 +323,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case OPMPackage.OPM_LINK__OPD:
-				setOpd((ObjectProcessDiagram)newValue);
+				setOpd((OPMObjectProcessDiagram)newValue);
 				return;
 			case OPMPackage.OPM_LINK__SOURCE:
 				setSource((OPMThing)newValue);
@@ -344,7 +344,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case OPMPackage.OPM_LINK__OPD:
-				setOpd((ObjectProcessDiagram)null);
+				setOpd((OPMObjectProcessDiagram)null);
 				return;
 			case OPMPackage.OPM_LINK__SOURCE:
 				setSource((OPMThing)null);

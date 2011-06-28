@@ -7,8 +7,8 @@
 package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.OPMObject;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
-import com.vainolo.phd.opm.model.ObjectProcessDiagram;
 
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
@@ -122,9 +122,9 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ObjectProcessDiagram getOpd() {
+	public OPMObjectProcessDiagram getOpd() {
 		if (eContainerFeatureID() != OPMPackage.OPM_OBJECT__OPD) return null;
-		return (ObjectProcessDiagram)eContainer();
+		return (OPMObjectProcessDiagram)eContainer();
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOpd(ObjectProcessDiagram newOpd, NotificationChain msgs) {
+	public NotificationChain basicSetOpd(OPMObjectProcessDiagram newOpd, NotificationChain msgs) {
 		msgs = eBasicSetContainer((InternalEObject)newOpd, OPMPackage.OPM_OBJECT__OPD, msgs);
 		return msgs;
 	}
@@ -142,7 +142,7 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setOpd(ObjectProcessDiagram newOpd) {
+	public void setOpd(OPMObjectProcessDiagram newOpd) {
 		if (newOpd != eInternalContainer() || (eContainerFeatureID() != OPMPackage.OPM_OBJECT__OPD && newOpd != null)) {
 			if (EcoreUtil.isAncestor(this, newOpd))
 				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -150,7 +150,7 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
 			if (eInternalContainer() != null)
 				msgs = eBasicRemoveFromContainer(msgs);
 			if (newOpd != null)
-				msgs = ((InternalEObject)newOpd).eInverseAdd(this, OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS, ObjectProcessDiagram.class, msgs);
+				msgs = ((InternalEObject)newOpd).eInverseAdd(this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS, OPMObjectProcessDiagram.class, msgs);
 			msgs = basicSetOpd(newOpd, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -190,7 +190,7 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
 			case OPMPackage.OPM_OBJECT__OPD:
 				if (eInternalContainer() != null)
 					msgs = eBasicRemoveFromContainer(msgs);
-				return basicSetOpd((ObjectProcessDiagram)otherEnd, msgs);
+				return basicSetOpd((OPMObjectProcessDiagram)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -218,7 +218,7 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
 	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
 		switch (eContainerFeatureID()) {
 			case OPMPackage.OPM_OBJECT__OPD:
-				return eInternalContainer().eInverseRemove(this, OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS, ObjectProcessDiagram.class, msgs);
+				return eInternalContainer().eInverseRemove(this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS, OPMObjectProcessDiagram.class, msgs);
 		}
 		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
@@ -253,7 +253,7 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
 				setName((String)newValue);
 				return;
 			case OPMPackage.OPM_OBJECT__OPD:
-				setOpd((ObjectProcessDiagram)newValue);
+				setOpd((OPMObjectProcessDiagram)newValue);
 				return;
 			case OPMPackage.OPM_OBJECT__CONSTRAINTS:
 				setConstraints((Rectangle)newValue);
@@ -274,7 +274,7 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
 				setName(NAME_EDEFAULT);
 				return;
 			case OPMPackage.OPM_OBJECT__OPD:
-				setOpd((ObjectProcessDiagram)null);
+				setOpd((OPMObjectProcessDiagram)null);
 				return;
 			case OPMPackage.OPM_OBJECT__CONSTRAINTS:
 				setConstraints(CONSTRAINTS_EDEFAULT);

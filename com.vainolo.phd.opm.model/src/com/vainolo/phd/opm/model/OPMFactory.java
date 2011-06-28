@@ -32,7 +32,7 @@ public interface OPMFactory extends EFactory {
 	 * @return a new object of class '<em>Object Process Diagram</em>'.
 	 * @generated
 	 */
-	ObjectProcessDiagram createObjectProcessDiagram();
+	OPMObjectProcessDiagram createOPMObjectProcessDiagram();
 
 	/**
 	 * Returns a new object of class '<em>Object</em>'.

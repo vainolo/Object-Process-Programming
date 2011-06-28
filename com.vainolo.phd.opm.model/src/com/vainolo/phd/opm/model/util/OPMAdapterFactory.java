@@ -72,8 +72,8 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 	protected OPMSwitch<Adapter> modelSwitch =
 		new OPMSwitch<Adapter>() {
 			@Override
-			public Adapter caseObjectProcessDiagram(ObjectProcessDiagram object) {
-				return createObjectProcessDiagramAdapter();
+			public Adapter caseOPMObjectProcessDiagram(OPMObjectProcessDiagram object) {
+				return createOPMObjectProcessDiagramAdapter();
 			}
 			@Override
 			public Adapter caseOPMObject(OPMObject object) {
@@ -112,16 +112,16 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
-	 * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.ObjectProcessDiagram <em>Object Process Diagram</em>}'.
+	 * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram <em>Object Process Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see com.vainolo.phd.opm.model.ObjectProcessDiagram
+	 * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram
 	 * @generated
 	 */
-	public Adapter createObjectProcessDiagramAdapter() {
+	public Adapter createOPMObjectProcessDiagramAdapter() {
 		return null;
 	}
 

@@ -87,9 +87,9 @@ public class OPMSwitch<T> {
 	 */
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM: {
-				ObjectProcessDiagram objectProcessDiagram = (ObjectProcessDiagram)theEObject;
-				T result = caseObjectProcessDiagram(objectProcessDiagram);
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM: {
+				OPMObjectProcessDiagram opmObjectProcessDiagram = (OPMObjectProcessDiagram)theEObject;
+				T result = caseOPMObjectProcessDiagram(opmObjectProcessDiagram);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -134,7 +134,7 @@ public class OPMSwitch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseObjectProcessDiagram(ObjectProcessDiagram object) {
+	public T caseOPMObjectProcessDiagram(OPMObjectProcessDiagram object) {
 		return null;
 	}
 

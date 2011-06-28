@@ -9,7 +9,7 @@ import org.eclipse.draw2d.LineBorder;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import com.vainolo.phd.opm.model.OPMObject;
-import com.vainolo.phd.opm.model.ObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
 public class ObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 	@Override 
@@ -27,7 +27,7 @@ public class ObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 	
 	@Override protected List<OPMObject> getModelChildren() {
 		List<OPMObject> retVal = new ArrayList<OPMObject>();
-		ObjectProcessDiagram opd = (ObjectProcessDiagram) getModel();
+		OPMObjectProcessDiagram opd = (OPMObjectProcessDiagram) getModel();
 		retVal.addAll(opd.getObjects());
 		return retVal;
 	}	

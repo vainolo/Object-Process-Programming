@@ -7,7 +7,7 @@
 package com.vainolo.phd.opm.model.tests;
 
 import com.vainolo.phd.opm.model.OPMFactory;
-import com.vainolo.phd.opm.model.ObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
 import junit.framework.TestCase;
 
@@ -19,7 +19,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ObjectProcessDiagramTest extends TestCase {
+public class OPMObjectProcessDiagramTest extends TestCase {
 
 	/**
 	 * The fixture for this Object Process Diagram test case.
@@ -27,7 +27,7 @@ public class ObjectProcessDiagramTest extends TestCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ObjectProcessDiagram fixture = null;
+	protected OPMObjectProcessDiagram fixture = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -35,7 +35,7 @@ public class ObjectProcessDiagramTest extends TestCase {
 	 * @generated
 	 */
 	public static void main(String[] args) {
-		TestRunner.run(ObjectProcessDiagramTest.class);
+		TestRunner.run(OPMObjectProcessDiagramTest.class);
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class ObjectProcessDiagramTest extends TestCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ObjectProcessDiagramTest(String name) {
+	public OPMObjectProcessDiagramTest(String name) {
 		super(name);
 	}
 
@@ -54,7 +54,7 @@ public class ObjectProcessDiagramTest extends TestCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void setFixture(ObjectProcessDiagram fixture) {
+	protected void setFixture(OPMObjectProcessDiagram fixture) {
 		this.fixture = fixture;
 	}
 
@@ -64,7 +64,7 @@ public class ObjectProcessDiagramTest extends TestCase {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ObjectProcessDiagram getFixture() {
+	protected OPMObjectProcessDiagram getFixture() {
 		return fixture;
 	}
 
@@ -76,7 +76,7 @@ public class ObjectProcessDiagramTest extends TestCase {
 	 */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OPMFactory.eINSTANCE.createObjectProcessDiagram());
+		setFixture(OPMFactory.eINSTANCE.createOPMObjectProcessDiagram());
 	}
 
 	/**
@@ -90,4 +90,4 @@ public class ObjectProcessDiagramTest extends TestCase {
 		setFixture(null);
 	}
 
-} //ObjectProcessDiagramTest
+} //OPMObjectProcessDiagramTest

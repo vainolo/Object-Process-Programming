@@ -18,17 +18,17 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link com.vainolo.phd.opm.model.ObjectProcessDiagram#getObjects <em>Objects</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.ObjectProcessDiagram#getProcesses <em>Processes</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.ObjectProcessDiagram#getLinks <em>Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getObjects <em>Objects</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getProcesses <em>Processes</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLinks <em>Links</em>}</li>
  * </ul>
  * </p>
  *
- * @see com.vainolo.phd.opm.model.OPMPackage#getObjectProcessDiagram()
+ * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObjectProcessDiagram()
  * @model
  * @generated
  */
-public interface ObjectProcessDiagram extends EObject {
+public interface OPMObjectProcessDiagram extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Objects</b></em>' containment reference list.
 	 * The list contents are of type {@link com.vainolo.phd.opm.model.OPMObject}.
@@ -40,7 +40,7 @@ public interface ObjectProcessDiagram extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Objects</em>' containment reference list.
-	 * @see com.vainolo.phd.opm.model.OPMPackage#getObjectProcessDiagram_Objects()
+	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObjectProcessDiagram_Objects()
 	 * @see com.vainolo.phd.opm.model.OPMObject#getOpd
 	 * @model opposite="opd" containment="true"
 	 * @generated
@@ -58,7 +58,7 @@ public interface ObjectProcessDiagram extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Processes</em>' containment reference list.
-	 * @see com.vainolo.phd.opm.model.OPMPackage#getObjectProcessDiagram_Processes()
+	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObjectProcessDiagram_Processes()
 	 * @see com.vainolo.phd.opm.model.OPMProcess#getOpd
 	 * @model opposite="opd" containment="true"
 	 * @generated
@@ -76,11 +76,11 @@ public interface ObjectProcessDiagram extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Links</em>' containment reference list.
-	 * @see com.vainolo.phd.opm.model.OPMPackage#getObjectProcessDiagram_Links()
+	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObjectProcessDiagram_Links()
 	 * @see com.vainolo.phd.opm.model.OPMLink#getOpd
 	 * @model opposite="opd" containment="true"
 	 * @generated
 	 */
 	EList<OPMLink> getLinks();
 
-} // ObjectProcessDiagram
+} // OPMObjectProcessDiagram

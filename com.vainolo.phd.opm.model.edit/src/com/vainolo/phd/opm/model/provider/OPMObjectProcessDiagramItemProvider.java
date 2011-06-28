@@ -8,8 +8,8 @@ package com.vainolo.phd.opm.model.provider;
 
 
 import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
-import com.vainolo.phd.opm.model.ObjectProcessDiagram;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,12 +31,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link com.vainolo.phd.opm.model.ObjectProcessDiagram} object.
+ * This is the item provider adapter for a {@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class ObjectProcessDiagramItemProvider
+public class OPMObjectProcessDiagramItemProvider
 	extends ItemProviderAdapter
 	implements
 		IEditingDomainItemProvider,
@@ -50,7 +50,7 @@ public class ObjectProcessDiagramItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ObjectProcessDiagramItemProvider(AdapterFactory adapterFactory) {
+	public OPMObjectProcessDiagramItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -81,9 +81,9 @@ public class ObjectProcessDiagramItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(OPMPackage.Literals.OBJECT_PROCESS_DIAGRAM__OBJECTS);
-			childrenFeatures.add(OPMPackage.Literals.OBJECT_PROCESS_DIAGRAM__PROCESSES);
-			childrenFeatures.add(OPMPackage.Literals.OBJECT_PROCESS_DIAGRAM__LINKS);
+			childrenFeatures.add(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS);
+			childrenFeatures.add(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES);
+			childrenFeatures.add(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS);
 		}
 		return childrenFeatures;
 	}
@@ -102,14 +102,14 @@ public class ObjectProcessDiagramItemProvider
 	}
 
 	/**
-	 * This returns ObjectProcessDiagram.gif.
+	 * This returns OPMObjectProcessDiagram.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ObjectProcessDiagram"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/OPMObjectProcessDiagram"));
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class ObjectProcessDiagramItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_ObjectProcessDiagram_type");
+		return getString("_UI_OPMObjectProcessDiagram_type");
 	}
 
 	/**
@@ -134,10 +134,10 @@ public class ObjectProcessDiagramItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ObjectProcessDiagram.class)) {
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS:
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__PROCESSES:
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS:
+		switch (notification.getFeatureID(OPMObjectProcessDiagram.class)) {
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -157,17 +157,17 @@ public class ObjectProcessDiagramItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(OPMPackage.Literals.OBJECT_PROCESS_DIAGRAM__OBJECTS,
+				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS,
 				 OPMFactory.eINSTANCE.createOPMObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(OPMPackage.Literals.OBJECT_PROCESS_DIAGRAM__PROCESSES,
+				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES,
 				 OPMFactory.eINSTANCE.createOPMProcess()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(OPMPackage.Literals.OBJECT_PROCESS_DIAGRAM__LINKS,
+				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
 				 OPMFactory.eINSTANCE.createOPMLink()));
 	}
 

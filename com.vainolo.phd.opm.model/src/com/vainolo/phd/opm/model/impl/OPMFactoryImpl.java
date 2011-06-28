@@ -62,7 +62,7 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM: return createObjectProcessDiagram();
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM: return createOPMObjectProcessDiagram();
 			case OPMPackage.OPM_OBJECT: return createOPMObject();
 			case OPMPackage.OPM_PROCESS: return createOPMProcess();
 			case OPMPackage.OPM_LINK: return createOPMLink();
@@ -107,9 +107,9 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ObjectProcessDiagram createObjectProcessDiagram() {
-		ObjectProcessDiagramImpl objectProcessDiagram = new ObjectProcessDiagramImpl();
-		return objectProcessDiagram;
+	public OPMObjectProcessDiagram createOPMObjectProcessDiagram() {
+		OPMObjectProcessDiagramImpl opmObjectProcessDiagram = new OPMObjectProcessDiagramImpl();
+		return opmObjectProcessDiagram;
 	}
 
 	/**

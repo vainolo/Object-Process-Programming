@@ -8,9 +8,9 @@ package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.model.ObjectProcessDiagram;
 
 import java.util.Collection;
 
@@ -33,15 +33,15 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.vainolo.phd.opm.model.impl.ObjectProcessDiagramImpl#getObjects <em>Objects</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.impl.ObjectProcessDiagramImpl#getProcesses <em>Processes</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.impl.ObjectProcessDiagramImpl#getLinks <em>Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getObjects <em>Objects</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getProcesses <em>Processes</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getLinks <em>Links</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProcessDiagram {
+public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjectProcessDiagram {
 	/**
 	 * The cached value of the '{@link #getObjects() <em>Objects</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -77,7 +77,7 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected ObjectProcessDiagramImpl() {
+	protected OPMObjectProcessDiagramImpl() {
 		super();
 	}
 
@@ -88,7 +88,7 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	 */
 	@Override
 	protected EClass eStaticClass() {
-		return OPMPackage.Literals.OBJECT_PROCESS_DIAGRAM;
+		return OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM;
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	 */
 	public EList<OPMObject> getObjects() {
 		if (objects == null) {
-			objects = new EObjectContainmentWithInverseEList<OPMObject>(OPMObject.class, this, OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS, OPMPackage.OPM_OBJECT__OPD);
+			objects = new EObjectContainmentWithInverseEList<OPMObject>(OPMObject.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS, OPMPackage.OPM_OBJECT__OPD);
 		}
 		return objects;
 	}
@@ -110,7 +110,7 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	 */
 	public EList<OPMProcess> getProcesses() {
 		if (processes == null) {
-			processes = new EObjectContainmentWithInverseEList<OPMProcess>(OPMProcess.class, this, OPMPackage.OBJECT_PROCESS_DIAGRAM__PROCESSES, OPMPackage.OPM_PROCESS__OPD);
+			processes = new EObjectContainmentWithInverseEList<OPMProcess>(OPMProcess.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES, OPMPackage.OPM_PROCESS__OPD);
 		}
 		return processes;
 	}
@@ -122,7 +122,7 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	 */
 	public EList<OPMLink> getLinks() {
 		if (links == null) {
-			links = new EObjectContainmentWithInverseEList<OPMLink>(OPMLink.class, this, OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS, OPMPackage.OPM_LINK__OPD);
+			links = new EObjectContainmentWithInverseEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS, OPMPackage.OPM_LINK__OPD);
 		}
 		return links;
 	}
@@ -136,11 +136,11 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getObjects()).basicAdd(otherEnd, msgs);
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__PROCESSES:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getProcesses()).basicAdd(otherEnd, msgs);
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinks()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -154,11 +154,11 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
 				return ((InternalEList<?>)getObjects()).basicRemove(otherEnd, msgs);
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__PROCESSES:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
 				return ((InternalEList<?>)getProcesses()).basicRemove(otherEnd, msgs);
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -172,11 +172,11 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
 				return getObjects();
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__PROCESSES:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
 				return getProcesses();
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				return getLinks();
 		}
 		return super.eGet(featureID, resolve, coreType);
@@ -191,15 +191,15 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
 				getObjects().clear();
 				getObjects().addAll((Collection<? extends OPMObject>)newValue);
 				return;
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__PROCESSES:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
 				getProcesses().clear();
 				getProcesses().addAll((Collection<? extends OPMProcess>)newValue);
 				return;
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				getLinks().clear();
 				getLinks().addAll((Collection<? extends OPMLink>)newValue);
 				return;
@@ -215,13 +215,13 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
 				getObjects().clear();
 				return;
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__PROCESSES:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
 				getProcesses().clear();
 				return;
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				getLinks().clear();
 				return;
 		}
@@ -236,14 +236,14 @@ public class ObjectProcessDiagramImpl extends EObjectImpl implements ObjectProce
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__OBJECTS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
 				return objects != null && !objects.isEmpty();
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__PROCESSES:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
 				return processes != null && !processes.isEmpty();
-			case OPMPackage.OBJECT_PROCESS_DIAGRAM__LINKS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				return links != null && !links.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ObjectProcessDiagramImpl
+} //OPMObjectProcessDiagramImpl
