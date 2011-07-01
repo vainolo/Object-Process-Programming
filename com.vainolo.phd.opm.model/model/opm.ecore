@@ -5,23 +5,14 @@
     nsURI="www.vainolo.com/phd/opm" nsPrefix="opm">
   <eClassifiers xsi:type="ecore:EClass" name="OPMObjectProcessDiagram">
     <eStructuralFeatures xsi:type="ecore:EReference" name="objects" upperBound="-1"
-        eType="#//OPMObject" containment="true" eOpposite="#//OPMObject/opd"/>
+        eType="#//OPMObject" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="processes" upperBound="-1"
-        eType="#//OPMProcess" containment="true" eOpposite="#//OPMProcess/opd"/>
+        eType="#//OPMProcess" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//OPMLink" containment="true" eOpposite="#//OPMLink/opd"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
-        eOpposite="#//OPMObjectProcessDiagram/objects"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
-        eOpposite="#//OPMObjectProcessDiagram/processes"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMLink">
     <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
         eOpposite="#//OPMObjectProcessDiagram/links"/>
@@ -29,12 +20,18 @@
         eOpposite="#//OPMThing/outgoingLinks"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//OPMThing"
         eOpposite="#//OPMThing/incomingLinks"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bendpoints" upperBound="-1"
+        eType="#//Point"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMThing">
     <eStructuralFeatures xsi:type="ecore:EReference" name="incomingLinks" upperBound="-1"
         eType="#//OPMLink" eOpposite="#//OPMLink/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingLinks" upperBound="-1"
         eType="#//OPMLink" eOpposite="#//OPMLink/source"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Rectangle" instanceClassName="org.eclipse.draw2d.geometry.Rectangle"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Point" instanceClassName="org.eclipse.draw2d.geometry.Point"/>

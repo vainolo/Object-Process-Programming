@@ -6,12 +6,16 @@
  */
 package com.vainolo.phd.opm.model.impl;
 
+import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMThing;
 
 import java.util.Collection;
 
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,6 +23,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
@@ -33,6 +38,9 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getIncomingLinks <em>Incoming Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getOutgoingLinks <em>Outgoing Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getConstraints <em>Constraints</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getName <em>Name</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getOpd <em>Opd</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,6 +66,56 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 	 * @ordered
 	 */
 	protected EList<OPMLink> outgoingLinks;
+
+	/**
+	 * The default value of the '{@link #getConstraints() <em>Constraints</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConstraints()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final Rectangle CONSTRAINTS_EDEFAULT = (Rectangle)OPMFactory.eINSTANCE.createFromString(OPMPackage.eINSTANCE.getRectangle(), "");
+
+	/**
+	 * The cached value of the '{@link #getConstraints() <em>Constraints</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConstraints()
+	 * @generated
+	 * @ordered
+	 */
+	protected Rectangle constraints = CONSTRAINTS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getOpd() <em>Opd</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOpd()
+	 * @generated
+	 * @ordered
+	 */
+	protected OPMObjectProcessDiagram opd;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -107,6 +165,86 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public Rectangle getConstraints() {
+		return constraints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConstraints(Rectangle newConstraints) {
+		Rectangle oldConstraints = constraints;
+		constraints = newConstraints;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__CONSTRAINTS, oldConstraints, constraints));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OPMObjectProcessDiagram getOpd() {
+		if (opd != null && opd.eIsProxy()) {
+			InternalEObject oldOpd = (InternalEObject)opd;
+			opd = (OPMObjectProcessDiagram)eResolveProxy(oldOpd);
+			if (opd != oldOpd) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, OPMPackage.OPM_THING__OPD, oldOpd, opd));
+			}
+		}
+		return opd;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OPMObjectProcessDiagram basicGetOpd() {
+		return opd;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setOpd(OPMObjectProcessDiagram newOpd) {
+		OPMObjectProcessDiagram oldOpd = opd;
+		opd = newOpd;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__OPD, oldOpd, opd));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -147,6 +285,13 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 				return getIncomingLinks();
 			case OPMPackage.OPM_THING__OUTGOING_LINKS:
 				return getOutgoingLinks();
+			case OPMPackage.OPM_THING__CONSTRAINTS:
+				return getConstraints();
+			case OPMPackage.OPM_THING__NAME:
+				return getName();
+			case OPMPackage.OPM_THING__OPD:
+				if (resolve) return getOpd();
+				return basicGetOpd();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -168,6 +313,15 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 				getOutgoingLinks().clear();
 				getOutgoingLinks().addAll((Collection<? extends OPMLink>)newValue);
 				return;
+			case OPMPackage.OPM_THING__CONSTRAINTS:
+				setConstraints((Rectangle)newValue);
+				return;
+			case OPMPackage.OPM_THING__NAME:
+				setName((String)newValue);
+				return;
+			case OPMPackage.OPM_THING__OPD:
+				setOpd((OPMObjectProcessDiagram)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -186,6 +340,15 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 			case OPMPackage.OPM_THING__OUTGOING_LINKS:
 				getOutgoingLinks().clear();
 				return;
+			case OPMPackage.OPM_THING__CONSTRAINTS:
+				setConstraints(CONSTRAINTS_EDEFAULT);
+				return;
+			case OPMPackage.OPM_THING__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case OPMPackage.OPM_THING__OPD:
+				setOpd((OPMObjectProcessDiagram)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -202,8 +365,32 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 				return incomingLinks != null && !incomingLinks.isEmpty();
 			case OPMPackage.OPM_THING__OUTGOING_LINKS:
 				return outgoingLinks != null && !outgoingLinks.isEmpty();
+			case OPMPackage.OPM_THING__CONSTRAINTS:
+				return CONSTRAINTS_EDEFAULT == null ? constraints != null : !CONSTRAINTS_EDEFAULT.equals(constraints);
+			case OPMPackage.OPM_THING__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case OPMPackage.OPM_THING__OPD:
+				return opd != null;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (constraints: ");
+		result.append(constraints);
+		result.append(", name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //OPMThingImpl

@@ -7,6 +7,7 @@
 package com.vainolo.phd.opm.model.provider;
 
 
+import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMPackage;
 
 import java.util.Collection;
@@ -24,7 +25,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link com.vainolo.phd.opm.model.OPMLink} object.
@@ -63,6 +66,7 @@ public class OPMLinkItemProvider
 
 			addSourcePropertyDescriptor(object);
 			addTargetPropertyDescriptor(object);
+			addBendpointsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -112,6 +116,28 @@ public class OPMLinkItemProvider
 	}
 
 	/**
+	 * This adds a property descriptor for the Bendpoints feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addBendpointsPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_OPMLink_bendpoints_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_OPMLink_bendpoints_feature", "_UI_OPMLink_type"),
+				 OPMPackage.Literals.OPM_LINK__BENDPOINTS,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
 	 * This returns OPMLink.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -143,6 +169,12 @@ public class OPMLinkItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(OPMLink.class)) {
+			case OPMPackage.OPM_LINK__BENDPOINTS:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
+		}
 		super.notifyChanged(notification);
 	}
 

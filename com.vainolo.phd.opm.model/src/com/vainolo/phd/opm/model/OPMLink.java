@@ -6,6 +6,8 @@
  */
 package com.vainolo.phd.opm.model;
 
+import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -19,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getOpd <em>Opd</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getSource <em>Source</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getTarget <em>Target</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getBendpoints <em>Bendpoints</em>}</li>
  * </ul>
  * </p>
  *
@@ -110,5 +113,21 @@ public interface OPMLink extends EObject {
 	 * @generated
 	 */
 	void setTarget(OPMThing value);
+
+	/**
+	 * Returns the value of the '<em><b>Bendpoints</b></em>' attribute list.
+	 * The list contents are of type {@link org.eclipse.draw2d.geometry.Point}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Bendpoints</em>' attribute list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bendpoints</em>' attribute list.
+	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMLink_Bendpoints()
+	 * @model dataType="com.vainolo.phd.opm.model.Point"
+	 * @generated
+	 */
+	EList<Point> getBendpoints();
 
 } // OPMLink

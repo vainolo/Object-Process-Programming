@@ -135,13 +135,40 @@ public interface OPMPackage extends EPackage {
 	int OPM_THING__OUTGOING_LINKS = 1;
 
 	/**
+	 * The feature id for the '<em><b>Constraints</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_THING__CONSTRAINTS = 2;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_THING__NAME = 3;
+
+	/**
+	 * The feature id for the '<em><b>Opd</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_THING__OPD = 4;
+
+	/**
 	 * The number of structural features of the '<em>Thing</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_THING_FEATURE_COUNT = 2;
+	int OPM_THING_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl <em>Object</em>}' class.
@@ -172,31 +199,31 @@ public interface OPMPackage extends EPackage {
 	int OPM_OBJECT__OUTGOING_LINKS = OPM_THING__OUTGOING_LINKS;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPM_OBJECT__NAME = OPM_THING_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Opd</b></em>' container reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPM_OBJECT__OPD = OPM_THING_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Constraints</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_OBJECT__CONSTRAINTS = OPM_THING_FEATURE_COUNT + 2;
+	int OPM_OBJECT__CONSTRAINTS = OPM_THING__CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_OBJECT__NAME = OPM_THING__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Opd</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_OBJECT__OPD = OPM_THING__OPD;
 
 	/**
 	 * The number of structural features of the '<em>Object</em>' class.
@@ -205,7 +232,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 3;
+	int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl <em>Process</em>}' class.
@@ -236,22 +263,31 @@ public interface OPMPackage extends EPackage {
 	int OPM_PROCESS__OUTGOING_LINKS = OPM_THING__OUTGOING_LINKS;
 
 	/**
+	 * The feature id for the '<em><b>Constraints</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_PROCESS__CONSTRAINTS = OPM_THING__CONSTRAINTS;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_PROCESS__NAME = OPM_THING_FEATURE_COUNT + 0;
+	int OPM_PROCESS__NAME = OPM_THING__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Opd</b></em>' container reference.
+	 * The feature id for the '<em><b>Opd</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_PROCESS__OPD = OPM_THING_FEATURE_COUNT + 1;
+	int OPM_PROCESS__OPD = OPM_THING__OPD;
 
 	/**
 	 * The number of structural features of the '<em>Process</em>' class.
@@ -260,7 +296,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_PROCESS_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 2;
+	int OPM_PROCESS_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl <em>Link</em>}' class.
@@ -300,13 +336,22 @@ public interface OPMPackage extends EPackage {
 	int OPM_LINK__TARGET = 2;
 
 	/**
+	 * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_LINK__BENDPOINTS = 3;
+
+	/**
 	 * The number of structural features of the '<em>Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_LINK_FEATURE_COUNT = 3;
+	int OPM_LINK_FEATURE_COUNT = 4;
 
 
 	/**
@@ -385,39 +430,6 @@ public interface OPMPackage extends EPackage {
 	EClass getOPMObject();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObject#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see com.vainolo.phd.opm.model.OPMObject#getName()
-	 * @see #getOPMObject()
-	 * @generated
-	 */
-	EAttribute getOPMObject_Name();
-
-	/**
-	 * Returns the meta object for the container reference '{@link com.vainolo.phd.opm.model.OPMObject#getOpd <em>Opd</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Opd</em>'.
-	 * @see com.vainolo.phd.opm.model.OPMObject#getOpd()
-	 * @see #getOPMObject()
-	 * @generated
-	 */
-	EReference getOPMObject_Opd();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObject#getConstraints <em>Constraints</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Constraints</em>'.
-	 * @see com.vainolo.phd.opm.model.OPMObject#getConstraints()
-	 * @see #getOPMObject()
-	 * @generated
-	 */
-	EAttribute getOPMObject_Constraints();
-
-	/**
 	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMProcess <em>Process</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -426,28 +438,6 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getOPMProcess();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMProcess#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see com.vainolo.phd.opm.model.OPMProcess#getName()
-	 * @see #getOPMProcess()
-	 * @generated
-	 */
-	EAttribute getOPMProcess_Name();
-
-	/**
-	 * Returns the meta object for the container reference '{@link com.vainolo.phd.opm.model.OPMProcess#getOpd <em>Opd</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the container reference '<em>Opd</em>'.
-	 * @see com.vainolo.phd.opm.model.OPMProcess#getOpd()
-	 * @see #getOPMProcess()
-	 * @generated
-	 */
-	EReference getOPMProcess_Opd();
 
 	/**
 	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMLink <em>Link</em>}'.
@@ -493,6 +483,17 @@ public interface OPMPackage extends EPackage {
 	EReference getOPMLink_Target();
 
 	/**
+	 * Returns the meta object for the attribute list '{@link com.vainolo.phd.opm.model.OPMLink#getBendpoints <em>Bendpoints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute list '<em>Bendpoints</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMLink#getBendpoints()
+	 * @see #getOPMLink()
+	 * @generated
+	 */
+	EAttribute getOPMLink_Bendpoints();
+
+	/**
 	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMThing <em>Thing</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -523,6 +524,39 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOPMThing_OutgoingLinks();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMThing#getConstraints <em>Constraints</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Constraints</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMThing#getConstraints()
+	 * @see #getOPMThing()
+	 * @generated
+	 */
+	EAttribute getOPMThing_Constraints();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMThing#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMThing#getName()
+	 * @see #getOPMThing()
+	 * @generated
+	 */
+	EAttribute getOPMThing_Name();
+
+	/**
+	 * Returns the meta object for the reference '{@link com.vainolo.phd.opm.model.OPMThing#getOpd <em>Opd</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Opd</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMThing#getOpd()
+	 * @see #getOPMThing()
+	 * @generated
+	 */
+	EReference getOPMThing_Opd();
 
 	/**
 	 * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Rectangle</em>}'.
@@ -613,30 +647,6 @@ public interface OPMPackage extends EPackage {
 		EClass OPM_OBJECT = eINSTANCE.getOPMObject();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OPM_OBJECT__NAME = eINSTANCE.getOPMObject_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Opd</b></em>' container reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OPM_OBJECT__OPD = eINSTANCE.getOPMObject_Opd();
-
-		/**
-		 * The meta object literal for the '<em><b>Constraints</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OPM_OBJECT__CONSTRAINTS = eINSTANCE.getOPMObject_Constraints();
-
-		/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl <em>Process</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -645,22 +655,6 @@ public interface OPMPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OPM_PROCESS = eINSTANCE.getOPMProcess();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute OPM_PROCESS__NAME = eINSTANCE.getOPMProcess_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Opd</b></em>' container reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OPM_PROCESS__OPD = eINSTANCE.getOPMProcess_Opd();
 
 		/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl <em>Link</em>}' class.
@@ -697,6 +691,14 @@ public interface OPMPackage extends EPackage {
 		EReference OPM_LINK__TARGET = eINSTANCE.getOPMLink_Target();
 
 		/**
+		 * The meta object literal for the '<em><b>Bendpoints</b></em>' attribute list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPM_LINK__BENDPOINTS = eINSTANCE.getOPMLink_Bendpoints();
+
+		/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMThingImpl <em>Thing</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -721,6 +723,30 @@ public interface OPMPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OPM_THING__OUTGOING_LINKS = eINSTANCE.getOPMThing_OutgoingLinks();
+
+		/**
+		 * The meta object literal for the '<em><b>Constraints</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPM_THING__CONSTRAINTS = eINSTANCE.getOPMThing_Constraints();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPM_THING__NAME = eINSTANCE.getOPMThing_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Opd</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OPM_THING__OPD = eINSTANCE.getOPMThing_Opd();
 
 		/**
 		 * The meta object literal for the '<em>Rectangle</em>' data type.

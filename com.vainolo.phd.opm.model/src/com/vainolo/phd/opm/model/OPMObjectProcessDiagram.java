@@ -32,7 +32,6 @@ public interface OPMObjectProcessDiagram extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Objects</b></em>' containment reference list.
 	 * The list contents are of type {@link com.vainolo.phd.opm.model.OPMObject}.
-	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMObject#getOpd <em>Opd</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Objects</em>' containment reference list isn't clear,
@@ -41,8 +40,7 @@ public interface OPMObjectProcessDiagram extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Objects</em>' containment reference list.
 	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObjectProcessDiagram_Objects()
-	 * @see com.vainolo.phd.opm.model.OPMObject#getOpd
-	 * @model opposite="opd" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<OPMObject> getObjects();
@@ -50,7 +48,6 @@ public interface OPMObjectProcessDiagram extends EObject {
 	/**
 	 * Returns the value of the '<em><b>Processes</b></em>' containment reference list.
 	 * The list contents are of type {@link com.vainolo.phd.opm.model.OPMProcess}.
-	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMProcess#getOpd <em>Opd</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Processes</em>' containment reference list isn't clear,
@@ -59,8 +56,7 @@ public interface OPMObjectProcessDiagram extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Processes</em>' containment reference list.
 	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObjectProcessDiagram_Processes()
-	 * @see com.vainolo.phd.opm.model.OPMProcess#getOpd
-	 * @model opposite="opd" containment="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<OPMProcess> getProcesses();

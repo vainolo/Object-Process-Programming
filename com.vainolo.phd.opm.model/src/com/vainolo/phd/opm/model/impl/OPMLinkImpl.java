@@ -11,15 +11,19 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMThing;
 
+import java.util.Collection;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 /**
@@ -32,6 +36,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getOpd <em>Opd</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getSource <em>Source</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getBendpoints <em>Bendpoints</em>}</li>
  * </ul>
  * </p>
  *
@@ -57,6 +62,16 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * @ordered
 	 */
 	protected OPMThing target;
+
+	/**
+	 * The cached value of the '{@link #getBendpoints() <em>Bendpoints</em>}' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getBendpoints()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Point> bendpoints;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -243,6 +258,18 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Point> getBendpoints() {
+		if (bendpoints == null) {
+			bendpoints = new EDataTypeUniqueEList<Point>(Point.class, this, OPMPackage.OPM_LINK__BENDPOINTS);
+		}
+		return bendpoints;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -310,6 +337,8 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 			case OPMPackage.OPM_LINK__TARGET:
 				if (resolve) return getTarget();
 				return basicGetTarget();
+			case OPMPackage.OPM_LINK__BENDPOINTS:
+				return getBendpoints();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -319,6 +348,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -330,6 +360,10 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 				return;
 			case OPMPackage.OPM_LINK__TARGET:
 				setTarget((OPMThing)newValue);
+				return;
+			case OPMPackage.OPM_LINK__BENDPOINTS:
+				getBendpoints().clear();
+				getBendpoints().addAll((Collection<? extends Point>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -352,6 +386,9 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 			case OPMPackage.OPM_LINK__TARGET:
 				setTarget((OPMThing)null);
 				return;
+			case OPMPackage.OPM_LINK__BENDPOINTS:
+				getBendpoints().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -370,8 +407,26 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 				return source != null;
 			case OPMPackage.OPM_LINK__TARGET:
 				return target != null;
+			case OPMPackage.OPM_LINK__BENDPOINTS:
+				return bendpoints != null && !bendpoints.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (bendpoints: ");
+		result.append(bendpoints);
+		result.append(')');
+		return result.toString();
 	}
 
 } //OPMLinkImpl

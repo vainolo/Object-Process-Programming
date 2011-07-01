@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -98,7 +99,7 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	 */
 	public EList<OPMObject> getObjects() {
 		if (objects == null) {
-			objects = new EObjectContainmentWithInverseEList<OPMObject>(OPMObject.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS, OPMPackage.OPM_OBJECT__OPD);
+			objects = new EObjectContainmentEList<OPMObject>(OPMObject.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS);
 		}
 		return objects;
 	}
@@ -110,7 +111,7 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	 */
 	public EList<OPMProcess> getProcesses() {
 		if (processes == null) {
-			processes = new EObjectContainmentWithInverseEList<OPMProcess>(OPMProcess.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES, OPMPackage.OPM_PROCESS__OPD);
+			processes = new EObjectContainmentEList<OPMProcess>(OPMProcess.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES);
 		}
 		return processes;
 	}
@@ -136,10 +137,6 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getObjects()).basicAdd(otherEnd, msgs);
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getProcesses()).basicAdd(otherEnd, msgs);
 			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinks()).basicAdd(otherEnd, msgs);
 		}

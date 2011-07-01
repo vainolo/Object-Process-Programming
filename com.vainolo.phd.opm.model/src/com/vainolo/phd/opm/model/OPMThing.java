@@ -6,6 +6,7 @@
  */
 package com.vainolo.phd.opm.model;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
@@ -20,6 +21,9 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getIncomingLinks <em>Incoming Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getOutgoingLinks <em>Outgoing Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getConstraints <em>Constraints</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getName <em>Name</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getOpd <em>Opd</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,5 +67,84 @@ public interface OPMThing extends EObject {
 	 * @generated
 	 */
 	EList<OPMLink> getOutgoingLinks();
+
+	/**
+	 * Returns the value of the '<em><b>Constraints</b></em>' attribute.
+	 * The default value is <code>""</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Constraints</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Constraints</em>' attribute.
+	 * @see #setConstraints(Rectangle)
+	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing_Constraints()
+	 * @model default="" dataType="com.vainolo.phd.opm.model.Rectangle"
+	 * @generated
+	 */
+	Rectangle getConstraints();
+
+	/**
+	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMThing#getConstraints <em>Constraints</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Constraints</em>' attribute.
+	 * @see #getConstraints()
+	 * @generated
+	 */
+	void setConstraints(Rectangle value);
+
+	/**
+	 * Returns the value of the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Name</em>' attribute.
+	 * @see #setName(String)
+	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing_Name()
+	 * @model
+	 * @generated
+	 */
+	String getName();
+
+	/**
+	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMThing#getName <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Name</em>' attribute.
+	 * @see #getName()
+	 * @generated
+	 */
+	void setName(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Opd</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Opd</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Opd</em>' reference.
+	 * @see #setOpd(OPMObjectProcessDiagram)
+	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing_Opd()
+	 * @model
+	 * @generated
+	 */
+	OPMObjectProcessDiagram getOpd();
+
+	/**
+	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMThing#getOpd <em>Opd</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Opd</em>' reference.
+	 * @see #getOpd()
+	 * @generated
+	 */
+	void setOpd(OPMObjectProcessDiagram value);
 
 } // OPMThing
