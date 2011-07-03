@@ -71,31 +71,22 @@ public interface OPMPackage extends EPackage {
 	int OPM_OBJECT_PROCESS_DIAGRAM = 0;
 
 	/**
-	 * The feature id for the '<em><b>Objects</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS = 0;
-
-	/**
-	 * The feature id for the '<em><b>Processes</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES = 1;
-
-	/**
 	 * The feature id for the '<em><b>Links</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = 2;
+	int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Things</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_OBJECT_PROCESS_DIAGRAM__THINGS = 1;
 
 	/**
 	 * The number of structural features of the '<em>Object Process Diagram</em>' class.
@@ -104,7 +95,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = 3;
+	int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = 2;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMThingImpl <em>Thing</em>}' class.
@@ -153,7 +144,7 @@ public interface OPMPackage extends EPackage {
 	int OPM_THING__NAME = 3;
 
 	/**
-	 * The feature id for the '<em><b>Opd</b></em>' reference.
+	 * The feature id for the '<em><b>Opd</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -217,7 +208,7 @@ public interface OPMPackage extends EPackage {
 	int OPM_OBJECT__NAME = OPM_THING__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Opd</b></em>' reference.
+	 * The feature id for the '<em><b>Opd</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -281,7 +272,7 @@ public interface OPMPackage extends EPackage {
 	int OPM_PROCESS__NAME = OPM_THING__NAME;
 
 	/**
-	 * The feature id for the '<em><b>Opd</b></em>' reference.
+	 * The feature id for the '<em><b>Opd</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -387,28 +378,6 @@ public interface OPMPackage extends EPackage {
 	EClass getOPMObjectProcessDiagram();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getObjects <em>Objects</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Objects</em>'.
-	 * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getObjects()
-	 * @see #getOPMObjectProcessDiagram()
-	 * @generated
-	 */
-	EReference getOPMObjectProcessDiagram_Objects();
-
-	/**
-	 * Returns the meta object for the containment reference list '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getProcesses <em>Processes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Processes</em>'.
-	 * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getProcesses()
-	 * @see #getOPMObjectProcessDiagram()
-	 * @generated
-	 */
-	EReference getOPMObjectProcessDiagram_Processes();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLinks <em>Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -418,6 +387,17 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOPMObjectProcessDiagram_Links();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getThings <em>Things</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Things</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getThings()
+	 * @see #getOPMObjectProcessDiagram()
+	 * @generated
+	 */
+	EReference getOPMObjectProcessDiagram_Things();
 
 	/**
 	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMObject <em>Object</em>}'.
@@ -548,10 +528,10 @@ public interface OPMPackage extends EPackage {
 	EAttribute getOPMThing_Name();
 
 	/**
-	 * Returns the meta object for the reference '{@link com.vainolo.phd.opm.model.OPMThing#getOpd <em>Opd</em>}'.
+	 * Returns the meta object for the container reference '{@link com.vainolo.phd.opm.model.OPMThing#getOpd <em>Opd</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Opd</em>'.
+	 * @return the meta object for the container reference '<em>Opd</em>'.
 	 * @see com.vainolo.phd.opm.model.OPMThing#getOpd()
 	 * @see #getOPMThing()
 	 * @generated
@@ -613,28 +593,20 @@ public interface OPMPackage extends EPackage {
 		EClass OPM_OBJECT_PROCESS_DIAGRAM = eINSTANCE.getOPMObjectProcessDiagram();
 
 		/**
-		 * The meta object literal for the '<em><b>Objects</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS = eINSTANCE.getOPMObjectProcessDiagram_Objects();
-
-		/**
-		 * The meta object literal for the '<em><b>Processes</b></em>' containment reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES = eINSTANCE.getOPMObjectProcessDiagram_Processes();
-
-		/**
 		 * The meta object literal for the '<em><b>Links</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference OPM_OBJECT_PROCESS_DIAGRAM__LINKS = eINSTANCE.getOPMObjectProcessDiagram_Links();
+
+		/**
+		 * The meta object literal for the '<em><b>Things</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OPM_OBJECT_PROCESS_DIAGRAM__THINGS = eINSTANCE.getOPMObjectProcessDiagram_Things();
 
 		/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl <em>Object</em>}' class.
@@ -741,7 +713,7 @@ public interface OPMPackage extends EPackage {
 		EAttribute OPM_THING__NAME = eINSTANCE.getOPMThing_Name();
 
 		/**
-		 * The meta object literal for the '<em><b>Opd</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Opd</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

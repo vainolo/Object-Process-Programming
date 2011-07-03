@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -81,9 +82,8 @@ public class OPMObjectProcessDiagramItemProvider
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS);
-			childrenFeatures.add(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES);
 			childrenFeatures.add(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS);
+			childrenFeatures.add(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__THINGS);
 		}
 		return childrenFeatures;
 	}
@@ -135,9 +135,8 @@ public class OPMObjectProcessDiagramItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(OPMObjectProcessDiagram.class)) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
 			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -157,18 +156,23 @@ public class OPMObjectProcessDiagramItemProvider
 
 		newChildDescriptors.add
 			(createChildParameter
-				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS,
+				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
+				 OPMFactory.eINSTANCE.createOPMLink()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__THINGS,
+				 OPMFactory.eINSTANCE.createOPMThing()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__THINGS,
 				 OPMFactory.eINSTANCE.createOPMObject()));
 
 		newChildDescriptors.add
 			(createChildParameter
-				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES,
+				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__THINGS,
 				 OPMFactory.eINSTANCE.createOPMProcess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
-				 OPMFactory.eINSTANCE.createOPMLink()));
 	}
 
 	/**

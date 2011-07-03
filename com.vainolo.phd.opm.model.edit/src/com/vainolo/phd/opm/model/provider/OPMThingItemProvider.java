@@ -68,7 +68,6 @@ public class OPMThingItemProvider
 			addOutgoingLinksPropertyDescriptor(object);
 			addConstraintsPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
-			addOpdPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -157,28 +156,6 @@ public class OPMThingItemProvider
 				 false,
 				 false,
 				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Opd feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOpdPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_OPMThing_opd_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_OPMThing_opd_feature", "_UI_OPMThing_type"),
-				 OPMPackage.Literals.OPM_THING__OPD,
-				 true,
-				 false,
-				 true,
-				 null,
 				 null,
 				 null));
 	}

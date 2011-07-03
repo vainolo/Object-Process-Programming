@@ -10,10 +10,12 @@ import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
+import com.vainolo.phd.opm.model.OPMThing;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -21,10 +23,12 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -34,35 +38,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getObjects <em>Objects</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getProcesses <em>Processes</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getLinks <em>Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getThings <em>Things</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjectProcessDiagram {
-	/**
-	 * The cached value of the '{@link #getObjects() <em>Objects</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getObjects()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<OPMObject> objects;
-
-	/**
-	 * The cached value of the '{@link #getProcesses() <em>Processes</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getProcesses()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<OPMProcess> processes;
-
 	/**
 	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -72,6 +55,16 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	 * @ordered
 	 */
 	protected EList<OPMLink> links;
+
+	/**
+	 * The cached value of the '{@link #getThings() <em>Things</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getThings()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<OPMThing> things;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -97,35 +90,23 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<OPMObject> getObjects() {
-		if (objects == null) {
-			objects = new EObjectContainmentEList<OPMObject>(OPMObject.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS);
-		}
-		return objects;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EList<OPMProcess> getProcesses() {
-		if (processes == null) {
-			processes = new EObjectContainmentEList<OPMProcess>(OPMProcess.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES);
-		}
-		return processes;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<OPMLink> getLinks() {
 		if (links == null) {
 			links = new EObjectContainmentWithInverseEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS, OPMPackage.OPM_LINK__OPD);
 		}
 		return links;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<OPMThing> getThings() {
+		if (things == null) {
+			things = new EObjectContainmentWithInverseEList<OPMThing>(OPMThing.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS, OPMPackage.OPM_THING__OPD);
+		}
+		return things;
 	}
 
 	/**
@@ -139,6 +120,8 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 		switch (featureID) {
 			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinks()).basicAdd(otherEnd, msgs);
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getThings()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -151,12 +134,10 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
-				return ((InternalEList<?>)getObjects()).basicRemove(otherEnd, msgs);
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
-				return ((InternalEList<?>)getProcesses()).basicRemove(otherEnd, msgs);
 			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS:
+				return ((InternalEList<?>)getThings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -169,12 +150,10 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
-				return getObjects();
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
-				return getProcesses();
 			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				return getLinks();
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS:
+				return getThings();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -188,17 +167,13 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
-				getObjects().clear();
-				getObjects().addAll((Collection<? extends OPMObject>)newValue);
-				return;
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
-				getProcesses().clear();
-				getProcesses().addAll((Collection<? extends OPMProcess>)newValue);
-				return;
 			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				getLinks().clear();
 				getLinks().addAll((Collection<? extends OPMLink>)newValue);
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS:
+				getThings().clear();
+				getThings().addAll((Collection<? extends OPMThing>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -212,14 +187,11 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
-				getObjects().clear();
-				return;
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
-				getProcesses().clear();
-				return;
 			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				getLinks().clear();
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS:
+				getThings().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -233,12 +205,10 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS:
-				return objects != null && !objects.isEmpty();
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES:
-				return processes != null && !processes.isEmpty();
 			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				return links != null && !links.isEmpty();
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS:
+				return things != null && !things.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

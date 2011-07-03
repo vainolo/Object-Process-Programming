@@ -10,6 +10,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMThing;
 
 public class ObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 	@Override 
@@ -25,10 +26,10 @@ public class ObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 		// TODO Auto-generated method stub
 	}
 	
-	@Override protected List<OPMObject> getModelChildren() {
-		List<OPMObject> retVal = new ArrayList<OPMObject>();
+	@Override protected List<OPMThing> getModelChildren() {
+		List<OPMThing> retVal = new ArrayList<OPMThing>();
 		OPMObjectProcessDiagram opd = (OPMObjectProcessDiagram) getModel();
-		retVal.addAll(opd.getObjects());
+		retVal.addAll(opd.getThings());
 		return retVal;
 	}	
 }

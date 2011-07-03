@@ -122,26 +122,28 @@ public interface OPMThing extends EObject {
 	void setName(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Opd</b></em>' reference.
+	 * Returns the value of the '<em><b>Opd</b></em>' container reference.
+	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getThings <em>Things</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Opd</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Opd</em>' reference.
+	 * @return the value of the '<em>Opd</em>' container reference.
 	 * @see #setOpd(OPMObjectProcessDiagram)
 	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing_Opd()
-	 * @model
+	 * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getThings
+	 * @model opposite="things" transient="false"
 	 * @generated
 	 */
 	OPMObjectProcessDiagram getOpd();
 
 	/**
-	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMThing#getOpd <em>Opd</em>}' reference.
+	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMThing#getOpd <em>Opd</em>}' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Opd</em>' reference.
+	 * @param value the new value of the '<em>Opd</em>' container reference.
 	 * @see #getOpd()
 	 * @generated
 	 */

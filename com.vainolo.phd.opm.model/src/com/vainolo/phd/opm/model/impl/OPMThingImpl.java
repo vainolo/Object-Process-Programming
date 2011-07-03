@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -106,16 +107,6 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
-
-	/**
-	 * The cached value of the '{@link #getOpd() <em>Opd</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getOpd()
-	 * @generated
-	 * @ordered
-	 */
-	protected OPMObjectProcessDiagram opd;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -208,15 +199,8 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 	 * @generated
 	 */
 	public OPMObjectProcessDiagram getOpd() {
-		if (opd != null && opd.eIsProxy()) {
-			InternalEObject oldOpd = (InternalEObject)opd;
-			opd = (OPMObjectProcessDiagram)eResolveProxy(oldOpd);
-			if (opd != oldOpd) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, OPMPackage.OPM_THING__OPD, oldOpd, opd));
-			}
-		}
-		return opd;
+		if (eContainerFeatureID() != OPMPackage.OPM_THING__OPD) return null;
+		return (OPMObjectProcessDiagram)eContainer();
 	}
 
 	/**
@@ -224,8 +208,9 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OPMObjectProcessDiagram basicGetOpd() {
-		return opd;
+	public NotificationChain basicSetOpd(OPMObjectProcessDiagram newOpd, NotificationChain msgs) {
+		msgs = eBasicSetContainer((InternalEObject)newOpd, OPMPackage.OPM_THING__OPD, msgs);
+		return msgs;
 	}
 
 	/**
@@ -234,10 +219,19 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 	 * @generated
 	 */
 	public void setOpd(OPMObjectProcessDiagram newOpd) {
-		OPMObjectProcessDiagram oldOpd = opd;
-		opd = newOpd;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__OPD, oldOpd, opd));
+		if (newOpd != eInternalContainer() || (eContainerFeatureID() != OPMPackage.OPM_THING__OPD && newOpd != null)) {
+			if (EcoreUtil.isAncestor(this, newOpd))
+				throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+			NotificationChain msgs = null;
+			if (eInternalContainer() != null)
+				msgs = eBasicRemoveFromContainer(msgs);
+			if (newOpd != null)
+				msgs = ((InternalEObject)newOpd).eInverseAdd(this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS, OPMObjectProcessDiagram.class, msgs);
+			msgs = basicSetOpd(newOpd, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__OPD, newOpd, newOpd));
 	}
 
 	/**
@@ -253,6 +247,10 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getIncomingLinks()).basicAdd(otherEnd, msgs);
 			case OPMPackage.OPM_THING__OUTGOING_LINKS:
 				return ((InternalEList<InternalEObject>)(InternalEList<?>)getOutgoingLinks()).basicAdd(otherEnd, msgs);
+			case OPMPackage.OPM_THING__OPD:
+				if (eInternalContainer() != null)
+					msgs = eBasicRemoveFromContainer(msgs);
+				return basicSetOpd((OPMObjectProcessDiagram)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -269,8 +267,24 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 				return ((InternalEList<?>)getIncomingLinks()).basicRemove(otherEnd, msgs);
 			case OPMPackage.OPM_THING__OUTGOING_LINKS:
 				return ((InternalEList<?>)getOutgoingLinks()).basicRemove(otherEnd, msgs);
+			case OPMPackage.OPM_THING__OPD:
+				return basicSetOpd(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+		switch (eContainerFeatureID()) {
+			case OPMPackage.OPM_THING__OPD:
+				return eInternalContainer().eInverseRemove(this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__THINGS, OPMObjectProcessDiagram.class, msgs);
+		}
+		return super.eBasicRemoveFromContainerFeature(msgs);
 	}
 
 	/**
@@ -290,8 +304,7 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 			case OPMPackage.OPM_THING__NAME:
 				return getName();
 			case OPMPackage.OPM_THING__OPD:
-				if (resolve) return getOpd();
-				return basicGetOpd();
+				return getOpd();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -370,7 +383,7 @@ public class OPMThingImpl extends EObjectImpl implements OPMThing {
 			case OPMPackage.OPM_THING__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case OPMPackage.OPM_THING__OPD:
-				return opd != null;
+				return getOpd() != null;
 		}
 		return super.eIsSet(featureID);
 	}

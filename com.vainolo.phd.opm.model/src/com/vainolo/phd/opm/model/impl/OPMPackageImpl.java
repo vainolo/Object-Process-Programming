@@ -155,7 +155,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getOPMObjectProcessDiagram_Objects() {
+	public EReference getOPMObjectProcessDiagram_Links() {
 		return (EReference)opmObjectProcessDiagramEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -164,17 +164,8 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getOPMObjectProcessDiagram_Processes() {
+	public EReference getOPMObjectProcessDiagram_Things() {
 		return (EReference)opmObjectProcessDiagramEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getOPMObjectProcessDiagram_Links() {
-		return (EReference)opmObjectProcessDiagramEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -341,9 +332,8 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 		// Create classes and their features
 		opmObjectProcessDiagramEClass = createEClass(OPM_OBJECT_PROCESS_DIAGRAM);
-		createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__OBJECTS);
-		createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__PROCESSES);
 		createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__LINKS);
+		createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__THINGS);
 
 		opmObjectEClass = createEClass(OPM_OBJECT);
 
@@ -400,9 +390,8 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(opmObjectProcessDiagramEClass, OPMObjectProcessDiagram.class, "OPMObjectProcessDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getOPMObjectProcessDiagram_Objects(), this.getOPMObject(), null, "objects", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOPMObjectProcessDiagram_Processes(), this.getOPMProcess(), null, "processes", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getOPMObjectProcessDiagram_Links(), this.getOPMLink(), this.getOPMLink_Opd(), "links", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOPMObjectProcessDiagram_Things(), this.getOPMThing(), this.getOPMThing_Opd(), "things", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -419,7 +408,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		initEReference(getOPMThing_OutgoingLinks(), this.getOPMLink(), this.getOPMLink_Source(), "outgoingLinks", null, 0, -1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOPMThing_Constraints(), this.getRectangle(), "constraints", "", 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getOPMThing_Name(), ecorePackage.getEString(), "name", null, 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getOPMThing_Opd(), this.getOPMObjectProcessDiagram(), null, "opd", null, 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getOPMThing_Opd(), this.getOPMObjectProcessDiagram(), this.getOPMObjectProcessDiagram_Things(), "opd", null, 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize data types
 		initEDataType(rectangleEDataType, Rectangle.class, "Rectangle", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
