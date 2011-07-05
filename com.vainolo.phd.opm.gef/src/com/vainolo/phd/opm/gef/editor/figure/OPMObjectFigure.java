@@ -7,7 +7,7 @@ import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public class OPMObjectFigure extends Figure {
+public class OPMObjectFigure extends Figure implements OPMThingFigure {
 	private Label label;
 	private RectangleFigure rectangle;
 	
@@ -25,7 +25,7 @@ public class OPMObjectFigure extends Figure {
 		setConstraint(label, new Rectangle(0, 0, r.width, r.height));
 	}
 	
-	public Label getLabel() {
+	public Label getNameLabel() {
 		return label;
 	}
 }

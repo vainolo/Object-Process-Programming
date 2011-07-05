@@ -1,14 +1,10 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
-import java.util.Random;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-import com.vainolo.phd.opm.gef.editor.figure.OPMObjectFigure;
-import com.vainolo.phd.opm.model.OPMObject;
 
-public class OPMObjectEditPart extends AbstractGraphicalEditPart {
-	Random rand = new Random();
+import com.vainolo.phd.opm.gef.editor.figure.OPMObjectFigure;
+
+public class OPMObjectEditPart extends OPMThingEditPart {
 
 	@Override 
 	protected IFigure createFigure() {
@@ -19,16 +15,5 @@ public class OPMObjectEditPart extends AbstractGraphicalEditPart {
 	protected void createEditPolicies() {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	@Override protected void refreshVisuals() {
-		OPMObjectFigure figure = (OPMObjectFigure)getFigure();
-		OPMObject model = (OPMObject)getModel();
-		ObjectProcessDiagramEditPart parent = (ObjectProcessDiagramEditPart) getParent();
-		
-		figure.getLabel().setText(model.getName());
-		Rectangle layout = new Rectangle(model.getConstraints().x, model.getConstraints().y, 
-				model.getConstraints().width, model.getConstraints().height);
-		parent.setLayoutConstraint(this, figure, layout);
 	}
 }

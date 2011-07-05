@@ -39,20 +39,31 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		getGraphicalViewer().setEditPartFactory(new OPMEditPartFactory());
 	}	
 	
-	@Override
-	protected PaletteRoot getPaletteRoot() {
-		// TODO Auto-generated method stub
-		return null;
+	@Override protected PaletteRoot getPaletteRoot() {
+		return new OPMGraphicalEditorPalette();
 	}
 
-	@Override
-	public void doSave(IProgressMonitor monitor) {
-		// TODO Auto-generated method stub
+	@Override public void doSave(IProgressMonitor monitor) {
+		if(opdResource == null) {
+			return;
+		}
+		
+		try {
+			opdResource.save(null);
+		} catch(IOException e) {
+			// TODO do something smarter.
+			e.printStackTrace();
+			opdResource = null;
+		}
 	}
 
 	@Override public void init(IEditorSite site, IEditorInput input) throws PartInitException {
 		super.init(site, input);
 		
+		loadInput(input);
+	}
+	
+	private void loadInput(IEditorInput input) {
 		OPMPackage.eINSTANCE.eClass(); // This initializes the OPMPackage singleton implementation.
 		ResourceSet resourceSet = new ResourceSetImpl();
 		if(input instanceof IFileEditorInput) {
@@ -69,5 +80,4 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			}
 		}
 	}
-	
 }
