@@ -10,10 +10,4 @@ public class OPMObjectEditPart extends OPMThingEditPart {
 	protected IFigure createFigure() {
 		return new OPMObjectFigure();
 	}
-
-	@Override
-	protected void createEditPolicies() {
-		// TODO Auto-generated method stub
-		
-	}
 }

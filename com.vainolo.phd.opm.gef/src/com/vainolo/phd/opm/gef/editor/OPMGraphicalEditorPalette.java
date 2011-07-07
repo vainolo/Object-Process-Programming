@@ -7,6 +7,7 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 
 import com.vainolo.phd.opm.gef.editor.factory.OPMObjectFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMProcessFactory;
+import com.vainolo.phd.opm.gef.editor.tool.CreationAndDirectEditTool;
 
 public class OPMGraphicalEditorPalette extends PaletteRoot {
 
@@ -32,11 +33,13 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 	
 	private void addOPMObjectTool() {
 		CreationToolEntry entry = new CreationToolEntry("OPMObject", "Create a new Object", new OPMObjectFactory(), null, null);
+		entry.setToolClass(CreationAndDirectEditTool.class);		
 		group.add(entry);
 	}
 	
 	private void addOPMProcessTool() {
 		CreationToolEntry entry = new CreationToolEntry("OPMProcess", "Create a new Process", new OPMProcessFactory(), null, null);
+		entry.setToolClass(CreationAndDirectEditTool.class);		
 		group.add(entry);
 	}
 }

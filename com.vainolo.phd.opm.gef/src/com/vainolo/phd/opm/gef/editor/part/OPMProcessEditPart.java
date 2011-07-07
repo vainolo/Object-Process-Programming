@@ -9,10 +9,4 @@ public class OPMProcessEditPart extends OPMThingEditPart {
 	@Override protected IFigure createFigure() {
 		return new OPMProcessFigure();
 	}
-
-	@Override
-	protected void createEditPolicies() {
-		// TODO Auto-generated method stub
-		
-	}
 }
