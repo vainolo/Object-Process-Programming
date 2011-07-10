@@ -11,6 +11,7 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.jface.viewers.TextCellEditor;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
+import com.vainolo.phd.opm.gef.editor.policy.OPMThingComponentEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMThingDirectEditPolicy;
 import com.vainolo.phd.opm.model.OPMThing;
 
@@ -25,6 +26,7 @@ public abstract class OPMThingEditPart extends AbstractGraphicalEditPart {
 	
 	@Override protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMThingDirectEditPolicy());
+		installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMThingComponentEditPolicy());		
 	}
 
 	@Override public void performRequest(Request req) {
