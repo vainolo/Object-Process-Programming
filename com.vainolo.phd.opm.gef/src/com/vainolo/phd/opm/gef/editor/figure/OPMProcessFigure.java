@@ -1,6 +1,8 @@
 package com.vainolo.phd.opm.gef.editor.figure;
 
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Ellipse;
+import org.eclipse.draw2d.EllipseAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Label;
@@ -10,6 +12,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 public class OPMProcessFigure extends Figure implements OPMThingFigure {
 	private Label nameLabel;
 	private Ellipse ellipse;
+	private ConnectionAnchor connectionAnchor;	
 	
 	public OPMProcessFigure() {
 		setLayoutManager(new XYLayout());
@@ -30,5 +33,11 @@ public class OPMProcessFigure extends Figure implements OPMThingFigure {
 	public Label getNameLabel() {
 		return nameLabel;
 	}
-
+	
+	public ConnectionAnchor getConnectionAnchor() {
+		if (connectionAnchor == null) {
+			connectionAnchor = new EllipseAnchor(this);
+		}
+		return connectionAnchor;
+	}		
 }

@@ -1,10 +1,12 @@
 package com.vainolo.phd.opm.gef.editor;
 
+import org.eclipse.gef.palette.ConnectionCreationToolEntry;
 import org.eclipse.gef.palette.CreationToolEntry;
 import org.eclipse.gef.palette.PaletteGroup;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.SelectionToolEntry;
 
+import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMObjectFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMProcessFactory;
 import com.vainolo.phd.opm.gef.editor.tool.CreationAndDirectEditTool;
@@ -18,6 +20,7 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 		addSelectionTool();
 		addOPMObjectTool();
 		addOPMProcessTool();
+		addOPMLinkTool();
 	}
 	
 	private void addSelectionTool() {
@@ -42,4 +45,10 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 		entry.setToolClass(CreationAndDirectEditTool.class);		
 		group.add(entry);
 	}
+	
+	
+	private void addOPMLinkTool() {
+		ConnectionCreationToolEntry entry = new ConnectionCreationToolEntry("Link", "Creates a new link", new OPMLinkFactory(), null, null);
+		group.add(entry);
+	}	
 }
