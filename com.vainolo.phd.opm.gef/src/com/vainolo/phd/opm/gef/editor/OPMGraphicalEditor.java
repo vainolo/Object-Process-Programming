@@ -1,6 +1,7 @@
 package com.vainolo.phd.opm.gef.editor;
 
 import java.io.IOException;
+import java.util.EventObject;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -9,9 +10,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.DefaultEditDomain;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.PartInitException;
@@ -43,6 +46,11 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		return new OPMGraphicalEditorPalette();
 	}
 
+	/**
+	 * Save the model using the resource from which it was
+	 * opened, and mark the current location in the 
+	 * {@link CommandStack}.
+	 */
 	@Override public void doSave(IProgressMonitor monitor) {
 		if(opdResource == null) {
 			return;
@@ -50,6 +58,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		
 		try {
 			opdResource.save(null);
+            getCommandStack().markSaveLocation();			
 		} catch(IOException e) {
 			// TODO do something smarter.
 			e.printStackTrace();
@@ -80,4 +89,13 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			}
 		}
 	}
+	
+	/**
+	 * Fire a {@link IEditorPart#PROP_DIRTY} property change and
+	 * call super implementation.
+	 */
+	@Override public void commandStackChanged(EventObject event) {
+        firePropertyChange(PROP_DIRTY);
+        super.commandStackChanged(event);
+    }	
 }
