@@ -24,8 +24,6 @@ public class OPMObjectFigure extends Figure implements NamedNodeFigure {
 	}
 
 	@Override protected void paintFigure(Graphics graphics) {
-	    System.out.println("Object paint figure");
-	    System.out.println("Bounds: "+getBounds());
 		Rectangle r = getBounds().getCopy();
 		setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
 		setConstraint(nameLabel, new Rectangle(0, 0, r.width, r.height));
