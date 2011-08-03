@@ -43,16 +43,14 @@ public enum OPMProceduralLinkKind implements Enumerator {
 	INSTRUMENT(1, "INSTRUMENT", "Instrument"),
 
 	/**
-	 * The '<em><b>CONS RES</b></em>' literal object.
+	 * The '<em><b>CONSUMPTION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #CONS_RES_VALUE
+	 * @see #CONSUMPTION_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	CONS_RES(2, "CONS_RES", "Consumption/Result"),
-
-	/**
+	CONSUMPTION(2, "CONSUMPTION", "Consumption"), /**
 	 * The '<em><b>EFFECT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -60,7 +58,15 @@ public enum OPMProceduralLinkKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	EFFECT(3, "EFFECT", "Effect");
+	EFFECT(3, "EFFECT", "Effect"), /**
+	 * The '<em><b>RESULT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #RESULT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	RESULT(4, "RESULT", "Result");
 
 	/**
 	 * The '<em><b>AGENT</b></em>' literal value.
@@ -93,19 +99,19 @@ public enum OPMProceduralLinkKind implements Enumerator {
 	public static final int INSTRUMENT_VALUE = 1;
 
 	/**
-	 * The '<em><b>CONS RES</b></em>' literal value.
+	 * The '<em><b>CONSUMPTION</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>CONS RES</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>CONSUMPTION</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #CONS_RES
-	 * @model literal="Consumption/Result"
+	 * @see #CONSUMPTION
+	 * @model literal="Consumption"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONS_RES_VALUE = 2;
+	public static final int CONSUMPTION_VALUE = 2;
 
 	/**
 	 * The '<em><b>EFFECT</b></em>' literal value.
@@ -123,6 +129,21 @@ public enum OPMProceduralLinkKind implements Enumerator {
 	public static final int EFFECT_VALUE = 3;
 
 	/**
+	 * The '<em><b>RESULT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>RESULT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #RESULT
+	 * @model literal="Result"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int RESULT_VALUE = 4;
+
+	/**
 	 * An array of all the '<em><b>Procedural Link Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -132,8 +153,9 @@ public enum OPMProceduralLinkKind implements Enumerator {
 		new OPMProceduralLinkKind[] {
 			AGENT,
 			INSTRUMENT,
-			CONS_RES,
+			CONSUMPTION,
 			EFFECT,
+			RESULT,
 		};
 
 	/**
@@ -186,8 +208,9 @@ public enum OPMProceduralLinkKind implements Enumerator {
 		switch (value) {
 			case AGENT_VALUE: return AGENT;
 			case INSTRUMENT_VALUE: return INSTRUMENT;
-			case CONS_RES_VALUE: return CONS_RES;
+			case CONSUMPTION_VALUE: return CONSUMPTION;
 			case EFFECT_VALUE: return EFFECT;
+			case RESULT_VALUE: return RESULT;
 		}
 		return null;
 	}

@@ -50,7 +50,8 @@
   <eClassifiers xsi:type="ecore:EEnum" name="OPMProceduralLinkKind">
     <eLiterals name="AGENT" literal="Agent"/>
     <eLiterals name="INSTRUMENT" value="1" literal="Instrument"/>
-    <eLiterals name="CONS_RES" value="2" literal="Consumption/Result"/>
+    <eLiterals name="CONSUMPTION" value="2" literal="Consumption"/>
     <eLiterals name="EFFECT" value="3" literal="Effect"/>
+    <eLiterals name="RESULT" value="4" literal="Result"/>
   </eClassifiers>
 </ecore:EPackage>
