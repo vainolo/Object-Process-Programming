@@ -100,6 +100,10 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 				return createOPMStructuralLinkAggregatorAdapter();
 			}
 			@Override
+			public Adapter caseOPMProceduralLink(OPMProceduralLink object) {
+				return createOPMProceduralLinkAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -214,6 +218,20 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createOPMStructuralLinkAggregatorAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMProceduralLink <em>Procedural Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.vainolo.phd.opm.model.OPMProceduralLink
+	 * @generated
+	 */
+	public Adapter createOPMProceduralLinkAdapter() {
 		return null;
 	}
 

@@ -12,6 +12,8 @@ import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
+import com.vainolo.phd.opm.model.OPMProceduralLink;
+import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
@@ -89,7 +91,21 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass opmProceduralLinkEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EEnum opmStructuralLinkAggregatorKindEEnum = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum opmProceduralLinkKindEEnum = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -342,8 +358,35 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getOPMProceduralLink() {
+		return opmProceduralLinkEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOPMProceduralLink_Kind() {
+		return (EAttribute)opmProceduralLinkEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getOPMStructuralLinkAggregatorKind() {
 		return opmStructuralLinkAggregatorKindEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EEnum getOPMProceduralLinkKind() {
+		return opmProceduralLinkKindEEnum;
 	}
 
 	/**
@@ -418,8 +461,12 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		opmStructuralLinkAggregatorEClass = createEClass(OPM_STRUCTURAL_LINK_AGGREGATOR);
 		createEAttribute(opmStructuralLinkAggregatorEClass, OPM_STRUCTURAL_LINK_AGGREGATOR__KIND);
 
+		opmProceduralLinkEClass = createEClass(OPM_PROCEDURAL_LINK);
+		createEAttribute(opmProceduralLinkEClass, OPM_PROCEDURAL_LINK__KIND);
+
 		// Create enums
 		opmStructuralLinkAggregatorKindEEnum = createEEnum(OPM_STRUCTURAL_LINK_AGGREGATOR_KIND);
+		opmProceduralLinkKindEEnum = createEEnum(OPM_PROCEDURAL_LINK_KIND);
 
 		// Create data types
 		rectangleEDataType = createEDataType(RECTANGLE);
@@ -458,6 +505,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		opmProcessEClass.getESuperTypes().add(this.getOPMThing());
 		opmThingEClass.getESuperTypes().add(this.getOPMNode());
 		opmStructuralLinkAggregatorEClass.getESuperTypes().add(this.getOPMNode());
+		opmProceduralLinkEClass.getESuperTypes().add(this.getOPMLink());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(opmObjectProcessDiagramEClass, OPMObjectProcessDiagram.class, "OPMObjectProcessDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -486,11 +534,20 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		initEClass(opmStructuralLinkAggregatorEClass, OPMStructuralLinkAggregator.class, "OPMStructuralLinkAggregator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOPMStructuralLinkAggregator_Kind(), this.getOPMStructuralLinkAggregatorKind(), "kind", null, 0, 1, OPMStructuralLinkAggregator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+		initEClass(opmProceduralLinkEClass, OPMProceduralLink.class, "OPMProceduralLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOPMProceduralLink_Kind(), this.getOPMProceduralLinkKind(), "kind", null, 0, 1, OPMProceduralLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
 		// Initialize enums and add enum literals
 		initEEnum(opmStructuralLinkAggregatorKindEEnum, OPMStructuralLinkAggregatorKind.class, "OPMStructuralLinkAggregatorKind");
 		addEEnumLiteral(opmStructuralLinkAggregatorKindEEnum, OPMStructuralLinkAggregatorKind.AGGREGATION);
 		addEEnumLiteral(opmStructuralLinkAggregatorKindEEnum, OPMStructuralLinkAggregatorKind.EXHIBITION);
 		addEEnumLiteral(opmStructuralLinkAggregatorKindEEnum, OPMStructuralLinkAggregatorKind.GENERALIZATION);
+
+		initEEnum(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.class, "OPMProceduralLinkKind");
+		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.AGENT);
+		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.INSTRUMENT);
+		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.CONS_RES);
+		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.EFFECT);
 
 		// Initialize data types
 		initEDataType(rectangleEDataType, Rectangle.class, "Rectangle", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

@@ -89,6 +89,15 @@ public interface OPMFactory extends EFactory {
 	OPMStructuralLinkAggregator createOPMStructuralLinkAggregator();
 
 	/**
+	 * Returns a new object of class '<em>Procedural Link</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Procedural Link</em>'.
+	 * @generated
+	 */
+	OPMProceduralLink createOPMProceduralLink();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

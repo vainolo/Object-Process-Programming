@@ -237,6 +237,29 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMProceduralLink} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OPMProceduralLinkItemProvider opmProceduralLinkItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.vainolo.phd.opm.model.OPMProceduralLink}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOPMProceduralLinkAdapter() {
+		if (opmProceduralLinkItemProvider == null) {
+			opmProceduralLinkItemProvider = new OPMProceduralLinkItemProvider(this);
+		}
+
+		return opmProceduralLinkItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -342,6 +365,7 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
 		if (opmThingItemProvider != null) opmThingItemProvider.dispose();
 		if (opmNodeItemProvider != null) opmNodeItemProvider.dispose();
 		if (opmStructuralLinkAggregatorItemProvider != null) opmStructuralLinkAggregatorItemProvider.dispose();
+		if (opmProceduralLinkItemProvider != null) opmProceduralLinkItemProvider.dispose();
 	}
 
 }

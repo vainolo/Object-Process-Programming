@@ -430,6 +430,70 @@ public interface OPMPackage extends EPackage {
 	int OPM_STRUCTURAL_LINK_AGGREGATOR_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
 
 	/**
+	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl <em>Procedural Link</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl
+	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLink()
+	 * @generated
+	 */
+	int OPM_PROCEDURAL_LINK = 7;
+
+	/**
+	 * The feature id for the '<em><b>Opd</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_PROCEDURAL_LINK__OPD = OPM_LINK__OPD;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_PROCEDURAL_LINK__SOURCE = OPM_LINK__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_PROCEDURAL_LINK__TARGET = OPM_LINK__TARGET;
+
+	/**
+	 * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_PROCEDURAL_LINK__BENDPOINTS = OPM_LINK__BENDPOINTS;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Procedural Link</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_PROCEDURAL_LINK_FEATURE_COUNT = OPM_LINK_FEATURE_COUNT + 1;
+
+	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -437,7 +501,17 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregatorKind()
 	 * @generated
 	 */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 7;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 8;
+
+	/**
+	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.OPMProceduralLinkKind
+	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLinkKind()
+	 * @generated
+	 */
+	int OPM_PROCEDURAL_LINK_KIND = 9;
 
 	/**
 	 * The meta object id for the '<em>Rectangle</em>' data type.
@@ -447,7 +521,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
 	 * @generated
 	 */
-	int RECTANGLE = 8;
+	int RECTANGLE = 10;
 
 
 	/**
@@ -458,7 +532,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
 	 * @generated
 	 */
-	int POINT = 9;
+	int POINT = 11;
 
 
 	/**
@@ -664,6 +738,27 @@ public interface OPMPackage extends EPackage {
 	EAttribute getOPMStructuralLinkAggregator_Kind();
 
 	/**
+	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMProceduralLink <em>Procedural Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Procedural Link</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMProceduralLink
+	 * @generated
+	 */
+	EClass getOPMProceduralLink();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMProceduralLink#getKind <em>Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Kind</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMProceduralLink#getKind()
+	 * @see #getOPMProceduralLink()
+	 * @generated
+	 */
+	EAttribute getOPMProceduralLink_Kind();
+
+	/**
 	 * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -672,6 +767,16 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 */
 	EEnum getOPMStructuralLinkAggregatorKind();
+
+	/**
+	 * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMProceduralLinkKind <em>Procedural Link Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Procedural Link Kind</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMProceduralLinkKind
+	 * @generated
+	 */
+	EEnum getOPMProceduralLinkKind();
 
 	/**
 	 * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Rectangle</em>}'.
@@ -884,6 +989,24 @@ public interface OPMPackage extends EPackage {
 		EAttribute OPM_STRUCTURAL_LINK_AGGREGATOR__KIND = eINSTANCE.getOPMStructuralLinkAggregator_Kind();
 
 		/**
+		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl <em>Procedural Link</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl
+		 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLink()
+		 * @generated
+		 */
+		EClass OPM_PROCEDURAL_LINK = eINSTANCE.getOPMProceduralLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPM_PROCEDURAL_LINK__KIND = eINSTANCE.getOPMProceduralLink_Kind();
+
+		/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -892,6 +1015,16 @@ public interface OPMPackage extends EPackage {
 		 * @generated
 		 */
 		EEnum OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = eINSTANCE.getOPMStructuralLinkAggregatorKind();
+
+		/**
+		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.phd.opm.model.OPMProceduralLinkKind
+		 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLinkKind()
+		 * @generated
+		 */
+		EEnum OPM_PROCEDURAL_LINK_KIND = eINSTANCE.getOPMProceduralLinkKind();
 
 		/**
 		 * The meta object literal for the '<em>Rectangle</em>' data type.

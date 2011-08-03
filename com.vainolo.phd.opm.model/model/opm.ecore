@@ -39,9 +39,18 @@
   <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLinkAggregator" eSuperTypes="#//OPMNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMStructuralLinkAggregatorKind"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMProceduralLink" eSuperTypes="#//OPMLink">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMProceduralLinkKind"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMStructuralLinkAggregatorKind">
     <eLiterals name="AGGREGATION" literal="Aggregation"/>
     <eLiterals name="EXHIBITION" value="1" literal="Exhibition"/>
     <eLiterals name="GENERALIZATION" value="2" literal="Generalization"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OPMProceduralLinkKind">
+    <eLiterals name="AGENT" literal="Agent"/>
+    <eLiterals name="INSTRUMENT" value="1" literal="Instrument"/>
+    <eLiterals name="CONS_RES" value="2" literal="Consumption/Result"/>
+    <eLiterals name="EFFECT" value="3" literal="Effect"/>
   </eClassifiers>
 </ecore:EPackage>
