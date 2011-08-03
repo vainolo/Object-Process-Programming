@@ -6,12 +6,12 @@ import java.util.List;
 import org.eclipse.draw2d.AbsoluteBendpoint;
 import org.eclipse.draw2d.BendpointConnectionRouter;
 import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
@@ -50,7 +50,10 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 		installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OPMLinkBendpointEditPolicy());
 	}
 
-	@Override protected IFigure createFigure() {
+	/**
+	 * Create a {@link PolylineConnection} with a {@link BendpointConnectionRouter}
+	 */
+	@Override protected PolylineConnection createFigure() {
 		PolylineConnection conn = new PolylineConnection();
 		conn.setConnectionRouter(new BendpointConnectionRouter());
 		return conn; 
@@ -80,20 +83,40 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 		super.deactivate();
 	}	
 	
+	/**
+	 * Observer for changes in an OPMLink. Refreshes the
+	 * {@link EditPart} visuals on every change to the model.
+	 * @author vainolo
+	 *
+	 */
 	public class OPMLinkAdapter implements Adapter {
 
+		/**
+		 * Any change to the model causes refresh of the 
+		 * {@link EditPart} visuals.
+		 * @param notification the change that ocured in the model.
+		 */
 		@Override public void notifyChanged(Notification notification) {
 			refreshVisuals();
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override public Notifier getTarget() {			
 			return (OPMLink)getModel();
 		}
 
+		/**
+		 * Does nothing.
+		 */
 		@Override public void setTarget(Notifier newTarget) {
 			// Do nothing.
 		}
 
+		/**
+		 * {@inheritDoc}
+		 */
 		@Override public boolean isAdapterForType(Object type) {
 			return type.equals(OPMLink.class);
 		}
