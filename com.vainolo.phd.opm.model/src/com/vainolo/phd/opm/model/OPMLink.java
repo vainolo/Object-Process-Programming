@@ -60,7 +60,7 @@ public interface OPMLink extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Source</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMThing#getOutgoingLinks <em>Outgoing Links</em>}'.
+	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingLinks <em>Outgoing Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Source</em>' reference isn't clear,
@@ -68,13 +68,13 @@ public interface OPMLink extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Source</em>' reference.
-	 * @see #setSource(OPMThing)
+	 * @see #setSource(OPMNode)
 	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMLink_Source()
-	 * @see com.vainolo.phd.opm.model.OPMThing#getOutgoingLinks
+	 * @see com.vainolo.phd.opm.model.OPMNode#getOutgoingLinks
 	 * @model opposite="outgoingLinks"
 	 * @generated
 	 */
-	OPMThing getSource();
+	OPMNode getSource();
 
 	/**
 	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMLink#getSource <em>Source</em>}' reference.
@@ -84,11 +84,11 @@ public interface OPMLink extends EObject {
 	 * @see #getSource()
 	 * @generated
 	 */
-	void setSource(OPMThing value);
+	void setSource(OPMNode value);
 
 	/**
 	 * Returns the value of the '<em><b>Target</b></em>' reference.
-	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMThing#getIncomingLinks <em>Incoming Links</em>}'.
+	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMNode#getIncomingLinks <em>Incoming Links</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Target</em>' reference isn't clear,
@@ -96,13 +96,13 @@ public interface OPMLink extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Target</em>' reference.
-	 * @see #setTarget(OPMThing)
+	 * @see #setTarget(OPMNode)
 	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMLink_Target()
-	 * @see com.vainolo.phd.opm.model.OPMThing#getIncomingLinks
+	 * @see com.vainolo.phd.opm.model.OPMNode#getIncomingLinks
 	 * @model opposite="incomingLinks"
 	 * @generated
 	 */
-	OPMThing getTarget();
+	OPMNode getTarget();
 
 	/**
 	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMLink#getTarget <em>Target</em>}' reference.
@@ -112,7 +112,7 @@ public interface OPMLink extends EObject {
 	 * @see #getTarget()
 	 * @generated
 	 */
-	void setTarget(OPMThing value);
+	void setTarget(OPMNode value);
 
 	/**
 	 * Returns the value of the '<em><b>Bendpoints</b></em>' attribute list.

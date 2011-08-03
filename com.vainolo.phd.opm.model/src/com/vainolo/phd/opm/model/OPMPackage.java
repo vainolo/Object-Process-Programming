@@ -9,6 +9,7 @@ package com.vainolo.phd.opm.model;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
@@ -98,6 +99,43 @@ public interface OPMPackage extends EPackage {
 	int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = 2;
 
 	/**
+	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl <em>Node</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.impl.OPMNodeImpl
+	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMNode()
+	 * @generated
+	 */
+	int OPM_NODE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_NODE__INCOMING_LINKS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_NODE__OUTGOING_LINKS = 1;
+
+	/**
+	 * The number of structural features of the '<em>Node</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_NODE_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMThingImpl <em>Thing</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -114,7 +152,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_THING__INCOMING_LINKS = 0;
+	int OPM_THING__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
@@ -123,7 +161,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_THING__OUTGOING_LINKS = 1;
+	int OPM_THING__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
 
 	/**
 	 * The feature id for the '<em><b>Constraints</b></em>' attribute.
@@ -132,7 +170,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_THING__CONSTRAINTS = 2;
+	int OPM_THING__CONSTRAINTS = OPM_NODE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -141,7 +179,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_THING__NAME = 3;
+	int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -150,7 +188,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_THING__OPD = 4;
+	int OPM_THING__OPD = OPM_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of structural features of the '<em>Thing</em>' class.
@@ -159,7 +197,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_THING_FEATURE_COUNT = 5;
+	int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl <em>Object</em>}' class.
@@ -346,6 +384,62 @@ public interface OPMPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMStructuralLinkAggregatorImpl <em>Structural Link Aggregator</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.impl.OPMStructuralLinkAggregatorImpl
+	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregator()
+	 * @generated
+	 */
+	int OPM_STRUCTURAL_LINK_AGGREGATOR = 6;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_STRUCTURAL_LINK_AGGREGATOR__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_STRUCTURAL_LINK_AGGREGATOR__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_STRUCTURAL_LINK_AGGREGATOR__KIND = OPM_NODE_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Structural Link Aggregator</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
+
+	/**
+	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind
+	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregatorKind()
+	 * @generated
+	 */
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 7;
+
+	/**
 	 * The meta object id for the '<em>Rectangle</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -353,7 +447,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
 	 * @generated
 	 */
-	int RECTANGLE = 5;
+	int RECTANGLE = 8;
 
 
 	/**
@@ -364,7 +458,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
 	 * @generated
 	 */
-	int POINT = 6;
+	int POINT = 9;
 
 
 	/**
@@ -484,28 +578,6 @@ public interface OPMPackage extends EPackage {
 	EClass getOPMThing();
 
 	/**
-	 * Returns the meta object for the reference list '{@link com.vainolo.phd.opm.model.OPMThing#getIncomingLinks <em>Incoming Links</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Incoming Links</em>'.
-	 * @see com.vainolo.phd.opm.model.OPMThing#getIncomingLinks()
-	 * @see #getOPMThing()
-	 * @generated
-	 */
-	EReference getOPMThing_IncomingLinks();
-
-	/**
-	 * Returns the meta object for the reference list '{@link com.vainolo.phd.opm.model.OPMThing#getOutgoingLinks <em>Outgoing Links</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Outgoing Links</em>'.
-	 * @see com.vainolo.phd.opm.model.OPMThing#getOutgoingLinks()
-	 * @see #getOPMThing()
-	 * @generated
-	 */
-	EReference getOPMThing_OutgoingLinks();
-
-	/**
 	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMThing#getConstraints <em>Constraints</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -537,6 +609,69 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOPMThing_Opd();
+
+	/**
+	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMNode <em>Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Node</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMNode
+	 * @generated
+	 */
+	EClass getOPMNode();
+
+	/**
+	 * Returns the meta object for the reference list '{@link com.vainolo.phd.opm.model.OPMNode#getIncomingLinks <em>Incoming Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Incoming Links</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMNode#getIncomingLinks()
+	 * @see #getOPMNode()
+	 * @generated
+	 */
+	EReference getOPMNode_IncomingLinks();
+
+	/**
+	 * Returns the meta object for the reference list '{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingLinks <em>Outgoing Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Outgoing Links</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMNode#getOutgoingLinks()
+	 * @see #getOPMNode()
+	 * @generated
+	 */
+	EReference getOPMNode_OutgoingLinks();
+
+	/**
+	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator <em>Structural Link Aggregator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Structural Link Aggregator</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregator
+	 * @generated
+	 */
+	EClass getOPMStructuralLinkAggregator();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator#getKind <em>Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Kind</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregator#getKind()
+	 * @see #getOPMStructuralLinkAggregator()
+	 * @generated
+	 */
+	EAttribute getOPMStructuralLinkAggregator_Kind();
+
+	/**
+	 * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Structural Link Aggregator Kind</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind
+	 * @generated
+	 */
+	EEnum getOPMStructuralLinkAggregatorKind();
 
 	/**
 	 * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Rectangle</em>}'.
@@ -681,22 +816,6 @@ public interface OPMPackage extends EPackage {
 		EClass OPM_THING = eINSTANCE.getOPMThing();
 
 		/**
-		 * The meta object literal for the '<em><b>Incoming Links</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OPM_THING__INCOMING_LINKS = eINSTANCE.getOPMThing_IncomingLinks();
-
-		/**
-		 * The meta object literal for the '<em><b>Outgoing Links</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference OPM_THING__OUTGOING_LINKS = eINSTANCE.getOPMThing_OutgoingLinks();
-
-		/**
 		 * The meta object literal for the '<em><b>Constraints</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -719,6 +838,60 @@ public interface OPMPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OPM_THING__OPD = eINSTANCE.getOPMThing_Opd();
+
+		/**
+		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl <em>Node</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.phd.opm.model.impl.OPMNodeImpl
+		 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMNode()
+		 * @generated
+		 */
+		EClass OPM_NODE = eINSTANCE.getOPMNode();
+
+		/**
+		 * The meta object literal for the '<em><b>Incoming Links</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OPM_NODE__INCOMING_LINKS = eINSTANCE.getOPMNode_IncomingLinks();
+
+		/**
+		 * The meta object literal for the '<em><b>Outgoing Links</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OPM_NODE__OUTGOING_LINKS = eINSTANCE.getOPMNode_OutgoingLinks();
+
+		/**
+		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMStructuralLinkAggregatorImpl <em>Structural Link Aggregator</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.phd.opm.model.impl.OPMStructuralLinkAggregatorImpl
+		 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregator()
+		 * @generated
+		 */
+		EClass OPM_STRUCTURAL_LINK_AGGREGATOR = eINSTANCE.getOPMStructuralLinkAggregator();
+
+		/**
+		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPM_STRUCTURAL_LINK_AGGREGATOR__KIND = eINSTANCE.getOPMStructuralLinkAggregator_Kind();
+
+		/**
+		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind
+		 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregatorKind()
+		 * @generated
+		 */
+		EEnum OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = eINSTANCE.getOPMStructuralLinkAggregatorKind();
 
 		/**
 		 * The meta object literal for the '<em>Rectangle</em>' data type.

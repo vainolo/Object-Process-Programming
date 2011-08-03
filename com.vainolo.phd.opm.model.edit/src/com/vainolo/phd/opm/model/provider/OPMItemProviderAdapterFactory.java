@@ -191,6 +191,52 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMNode} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OPMNodeItemProvider opmNodeItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.vainolo.phd.opm.model.OPMNode}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOPMNodeAdapter() {
+		if (opmNodeItemProvider == null) {
+			opmNodeItemProvider = new OPMNodeItemProvider(this);
+		}
+
+		return opmNodeItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected OPMStructuralLinkAggregatorItemProvider opmStructuralLinkAggregatorItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createOPMStructuralLinkAggregatorAdapter() {
+		if (opmStructuralLinkAggregatorItemProvider == null) {
+			opmStructuralLinkAggregatorItemProvider = new OPMStructuralLinkAggregatorItemProvider(this);
+		}
+
+		return opmStructuralLinkAggregatorItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -294,6 +340,8 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
 		if (opmProcessItemProvider != null) opmProcessItemProvider.dispose();
 		if (opmLinkItemProvider != null) opmLinkItemProvider.dispose();
 		if (opmThingItemProvider != null) opmThingItemProvider.dispose();
+		if (opmNodeItemProvider != null) opmNodeItemProvider.dispose();
+		if (opmStructuralLinkAggregatorItemProvider != null) opmStructuralLinkAggregatorItemProvider.dispose();
 	}
 
 }

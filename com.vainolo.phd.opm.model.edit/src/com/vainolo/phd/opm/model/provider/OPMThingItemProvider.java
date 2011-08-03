@@ -36,7 +36,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class OPMThingItemProvider
-	extends ItemProviderAdapter
+	extends OPMNodeItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -64,56 +64,10 @@ public class OPMThingItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addIncomingLinksPropertyDescriptor(object);
-			addOutgoingLinksPropertyDescriptor(object);
 			addConstraintsPropertyDescriptor(object);
 			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Incoming Links feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addIncomingLinksPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_OPMThing_incomingLinks_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_OPMThing_incomingLinks_feature", "_UI_OPMThing_type"),
-				 OPMPackage.Literals.OPM_THING__INCOMING_LINKS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Outgoing Links feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addOutgoingLinksPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_OPMThing_outgoingLinks_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_OPMThing_outgoingLinks_feature", "_UI_OPMThing_type"),
-				 OPMPackage.Literals.OPM_THING__OUTGOING_LINKS,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -215,17 +169,6 @@ public class OPMThingItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-	}
-
-	/**
-	 * Return the resource locator for this item provider's resources.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public ResourceLocator getResourceLocator() {
-		return OPMEditPlugin.INSTANCE;
 	}
 
 }

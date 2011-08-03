@@ -71,6 +71,24 @@ public interface OPMFactory extends EFactory {
 	OPMThing createOPMThing();
 
 	/**
+	 * Returns a new object of class '<em>Node</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Node</em>'.
+	 * @generated
+	 */
+	OPMNode createOPMNode();
+
+	/**
+	 * Returns a new object of class '<em>Structural Link Aggregator</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Structural Link Aggregator</em>'.
+	 * @generated
+	 */
+	OPMStructuralLinkAggregator createOPMStructuralLinkAggregator();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

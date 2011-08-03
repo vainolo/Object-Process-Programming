@@ -14,18 +14,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="OPMLink">
     <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
         eOpposite="#//OPMObjectProcessDiagram/links"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//OPMThing"
-        eOpposite="#//OPMThing/outgoingLinks"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//OPMThing"
-        eOpposite="#//OPMThing/incomingLinks"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//OPMNode"
+        eOpposite="#//OPMNode/outgoingLinks"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//OPMNode"
+        eOpposite="#//OPMNode/incomingLinks"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bendpoints" upperBound="-1"
         eType="#//Point"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMThing">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingLinks" upperBound="-1"
-        eType="#//OPMLink" eOpposite="#//OPMLink/target"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingLinks" upperBound="-1"
-        eType="#//OPMLink" eOpposite="#//OPMLink/source"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMThing" eSuperTypes="#//OPMNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"
         defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -34,4 +30,18 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Rectangle" instanceClassName="org.eclipse.draw2d.geometry.Rectangle"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Point" instanceClassName="org.eclipse.draw2d.geometry.Point"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMNode">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingLinks" upperBound="-1"
+        eType="#//OPMLink" eOpposite="#//OPMLink/target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingLinks" upperBound="-1"
+        eType="#//OPMLink" eOpposite="#//OPMLink/source"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLinkAggregator" eSuperTypes="#//OPMNode">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMStructuralLinkAggregatorKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OPMStructuralLinkAggregatorKind">
+    <eLiterals name="AGGREGATION" literal="Aggregation"/>
+    <eLiterals name="EXHIBITION" value="1" literal="Exhibition"/>
+    <eLiterals name="GENERALIZATION" value="2" literal="Generalization"/>
+  </eClassifiers>
 </ecore:EPackage>

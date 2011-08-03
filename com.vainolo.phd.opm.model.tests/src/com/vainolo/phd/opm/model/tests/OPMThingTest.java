@@ -19,15 +19,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMThingTest extends TestCase {
-
-	/**
-	 * The fixture for this Thing test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected OPMThing fixture = null;
+public class OPMThingTest extends OPMNodeTest {
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -49,23 +41,14 @@ public class OPMThingTest extends TestCase {
 	}
 
 	/**
-	 * Sets the fixture for this Thing test case.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void setFixture(OPMThing fixture) {
-		this.fixture = fixture;
-	}
-
-	/**
 	 * Returns the fixture for this Thing test case.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	protected OPMThing getFixture() {
-		return fixture;
+		return (OPMThing)fixture;
 	}
 
 	/**

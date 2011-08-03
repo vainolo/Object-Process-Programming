@@ -8,6 +8,7 @@ import java.util.Map;
 import org.eclipse.gef.commands.Command;
 
 import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMThing;
 
@@ -26,9 +27,9 @@ public final class OPMThingDeleteCommand extends Command {
 	/** Incoming and outgoing links. */
 	private List<OPMLink> links;
 	/** Sources for the links that start or end at this thing. */
-	private Map<OPMLink, OPMThing> linkSources;
+	private Map<OPMLink, OPMNode> linkSources;
 	/** Targets for the links that start or end at this thing. */ 
-	private Map<OPMLink, OPMThing> linkTargets;
+	private Map<OPMLink, OPMNode> linkTargets;
 
 	@Override
 	public void execute() {
@@ -49,8 +50,8 @@ public final class OPMThingDeleteCommand extends Command {
 	 */
 	private void detachLinks() {
 		links = new ArrayList<OPMLink>();
-		linkSources = new HashMap<OPMLink, OPMThing>();
-		linkTargets = new HashMap<OPMLink, OPMThing>();
+		linkSources = new HashMap<OPMLink, OPMNode>();
+		linkTargets = new HashMap<OPMLink, OPMNode>();
 		links.addAll(thing.getIncomingLinks());
 		links.addAll(thing.getOutgoingLinks());
 		for (OPMLink link : links) {

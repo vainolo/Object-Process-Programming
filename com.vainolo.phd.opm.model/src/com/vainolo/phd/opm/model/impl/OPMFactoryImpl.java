@@ -68,6 +68,8 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 			case OPMPackage.OPM_PROCESS: return createOPMProcess();
 			case OPMPackage.OPM_LINK: return createOPMLink();
 			case OPMPackage.OPM_THING: return createOPMThing();
+			case OPMPackage.OPM_NODE: return createOPMNode();
+			case OPMPackage.OPM_STRUCTURAL_LINK_AGGREGATOR: return createOPMStructuralLinkAggregator();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -81,6 +83,8 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	@Override
 	public Object createFromString(EDataType eDataType, String initialValue) {
 		switch (eDataType.getClassifierID()) {
+			case OPMPackage.OPM_STRUCTURAL_LINK_AGGREGATOR_KIND:
+				return createOPMStructuralLinkAggregatorKindFromString(eDataType, initialValue);
 			case OPMPackage.RECTANGLE:
 				return createRectangleFromString(eDataType, initialValue);
 			case OPMPackage.POINT:
@@ -98,6 +102,8 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	@Override
 	public String convertToString(EDataType eDataType, Object instanceValue) {
 		switch (eDataType.getClassifierID()) {
+			case OPMPackage.OPM_STRUCTURAL_LINK_AGGREGATOR_KIND:
+				return convertOPMStructuralLinkAggregatorKindToString(eDataType, instanceValue);
 			case OPMPackage.RECTANGLE:
 				return convertRectangleToString(eDataType, instanceValue);
 			case OPMPackage.POINT:
@@ -155,6 +161,46 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	public OPMThing createOPMThing() {
 		OPMThingImpl opmThing = new OPMThingImpl();
 		return opmThing;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OPMNode createOPMNode() {
+		OPMNodeImpl opmNode = new OPMNodeImpl();
+		return opmNode;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OPMStructuralLinkAggregator createOPMStructuralLinkAggregator() {
+		OPMStructuralLinkAggregatorImpl opmStructuralLinkAggregator = new OPMStructuralLinkAggregatorImpl();
+		return opmStructuralLinkAggregator;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OPMStructuralLinkAggregatorKind createOPMStructuralLinkAggregatorKindFromString(EDataType eDataType, String initialValue) {
+		OPMStructuralLinkAggregatorKind result = OPMStructuralLinkAggregatorKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertOPMStructuralLinkAggregatorKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
 	}
 
 	/**

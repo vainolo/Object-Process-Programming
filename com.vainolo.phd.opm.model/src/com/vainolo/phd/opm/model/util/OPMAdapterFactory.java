@@ -92,6 +92,14 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 				return createOPMThingAdapter();
 			}
 			@Override
+			public Adapter caseOPMNode(OPMNode object) {
+				return createOPMNodeAdapter();
+			}
+			@Override
+			public Adapter caseOPMStructuralLinkAggregator(OPMStructuralLinkAggregator object) {
+				return createOPMStructuralLinkAggregatorAdapter();
+			}
+			@Override
 			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
@@ -178,6 +186,34 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createOPMThingAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMNode <em>Node</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.vainolo.phd.opm.model.OPMNode
+	 * @generated
+	 */
+	public Adapter createOPMNodeAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator <em>Structural Link Aggregator</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregator
+	 * @generated
+	 */
+	public Adapter createOPMStructuralLinkAggregatorAdapter() {
 		return null;
 	}
 

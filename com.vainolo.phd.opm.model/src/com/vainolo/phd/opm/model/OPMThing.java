@@ -19,8 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getIncomingLinks <em>Incoming Links</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getOutgoingLinks <em>Outgoing Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getConstraints <em>Constraints</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getName <em>Name</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getOpd <em>Opd</em>}</li>
@@ -31,43 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface OPMThing extends EObject {
-	/**
-	 * Returns the value of the '<em><b>Incoming Links</b></em>' reference list.
-	 * The list contents are of type {@link com.vainolo.phd.opm.model.OPMLink}.
-	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMLink#getTarget <em>Target</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Incoming Links</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Incoming Links</em>' reference list.
-	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing_IncomingLinks()
-	 * @see com.vainolo.phd.opm.model.OPMLink#getTarget
-	 * @model opposite="target"
-	 * @generated
-	 */
-	EList<OPMLink> getIncomingLinks();
-
-	/**
-	 * Returns the value of the '<em><b>Outgoing Links</b></em>' reference list.
-	 * The list contents are of type {@link com.vainolo.phd.opm.model.OPMLink}.
-	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMLink#getSource <em>Source</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Outgoing Links</em>' reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Outgoing Links</em>' reference list.
-	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing_OutgoingLinks()
-	 * @see com.vainolo.phd.opm.model.OPMLink#getSource
-	 * @model opposite="source"
-	 * @generated
-	 */
-	EList<OPMLink> getOutgoingLinks();
-
+public interface OPMThing extends OPMNode {
 	/**
 	 * Returns the value of the '<em><b>Constraints</b></em>' attribute.
 	 * The default value is <code>""</code>.

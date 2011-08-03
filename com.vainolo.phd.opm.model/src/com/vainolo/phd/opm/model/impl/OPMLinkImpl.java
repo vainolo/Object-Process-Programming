@@ -7,6 +7,7 @@
 package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMThing;
@@ -51,7 +52,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * @generated
 	 * @ordered
 	 */
-	protected OPMThing source;
+	protected OPMNode source;
 
 	/**
 	 * The cached value of the '{@link #getTarget() <em>Target</em>}' reference.
@@ -61,7 +62,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * @generated
 	 * @ordered
 	 */
-	protected OPMThing target;
+	protected OPMNode target;
 
 	/**
 	 * The cached value of the '{@link #getBendpoints() <em>Bendpoints</em>}' attribute list.
@@ -138,10 +139,10 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OPMThing getSource() {
+	public OPMNode getSource() {
 		if (source != null && source.eIsProxy()) {
 			InternalEObject oldSource = (InternalEObject)source;
-			source = (OPMThing)eResolveProxy(oldSource);
+			source = (OPMNode)eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, OPMPackage.OPM_LINK__SOURCE, oldSource, source));
@@ -155,7 +156,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OPMThing basicGetSource() {
+	public OPMNode basicGetSource() {
 		return source;
 	}
 
@@ -164,8 +165,8 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSource(OPMThing newSource, NotificationChain msgs) {
-		OPMThing oldSource = source;
+	public NotificationChain basicSetSource(OPMNode newSource, NotificationChain msgs) {
+		OPMNode oldSource = source;
 		source = newSource;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_LINK__SOURCE, oldSource, newSource);
@@ -179,13 +180,13 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSource(OPMThing newSource) {
+	public void setSource(OPMNode newSource) {
 		if (newSource != source) {
 			NotificationChain msgs = null;
 			if (source != null)
-				msgs = ((InternalEObject)source).eInverseRemove(this, OPMPackage.OPM_THING__OUTGOING_LINKS, OPMThing.class, msgs);
+				msgs = ((InternalEObject)source).eInverseRemove(this, OPMPackage.OPM_NODE__OUTGOING_LINKS, OPMNode.class, msgs);
 			if (newSource != null)
-				msgs = ((InternalEObject)newSource).eInverseAdd(this, OPMPackage.OPM_THING__OUTGOING_LINKS, OPMThing.class, msgs);
+				msgs = ((InternalEObject)newSource).eInverseAdd(this, OPMPackage.OPM_NODE__OUTGOING_LINKS, OPMNode.class, msgs);
 			msgs = basicSetSource(newSource, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -198,10 +199,10 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OPMThing getTarget() {
+	public OPMNode getTarget() {
 		if (target != null && target.eIsProxy()) {
 			InternalEObject oldTarget = (InternalEObject)target;
-			target = (OPMThing)eResolveProxy(oldTarget);
+			target = (OPMNode)eResolveProxy(oldTarget);
 			if (target != oldTarget) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, OPMPackage.OPM_LINK__TARGET, oldTarget, target));
@@ -215,7 +216,7 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OPMThing basicGetTarget() {
+	public OPMNode basicGetTarget() {
 		return target;
 	}
 
@@ -224,8 +225,8 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetTarget(OPMThing newTarget, NotificationChain msgs) {
-		OPMThing oldTarget = target;
+	public NotificationChain basicSetTarget(OPMNode newTarget, NotificationChain msgs) {
+		OPMNode oldTarget = target;
 		target = newTarget;
 		if (eNotificationRequired()) {
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_LINK__TARGET, oldTarget, newTarget);
@@ -239,13 +240,13 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setTarget(OPMThing newTarget) {
+	public void setTarget(OPMNode newTarget) {
 		if (newTarget != target) {
 			NotificationChain msgs = null;
 			if (target != null)
-				msgs = ((InternalEObject)target).eInverseRemove(this, OPMPackage.OPM_THING__INCOMING_LINKS, OPMThing.class, msgs);
+				msgs = ((InternalEObject)target).eInverseRemove(this, OPMPackage.OPM_NODE__INCOMING_LINKS, OPMNode.class, msgs);
 			if (newTarget != null)
-				msgs = ((InternalEObject)newTarget).eInverseAdd(this, OPMPackage.OPM_THING__INCOMING_LINKS, OPMThing.class, msgs);
+				msgs = ((InternalEObject)newTarget).eInverseAdd(this, OPMPackage.OPM_NODE__INCOMING_LINKS, OPMNode.class, msgs);
 			msgs = basicSetTarget(newTarget, msgs);
 			if (msgs != null) msgs.dispatch();
 		}
@@ -279,12 +280,12 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 				return basicSetOpd((OPMObjectProcessDiagram)otherEnd, msgs);
 			case OPMPackage.OPM_LINK__SOURCE:
 				if (source != null)
-					msgs = ((InternalEObject)source).eInverseRemove(this, OPMPackage.OPM_THING__OUTGOING_LINKS, OPMThing.class, msgs);
-				return basicSetSource((OPMThing)otherEnd, msgs);
+					msgs = ((InternalEObject)source).eInverseRemove(this, OPMPackage.OPM_NODE__OUTGOING_LINKS, OPMNode.class, msgs);
+				return basicSetSource((OPMNode)otherEnd, msgs);
 			case OPMPackage.OPM_LINK__TARGET:
 				if (target != null)
-					msgs = ((InternalEObject)target).eInverseRemove(this, OPMPackage.OPM_THING__INCOMING_LINKS, OPMThing.class, msgs);
-				return basicSetTarget((OPMThing)otherEnd, msgs);
+					msgs = ((InternalEObject)target).eInverseRemove(this, OPMPackage.OPM_NODE__INCOMING_LINKS, OPMNode.class, msgs);
+				return basicSetTarget((OPMNode)otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -356,10 +357,10 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 				setOpd((OPMObjectProcessDiagram)newValue);
 				return;
 			case OPMPackage.OPM_LINK__SOURCE:
-				setSource((OPMThing)newValue);
+				setSource((OPMNode)newValue);
 				return;
 			case OPMPackage.OPM_LINK__TARGET:
-				setTarget((OPMThing)newValue);
+				setTarget((OPMNode)newValue);
 				return;
 			case OPMPackage.OPM_LINK__BENDPOINTS:
 				getBendpoints().clear();
@@ -381,10 +382,10 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 				setOpd((OPMObjectProcessDiagram)null);
 				return;
 			case OPMPackage.OPM_LINK__SOURCE:
-				setSource((OPMThing)null);
+				setSource((OPMNode)null);
 				return;
 			case OPMPackage.OPM_LINK__TARGET:
-				setTarget((OPMThing)null);
+				setTarget((OPMNode)null);
 				return;
 			case OPMPackage.OPM_LINK__BENDPOINTS:
 				getBendpoints().clear();

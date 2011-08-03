@@ -2,6 +2,7 @@ package com.vainolo.phd.opm.gef.editor.command;
 
 import org.eclipse.gef.commands.Command;
 
+import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMThing;
@@ -16,9 +17,9 @@ public class OPMLinkDeleteCommand extends Command {
     /** OPD that owns the link. */
     private OPMObjectProcessDiagram opd;
     /** Source of the link. */
-    private OPMThing source;
+    private OPMNode source;
     /** Target of the link. */
-    private OPMThing target;
+    private OPMNode target;
 
     /**
      * {@inheritDoc}
