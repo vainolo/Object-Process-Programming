@@ -1,5 +1,6 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
@@ -12,6 +13,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import com.vainolo.phd.opm.gef.editor.policy.OPMObjectProcessDiagramXYLayoutPolicy;
+import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
@@ -39,7 +41,9 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 	
 	@Override protected List<OPMNode> getModelChildren() {
 		OPMObjectProcessDiagram opd = (OPMObjectProcessDiagram) getModel();
-		return opd.getNodes();
+		List<OPMNode> nodes = new ArrayList<OPMNode>(opd.getNodes());
+		nodes.add(OPMFactory.eINSTANCE.createOPMStructuralLinkAggregator());
+		return nodes;
 	}
 	
 	@Override public void activate() {

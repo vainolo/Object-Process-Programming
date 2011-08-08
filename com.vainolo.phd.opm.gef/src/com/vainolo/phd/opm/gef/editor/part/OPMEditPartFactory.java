@@ -5,6 +5,7 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
@@ -28,6 +29,8 @@ public class OPMEditPartFactory implements EditPartFactory {
 			part = new OPMProceduralLinkEditPart();
 		} else if (model instanceof OPMLink) {
 			part = new OPMLinkEditPart();
+		} else if (model instanceof OPMStructuralLinkAggregator) {
+		    part = new OPMStructuralLinkAggregatorEditPart();
 		} else {
 			throw new IllegalArgumentException("Model class "+model.getClass()+" not supported yet.");
 		}
