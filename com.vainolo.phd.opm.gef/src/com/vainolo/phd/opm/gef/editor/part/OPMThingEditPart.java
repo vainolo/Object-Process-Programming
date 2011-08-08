@@ -11,9 +11,9 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.TextCellEditor;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
-import com.vainolo.phd.opm.gef.editor.policy.OPMThingComponentEditPolicy;
+import com.vainolo.phd.opm.gef.editor.policy.OPMNodeComponentEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMThingDirectEditPolicy;
-import com.vainolo.phd.opm.gef.editor.policy.OPMThingGraphicalNodeEditPolicy;
+import com.vainolo.phd.opm.gef.editor.policy.OPMNodeGraphicalNodeEditPolicy;
 import com.vainolo.phd.opm.model.OPMThing;
 
 public abstract class OPMThingEditPart extends OPMNodeEditPart implements NodeEditPart {
@@ -25,8 +25,6 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart implements NodeEd
 	@Override protected void createEditPolicies() {
 	    super.createEditPolicies();
 		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMThingDirectEditPolicy());
-		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMThingGraphicalNodeEditPolicy());
-		installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMThingComponentEditPolicy());
 	}
 
 	@Override protected void refreshVisuals() {

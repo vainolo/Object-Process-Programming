@@ -7,24 +7,24 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateCommand;
 import com.vainolo.phd.opm.model.OPMLink;
-import com.vainolo.phd.opm.model.OPMThing;
+import com.vainolo.phd.opm.model.OPMNode;
 
-public class OPMThingGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
-
-	@Override protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
-		OPMLinkCreateCommand result = (OPMLinkCreateCommand) request.getStartCommand();
-		result.setTarget((OPMThing)getHost().getModel());
-		return result;
-	}
+public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
 	@Override protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
 		OPMLinkCreateCommand result = new OPMLinkCreateCommand();
-		result.setSource((OPMThing)getHost().getModel());
+		result.setSource((OPMNode)getHost().getModel());
 		result.setLink((OPMLink) request.getNewObject());
-		result.setOPD(((OPMThing)getHost().getModel()).getOpd());
+		result.setOPD(((OPMNode)getHost().getModel()).getOpd());
 		request.setStartCommand(result);
 		return result;
 	}
+
+    @Override protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
+        OPMLinkCreateCommand result = (OPMLinkCreateCommand) request.getStartCommand();
+        result.setTarget((OPMNode)getHost().getModel());
+        return result;
+    }
 
 	@Override protected Command getReconnectTargetCommand(ReconnectRequest request) {
 		return null;
