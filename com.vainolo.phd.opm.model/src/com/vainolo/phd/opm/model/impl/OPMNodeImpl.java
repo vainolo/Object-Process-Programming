@@ -13,6 +13,7 @@ import com.vainolo.phd.opm.model.OPMPackage;
 
 import java.util.Collection;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getIncomingLinks <em>Incoming Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getOutgoingLinks <em>Outgoing Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getOpd <em>Opd</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getConstraints <em>Constraints</em>}</li>
  * </ul>
  * </p>
  *
@@ -65,6 +67,26 @@ public class OPMNodeImpl extends EObjectImpl implements OPMNode {
 	protected EList<OPMLink> outgoingLinks;
 
 	/**
+     * The default value of the '{@link #getConstraints() <em>Constraints</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConstraints()
+     * @generated
+     * @ordered
+     */
+    protected static final Rectangle CONSTRAINTS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getConstraints() <em>Constraints</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConstraints()
+     * @generated
+     * @ordered
+     */
+    protected Rectangle constraints = CONSTRAINTS_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
@@ -150,6 +172,27 @@ public class OPMNodeImpl extends EObjectImpl implements OPMNode {
 
     /**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Rectangle getConstraints() {
+        return constraints;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setConstraints(Rectangle newConstraints) {
+        Rectangle oldConstraints = constraints;
+        constraints = newConstraints;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NODE__CONSTRAINTS, oldConstraints, constraints));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -215,6 +258,8 @@ public class OPMNodeImpl extends EObjectImpl implements OPMNode {
                 return getOutgoingLinks();
             case OPMPackage.OPM_NODE__OPD:
                 return getOpd();
+            case OPMPackage.OPM_NODE__CONSTRAINTS:
+                return getConstraints();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -239,6 +284,9 @@ public class OPMNodeImpl extends EObjectImpl implements OPMNode {
             case OPMPackage.OPM_NODE__OPD:
                 setOpd((OPMObjectProcessDiagram)newValue);
                 return;
+            case OPMPackage.OPM_NODE__CONSTRAINTS:
+                setConstraints((Rectangle)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -260,6 +308,9 @@ public class OPMNodeImpl extends EObjectImpl implements OPMNode {
             case OPMPackage.OPM_NODE__OPD:
                 setOpd((OPMObjectProcessDiagram)null);
                 return;
+            case OPMPackage.OPM_NODE__CONSTRAINTS:
+                setConstraints(CONSTRAINTS_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -278,8 +329,26 @@ public class OPMNodeImpl extends EObjectImpl implements OPMNode {
                 return outgoingLinks != null && !outgoingLinks.isEmpty();
             case OPMPackage.OPM_NODE__OPD:
                 return getOpd() != null;
+            case OPMPackage.OPM_NODE__CONSTRAINTS:
+                return CONSTRAINTS_EDEFAULT == null ? constraints != null : !CONSTRAINTS_EDEFAULT.equals(constraints);
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (constraints: ");
+        result.append(constraints);
+        result.append(')');
+        return result.toString();
     }
 
 } //OPMNodeImpl

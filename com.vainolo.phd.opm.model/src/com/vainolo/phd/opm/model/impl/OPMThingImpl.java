@@ -37,7 +37,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getConstraints <em>Constraints</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
@@ -46,26 +45,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	/**
-     * The default value of the '{@link #getConstraints() <em>Constraints</em>}' attribute.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @see #getConstraints()
-     * @generated
-     * @ordered
-     */
-	protected static final Rectangle CONSTRAINTS_EDEFAULT = (Rectangle)OPMFactory.eINSTANCE.createFromString(OPMPackage.eINSTANCE.getRectangle(), "");
-
-	/**
-     * The cached value of the '{@link #getConstraints() <em>Constraints</em>}' attribute.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @see #getConstraints()
-     * @generated
-     * @ordered
-     */
-	protected Rectangle constraints = CONSTRAINTS_EDEFAULT;
-
-	/**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -73,7 +52,7 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
      * @generated
      * @ordered
      */
-	protected static final String NAME_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = "<...>";
 
 	/**
      * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -109,27 +88,6 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	 * <!-- end-user-doc -->
      * @generated
      */
-	public Rectangle getConstraints() {
-        return constraints;
-    }
-
-	/**
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     */
-	public void setConstraints(Rectangle newConstraints) {
-        Rectangle oldConstraints = constraints;
-        constraints = newConstraints;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__CONSTRAINTS, oldConstraints, constraints));
-    }
-
-	/**
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     */
 	public String getName() {
         return name;
     }
@@ -154,8 +112,6 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case OPMPackage.OPM_THING__CONSTRAINTS:
-                return getConstraints();
             case OPMPackage.OPM_THING__NAME:
                 return getName();
         }
@@ -171,9 +127,6 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	@Override
 	public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case OPMPackage.OPM_THING__CONSTRAINTS:
-                setConstraints((Rectangle)newValue);
-                return;
             case OPMPackage.OPM_THING__NAME:
                 setName((String)newValue);
                 return;
@@ -189,9 +142,6 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	@Override
 	public void eUnset(int featureID) {
         switch (featureID) {
-            case OPMPackage.OPM_THING__CONSTRAINTS:
-                setConstraints(CONSTRAINTS_EDEFAULT);
-                return;
             case OPMPackage.OPM_THING__NAME:
                 setName(NAME_EDEFAULT);
                 return;
@@ -207,8 +157,6 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	@Override
 	public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case OPMPackage.OPM_THING__CONSTRAINTS:
-                return CONSTRAINTS_EDEFAULT == null ? constraints != null : !CONSTRAINTS_EDEFAULT.equals(constraints);
             case OPMPackage.OPM_THING__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
         }
@@ -225,9 +173,7 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (constraints: ");
-        result.append(constraints);
-        result.append(", name: ");
+        result.append(" (name: ");
         result.append(name);
         result.append(')');
         return result.toString();

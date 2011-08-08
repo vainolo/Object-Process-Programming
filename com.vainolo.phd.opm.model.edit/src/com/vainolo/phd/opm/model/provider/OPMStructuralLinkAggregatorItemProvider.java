@@ -14,6 +14,7 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -108,7 +109,7 @@ public class OPMStructuralLinkAggregatorItemProvider
      */
 	@Override
 	public String getText(Object object) {
-        OPMStructuralLinkAggregatorKind labelValue = ((OPMStructuralLinkAggregator)object).getKind();
+        Rectangle labelValue = ((OPMStructuralLinkAggregator)object).getConstraints();
         String label = labelValue == null ? null : labelValue.toString();
         return label == null || label.length() == 0 ?
             getString("_UI_OPMStructuralLinkAggregator_type") :

@@ -136,13 +136,22 @@ public interface OPMPackage extends EPackage {
     int OPM_NODE__OPD = 2;
 
     /**
+     * The feature id for the '<em><b>Constraints</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_NODE__CONSTRAINTS = 3;
+
+    /**
      * The number of structural features of the '<em>Node</em>' class.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int OPM_NODE_FEATURE_COUNT = 3;
+	int OPM_NODE_FEATURE_COUNT = 4;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMThingImpl <em>Thing</em>}' class.
@@ -188,7 +197,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int OPM_THING__CONSTRAINTS = OPM_NODE_FEATURE_COUNT + 0;
+	int OPM_THING__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -197,7 +206,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 1;
+	int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 0;
 
 	/**
      * The number of structural features of the '<em>Thing</em>' class.
@@ -206,7 +215,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 2;
+	int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl <em>Object</em>}' class.
@@ -428,6 +437,15 @@ public interface OPMPackage extends EPackage {
      * @ordered
      */
     int OPM_STRUCTURAL_LINK_AGGREGATOR__OPD = OPM_NODE__OPD;
+
+    /**
+     * The feature id for the '<em><b>Constraints</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_STRUCTURAL_LINK_AGGREGATOR__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
 
     /**
      * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -670,17 +688,6 @@ public interface OPMPackage extends EPackage {
 	EClass getOPMThing();
 
 	/**
-     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMThing#getConstraints <em>Constraints</em>}'.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Constraints</em>'.
-     * @see com.vainolo.phd.opm.model.OPMThing#getConstraints()
-     * @see #getOPMThing()
-     * @generated
-     */
-	EAttribute getOPMThing_Constraints();
-
-	/**
      * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMThing#getName <em>Name</em>}'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -733,6 +740,17 @@ public interface OPMPackage extends EPackage {
      * @generated
      */
     EReference getOPMNode_Opd();
+
+    /**
+     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMNode#getConstraints <em>Constraints</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Constraints</em>'.
+     * @see com.vainolo.phd.opm.model.OPMNode#getConstraints()
+     * @see #getOPMNode()
+     * @generated
+     */
+    EAttribute getOPMNode_Constraints();
 
     /**
      * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator <em>Structural Link Aggregator</em>}'.
@@ -939,14 +957,6 @@ public interface OPMPackage extends EPackage {
 		EClass OPM_THING = eINSTANCE.getOPMThing();
 
 		/**
-         * The meta object literal for the '<em><b>Constraints</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-         * @generated
-         */
-		EAttribute OPM_THING__CONSTRAINTS = eINSTANCE.getOPMThing_Constraints();
-
-		/**
          * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
          * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -987,6 +997,14 @@ public interface OPMPackage extends EPackage {
          * @generated
          */
         EReference OPM_NODE__OPD = eINSTANCE.getOPMNode_Opd();
+
+        /**
+         * The meta object literal for the '<em><b>Constraints</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute OPM_NODE__CONSTRAINTS = eINSTANCE.getOPMNode_Constraints();
 
         /**
          * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMStructuralLinkAggregatorImpl <em>Structural Link Aggregator</em>}' class.

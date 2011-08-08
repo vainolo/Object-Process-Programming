@@ -5,13 +5,14 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMThing;
 
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
 
-import com.vainolo.phd.opm.gef.editor.command.OPMThingCreateCommand;
+import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMThingChangeConstraintCommand;
 
 /**
@@ -22,6 +23,8 @@ import com.vainolo.phd.opm.gef.editor.command.OPMThingChangeConstraintCommand;
  *
  */
 public class OPMObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
+    
+    private static final Dimension DEFAULT_THING_DIMENSION = new Dimension(50, 50);
 
 	/**
 	 * Command created the user requests to change the constraint (size, location) of an object that is
@@ -40,10 +43,10 @@ public class OPMObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
 	@Override protected Command getCreateCommand(CreateRequest request) {
 		Command retVal = null;
 		if(request.getNewObjectType().equals(OPMObject.class) || request.getNewObjectType().equals(OPMProcess.class)) {
-			OPMThingCreateCommand command = new OPMThingCreateCommand();
-			command.setLocation(request.getLocation());
+			OPMNodeCreateCommand command = new OPMNodeCreateCommand();
+			command.setConstraints(new Rectangle(request.getLocation(), DEFAULT_THING_DIMENSION));
 			command.setParent((OPMObjectProcessDiagram)(getHost().getModel()));
-			command.setThing((OPMThing)(request.getNewObject()));
+			command.setNode((OPMThing)(request.getNewObject()));
 			retVal = command;
 		} 
 		return retVal;

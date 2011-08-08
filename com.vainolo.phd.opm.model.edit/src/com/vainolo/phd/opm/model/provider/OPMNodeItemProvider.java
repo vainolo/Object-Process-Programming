@@ -7,11 +7,13 @@
 package com.vainolo.phd.opm.model.provider;
 
 
+import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMPackage;
 
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
@@ -24,7 +26,9 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
  * This is the item provider adapter for a {@link com.vainolo.phd.opm.model.OPMNode} object.
@@ -63,6 +67,7 @@ public class OPMNodeItemProvider
 
             addIncomingLinksPropertyDescriptor(object);
             addOutgoingLinksPropertyDescriptor(object);
+            addConstraintsPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -112,6 +117,28 @@ public class OPMNodeItemProvider
     }
 
 	/**
+     * This adds a property descriptor for the Constraints feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addConstraintsPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_OPMNode_constraints_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_OPMNode_constraints_feature", "_UI_OPMNode_type"),
+                 OPMPackage.Literals.OPM_NODE__CONSTRAINTS,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns OPMNode.gif.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -130,7 +157,11 @@ public class OPMNodeItemProvider
      */
 	@Override
 	public String getText(Object object) {
-        return getString("_UI_OPMNode_type");
+        Rectangle labelValue = ((OPMNode)object).getConstraints();
+        String label = labelValue == null ? null : labelValue.toString();
+        return label == null || label.length() == 0 ?
+            getString("_UI_OPMNode_type") :
+            getString("_UI_OPMNode_type") + " " + label;
     }
 
 	/**
@@ -143,6 +174,12 @@ public class OPMNodeItemProvider
 	@Override
 	public void notifyChanged(Notification notification) {
         updateChildren(notification);
+
+        switch (notification.getFeatureID(OPMNode.class)) {
+            case OPMPackage.OPM_NODE__CONSTRAINTS:
+                fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+                return;
+        }
         super.notifyChanged(notification);
     }
 
