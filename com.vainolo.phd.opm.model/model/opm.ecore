@@ -6,8 +6,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="OPMObjectProcessDiagram">
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//OPMLink" containment="true" eOpposite="#//OPMLink/opd"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="things" upperBound="-1"
-        eType="#//OPMThing" containment="true" eOpposite="#//OPMThing/opd"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
+        eType="#//OPMNode" containment="true" eOpposite="#//OPMNode/opd"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing"/>
@@ -25,8 +25,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"
         defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
-        eOpposite="#//OPMObjectProcessDiagram/things"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Rectangle" instanceClassName="org.eclipse.draw2d.geometry.Rectangle"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Point" instanceClassName="org.eclipse.draw2d.geometry.Point"/>
@@ -35,6 +33,8 @@
         eType="#//OPMLink" eOpposite="#//OPMLink/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingLinks" upperBound="-1"
         eType="#//OPMLink" eOpposite="#//OPMLink/source"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
+        eOpposite="#//OPMObjectProcessDiagram/nodes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLinkAggregator" eSuperTypes="#//OPMNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMStructuralLinkAggregatorKind"/>

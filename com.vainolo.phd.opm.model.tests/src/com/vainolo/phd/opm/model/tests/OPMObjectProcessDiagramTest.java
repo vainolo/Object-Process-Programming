@@ -22,72 +22,72 @@ import junit.textui.TestRunner;
 public class OPMObjectProcessDiagramTest extends TestCase {
 
 	/**
-	 * The fixture for this Object Process Diagram test case.
-	 * <!-- begin-user-doc -->
+     * The fixture for this Object Process Diagram test case.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected OPMObjectProcessDiagram fixture = null;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public static void main(String[] args) {
-		TestRunner.run(OPMObjectProcessDiagramTest.class);
-	}
+        TestRunner.run(OPMObjectProcessDiagramTest.class);
+    }
 
 	/**
-	 * Constructs a new Object Process Diagram test case with the given name.
-	 * <!-- begin-user-doc -->
+     * Constructs a new Object Process Diagram test case with the given name.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public OPMObjectProcessDiagramTest(String name) {
-		super(name);
-	}
+        super(name);
+    }
 
 	/**
-	 * Sets the fixture for this Object Process Diagram test case.
-	 * <!-- begin-user-doc -->
+     * Sets the fixture for this Object Process Diagram test case.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected void setFixture(OPMObjectProcessDiagram fixture) {
-		this.fixture = fixture;
-	}
+        this.fixture = fixture;
+    }
 
 	/**
-	 * Returns the fixture for this Object Process Diagram test case.
-	 * <!-- begin-user-doc -->
+     * Returns the fixture for this Object Process Diagram test case.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected OPMObjectProcessDiagram getFixture() {
-		return fixture;
-	}
+        return fixture;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see junit.framework.TestCase#setUp()
-	 * @generated
-	 */
+     * @see junit.framework.TestCase#setUp()
+     * @generated
+     */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OPMFactory.eINSTANCE.createOPMObjectProcessDiagram());
-	}
+        setFixture(OPMFactory.eINSTANCE.createOPMObjectProcessDiagram());
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see junit.framework.TestCase#tearDown()
-	 * @generated
-	 */
+     * @see junit.framework.TestCase#tearDown()
+     * @generated
+     */
 	@Override
 	protected void tearDown() throws Exception {
-		setFixture(null);
-	}
+        setFixture(null);
+    }
 
 } //OPMObjectProcessDiagramTest

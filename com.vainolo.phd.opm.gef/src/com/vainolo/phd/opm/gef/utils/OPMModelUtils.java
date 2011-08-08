@@ -15,13 +15,13 @@ public enum OPMModelUtils {
 		OPMObjectProcessDiagram opd = factory.createOPMObjectProcessDiagram();
 		OPMObject object1 = factory.createOPMObject();
 		object1.setName("O1");
-		opd.getThings().add(object1);
+		opd.getNodes().add(object1);
 		OPMObject object2 = factory.createOPMObject();
 		object2.setName("O2");
-		opd.getThings().add(object2);
+		opd.getNodes().add(object2);
 		OPMProcess process = factory.createOPMProcess();
 		process.setName("P1");
-		opd.getThings().add(process);
+		opd.getNodes().add(process);
 		OPMLink link = factory.createOPMLink();
 		link.setSource(object1);
 		link.setTarget(process);

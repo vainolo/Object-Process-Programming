@@ -8,10 +8,12 @@ package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -19,9 +21,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
@@ -33,6 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getIncomingLinks <em>Incoming Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getOutgoingLinks <em>Outgoing Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getOpd <em>Opd</em>}</li>
  * </ul>
  * </p>
  *
@@ -40,170 +45,241 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class OPMNodeImpl extends EObjectImpl implements OPMNode {
 	/**
-	 * The cached value of the '{@link #getIncomingLinks() <em>Incoming Links</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getIncomingLinks() <em>Incoming Links</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIncomingLinks()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getIncomingLinks()
+     * @generated
+     * @ordered
+     */
 	protected EList<OPMLink> incomingLinks;
 
 	/**
-	 * The cached value of the '{@link #getOutgoingLinks() <em>Outgoing Links</em>}' reference list.
-	 * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getOutgoingLinks() <em>Outgoing Links</em>}' reference list.
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getOutgoingLinks()
-	 * @generated
-	 * @ordered
-	 */
+     * @see #getOutgoingLinks()
+     * @generated
+     * @ordered
+     */
 	protected EList<OPMLink> outgoingLinks;
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	protected OPMNodeImpl() {
-		super();
-	}
+        super();
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	protected EClass eStaticClass() {
-		return OPMPackage.Literals.OPM_NODE;
-	}
+        return OPMPackage.Literals.OPM_NODE;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<OPMLink> getIncomingLinks() {
-		if (incomingLinks == null) {
-			incomingLinks = new EObjectWithInverseResolvingEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_NODE__INCOMING_LINKS, OPMPackage.OPM_LINK__TARGET);
-		}
-		return incomingLinks;
-	}
+        if (incomingLinks == null) {
+            incomingLinks = new EObjectWithInverseResolvingEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_NODE__INCOMING_LINKS, OPMPackage.OPM_LINK__TARGET);
+        }
+        return incomingLinks;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	public EList<OPMLink> getOutgoingLinks() {
-		if (outgoingLinks == null) {
-			outgoingLinks = new EObjectWithInverseResolvingEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_NODE__OUTGOING_LINKS, OPMPackage.OPM_LINK__SOURCE);
-		}
-		return outgoingLinks;
-	}
+        if (outgoingLinks == null) {
+            outgoingLinks = new EObjectWithInverseResolvingEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_NODE__OUTGOING_LINKS, OPMPackage.OPM_LINK__SOURCE);
+        }
+        return outgoingLinks;
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public OPMObjectProcessDiagram getOpd() {
+        if (eContainerFeatureID() != OPMPackage.OPM_NODE__OPD) return null;
+        return (OPMObjectProcessDiagram)eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetOpd(OPMObjectProcessDiagram newOpd, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newOpd, OPMPackage.OPM_NODE__OPD, msgs);
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOpd(OPMObjectProcessDiagram newOpd) {
+        if (newOpd != eInternalContainer() || (eContainerFeatureID() != OPMPackage.OPM_NODE__OPD && newOpd != null)) {
+            if (EcoreUtil.isAncestor(this, newOpd))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newOpd != null)
+                msgs = ((InternalEObject)newOpd).eInverseAdd(this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NODES, OPMObjectProcessDiagram.class, msgs);
+            msgs = basicSetOpd(newOpd, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NODE__OPD, newOpd, newOpd));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case OPMPackage.OPM_NODE__INCOMING_LINKS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getIncomingLinks()).basicAdd(otherEnd, msgs);
-			case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getOutgoingLinks()).basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getIncomingLinks()).basicAdd(otherEnd, msgs);
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getOutgoingLinks()).basicAdd(otherEnd, msgs);
+            case OPMPackage.OPM_NODE__OPD:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetOpd((OPMObjectProcessDiagram)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case OPMPackage.OPM_NODE__INCOMING_LINKS:
-				return ((InternalEList<?>)getIncomingLinks()).basicRemove(otherEnd, msgs);
-			case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-				return ((InternalEList<?>)getOutgoingLinks()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+        switch (featureID) {
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                return ((InternalEList<?>)getIncomingLinks()).basicRemove(otherEnd, msgs);
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                return ((InternalEList<?>)getOutgoingLinks()).basicRemove(otherEnd, msgs);
+            case OPMPackage.OPM_NODE__OPD:
+                return basicSetOpd(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+        switch (eContainerFeatureID()) {
+            case OPMPackage.OPM_NODE__OPD:
+                return eInternalContainer().eInverseRemove(this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NODES, OPMObjectProcessDiagram.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case OPMPackage.OPM_NODE__INCOMING_LINKS:
-				return getIncomingLinks();
-			case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-				return getOutgoingLinks();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+        switch (featureID) {
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                return getIncomingLinks();
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                return getOutgoingLinks();
+            case OPMPackage.OPM_NODE__OPD:
+                return getOpd();
+        }
+        return super.eGet(featureID, resolve, coreType);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case OPMPackage.OPM_NODE__INCOMING_LINKS:
-				getIncomingLinks().clear();
-				getIncomingLinks().addAll((Collection<? extends OPMLink>)newValue);
-				return;
-			case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-				getOutgoingLinks().clear();
-				getOutgoingLinks().addAll((Collection<? extends OPMLink>)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+        switch (featureID) {
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                getIncomingLinks().clear();
+                getIncomingLinks().addAll((Collection<? extends OPMLink>)newValue);
+                return;
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                getOutgoingLinks().clear();
+                getOutgoingLinks().addAll((Collection<? extends OPMLink>)newValue);
+                return;
+            case OPMPackage.OPM_NODE__OPD:
+                setOpd((OPMObjectProcessDiagram)newValue);
+                return;
+        }
+        super.eSet(featureID, newValue);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case OPMPackage.OPM_NODE__INCOMING_LINKS:
-				getIncomingLinks().clear();
-				return;
-			case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-				getOutgoingLinks().clear();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+        switch (featureID) {
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                getIncomingLinks().clear();
+                return;
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                getOutgoingLinks().clear();
+                return;
+            case OPMPackage.OPM_NODE__OPD:
+                setOpd((OPMObjectProcessDiagram)null);
+                return;
+        }
+        super.eUnset(featureID);
+    }
 
 	/**
-	 * <!-- begin-user-doc -->
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+     * @generated
+     */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case OPMPackage.OPM_NODE__INCOMING_LINKS:
-				return incomingLinks != null && !incomingLinks.isEmpty();
-			case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-				return outgoingLinks != null && !outgoingLinks.isEmpty();
-		}
-		return super.eIsSet(featureID);
-	}
+        switch (featureID) {
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                return incomingLinks != null && !incomingLinks.isEmpty();
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                return outgoingLinks != null && !outgoingLinks.isEmpty();
+            case OPMPackage.OPM_NODE__OPD:
+                return getOpd() != null;
+        }
+        return super.eIsSet(featureID);
+    }
 
 } //OPMNodeImpl
