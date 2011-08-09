@@ -97,6 +97,7 @@ public interface OPMNode extends EObject {
 
     /**
      * Returns the value of the '<em><b>Constraints</b></em>' attribute.
+     * The default value is <code>"0,0,50,50"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Constraints</em>' attribute isn't clear,
@@ -106,7 +107,7 @@ public interface OPMNode extends EObject {
      * @return the value of the '<em>Constraints</em>' attribute.
      * @see #setConstraints(Rectangle)
      * @see com.vainolo.phd.opm.model.OPMPackage#getOPMNode_Constraints()
-     * @model dataType="com.vainolo.phd.opm.model.Rectangle"
+     * @model default="0,0,50,50" dataType="com.vainolo.phd.opm.model.Rectangle"
      * @generated
      */
     Rectangle getConstraints();

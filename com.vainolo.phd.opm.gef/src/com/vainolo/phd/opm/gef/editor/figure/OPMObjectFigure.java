@@ -40,4 +40,14 @@ public class OPMObjectFigure extends Figure implements OPMThingFigure {
 		}
 		return connectionAnchor;
 	}
+
+    @Override
+    public ConnectionAnchor getSourceConnectionAnchor() {
+        return getConnectionAnchor();
+    }
+
+    @Override
+    public ConnectionAnchor getTargetConnectionAnchor() {
+        return getConnectionAnchor();
+    }
 }

@@ -34,10 +34,24 @@ public class OPMProcessFigure extends Figure implements OPMThingFigure {
 		return nameLabel;
 	}
 	
-	public ConnectionAnchor getConnectionAnchor() {
+	/**
+	 * Creates an {@link EllipseAnchor} on the figure.
+	 * @return an {@link EllipseAnchor} on the figure.
+	 */
+	private ConnectionAnchor getConnectionAnchor() {
 		if (connectionAnchor == null) {
 			connectionAnchor = new EllipseAnchor(this);
 		}
 		return connectionAnchor;
-	}		
+	}
+
+    @Override
+    public ConnectionAnchor getSourceConnectionAnchor() {
+        return getConnectionAnchor();
+    }
+
+    @Override
+    public ConnectionAnchor getTargetConnectionAnchor() {
+        return getConnectionAnchor();
+    }		
 }

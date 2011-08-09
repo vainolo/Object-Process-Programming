@@ -34,7 +34,8 @@
         eType="#//OPMLink" eOpposite="#//OPMLink/source"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
         eOpposite="#//OPMObjectProcessDiagram/nodes"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"
+        defaultValueLiteral="0,0,50,50"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLinkAggregator" eSuperTypes="#//OPMNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMStructuralLinkAggregatorKind"/>

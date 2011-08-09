@@ -2,19 +2,23 @@ package com.vainolo.phd.opm.gef.editor.part;
 
 import java.util.List;
 
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.NodeEditPart;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
+import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeComponentEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeGraphicalNodeEditPolicy;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
-import com.vainolo.phd.opm.model.OPMThing;
 
-public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart {
+public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
     public class OPMNodeAdapter implements Adapter {
     
@@ -81,6 +85,26 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart {
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMNodeComponentEditPolicy());
         installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMNodeGraphicalNodeEditPolicy());
+    }
+
+    @Override
+    public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
+    	return ((OPMNodeFigure)getFigure()).getSourceConnectionAnchor();
+    }
+
+    @Override
+    public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
+    	return ((OPMNodeFigure)getFigure()).getTargetConnectionAnchor();
+    }
+
+    @Override
+    public ConnectionAnchor getSourceConnectionAnchor(Request request) {
+    	return ((OPMNodeFigure)getFigure()).getSourceConnectionAnchor();
+    }
+
+    @Override
+    public ConnectionAnchor getTargetConnectionAnchor(Request request) {
+    	return ((OPMNodeFigure)getFigure()).getTargetConnectionAnchor();
     }
 
 }

@@ -1,22 +1,17 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
 
-import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Label;
-import org.eclipse.gef.ConnectionEditPart;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.TextCellEditor;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
-import com.vainolo.phd.opm.gef.editor.policy.OPMNodeComponentEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMThingDirectEditPolicy;
-import com.vainolo.phd.opm.gef.editor.policy.OPMNodeGraphicalNodeEditPolicy;
 import com.vainolo.phd.opm.model.OPMThing;
 
-public abstract class OPMThingEditPart extends OPMNodeEditPart implements NodeEditPart {
+public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
 	public OPMThingEditPart() {
 		super();
@@ -36,23 +31,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart implements NodeEd
 		parent.setLayoutConstraint(this, figure, model.getConstraints());
 	}
 
-	public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-		return ((OPMThingFigure)getFigure()).getConnectionAnchor();
-	}
-
-	public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-		return ((OPMThingFigure)getFigure()).getConnectionAnchor();
-	}
-
-	@Override public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-		return ((OPMThingFigure)getFigure()).getConnectionAnchor();
-	}
-
-	@Override public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-		return ((OPMThingFigure)getFigure()).getConnectionAnchor();
-	}	
-	
-    @Override public void performRequest(Request req) {
+	@Override public void performRequest(Request req) {
 		if(req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
 			performDirectEditing();
 		}

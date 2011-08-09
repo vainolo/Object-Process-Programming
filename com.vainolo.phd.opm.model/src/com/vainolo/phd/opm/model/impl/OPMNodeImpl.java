@@ -6,6 +6,7 @@
  */
 package com.vainolo.phd.opm.model.impl;
 
+import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -74,7 +75,7 @@ public class OPMNodeImpl extends EObjectImpl implements OPMNode {
      * @generated
      * @ordered
      */
-    protected static final Rectangle CONSTRAINTS_EDEFAULT = null;
+    protected static final Rectangle CONSTRAINTS_EDEFAULT = (Rectangle)OPMFactory.eINSTANCE.createFromString(OPMPackage.eINSTANCE.getRectangle(), "0,0,50,50");
 
     /**
      * The cached value of the '{@link #getConstraints() <em>Constraints</em>}' attribute.
