@@ -4,6 +4,7 @@ import org.eclipse.draw2d.AbstractConnectionAnchor;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -33,7 +34,7 @@ public class OPMStructuralLinkAggregatorFigure extends Figure implements OPMNode
     public OPMStructuralLinkAggregatorFigure(OPMStructuralLinkAggregatorKind kind) {
         setLayoutManager(new XYLayout());
         triangle = new IsoscelesTriangle();
-        triangle.setBackgroundColor(ColorConstants.black);
+        triangle.setFill(false);
         switch(kind) {
         case AGGREGATION:
             triangle.setFill(true);
@@ -43,7 +44,14 @@ public class OPMStructuralLinkAggregatorFigure extends Figure implements OPMNode
             triangle.setFill(false);
             break;
         }
-        add(triangle,new Rectangle(0,0,30,30));
+        add(triangle);
+    }
+    
+    @Override
+    protected void paintFigure(Graphics graphics) {
+        Rectangle bounds = getBounds().getCopy();
+        setConstraint(triangle, new Rectangle(0,0,bounds.width,bounds.height));
+        triangle.invalidate();
     }
     
     /**

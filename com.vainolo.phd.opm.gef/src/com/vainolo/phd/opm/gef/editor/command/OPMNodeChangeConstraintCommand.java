@@ -21,7 +21,15 @@ public class OPMNodeChangeConstraintCommand extends Command {
 	 */
 	@Override
 	public boolean canExecute() {
-	    return node != null && oldConstraint != null && newConstraint != null;
+	    return node != null && newConstraint != null;
+	}
+	
+	/**
+	 * Ther command can be undone if the node and old constraints are set.
+	 */
+	@Override
+	public boolean canUndo() {
+	    return node != null && oldConstraint != null;
 	}
 	
 	/**

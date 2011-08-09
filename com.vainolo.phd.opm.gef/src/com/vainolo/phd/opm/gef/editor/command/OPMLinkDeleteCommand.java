@@ -5,7 +5,6 @@ import org.eclipse.gef.commands.Command;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMLink;
-import com.vainolo.phd.opm.model.OPMThing;
 
 /**
  * Command used to delete a link.

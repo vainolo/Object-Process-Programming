@@ -4,16 +4,17 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.Shape;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
  * A triangle that uses all of its bounds to draw an isosceles triangle
  * in the figure's bounds, like this:
- * 
+ * <pre>
  *      ______
  *     |  /\  |
  *     | /  \ | (bounds shown as surrounding rectangle). 
  *     |/____\|
- * 
+ * </pre>
  * The implementation is based on the {@link org.eclipse.draw2d.Triangle} implementation.
  * 
  * @author vainolo
@@ -52,10 +53,12 @@ public final class IsoscelesTriangle extends Shape {
      */
     @Override public void validate() {
         super.validate();
-        bounds = getBounds().getCopy();
-        Point top = new Point(bounds.x+bounds.width/2, bounds.y);
-        Point left = new Point(bounds.x, bounds.y+bounds.height);
-        Point right = new Point(bounds.x+bounds.width, bounds.y+bounds.height);
+        Rectangle r = getBounds().getCopy();
+        r.shrink(getInsets());
+        r.resize(-1, -1);
+        Point top = new Point(r.x+r.width/2, r.y);
+        Point left = new Point(r.x, r.y+r.height);
+        Point right = new Point(r.x+r.width, r.y+r.height);
         triangle.removeAllPoints();
         triangle.addPoint(top);
         triangle.addPoint(left);
