@@ -42,7 +42,7 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 	@Override protected List<OPMNode> getModelChildren() {
 		OPMObjectProcessDiagram opd = (OPMObjectProcessDiagram) getModel();
 		List<OPMNode> nodes = new ArrayList<OPMNode>(opd.getNodes());
-		nodes.add(OPMFactory.eINSTANCE.createOPMStructuralLinkAggregator());
+//		nodes.add(OPMFactory.eINSTANCE.createOPMStructuralLinkAggregator());
 		return nodes;
 	}
 	

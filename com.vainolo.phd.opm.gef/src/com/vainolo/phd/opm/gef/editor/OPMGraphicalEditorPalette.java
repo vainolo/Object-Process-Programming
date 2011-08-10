@@ -7,8 +7,11 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.palette.SelectionToolEntry;
 
 import com.vainolo.phd.opm.gef.editor.factory.OPMAgentLinkFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMAggregationStructuralLinkAggregatorFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMConsumptionLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMEffectLinkFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMExhibitionStructuralLinkAggregatorFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMGeneralizationStructuralLinkAggregatorFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMInstrumentLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMObjectFactory;
@@ -30,6 +33,7 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 		addOPMProcessTool();
 		addOPMLinkTool();
 		addOPMProceduralLinkTools();
+		addOPMStructuralLinkTools();
 	}
 	
 	private void addSelectionTool() {
@@ -75,7 +79,19 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Effect", "Create a new Effect link", new OPMEffectLinkFactory(), null, null);
 		group.add(entry);
-		
+	}
+	
+	/**
+	 * Add tools to create structural links in the diagram.
+	 */
+	private void addOPMStructuralLinkTools() {
+	    ConnectionCreationToolEntry entry;
+	    entry = new ConnectionCreationToolEntry("Aggregation", "Create a new Aggregation link", new OPMAggregationStructuralLinkAggregatorFactory(), null, null);
+	    group.add(entry);
+        entry = new ConnectionCreationToolEntry("Exhibition", "Create a new Exhibition link", new OPMExhibitionStructuralLinkAggregatorFactory(), null, null);
+        group.add(entry);
+        entry = new ConnectionCreationToolEntry("Generalization", "Create a new Generalization link", new OPMGeneralizationStructuralLinkAggregatorFactory(), null, null);
+        group.add(entry);
 	}
 	
 }
