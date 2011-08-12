@@ -122,4 +122,20 @@ public interface OPMNode extends EObject {
      */
     void setConstraints(Rectangle value);
 
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model kind="operation" ordered="false"
+     * @generated
+     */
+    EList<OPMLink> getOutgoingStructuralLinks();
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model kind="operation" ordered="false"
+     * @generated
+     */
+    EList<OPMLink> getIncomingStructuralLinks();
+
 } // OPMNode

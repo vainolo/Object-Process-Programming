@@ -11,6 +11,7 @@ import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
+import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 
 import java.util.Collection;
 
@@ -18,6 +19,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -190,6 +192,44 @@ public class OPMNodeImpl extends EObjectImpl implements OPMNode {
         constraints = newConstraints;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NODE__CONSTRAINTS, oldConstraints, constraints));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * Return a list of outgoing links that start at this node and end
+     * in a {@link OPMStructuralLinkAggregator}.
+     * The current implementation calculates this list by calling 
+     * {@link OPMNodeImpl#getOutgoingLinks()} and filtering the result.
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public EList<OPMLink> getOutgoingStructuralLinks() {
+        EList<OPMLink> outgoingStructuralLinks = new BasicEList<OPMLink>();
+        for(OPMLink link : getOutgoingLinks()) {
+            if(link.getTarget() instanceof OPMStructuralLinkAggregator) {
+                outgoingStructuralLinks.add(link);
+            }
+        }
+        return outgoingStructuralLinks;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * Return a list of incoming links that start at a {@link OPMStructuralLinkAggregator} 
+     * and end at this node.
+     * The current implementation calculates this list by calling 
+     * {@link OPMNodeImpl#getIncomingLinks()} and filtering the results.
+     * <!-- end-user-doc -->
+     * @generated NOT
+     */
+    public EList<OPMLink> getIncomingStructuralLinks() {
+        EList<OPMLink> incomingStructuralLinks = new BasicEList<OPMLink>();
+        for(OPMLink link : getIncomingStructuralLinks()) {
+            if(link.getSource() instanceof OPMStructuralLinkAggregator) {
+                incomingStructuralLinks.add(link);
+            }
+        }
+        return incomingStructuralLinks;
     }
 
     /**

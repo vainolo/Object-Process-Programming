@@ -1,5 +1,7 @@
 package com.vainolo.phd.opm.gef.editor.policy;
 
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -9,6 +11,7 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
+import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
@@ -22,6 +25,8 @@ import com.vainolo.phd.opm.model.OPMThing;
  * @author vainolo
  */
 public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
+    
+    private static final Dimension DEFAULT_AGGREGATOR_DIMENSION = new Dimension(30, 30);
     
     /**
      * Create a command used to begin connecting to nodes.
@@ -74,7 +79,23 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
             OPMNodeCreateCommand command = new OPMNodeCreateCommand();
             command.setNode((OPMNode) request.getNewObject());
             command.setParent((OPMObjectProcessDiagram) getHost().getParent().getModel());
-            command.setConstraints(new Rectangle(0, 0, 50, 50));
+
+            // Calculate location of aggregator, between the source and target nodes.
+            Rectangle sourceConstraints = ((OPMNode)request.getSourceEditPart().getModel()).getConstraints();
+            Rectangle targetConstraints = ((OPMNode)request.getTargetEditPart().getModel()).getConstraints();
+            Point sourceCenter = new Point(sourceConstraints.x+sourceConstraints.width/2, sourceConstraints.y+sourceConstraints.height/2);
+            Point targetCenter = new Point(targetConstraints.x+targetConstraints.width/2, targetConstraints.y+targetConstraints.height/2);
+            Point aggregatorLeftTopCorner = new Point();
+            aggregatorLeftTopCorner.x = sourceCenter.x + (targetCenter.x-sourceCenter.x)/2 - DEFAULT_AGGREGATOR_DIMENSION.width/2;
+            aggregatorLeftTopCorner.y = sourceCenter.y + (targetCenter.y-sourceCenter.y)/2 - DEFAULT_AGGREGATOR_DIMENSION.height/2;
+            if(aggregatorLeftTopCorner.x < 0) {
+                aggregatorLeftTopCorner.x = 0;
+            }
+            if(aggregatorLeftTopCorner.y < 0) {
+                aggregatorLeftTopCorner.y = 0;
+            }
+            command.setConstraints(new Rectangle(aggregatorLeftTopCorner, DEFAULT_AGGREGATOR_DIMENSION));
+            
             return command;
         }
         

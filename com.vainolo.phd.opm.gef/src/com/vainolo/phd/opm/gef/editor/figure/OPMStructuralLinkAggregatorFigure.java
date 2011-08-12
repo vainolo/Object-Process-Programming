@@ -1,13 +1,18 @@
 package com.vainolo.phd.opm.gef.editor.figure;
 
 import org.eclipse.draw2d.AbstractConnectionAnchor;
+import org.eclipse.draw2d.BorderLayout;
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
+import org.eclipse.draw2d.Cursors;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
+import org.eclipse.draw2d.Orientable;
 import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.graphics.Cursor;
 
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
@@ -22,27 +27,40 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 public class OPMStructuralLinkAggregatorFigure extends Figure implements OPMNodeFigure {
     /** The triangle used as figure. */
     IsoscelesTriangle triangle;
+    /** The inner triangle used for an exhibition aggregator. */
+    IsoscelesTriangle innerTriangle;
     /** Anchor created at the center-top of the figure, used for target anchors. */
     private ConnectionAnchor topAnchor;
     /** Anchor created at the center-bottom of the figure, used for source anchors. */
     private ConnectionAnchor bottomAnchor;
+    /** The kind of aggregator this figure represents. */
+    OPMStructuralLinkAggregatorKind kind;
     
     /**
      * Create a new aggregator figure depending on the aggregator kind. 
      * @param kind the {@link OPMStructuralLinkAggregatorKind} of the figure.
      */
-    public OPMStructuralLinkAggregatorFigure(OPMStructuralLinkAggregatorKind kind) {
+    public OPMStructuralLinkAggregatorFigure(final OPMStructuralLinkAggregatorKind kind) {
+        this.kind = kind;
         setLayoutManager(new XYLayout());
         triangle = new IsoscelesTriangle();
-        triangle.setFill(false);
+        triangle.setBackgroundColor(ColorConstants.black);
         switch(kind) {
         case AGGREGATION:
             triangle.setFill(true);
             break;
         case GENERALIZATION:
-        case EXHIBITION:
             triangle.setFill(false);
             break;
+        case EXHIBITION:
+            triangle.setFill(false);
+            triangle.setLayoutManager(new XYLayout());
+            innerTriangle = new IsoscelesTriangle();
+            innerTriangle.setDirection(Orientable.NORTH);
+            triangle.add(innerTriangle);
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid aggregator kind: " + kind);
         }
         add(triangle);
     }
@@ -51,6 +69,9 @@ public class OPMStructuralLinkAggregatorFigure extends Figure implements OPMNode
     protected void paintFigure(Graphics graphics) {
         Rectangle bounds = getBounds().getCopy();
         setConstraint(triangle, new Rectangle(0,0,bounds.width,bounds.height));
+        if(kind == OPMStructuralLinkAggregatorKind.EXHIBITION) {
+            triangle.setConstraint(innerTriangle, new Rectangle(bounds.width/3, bounds.height/2, bounds.width/3, bounds.height/3));
+        }
         triangle.invalidate();
     }
     

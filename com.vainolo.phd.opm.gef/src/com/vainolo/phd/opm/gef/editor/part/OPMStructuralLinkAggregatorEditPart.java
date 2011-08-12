@@ -5,7 +5,6 @@ import org.eclipse.gef.GraphicalEditPart;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMStructuralLinkAggregatorFigure;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
-import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 
 public class OPMStructuralLinkAggregatorEditPart extends OPMNodeEditPart {
 
@@ -13,7 +12,8 @@ public class OPMStructuralLinkAggregatorEditPart extends OPMNodeEditPart {
     
     @Override
     protected IFigure createFigure() {
-        figure = new OPMStructuralLinkAggregatorFigure(OPMStructuralLinkAggregatorKind.AGGREGATION);
+        OPMStructuralLinkAggregator model = (OPMStructuralLinkAggregator) getModel();
+        figure = new OPMStructuralLinkAggregatorFigure(model.getKind());
         return figure;
     }
     

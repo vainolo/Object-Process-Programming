@@ -17,6 +17,13 @@ import junit.textui.TestRunner;
  * <!-- begin-user-doc -->
  * A test case for the model object '<em><b>Node</b></em>'.
  * <!-- end-user-doc -->
+ * <p>
+ * The following operations are tested:
+ * <ul>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingStructuralLinks() <em>Get Outgoing Structural Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getIncomingStructuralLinks() <em>Get Incoming Structural Links</em>}</li>
+ * </ul>
+ * </p>
  * @generated
  */
 public class OPMNodeTest extends TestCase {
@@ -88,6 +95,32 @@ public class OPMNodeTest extends TestCase {
 	@Override
 	protected void tearDown() throws Exception {
         setFixture(null);
+    }
+
+    /**
+     * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingStructuralLinks() <em>Get Outgoing Structural Links</em>}' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.OPMNode#getOutgoingStructuralLinks()
+     * @generated
+     */
+    public void testGetOutgoingStructuralLinks() {
+        // TODO: implement this operation test method
+        // Ensure that you remove @generated or mark it @generated NOT
+        fail();
+    }
+
+    /**
+     * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getIncomingStructuralLinks() <em>Get Incoming Structural Links</em>}' operation.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.OPMNode#getIncomingStructuralLinks()
+     * @generated
+     */
+    public void testGetIncomingStructuralLinks() {
+        // TODO: implement this operation test method
+        // Ensure that you remove @generated or mark it @generated NOT
+        fail();
     }
 
 } //OPMNodeTest
