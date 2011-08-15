@@ -224,7 +224,7 @@ public class OPMNodeImpl extends EObjectImpl implements OPMNode {
      */
     public EList<OPMLink> getIncomingStructuralLinks() {
         EList<OPMLink> incomingStructuralLinks = new BasicEList<OPMLink>();
-        for(OPMLink link : getIncomingStructuralLinks()) {
+        for(OPMLink link : getIncomingLinks()) {
             if(link.getSource() instanceof OPMStructuralLinkAggregator) {
                 incomingStructuralLinks.add(link);
             }
