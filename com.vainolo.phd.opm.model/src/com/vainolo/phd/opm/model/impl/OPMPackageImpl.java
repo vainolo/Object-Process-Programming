@@ -9,7 +9,6 @@ package com.vainolo.phd.opm.model.impl;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMLinkRouterKind;
-import com.vainolo.phd.opm.model.OPMLinkRouter;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
