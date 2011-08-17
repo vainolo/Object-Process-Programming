@@ -76,6 +76,14 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
                 return createOPMObjectProcessDiagramAdapter();
             }
             @Override
+            public Adapter caseOPMNode(OPMNode object) {
+                return createOPMNodeAdapter();
+            }
+            @Override
+            public Adapter caseOPMThing(OPMThing object) {
+                return createOPMThingAdapter();
+            }
+            @Override
             public Adapter caseOPMObject(OPMObject object) {
                 return createOPMObjectAdapter();
             }
@@ -84,20 +92,12 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
                 return createOPMProcessAdapter();
             }
             @Override
-            public Adapter caseOPMLink(OPMLink object) {
-                return createOPMLinkAdapter();
-            }
-            @Override
-            public Adapter caseOPMThing(OPMThing object) {
-                return createOPMThingAdapter();
-            }
-            @Override
-            public Adapter caseOPMNode(OPMNode object) {
-                return createOPMNodeAdapter();
-            }
-            @Override
             public Adapter caseOPMStructuralLinkAggregator(OPMStructuralLinkAggregator object) {
                 return createOPMStructuralLinkAggregatorAdapter();
+            }
+            @Override
+            public Adapter caseOPMLink(OPMLink object) {
+                return createOPMLinkAdapter();
             }
             @Override
             public Adapter caseOPMProceduralLink(OPMProceduralLink object) {

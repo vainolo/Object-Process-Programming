@@ -8,6 +8,8 @@ package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMLinkRouterKind;
+import com.vainolo.phd.opm.model.OPMLinkRouter;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -108,6 +110,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	private EEnum opmProceduralLinkKindEEnum = null;
 
 	/**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum opmLinkRouterKindEEnum = null;
+
+    /**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
@@ -274,6 +283,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 	/**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getOPMLink_RouterKind() {
+        return (EAttribute)opmLinkEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -391,6 +409,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 	/**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getOPMLinkRouterKind() {
+        return opmLinkRouterKindEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -439,27 +466,28 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__LINKS);
         createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__NODES);
 
-        opmObjectEClass = createEClass(OPM_OBJECT);
-
-        opmProcessEClass = createEClass(OPM_PROCESS);
-
-        opmLinkEClass = createEClass(OPM_LINK);
-        createEReference(opmLinkEClass, OPM_LINK__OPD);
-        createEReference(opmLinkEClass, OPM_LINK__SOURCE);
-        createEReference(opmLinkEClass, OPM_LINK__TARGET);
-        createEAttribute(opmLinkEClass, OPM_LINK__BENDPOINTS);
-
-        opmThingEClass = createEClass(OPM_THING);
-        createEAttribute(opmThingEClass, OPM_THING__NAME);
-
         opmNodeEClass = createEClass(OPM_NODE);
         createEReference(opmNodeEClass, OPM_NODE__INCOMING_LINKS);
         createEReference(opmNodeEClass, OPM_NODE__OUTGOING_LINKS);
         createEReference(opmNodeEClass, OPM_NODE__OPD);
         createEAttribute(opmNodeEClass, OPM_NODE__CONSTRAINTS);
 
+        opmThingEClass = createEClass(OPM_THING);
+        createEAttribute(opmThingEClass, OPM_THING__NAME);
+
+        opmObjectEClass = createEClass(OPM_OBJECT);
+
+        opmProcessEClass = createEClass(OPM_PROCESS);
+
         opmStructuralLinkAggregatorEClass = createEClass(OPM_STRUCTURAL_LINK_AGGREGATOR);
         createEAttribute(opmStructuralLinkAggregatorEClass, OPM_STRUCTURAL_LINK_AGGREGATOR__KIND);
+
+        opmLinkEClass = createEClass(OPM_LINK);
+        createEReference(opmLinkEClass, OPM_LINK__OPD);
+        createEReference(opmLinkEClass, OPM_LINK__SOURCE);
+        createEReference(opmLinkEClass, OPM_LINK__TARGET);
+        createEAttribute(opmLinkEClass, OPM_LINK__BENDPOINTS);
+        createEAttribute(opmLinkEClass, OPM_LINK__ROUTER_KIND);
 
         opmProceduralLinkEClass = createEClass(OPM_PROCEDURAL_LINK);
         createEAttribute(opmProceduralLinkEClass, OPM_PROCEDURAL_LINK__KIND);
@@ -467,10 +495,11 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         // Create enums
         opmStructuralLinkAggregatorKindEEnum = createEEnum(OPM_STRUCTURAL_LINK_AGGREGATOR_KIND);
         opmProceduralLinkKindEEnum = createEEnum(OPM_PROCEDURAL_LINK_KIND);
+        opmLinkRouterKindEEnum = createEEnum(OPM_LINK_ROUTER_KIND);
 
         // Create data types
-        rectangleEDataType = createEDataType(RECTANGLE);
         pointEDataType = createEDataType(POINT);
+        rectangleEDataType = createEDataType(RECTANGLE);
     }
 
 	/**
@@ -501,9 +530,9 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         // Set bounds for type parameters
 
         // Add supertypes to classes
+        opmThingEClass.getESuperTypes().add(this.getOPMNode());
         opmObjectEClass.getESuperTypes().add(this.getOPMThing());
         opmProcessEClass.getESuperTypes().add(this.getOPMThing());
-        opmThingEClass.getESuperTypes().add(this.getOPMNode());
         opmStructuralLinkAggregatorEClass.getESuperTypes().add(this.getOPMNode());
         opmProceduralLinkEClass.getESuperTypes().add(this.getOPMLink());
 
@@ -511,19 +540,6 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         initEClass(opmObjectProcessDiagramEClass, OPMObjectProcessDiagram.class, "OPMObjectProcessDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getOPMObjectProcessDiagram_Links(), this.getOPMLink(), this.getOPMLink_Opd(), "links", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getOPMObjectProcessDiagram_Nodes(), this.getOPMNode(), this.getOPMNode_Opd(), "nodes", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(opmProcessEClass, OPMProcess.class, "OPMProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(opmLinkEClass, OPMLink.class, "OPMLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getOPMLink_Opd(), this.getOPMObjectProcessDiagram(), this.getOPMObjectProcessDiagram_Links(), "opd", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getOPMLink_Source(), this.getOPMNode(), this.getOPMNode_OutgoingLinks(), "source", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getOPMLink_Target(), this.getOPMNode(), this.getOPMNode_IncomingLinks(), "target", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getOPMLink_Bendpoints(), this.getPoint(), "bendpoints", null, 0, -1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(opmThingEClass, OPMThing.class, "OPMThing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getOPMThing_Name(), ecorePackage.getEString(), "name", "<...>", 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(opmNodeEClass, OPMNode.class, "OPMNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getOPMNode_IncomingLinks(), this.getOPMLink(), this.getOPMLink_Target(), "incomingLinks", null, 0, -1, OPMNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -535,8 +551,22 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
         addEOperation(opmNodeEClass, this.getOPMLink(), "getIncomingStructuralLinks", 0, -1, IS_UNIQUE, !IS_ORDERED);
 
+        initEClass(opmThingEClass, OPMThing.class, "OPMThing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getOPMThing_Name(), ecorePackage.getEString(), "name", "<...>", 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(opmProcessEClass, OPMProcess.class, "OPMProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
         initEClass(opmStructuralLinkAggregatorEClass, OPMStructuralLinkAggregator.class, "OPMStructuralLinkAggregator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getOPMStructuralLinkAggregator_Kind(), this.getOPMStructuralLinkAggregatorKind(), "kind", null, 0, 1, OPMStructuralLinkAggregator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(opmLinkEClass, OPMLink.class, "OPMLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getOPMLink_Opd(), this.getOPMObjectProcessDiagram(), this.getOPMObjectProcessDiagram_Links(), "opd", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getOPMLink_Source(), this.getOPMNode(), this.getOPMNode_OutgoingLinks(), "source", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getOPMLink_Target(), this.getOPMNode(), this.getOPMNode_IncomingLinks(), "target", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getOPMLink_Bendpoints(), this.getPoint(), "bendpoints", null, 0, -1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getOPMLink_RouterKind(), this.getOPMLinkRouterKind(), "routerKind", "", 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(opmProceduralLinkEClass, OPMProceduralLink.class, "OPMProceduralLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getOPMProceduralLink_Kind(), this.getOPMProceduralLinkKind(), "kind", null, 0, 1, OPMProceduralLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -554,9 +584,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.EFFECT);
         addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.RESULT);
 
+        initEEnum(opmLinkRouterKindEEnum, OPMLinkRouterKind.class, "OPMLinkRouterKind");
+        addEEnumLiteral(opmLinkRouterKindEEnum, OPMLinkRouterKind.BENDPOINT);
+        addEEnumLiteral(opmLinkRouterKindEEnum, OPMLinkRouterKind.MANHATTAN);
+
         // Initialize data types
-        initEDataType(rectangleEDataType, Rectangle.class, "Rectangle", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
         initEDataType(pointEDataType, Point.class, "Point", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+        initEDataType(rectangleEDataType, Rectangle.class, "Rectangle", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

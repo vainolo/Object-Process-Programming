@@ -9,24 +9,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
         eType="#//OPMNode" containment="true" eOpposite="#//OPMNode/opd"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMLink">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
-        eOpposite="#//OPMObjectProcessDiagram/links"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//OPMNode"
-        eOpposite="#//OPMNode/outgoingLinks"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//OPMNode"
-        eOpposite="#//OPMNode/incomingLinks"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bendpoints" upperBound="-1"
-        eType="#//Point"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMThing" eSuperTypes="#//OPMNode">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        defaultValueLiteral="&lt;...>"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EDataType" name="Rectangle" instanceClassName="org.eclipse.draw2d.geometry.Rectangle"/>
-  <eClassifiers xsi:type="ecore:EDataType" name="Point" instanceClassName="org.eclipse.draw2d.geometry.Point"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMNode">
     <eOperations name="getOutgoingStructuralLinks" ordered="false" upperBound="-1"
         eType="#//OPMLink"/>
@@ -41,8 +23,26 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"
         defaultValueLiteral="0,0,50,50"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMThing" eSuperTypes="#//OPMNode">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="&lt;...>"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLinkAggregator" eSuperTypes="#//OPMNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMStructuralLinkAggregatorKind"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMLink">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
+        eOpposite="#//OPMObjectProcessDiagram/links"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//OPMNode"
+        eOpposite="#//OPMNode/outgoingLinks"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//OPMNode"
+        eOpposite="#//OPMNode/incomingLinks"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bendpoints" upperBound="-1"
+        eType="#//Point"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="routerKind" eType="#//OPMLinkRouterKind"
+        defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMProceduralLink" eSuperTypes="#//OPMLink">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMProceduralLinkKind"/>
@@ -59,4 +59,10 @@
     <eLiterals name="EFFECT" value="3" literal="Effect"/>
     <eLiterals name="RESULT" value="4" literal="Result"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OPMLinkRouterKind">
+    <eLiterals name="BENDPOINT" literal="Bendpoint"/>
+    <eLiterals name="MANHATTAN" value="1" literal="Manhattan"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Point" instanceClassName="org.eclipse.draw2d.geometry.Point"/>
+  <eClassifiers xsi:type="ecore:EDataType" name="Rectangle" instanceClassName="org.eclipse.draw2d.geometry.Rectangle"/>
 </ecore:EPackage>

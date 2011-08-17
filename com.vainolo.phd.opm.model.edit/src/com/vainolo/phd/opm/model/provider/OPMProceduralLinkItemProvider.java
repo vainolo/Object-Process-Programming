@@ -7,6 +7,7 @@
 package com.vainolo.phd.opm.model.provider;
 
 
+import com.vainolo.phd.opm.model.OPMLinkRouterKind;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
@@ -108,7 +109,7 @@ public class OPMProceduralLinkItemProvider
      */
 	@Override
 	public String getText(Object object) {
-        OPMProceduralLinkKind labelValue = ((OPMProceduralLink)object).getKind();
+        OPMLinkRouterKind labelValue = ((OPMProceduralLink)object).getRouterKind();
         String label = labelValue == null ? null : labelValue.toString();
         return label == null || label.length() == 0 ?
             getString("_UI_OPMProceduralLink_type") :

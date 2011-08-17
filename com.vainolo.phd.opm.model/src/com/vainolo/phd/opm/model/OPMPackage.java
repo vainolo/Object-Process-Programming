@@ -106,7 +106,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMNode()
      * @generated
      */
-	int OPM_NODE = 5;
+	int OPM_NODE = 1;
 
 	/**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
@@ -161,7 +161,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMThing()
      * @generated
      */
-	int OPM_THING = 4;
+	int OPM_THING = 2;
 
 	/**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
@@ -225,7 +225,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObject()
      * @generated
      */
-	int OPM_OBJECT = 1;
+	int OPM_OBJECT = 3;
 
 	/**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
@@ -289,7 +289,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProcess()
      * @generated
      */
-	int OPM_PROCESS = 2;
+	int OPM_PROCESS = 4;
 
 	/**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
@@ -353,53 +353,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLink()
      * @generated
      */
-	int OPM_LINK = 3;
-
-	/**
-     * The feature id for the '<em><b>Opd</b></em>' container reference.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-	int OPM_LINK__OPD = 0;
-
-	/**
-     * The feature id for the '<em><b>Source</b></em>' reference.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-	int OPM_LINK__SOURCE = 1;
-
-	/**
-     * The feature id for the '<em><b>Target</b></em>' reference.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-	int OPM_LINK__TARGET = 2;
-
-	/**
-     * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-	int OPM_LINK__BENDPOINTS = 3;
-
-	/**
-     * The number of structural features of the '<em>Link</em>' class.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-	int OPM_LINK_FEATURE_COUNT = 4;
-
+	int OPM_LINK = 6;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMStructuralLinkAggregatorImpl <em>Structural Link Aggregator</em>}' class.
@@ -409,7 +363,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregator()
      * @generated
      */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR = 6;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR = 5;
 
 	/**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
@@ -465,6 +419,60 @@ public interface OPMPackage extends EPackage {
      */
 	int OPM_STRUCTURAL_LINK_AGGREGATOR_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
 
+    /**
+     * The feature id for the '<em><b>Opd</b></em>' container reference.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+	int OPM_LINK__OPD = 0;
+
+    /**
+     * The feature id for the '<em><b>Source</b></em>' reference.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+	int OPM_LINK__SOURCE = 1;
+
+    /**
+     * The feature id for the '<em><b>Target</b></em>' reference.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+	int OPM_LINK__TARGET = 2;
+
+    /**
+     * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+	int OPM_LINK__BENDPOINTS = 3;
+
+    /**
+     * The feature id for the '<em><b>Router Kind</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_LINK__ROUTER_KIND = 4;
+
+    /**
+     * The number of structural features of the '<em>Link</em>' class.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+	int OPM_LINK_FEATURE_COUNT = 5;
+
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl <em>Procedural Link</em>}' class.
      * <!-- begin-user-doc -->
@@ -512,6 +520,15 @@ public interface OPMPackage extends EPackage {
 	int OPM_PROCEDURAL_LINK__BENDPOINTS = OPM_LINK__BENDPOINTS;
 
 	/**
+     * The feature id for the '<em><b>Router Kind</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_PROCEDURAL_LINK__ROUTER_KIND = OPM_LINK__ROUTER_KIND;
+
+    /**
      * The feature id for the '<em><b>Kind</b></em>' attribute.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -550,6 +567,16 @@ public interface OPMPackage extends EPackage {
 	int OPM_PROCEDURAL_LINK_KIND = 9;
 
 	/**
+     * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMLinkRouterKind <em>Link Router Kind</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.OPMLinkRouterKind
+     * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLinkRouterKind()
+     * @generated
+     */
+    int OPM_LINK_ROUTER_KIND = 10;
+
+    /**
      * The meta object id for the '<em>Rectangle</em>' data type.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -557,7 +584,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
      * @generated
      */
-	int RECTANGLE = 10;
+	int RECTANGLE = 12;
 
 
 	/**
@@ -678,6 +705,17 @@ public interface OPMPackage extends EPackage {
 	EAttribute getOPMLink_Bendpoints();
 
 	/**
+     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMLink#getRouterKind <em>Router Kind</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Router Kind</em>'.
+     * @see com.vainolo.phd.opm.model.OPMLink#getRouterKind()
+     * @see #getOPMLink()
+     * @generated
+     */
+    EAttribute getOPMLink_RouterKind();
+
+    /**
      * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMThing <em>Thing</em>}'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -815,6 +853,16 @@ public interface OPMPackage extends EPackage {
 	EEnum getOPMProceduralLinkKind();
 
 	/**
+     * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMLinkRouterKind <em>Link Router Kind</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>Link Router Kind</em>'.
+     * @see com.vainolo.phd.opm.model.OPMLinkRouterKind
+     * @generated
+     */
+    EEnum getOPMLinkRouterKind();
+
+    /**
      * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Rectangle</em>}'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -947,6 +995,14 @@ public interface OPMPackage extends EPackage {
 		EAttribute OPM_LINK__BENDPOINTS = eINSTANCE.getOPMLink_Bendpoints();
 
 		/**
+         * The meta object literal for the '<em><b>Router Kind</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute OPM_LINK__ROUTER_KIND = eINSTANCE.getOPMLink_RouterKind();
+
+        /**
          * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMThingImpl <em>Thing</em>}' class.
          * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1063,6 +1119,16 @@ public interface OPMPackage extends EPackage {
 		EEnum OPM_PROCEDURAL_LINK_KIND = eINSTANCE.getOPMProceduralLinkKind();
 
 		/**
+         * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMLinkRouterKind <em>Link Router Kind</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see com.vainolo.phd.opm.model.OPMLinkRouterKind
+         * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLinkRouterKind()
+         * @generated
+         */
+        EEnum OPM_LINK_ROUTER_KIND = eINSTANCE.getOPMLinkRouterKind();
+
+        /**
          * The meta object literal for the '<em>Rectangle</em>' data type.
          * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->

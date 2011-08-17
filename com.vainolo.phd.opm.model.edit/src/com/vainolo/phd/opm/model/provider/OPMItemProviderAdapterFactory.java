@@ -359,12 +359,12 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
      */
 	public void dispose() {
         if (opmObjectProcessDiagramItemProvider != null) opmObjectProcessDiagramItemProvider.dispose();
+        if (opmNodeItemProvider != null) opmNodeItemProvider.dispose();
+        if (opmThingItemProvider != null) opmThingItemProvider.dispose();
         if (opmObjectItemProvider != null) opmObjectItemProvider.dispose();
         if (opmProcessItemProvider != null) opmProcessItemProvider.dispose();
-        if (opmLinkItemProvider != null) opmLinkItemProvider.dispose();
-        if (opmThingItemProvider != null) opmThingItemProvider.dispose();
-        if (opmNodeItemProvider != null) opmNodeItemProvider.dispose();
         if (opmStructuralLinkAggregatorItemProvider != null) opmStructuralLinkAggregatorItemProvider.dispose();
+        if (opmLinkItemProvider != null) opmLinkItemProvider.dispose();
         if (opmProceduralLinkItemProvider != null) opmProceduralLinkItemProvider.dispose();
     }
 

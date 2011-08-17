@@ -15,6 +15,7 @@ import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMLinkRouterKind;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
@@ -118,6 +119,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
         OPMNode targetNode = (OPMNode) request.getTargetEditPart().getModel();
         OPMStructuralLinkAggregator aggregatorNode = (OPMStructuralLinkAggregator) request.getNewObject();
 
+        // Search for an outgoing structural link aggregator matching the requested kind.
         boolean aggregatorFound = false;
         for(OPMLink structuralLink : sourceNode.getOutgoingStructuralLinks()) {
             OPMStructuralLinkAggregator existingAggregator = (OPMStructuralLinkAggregator) structuralLink.getTarget();
@@ -129,12 +131,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
         if (aggregatorFound) {
             // Just create a link from the aggregator to the target.
-            OPMLinkCreateCommand linkCreateCommand = new OPMLinkCreateCommand();
-            linkCreateCommand.setSource(aggregatorNode);
-            linkCreateCommand.setTarget(targetNode);
-            linkCreateCommand.setOPD(aggregatorNode.getOpd());
-            linkCreateCommand.setLink(OPMFactory.eINSTANCE.createOPMLink());
-
+            OPMLinkCreateCommand linkCreateCommand = createCreateOPMLlinkCreateCommand(aggregatorNode, targetNode, aggregatorNode.getOpd());
             command = linkCreateCommand;
         } else {
             // Create a compound command consisting of three commands.
@@ -170,7 +167,9 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
         command.setSource(source);
         command.setTarget(target);
         command.setOPD(opd);
-        command.setLink(OPMFactory.eINSTANCE.createOPMLink());
+        OPMLink link = OPMFactory.eINSTANCE.createOPMLink();
+        link.setRouterKind(OPMLinkRouterKind.MANHATTAN);
+        command.setLink(link);
         return command;
     }
 

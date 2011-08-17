@@ -78,6 +78,19 @@ public class OPMSwitch<T> extends Switch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case OPMPackage.OPM_NODE: {
+                OPMNode opmNode = (OPMNode)theEObject;
+                T result = caseOPMNode(opmNode);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case OPMPackage.OPM_THING: {
+                OPMThing opmThing = (OPMThing)theEObject;
+                T result = caseOPMThing(opmThing);
+                if (result == null) result = caseOPMNode(opmThing);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case OPMPackage.OPM_OBJECT: {
                 OPMObject opmObject = (OPMObject)theEObject;
                 T result = caseOPMObject(opmObject);
@@ -94,29 +107,16 @@ public class OPMSwitch<T> extends Switch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case OPMPackage.OPM_LINK: {
-                OPMLink opmLink = (OPMLink)theEObject;
-                T result = caseOPMLink(opmLink);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case OPMPackage.OPM_THING: {
-                OPMThing opmThing = (OPMThing)theEObject;
-                T result = caseOPMThing(opmThing);
-                if (result == null) result = caseOPMNode(opmThing);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case OPMPackage.OPM_NODE: {
-                OPMNode opmNode = (OPMNode)theEObject;
-                T result = caseOPMNode(opmNode);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
             case OPMPackage.OPM_STRUCTURAL_LINK_AGGREGATOR: {
                 OPMStructuralLinkAggregator opmStructuralLinkAggregator = (OPMStructuralLinkAggregator)theEObject;
                 T result = caseOPMStructuralLinkAggregator(opmStructuralLinkAggregator);
                 if (result == null) result = caseOPMNode(opmStructuralLinkAggregator);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case OPMPackage.OPM_LINK: {
+                OPMLink opmLink = (OPMLink)theEObject;
+                T result = caseOPMLink(opmLink);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
