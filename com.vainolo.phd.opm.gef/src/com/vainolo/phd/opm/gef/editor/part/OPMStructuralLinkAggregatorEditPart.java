@@ -9,18 +9,17 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 public class OPMStructuralLinkAggregatorEditPart extends OPMNodeEditPart {
 
     private IFigure figure;
-    
+
     @Override
     protected IFigure createFigure() {
         OPMStructuralLinkAggregator model = (OPMStructuralLinkAggregator) getModel();
         figure = new OPMStructuralLinkAggregatorFigure(model.getKind());
         return figure;
     }
-    
+
     @Override
     protected void refreshVisuals() {
         OPMStructuralLinkAggregator model = (OPMStructuralLinkAggregator) getModel();
-        ((GraphicalEditPart)getParent()).setLayoutConstraint(this, figure, model.getConstraints());
+        ((GraphicalEditPart) getParent()).setLayoutConstraint(this, figure,model.getConstraints());
     }
-
 }

@@ -9,19 +9,22 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
- * A triangle that uses all of its bounds to draw an isosceles triangle
- * in the figure's bounds, like this:
+ * A triangle that uses all of its bounds to draw an isosceles triangle in the
+ * figure's bounds, like this:
+ * 
  * <pre>
  *      ______
  *     |  /\  |
  *     | /  \ | (bounds shown as surrounding rectangle). 
  *     |/____\|
  * </pre>
- * The implementation is based on the {@link org.eclipse.draw2d.Triangle} implementation.
+ * 
+ * The implementation is based on the {@link org.eclipse.draw2d.Triangle}
+ * implementation.
  * 
  * @author vainolo
- *
- */ 
+ * 
+ */
 public final class IsoscelesTriangle extends Shape implements Orientable {
     /** The points of the triangle. */
     protected PointList triangle = new PointList(3);
@@ -31,7 +34,7 @@ public final class IsoscelesTriangle extends Shape implements Orientable {
      * {@link PositionConstants#EAST} and {@link PositionConstants#WEST}.
      */
     protected int direction = NORTH;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -39,26 +42,29 @@ public final class IsoscelesTriangle extends Shape implements Orientable {
         super.primTranslate(dx, dy);
         triangle.translate(dx, dy);
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    @Override protected void outlineShape(Graphics graphics) {
+    @Override
+    protected void outlineShape(Graphics graphics) {
         graphics.drawPolygon(triangle);
     }
-    
+
     /**
      * {@inheritDoc}
      */
-    @Override protected void fillShape(Graphics graphics) {
+    @Override
+    protected void fillShape(Graphics graphics) {
         graphics.fillPolygon(triangle);
     }
 
     /**
-     * Validates the figure, drawing a vertical isosceles triangle filling the 
+     * Validates the figure, drawing a vertical isosceles triangle filling the
      * figure's bounds.
      */
-    @Override public void validate() {
+    @Override
+    public void validate() {
         super.validate();
         Rectangle r = getBounds().getCopy();
         r.shrink(getInsets());
@@ -66,24 +72,24 @@ public final class IsoscelesTriangle extends Shape implements Orientable {
         Point p1 = null, p2 = null, p3 = null;
         switch(direction) {
         case NORTH:
-            p1 = new Point(r.x+r.width/2, r.y);
-            p2 = new Point(r.x, r.y+r.height);
-            p3 = new Point(r.x+r.width, r.y+r.height);
+            p1 = new Point(r.x + r.width / 2, r.y);
+            p2 = new Point(r.x, r.y + r.height);
+            p3 = new Point(r.x + r.width, r.y + r.height);
             break;
         case SOUTH:
-            p1 = new Point(r.x+r.width/2, r.y+r.height);
+            p1 = new Point(r.x + r.width / 2, r.y + r.height);
             p2 = new Point(r.x, r.y);
-            p3 = new Point(r.x+r.width, r.y);
+            p3 = new Point(r.x + r.width, r.y);
             break;
         case EAST:
             p1 = new Point(r.x, r.y);
-            p2 = new Point(r.x+r.width, r.y+r.height/2);
-            p3 = new Point(r.x, r.y+r.height);
+            p2 = new Point(r.x + r.width, r.y + r.height / 2);
+            p3 = new Point(r.x, r.y + r.height);
             break;
         case WEST:
-            p1 = new Point(r.x+r.width, r.y);
-            p2 = new Point(r.x+r.width, r.y+r.height);
-            p3 = new Point(r.x, r.y+r.height/2);
+            p1 = new Point(r.x + r.width, r.y);
+            p2 = new Point(r.x + r.width, r.y + r.height);
+            p3 = new Point(r.x, r.y + r.height / 2);
         }
         triangle.removeAllPoints();
         triangle.addPoint(p1);
@@ -92,20 +98,22 @@ public final class IsoscelesTriangle extends Shape implements Orientable {
     }
 
     /**
-     * This functions is ignored. Use {@link IsoscelesTriangle#setDirection(int)}
-     * instead.
+     * This functions is ignored. Use
+     * {@link IsoscelesTriangle#setDirection(int)} instead.
      */
-    @Override @Deprecated
+    @Override
+    @Deprecated
     public void setOrientation(final int orientation) {
     }
 
-    /** 
+    /**
      * {@inheritDoc}
      */
     @Override
     public void setDirection(final int direction) {
-        if(direction != NORTH && direction != SOUTH && direction != EAST && direction != WEST) {
-            throw new IllegalArgumentException("Invalid direction "+direction);
+        if(direction != NORTH && direction != SOUTH && direction != EAST
+                && direction != WEST) {
+            throw new IllegalArgumentException("Invalid direction " + direction);
         }
         this.direction = direction;
         revalidate();

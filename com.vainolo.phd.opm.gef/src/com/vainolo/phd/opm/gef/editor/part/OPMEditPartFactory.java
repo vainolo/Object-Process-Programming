@@ -23,8 +23,7 @@ public class OPMEditPartFactory implements EditPartFactory {
 		} else if (model instanceof OPMProcess) {
 			part = new OPMProcessEditPart();
 		} else if (model instanceof OPMProceduralLink) {
-			// It is important for OPMProceduralLink to be before OPMLink
-			// because
+			// It is important for OPMProceduralLink to be before OPMLink because
 			// they have an is-a relation and we would get the wrong EditPart.
 			part = new OPMProceduralLinkEditPart();
 		} else if (model instanceof OPMLink) {
