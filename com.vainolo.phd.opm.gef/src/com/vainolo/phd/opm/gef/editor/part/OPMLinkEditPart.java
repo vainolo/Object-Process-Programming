@@ -43,7 +43,8 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 	 * <ol>
 	 *   <li>For the {@link EditPolicy#CONNECTION_ENDPOINTS_ROLE} a {@link ConnectionEndpoinEditPolicy}.</li>
 	 *   <li>For the {@link EditPolicy#CONNECTION_ROLE} a {@link OPMLinkConnectionEditPolicy}.</li>
-	 *   <li>For the {@link EditPolicy#CONNECTION_BENDPOINTS_ROLE} a {@link OPMLinkBendpointEditPolicy}.</li>
+	 *   <li>For the {@link EditPolicy#CONNECTION_BENDPOINTS_ROLE} a {@link OPMLinkBendpointEditPolicy} (for
+	 *   links that use a {@link BendpointConnectionRouter}).</li>
 	 * </ol>
 	 */
 	@Override protected void createEditPolicies() {
