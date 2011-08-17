@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLinks <em>Links</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNodes <em>Nodes</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface OPMObjectProcessDiagram extends EObject {
+public interface OPMObjectProcessDiagram extends OPMContainer {
 	/**
      * Returns the value of the '<em><b>Links</b></em>' containment reference list.
      * The list contents are of type {@link com.vainolo.phd.opm.model.OPMLink}.
@@ -45,23 +44,5 @@ public interface OPMObjectProcessDiagram extends EObject {
      * @generated
      */
 	EList<OPMLink> getLinks();
-
-	/**
-     * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.
-     * The list contents are of type {@link com.vainolo.phd.opm.model.OPMNode}.
-     * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMNode#getOpd <em>Opd</em>}'.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Nodes</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Nodes</em>' containment reference list.
-     * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObjectProcessDiagram_Nodes()
-     * @see com.vainolo.phd.opm.model.OPMNode#getOpd
-     * @model opposite="opd" containment="true"
-     * @generated
-     */
-    EList<OPMNode> getNodes();
 
 } // OPMObjectProcessDiagram

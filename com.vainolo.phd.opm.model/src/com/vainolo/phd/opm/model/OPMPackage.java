@@ -62,6 +62,34 @@ public interface OPMPackage extends EPackage {
 	OPMPackage eINSTANCE = com.vainolo.phd.opm.model.impl.OPMPackageImpl.init();
 
 	/**
+     * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMContainerImpl <em>Container</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.impl.OPMContainerImpl
+     * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMContainer()
+     * @generated
+     */
+    int OPM_CONTAINER = 0;
+
+    /**
+     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_CONTAINER__NODES = 0;
+
+    /**
+     * The number of structural features of the '<em>Container</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_CONTAINER_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl <em>Object Process Diagram</em>}' class.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,16 +97,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObjectProcessDiagram()
      * @generated
      */
-	int OPM_OBJECT_PROCESS_DIAGRAM = 0;
-
-	/**
-     * The feature id for the '<em><b>Links</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-	int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = 0;
+	int OPM_OBJECT_PROCESS_DIAGRAM = 1;
 
 	/**
      * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
@@ -87,7 +106,16 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int OPM_OBJECT_PROCESS_DIAGRAM__NODES = 1;
+    int OPM_OBJECT_PROCESS_DIAGRAM__NODES = OPM_CONTAINER__NODES;
+
+    /**
+     * The feature id for the '<em><b>Links</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+	int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>Object Process Diagram</em>' class.
@@ -96,7 +124,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = 2;
+	int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 1;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl <em>Node</em>}' class.
@@ -106,16 +134,25 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMNode()
      * @generated
      */
-	int OPM_NODE = 1;
+	int OPM_NODE = 2;
 
 	/**
+     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_NODE__NODES = OPM_CONTAINER__NODES;
+
+    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int OPM_NODE__INCOMING_LINKS = 0;
+	int OPM_NODE__INCOMING_LINKS = OPM_CONTAINER_FEATURE_COUNT + 0;
 
 	/**
      * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
@@ -124,16 +161,16 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int OPM_NODE__OUTGOING_LINKS = 1;
+	int OPM_NODE__OUTGOING_LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
 
 	/**
-     * The feature id for the '<em><b>Opd</b></em>' container reference.
+     * The feature id for the '<em><b>Container</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int OPM_NODE__OPD = 2;
+    int OPM_NODE__CONTAINER = OPM_CONTAINER_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Constraints</b></em>' attribute.
@@ -142,7 +179,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int OPM_NODE__CONSTRAINTS = 3;
+    int OPM_NODE__CONSTRAINTS = OPM_CONTAINER_FEATURE_COUNT + 3;
 
     /**
      * The number of structural features of the '<em>Node</em>' class.
@@ -151,7 +188,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int OPM_NODE_FEATURE_COUNT = 4;
+	int OPM_NODE_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 4;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMThingImpl <em>Thing</em>}' class.
@@ -161,9 +198,18 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMThing()
      * @generated
      */
-	int OPM_THING = 2;
+	int OPM_THING = 3;
 
 	/**
+     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_THING__NODES = OPM_NODE__NODES;
+
+    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -182,13 +228,13 @@ public interface OPMPackage extends EPackage {
 	int OPM_THING__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
 
 	/**
-     * The feature id for the '<em><b>Opd</b></em>' container reference.
+     * The feature id for the '<em><b>Container</b></em>' container reference.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int OPM_THING__OPD = OPM_NODE__OPD;
+    int OPM_THING__CONTAINER = OPM_NODE__CONTAINER;
 
     /**
      * The feature id for the '<em><b>Constraints</b></em>' attribute.
@@ -225,9 +271,18 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObject()
      * @generated
      */
-	int OPM_OBJECT = 3;
+	int OPM_OBJECT = 4;
 
 	/**
+     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_OBJECT__NODES = OPM_THING__NODES;
+
+    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -246,13 +301,13 @@ public interface OPMPackage extends EPackage {
 	int OPM_OBJECT__OUTGOING_LINKS = OPM_THING__OUTGOING_LINKS;
 
 	/**
-     * The feature id for the '<em><b>Opd</b></em>' container reference.
+     * The feature id for the '<em><b>Container</b></em>' container reference.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int OPM_OBJECT__OPD = OPM_THING__OPD;
+    int OPM_OBJECT__CONTAINER = OPM_THING__CONTAINER;
 
     /**
      * The feature id for the '<em><b>Constraints</b></em>' attribute.
@@ -289,9 +344,18 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProcess()
      * @generated
      */
-	int OPM_PROCESS = 4;
+	int OPM_PROCESS = 5;
 
 	/**
+     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_PROCESS__NODES = OPM_THING__NODES;
+
+    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -310,13 +374,13 @@ public interface OPMPackage extends EPackage {
 	int OPM_PROCESS__OUTGOING_LINKS = OPM_THING__OUTGOING_LINKS;
 
 	/**
-     * The feature id for the '<em><b>Opd</b></em>' container reference.
+     * The feature id for the '<em><b>Container</b></em>' container reference.
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int OPM_PROCESS__OPD = OPM_THING__OPD;
+    int OPM_PROCESS__CONTAINER = OPM_THING__CONTAINER;
 
     /**
      * The feature id for the '<em><b>Constraints</b></em>' attribute.
@@ -353,7 +417,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLink()
      * @generated
      */
-	int OPM_LINK = 6;
+	int OPM_LINK = 7;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMStructuralLinkAggregatorImpl <em>Structural Link Aggregator</em>}' class.
@@ -363,9 +427,18 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregator()
      * @generated
      */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR = 5;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR = 6;
 
 	/**
+     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_STRUCTURAL_LINK_AGGREGATOR__NODES = OPM_NODE__NODES;
+
+    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -384,13 +457,13 @@ public interface OPMPackage extends EPackage {
 	int OPM_STRUCTURAL_LINK_AGGREGATOR__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
 
 	/**
-     * The feature id for the '<em><b>Opd</b></em>' container reference.
+     * The feature id for the '<em><b>Container</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int OPM_STRUCTURAL_LINK_AGGREGATOR__OPD = OPM_NODE__OPD;
+    int OPM_STRUCTURAL_LINK_AGGREGATOR__CONTAINER = OPM_NODE__CONTAINER;
 
     /**
      * The feature id for the '<em><b>Constraints</b></em>' attribute.
@@ -481,7 +554,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLink()
      * @generated
      */
-	int OPM_PROCEDURAL_LINK = 7;
+	int OPM_PROCEDURAL_LINK = 8;
 
 	/**
      * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -554,7 +627,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregatorKind()
      * @generated
      */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 8;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 9;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
@@ -564,7 +637,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLinkKind()
      * @generated
      */
-	int OPM_PROCEDURAL_LINK_KIND = 9;
+	int OPM_PROCEDURAL_LINK_KIND = 10;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMLinkRouterKind <em>Link Router Kind</em>}' enum.
@@ -574,7 +647,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLinkRouterKind()
      * @generated
      */
-    int OPM_LINK_ROUTER_KIND = 10;
+    int OPM_LINK_ROUTER_KIND = 11;
 
     /**
      * The meta object id for the '<em>Rectangle</em>' data type.
@@ -584,10 +657,31 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
      * @generated
      */
-	int RECTANGLE = 12;
+	int RECTANGLE = 13;
 
 
 	/**
+     * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMContainer <em>Container</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Container</em>'.
+     * @see com.vainolo.phd.opm.model.OPMContainer
+     * @generated
+     */
+    EClass getOPMContainer();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link com.vainolo.phd.opm.model.OPMContainer#getNodes <em>Nodes</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Nodes</em>'.
+     * @see com.vainolo.phd.opm.model.OPMContainer#getNodes()
+     * @see #getOPMContainer()
+     * @generated
+     */
+    EReference getOPMContainer_Nodes();
+
+    /**
      * The meta object id for the '<em>Point</em>' data type.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -595,7 +689,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
      * @generated
      */
-	int POINT = 11;
+	int POINT = 12;
 
 
 	/**
@@ -620,17 +714,6 @@ public interface OPMPackage extends EPackage {
 	EReference getOPMObjectProcessDiagram_Links();
 
 	/**
-     * Returns the meta object for the containment reference list '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNodes <em>Nodes</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Nodes</em>'.
-     * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNodes()
-     * @see #getOPMObjectProcessDiagram()
-     * @generated
-     */
-    EReference getOPMObjectProcessDiagram_Nodes();
-
-    /**
      * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMObject <em>Object</em>}'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -769,15 +852,15 @@ public interface OPMPackage extends EPackage {
 	EReference getOPMNode_OutgoingLinks();
 
 	/**
-     * Returns the meta object for the container reference '{@link com.vainolo.phd.opm.model.OPMNode#getOpd <em>Opd</em>}'.
+     * Returns the meta object for the container reference '{@link com.vainolo.phd.opm.model.OPMNode#getContainer <em>Container</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the container reference '<em>Opd</em>'.
-     * @see com.vainolo.phd.opm.model.OPMNode#getOpd()
+     * @return the meta object for the container reference '<em>Container</em>'.
+     * @see com.vainolo.phd.opm.model.OPMNode#getContainer()
      * @see #getOPMNode()
      * @generated
      */
-    EReference getOPMNode_Opd();
+    EReference getOPMNode_Container();
 
     /**
      * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMNode#getConstraints <em>Constraints</em>}'.
@@ -907,6 +990,24 @@ public interface OPMPackage extends EPackage {
      */
 	interface Literals {
 		/**
+         * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMContainerImpl <em>Container</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see com.vainolo.phd.opm.model.impl.OPMContainerImpl
+         * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMContainer()
+         * @generated
+         */
+        EClass OPM_CONTAINER = eINSTANCE.getOPMContainer();
+
+        /**
+         * The meta object literal for the '<em><b>Nodes</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference OPM_CONTAINER__NODES = eINSTANCE.getOPMContainer_Nodes();
+
+        /**
          * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl <em>Object Process Diagram</em>}' class.
          * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -925,14 +1026,6 @@ public interface OPMPackage extends EPackage {
 		EReference OPM_OBJECT_PROCESS_DIAGRAM__LINKS = eINSTANCE.getOPMObjectProcessDiagram_Links();
 
 		/**
-         * The meta object literal for the '<em><b>Nodes</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference OPM_OBJECT_PROCESS_DIAGRAM__NODES = eINSTANCE.getOPMObjectProcessDiagram_Nodes();
-
-        /**
          * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl <em>Object</em>}' class.
          * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1047,12 +1140,12 @@ public interface OPMPackage extends EPackage {
 		EReference OPM_NODE__OUTGOING_LINKS = eINSTANCE.getOPMNode_OutgoingLinks();
 
 		/**
-         * The meta object literal for the '<em><b>Opd</b></em>' container reference feature.
+         * The meta object literal for the '<em><b>Container</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference OPM_NODE__OPD = eINSTANCE.getOPMNode_Opd();
+        EReference OPM_NODE__CONTAINER = eINSTANCE.getOPMNode_Container();
 
         /**
          * The meta object literal for the '<em><b>Constraints</b></em>' attribute feature.

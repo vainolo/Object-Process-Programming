@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
 
+import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -21,8 +22,8 @@ public final class OPMNodeDeleteCommand extends Command {
 	
     /** Node to be deleted. */
 	private OPMNode node;
-	/** OPD that owns the node. */
-	private OPMObjectProcessDiagram opd;
+	/** Container of the node. */
+	private OPMContainer container;
 	/** Incoming and outgoing links. */
 	private List<OPMLink> links;
 	/** Sources for the links that start or end at this node. */
@@ -33,13 +34,13 @@ public final class OPMNodeDeleteCommand extends Command {
 	@Override
 	public void execute() {
 		detachLinks();
-		node.setOpd(null);
+		node.setContainer(null);
 	}
 
 	@Override
 	public void undo() {
 		reattachLinks();
-		node.setOpd(opd);
+		node.setContainer(container);
 	}
 
 	/**
@@ -69,7 +70,13 @@ public final class OPMNodeDeleteCommand extends Command {
 		for (OPMLink link : links) {
 			link.setSource(linkSources.get(link));
 			link.setTarget(linkTargets.get(link));
-			link.setOpd(opd);
+			if(container instanceof OPMObjectProcessDiagram) {
+			    link.setOpd((OPMObjectProcessDiagram) container);
+			} else {
+			    OPMNode containerNode = (OPMNode) container;
+			    link.setOpd(containerNode.getOpd());
+			}
+			
 		}
 	}
 	
@@ -79,6 +86,6 @@ public final class OPMNodeDeleteCommand extends Command {
 	 */
 	public void setNode(final OPMNode node) {
 		this.node = node;
-		this.opd = node.getOpd();
+		this.container = node.getContainer();
 	}
 }

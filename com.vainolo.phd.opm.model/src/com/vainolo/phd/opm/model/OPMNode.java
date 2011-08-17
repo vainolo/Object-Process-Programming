@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getIncomingLinks <em>Incoming Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingLinks <em>Outgoing Links</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getOpd <em>Opd</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getContainer <em>Container</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getConstraints <em>Constraints</em>}</li>
  * </ul>
  * </p>
@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface OPMNode extends EObject {
+public interface OPMNode extends OPMContainer {
 	/**
      * Returns the value of the '<em><b>Incoming Links</b></em>' reference list.
      * The list contents are of type {@link com.vainolo.phd.opm.model.OPMLink}.
@@ -68,32 +68,32 @@ public interface OPMNode extends EObject {
 	EList<OPMLink> getOutgoingLinks();
 
     /**
-     * Returns the value of the '<em><b>Opd</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNodes <em>Nodes</em>}'.
+     * Returns the value of the '<em><b>Container</b></em>' container reference.
+     * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMContainer#getNodes <em>Nodes</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Opd</em>' container reference isn't clear,
+     * If the meaning of the '<em>Container</em>' container reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Opd</em>' container reference.
-     * @see #setOpd(OPMObjectProcessDiagram)
-     * @see com.vainolo.phd.opm.model.OPMPackage#getOPMNode_Opd()
-     * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNodes
+     * @return the value of the '<em>Container</em>' container reference.
+     * @see #setContainer(OPMContainer)
+     * @see com.vainolo.phd.opm.model.OPMPackage#getOPMNode_Container()
+     * @see com.vainolo.phd.opm.model.OPMContainer#getNodes
      * @model opposite="nodes" transient="false"
      * @generated
      */
-    OPMObjectProcessDiagram getOpd();
+    OPMContainer getContainer();
 
     /**
-     * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMNode#getOpd <em>Opd</em>}' container reference.
+     * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMNode#getContainer <em>Container</em>}' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Opd</em>' container reference.
-     * @see #getOpd()
+     * @param value the new value of the '<em>Container</em>' container reference.
+     * @see #getContainer()
      * @generated
      */
-    void setOpd(OPMObjectProcessDiagram value);
+    void setContainer(OPMContainer value);
 
     /**
      * Returns the value of the '<em><b>Constraints</b></em>' attribute.
@@ -137,5 +137,13 @@ public interface OPMNode extends EObject {
      * @generated
      */
     EList<OPMLink> getIncomingStructuralLinks();
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @model kind="operation"
+     * @generated
+     */
+    OPMObjectProcessDiagram getOpd();
 
 } // OPMNode

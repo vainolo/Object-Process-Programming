@@ -3,23 +3,26 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="opm"
     nsURI="www.vainolo.com/phd/opm" nsPrefix="opm">
-  <eClassifiers xsi:type="ecore:EClass" name="OPMObjectProcessDiagram">
+  <eClassifiers xsi:type="ecore:EClass" name="OPMContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
+        eType="#//OPMNode" containment="true" eOpposite="#//OPMNode/container"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMObjectProcessDiagram" eSuperTypes="#//OPMContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//OPMLink" containment="true" eOpposite="#//OPMLink/opd"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
-        eType="#//OPMNode" containment="true" eOpposite="#//OPMNode/opd"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMNode">
+  <eClassifiers xsi:type="ecore:EClass" name="OPMNode" eSuperTypes="#//OPMContainer">
     <eOperations name="getOutgoingStructuralLinks" ordered="false" upperBound="-1"
         eType="#//OPMLink"/>
     <eOperations name="getIncomingStructuralLinks" ordered="false" upperBound="-1"
         eType="#//OPMLink"/>
+    <eOperations name="getOpd" eType="#//OPMObjectProcessDiagram"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="incomingLinks" upperBound="-1"
         eType="#//OPMLink" eOpposite="#//OPMLink/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingLinks" upperBound="-1"
         eType="#//OPMLink" eOpposite="#//OPMLink/source"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPMObjectProcessDiagram"
-        eOpposite="#//OPMObjectProcessDiagram/nodes"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="container" eType="#//OPMContainer"
+        eOpposite="#//OPMContainer/nodes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"
         defaultValueLiteral="0,0,50,50"/>
   </eClassifiers>

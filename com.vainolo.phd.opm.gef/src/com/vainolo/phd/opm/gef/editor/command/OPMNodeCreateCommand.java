@@ -3,6 +3,7 @@ package com.vainolo.phd.opm.gef.editor.command;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.commands.Command;
 
+import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
@@ -15,14 +16,14 @@ public class OPMNodeCreateCommand extends Command {
 	
 	private OPMNode node;
 	private Rectangle constraints;
-	private OPMObjectProcessDiagram opd;
+	private OPMContainer container;
 
 	/** 
 	 * The command can be executed if all parameters have been set.
 	 */
 	@Override
 	public boolean canExecute() {
-	    return node != null && constraints != null && opd != null;
+	    return node != null && constraints != null && container != null;
 	}
 	
 	/**
@@ -31,14 +32,14 @@ public class OPMNodeCreateCommand extends Command {
 	 */
 	@Override public void execute() {
 	    node.setConstraints(constraints);
-		node.setOpd(opd);
+		node.setContainer(container);
 	}
 	
 	/**
 	 * Remove the {@link OPMNode} from the container {@link OPMObjectProcessDiagram}.
 	 */
 	@Override public void undo() {
-		node.setOpd(null);
+		node.setContainer(null);
 	}
 
 	// TODO change multiple functions to one setParameters function.
@@ -46,8 +47,8 @@ public class OPMNodeCreateCommand extends Command {
 	    this.constraints = constraints;
 	}
 	
-	public void setParent(final OPMObjectProcessDiagram opd) {
-		this.opd = opd;
+	public void setContainer(final OPMContainer opd) {
+		this.container = opd;
 	}
 	
 	public void setNode(final OPMNode node) {

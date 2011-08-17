@@ -34,13 +34,12 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getLinks <em>Links</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getNodes <em>Nodes</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjectProcessDiagram {
+public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPMObjectProcessDiagram {
 	/**
      * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -52,16 +51,6 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 	protected EList<OPMLink> links;
 
 	/**
-     * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getNodes()
-     * @generated
-     * @ordered
-     */
-    protected EList<OPMNode> nodes;
-
-    /**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
@@ -94,18 +83,6 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
 
 	/**
      * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList<OPMNode> getNodes() {
-        if (nodes == null) {
-            nodes = new EObjectContainmentWithInverseEList<OPMNode>(OPMNode.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NODES, OPMPackage.OPM_NODE__OPD);
-        }
-        return nodes;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -115,8 +92,6 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
         switch (featureID) {
             case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
                 return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinks()).basicAdd(otherEnd, msgs);
-            case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NODES:
-                return ((InternalEList<InternalEObject>)(InternalEList<?>)getNodes()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -131,8 +106,6 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
         switch (featureID) {
             case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
                 return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
-            case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NODES:
-                return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -147,8 +120,6 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
         switch (featureID) {
             case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
                 return getLinks();
-            case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NODES:
-                return getNodes();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -166,10 +137,6 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
                 getLinks().clear();
                 getLinks().addAll((Collection<? extends OPMLink>)newValue);
                 return;
-            case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NODES:
-                getNodes().clear();
-                getNodes().addAll((Collection<? extends OPMNode>)newValue);
-                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -185,9 +152,6 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
             case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
                 getLinks().clear();
                 return;
-            case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NODES:
-                getNodes().clear();
-                return;
         }
         super.eUnset(featureID);
     }
@@ -202,8 +166,6 @@ public class OPMObjectProcessDiagramImpl extends EObjectImpl implements OPMObjec
         switch (featureID) {
             case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
                 return links != null && !links.isEmpty();
-            case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NODES:
-                return nodes != null && !nodes.isEmpty();
         }
         return super.eIsSet(featureID);
     }

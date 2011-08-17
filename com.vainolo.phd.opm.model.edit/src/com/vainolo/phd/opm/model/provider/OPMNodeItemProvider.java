@@ -37,7 +37,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class OPMNodeItemProvider
-	extends ItemProviderAdapter
+	extends OPMContainerItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -193,17 +193,6 @@ public class OPMNodeItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
         super.collectNewChildDescriptors(newChildDescriptors, object);
-    }
-
-	/**
-     * Return the resource locator for this item provider's resources.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     */
-	@Override
-	public ResourceLocator getResourceLocator() {
-        return OPMEditPlugin.INSTANCE;
     }
 
 }

@@ -19,15 +19,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMObjectProcessDiagramTest extends TestCase {
-
-	/**
-     * The fixture for this Object Process Diagram test case.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     */
-	protected OPMObjectProcessDiagram fixture = null;
+public class OPMObjectProcessDiagramTest extends OPMContainerTest {
 
 	/**
      * <!-- begin-user-doc -->
@@ -49,23 +41,14 @@ public class OPMObjectProcessDiagramTest extends TestCase {
     }
 
 	/**
-     * Sets the fixture for this Object Process Diagram test case.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     */
-	protected void setFixture(OPMObjectProcessDiagram fixture) {
-        this.fixture = fixture;
-    }
-
-	/**
      * Returns the fixture for this Object Process Diagram test case.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
-	protected OPMObjectProcessDiagram getFixture() {
-        return fixture;
+	@Override
+    protected OPMObjectProcessDiagram getFixture() {
+        return (OPMObjectProcessDiagram)fixture;
     }
 
 	/**

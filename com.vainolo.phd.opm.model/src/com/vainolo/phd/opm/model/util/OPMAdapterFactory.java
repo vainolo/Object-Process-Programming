@@ -72,6 +72,10 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 	protected OPMSwitch<Adapter> modelSwitch =
 		new OPMSwitch<Adapter>() {
             @Override
+            public Adapter caseOPMContainer(OPMContainer object) {
+                return createOPMContainerAdapter();
+            }
+            @Override
             public Adapter caseOPMObjectProcessDiagram(OPMObjectProcessDiagram object) {
                 return createOPMObjectProcessDiagramAdapter();
             }
@@ -124,6 +128,20 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
+     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMContainer <em>Container</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see com.vainolo.phd.opm.model.OPMContainer
+     * @generated
+     */
+    public Adapter createOPMContainerAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram <em>Object Process Diagram</em>}'.
      * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;

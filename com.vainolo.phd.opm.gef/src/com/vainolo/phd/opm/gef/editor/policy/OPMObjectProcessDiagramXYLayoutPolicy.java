@@ -49,7 +49,7 @@ public class OPMObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
 		if(request.getNewObjectType().equals(OPMObject.class) || request.getNewObjectType().equals(OPMProcess.class)) {
 			OPMNodeCreateCommand command = new OPMNodeCreateCommand();
 			command.setConstraints(new Rectangle(request.getLocation(), DEFAULT_THING_DIMENSION));
-			command.setParent((OPMObjectProcessDiagram)(getHost().getModel()));
+			command.setContainer((OPMObjectProcessDiagram)(getHost().getModel()));
 			command.setNode((OPMNode)(request.getNewObject()));
 			retVal = command;
 		} 
