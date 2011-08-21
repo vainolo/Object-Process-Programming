@@ -12,7 +12,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
-import com.vainolo.phd.opm.gef.editor.policy.OPMObjectProcessDiagramXYLayoutPolicy;
+import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
@@ -35,7 +35,7 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
 	@Override 
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMObjectProcessDiagramXYLayoutPolicy());
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMContainerXYLayoutPolicy());
 	}
 	
 	@Override protected List<OPMNode> getModelChildren() {

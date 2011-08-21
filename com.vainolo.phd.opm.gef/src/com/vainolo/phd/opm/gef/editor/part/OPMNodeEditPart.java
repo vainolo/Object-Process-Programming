@@ -1,5 +1,6 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.draw2d.ConnectionAnchor;
@@ -15,32 +16,11 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeComponentEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeGraphicalNodeEditPolicy;
+import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 
 public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
-
-    public class OPMNodeAdapter implements Adapter {
-    
-    	// Adapter interface
-    	@Override public void notifyChanged(Notification notification) {
-    		refreshVisuals();
-    		refreshSourceConnections();
-    		refreshTargetConnections();
-    	}
-    
-    	@Override public Notifier getTarget() {
-    		return (OPMNode)getModel();
-    	}
-    
-    	@Override public void setTarget(Notifier newTarget) {
-    		// Do nothing.
-    	}
-    
-    	@Override public boolean isAdapterForType(Object type) {
-    		return type.equals(OPMNode.class);
-    	}
-    }
 
     protected OPMNodeAdapter adapter;
 
@@ -85,6 +65,12 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
     protected void createEditPolicies() {
         installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMNodeComponentEditPolicy());
         installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMNodeGraphicalNodeEditPolicy());
+        installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMContainerXYLayoutPolicy());
+    }
+    
+    @Override protected List getModelChildren() {
+        OPMNode model = (OPMNode) getModel();
+        return Collections.unmodifiableList(model.getNodes());
     }
 
     @Override
@@ -107,4 +93,31 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
     	return ((OPMNodeFigure)getFigure()).getTargetConnectionAnchor();
     }
 
+    /**
+     * Receives notifications of changes in the model and refreshed the view
+     * accordingly.
+     * @author vainolo
+     *
+     */
+    public class OPMNodeAdapter implements Adapter {
+        
+        /**
+         * For all changes in the model, refresh visuals, source and target.
+         */
+        @Override public void notifyChanged(Notification notification) {
+            refresh();
+        }
+    
+        @Override public Notifier getTarget() {
+            return (OPMNode)getModel();
+        }
+    
+        @Override public void setTarget(Notifier newTarget) {
+            // Do nothing.
+        }
+    
+        @Override public boolean isAdapterForType(Object type) {
+            return type.equals(OPMNode.class);
+        }
+    }
 }

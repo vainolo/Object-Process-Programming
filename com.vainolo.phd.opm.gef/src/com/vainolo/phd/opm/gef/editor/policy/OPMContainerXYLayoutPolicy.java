@@ -1,14 +1,15 @@
 package com.vainolo.phd.opm.gef.editor.policy;
 
-
+import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -22,12 +23,12 @@ import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 
 /**
  * This class describes the commands that can be used to change the layout 
- * and create new nodes inside the {@link OPMObjectProcessDiagram}.
+ * and create new nodes inside the {@link OPMContainer}.
  * 
  * @author vainolo
  *
  */
-public class OPMObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
+public class OPMContainerXYLayoutPolicy extends XYLayoutEditPolicy {
     
     private static final Dimension DEFAULT_THING_DIMENSION = new Dimension(50, 50);
 
@@ -48,8 +49,10 @@ public class OPMObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
 		Command retVal = null;
 		if(request.getNewObjectType().equals(OPMObject.class) || request.getNewObjectType().equals(OPMProcess.class)) {
 			OPMNodeCreateCommand command = new OPMNodeCreateCommand();
-			command.setConstraints(new Rectangle(request.getLocation(), DEFAULT_THING_DIMENSION));
-			command.setContainer((OPMObjectProcessDiagram)(getHost().getModel()));
+			Point clickLocation = request.getLocation();
+            ((GraphicalEditPart)getHost()).getFigure().translateFromParent(clickLocation);
+			command.setConstraints(new Rectangle(clickLocation, DEFAULT_THING_DIMENSION));
+			command.setContainer((OPMContainer) getHost().getModel());
 			command.setNode((OPMNode)(request.getNewObject()));
 			retVal = command;
 		} 
@@ -58,7 +61,7 @@ public class OPMObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
 	
 	/**
 	 * The superclass implementation calls 
-	 * {@link OPMObjectProcessDiagramXYLayoutPolicy#getResizeChildrenCommand(ChangeBoundsRequest) getResizeChildrenCommand()}
+	 * {@link OPMContainerXYLayoutPolicy#getResizeChildrenCommand(ChangeBoundsRequest) getResizeChildrenCommand()}
 	 *  by default. This is not good in our case since we want to disallow resizing of 
 	 *  {@link OPMStructuralLinkAggregatorEditPart} while allowing to move them. Therefore
 	 *  we had to override the implementation.
