@@ -83,6 +83,7 @@ public class OPMStructuralLinkAggregatorFigure extends Figure implements OPMNode
                     Rectangle ownerBounds = getOwner().getBounds().getCopy();
                     p.x = ownerBounds.x+ownerBounds.width/2;
                     p.y = ownerBounds.y;
+                    translateToAbsolute(p);
                     return p;
                 }
             };
@@ -103,6 +104,7 @@ public class OPMStructuralLinkAggregatorFigure extends Figure implements OPMNode
                     Rectangle ownerBounds = getOwner().getBounds().getCopy();
                     p.x = ownerBounds.x+ownerBounds.width/2;
                     p.y = ownerBounds.y+ownerBounds.height;
+                    translateToAbsolute(p);
                     return p;
                 }
             };

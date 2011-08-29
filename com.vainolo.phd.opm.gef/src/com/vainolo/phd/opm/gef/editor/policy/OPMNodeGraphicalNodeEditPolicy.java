@@ -190,7 +190,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     public OPMNodeCreateCommand createCreateAggregatorNodeCommand(OPMNode source, OPMNode target, OPMNode aggregator) {
         OPMNodeCreateCommand command = new OPMNodeCreateCommand();
         command.setNode(aggregator);
-        command.setContainer(source.getOpd());
+        command.setContainer(source.getContainer());
 
         // Calculate location of aggregator, between the source and targetnodes.
         Rectangle sourceConstraints = source.getConstraints();
