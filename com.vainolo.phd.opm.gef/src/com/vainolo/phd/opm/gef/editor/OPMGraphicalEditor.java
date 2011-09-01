@@ -16,6 +16,8 @@ import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.gef.ui.actions.ToggleGridAction;
+import org.eclipse.gef.ui.actions.ToggleSnapToGeometryAction;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
@@ -59,6 +61,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     protected void configureGraphicalViewer() {
         super.configureGraphicalViewer();
         getGraphicalViewer().setEditPartFactory(new OPMEditPartFactory());
+        getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer())); 
+        getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));        
     }
 
     @Override
