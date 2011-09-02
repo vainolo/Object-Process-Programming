@@ -35,8 +35,23 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
     @Override
     protected Command createDeleteCommand(GroupRequest deleteRequest) {
         OPMNode nodeToDelete = (OPMNode) getHost().getModel();
-        CompoundCommand compoundCommand = new CompoundCommand();
+        CompoundCommand compoundCommand;
+        compoundCommand = createRecursiveDeleteNodeCommand(nodeToDelete);
 
+        return compoundCommand;
+    }
+    
+    /**
+     * This function creates a command that consists of all the commands
+     * required to delete the given node and all of the nodes contained inside it.
+     * This function is called recursively when a node is a container and has internal nodes.
+     * @param nodeToDelete the node that will be deleted.
+     * @return a {@link CompoundCommand} command that deletes the node, the contained nodes
+     * and all links that must be deleted. 
+     */
+    private CompoundCommand createRecursiveDeleteNodeCommand(OPMNode nodeToDelete) {
+        CompoundCommand compoundCommand = new CompoundCommand();
+        
         // For every outgoing structural link, create a command to delete the aggregator
         // node at the end of the link.
         for(OPMLink outgoingStructuralLink : nodeToDelete.getOutgoingStructuralLinks()) {
@@ -55,10 +70,15 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
                 compoundCommand.add(aggregatorNodeDeleteCommand);
             }
         }
+        
+        for(OPMNode node : nodeToDelete.getNodes()) {
+            Command containedNodeDelete = createRecursiveDeleteNodeCommand(node);
+            compoundCommand.add(containedNodeDelete);
+        }
 
         // Create a command to delete the node.
         OPMNodeDeleteCommand nodeDeleteCommand = new OPMNodeDeleteCommand();
-        nodeDeleteCommand.setNode((OPMNode) getHost().getModel());
+        nodeDeleteCommand.setNode(nodeToDelete);
         compoundCommand.add(nodeDeleteCommand);
 
         return compoundCommand;
