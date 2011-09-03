@@ -30,19 +30,6 @@ public class OPMObjectFigure extends Figure implements OPMThingFigure {
 	    return rectangle;
 	}
 	
-// TODO this code fucks up the drag tracker. Fix this!	
-//	/**
-//	 * The internal model figures of this figure are added to this
-//	 * figure's {@code contentPane}, therefore to enable child selection
-//	 * we have to override the {@link IFigure#findFigureAt(int, int, TreeSearch)} so
-//	 * that it searches the {@code contentPane}.
-//	 * @return the topmost figure below the given point, null if none found.
-//	 */
-//	@Override
-//	public IFigure findFigureAt(int x, int y, TreeSearch search) {
-//	    return getContentPane().findFigureAt(x, y, search);
-//	}
-	
 	@Override protected void paintFigure(Graphics graphics) {
 		Rectangle r = getBounds().getCopy();
 		setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
