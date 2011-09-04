@@ -9,9 +9,13 @@ import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.NodeEditPart;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editpolicies.ContainerEditPolicy;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
+import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 
 import tests.command.CreateNodeCommand;
@@ -30,11 +34,44 @@ public class CanvasEditPart extends AbstractGraphicalEditPart {
 
 	@Override
 	protected void createEditPolicies() {
+	    installEditPolicy(EditPolicy.CONTAINER_ROLE, new ContainerEditPolicy() {
+
+            @Override
+            protected Command getCreateCommand(CreateRequest request) {
+                System.out.println("Create in container canvas");
+                return null;
+            }
+	        
+	    });
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
 			@Override protected Command getCreateCommand(CreateRequest request) {
+			    System.out.println("Create in layout canvas");
 				CreateNodeCommand command = new CreateNodeCommand();
 				command.setParams((Canvas)(getHost().getModel()),(Node)(request.getNewObject()), request.getLocation());
 				return command;
+			}
+			@Override
+			protected Command getMoveChildrenCommand(final Request request) {
+			    final ChangeBoundsRequest moveRequest = (ChangeBoundsRequest) request;
+			    final Node node = (Node) ((NodeEditPart) moveRequest.getEditParts().get(0)).getModel();
+			    Command c = new Command() {
+			        @Override
+			        public void execute() {
+			            node.setLocation(moveRequest.getLocation().getCopy());
+			        }
+			    };
+			    return c;
+			}
+			@Override
+			protected Command getResizeChildrenCommand(final ChangeBoundsRequest request) {
+                final Node node = (Node) ((NodeEditPart) request.getEditParts().get(0)).getModel();
+			    Command c = new Command() {
+			        @Override
+			        public void execute() {
+			            node.setSize(request.getSizeDelta().width);
+			        }
+			    };
+			    return c;
 			}
 		});
 	}

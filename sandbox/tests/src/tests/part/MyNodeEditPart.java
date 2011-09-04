@@ -8,18 +8,28 @@ import java.util.Observer;
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.ConnectionEditPart;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.Request;
+import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editpolicies.ContainerEditPolicy;
+import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
+import org.eclipse.gef.editpolicies.LayoutEditPolicy;
+import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
+import org.eclipse.gef.requests.CreateRequest;
+import org.eclipse.gef.requests.DirectEditRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
 import tests.command.CreateLinkCommand;
@@ -38,12 +48,25 @@ public class MyNodeEditPart extends AbstractGraphicalEditPart implements NodeEdi
 	protected IFigure createFigure() {
 		if(figure == null) {
 			figure = new RectangleFigure();
+			figure.setLayoutManager(new FreeformLayout());
 		}
 		return figure;
 	}
 
 	@Override
 	protected void createEditPolicies() {
+//	    installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new DirectEditPolicy() {
+//            
+//            @Override
+//            protected void showCurrentEditValue(DirectEditRequest request) {
+//            }
+//            
+//            @Override
+//            protected Command getDirectEditCommand(DirectEditRequest request) {
+//                System.out.println("here");
+//                return null;
+//            }
+//        });
 		installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new GraphicalNodeEditPolicy() {
 			
 			@Override
@@ -73,6 +96,46 @@ public class MyNodeEditPart extends AbstractGraphicalEditPart implements NodeEdi
 				return command;
 			}
 		});
+		installEditPolicy(EditPolicy.CONTAINER_ROLE, new ContainerEditPolicy() {
+            
+            @Override
+            protected Command getCreateCommand(final CreateRequest request) {
+                System.out.println("Create in container node");
+                final Node newNode = (Node) request.getNewObject();
+                newNode.setLocation(request.getLocation().getCopy());
+                final Node host = (Node) ((NodeEditPart) getHost()).getModel();
+                Command c = new Command() {
+                    @Override
+                    public void execute() {
+                        host.addChild(newNode);
+                    }
+                };
+                return c;
+            }
+        });
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {
+            
+            @Override
+            protected Command getCreateCommand(CreateRequest request) {
+                System.out.println("Create in layout node");
+                return null;
+            }
+        });
+	}
+	
+	@Override
+	protected List getModelChildren() {
+	    List retVal = ((Node)getModel()).getChildren();
+	    System.out.println(retVal.size());
+	    return retVal;
+	}
+
+	@Override
+	public void performRequest(Request req) {
+	    System.out.println(req.getType());
+	    if(req.getType() == RequestConstants.REQ_OPEN) {
+	        System.out.println("requested double-click."); 
+	    }
 	}
 	
 	private ConnectionAnchor getConnectionAnchor() {
@@ -105,8 +168,13 @@ public class MyNodeEditPart extends AbstractGraphicalEditPart implements NodeEdi
 	@Override
 	protected void refreshVisuals() {
 		Node node = (Node) getModel();
-		CanvasEditPart parent = (CanvasEditPart) getParent();
-		parent.setLayoutConstraint(this, figure, new Rectangle(node.getLocation().x, node.getLocation().y, 25, 25));
+		if(getParent() instanceof CanvasEditPart) {
+    		CanvasEditPart parent = (CanvasEditPart) getParent();
+    		parent.setLayoutConstraint(this, figure, new Rectangle(node.getLocation().x, node.getLocation().y, node.getSize(), node.getSize())); 
+		} else {
+		    NodeEditPart parent = (NodeEditPart)getParent();
+            parent.setLayoutConstraint(this, figure, new Rectangle(node.getLocation().x, node.getLocation().y, node.getSize(), node.getSize())); 
+		}
 	}
 	
 	@Override
@@ -116,7 +184,6 @@ public class MyNodeEditPart extends AbstractGraphicalEditPart implements NodeEdi
 	
 	@Override
 	protected List getModelTargetConnections() {
-		System.out.println("I have "+((Node)getModel()).getTargetLinks()+" target links");
 		return ((Node)getModel()).getTargetLinks();
 	}
 	@Override
@@ -140,6 +207,7 @@ public class MyNodeEditPart extends AbstractGraphicalEditPart implements NodeEdi
 		@Override
 		public void update(Observable o, Object arg) {
 			refreshVisuals();
+			refreshChildren();
 			refreshSourceConnections();
 			refreshTargetConnections();
 		}
