@@ -255,13 +255,22 @@ public interface OPMPackage extends EPackage {
 	int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 0;
 
 	/**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_THING__DESCRIPTION = OPM_NODE_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Thing</em>' class.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
+	int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 2;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl <em>Object</em>}' class.
@@ -328,6 +337,15 @@ public interface OPMPackage extends EPackage {
 	int OPM_OBJECT__NAME = OPM_THING__NAME;
 
 	/**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_OBJECT__DESCRIPTION = OPM_THING__DESCRIPTION;
+
+    /**
      * The number of structural features of the '<em>Object</em>' class.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -401,6 +419,15 @@ public interface OPMPackage extends EPackage {
 	int OPM_PROCESS__NAME = OPM_THING__NAME;
 
 	/**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_PROCESS__DESCRIPTION = OPM_THING__DESCRIPTION;
+
+    /**
      * The number of structural features of the '<em>Process</em>' class.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -820,6 +847,17 @@ public interface OPMPackage extends EPackage {
 	EAttribute getOPMThing_Name();
 
 	/**
+     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMThing#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see com.vainolo.phd.opm.model.OPMThing#getDescription()
+     * @see #getOPMThing()
+     * @generated
+     */
+    EAttribute getOPMThing_Description();
+
+    /**
      * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMNode <em>Node</em>}'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1114,6 +1152,14 @@ public interface OPMPackage extends EPackage {
 		EAttribute OPM_THING__NAME = eINSTANCE.getOPMThing_Name();
 
 		/**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute OPM_THING__DESCRIPTION = eINSTANCE.getOPMThing_Description();
+
+        /**
          * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl <em>Node</em>}' class.
          * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->

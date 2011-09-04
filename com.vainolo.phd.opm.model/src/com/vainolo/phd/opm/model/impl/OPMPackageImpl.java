@@ -326,6 +326,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 	/**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getOPMThing_Description() {
+        return (EAttribute)opmThingEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -492,6 +501,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
         opmThingEClass = createEClass(OPM_THING);
         createEAttribute(opmThingEClass, OPM_THING__NAME);
+        createEAttribute(opmThingEClass, OPM_THING__DESCRIPTION);
 
         opmObjectEClass = createEClass(OPM_OBJECT);
 
@@ -577,6 +587,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
         initEClass(opmThingEClass, OPMThing.class, "OPMThing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getOPMThing_Name(), ecorePackage.getEString(), "name", "<...>", 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getOPMThing_Description(), ecorePackage.getEString(), "description", null, 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

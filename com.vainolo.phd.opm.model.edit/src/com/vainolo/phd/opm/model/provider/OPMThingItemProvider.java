@@ -65,6 +65,7 @@ public class OPMThingItemProvider
             super.getPropertyDescriptors(object);
 
             addNamePropertyDescriptor(object);
+            addDescriptionPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -92,6 +93,28 @@ public class OPMThingItemProvider
     }
 
 	/**
+     * This adds a property descriptor for the Description feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addDescriptionPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_OPMThing_description_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_OPMThing_description_feature", "_UI_OPMThing_type"),
+                 OPMPackage.Literals.OPM_THING__DESCRIPTION,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns OPMThing.gif.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -129,6 +152,7 @@ public class OPMThingItemProvider
 
         switch (notification.getFeatureID(OPMThing.class)) {
             case OPMPackage.OPM_THING__NAME:
+            case OPMPackage.OPM_THING__DESCRIPTION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }
