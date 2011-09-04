@@ -2,8 +2,10 @@ package com.vainolo.phd.opm.gef.editor;
 
 import java.io.IOException;
 import java.util.EventObject;
+import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -23,9 +25,7 @@ import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -39,6 +39,9 @@ import com.vainolo.phd.opm.model.provider.OPMItemProviderAdapterFactory;
 
 public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
+    Logger logger = Logger.getLogger(OPMGraphicalEditor.class.getName());
+    
+    private IFile opdFile;
     private Resource opdResource;
     private OPMObjectProcessDiagram opd;
 
@@ -82,30 +85,31 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
         try {
             opdResource.save(null);
+            opdFile.touch(null);
             getCommandStack().markSaveLocation();
         } catch (IOException e) {
             // TODO do something smarter.
             e.printStackTrace();
-            opdResource = null;
+        } catch (CoreException e) {
+            // TODO do something smarter.
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void init(IEditorSite site, IEditorInput input)
-            throws PartInitException {
-        super.init(site, input);
-
+    protected void setInput(IEditorInput input) {
+        super.setInput(input);
         loadInput(input);
+        setPartName(input.getName());
     }
-
+    
     private void loadInput(IEditorInput input) {
-        OPMPackage.eINSTANCE.eClass(); // This initializes the OPMPackage
-                                       // singleton implementation.
+        OPMPackage.eINSTANCE.eClass(); // This initializes the OPMPackage singleton implementation.
         ResourceSet resourceSet = new ResourceSetImpl();
         if(input instanceof IFileEditorInput) {
             IFileEditorInput fileInput = (IFileEditorInput) input;
-            IFile file = fileInput.getFile();
-            opdResource = resourceSet.createResource(URI.createURI(file.getLocationURI().toString()));
+            opdFile = fileInput.getFile();
+            opdResource = resourceSet.createResource(URI.createURI(opdFile.getLocationURI().toString()));
             try {
                 opdResource.load(null);
                 opd = (OPMObjectProcessDiagram) opdResource.getContents().get(0);
@@ -115,6 +119,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
                 opdResource = null;
             }
         }
+        
     }
 
     /**
