@@ -27,11 +27,12 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 		super();
 	}
 	
-	@Override protected void createEditPolicies() {
-	    super.createEditPolicies();
-		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMThingDirectEditPolicy());
-        installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());		
-	}
+    @Override
+    protected void createEditPolicies() {
+        super.createEditPolicies();
+        installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMThingDirectEditPolicy());
+        installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
+    }
 
 	@Override protected void refreshVisuals() {
 		OPMThingFigure figure = (OPMThingFigure)getFigure();
