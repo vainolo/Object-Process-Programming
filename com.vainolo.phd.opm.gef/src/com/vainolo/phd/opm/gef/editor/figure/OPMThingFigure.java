@@ -6,7 +6,7 @@ import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.XYLayout;
 
 public abstract class OPMThingFigure extends Figure implements OPMNodeFigure {
-    
+
     private Label nameLabel;
     private TooltipFigure tooltipFigure;
     
