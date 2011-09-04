@@ -1,6 +1,5 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +40,8 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 		
 		figure.getNameLabel().setText(model.getName());
 		parent.setLayoutConstraint(this, figure, model.getConstraints());
+		
+		figure.setTooltipText(model.getDescription());
 	}
 
 	@Override public void performRequest(Request req) {
@@ -80,7 +81,10 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
                 return new CompoundSnapToHelper(helpers.toArray(new SnapToHelper[0]));
             }
         }
+        
         return super.getAdapter(key);
     }   
+    
+    
     
 }
