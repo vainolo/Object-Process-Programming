@@ -1,10 +1,16 @@
 package com.vainolo.phd.opm.gef.editor.figure;
 
 import org.eclipse.draw2d.Ellipse;
+import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.RotatableDecoration;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+/**
+ * A decoration for {@link PolylineConnection} endpoints, which draws a circlE
+ * whose center is located on the link and is distanced RADIUS (internal parameter) 
+ * units from the end of the connection.
+ */
 public class CircleDecoration extends Ellipse implements RotatableDecoration {
 
     private static final int RADIUS = 5;
@@ -77,6 +83,8 @@ public class CircleDecoration extends Ellipse implements RotatableDecoration {
 			ry = p.y - (int)shorty;
 		}
 		
+		// For reasons that are still unknown to me, I had to increase the radius
+		// of the circle for the graphics to look right.
 		setBounds(new Rectangle(rx-RADIUS, ry-RADIUS, (int)(RADIUS*2.5), (int)(RADIUS*2.5)));
 	}
 	

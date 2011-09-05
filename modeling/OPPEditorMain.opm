@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:opm="www.vainolo.com/phd/opm"/>
+<opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opm="www.vainolo.com/phd/opm">
+  <nodes xsi:type="opm:OPMObject" constraints="110,159,139,205" name="OPP Editor" description="somehthing. ">
+    <nodes xsi:type="opm:OPMObject" constraints="30,25,76,50" name="OPM Things" description="This is an internal object of the OPP Editor"/>
+  </nodes>
+</opm:OPMObjectProcessDiagram>

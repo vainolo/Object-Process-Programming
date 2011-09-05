@@ -7,7 +7,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
 
 public class OPMProcessFactory implements CreationFactory {
 
-	@Override public OPMProcess getNewObject() {
+	@Override public Object getNewObject() {
 		return OPMFactory.eINSTANCE.createOPMProcess();
 	}
 

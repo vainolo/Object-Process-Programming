@@ -1,10 +1,10 @@
 package com.vainolo.phd.opm.gef.utils;
 
 import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
-import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
 public enum OPMModelUtils {
 	INSTANCE;
@@ -22,7 +22,7 @@ public enum OPMModelUtils {
 		OPMProcess process = factory.createOPMProcess();
 		process.setName("P1");
 		opd.getNodes().add(process);
-		OPMProceduralLink link = factory.createOPMProceduralLink();
+		OPMLink link = factory.createOPMLink();
 		link.setSource(object1);
 		link.setTarget(process);
 		opd.getLinks().add(link);

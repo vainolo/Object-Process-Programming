@@ -5,46 +5,77 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.Shape;
+import org.eclipse.draw2d.Orientable;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public class OPMStructuralLinkAggregatorFigure extends Figure implements NodeFigure {
-	private Triangle triangle;
-	private ConnectionAnchor topAnchor, bottomAnchor;
+import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
+import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 
-	public OPMStructuralLinkAggregatorFigure() {
-		setLayoutManager(new XYLayout());
-		triangle = new Triangle();
-		triangle.setBackgroundColor(ColorConstants.black);
-		triangle.setFill(true);
-		add(triangle);
-	}
-	
-	@Override public void paintFigure(Graphics graphics) {
-		Rectangle r = getBounds().getCopy();
-		setConstraint(triangle, new Rectangle(0,0,r.width,r.height));
-		triangle.invalidate();
-	}
-	
-    @Override public ConnectionAnchor getSourceConnectionAnchor() {
-        if(bottomAnchor == null) {
-            bottomAnchor = new AbstractConnectionAnchor(this) {
-                @Override public Point getLocation(Point reference) {
-                    Point p = new Point();
-                    Rectangle ownerBounds = getOwner().getBounds().getCopy();
-                    p.x = ownerBounds.x+ownerBounds.width/2;
-                    p.y = ownerBounds.y+ownerBounds.height;
-                    return p;
-                }
-            };
+/**
+ * Draws the figure for a {@link OPMStructuralLinkAggregator}. This figure
+ * consists of one or two {@link IsoscelesTriangle}, filled or not filled,
+ * depending on the type of aggregator that is drawn (a parameter to the figure).  
+ * @author vainolo
+ *
+ */
+public class OPMStructuralLinkAggregatorFigure extends Figure implements OPMNodeFigure {
+    /** The triangle used as figure. */
+    IsoscelesTriangle triangle;
+    /** The inner triangle used for an exhibition aggregator. */
+    IsoscelesTriangle innerTriangle;
+    /** Anchor created at the center-top of the figure, used for target anchors. */
+    private ConnectionAnchor topAnchor;
+    /** Anchor created at the center-bottom of the figure, used for source anchors. */
+    private ConnectionAnchor bottomAnchor;
+    /** The kind of aggregator this figure represents. */
+    OPMStructuralLinkAggregatorKind kind;
+    
+    /**
+     * Create a new aggregator figure depending on the aggregator kind. 
+     * @param kind the {@link OPMStructuralLinkAggregatorKind} of the figure.
+     */
+    public OPMStructuralLinkAggregatorFigure(final OPMStructuralLinkAggregatorKind kind) {
+        this.kind = kind;
+        setLayoutManager(new XYLayout());
+        triangle = new IsoscelesTriangle();
+        triangle.setBackgroundColor(ColorConstants.black);
+        switch(kind) {
+        case AGGREGATION:
+            triangle.setFill(true);
+            break;
+        case GENERALIZATION:
+            triangle.setFill(false);
+            break;
+        case EXHIBITION:
+            triangle.setFill(false);
+            triangle.setLayoutManager(new XYLayout());
+            innerTriangle = new IsoscelesTriangle();
+            innerTriangle.setDirection(Orientable.NORTH);
+            triangle.add(innerTriangle);
+            break;
+        default:
+            throw new IllegalArgumentException("Invalid aggregator kind: " + kind);
         }
-        return bottomAnchor;
+        add(triangle);
     }
-
-    @Override public ConnectionAnchor getTargetConnectionAnchor() {
+    
+    @Override
+    protected void paintFigure(Graphics graphics) {
+        Rectangle bounds = getBounds().getCopy();
+        setConstraint(triangle, new Rectangle(0,0,bounds.width,bounds.height));
+        if(kind == OPMStructuralLinkAggregatorKind.EXHIBITION) {
+            triangle.setConstraint(innerTriangle, new Rectangle(bounds.width/3, bounds.height/2, bounds.width/3, bounds.height/3));
+        }
+        triangle.invalidate();
+    }
+    
+    /**
+     * Create a {@link ConnectionAnchor} that is located at the center-top of the figure.
+     * @return a {@link ConnectionAnchor} at the center-top of the figure.
+     */
+    private ConnectionAnchor getTopAnchor() {
         if(topAnchor == null) {
             topAnchor = new AbstractConnectionAnchor(this) {
                 @Override public Point getLocation(Point reference) {
@@ -52,68 +83,43 @@ public class OPMStructuralLinkAggregatorFigure extends Figure implements NodeFig
                     Rectangle ownerBounds = getOwner().getBounds().getCopy();
                     p.x = ownerBounds.x+ownerBounds.width/2;
                     p.y = ownerBounds.y;
+                    translateToAbsolute(p);
                     return p;
                 }
             };
         }
         return topAnchor;
+        
     }
-	
-	/**
-	 * A triangle that uses all of its bounds to draw an isosceles triangle
-	 * in the figure's bounds, like this:
-	 * 
-	 *		______
-	 *     |  /\  |
-	 *     | /  \ | (bounds shown as surrounding rectangle). 
-	 *     |/____\|
-	 * 
-	 * The implementation is based on the {@link org.eclipse.draw2d.Triangle} implementation.
-	 * 
-	 * @author vainolo
-	 *
-	 */	
-	private final class Triangle extends Shape {
-		/** The points of the triangle. */
-		protected PointList triangle = new PointList(3);
-		
-		
-		/**
-		 * {@inheritDoc}
-		 */
-		public void primTranslate(int dx, int dy) {
-			super.primTranslate(dx, dy);
-			triangle.translate(dx, dy);
-		}
-		
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override protected void outlineShape(Graphics graphics) {
-			graphics.drawPolygon(triangle);
-		}
-		
-		/**
-		 * {@inheritDoc}
-		 */
-		@Override protected void fillShape(Graphics graphics) {
-			graphics.fillPolygon(triangle);
-		}
+    
+    /**
+     * Create a {@link ConnectionAnchor} that is located at the center-bottom of the figure.
+     * @return a {@link ConnectionAnchor} at the center-bottom of the figure.
+     */
+    private ConnectionAnchor getBottomAnchor() {
+        if(bottomAnchor == null) {
+            bottomAnchor = new AbstractConnectionAnchor(this) {
+                @Override public Point getLocation(Point reference) {
+                    Point p = new Point();
+                    Rectangle ownerBounds = getOwner().getBounds().getCopy();
+                    p.x = ownerBounds.x+ownerBounds.width/2;
+                    p.y = ownerBounds.y+ownerBounds.height;
+                    translateToAbsolute(p);
+                    return p;
+                }
+            };
+        }
+        return bottomAnchor;        
+    }
+    
+    @Override
+    public ConnectionAnchor getSourceConnectionAnchor() {
+        return getBottomAnchor();
+    }
 
-		/**
-		 * Validates the figure, drawing a vertical isosceles triangle filling the 
-		 * figure's bounds.
-		 */
-		@Override public void validate() {
-			super.validate();
-			bounds = getBounds().getCopy();
-			Point top = new Point(bounds.x+bounds.width/2, bounds.y);
-			Point left = new Point(bounds.x, bounds.y+bounds.height);
-			Point right = new Point(bounds.x+bounds.width, bounds.y+bounds.height);
-			triangle.removeAllPoints();
-			triangle.addPoint(top);
-			triangle.addPoint(left);
-			triangle.addPoint(right);
-		}
-	}
+    @Override
+    public ConnectionAnchor getTargetConnectionAnchor() {
+        return getTopAnchor();
+    }
+
 }

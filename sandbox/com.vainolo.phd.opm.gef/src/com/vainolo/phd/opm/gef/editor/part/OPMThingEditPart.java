@@ -1,131 +1,126 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.gef.CompoundSnapToHelper;
+import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
-import org.eclipse.gef.tools.CellEditorLocator;
-import org.eclipse.gef.tools.DirectEditManager;
-import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.gef.SnapToGeometry;
+import org.eclipse.gef.SnapToGrid;
+import org.eclipse.gef.SnapToHelper;
+import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IEditorDescriptor;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.eclipse.ui.part.FileEditorInput;
 
-import com.vainolo.phd.opm.gef.editor.figure.NamedNodeFigure;
+import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMThingDirectEditPolicy;
-import com.vainolo.phd.opm.model.NamedElement;
-import com.vainolo.phd.opm.model.Node;
 import com.vainolo.phd.opm.model.OPMThing;
 
-public abstract class OPMThingEditPart extends NodeEditPart {
+public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
-	private OPMThingAdapter adapter;
-	
 	public OPMThingEditPart() {
 		super();
-		adapter = new OPMThingAdapter();
 	}
 	
-	@Override protected void createEditPolicies() {
-	    super.createEditPolicies();
-	    installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMThingDirectEditPolicy());
-	}
+    @Override
+    protected void createEditPolicies() {
+        super.createEditPolicies();
+        installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMThingDirectEditPolicy());
+        installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
+    }
 
 	@Override protected void refreshVisuals() {
-		NamedNodeFigure figure = (NamedNodeFigure)getFigure();
-		Node node = (Node)getModel();
-		OPMObjectProcessDiagramEditPart parent = (OPMObjectProcessDiagramEditPart) getParent();
-        parent.setLayoutConstraint(this, figure, node.getConstraints());
-
-        NamedElement namedElement = (NamedElement) getModel();
-		figure.getNameLabel().setText(namedElement.getName());
+		OPMThingFigure figure = (OPMThingFigure)getFigure();
+		OPMThing model = (OPMThing)getModel();
+		GraphicalEditPart parent = (GraphicalEditPart) getParent();
+		
+		figure.getNameLabel().setText(model.getName());
+		parent.setLayoutConstraint(this, figure, model.getConstraints());
+		
+		figure.setTooltipText(model.getDescription());
 	}
 
-	@Override public void activate() {
-		if(!isActive()) {
-			((OPMThing)getModel()).eAdapters().add(adapter);
-		}
-		super.activate();
-	}
-
-	@Override public void deactivate() {
-		if(isActive()) {
-			((OPMThing)getModel()).eAdapters().remove(adapter);
-		}
-
-		super.deactivate();
-	}
-	
 	@Override public void performRequest(Request req) {
 		if(req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
 			performDirectEditing();
+		} else if(req.getType() == RequestConstants.REQ_OPEN) {
+		    IEditorPart editorPart = ((DefaultEditDomain)getViewer().getEditDomain()).getEditorPart();
+		    IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
+		    IFile file = input.getFile();
+		    IFolder parent = (IFolder) file.getParent();
+		    IFile newFile = parent.getFile("OPP Editor.opm");
+		    
+		    IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
+		    IWorkbenchPage page = editorPart.getSite().getPage();
+		    try {
+                page.openEditor(new FileEditorInput(newFile), editor.getId());
+            } catch (PartInitException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
 		}
 	}
 	
 	private void performDirectEditing() {
-		Label label = ((NamedNodeFigure)getFigure()).getNameLabel();
+		Label label = ((OPMThingFigure)getFigure()).getNameLabel();
 		OPMThingDirectEditManager manager = new OPMThingDirectEditManager(this, TextCellEditor.class, new OPMThingCellEditorLocator(label), label);
 		manager.show();
-	}	
-	
-	class OPMThingAdapter implements Adapter {
-
-		// Adapter interface
-		@Override public void notifyChanged(Notification notification) {
-			refreshVisuals();
-            refreshChildren();
-			refreshSourceConnections();
-			refreshTargetConnections();
-		}
-
-		@Override public Notifier getTarget() {
-			return (Notifier)getModel();
-		}
-
-		@Override public void setTarget(Notifier newTarget) {
-			// Do nothing.
-		}
-
-		@Override public boolean isAdapterForType(Object type) {
-			return type.equals(OPMThing.class);
-		}
 	}
 	
-	class OPMThingCellEditorLocator implements CellEditorLocator {
-
-	    private Label nameLabel;
-	    
-	    public OPMThingCellEditorLocator(Label label) {
-	        this.nameLabel = label;
-	    }
-
-	    @Override public void relocate(CellEditor celleditor) {
-	        Text text = (Text) celleditor.getControl();
-	        Point pref = text.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-	        Rectangle rect = nameLabel.getTextBounds().getCopy();
-	        nameLabel.translateToAbsolute(rect);
-	        text.setBounds(rect.x - 1, rect.y - 1, pref.x + 1, pref.y + 1);     
-	    }
-	}
-
-	class OPMThingDirectEditManager extends DirectEditManager {
-
-	    Label label;
-	    
-	    public OPMThingDirectEditManager(GraphicalEditPart source, @SuppressWarnings("rawtypes") Class editorType, CellEditorLocator locator, Label label) {
-	        super(source, editorType, locator);
-	        this.label = label;
-	    }
-
-	    @Override protected void initCellEditor() {
-	        String initialLabelText = label.getText();
-	        getCellEditor().setValue(initialLabelText);
-	    }
-	}
+    
+    @Override
+    public IFigure getContentPane() {
+        return ((OPMThingFigure)getFigure()).getContentPane();
+    }
+    
+    /**
+     * Currently the class only adapts to create a {@link SnapToHelper}
+     * when the editor is in snapping mode (either to grid or to shapes).
+     */
+    @Override public Object getAdapter(Class key) {
+        if (key == SnapToHelper.class) {
+            List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
+            if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED))) {
+                helpers.add(new SnapToGeometry(this));
+            }
+            if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED))) {
+                helpers.add(new SnapToGrid(this));
+            }
+            if(helpers.size()==0) {
+                return null;
+            } else {
+                return new CompoundSnapToHelper(helpers.toArray(new SnapToHelper[0]));
+            }
+        }
+        
+        return super.getAdapter(key);
+    }   
+    
+    
+    
 }

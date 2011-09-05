@@ -5,7 +5,7 @@ import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.requests.DirectEditRequest;
 
 import com.vainolo.phd.opm.gef.editor.command.OPMThingRenameCommand;
-import com.vainolo.phd.opm.gef.editor.figure.NamedNodeFigure;
+import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.model.OPMThing;
 
 public class OPMThingDirectEditPolicy extends DirectEditPolicy {
@@ -19,7 +19,6 @@ public class OPMThingDirectEditPolicy extends DirectEditPolicy {
 
 	@Override protected void showCurrentEditValue(DirectEditRequest request) {
 		String value = (String) request.getCellEditor().getValue();
-		((NamedNodeFigure)getHostFigure()).getNameLabel().setText(value);		
+		((OPMThingFigure)getHostFigure()).getNameLabel().setText(value);		
 	}
-
 }
