@@ -30,14 +30,6 @@
     <genClasses ecoreClass="opm.ecore#//OPMThing">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opm.ecore#//OPMThing/incomingLinks"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opm.ecore#//OPMThing/outgoingLinks"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference opm.ecore#//OPMThing/visualInfo"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMThing/boundingRectangle"/>
-    </genClasses>
-    <genClasses ecoreClass="opm.ecore#//VisualInfo">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//VisualInfo/x"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//VisualInfo/y"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//VisualInfo/width"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//VisualInfo/heigth"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -19,7 +19,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMObjectProcessDiagramTest extends NodeContainerTest {
+public class OPMObjectProcessDiagramTest extends OPMContainerTest {
 
 	/**
      * <!-- begin-user-doc -->

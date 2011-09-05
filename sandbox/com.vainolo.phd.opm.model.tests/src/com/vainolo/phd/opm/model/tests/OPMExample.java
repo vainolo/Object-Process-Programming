@@ -6,7 +6,7 @@
  */
 package com.vainolo.phd.opm.model.tests;
 
-import com.vainolo.phd.opm.model.NamedElement;
+import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
@@ -65,7 +65,7 @@ public class OPMExample {
             System.out.println("Enter a list of file paths or URIs that have content like this:");
             try {
                 Resource resource = resourceSet.createResource(URI.createURI("http:///My.opm"));
-                NamedElement root = OPMFactory.eINSTANCE.createNamedElement();
+                OPMContainer root = OPMFactory.eINSTANCE.createOPMContainer();
                 resource.getContents().add(root);
                 resource.save(System.out, null);
             }

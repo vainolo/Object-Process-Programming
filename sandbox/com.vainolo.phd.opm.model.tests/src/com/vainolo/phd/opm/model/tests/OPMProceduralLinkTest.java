@@ -9,8 +9,6 @@ package com.vainolo.phd.opm.model.tests;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 
-import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
 
 /**
@@ -19,7 +17,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMProceduralLinkTest extends LinkTest {
+public class OPMProceduralLinkTest extends OPMLinkTest {
 
 	/**
      * <!-- begin-user-doc -->
@@ -47,7 +45,7 @@ public class OPMProceduralLinkTest extends LinkTest {
      * @generated
      */
 	@Override
-    protected OPMProceduralLink getFixture() {
+	protected OPMProceduralLink getFixture() {
         return (OPMProceduralLink)fixture;
     }
 

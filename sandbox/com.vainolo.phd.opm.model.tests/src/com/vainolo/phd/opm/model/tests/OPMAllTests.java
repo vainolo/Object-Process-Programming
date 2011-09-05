@@ -35,6 +35,7 @@ public class OPMAllTests extends TestSuite {
      */
 	public static Test suite() {
         TestSuite suite = new OPMAllTests("OPM Tests");
+        suite.addTest(OPMTests.suite());
         return suite;
     }
 

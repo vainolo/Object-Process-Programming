@@ -18,4 +18,5 @@ package com.vainolo.phd.opm.model;
  * @generated
  */
 public interface OPMProcess extends OPMThing {
+
 } // OPMProcess

@@ -21,6 +21,7 @@ import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.ecore.EStructuralFeature;
 
+import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
@@ -37,7 +38,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class OPMObjectProcessDiagramItemProvider
-	extends NodeContainerItemProvider
+	extends OPMContainerItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -154,37 +155,12 @@ public class OPMObjectProcessDiagramItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
+                 OPMFactory.eINSTANCE.createOPMLink()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
                  OPMFactory.eINSTANCE.createOPMProceduralLink()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
-                 OPMFactory.eINSTANCE.createOPMAgentLink()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
-                 OPMFactory.eINSTANCE.createOPMInstrumentLink()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
-                 OPMFactory.eINSTANCE.createOPMConsumptionLink()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
-                 OPMFactory.eINSTANCE.createOPMResultLink()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
-                 OPMFactory.eINSTANCE.createOPMEffectLink()));
-
-        newChildDescriptors.add
-            (createChildParameter
-                (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
-                 OPMFactory.eINSTANCE.createOPMStructuralLink()));
     }
 
 }

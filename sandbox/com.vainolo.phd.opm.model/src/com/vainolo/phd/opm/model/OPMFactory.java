@@ -26,6 +26,15 @@ public interface OPMFactory extends EFactory {
 	OPMFactory eINSTANCE = com.vainolo.phd.opm.model.impl.OPMFactoryImpl.init();
 
 	/**
+     * Returns a new object of class '<em>Container</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Container</em>'.
+     * @generated
+     */
+    OPMContainer createOPMContainer();
+
+    /**
      * Returns a new object of class '<em>Object Process Diagram</em>'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -53,6 +62,15 @@ public interface OPMFactory extends EFactory {
 	OPMProcess createOPMProcess();
 
 	/**
+     * Returns a new object of class '<em>Link</em>'.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @return a new object of class '<em>Link</em>'.
+     * @generated
+     */
+	OPMLink createOPMLink();
+
+	/**
      * Returns a new object of class '<em>Thing</em>'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -60,6 +78,24 @@ public interface OPMFactory extends EFactory {
      * @generated
      */
 	OPMThing createOPMThing();
+
+	/**
+     * Returns a new object of class '<em>Node</em>'.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @return a new object of class '<em>Node</em>'.
+     * @generated
+     */
+	OPMNode createOPMNode();
+
+	/**
+     * Returns a new object of class '<em>Structural Link Aggregator</em>'.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @return a new object of class '<em>Structural Link Aggregator</em>'.
+     * @generated
+     */
+	OPMStructuralLinkAggregator createOPMStructuralLinkAggregator();
 
 	/**
      * Returns a new object of class '<em>Procedural Link</em>'.
@@ -71,123 +107,6 @@ public interface OPMFactory extends EFactory {
 	OPMProceduralLink createOPMProceduralLink();
 
 	/**
-     * Returns a new object of class '<em>Agent Link</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Agent Link</em>'.
-     * @generated
-     */
-    OPMAgentLink createOPMAgentLink();
-
-    /**
-     * Returns a new object of class '<em>Instrument Link</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Instrument Link</em>'.
-     * @generated
-     */
-    OPMInstrumentLink createOPMInstrumentLink();
-
-    /**
-     * Returns a new object of class '<em>Consumption Link</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Consumption Link</em>'.
-     * @generated
-     */
-    OPMConsumptionLink createOPMConsumptionLink();
-
-    /**
-     * Returns a new object of class '<em>Result Link</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Result Link</em>'.
-     * @generated
-     */
-    OPMResultLink createOPMResultLink();
-
-    /**
-     * Returns a new object of class '<em>Effect Link</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Effect Link</em>'.
-     * @generated
-     */
-    OPMEffectLink createOPMEffectLink();
-
-    /**
-     * Returns a new object of class '<em>Structural Link</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Structural Link</em>'.
-     * @generated
-     */
-    OPMStructuralLink createOPMStructuralLink();
-
-    /**
-     * Returns a new object of class '<em>Named Element</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Named Element</em>'.
-     * @generated
-     */
-    NamedElement createNamedElement();
-
-    /**
-     * Returns a new object of class '<em>Node Container</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Node Container</em>'.
-     * @generated
-     */
-    NodeContainer createNodeContainer();
-
-    /**
-     * Returns a new object of class '<em>Structural Link Aggregator</em>'.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @return a new object of class '<em>Structural Link Aggregator</em>'.
-     * @generated
-     */
-	OPMStructuralLinkAggregator createOPMStructuralLinkAggregator();
-
-	/**
-     * Returns a new object of class '<em>Aggregation Link Aggregator</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Aggregation Link Aggregator</em>'.
-     * @generated
-     */
-    OPMAggregationLinkAggregator createOPMAggregationLinkAggregator();
-
-    /**
-     * Returns a new object of class '<em>Exhibition Link Aggregator</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Exhibition Link Aggregator</em>'.
-     * @generated
-     */
-    OPMExhibitionLinkAggregator createOPMExhibitionLinkAggregator();
-
-    /**
-     * Returns a new object of class '<em>Generalization Link Aggregator</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Generalization Link Aggregator</em>'.
-     * @generated
-     */
-    OPMGeneralizationLinkAggregator createOPMGeneralizationLinkAggregator();
-
-    /**
-     * Returns a new object of class '<em>State</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>State</em>'.
-     * @generated
-     */
-    OPMState createOPMState();
-
-    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -6,20 +6,16 @@
  */
 package com.vainolo.phd.opm.model.impl;
 
-import com.vainolo.phd.opm.model.Link;
-import com.vainolo.phd.opm.model.Node;
+import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
-import com.vainolo.phd.opm.model.OPMProceduralLink;
-import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMThing;
 
 import java.util.Collection;
-import java.util.Collections;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
@@ -27,7 +23,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -44,18 +39,18 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class OPMObjectProcessDiagramImpl extends NodeContainerImpl implements OPMObjectProcessDiagram {
+public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPMObjectProcessDiagram {
 	/**
      * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
      * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
      * @see #getLinks()
      * @generated
      * @ordered
      */
-    protected EList<Link> links;
+	protected EList<OPMLink> links;
 
-    /**
+	/**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
@@ -74,19 +69,19 @@ public class OPMObjectProcessDiagramImpl extends NodeContainerImpl implements OP
         return OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM;
     }
 
-    /**
+	/**
      * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
      * @generated
      */
-    public EList<Link> getLinks() {
+	public EList<OPMLink> getLinks() {
         if (links == null) {
-            links = new EObjectContainmentWithInverseEList<Link>(Link.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS, OPMPackage.LINK__OPD);
+            links = new EObjectContainmentWithInverseEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS, OPMPackage.OPM_LINK__OPD);
         }
         return links;
     }
 
-    /**
+	/**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
@@ -140,7 +135,7 @@ public class OPMObjectProcessDiagramImpl extends NodeContainerImpl implements OP
         switch (featureID) {
             case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
                 getLinks().clear();
-                getLinks().addAll((Collection<? extends Link>)newValue);
+                getLinks().addAll((Collection<? extends OPMLink>)newValue);
                 return;
         }
         super.eSet(featureID, newValue);

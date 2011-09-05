@@ -9,8 +9,6 @@ package com.vainolo.phd.opm.model.tests;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 
-import junit.framework.TestCase;
-
 import junit.textui.TestRunner;
 
 /**
@@ -19,7 +17,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMStructuralLinkAggregatorTest extends NodeTest {
+public class OPMStructuralLinkAggregatorTest extends OPMNodeTest {
 
 	/**
      * <!-- begin-user-doc -->
@@ -47,7 +45,7 @@ public class OPMStructuralLinkAggregatorTest extends NodeTest {
      * @generated
      */
 	@Override
-    protected OPMStructuralLinkAggregator getFixture() {
+	protected OPMStructuralLinkAggregator getFixture() {
         return (OPMStructuralLinkAggregator)fixture;
     }
 

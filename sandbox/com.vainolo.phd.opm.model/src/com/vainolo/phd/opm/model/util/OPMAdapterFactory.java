@@ -72,24 +72,16 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 	protected OPMSwitch<Adapter> modelSwitch =
 		new OPMSwitch<Adapter>() {
             @Override
-            public Adapter caseNamedElement(NamedElement object) {
-                return createNamedElementAdapter();
-            }
-            @Override
-            public Adapter caseNode(Node object) {
-                return createNodeAdapter();
-            }
-            @Override
-            public Adapter caseNodeContainer(NodeContainer object) {
-                return createNodeContainerAdapter();
+            public Adapter caseOPMContainer(OPMContainer object) {
+                return createOPMContainerAdapter();
             }
             @Override
             public Adapter caseOPMObjectProcessDiagram(OPMObjectProcessDiagram object) {
                 return createOPMObjectProcessDiagramAdapter();
             }
             @Override
-            public Adapter caseOPMState(OPMState object) {
-                return createOPMStateAdapter();
+            public Adapter caseOPMNode(OPMNode object) {
+                return createOPMNodeAdapter();
             }
             @Override
             public Adapter caseOPMThing(OPMThing object) {
@@ -108,48 +100,12 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
                 return createOPMStructuralLinkAggregatorAdapter();
             }
             @Override
-            public Adapter caseOPMAggregationLinkAggregator(OPMAggregationLinkAggregator object) {
-                return createOPMAggregationLinkAggregatorAdapter();
-            }
-            @Override
-            public Adapter caseOPMExhibitionLinkAggregator(OPMExhibitionLinkAggregator object) {
-                return createOPMExhibitionLinkAggregatorAdapter();
-            }
-            @Override
-            public Adapter caseOPMGeneralizationLinkAggregator(OPMGeneralizationLinkAggregator object) {
-                return createOPMGeneralizationLinkAggregatorAdapter();
-            }
-            @Override
-            public Adapter caseLink(Link object) {
-                return createLinkAdapter();
+            public Adapter caseOPMLink(OPMLink object) {
+                return createOPMLinkAdapter();
             }
             @Override
             public Adapter caseOPMProceduralLink(OPMProceduralLink object) {
                 return createOPMProceduralLinkAdapter();
-            }
-            @Override
-            public Adapter caseOPMAgentLink(OPMAgentLink object) {
-                return createOPMAgentLinkAdapter();
-            }
-            @Override
-            public Adapter caseOPMInstrumentLink(OPMInstrumentLink object) {
-                return createOPMInstrumentLinkAdapter();
-            }
-            @Override
-            public Adapter caseOPMConsumptionLink(OPMConsumptionLink object) {
-                return createOPMConsumptionLinkAdapter();
-            }
-            @Override
-            public Adapter caseOPMResultLink(OPMResultLink object) {
-                return createOPMResultLinkAdapter();
-            }
-            @Override
-            public Adapter caseOPMEffectLink(OPMEffectLink object) {
-                return createOPMEffectLinkAdapter();
-            }
-            @Override
-            public Adapter caseOPMStructuralLink(OPMStructuralLink object) {
-                return createOPMStructuralLinkAdapter();
             }
             @Override
             public Adapter defaultCase(EObject object) {
@@ -172,6 +128,20 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 
 
 	/**
+     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMContainer <em>Container</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see com.vainolo.phd.opm.model.OPMContainer
+     * @generated
+     */
+    public Adapter createOPMContainerAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram <em>Object Process Diagram</em>}'.
      * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -214,6 +184,20 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
     }
 
 	/**
+     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMLink <em>Link</em>}'.
+     * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see com.vainolo.phd.opm.model.OPMLink
+     * @generated
+     */
+	public Adapter createOPMLinkAdapter() {
+        return null;
+    }
+
+	/**
      * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMThing <em>Thing</em>}'.
      * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
@@ -224,6 +208,34 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
 	public Adapter createOPMThingAdapter() {
+        return null;
+    }
+
+	/**
+     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMNode <em>Node</em>}'.
+     * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see com.vainolo.phd.opm.model.OPMNode
+     * @generated
+     */
+	public Adapter createOPMNodeAdapter() {
+        return null;
+    }
+
+	/**
+     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator <em>Structural Link Aggregator</em>}'.
+     * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregator
+     * @generated
+     */
+	public Adapter createOPMStructuralLinkAggregatorAdapter() {
         return null;
     }
 
@@ -242,216 +254,6 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
     }
 
 	/**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMAgentLink <em>Agent Link</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMAgentLink
-     * @generated
-     */
-    public Adapter createOPMAgentLinkAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMInstrumentLink <em>Instrument Link</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMInstrumentLink
-     * @generated
-     */
-    public Adapter createOPMInstrumentLinkAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMConsumptionLink <em>Consumption Link</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMConsumptionLink
-     * @generated
-     */
-    public Adapter createOPMConsumptionLinkAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMResultLink <em>Result Link</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMResultLink
-     * @generated
-     */
-    public Adapter createOPMResultLinkAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMEffectLink <em>Effect Link</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMEffectLink
-     * @generated
-     */
-    public Adapter createOPMEffectLinkAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMStructuralLink <em>Structural Link</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMStructuralLink
-     * @generated
-     */
-    public Adapter createOPMStructuralLinkAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.NamedElement <em>Named Element</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.NamedElement
-     * @generated
-     */
-    public Adapter createNamedElementAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator <em>Structural Link Aggregator</em>}'.
-     * <!-- begin-user-doc -->
-	 * This default implementation returns null so that we can easily ignore cases;
-	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
-	 * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregator
-     * @generated
-     */
-	public Adapter createOPMStructuralLinkAggregatorAdapter() {
-        return null;
-    }
-
-	/**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMAggregationLinkAggregator <em>Aggregation Link Aggregator</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMAggregationLinkAggregator
-     * @generated
-     */
-    public Adapter createOPMAggregationLinkAggregatorAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMExhibitionLinkAggregator <em>Exhibition Link Aggregator</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMExhibitionLinkAggregator
-     * @generated
-     */
-    public Adapter createOPMExhibitionLinkAggregatorAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMGeneralizationLinkAggregator <em>Generalization Link Aggregator</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMGeneralizationLinkAggregator
-     * @generated
-     */
-    public Adapter createOPMGeneralizationLinkAggregatorAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMState <em>State</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.OPMState
-     * @generated
-     */
-    public Adapter createOPMStateAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.Node <em>Node</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.Node
-     * @generated
-     */
-    public Adapter createNodeAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.NodeContainer <em>Node Container</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.NodeContainer
-     * @generated
-     */
-    public Adapter createNodeContainerAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.Link <em>Link</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see com.vainolo.phd.opm.model.Link
-     * @generated
-     */
-    public Adapter createLinkAdapter() {
-        return null;
-    }
-
-    /**
      * Creates a new adapter for the default case.
      * <!-- begin-user-doc -->
 	 * This default implementation returns null.

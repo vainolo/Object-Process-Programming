@@ -19,7 +19,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMThingTest extends NodeTest {
+public class OPMThingTest extends OPMNodeTest {
 
 	/**
      * <!-- begin-user-doc -->
@@ -47,7 +47,7 @@ public class OPMThingTest extends NodeTest {
      * @generated
      */
 	@Override
-    protected OPMThing getFixture() {
+	protected OPMThing getFixture() {
         return (OPMThing)fixture;
     }
 
