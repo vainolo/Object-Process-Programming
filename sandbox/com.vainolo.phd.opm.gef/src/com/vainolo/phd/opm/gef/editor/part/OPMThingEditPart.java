@@ -1,17 +1,10 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.gef.CompoundSnapToHelper;
@@ -25,17 +18,11 @@ import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 import org.eclipse.jface.viewers.TextCellEditor;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.ui.part.FileEditorInput;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMThingDirectEditPolicy;
@@ -43,10 +30,10 @@ import com.vainolo.phd.opm.model.OPMThing;
 
 public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
-	public OPMThingEditPart() {
-		super();
-	}
-	
+    public OPMThingEditPart() {
+        super();
+    }
+
     @Override
     protected void createEditPolicies() {
         super.createEditPolicies();
@@ -54,50 +41,51 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
         installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
     }
 
-	@Override protected void refreshVisuals() {
-		OPMThingFigure figure = (OPMThingFigure)getFigure();
-		OPMThing model = (OPMThing)getModel();
-		GraphicalEditPart parent = (GraphicalEditPart) getParent();
-		
-		figure.getNameLabel().setText(model.getName());
-		parent.setLayoutConstraint(this, figure, model.getConstraints());
-		
-		figure.setTooltipText(model.getDescription());
-	}
+    @Override protected void refreshVisuals() {
+        OPMThingFigure figure = (OPMThingFigure)getFigure();
+        OPMThing model = (OPMThing)getModel();
+        GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
-	@Override public void performRequest(Request req) {
-		if(req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
-			performDirectEditing();
-		} else if(req.getType() == RequestConstants.REQ_OPEN) {
-		    IEditorPart editorPart = ((DefaultEditDomain)getViewer().getEditDomain()).getEditorPart();
-		    IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
-		    IFile file = input.getFile();
-		    IFolder parent = (IFolder) file.getParent();
-		    IFile newFile = parent.getFile("OPP Editor.opm");
-		    
-		    IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
-		    IWorkbenchPage page = editorPart.getSite().getPage();
-		    try {
-                page.openEditor(new FileEditorInput(newFile), editor.getId());
-            } catch (PartInitException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-		}
-	}
-	
-	private void performDirectEditing() {
-		Label label = ((OPMThingFigure)getFigure()).getNameLabel();
-		OPMThingDirectEditManager manager = new OPMThingDirectEditManager(this, TextCellEditor.class, new OPMThingCellEditorLocator(label), label);
-		manager.show();
-	}
-	
-    
+        figure.getNameLabel().setText(model.getName());
+        parent.setLayoutConstraint(this, figure, model.getConstraints());
+
+        figure.setTooltipText(model.getDescription());
+    }
+
+    @Override public void performRequest(Request req) {
+        if(req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
+            performDirectEditing();
+        } else if(req.getType() == RequestConstants.REQ_OPEN) {
+            IEditorPart editorPart = ((DefaultEditDomain)getViewer().getEditDomain()).getEditorPart();
+            IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
+            IFile file = input.getFile();
+            IFolder parent = (IFolder) file.getParent();
+            IFile newFile = parent.getFile("OPP Editor.opm");
+
+            IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
+            IWorkbenchPage page = editorPart.getSite().getPage();
+            //		    try {
+            //                page.openEditor(new FileEditorInput(newFile), editor.getId());
+            //            } catch (PartInitException e) {
+            //                // TODO Auto-generated catch block
+            //                e.printStackTrace();
+            //            }
+            System.out.println("double click");
+        }
+    }
+
+    private void performDirectEditing() {
+        Label label = ((OPMThingFigure)getFigure()).getNameLabel();
+        OPMThingDirectEditManager manager = new OPMThingDirectEditManager(this, TextCellEditor.class, new OPMThingCellEditorLocator(label), label);
+        manager.show();
+    }
+
+
     @Override
     public IFigure getContentPane() {
         return ((OPMThingFigure)getFigure()).getContentPane();
     }
-    
+
     /**
      * Currently the class only adapts to create a {@link SnapToHelper}
      * when the editor is in snapping mode (either to grid or to shapes).
@@ -117,10 +105,10 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
                 return new CompoundSnapToHelper(helpers.toArray(new SnapToHelper[0]));
             }
         }
-        
+
         return super.getAdapter(key);
     }   
-    
-    
-    
+
+
+
 }
