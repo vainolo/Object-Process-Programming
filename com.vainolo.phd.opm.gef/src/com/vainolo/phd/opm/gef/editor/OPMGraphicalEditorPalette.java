@@ -13,6 +13,7 @@ import com.vainolo.phd.opm.gef.editor.factory.OPMEffectLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMExhibitionStructuralLinkAggregatorFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMGeneralizationStructuralLinkAggregatorFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMInstrumentLinkFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMInvocationLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMObjectFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMProcessFactory;
@@ -79,6 +80,9 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Effect", "Create a new Effect link", new OPMEffectLinkFactory(), null, null);
 		group.add(entry);
+        entry = new ConnectionCreationToolEntry("Invocation", "Create a new Invocation link", new OPMInvocationLinkFactory(), null, null);
+        group.add(entry);
+	
 	}
 	
 	/**

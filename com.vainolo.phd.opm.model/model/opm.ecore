@@ -62,6 +62,7 @@
     <eLiterals name="CONSUMPTION" value="2" literal="Consumption"/>
     <eLiterals name="EFFECT" value="3" literal="Effect"/>
     <eLiterals name="RESULT" value="4" literal="Result"/>
+    <eLiterals name="INVOCATION" value="5" literal="Invocation"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMLinkRouterKind">
     <eLiterals name="BENDPOINT" literal="Bendpoint"/>

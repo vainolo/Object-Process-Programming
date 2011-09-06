@@ -56,6 +56,7 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 			break;
 		case CONSUMPTION:
 		case RESULT:
+        case INVOCATION:		    
 			connection.setTargetDecoration(new PolylineDecoration());
 			break;
 			
