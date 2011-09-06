@@ -66,7 +66,15 @@ public enum OPMProceduralLinkKind implements Enumerator {
      * @generated
      * @ordered
      */
-	RESULT(4, "RESULT", "Result");
+	RESULT(4, "RESULT", "Result"), /**
+     * The '<em><b>INVOCATION</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #INVOCATION_VALUE
+     * @generated
+     * @ordered
+     */
+    INVOCATION(5, "INVOCATION", "Invocation");
 
 	/**
      * The '<em><b>AGENT</b></em>' literal value.
@@ -144,6 +152,21 @@ public enum OPMProceduralLinkKind implements Enumerator {
 	public static final int RESULT_VALUE = 4;
 
 	/**
+     * The '<em><b>INVOCATION</b></em>' literal value.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>INVOCATION</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @see #INVOCATION
+     * @model literal="Invocation"
+     * @generated
+     * @ordered
+     */
+    public static final int INVOCATION_VALUE = 5;
+
+    /**
      * An array of all the '<em><b>Procedural Link Kind</b></em>' enumerators.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -156,6 +179,7 @@ public enum OPMProceduralLinkKind implements Enumerator {
             CONSUMPTION,
             EFFECT,
             RESULT,
+            INVOCATION,
         };
 
 	/**
@@ -211,6 +235,7 @@ public enum OPMProceduralLinkKind implements Enumerator {
             case CONSUMPTION_VALUE: return CONSUMPTION;
             case EFFECT_VALUE: return EFFECT;
             case RESULT_VALUE: return RESULT;
+            case INVOCATION_VALUE: return INVOCATION;
         }
         return null;
     }

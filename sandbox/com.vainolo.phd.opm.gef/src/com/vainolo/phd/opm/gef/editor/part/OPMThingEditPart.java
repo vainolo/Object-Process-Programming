@@ -7,6 +7,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPolicy;
@@ -22,7 +23,9 @@ import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.FileEditorInput;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMThingDirectEditPolicy;
@@ -50,6 +53,9 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
         parent.setLayoutConstraint(this, figure, model.getConstraints());
 
         figure.setTooltipText(model.getDescription());
+
+        Rectangle textSize = figure.getNameLabel().getTextBounds().getCopy();
+
     }
 
     @Override public void performRequest(Request req) {
@@ -64,12 +70,12 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
             IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
             IWorkbenchPage page = editorPart.getSite().getPage();
-            //		    try {
-            //                page.openEditor(new FileEditorInput(newFile), editor.getId());
-            //            } catch (PartInitException e) {
-            //                // TODO Auto-generated catch block
-            //                e.printStackTrace();
-            //            }
+            try {
+                page.openEditor(new FileEditorInput(newFile), editor.getId());
+            } catch (PartInitException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } 
             System.out.println("double click");
         }
     }
@@ -108,7 +114,4 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
         return super.getAdapter(key);
     }   
-
-
-
 }
