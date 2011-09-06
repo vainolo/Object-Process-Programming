@@ -22,7 +22,6 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure {
         nameLabel = new Label();
         add(nameLabel);
         tooltipFigure = new TooltipFigure(); 
-        setToolTip(tooltipFigure);
     }
     
     /**
@@ -32,9 +31,19 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure {
     public Label getNameLabel() {
         return nameLabel;
     }    
-    
+
+    /**
+     * Set the text of the figure's tooltip. If the text is null or
+     * empty, no tooltip will be shown.
+     * @param tooltipText the text to show as the figure's tooltip.
+     */
     public void setTooltipText(String tooltipText) {
-        tooltipFigure.setMessage(tooltipText);
+        if(tooltipText != null && tooltipText != "") {
+            tooltipFigure.setMessage(tooltipText);
+            setToolTip(tooltipFigure);
+        } else {
+            setToolTip(null);
+        }
     }
     
     protected final boolean useLocalCoordinates() {
