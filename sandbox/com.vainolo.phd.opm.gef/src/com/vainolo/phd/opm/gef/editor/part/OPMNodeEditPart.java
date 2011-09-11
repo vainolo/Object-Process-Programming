@@ -14,9 +14,9 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
+import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeComponentEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeGraphicalNodeEditPolicy;
-import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 
@@ -31,14 +31,14 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
 
     @Override
     protected List<OPMLink> getModelSourceConnections() {
-    	OPMNode model = (OPMNode)getModel();
-    	return model.getOutgoingLinks();
+        OPMNode model = (OPMNode)getModel();
+        return model.getOutgoingLinks();
     }
 
     @Override
     protected List<OPMLink> getModelTargetConnections() {
-    	OPMNode model = (OPMNode)getModel();
-    	return model.getIncomingLinks();
+        OPMNode model = (OPMNode)getModel();
+        return model.getIncomingLinks();
     }
 
     @Override
@@ -54,7 +54,7 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
         if(isActive()) {
             ((OPMNode)getModel()).eAdapters().remove(adapter);
         }
-    
+
         super.deactivate();
     }
 
@@ -67,7 +67,7 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
         installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMNodeGraphicalNodeEditPolicy());
         installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMContainerXYLayoutPolicy());
     }
-    
+
     @Override protected List getModelChildren() {
         OPMNode model = (OPMNode) getModel();
         return Collections.unmodifiableList(model.getNodes());
@@ -75,22 +75,22 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
 
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-    	return ((OPMNodeFigure)getFigure()).getSourceConnectionAnchor();
+        return ((OPMNodeFigure)getFigure()).getSourceConnectionAnchor();
     }
 
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-    	return ((OPMNodeFigure)getFigure()).getTargetConnectionAnchor();
+        return ((OPMNodeFigure)getFigure()).getTargetConnectionAnchor();
     }
 
     @Override
     public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-    	return ((OPMNodeFigure)getFigure()).getSourceConnectionAnchor();
+        return ((OPMNodeFigure)getFigure()).getSourceConnectionAnchor();
     }
 
     @Override
     public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-    	return ((OPMNodeFigure)getFigure()).getTargetConnectionAnchor();
+        return ((OPMNodeFigure)getFigure()).getTargetConnectionAnchor();
     }
 
     /**
@@ -100,22 +100,22 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
      *
      */
     public class OPMNodeAdapter implements Adapter {
-        
+
         /**
          * For all changes in the model, refresh visuals, source and target.
          */
         @Override public void notifyChanged(Notification notification) {
             refresh();
         }
-    
+
         @Override public Notifier getTarget() {
             return (OPMNode)getModel();
         }
-    
+
         @Override public void setTarget(Notifier newTarget) {
             // Do nothing.
         }
-    
+
         @Override public boolean isAdapterForType(Object type) {
             return type.equals(OPMNode.class);
         }

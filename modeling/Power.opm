@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opm="www.vainolo.com/phd/opm">
-  <nodes xsi:type="opm:OPMProcess" constraints="84,112,371,224" name="" description="">
+  <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.14" constraints="84,112,371,224" name="" description="">
     <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.3 //@links.10" outgoingLinks="//@links.11" constraints="210,35,73,35" name="currVal:num"/>
     <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.7 //@links.9" outgoingLinks="//@links.4" constraints="69,37,105,30" name="localCounter:num"/>
     <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.1" constraints="49,106,31,26" name="0"/>
-    <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.1 //@links.4" outgoingLinks="//@links.5 //@links.12" constraints="87,133,50,50" name="Eq?"/>
+    <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.1 //@links.4" outgoingLinks="//@links.5 //@links.12 //@links.14" constraints="87,133,50,50" name="Eq?"/>
     <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.2 //@links.5" outgoingLinks="//@links.3 //@links.8" constraints="252,106,50,50" name="mult"/>
     <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.6 //@links.8" outgoingLinks="//@links.7" constraints="159,96,50,50" name="dec"/>
     <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.6" constraints="183,45,18,24" name="1"/>
@@ -32,4 +32,7 @@
   </links>
   <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.3" target="//@nodes.0/@nodes.7" kind="Result"/>
   <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.7" target="//@nodes.3" kind="Result"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.3" target="//@nodes.0" kind="Result">
+    <bendpoints>209,308</bendpoints>
+  </links>
 </opm:OPMObjectProcessDiagram>

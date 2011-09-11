@@ -1,13 +1,20 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPolicy;
@@ -29,6 +36,7 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMThingDirectEditPolicy;
+import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMThing;
 
 public abstract class OPMThingEditPart extends OPMNodeEditPart {
@@ -66,13 +74,28 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
             IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
             IFile file = input.getFile();
             IFolder parent = (IFolder) file.getParent();
-            IFile newFile = parent.getFile("OPP Editor.opm");
+            IFile newFile = parent.getFile(((OPMThing)getModel()).getName()+".opm");
 
-            IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
-            IWorkbenchPage page = editorPart.getSite().getPage();
+
             try {
+                if(!newFile.exists()) {
+                    ResourceSet resourceSet = new ResourceSetImpl();
+                    Resource resource = resourceSet.createResource(URI.createURI(newFile.getLocationURI().toString()));
+                    resource.getContents().add(OPMFactory.eINSTANCE.createOPMObjectProcessDiagram());
+                    resource.save(null);
+                    file.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE,null);
+                }
+                IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
+                IWorkbenchPage page = editorPart.getSite().getPage();
                 page.openEditor(new FileEditorInput(newFile), editor.getId());
             } catch (PartInitException e) {
+
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (CoreException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             } 
