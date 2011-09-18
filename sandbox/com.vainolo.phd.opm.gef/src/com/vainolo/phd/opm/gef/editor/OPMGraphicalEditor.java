@@ -67,11 +67,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         getGraphicalViewer().setEditPartFactory(new OPMEditPartFactory());
         getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer())); 
         getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
-        getGraphicalViewer().setContextMenu(new OPMGraphicalEditorMenuProvider(getGraphicalViewer(), getActionRegistry()));
-
-        ResizeToContentsAction action = new ResizeToContentsAction(this);
-        getActionRegistry().registerAction(action);
-        getSelectionActions().add(action.getId());
+        getGraphicalViewer().setContextMenu(new OPMGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
 
     }
 
@@ -126,7 +122,15 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
                 opdResource = null;
             }
         }
+    }
 
+    @Override
+    protected void createActions() {
+        super.createActions();
+
+        ResizeToContentsAction action = new ResizeToContentsAction(this);
+        getActionRegistry().registerAction(action);
+        getSelectionActions().add(action.getId());
     }
 
     /**
