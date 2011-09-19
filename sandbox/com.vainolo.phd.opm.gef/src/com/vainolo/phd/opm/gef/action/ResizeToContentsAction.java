@@ -25,7 +25,7 @@ public class ResizeToContentsAction extends SelectionAction {
 
     @Override
     public void run() {
-        // must be nodes because the action is enabled.
+        // selected objects must be nodes because the action is enabled.
         List<OPMNodeEditPart> editParts = getSelectedObjects();
         CompoundCommand compoundCommand = new CompoundCommand();
         for(OPMNodeEditPart nodeEditPart : editParts) {
@@ -34,6 +34,11 @@ public class ResizeToContentsAction extends SelectionAction {
         execute(compoundCommand);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>The action is enabled if all the selected entities on the
+     * editor are {@link OPMNodeEditPart} instances</p> 
+     */
     @Override
     protected boolean calculateEnabled() {
         if(getSelectedObjects().isEmpty()) {
