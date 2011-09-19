@@ -4,6 +4,8 @@ import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public abstract class OPMThingFigure extends Figure implements OPMNodeFigure {
 
@@ -49,4 +51,16 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure {
     protected final boolean useLocalCoordinates() {
         return true;
     }    
+    
+    /**
+     * The thing's preferred size is the size of its name label.
+     */
+    @Override
+    public Dimension getPreferredSize(int wHint, int hHint) {
+        Dimension d = new Dimension();
+        Rectangle textRectangle = getNameLabel().getTextBounds().getCopy();
+        d.width = textRectangle.width;
+        d.height = textRectangle.height;
+        return d;
+    }
 }

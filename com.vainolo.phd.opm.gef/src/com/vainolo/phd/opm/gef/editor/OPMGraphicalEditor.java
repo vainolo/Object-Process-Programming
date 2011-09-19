@@ -32,6 +32,7 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
+import com.vainolo.phd.opm.gef.action.ResizeToContentsAction;
 import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -65,7 +66,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         super.configureGraphicalViewer();
         getGraphicalViewer().setEditPartFactory(new OPMEditPartFactory());
         getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer())); 
-        getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));        
+        getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer())); 
+        getGraphicalViewer().setContextMenu(new OPMGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
     }
 
     @Override
@@ -131,6 +133,15 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         firePropertyChange(PROP_DIRTY);
         super.commandStackChanged(event);
     }
+    
+    @Override
+    protected void createActions() {
+        ResizeToContentsAction action = new ResizeToContentsAction(this);
+        getActionRegistry().registerAction(action);
+        getSelectionActions().add(action.getId());
+        
+        super.createActions();
+    }
 
     /**
      * This methos implements adapting to {@link IPropertySheetPage}. All other requests are 
@@ -176,6 +187,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         return super.getAdapter(type);
     }
 
+    
+    
     /**
      * A property source which unwraps values that are wrapped in an EMF
      * {@link PropertyValueWrapper}

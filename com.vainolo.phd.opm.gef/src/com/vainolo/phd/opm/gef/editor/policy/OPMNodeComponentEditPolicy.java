@@ -1,12 +1,19 @@
 package com.vainolo.phd.opm.gef.editor.policy;
 
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editpolicies.ComponentEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 
+import com.vainolo.phd.opm.gef.action.ResizeToContentsAction;
+import com.vainolo.phd.opm.gef.editor.command.OPMNodeChangeConstraintCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeDeleteCommand;
+import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
+import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
@@ -19,6 +26,8 @@ import com.vainolo.phd.opm.model.OPMThing;
  */
 public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
 
+    private static final int INSETS = 20;    
+    
     /**
      * Create a command to delete a node. When a node is deleted all incoming
      * and outgoing links are also deleted (functionality provided by the
@@ -83,4 +92,41 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
 
         return compoundCommand;
     }
+    
+    /**
+     * Create a command to resize a node based on the current contents of the node.
+     * The current implementation uses the figure's {@link OPMNodeFigure#getPreferredSize()} to
+     * calculate this size.
+     * 
+     * @return
+     */
+    private OPMNodeChangeConstraintCommand createResizeToContentsCommand() {
+        OPMNodeEditPart host = (OPMNodeEditPart) getHost();
+        OPMNode node = (OPMNode) host.getModel();
+        OPMNodeFigure figure = (OPMNodeFigure) host.getFigure();
+
+        // We assume the node's preferred size includes all of its contents.  
+        Dimension preferredSize = figure.getPreferredSize();
+        preferredSize.expand(INSETS, INSETS);
+        Rectangle newConstraints = node.getConstraints().getCopy();
+        newConstraints.setWidth(preferredSize.width);
+        newConstraints.setHeight(preferredSize.height);
+        
+        OPMNodeChangeConstraintCommand command = new OPMNodeChangeConstraintCommand();
+        command.setNode(node);
+        command.setNewConstraint(newConstraints);
+        return command;
+    }
+    
+    /**
+     * <p>Extends the parent implementation by handling incoming REQ_RESIZE_TO_CONTENTS requests.</p>
+     * <p>The parent implementation {@inheritDoc}</p>
+     */
+    @Override
+    public Command getCommand(Request request) {
+        if(request.getType().equals(ResizeToContentsAction.REQ_RESIZE_TO_CONTENTS)) {
+            return createResizeToContentsCommand();
+        }
+        return super.getCommand(request);
+    }    
 }
