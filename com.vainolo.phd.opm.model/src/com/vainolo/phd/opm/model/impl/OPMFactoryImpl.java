@@ -67,6 +67,7 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
             case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM: return createOPMObjectProcessDiagram();
             case OPMPackage.OPM_NODE: return createOPMNode();
             case OPMPackage.OPM_THING: return createOPMThing();
+            case OPMPackage.OPM_STATE: return createOPMState();
             case OPMPackage.OPM_OBJECT: return createOPMObject();
             case OPMPackage.OPM_PROCESS: return createOPMProcess();
             case OPMPackage.OPM_STRUCTURAL_LINK_AGGREGATOR: return createOPMStructuralLinkAggregator();
@@ -184,6 +185,16 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
     }
 
 	/**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public OPMState createOPMState() {
+        OPMStateImpl opmState = new OPMStateImpl();
+        return opmState;
+    }
+
+    /**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated

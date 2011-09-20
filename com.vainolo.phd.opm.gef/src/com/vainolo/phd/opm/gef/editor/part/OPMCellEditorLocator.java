@@ -8,11 +8,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Text;
 
-public class OPMThingCellEditorLocator implements CellEditorLocator {
+public class OPMCellEditorLocator implements CellEditorLocator {
 
 	private Label nameLabel;
 	
-	public OPMThingCellEditorLocator(Label label) {
+	public OPMCellEditorLocator(Label label) {
 		this.nameLabel = label;
 	}
 

@@ -164,6 +164,11 @@ public class OPMContainerItemProvider
         newChildDescriptors.add
             (createChildParameter
                 (OPMPackage.Literals.OPM_CONTAINER__NODES,
+                 OPMFactory.eINSTANCE.createOPMState()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (OPMPackage.Literals.OPM_CONTAINER__NODES,
                  OPMFactory.eINSTANCE.createOPMObject()));
 
         newChildDescriptors.add

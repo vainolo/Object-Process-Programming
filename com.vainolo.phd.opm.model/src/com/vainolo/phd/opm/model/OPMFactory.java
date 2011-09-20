@@ -80,6 +80,15 @@ public interface OPMFactory extends EFactory {
 	OPMThing createOPMThing();
 
 	/**
+     * Returns a new object of class '<em>State</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>State</em>'.
+     * @generated
+     */
+    OPMState createOPMState();
+
+    /**
      * Returns a new object of class '<em>Node</em>'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

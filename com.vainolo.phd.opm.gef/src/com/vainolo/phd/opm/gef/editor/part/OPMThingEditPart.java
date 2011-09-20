@@ -88,7 +88,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 	
 	private void performDirectEditing() {
 		Label label = ((OPMThingFigure)getFigure()).getNameLabel();
-		OPMThingDirectEditManager manager = new OPMThingDirectEditManager(this, TextCellEditor.class, new OPMThingCellEditorLocator(label), label);
+		OPMCellDirectEditManager manager = new OPMCellDirectEditManager(this, TextCellEditor.class, new OPMCellEditorLocator(label), label);
 		manager.show();
 	}
 	

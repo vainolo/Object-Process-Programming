@@ -88,6 +88,10 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
                 return createOPMThingAdapter();
             }
             @Override
+            public Adapter caseOPMState(OPMState object) {
+                return createOPMStateAdapter();
+            }
+            @Override
             public Adapter caseOPMObject(OPMObject object) {
                 return createOPMObjectAdapter();
             }
@@ -212,6 +216,20 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
     }
 
 	/**
+     * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMState <em>State</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see com.vainolo.phd.opm.model.OPMState
+     * @generated
+     */
+    public Adapter createOPMStateAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMNode <em>Node</em>}'.
      * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;

@@ -17,6 +17,7 @@ import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 import com.vainolo.phd.opm.model.OPMThing;
@@ -82,6 +83,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	private EClass opmThingEClass = null;
 
 	/**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass opmStateEClass = null;
+
+    /**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
@@ -335,6 +343,24 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     /**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getOPMState() {
+        return opmStateEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getOPMState_Name() {
+        return (EAttribute)opmStateEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -503,6 +529,9 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         createEAttribute(opmThingEClass, OPM_THING__NAME);
         createEAttribute(opmThingEClass, OPM_THING__DESCRIPTION);
 
+        opmStateEClass = createEClass(OPM_STATE);
+        createEAttribute(opmStateEClass, OPM_STATE__NAME);
+
         opmObjectEClass = createEClass(OPM_OBJECT);
 
         opmProcessEClass = createEClass(OPM_PROCESS);
@@ -561,6 +590,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         opmObjectProcessDiagramEClass.getESuperTypes().add(this.getOPMContainer());
         opmNodeEClass.getESuperTypes().add(this.getOPMContainer());
         opmThingEClass.getESuperTypes().add(this.getOPMNode());
+        opmStateEClass.getESuperTypes().add(this.getOPMNode());
         opmObjectEClass.getESuperTypes().add(this.getOPMThing());
         opmProcessEClass.getESuperTypes().add(this.getOPMThing());
         opmStructuralLinkAggregatorEClass.getESuperTypes().add(this.getOPMNode());
@@ -588,6 +618,9 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         initEClass(opmThingEClass, OPMThing.class, "OPMThing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getOPMThing_Name(), ecorePackage.getEString(), "name", "<...>", 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getOPMThing_Description(), ecorePackage.getEString(), "description", null, 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(opmStateEClass, OPMState.class, "OPMState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getOPMState_Name(), ecorePackage.getEString(), "name", null, 0, 1, OPMState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -4,6 +4,7 @@ import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMState;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -19,6 +20,8 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeChangeConstraintCommand;
+import com.vainolo.phd.opm.gef.editor.part.OPMObjectEditPart;
+import com.vainolo.phd.opm.gef.editor.part.OPMStateEditPart;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 
 /**
@@ -47,7 +50,13 @@ public class OPMContainerXYLayoutPolicy extends XYLayoutEditPolicy {
 	 */
 	@Override protected Command getCreateCommand(CreateRequest request) {
 		Command retVal = null;
-		if(request.getNewObjectType().equals(OPMObject.class) || request.getNewObjectType().equals(OPMProcess.class)) {
+        if(getHost() instanceof OPMStateEditPart) {
+            return UnexecutableCommand.INSTANCE;
+        }
+        if(request.getNewObjectType().equals(OPMObject.class) || request.getNewObjectType().equals(OPMProcess.class) || request.getNewObjectType().equals(OPMState.class)) {
+            if(request.getNewObjectType().equals(OPMState.class) && (!(getHost() instanceof OPMObjectEditPart))) {
+                return UnexecutableCommand.INSTANCE;
+            }
 			OPMNodeCreateCommand command = new OPMNodeCreateCommand();
 			Point clickLocation = request.getLocation();
             ((GraphicalEditPart)getHost()).getFigure().translateFromParent(clickLocation);

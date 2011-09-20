@@ -5,11 +5,11 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gef.tools.DirectEditManager;
 
-public class OPMThingDirectEditManager extends DirectEditManager {
+public class OPMCellDirectEditManager extends DirectEditManager {
 
 	Label label;
 	
-	public OPMThingDirectEditManager(GraphicalEditPart source, Class editorType, CellEditorLocator locator, Label label) {
+	public OPMCellDirectEditManager(GraphicalEditPart source, Class editorType, CellEditorLocator locator, Label label) {
 		super(source, editorType, locator);
 		this.label = label;
 	}
