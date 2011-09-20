@@ -29,7 +29,7 @@ import com.vainolo.phd.opm.model.OPMThing;
  */
 public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
-    private static final Dimension DEFAULT_AGGREGATOR_DIMENSION = new Dimension(30, 30);
+    private static final Dimension DEFAULT_AGGREGATOR_DIMENSION = new Dimension(15,15);
 
     /**
      * Create a command used to begin connecting to nodes.
