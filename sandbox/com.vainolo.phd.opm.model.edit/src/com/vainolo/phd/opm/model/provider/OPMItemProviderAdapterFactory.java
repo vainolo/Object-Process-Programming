@@ -214,6 +214,29 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
     }
 
 	/**
+     * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMState} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected OPMStateItemProvider opmStateItemProvider;
+
+    /**
+     * This creates an adapter for a {@link com.vainolo.phd.opm.model.OPMState}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createOPMStateAdapter() {
+        if (opmStateItemProvider == null) {
+            opmStateItemProvider = new OPMStateItemProvider(this);
+        }
+
+        return opmStateItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMNode} instances.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -385,6 +408,7 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
         if (opmObjectProcessDiagramItemProvider != null) opmObjectProcessDiagramItemProvider.dispose();
         if (opmNodeItemProvider != null) opmNodeItemProvider.dispose();
         if (opmThingItemProvider != null) opmThingItemProvider.dispose();
+        if (opmStateItemProvider != null) opmStateItemProvider.dispose();
         if (opmObjectItemProvider != null) opmObjectItemProvider.dispose();
         if (opmProcessItemProvider != null) opmProcessItemProvider.dispose();
         if (opmStructuralLinkAggregatorItemProvider != null) opmStructuralLinkAggregatorItemProvider.dispose();

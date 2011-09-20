@@ -100,6 +100,14 @@ public class OPMSwitch<T> extends Switch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case OPMPackage.OPM_STATE: {
+                OPMState opmState = (OPMState)theEObject;
+                T result = caseOPMState(opmState);
+                if (result == null) result = caseOPMNode(opmState);
+                if (result == null) result = caseOPMContainer(opmState);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case OPMPackage.OPM_OBJECT: {
                 OPMObject opmObject = (OPMObject)theEObject;
                 T result = caseOPMObject(opmObject);
@@ -234,6 +242,21 @@ public class OPMSwitch<T> extends Switch<T> {
     }
 
 	/**
+     * Returns the result of interpreting the object as an instance of '<em>State</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>State</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseOPMState(OPMState object) {
+        return null;
+    }
+
+    /**
      * Returns the result of interpreting the object as an instance of '<em>Node</em>'.
      * <!-- begin-user-doc -->
 	 * This implementation returns null;

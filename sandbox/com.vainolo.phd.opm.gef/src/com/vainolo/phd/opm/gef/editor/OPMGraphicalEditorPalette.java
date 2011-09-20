@@ -18,6 +18,7 @@ import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMObjectFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMProcessFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMResultLinkFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMStateFactory;
 import com.vainolo.phd.opm.gef.editor.tool.CreationAndDirectEditTool;
 
 /**
@@ -30,8 +31,7 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
     public OPMGraphicalEditorPalette() {
         addGroup();
         addSelectionTool();
-        addOPMObjectTool();
-        addOPMProcessTool();
+        addNodeTools();
         addOPMLinkTool();
         addOPMProceduralLinkTools();
         addOPMStructuralLinkTools();
@@ -48,15 +48,15 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
         add(group);
     }
 
-    private void addOPMObjectTool() {
+    private void addNodeTools() {
         CreationToolEntry entry = new CreationToolEntry("OPMObject", "Create a new Object", new OPMObjectFactory(), null, null);
+        entry.setToolClass(CreationAndDirectEditTool.class);        
+        group.add(entry);
+        entry = new CreationToolEntry("OPMProcess", "Create a new Process", new OPMProcessFactory(), null, null);
         entry.setToolClass(CreationAndDirectEditTool.class);		
         group.add(entry);
-    }
-
-    private void addOPMProcessTool() {
-        CreationToolEntry entry = new CreationToolEntry("OPMProcess", "Create a new Process", new OPMProcessFactory(), null, null);
-        entry.setToolClass(CreationAndDirectEditTool.class);		
+        entry = new CreationToolEntry("OPMState", "Create a new State", new OPMStateFactory(), null, null);
+        entry.setToolClass(CreationAndDirectEditTool.class);        
         group.add(entry);
     }
 
