@@ -23,6 +23,9 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getTarget <em>Target</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getBendpoints <em>Bendpoints</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getRouterKind <em>Router Kind</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getSourceDecoration <em>Source Decoration</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getTargetDecoration <em>Target Decoration</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getCenterDecoration <em>Center Decoration</em>}</li>
  * </ul>
  * </p>
  *
@@ -160,5 +163,83 @@ public interface OPMLink extends EObject {
      * @generated
      */
     void setRouterKind(OPMLinkRouterKind value);
+
+    /**
+     * Returns the value of the '<em><b>Source Decoration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Source Decoration</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Source Decoration</em>' attribute.
+     * @see #setSourceDecoration(String)
+     * @see com.vainolo.phd.opm.model.OPMPackage#getOPMLink_SourceDecoration()
+     * @model
+     * @generated
+     */
+    String getSourceDecoration();
+
+    /**
+     * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMLink#getSourceDecoration <em>Source Decoration</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Source Decoration</em>' attribute.
+     * @see #getSourceDecoration()
+     * @generated
+     */
+    void setSourceDecoration(String value);
+
+    /**
+     * Returns the value of the '<em><b>Target Decoration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Target Decoration</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Target Decoration</em>' attribute.
+     * @see #setTargetDecoration(String)
+     * @see com.vainolo.phd.opm.model.OPMPackage#getOPMLink_TargetDecoration()
+     * @model
+     * @generated
+     */
+    String getTargetDecoration();
+
+    /**
+     * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMLink#getTargetDecoration <em>Target Decoration</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Target Decoration</em>' attribute.
+     * @see #getTargetDecoration()
+     * @generated
+     */
+    void setTargetDecoration(String value);
+
+    /**
+     * Returns the value of the '<em><b>Center Decoration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Center Decoration</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Center Decoration</em>' attribute.
+     * @see #setCenterDecoration(String)
+     * @see com.vainolo.phd.opm.model.OPMPackage#getOPMLink_CenterDecoration()
+     * @model
+     * @generated
+     */
+    String getCenterDecoration();
+
+    /**
+     * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMLink#getCenterDecoration <em>Center Decoration</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Center Decoration</em>' attribute.
+     * @see #getCenterDecoration()
+     * @generated
+     */
+    void setCenterDecoration(String value);
 
 } // OPMLink

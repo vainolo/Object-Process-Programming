@@ -1,0 +1,3 @@
+ <%@ jet package="hello" class="HelloWorldTemplate" %>
+ <%=argument%>
+ 

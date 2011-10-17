@@ -316,6 +316,33 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     /**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getOPMLink_SourceDecoration() {
+        return (EAttribute)opmLinkEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getOPMLink_TargetDecoration() {
+        return (EAttribute)opmLinkEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getOPMLink_CenterDecoration() {
+        return (EAttribute)opmLinkEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -545,6 +572,9 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         createEReference(opmLinkEClass, OPM_LINK__TARGET);
         createEAttribute(opmLinkEClass, OPM_LINK__BENDPOINTS);
         createEAttribute(opmLinkEClass, OPM_LINK__ROUTER_KIND);
+        createEAttribute(opmLinkEClass, OPM_LINK__SOURCE_DECORATION);
+        createEAttribute(opmLinkEClass, OPM_LINK__TARGET_DECORATION);
+        createEAttribute(opmLinkEClass, OPM_LINK__CENTER_DECORATION);
 
         opmProceduralLinkEClass = createEClass(OPM_PROCEDURAL_LINK);
         createEAttribute(opmProceduralLinkEClass, OPM_PROCEDURAL_LINK__KIND);
@@ -635,6 +665,9 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
         initEReference(getOPMLink_Target(), this.getOPMNode(), this.getOPMNode_IncomingLinks(), "target", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getOPMLink_Bendpoints(), this.getPoint(), "bendpoints", null, 0, -1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getOPMLink_RouterKind(), this.getOPMLinkRouterKind(), "routerKind", "", 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getOPMLink_SourceDecoration(), ecorePackage.getEString(), "sourceDecoration", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getOPMLink_TargetDecoration(), ecorePackage.getEString(), "targetDecoration", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getOPMLink_CenterDecoration(), ecorePackage.getEString(), "centerDecoration", null, 0, 1, OPMLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(opmProceduralLinkEClass, OPMProceduralLink.class, "OPMProceduralLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getOPMProceduralLink_Kind(), this.getOPMProceduralLinkKind(), "kind", null, 0, 1, OPMProceduralLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

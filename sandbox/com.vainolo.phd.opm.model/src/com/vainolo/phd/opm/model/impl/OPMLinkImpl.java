@@ -40,6 +40,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getTarget <em>Target</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getBendpoints <em>Bendpoints</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getRouterKind <em>Router Kind</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getSourceDecoration <em>Source Decoration</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getTargetDecoration <em>Target Decoration</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl#getCenterDecoration <em>Center Decoration</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,6 +98,66 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
      * @ordered
      */
     protected OPMLinkRouterKind routerKind = ROUTER_KIND_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getSourceDecoration() <em>Source Decoration</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceDecoration()
+     * @generated
+     * @ordered
+     */
+    protected static final String SOURCE_DECORATION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSourceDecoration() <em>Source Decoration</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceDecoration()
+     * @generated
+     * @ordered
+     */
+    protected String sourceDecoration = SOURCE_DECORATION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getTargetDecoration() <em>Target Decoration</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTargetDecoration()
+     * @generated
+     * @ordered
+     */
+    protected static final String TARGET_DECORATION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getTargetDecoration() <em>Target Decoration</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTargetDecoration()
+     * @generated
+     * @ordered
+     */
+    protected String targetDecoration = TARGET_DECORATION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getCenterDecoration() <em>Center Decoration</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCenterDecoration()
+     * @generated
+     * @ordered
+     */
+    protected static final String CENTER_DECORATION_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCenterDecoration() <em>Center Decoration</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCenterDecoration()
+     * @generated
+     * @ordered
+     */
+    protected String centerDecoration = CENTER_DECORATION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -311,6 +374,69 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
 
     /**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getSourceDecoration() {
+        return sourceDecoration;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSourceDecoration(String newSourceDecoration) {
+        String oldSourceDecoration = sourceDecoration;
+        sourceDecoration = newSourceDecoration;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_LINK__SOURCE_DECORATION, oldSourceDecoration, sourceDecoration));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getTargetDecoration() {
+        return targetDecoration;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTargetDecoration(String newTargetDecoration) {
+        String oldTargetDecoration = targetDecoration;
+        targetDecoration = newTargetDecoration;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_LINK__TARGET_DECORATION, oldTargetDecoration, targetDecoration));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getCenterDecoration() {
+        return centerDecoration;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCenterDecoration(String newCenterDecoration) {
+        String oldCenterDecoration = centerDecoration;
+        centerDecoration = newCenterDecoration;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_LINK__CENTER_DECORATION, oldCenterDecoration, centerDecoration));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -385,6 +511,12 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
                 return getBendpoints();
             case OPMPackage.OPM_LINK__ROUTER_KIND:
                 return getRouterKind();
+            case OPMPackage.OPM_LINK__SOURCE_DECORATION:
+                return getSourceDecoration();
+            case OPMPackage.OPM_LINK__TARGET_DECORATION:
+                return getTargetDecoration();
+            case OPMPackage.OPM_LINK__CENTER_DECORATION:
+                return getCenterDecoration();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -414,6 +546,15 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
             case OPMPackage.OPM_LINK__ROUTER_KIND:
                 setRouterKind((OPMLinkRouterKind)newValue);
                 return;
+            case OPMPackage.OPM_LINK__SOURCE_DECORATION:
+                setSourceDecoration((String)newValue);
+                return;
+            case OPMPackage.OPM_LINK__TARGET_DECORATION:
+                setTargetDecoration((String)newValue);
+                return;
+            case OPMPackage.OPM_LINK__CENTER_DECORATION:
+                setCenterDecoration((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -441,6 +582,15 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
             case OPMPackage.OPM_LINK__ROUTER_KIND:
                 setRouterKind(ROUTER_KIND_EDEFAULT);
                 return;
+            case OPMPackage.OPM_LINK__SOURCE_DECORATION:
+                setSourceDecoration(SOURCE_DECORATION_EDEFAULT);
+                return;
+            case OPMPackage.OPM_LINK__TARGET_DECORATION:
+                setTargetDecoration(TARGET_DECORATION_EDEFAULT);
+                return;
+            case OPMPackage.OPM_LINK__CENTER_DECORATION:
+                setCenterDecoration(CENTER_DECORATION_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -463,6 +613,12 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
                 return bendpoints != null && !bendpoints.isEmpty();
             case OPMPackage.OPM_LINK__ROUTER_KIND:
                 return routerKind != ROUTER_KIND_EDEFAULT;
+            case OPMPackage.OPM_LINK__SOURCE_DECORATION:
+                return SOURCE_DECORATION_EDEFAULT == null ? sourceDecoration != null : !SOURCE_DECORATION_EDEFAULT.equals(sourceDecoration);
+            case OPMPackage.OPM_LINK__TARGET_DECORATION:
+                return TARGET_DECORATION_EDEFAULT == null ? targetDecoration != null : !TARGET_DECORATION_EDEFAULT.equals(targetDecoration);
+            case OPMPackage.OPM_LINK__CENTER_DECORATION:
+                return CENTER_DECORATION_EDEFAULT == null ? centerDecoration != null : !CENTER_DECORATION_EDEFAULT.equals(centerDecoration);
         }
         return super.eIsSet(featureID);
     }
@@ -481,6 +637,12 @@ public class OPMLinkImpl extends EObjectImpl implements OPMLink {
         result.append(bendpoints);
         result.append(", routerKind: ");
         result.append(routerKind);
+        result.append(", sourceDecoration: ");
+        result.append(sourceDecoration);
+        result.append(", targetDecoration: ");
+        result.append(targetDecoration);
+        result.append(", centerDecoration: ");
+        result.append(centerDecoration);
         result.append(')');
         return result.toString();
     }

@@ -69,6 +69,9 @@ public class OPMLinkItemProvider
             addTargetPropertyDescriptor(object);
             addBendpointsPropertyDescriptor(object);
             addRouterKindPropertyDescriptor(object);
+            addSourceDecorationPropertyDescriptor(object);
+            addTargetDecorationPropertyDescriptor(object);
+            addCenterDecorationPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -162,6 +165,72 @@ public class OPMLinkItemProvider
     }
 
     /**
+     * This adds a property descriptor for the Source Decoration feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addSourceDecorationPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_OPMLink_sourceDecoration_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_OPMLink_sourceDecoration_feature", "_UI_OPMLink_type"),
+                 OPMPackage.Literals.OPM_LINK__SOURCE_DECORATION,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Target Decoration feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addTargetDecorationPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_OPMLink_targetDecoration_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_OPMLink_targetDecoration_feature", "_UI_OPMLink_type"),
+                 OPMPackage.Literals.OPM_LINK__TARGET_DECORATION,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
+     * This adds a property descriptor for the Center Decoration feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCenterDecorationPropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_OPMLink_centerDecoration_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_OPMLink_centerDecoration_feature", "_UI_OPMLink_type"),
+                 OPMPackage.Literals.OPM_LINK__CENTER_DECORATION,
+                 true,
+                 false,
+                 false,
+                 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+                 null,
+                 null));
+    }
+
+    /**
      * This returns OPMLink.gif.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -201,6 +270,9 @@ public class OPMLinkItemProvider
         switch (notification.getFeatureID(OPMLink.class)) {
             case OPMPackage.OPM_LINK__BENDPOINTS:
             case OPMPackage.OPM_LINK__ROUTER_KIND:
+            case OPMPackage.OPM_LINK__SOURCE_DECORATION:
+            case OPMPackage.OPM_LINK__TARGET_DECORATION:
+            case OPMPackage.OPM_LINK__CENTER_DECORATION:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
                 return;
         }

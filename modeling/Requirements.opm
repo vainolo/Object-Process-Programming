@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opm="www.vainolo.com/phd/opm">
-  <nodes xsi:type="opm:OPMObject" constraints="192,94,50,50" name="Something"/>
+  <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.0" constraints="151,140,50,50" name="A"/>
+  <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.0" constraints="364,401,50,50" name="B"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0" target="//@nodes.1" sourceDecoration="A" targetDecoration="A" centerDecoration="A" kind="Result">
+    <bendpoints>429,242</bendpoints>
+  </links>
 </opm:OPMObjectProcessDiagram>

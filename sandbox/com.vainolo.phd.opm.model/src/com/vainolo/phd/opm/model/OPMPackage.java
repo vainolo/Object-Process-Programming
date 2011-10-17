@@ -638,13 +638,40 @@ public interface OPMPackage extends EPackage {
     int OPM_LINK__ROUTER_KIND = 4;
 
     /**
+     * The feature id for the '<em><b>Source Decoration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_LINK__SOURCE_DECORATION = 5;
+
+    /**
+     * The feature id for the '<em><b>Target Decoration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_LINK__TARGET_DECORATION = 6;
+
+    /**
+     * The feature id for the '<em><b>Center Decoration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_LINK__CENTER_DECORATION = 7;
+
+    /**
      * The number of structural features of the '<em>Link</em>' class.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int OPM_LINK_FEATURE_COUNT = 5;
+	int OPM_LINK_FEATURE_COUNT = 8;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl <em>Procedural Link</em>}' class.
@@ -700,6 +727,33 @@ public interface OPMPackage extends EPackage {
      * @ordered
      */
     int OPM_PROCEDURAL_LINK__ROUTER_KIND = OPM_LINK__ROUTER_KIND;
+
+    /**
+     * The feature id for the '<em><b>Source Decoration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_PROCEDURAL_LINK__SOURCE_DECORATION = OPM_LINK__SOURCE_DECORATION;
+
+    /**
+     * The feature id for the '<em><b>Target Decoration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_PROCEDURAL_LINK__TARGET_DECORATION = OPM_LINK__TARGET_DECORATION;
+
+    /**
+     * The feature id for the '<em><b>Center Decoration</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_PROCEDURAL_LINK__CENTER_DECORATION = OPM_LINK__CENTER_DECORATION;
 
     /**
      * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -897,6 +951,39 @@ public interface OPMPackage extends EPackage {
      * @generated
      */
     EAttribute getOPMLink_RouterKind();
+
+    /**
+     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMLink#getSourceDecoration <em>Source Decoration</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Source Decoration</em>'.
+     * @see com.vainolo.phd.opm.model.OPMLink#getSourceDecoration()
+     * @see #getOPMLink()
+     * @generated
+     */
+    EAttribute getOPMLink_SourceDecoration();
+
+    /**
+     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMLink#getTargetDecoration <em>Target Decoration</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Target Decoration</em>'.
+     * @see com.vainolo.phd.opm.model.OPMLink#getTargetDecoration()
+     * @see #getOPMLink()
+     * @generated
+     */
+    EAttribute getOPMLink_TargetDecoration();
+
+    /**
+     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMLink#getCenterDecoration <em>Center Decoration</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Center Decoration</em>'.
+     * @see com.vainolo.phd.opm.model.OPMLink#getCenterDecoration()
+     * @see #getOPMLink()
+     * @generated
+     */
+    EAttribute getOPMLink_CenterDecoration();
 
     /**
      * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMThing <em>Thing</em>}'.
@@ -1226,6 +1313,30 @@ public interface OPMPackage extends EPackage {
          * @generated
          */
         EAttribute OPM_LINK__ROUTER_KIND = eINSTANCE.getOPMLink_RouterKind();
+
+        /**
+         * The meta object literal for the '<em><b>Source Decoration</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute OPM_LINK__SOURCE_DECORATION = eINSTANCE.getOPMLink_SourceDecoration();
+
+        /**
+         * The meta object literal for the '<em><b>Target Decoration</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute OPM_LINK__TARGET_DECORATION = eINSTANCE.getOPMLink_TargetDecoration();
+
+        /**
+         * The meta object literal for the '<em><b>Center Decoration</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute OPM_LINK__CENTER_DECORATION = eINSTANCE.getOPMLink_CenterDecoration();
 
         /**
          * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMThingImpl <em>Thing</em>}' class.

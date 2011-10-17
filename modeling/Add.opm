@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opm="www.vainolo.com/phd/opm">
+  <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.1" constraints="140,217,53,33" name="b: num"/>
+  <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.0" constraints="139,153,56,33" name="a : num"/>
+  <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.0 //@links.1" outgoingLinks="//@links.2" constraints="225,185,38,33" name="add"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.2" constraints="292,185,55,33" name="c : num"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.1" target="//@nodes.2" kind="Instrument"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0" target="//@nodes.2" kind="Instrument"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.2" target="//@nodes.3" kind="Result"/>
+</opm:OPMObjectProcessDiagram>

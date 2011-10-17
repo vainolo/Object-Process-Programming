@@ -50,6 +50,9 @@
         eType="#//Point"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="routerKind" eType="#//OPMLinkRouterKind"
         defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="centerDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMProceduralLink" eSuperTypes="#//OPMLink">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMProceduralLinkKind"/>

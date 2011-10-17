@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opm="www.vainolo.com/phd/opm">
+  <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.0 //@links.3" constraints="160,86,46,33" name="Thing"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.1" outgoingLinks="//@links.5" constraints="45,214,52,33" name="Object"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.2" outgoingLinks="//@links.7" constraints="147,211,57,33" name="Process"/>
+  <nodes xsi:type="opm:OPMStructuralLinkAggregator" incomingLinks="//@links.0" outgoingLinks="//@links.1 //@links.2" constraints="95,135,15,15" kind="Generalization"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.4" constraints="226,139,78,33" name="name:String"/>
+  <nodes xsi:type="opm:OPMStructuralLinkAggregator" incomingLinks="//@links.3" outgoingLinks="//@links.4" constraints="176,135,15,15" kind="Exhibition"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.6" constraints="97,302,70,33" name="type:Type"/>
+  <nodes xsi:type="opm:OPMStructuralLinkAggregator" incomingLinks="//@links.5" outgoingLinks="//@links.6" constraints="86,259,15,15" kind="Exhibition"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.8" constraints="236,293,154,33" name="arguments:List&lt;Argument>"/>
+  <nodes xsi:type="opm:OPMStructuralLinkAggregator" incomingLinks="//@links.7" outgoingLinks="//@links.8" constraints="178,258,15,15" kind="Exhibition"/>
+  <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.9" constraints="504,107,38,33" name="Link"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.10" outgoingLinks="//@links.12" constraints="592,298,88,33" name="Structural Link"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.11" constraints="589,190,92,33" name="Procedural Link"/>
+  <nodes xsi:type="opm:OPMStructuralLinkAggregator" incomingLinks="//@links.9" outgoingLinks="//@links.10 //@links.11" constraints="515,171,15,15" kind="Generalization"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.13" constraints="689,333,100,33" name="Aggregation Link"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.14" constraints="689,378,87,33" name="Exhibition Link"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.15" constraints="690,428,109,33" name="Generalization Link"/>
+  <nodes xsi:type="opm:OPMStructuralLinkAggregator" incomingLinks="//@links.12" outgoingLinks="//@links.13 //@links.14 //@links.15" constraints="626,348,15,15" kind="Generalization"/>
+  <links source="//@nodes.0" target="//@nodes.3" routerKind="Manhattan"/>
+  <links source="//@nodes.3" target="//@nodes.1" routerKind="Manhattan"/>
+  <links source="//@nodes.3" target="//@nodes.2" routerKind="Manhattan"/>
+  <links source="//@nodes.0" target="//@nodes.5" routerKind="Manhattan"/>
+  <links source="//@nodes.5" target="//@nodes.4" routerKind="Manhattan"/>
+  <links source="//@nodes.1" target="//@nodes.7" routerKind="Manhattan"/>
+  <links source="//@nodes.7" target="//@nodes.6" routerKind="Manhattan"/>
+  <links source="//@nodes.2" target="//@nodes.9" routerKind="Manhattan"/>
+  <links source="//@nodes.9" target="//@nodes.8" routerKind="Manhattan"/>
+  <links source="//@nodes.10" target="//@nodes.13" routerKind="Manhattan"/>
+  <links source="//@nodes.13" target="//@nodes.11" routerKind="Manhattan"/>
+  <links source="//@nodes.13" target="//@nodes.12" routerKind="Manhattan"/>
+  <links source="//@nodes.11" target="//@nodes.17" routerKind="Manhattan"/>
+  <links source="//@nodes.17" target="//@nodes.14" routerKind="Manhattan"/>
+  <links source="//@nodes.17" target="//@nodes.15" routerKind="Manhattan"/>
+  <links source="//@nodes.17" target="//@nodes.16" routerKind="Manhattan"/>
+</opm:OPMObjectProcessDiagram>

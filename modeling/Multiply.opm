@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opm="www.vainolo.com/phd/opm">
+  <nodes xsi:type="opm:OPMProcess" constraints="158,46,299,308" name="Mult">
+    <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.0" outgoingLinks="//@links.1 //@links.4" constraints="89,40,52,33" name="i : num"/>
+    <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.1 //@links.2" outgoingLinks="//@links.5 //@links.11" constraints="179,80,32,33" name="Eq"/>
+    <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.2" constraints="201,26,26,33" name="0"/>
+    <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.8" outgoingLinks="//@links.9" constraints="99,247,103,33" name="currVal : num = 0"/>
+    <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.3 //@links.4 //@links.6" constraints="83,124,39,33" name="Add"/>
+    <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.3" constraints="19,128,30,33" name="-1"/>
+    <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.5" outgoingLinks="//@links.6 //@links.13" constraints="170,167,26,33" name="F"/>
+    <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.7 //@links.13" outgoingLinks="//@links.8" constraints="67,185,39,33" name="Add"/>
+    <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.9 //@links.12" outgoingLinks="//@links.10" constraints="226,195,51,33" name="Assign"/>
+    <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.11" outgoingLinks="//@links.12" constraints="245,137,26,33" name="T"/>
+  </nodes>
+  <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.0" constraints="121,67,56,33" name="a : num"/>
+  <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.7" constraints="96,228,56,33" name="b : num"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.10" constraints="468,308,55,33" name="c : num"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.1" target="//@nodes.0/@nodes.0" kind="Result"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.0" target="//@nodes.0/@nodes.1" kind="Instrument"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.2" target="//@nodes.0/@nodes.1" kind="Instrument"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.5" target="//@nodes.0/@nodes.4" sourceDecoration="a" targetDecoration="" centerDecoration="" kind="Instrument"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.0" target="//@nodes.0/@nodes.4" sourceDecoration="" targetDecoration="" centerDecoration="b, c" kind="Effect"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.1" target="//@nodes.0/@nodes.6" kind="Result"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.6" target="//@nodes.0/@nodes.4" kind="Instrument"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.2" target="//@nodes.0/@nodes.7" sourceDecoration="" targetDecoration="" centerDecoration="a" kind="Instrument"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.7" target="//@nodes.0/@nodes.3" centerDecoration="b, c" kind="Effect"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.3" target="//@nodes.0/@nodes.8" kind="Instrument"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.8" target="//@nodes.3" sourceDecoration="" centerDecoration="" kind="Result"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.1" target="//@nodes.0/@nodes.9" kind="Result"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.9" target="//@nodes.0/@nodes.8" kind="Instrument"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0/@nodes.6" target="//@nodes.0/@nodes.7" kind="Instrument"/>
+</opm:OPMObjectProcessDiagram>

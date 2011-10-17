@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opm="www.vainolo.com/phd/opm">
-  <nodes xsi:type="opm:OPMObject" constraints="220,104,86,33" name="Requirements"/>
+  <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.0" constraints="170,328,74,33" name="My Process"/>
+  <nodes xsi:type="opm:OPMObject" incomingLinks="//@links.1" constraints="528,255,50,50" name="DDD"/>
+  <nodes xsi:type="opm:OPMObject" constraints="220,104,215,119" name="Something">
+    <nodes xsi:type="opm:OPMState" outgoingLinks="//@links.0 //@links.1" constraints="20,79,70,33" name="Or Other"/>
+  </nodes>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.2/@nodes.0" target="//@nodes.0"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.2/@nodes.0" target="//@nodes.1" sourceDecoration="" targetDecoration="Something" kind="Consumption">
+    <bendpoints>387,297</bendpoints>
+  </links>
 </opm:OPMObjectProcessDiagram>

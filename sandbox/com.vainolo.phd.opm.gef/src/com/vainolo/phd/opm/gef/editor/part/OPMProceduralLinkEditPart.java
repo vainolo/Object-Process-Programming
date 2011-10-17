@@ -1,6 +1,8 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
 import org.eclipse.draw2d.ColorConstants;
+import org.eclipse.draw2d.ConnectionLocator;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
 
@@ -17,6 +19,10 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
  */
 public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 
+    private Label targetDecorationLabel;
+    private Label sourceDecorationLabel;
+    private Label centerDecorationLabel;
+
     /**
      * Extend the connection creted by {@link OPMLinkEditPart#createFigure()} by adding
      * decorations depending on the link kind.
@@ -32,7 +38,29 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
         PolylineConnection connection = super.createFigure();
         OPMProceduralLink model = (OPMProceduralLink) getModel();
         decorateConnection(connection, model.getKind());
+        sourceDecorationLabel = new Label();
+        centerDecorationLabel = new Label();
+        targetDecorationLabel = new Label();
+        ConnectionLocator locator = new ConnectionLocator(connection, ConnectionLocator.SOURCE);
+        connection.add(sourceDecorationLabel, locator);
+        locator = new ConnectionLocator(connection, ConnectionLocator.MIDDLE);
+        connection.add(centerDecorationLabel, locator);
+        locator = new ConnectionLocator(connection, ConnectionLocator.TARGET);
+        connection.add(targetDecorationLabel, locator);
+        //        ConnectionEndpointLocator locator = new ConnectionEndpointLocator(connection, false);
+        //        locator.setUDistance(20);
+        //        locator.setVDistance(-20);
+        connection.add(centerDecorationLabel, locator);
         return connection;
+    }
+
+    @Override
+    protected void refreshVisuals() {
+        OPMProceduralLink model = (OPMProceduralLink) getModel();
+        targetDecorationLabel.setText(model.getTargetDecoration());
+        centerDecorationLabel.setText(model.getCenterDecoration());
+        sourceDecorationLabel.setText(model.getSourceDecoration());
+        super.refreshVisuals();
     }
 
     /**
@@ -69,4 +97,14 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
             throw new IllegalArgumentException("No case for kind "+kind);
         }
     }
+
+    class Number {
+        void set(double n) {}
+        double get() { return 1; }
+    }
+
+    public void add(Number a, Number b, Number c) {
+        c.set(a.get() + b.get());
+    }
+
 }
