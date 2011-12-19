@@ -38,6 +38,7 @@ public final class IsoscelesTriangle extends Shape implements Orientable {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void primTranslate(int dx, int dy) {
         super.primTranslate(dx, dy);
         triangle.translate(dx, dy);

@@ -1,10 +1,8 @@
 package com.vainolo.phd.opm.gef.editor.policy;
 
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -57,9 +55,11 @@ public class OPMContainerXYLayoutPolicy extends XYLayoutEditPolicy {
                 return UnexecutableCommand.INSTANCE;
             }
             OPMNodeCreateCommand command = new OPMNodeCreateCommand();
-            Point clickLocation = request.getLocation();
-            ((GraphicalEditPart)getHost()).getFigure().translateFromParent(clickLocation);
-            command.setConstraints(new Rectangle(clickLocation, DEFAULT_THING_DIMENSION));
+            Rectangle constraints = (Rectangle) getConstraintFor(request);
+            if(constraints.getSize().isEmpty()) {
+                constraints.setSize(DEFAULT_THING_DIMENSION);
+            }
+            command.setConstraints(constraints);
             command.setContainer((OPMContainer) getHost().getModel());
             command.setNode((OPMNode)(request.getNewObject()));
             retVal = command;
