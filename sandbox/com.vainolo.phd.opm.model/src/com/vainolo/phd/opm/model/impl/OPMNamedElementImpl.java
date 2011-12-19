@@ -8,28 +8,28 @@ package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.OPMNamedElement;
 import com.vainolo.phd.opm.model.OPMPackage;
-import com.vainolo.phd.opm.model.OPMState;
 
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>State</b></em>'.
+ * An implementation of the model object '<em><b>Named Element</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.vainolo.phd.opm.model.impl.OPMStateImpl#getName <em>Name</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNamedElementImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class OPMStateImpl extends OPMNodeImpl implements OPMState {
+public abstract class OPMNamedElementImpl extends EObjectImpl implements OPMNamedElement {
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -55,7 +55,7 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
      * <!-- end-user-doc -->
      * @generated
      */
-    protected OPMStateImpl() {
+    protected OPMNamedElementImpl() {
         super();
     }
 
@@ -66,7 +66,7 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
      */
     @Override
     protected EClass eStaticClass() {
-        return OPMPackage.Literals.OPM_STATE;
+        return OPMPackage.Literals.OPM_NAMED_ELEMENT;
     }
 
     /**
@@ -87,7 +87,7 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
         String oldName = name;
         name = newName;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_STATE__NAME, oldName, name));
+            eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NAMED_ELEMENT__NAME, oldName, name));
     }
 
     /**
@@ -98,7 +98,7 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case OPMPackage.OPM_STATE__NAME:
+            case OPMPackage.OPM_NAMED_ELEMENT__NAME:
                 return getName();
         }
         return super.eGet(featureID, resolve, coreType);
@@ -112,7 +112,7 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case OPMPackage.OPM_STATE__NAME:
+            case OPMPackage.OPM_NAMED_ELEMENT__NAME:
                 setName((String)newValue);
                 return;
         }
@@ -127,7 +127,7 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case OPMPackage.OPM_STATE__NAME:
+            case OPMPackage.OPM_NAMED_ELEMENT__NAME:
                 setName(NAME_EDEFAULT);
                 return;
         }
@@ -142,42 +142,10 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case OPMPackage.OPM_STATE__NAME:
+            case OPMPackage.OPM_NAMED_ELEMENT__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
         }
         return super.eIsSet(featureID);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-        if (baseClass == OPMNamedElement.class) {
-            switch (derivedFeatureID) {
-                case OPMPackage.OPM_STATE__NAME: return OPMPackage.OPM_NAMED_ELEMENT__NAME;
-                default: return -1;
-            }
-        }
-        return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-        if (baseClass == OPMNamedElement.class) {
-            switch (baseFeatureID) {
-                case OPMPackage.OPM_NAMED_ELEMENT__NAME: return OPMPackage.OPM_STATE__NAME;
-                default: return -1;
-            }
-        }
-        return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
     }
 
     /**
@@ -196,4 +164,4 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
         return result.toString();
     }
 
-} //OPMStateImpl
+} //OPMNamedElementImpl

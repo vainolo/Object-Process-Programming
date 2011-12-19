@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see com.vainolo.phd.opm.model.OPMPackage#getOPMContainer()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface OPMContainer extends EObject {

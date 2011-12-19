@@ -35,7 +35,6 @@ public class OPMTests extends TestSuite {
      */
 	public static Test suite() {
         TestSuite suite = new OPMTests("opm Tests");
-        suite.addTestSuite(OPMNodeTest.class);
         suite.addTestSuite(OPMThingTest.class);
         suite.addTestSuite(OPMStateTest.class);
         suite.addTestSuite(OPMObjectTest.class);

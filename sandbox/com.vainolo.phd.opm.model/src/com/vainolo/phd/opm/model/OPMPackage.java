@@ -137,22 +137,13 @@ public interface OPMPackage extends EPackage {
 	int OPM_NODE = 2;
 
 	/**
-     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OPM_NODE__NODES = OPM_CONTAINER__NODES;
-
-    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int OPM_NODE__INCOMING_LINKS = OPM_CONTAINER_FEATURE_COUNT + 0;
+	int OPM_NODE__INCOMING_LINKS = 0;
 
 	/**
      * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
@@ -161,7 +152,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int OPM_NODE__OUTGOING_LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
+	int OPM_NODE__OUTGOING_LINKS = 1;
 
 	/**
      * The feature id for the '<em><b>Container</b></em>' container reference.
@@ -170,7 +161,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int OPM_NODE__CONTAINER = OPM_CONTAINER_FEATURE_COUNT + 2;
+    int OPM_NODE__CONTAINER = 2;
 
     /**
      * The feature id for the '<em><b>Constraints</b></em>' attribute.
@@ -179,7 +170,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int OPM_NODE__CONSTRAINTS = OPM_CONTAINER_FEATURE_COUNT + 3;
+    int OPM_NODE__CONSTRAINTS = 3;
 
     /**
      * The number of structural features of the '<em>Node</em>' class.
@@ -188,7 +179,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int OPM_NODE_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 4;
+	int OPM_NODE_FEATURE_COUNT = 4;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMThingImpl <em>Thing</em>}' class.
@@ -201,15 +192,6 @@ public interface OPMPackage extends EPackage {
 	int OPM_THING = 3;
 
 	/**
-     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OPM_THING__NODES = OPM_NODE__NODES;
-
-    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -246,13 +228,22 @@ public interface OPMPackage extends EPackage {
 	int OPM_THING__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
 
     /**
+     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_THING__NODES = OPM_NODE_FEATURE_COUNT + 0;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 0;
+	int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 1;
 
 	/**
      * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -261,7 +252,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int OPM_THING__DESCRIPTION = OPM_NODE_FEATURE_COUNT + 1;
+    int OPM_THING__DESCRIPTION = OPM_NODE_FEATURE_COUNT + 2;
 
     /**
      * The number of structural features of the '<em>Thing</em>' class.
@@ -270,7 +261,7 @@ public interface OPMPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 2;
+	int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 3;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMStateImpl <em>State</em>}' class.
@@ -281,15 +272,6 @@ public interface OPMPackage extends EPackage {
      * @generated
      */
     int OPM_STATE = 4;
-
-    /**
-     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OPM_STATE__NODES = OPM_NODE__NODES;
 
     /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
@@ -356,15 +338,6 @@ public interface OPMPackage extends EPackage {
 	int OPM_OBJECT = 5;
 
 	/**
-     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OPM_OBJECT__NODES = OPM_THING__NODES;
-
-    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -399,6 +372,15 @@ public interface OPMPackage extends EPackage {
      * @ordered
      */
 	int OPM_OBJECT__CONSTRAINTS = OPM_THING__CONSTRAINTS;
+
+    /**
+     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_OBJECT__NODES = OPM_THING__NODES;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -438,15 +420,6 @@ public interface OPMPackage extends EPackage {
 	int OPM_PROCESS = 6;
 
 	/**
-     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OPM_PROCESS__NODES = OPM_THING__NODES;
-
-    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -481,6 +454,15 @@ public interface OPMPackage extends EPackage {
      * @ordered
      */
 	int OPM_PROCESS__CONSTRAINTS = OPM_THING__CONSTRAINTS;
+
+    /**
+     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_PROCESS__NODES = OPM_THING__NODES;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -530,15 +512,6 @@ public interface OPMPackage extends EPackage {
 	int OPM_STRUCTURAL_LINK_AGGREGATOR = 7;
 
 	/**
-     * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int OPM_STRUCTURAL_LINK_AGGREGATOR__NODES = OPM_NODE__NODES;
-
-    /**
      * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -774,6 +747,34 @@ public interface OPMPackage extends EPackage {
 	int OPM_PROCEDURAL_LINK_FEATURE_COUNT = OPM_LINK_FEATURE_COUNT + 1;
 
 	/**
+     * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMNamedElementImpl <em>Named Element</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.impl.OPMNamedElementImpl
+     * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMNamedElement()
+     * @generated
+     */
+    int OPM_NAMED_ELEMENT = 10;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_NAMED_ELEMENT__NAME = 0;
+
+    /**
+     * The number of structural features of the '<em>Named Element</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int OPM_NAMED_ELEMENT_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -781,7 +782,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregatorKind()
      * @generated
      */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 10;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 11;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
@@ -791,7 +792,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLinkKind()
      * @generated
      */
-	int OPM_PROCEDURAL_LINK_KIND = 11;
+	int OPM_PROCEDURAL_LINK_KIND = 12;
 
 	/**
      * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMLinkRouterKind <em>Link Router Kind</em>}' enum.
@@ -801,7 +802,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLinkRouterKind()
      * @generated
      */
-    int OPM_LINK_ROUTER_KIND = 12;
+    int OPM_LINK_ROUTER_KIND = 13;
 
     /**
      * The meta object id for the '<em>Rectangle</em>' data type.
@@ -811,7 +812,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
      * @generated
      */
-	int RECTANGLE = 14;
+	int RECTANGLE = 15;
 
 
 	/**
@@ -843,7 +844,7 @@ public interface OPMPackage extends EPackage {
      * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
      * @generated
      */
-	int POINT = 13;
+	int POINT = 14;
 
 
 	/**
@@ -996,17 +997,6 @@ public interface OPMPackage extends EPackage {
 	EClass getOPMThing();
 
 	/**
-     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMThing#getName <em>Name</em>}'.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Name</em>'.
-     * @see com.vainolo.phd.opm.model.OPMThing#getName()
-     * @see #getOPMThing()
-     * @generated
-     */
-	EAttribute getOPMThing_Name();
-
-	/**
      * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMThing#getDescription <em>Description</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1026,17 +1016,6 @@ public interface OPMPackage extends EPackage {
      * @generated
      */
     EClass getOPMState();
-
-    /**
-     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMState#getName <em>Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Name</em>'.
-     * @see com.vainolo.phd.opm.model.OPMState#getName()
-     * @see #getOPMState()
-     * @generated
-     */
-    EAttribute getOPMState_Name();
 
     /**
      * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMNode <em>Node</em>}'.
@@ -1135,6 +1114,27 @@ public interface OPMPackage extends EPackage {
 	EAttribute getOPMProceduralLink_Kind();
 
 	/**
+     * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMNamedElement <em>Named Element</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Named Element</em>'.
+     * @see com.vainolo.phd.opm.model.OPMNamedElement
+     * @generated
+     */
+    EClass getOPMNamedElement();
+
+    /**
+     * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMNamedElement#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see com.vainolo.phd.opm.model.OPMNamedElement#getName()
+     * @see #getOPMNamedElement()
+     * @generated
+     */
+    EAttribute getOPMNamedElement_Name();
+
+    /**
      * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1349,14 +1349,6 @@ public interface OPMPackage extends EPackage {
 		EClass OPM_THING = eINSTANCE.getOPMThing();
 
 		/**
-         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-         * @generated
-         */
-		EAttribute OPM_THING__NAME = eINSTANCE.getOPMThing_Name();
-
-		/**
          * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -1373,14 +1365,6 @@ public interface OPMPackage extends EPackage {
          * @generated
          */
         EClass OPM_STATE = eINSTANCE.getOPMState();
-
-        /**
-         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute OPM_STATE__NAME = eINSTANCE.getOPMState_Name();
 
         /**
          * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl <em>Node</em>}' class.
@@ -1461,6 +1445,24 @@ public interface OPMPackage extends EPackage {
 		EAttribute OPM_PROCEDURAL_LINK__KIND = eINSTANCE.getOPMProceduralLink_Kind();
 
 		/**
+         * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMNamedElementImpl <em>Named Element</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see com.vainolo.phd.opm.model.impl.OPMNamedElementImpl
+         * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMNamedElement()
+         * @generated
+         */
+        EClass OPM_NAMED_ELEMENT = eINSTANCE.getOPMNamedElement();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute OPM_NAMED_ELEMENT__NAME = eINSTANCE.getOPMNamedElement_Name();
+
+        /**
          * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
          * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->

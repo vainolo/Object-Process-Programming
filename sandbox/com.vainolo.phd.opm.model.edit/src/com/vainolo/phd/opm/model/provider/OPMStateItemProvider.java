@@ -77,9 +77,9 @@ public class OPMStateItemProvider
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_OPMState_name_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_OPMState_name_feature", "_UI_OPMState_type"),
-                 OPMPackage.Literals.OPM_STATE__NAME,
+                 getString("_UI_OPMNamedElement_name_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_OPMNamedElement_name_feature", "_UI_OPMNamedElement_type"),
+                 OPMPackage.Literals.OPM_NAMED_ELEMENT__NAME,
                  true,
                  false,
                  false,

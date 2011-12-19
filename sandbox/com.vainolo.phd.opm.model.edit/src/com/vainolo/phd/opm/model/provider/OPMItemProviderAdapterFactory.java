@@ -76,29 +76,6 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
     }
 
 	/**
-     * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMContainer} instances.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected OPMContainerItemProvider opmContainerItemProvider;
-
-    /**
-     * This creates an adapter for a {@link com.vainolo.phd.opm.model.OPMContainer}.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    @Override
-    public Adapter createOPMContainerAdapter() {
-        if (opmContainerItemProvider == null) {
-            opmContainerItemProvider = new OPMContainerItemProvider(this);
-        }
-
-        return opmContainerItemProvider;
-    }
-
-    /**
      * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram} instances.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -237,29 +214,6 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
     }
 
     /**
-     * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMNode} instances.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     */
-	protected OPMNodeItemProvider opmNodeItemProvider;
-
-	/**
-     * This creates an adapter for a {@link com.vainolo.phd.opm.model.OPMNode}.
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     */
-	@Override
-	public Adapter createOPMNodeAdapter() {
-        if (opmNodeItemProvider == null) {
-            opmNodeItemProvider = new OPMNodeItemProvider(this);
-        }
-
-        return opmNodeItemProvider;
-    }
-
-	/**
      * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator} instances.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -404,9 +358,7 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
      * @generated
      */
 	public void dispose() {
-        if (opmContainerItemProvider != null) opmContainerItemProvider.dispose();
         if (opmObjectProcessDiagramItemProvider != null) opmObjectProcessDiagramItemProvider.dispose();
-        if (opmNodeItemProvider != null) opmNodeItemProvider.dispose();
         if (opmThingItemProvider != null) opmThingItemProvider.dispose();
         if (opmStateItemProvider != null) opmStateItemProvider.dispose();
         if (opmObjectItemProvider != null) opmObjectItemProvider.dispose();

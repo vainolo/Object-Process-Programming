@@ -17,6 +17,7 @@ import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeComponentEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeGraphicalNodeEditPolicy;
+import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 
@@ -70,7 +71,12 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
 
     @Override protected List getModelChildren() {
         OPMNode model = (OPMNode) getModel();
-        return Collections.unmodifiableList(model.getNodes());
+        if(model instanceof OPMContainer) {
+            OPMContainer container = (OPMContainer) model;
+            return Collections.unmodifiableList(container.getNodes());
+        } else {
+            return Collections.EMPTY_LIST;
+        }
     }
 
     @Override

@@ -14,6 +14,7 @@ import com.vainolo.phd.opm.gef.editor.command.OPMNodeChangeConstraintCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeDeleteCommand;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
 import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
+import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
@@ -100,9 +101,12 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
             }
         }
 
-        for(OPMNode node : nodeToDelete.getNodes()) {
-            Command containedNodeDelete = createRecursiveDeleteNodeCommand(node);
-            compoundCommand.add(containedNodeDelete);
+        if(nodeToDelete instanceof OPMContainer) {
+            OPMContainer container = (OPMContainer) nodeToDelete;
+            for(OPMNode node : container.getNodes()) {
+                Command containedNodeDelete = createRecursiveDeleteNodeCommand(node);
+                compoundCommand.add(containedNodeDelete);
+            }
         }
 
         // Create a command to delete the node.

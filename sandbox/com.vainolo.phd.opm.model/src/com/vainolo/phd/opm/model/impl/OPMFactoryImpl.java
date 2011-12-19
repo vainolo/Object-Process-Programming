@@ -63,9 +63,7 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	@Override
 	public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-            case OPMPackage.OPM_CONTAINER: return createOPMContainer();
             case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM: return createOPMObjectProcessDiagram();
-            case OPMPackage.OPM_NODE: return createOPMNode();
             case OPMPackage.OPM_THING: return createOPMThing();
             case OPMPackage.OPM_STATE: return createOPMState();
             case OPMPackage.OPM_OBJECT: return createOPMObject();
@@ -126,16 +124,6 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 
 	/**
      * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public OPMContainer createOPMContainer() {
-        OPMContainerImpl opmContainer = new OPMContainerImpl();
-        return opmContainer;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -195,16 +183,6 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
     }
 
     /**
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @generated
-     */
-	public OPMNode createOPMNode() {
-        OPMNodeImpl opmNode = new OPMNodeImpl();
-        return opmNode;
-    }
-
-	/**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated

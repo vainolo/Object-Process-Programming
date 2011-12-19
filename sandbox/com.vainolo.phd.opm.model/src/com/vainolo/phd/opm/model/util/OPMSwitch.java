@@ -88,7 +88,6 @@ public class OPMSwitch<T> extends Switch<T> {
             case OPMPackage.OPM_NODE: {
                 OPMNode opmNode = (OPMNode)theEObject;
                 T result = caseOPMNode(opmNode);
-                if (result == null) result = caseOPMContainer(opmNode);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -97,6 +96,7 @@ public class OPMSwitch<T> extends Switch<T> {
                 T result = caseOPMThing(opmThing);
                 if (result == null) result = caseOPMNode(opmThing);
                 if (result == null) result = caseOPMContainer(opmThing);
+                if (result == null) result = caseOPMNamedElement(opmThing);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -104,7 +104,7 @@ public class OPMSwitch<T> extends Switch<T> {
                 OPMState opmState = (OPMState)theEObject;
                 T result = caseOPMState(opmState);
                 if (result == null) result = caseOPMNode(opmState);
-                if (result == null) result = caseOPMContainer(opmState);
+                if (result == null) result = caseOPMNamedElement(opmState);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -114,6 +114,7 @@ public class OPMSwitch<T> extends Switch<T> {
                 if (result == null) result = caseOPMThing(opmObject);
                 if (result == null) result = caseOPMNode(opmObject);
                 if (result == null) result = caseOPMContainer(opmObject);
+                if (result == null) result = caseOPMNamedElement(opmObject);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -123,6 +124,7 @@ public class OPMSwitch<T> extends Switch<T> {
                 if (result == null) result = caseOPMThing(opmProcess);
                 if (result == null) result = caseOPMNode(opmProcess);
                 if (result == null) result = caseOPMContainer(opmProcess);
+                if (result == null) result = caseOPMNamedElement(opmProcess);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -130,7 +132,6 @@ public class OPMSwitch<T> extends Switch<T> {
                 OPMStructuralLinkAggregator opmStructuralLinkAggregator = (OPMStructuralLinkAggregator)theEObject;
                 T result = caseOPMStructuralLinkAggregator(opmStructuralLinkAggregator);
                 if (result == null) result = caseOPMNode(opmStructuralLinkAggregator);
-                if (result == null) result = caseOPMContainer(opmStructuralLinkAggregator);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -144,6 +145,12 @@ public class OPMSwitch<T> extends Switch<T> {
                 OPMProceduralLink opmProceduralLink = (OPMProceduralLink)theEObject;
                 T result = caseOPMProceduralLink(opmProceduralLink);
                 if (result == null) result = caseOPMLink(opmProceduralLink);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case OPMPackage.OPM_NAMED_ELEMENT: {
+                OPMNamedElement opmNamedElement = (OPMNamedElement)theEObject;
+                T result = caseOPMNamedElement(opmNamedElement);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -302,6 +309,21 @@ public class OPMSwitch<T> extends Switch<T> {
     }
 
 	/**
+     * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Named Element</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseOPMNamedElement(OPMNamedElement object) {
+        return null;
+    }
+
+    /**
      * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
      * <!-- begin-user-doc -->
 	 * This implementation returns null;

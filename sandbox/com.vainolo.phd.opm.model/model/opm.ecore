@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="opm"
     nsURI="www.vainolo.com/phd/opm" nsPrefix="opm">
-  <eClassifiers xsi:type="ecore:EClass" name="OPMContainer">
+  <eClassifiers xsi:type="ecore:EClass" name="OPMContainer" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
         eType="#//OPMNode" containment="true" eOpposite="#//OPMNode/container"/>
   </eClassifiers>
@@ -11,7 +11,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//OPMLink" containment="true" eOpposite="#//OPMLink/opd"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMNode" eSuperTypes="#//OPMContainer">
+  <eClassifiers xsi:type="ecore:EClass" name="OPMNode" abstract="true">
     <eOperations name="getOutgoingStructuralLinks" ordered="false" upperBound="-1"
         eType="#//OPMLink"/>
     <eOperations name="getIncomingStructuralLinks" ordered="false" upperBound="-1"
@@ -26,14 +26,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"
         defaultValueLiteral="0,0,50,50"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMThing" eSuperTypes="#//OPMNode">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
-        defaultValueLiteral="&lt;...>"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMThing" eSuperTypes="#//OPMNode #//OPMContainer #//OPMNamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMState" eSuperTypes="#//OPMNode">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMState" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLinkAggregator" eSuperTypes="#//OPMNode">
@@ -76,4 +72,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Point" instanceClassName="org.eclipse.draw2d.geometry.Point"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Rectangle" instanceClassName="org.eclipse.draw2d.geometry.Rectangle"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMNamedElement" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

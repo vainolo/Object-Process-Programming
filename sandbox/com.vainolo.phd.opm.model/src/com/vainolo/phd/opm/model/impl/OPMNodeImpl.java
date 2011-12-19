@@ -16,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -44,7 +45,7 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
  *
  * @generated
  */
-public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
+public abstract class OPMNodeImpl extends EObjectImpl implements OPMNode {
     /**
      * The cached value of the '{@link #getIncomingLinks() <em>Incoming Links</em>}' reference list.
      * <!-- begin-user-doc -->
@@ -137,9 +138,7 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
      */
     @Override
     public OPMContainer getContainer() {
-        if (eContainerFeatureID() != OPMPackage.OPM_NODE__CONTAINER) {
-            return null;
-        }
+        if (eContainerFeatureID() != OPMPackage.OPM_NODE__CONTAINER) return null;
         return (OPMContainer)eContainer();
     }
 
@@ -161,24 +160,18 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
     @Override
     public void setContainer(OPMContainer newContainer) {
         if (newContainer != eInternalContainer() || (eContainerFeatureID() != OPMPackage.OPM_NODE__CONTAINER && newContainer != null)) {
-            if (EcoreUtil.isAncestor(this, newContainer)) {
+            if (EcoreUtil.isAncestor(this, newContainer))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-            }
             NotificationChain msgs = null;
-            if (eInternalContainer() != null) {
+            if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
-            }
-            if (newContainer != null) {
+            if (newContainer != null)
                 msgs = ((InternalEObject)newContainer).eInverseAdd(this, OPMPackage.OPM_CONTAINER__NODES, OPMContainer.class, msgs);
-            }
             msgs = basicSetContainer(newContainer, msgs);
-            if (msgs != null) {
-                msgs.dispatch();
-            }
+            if (msgs != null) msgs.dispatch();
         }
-        else if (eNotificationRequired()) {
+        else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NODE__CONTAINER, newContainer, newContainer));
-        }
     }
 
     /**
@@ -200,9 +193,8 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
     public void setConstraints(Rectangle newConstraints) {
         Rectangle oldConstraints = constraints;
         constraints = newConstraints;
-        if (eNotificationRequired()) {
+        if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NODE__CONSTRAINTS, oldConstraints, constraints));
-        }
     }
 
     /**
@@ -275,15 +267,14 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-        case OPMPackage.OPM_NODE__INCOMING_LINKS:
-            return ((InternalEList<InternalEObject>)(InternalEList<?>)getIncomingLinks()).basicAdd(otherEnd, msgs);
-        case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-            return ((InternalEList<InternalEObject>)(InternalEList<?>)getOutgoingLinks()).basicAdd(otherEnd, msgs);
-        case OPMPackage.OPM_NODE__CONTAINER:
-            if (eInternalContainer() != null) {
-                msgs = eBasicRemoveFromContainer(msgs);
-            }
-            return basicSetContainer((OPMContainer)otherEnd, msgs);
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getIncomingLinks()).basicAdd(otherEnd, msgs);
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getOutgoingLinks()).basicAdd(otherEnd, msgs);
+            case OPMPackage.OPM_NODE__CONTAINER:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetContainer((OPMContainer)otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -296,12 +287,12 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-        case OPMPackage.OPM_NODE__INCOMING_LINKS:
-            return ((InternalEList<?>)getIncomingLinks()).basicRemove(otherEnd, msgs);
-        case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-            return ((InternalEList<?>)getOutgoingLinks()).basicRemove(otherEnd, msgs);
-        case OPMPackage.OPM_NODE__CONTAINER:
-            return basicSetContainer(null, msgs);
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                return ((InternalEList<?>)getIncomingLinks()).basicRemove(otherEnd, msgs);
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                return ((InternalEList<?>)getOutgoingLinks()).basicRemove(otherEnd, msgs);
+            case OPMPackage.OPM_NODE__CONTAINER:
+                return basicSetContainer(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -314,8 +305,8 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
     @Override
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID()) {
-        case OPMPackage.OPM_NODE__CONTAINER:
-            return eInternalContainer().eInverseRemove(this, OPMPackage.OPM_CONTAINER__NODES, OPMContainer.class, msgs);
+            case OPMPackage.OPM_NODE__CONTAINER:
+                return eInternalContainer().eInverseRemove(this, OPMPackage.OPM_CONTAINER__NODES, OPMContainer.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
@@ -328,14 +319,14 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case OPMPackage.OPM_NODE__INCOMING_LINKS:
-            return getIncomingLinks();
-        case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-            return getOutgoingLinks();
-        case OPMPackage.OPM_NODE__CONTAINER:
-            return getContainer();
-        case OPMPackage.OPM_NODE__CONSTRAINTS:
-            return getConstraints();
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                return getIncomingLinks();
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                return getOutgoingLinks();
+            case OPMPackage.OPM_NODE__CONTAINER:
+                return getContainer();
+            case OPMPackage.OPM_NODE__CONSTRAINTS:
+                return getConstraints();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -349,20 +340,20 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case OPMPackage.OPM_NODE__INCOMING_LINKS:
-            getIncomingLinks().clear();
-            getIncomingLinks().addAll((Collection<? extends OPMLink>)newValue);
-            return;
-        case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-            getOutgoingLinks().clear();
-            getOutgoingLinks().addAll((Collection<? extends OPMLink>)newValue);
-            return;
-        case OPMPackage.OPM_NODE__CONTAINER:
-            setContainer((OPMContainer)newValue);
-            return;
-        case OPMPackage.OPM_NODE__CONSTRAINTS:
-            setConstraints((Rectangle)newValue);
-            return;
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                getIncomingLinks().clear();
+                getIncomingLinks().addAll((Collection<? extends OPMLink>)newValue);
+                return;
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                getOutgoingLinks().clear();
+                getOutgoingLinks().addAll((Collection<? extends OPMLink>)newValue);
+                return;
+            case OPMPackage.OPM_NODE__CONTAINER:
+                setContainer((OPMContainer)newValue);
+                return;
+            case OPMPackage.OPM_NODE__CONSTRAINTS:
+                setConstraints((Rectangle)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -375,18 +366,18 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-        case OPMPackage.OPM_NODE__INCOMING_LINKS:
-            getIncomingLinks().clear();
-            return;
-        case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-            getOutgoingLinks().clear();
-            return;
-        case OPMPackage.OPM_NODE__CONTAINER:
-            setContainer((OPMContainer)null);
-            return;
-        case OPMPackage.OPM_NODE__CONSTRAINTS:
-            setConstraints(CONSTRAINTS_EDEFAULT);
-            return;
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                getIncomingLinks().clear();
+                return;
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                getOutgoingLinks().clear();
+                return;
+            case OPMPackage.OPM_NODE__CONTAINER:
+                setContainer((OPMContainer)null);
+                return;
+            case OPMPackage.OPM_NODE__CONSTRAINTS:
+                setConstraints(CONSTRAINTS_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -399,14 +390,14 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case OPMPackage.OPM_NODE__INCOMING_LINKS:
-            return incomingLinks != null && !incomingLinks.isEmpty();
-        case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-            return outgoingLinks != null && !outgoingLinks.isEmpty();
-        case OPMPackage.OPM_NODE__CONTAINER:
-            return getContainer() != null;
-        case OPMPackage.OPM_NODE__CONSTRAINTS:
-            return CONSTRAINTS_EDEFAULT == null ? constraints != null : !CONSTRAINTS_EDEFAULT.equals(constraints);
+            case OPMPackage.OPM_NODE__INCOMING_LINKS:
+                return incomingLinks != null && !incomingLinks.isEmpty();
+            case OPMPackage.OPM_NODE__OUTGOING_LINKS:
+                return outgoingLinks != null && !outgoingLinks.isEmpty();
+            case OPMPackage.OPM_NODE__CONTAINER:
+                return getContainer() != null;
+            case OPMPackage.OPM_NODE__CONSTRAINTS:
+                return CONSTRAINTS_EDEFAULT == null ? constraints != null : !CONSTRAINTS_EDEFAULT.equals(constraints);
         }
         return super.eIsSet(featureID);
     }
@@ -418,9 +409,7 @@ public class OPMNodeImpl extends OPMContainerImpl implements OPMNode {
      */
     @Override
     public String toString() {
-        if (eIsProxy()) {
-            return super.toString();
-        }
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (constraints: ");

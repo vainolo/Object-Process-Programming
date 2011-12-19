@@ -6,6 +6,9 @@
  */
 package com.vainolo.phd.opm.model.impl;
 
+import com.vainolo.phd.opm.model.OPMContainer;
+import com.vainolo.phd.opm.model.OPMNamedElement;
+import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -24,6 +27,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
@@ -37,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getNodes <em>Nodes</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getDescription <em>Description</em>}</li>
  * </ul>
@@ -46,6 +51,16 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	/**
+     * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNodes()
+     * @generated
+     * @ordered
+     */
+    protected EList<OPMNode> nodes;
+
+    /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -53,7 +68,7 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
      * @generated
      * @ordered
      */
-	protected static final String NAME_EDEFAULT = "<...>";
+	protected static final String NAME_EDEFAULT = null;
 
 	/**
      * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -106,6 +121,18 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 
 	/**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList<OPMNode> getNodes() {
+        if (nodes == null) {
+            nodes = new EObjectContainmentWithInverseEList<OPMNode>(OPMNode.class, this, OPMPackage.OPM_THING__NODES, OPMPackage.OPM_NODE__CONTAINER);
+        }
+        return nodes;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -148,12 +175,43 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 
     /**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case OPMPackage.OPM_THING__NODES:
+                return ((InternalEList<InternalEObject>)(InternalEList<?>)getNodes()).basicAdd(otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case OPMPackage.OPM_THING__NODES:
+                return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
+            case OPMPackage.OPM_THING__NODES:
+                return getNodes();
             case OPMPackage.OPM_THING__NAME:
                 return getName();
             case OPMPackage.OPM_THING__DESCRIPTION:
@@ -171,6 +229,10 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	@Override
 	public void eSet(int featureID, Object newValue) {
         switch (featureID) {
+            case OPMPackage.OPM_THING__NODES:
+                getNodes().clear();
+                getNodes().addAll((Collection<? extends OPMNode>)newValue);
+                return;
             case OPMPackage.OPM_THING__NAME:
                 setName((String)newValue);
                 return;
@@ -189,6 +251,9 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	@Override
 	public void eUnset(int featureID) {
         switch (featureID) {
+            case OPMPackage.OPM_THING__NODES:
+                getNodes().clear();
+                return;
             case OPMPackage.OPM_THING__NAME:
                 setName(NAME_EDEFAULT);
                 return;
@@ -207,6 +272,8 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	@Override
 	public boolean eIsSet(int featureID) {
         switch (featureID) {
+            case OPMPackage.OPM_THING__NODES:
+                return nodes != null && !nodes.isEmpty();
             case OPMPackage.OPM_THING__NAME:
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case OPMPackage.OPM_THING__DESCRIPTION:
@@ -216,6 +283,50 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
     }
 
 	/**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
+        if (baseClass == OPMContainer.class) {
+            switch (derivedFeatureID) {
+                case OPMPackage.OPM_THING__NODES: return OPMPackage.OPM_CONTAINER__NODES;
+                default: return -1;
+            }
+        }
+        if (baseClass == OPMNamedElement.class) {
+            switch (derivedFeatureID) {
+                case OPMPackage.OPM_THING__NAME: return OPMPackage.OPM_NAMED_ELEMENT__NAME;
+                default: return -1;
+            }
+        }
+        return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
+        if (baseClass == OPMContainer.class) {
+            switch (baseFeatureID) {
+                case OPMPackage.OPM_CONTAINER__NODES: return OPMPackage.OPM_THING__NODES;
+                default: return -1;
+            }
+        }
+        if (baseClass == OPMNamedElement.class) {
+            switch (baseFeatureID) {
+                case OPMPackage.OPM_NAMED_ELEMENT__NAME: return OPMPackage.OPM_THING__NAME;
+                default: return -1;
+            }
+        }
+        return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+    }
+
+    /**
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated

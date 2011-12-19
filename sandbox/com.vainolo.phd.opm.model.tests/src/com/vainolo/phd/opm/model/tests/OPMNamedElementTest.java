@@ -6,8 +6,8 @@
  */
 package com.vainolo.phd.opm.model.tests;
 
-import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMNamedElement;
 
 import junit.framework.TestCase;
 
@@ -15,48 +15,48 @@ import junit.textui.TestRunner;
 
 /**
  * <!-- begin-user-doc -->
- * A test case for the model object '<em><b>Container</b></em>'.
+ * A test case for the model object '<em><b>Named Element</b></em>'.
  * <!-- end-user-doc -->
  * @generated
  */
-public abstract class OPMContainerTest extends TestCase {
+public abstract class OPMNamedElementTest extends TestCase {
 
     /**
-     * The fixture for this Container test case.
+     * The fixture for this Named Element test case.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected OPMContainer fixture = null;
+    protected OPMNamedElement fixture = null;
 
     /**
-     * Constructs a new Container test case with the given name.
+     * Constructs a new Named Element test case with the given name.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    public OPMContainerTest(String name) {
+    public OPMNamedElementTest(String name) {
         super(name);
     }
 
     /**
-     * Sets the fixture for this Container test case.
+     * Sets the fixture for this Named Element test case.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected void setFixture(OPMContainer fixture) {
+    protected void setFixture(OPMNamedElement fixture) {
         this.fixture = fixture;
     }
 
     /**
-     * Returns the fixture for this Container test case.
+     * Returns the fixture for this Named Element test case.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected OPMContainer getFixture() {
+    protected OPMNamedElement getFixture() {
         return fixture;
     }
 
-} //OPMContainerTest
+} //OPMNamedElementTest
