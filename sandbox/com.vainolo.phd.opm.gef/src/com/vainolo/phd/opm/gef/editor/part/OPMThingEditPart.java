@@ -10,7 +10,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -61,9 +60,6 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
         parent.setLayoutConstraint(this, figure, model.getConstraints());
 
         figure.setTooltipText(model.getDescription());
-
-        Rectangle textSize = figure.getNameLabel().getTextBounds().getCopy();
-
     }
 
     @Override public void performRequest(Request req) {
