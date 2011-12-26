@@ -1,5 +1,6 @@
 package com.vainolo.phd.opm.gef.editor.policy;
 
+import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -12,8 +13,6 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeChangeConstraintCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
-import com.vainolo.phd.opm.gef.editor.part.OPMObjectEditPart;
-import com.vainolo.phd.opm.gef.editor.part.OPMStateEditPart;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMNode;
@@ -24,6 +23,8 @@ import com.vainolo.phd.opm.model.OPMState;
 /**
  * This class describes the commands that can be used to change the layout 
  * and create new nodes inside the {@link OPMContainer}.
+ * This policy should only be installed in edit parts whose model is an
+ * {@link OPMContainer} instance. 
  * 
  * @author vainolo
  *
@@ -33,7 +34,7 @@ public class OPMContainerXYLayoutPolicy extends XYLayoutEditPolicy {
     private static final Dimension DEFAULT_THING_DIMENSION = new Dimension(50, 50);
 
     /**
-     * Command created top change the constraints of a {@link OPMNode} instance.
+     * Command created to change the constraints of a {@link OPMNode} instance.
      */
     @Override protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
         OPMNodeChangeConstraintCommand command = new OPMNodeChangeConstraintCommand();
@@ -43,15 +44,17 @@ public class OPMContainerXYLayoutPolicy extends XYLayoutEditPolicy {
     }
 
     /**
-     * Command created to add new nodes to the OPD.
+     * Command created to add new nodes to a container.
      */
     @Override protected Command getCreateCommand(CreateRequest request) {
+        // This policy is only installed in OPMContainer instances.
+        Assert.isLegal(getHost().getModel() instanceof OPMContainer, this.getClass().toString()+" was installed in an edit part that is not a container.");
+
+        OPMContainer model = (OPMContainer) getHost().getModel();
+
         Command retVal = null;
-        if(getHost() instanceof OPMStateEditPart) {
-            return UnexecutableCommand.INSTANCE;
-        }
         if(request.getNewObjectType().equals(OPMObject.class) || request.getNewObjectType().equals(OPMProcess.class) || request.getNewObjectType().equals(OPMState.class)) {
-            if(request.getNewObjectType().equals(OPMState.class) && (!(getHost() instanceof OPMObjectEditPart))) {
+            if(request.getNewObjectType().equals(OPMState.class) && (!(model instanceof OPMObject))) {
                 return UnexecutableCommand.INSTANCE;
             }
             OPMNodeCreateCommand command = new OPMNodeCreateCommand();
