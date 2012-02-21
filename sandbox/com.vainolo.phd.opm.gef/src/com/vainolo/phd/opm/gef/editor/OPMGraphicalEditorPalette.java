@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor;
 
 import org.eclipse.gef.palette.ConnectionCreationToolEntry;
@@ -82,6 +85,7 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
         group.add(entry);
         entry = new ConnectionCreationToolEntry("Invocation", "Create a new Invocation link", new OPMInvocationLinkFactory(), null, null);
         group.add(entry);
+	
     }
 
     /**

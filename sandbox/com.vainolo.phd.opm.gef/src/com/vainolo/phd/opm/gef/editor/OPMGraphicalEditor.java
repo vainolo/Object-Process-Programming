@@ -1,4 +1,8 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor;
+
 
 import java.io.IOException;
 import java.util.EventObject;

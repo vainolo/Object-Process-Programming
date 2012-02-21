@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor;
 
 import org.eclipse.gef.ContextMenuProvider;
@@ -31,7 +34,6 @@ public class OPMGraphicalEditorContextMenuProvider extends ContextMenuProvider {
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
         action = getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-
     }
 
     private ActionRegistry getActionRegistry() {
