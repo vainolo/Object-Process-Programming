@@ -1,4 +1,8 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor;
+
 
 import java.io.IOException;
 import java.util.EventObject;
@@ -34,14 +38,14 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import com.vainolo.phd.opm.gef.action.ResizeToContentsAction;
 import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
-import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.provider.OPMItemProviderAdapterFactory;
 
 public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
     Logger logger = Logger.getLogger(OPMGraphicalEditor.class.getName());
-    
+
     private IFile opdFile;
     private Resource opdResource;
     private OPMObjectProcessDiagram opd;
@@ -66,8 +70,9 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         super.configureGraphicalViewer();
         getGraphicalViewer().setEditPartFactory(new OPMEditPartFactory());
         getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer())); 
-        getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer())); 
+        getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
         getGraphicalViewer().setContextMenu(new OPMGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
+
     }
 
     @Override
@@ -104,7 +109,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         loadInput(input);
         setPartName(input.getName());
     }
-    
+
     private void loadInput(IEditorInput input) {
         OPMPackage.eINSTANCE.eClass(); // This initializes the OPMPackage singleton implementation.
         ResourceSet resourceSet = new ResourceSetImpl();
@@ -121,7 +126,15 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
                 opdResource = null;
             }
         }
-        
+    }
+
+    @Override
+    protected void createActions() {
+        super.createActions();
+
+        ResizeToContentsAction action = new ResizeToContentsAction(this);
+        getActionRegistry().registerAction(action);
+        getSelectionActions().add(action.getId());
     }
 
     /**
@@ -132,15 +145,6 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     public void commandStackChanged(EventObject event) {
         firePropertyChange(PROP_DIRTY);
         super.commandStackChanged(event);
-    }
-    
-    @Override
-    protected void createActions() {
-        ResizeToContentsAction action = new ResizeToContentsAction(this);
-        getActionRegistry().registerAction(action);
-        getSelectionActions().add(action.getId());
-        
-        super.createActions();
     }
 
     /**
@@ -187,8 +191,6 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         return super.getAdapter(type);
     }
 
-    
-    
     /**
      * A property source which unwraps values that are wrapped in an EMF
      * {@link PropertyValueWrapper}
@@ -197,7 +199,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
      * 
      */
     public class UnwrappingPropertySource implements IPropertySource {
-        private IPropertySource source;
+        private final IPropertySource source;
 
         public UnwrappingPropertySource(final IPropertySource source) {
             this.source = source;

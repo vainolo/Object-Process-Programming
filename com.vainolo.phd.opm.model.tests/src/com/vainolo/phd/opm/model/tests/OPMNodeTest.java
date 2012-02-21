@@ -31,61 +31,48 @@ import junit.textui.TestRunner;
  * </p>
  * @generated
  */
-public class OPMNodeTest extends OPMContainerTest {
+public abstract class OPMNodeTest extends TestCase {
 
 	/**
-     * <!-- begin-user-doc -->
+	 * The fixture for this Node test case.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
-	public static void main(String[] args) {
-        TestRunner.run(OPMNodeTest.class);
-    }
+	 * @generated
+	 */
+	protected OPMNode fixture = null;
 
 	/**
-     * Constructs a new Node test case with the given name.
-     * <!-- begin-user-doc -->
+	 * Constructs a new Node test case with the given name.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public OPMNodeTest(String name) {
-        super(name);
-    }
+		super(name);
+	}
 
 	/**
-     * Returns the fixture for this Node test case.
-     * <!-- begin-user-doc -->
+	 * Sets the fixture for this Node test case.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
+	protected void setFixture(OPMNode fixture) {
+		this.fixture = fixture;
+	}
+
+	/**
+	 * Returns the fixture for this Node test case.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
     protected OPMNode getFixture() {
-        return (OPMNode)fixture;
-    }
+		return fixture;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @see junit.framework.TestCase#setUp()
-     * @generated
-     */
-	@Override
-	protected void setUp() throws Exception {
-        setFixture(OPMFactory.eINSTANCE.createOPMNode());
-    }
-
-	/**
-     * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-     * @see junit.framework.TestCase#tearDown()
-     * @generated
-     */
-	@Override
-	protected void tearDown() throws Exception {
-        setFixture(null);
-    }
-
-    /**
      * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingStructuralLinks() <em>Get Outgoing Structural Links</em>}' operation.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

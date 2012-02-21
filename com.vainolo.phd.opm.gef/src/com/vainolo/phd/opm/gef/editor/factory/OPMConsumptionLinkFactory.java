@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.factory;
 
 import org.eclipse.gef.requests.CreationFactory;

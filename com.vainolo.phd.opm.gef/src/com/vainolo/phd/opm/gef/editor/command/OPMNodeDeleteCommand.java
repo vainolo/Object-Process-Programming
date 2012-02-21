@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.command;
 
 import java.util.ArrayList;
@@ -13,14 +16,15 @@ import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
 /**
- * Command used to delete a node.
- * The functionality of this class fairly closed so it is declared final. 
+ * Command used to delete a node. The functionality of this class fairly closed
+ * so it is declared final.
+ * 
  * @author vainolo
- *
+ * 
  */
 public final class OPMNodeDeleteCommand extends Command {
-	
-    /** Node to be deleted. */
+
+	/** Node to be deleted. */
 	private OPMNode node;
 	/** Container of the node. */
 	private OPMContainer container;
@@ -28,7 +32,7 @@ public final class OPMNodeDeleteCommand extends Command {
 	private List<OPMLink> links;
 	/** Sources for the links that start or end at this node. */
 	private Map<OPMLink, OPMNode> linkSources;
-	/** Targets for the links that start or end at this node. */ 
+	/** Targets for the links that start or end at this node. */
 	private Map<OPMLink, OPMNode> linkTargets;
 
 	@Override
@@ -44,9 +48,8 @@ public final class OPMNodeDeleteCommand extends Command {
 	}
 
 	/**
-	 * Detach all links from the node and from the other
-	 * connecting node, storing the connection information in local
-	 * data structures.
+	 * Detach all links from the node and from the other connecting node,
+	 * storing the connection information in local data structures.
 	 */
 	private void detachLinks() {
 		links = new ArrayList<OPMLink>();
@@ -70,19 +73,21 @@ public final class OPMNodeDeleteCommand extends Command {
 		for (OPMLink link : links) {
 			link.setSource(linkSources.get(link));
 			link.setTarget(linkTargets.get(link));
-			if(container instanceof OPMObjectProcessDiagram) {
-			    link.setOpd((OPMObjectProcessDiagram) container);
+			if (container instanceof OPMObjectProcessDiagram) {
+				link.setOpd((OPMObjectProcessDiagram) container);
 			} else {
-			    OPMNode containerNode = (OPMNode) container;
-			    link.setOpd(containerNode.getOpd());
+				OPMNode containerNode = (OPMNode) container;
+				link.setOpd(containerNode.getOpd());
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * Set the node to delete from the diagram.
-	 * @param node the Node to delete from the diagram.
+	 * 
+	 * @param node
+	 *            the Node to delete from the diagram.
 	 */
 	public void setNode(final OPMNode node) {
 		this.node = node;

@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.command;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -9,48 +12,52 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
 /**
  * Command used to create a new {@link OPMNode} in the diagram.
+ * 
  * @author vainolo
- *
+ * 
  */
 public class OPMNodeCreateCommand extends Command {
-	
+
 	private OPMNode node;
 	private Rectangle constraints;
 	private OPMContainer container;
 
-	/** 
+	/**
 	 * The command can be executed if all parameters have been set.
 	 */
 	@Override
 	public boolean canExecute() {
-	    return node != null && constraints != null && container != null;
+		return node != null && constraints != null && container != null;
 	}
-	
+
 	/**
-	 * Set the constraints for the {@link OPMNode} and add it to the container 
+	 * Set the constraints for the {@link OPMNode} and add it to the container
 	 * {@link OPMObjectProcessDiagram}.
 	 */
-	@Override public void execute() {
-	    node.setConstraints(constraints);
+	@Override
+	public void execute() {
+		node.setConstraints(constraints);
 		node.setContainer(container);
 	}
-	
+
 	/**
-	 * Remove the {@link OPMNode} from the container {@link OPMObjectProcessDiagram}.
+	 * Remove the {@link OPMNode} from the container
+	 * {@link OPMObjectProcessDiagram}.
 	 */
-	@Override public void undo() {
+	@Override
+	public void undo() {
 		node.setContainer(null);
 	}
 
 	// TODO change multiple functions to one setParameters function.
 	public void setConstraints(final Rectangle constraints) {
-	    this.constraints = constraints;
+		this.constraints = constraints;
 	}
-	
+
 	public void setContainer(final OPMContainer opd) {
 		this.container = opd;
 	}
-	
+
 	public void setNode(final OPMNode node) {
 		this.node = node;
 	}

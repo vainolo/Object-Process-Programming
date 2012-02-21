@@ -22,22 +22,22 @@ import org.eclipse.emf.ecore.EClass;
  */
 public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	protected OPMProcessImpl() {
-        super();
-    }
+		super();
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	@Override
 	protected EClass eStaticClass() {
-        return OPMPackage.Literals.OPM_PROCESS;
-    }
+		return OPMPackage.Literals.OPM_PROCESS;
+	}
 
 } //OPMProcessImpl

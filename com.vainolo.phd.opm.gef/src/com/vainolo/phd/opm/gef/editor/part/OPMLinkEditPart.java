@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.part;
 
 import java.util.ArrayList;
@@ -24,12 +27,13 @@ import com.vainolo.phd.opm.model.OPMLinkRouterKind;
 
 /**
  * {@link EditPart} for the {@link OPMLink} model element.
+ * 
  * @author vainolo
  */
 public class OPMLinkEditPart extends AbstractConnectionEditPart {
 
-	private OPMLinkAdapter adapter;
-	
+	private final OPMLinkAdapter adapter;
+
 	/**
 	 * Create and initialize a new {@link OPMLinkEditPart}.
 	 */
@@ -37,105 +41,125 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 		super();
 		adapter = new OPMLinkAdapter();
 	}
-	
+
 	/**
 	 * Installs two edit policies:
 	 * <ol>
-	 *   <li>For the {@link EditPolicy#CONNECTION_ENDPOINTS_ROLE} a {@link ConnectionEndpoinEditPolicy}.</li>
-	 *   <li>For the {@link EditPolicy#CONNECTION_ROLE} a {@link OPMLinkConnectionEditPolicy}.</li>
-	 *   <li>For the {@link EditPolicy#CONNECTION_BENDPOINTS_ROLE} a {@link OPMLinkBendpointEditPolicy} (for
-	 *   links that use a {@link BendpointConnectionRouter}).</li>
+	 * <li>For the {@link EditPolicy#CONNECTION_ENDPOINTS_ROLE} a
+	 * {@link ConnectionEndpoinEditPolicy}.</li>
+	 * <li>For the {@link EditPolicy#CONNECTION_ROLE} a
+	 * {@link OPMLinkConnectionEditPolicy}.</li>
+	 * <li>For the {@link EditPolicy#CONNECTION_BENDPOINTS_ROLE} a
+	 * {@link OPMLinkBendpointEditPolicy} (for links that use a
+	 * {@link BendpointConnectionRouter}).</li>
 	 * </ol>
 	 */
-	@Override protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
-		installEditPolicy(EditPolicy.CONNECTION_ROLE, new OPMLinkConnectionEditPolicy());
-		if(((OPMLink)getModel()).getRouterKind() == OPMLinkRouterKind.BENDPOINT) {
-		    installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OPMLinkBendpointEditPolicy());
+	@Override
+	protected void createEditPolicies() {
+		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE,
+				new ConnectionEndpointEditPolicy());
+		installEditPolicy(EditPolicy.CONNECTION_ROLE,
+				new OPMLinkConnectionEditPolicy());
+		if (((OPMLink) getModel()).getRouterKind() == OPMLinkRouterKind.BENDPOINT) {
+			installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE,
+					new OPMLinkBendpointEditPolicy());
 		}
 	}
 
 	/**
-	 * Create a {@link PolylineConnection} with a {@link BendpointConnectionRouter}
+	 * Create a {@link PolylineConnection} with a
+	 * {@link BendpointConnectionRouter}
 	 */
-	@Override protected PolylineConnection createFigure() {
+	@Override
+	protected PolylineConnection createFigure() {
 		PolylineConnection conn = new PolylineConnection();
-		switch(((OPMLink)getModel()).getRouterKind()) {
+		switch (((OPMLink) getModel()).getRouterKind()) {
 		case BENDPOINT:
-		    conn.setConnectionRouter(new BendpointConnectionRouter());
-		    break;
+			conn.setConnectionRouter(new BendpointConnectionRouter());
+			break;
 		case MANHATTAN:
-		    conn.setConnectionRouter(new ManhattanConnectionRouter());
-		    break;
+			conn.setConnectionRouter(new ManhattanConnectionRouter());
+			break;
 		}
-		return conn; 
+		return conn;
 	}
-	
-	@Override protected void refreshVisuals() {
-	    switch(((OPMLink)getModel()).getRouterKind()) {
-	    case BENDPOINT:
-	        Connection connection = getConnectionFigure();
-    		List<Point> modelConstraint = ((OPMLink)getModel()).getBendpoints();
-    		List<AbsoluteBendpoint> figureConstraint = new ArrayList<AbsoluteBendpoint>();
-    		for (Point p : modelConstraint) {
-    			figureConstraint.add(new AbsoluteBendpoint(p));
-    		}
-    		connection.setRoutingConstraint(figureConstraint);
-    		break;
-	    case MANHATTAN:
-	        break;
-	    }
+
+	@Override
+	protected void refreshVisuals() {
+		switch (((OPMLink) getModel()).getRouterKind()) {
+		case BENDPOINT:
+			Connection connection = getConnectionFigure();
+			List<Point> modelConstraint = ((OPMLink) getModel())
+					.getBendpoints();
+			List<AbsoluteBendpoint> figureConstraint = new ArrayList<AbsoluteBendpoint>();
+			for (Point p : modelConstraint) {
+				figureConstraint.add(new AbsoluteBendpoint(p));
+			}
+			connection.setRoutingConstraint(figureConstraint);
+			break;
+		case MANHATTAN:
+			break;
+		}
 	}
-	
-	@Override public void activate() {
-		if(!isActive()) {
-			((OPMLink)getModel()).eAdapters().add(adapter);
+
+	@Override
+	public void activate() {
+		if (!isActive()) {
+			((OPMLink) getModel()).eAdapters().add(adapter);
 		}
 		super.activate();
 	}
 
-	@Override public void deactivate() {
-		if(isActive()) {
-			((OPMLink)getModel()).eAdapters().remove(adapter);
+	@Override
+	public void deactivate() {
+		if (isActive()) {
+			((OPMLink) getModel()).eAdapters().remove(adapter);
 		}
 		super.deactivate();
-	}	
-	
+	}
+
 	/**
-	 * Observer for changes in an OPMLink. Refreshes the
-	 * {@link EditPart} visuals on every change to the model.
+	 * Observer for changes in an OPMLink. Refreshes the {@link EditPart}
+	 * visuals on every change to the model.
+	 * 
 	 * @author vainolo
-	 *
+	 * 
 	 */
 	public class OPMLinkAdapter implements Adapter {
 
 		/**
-		 * Any change to the model causes refresh of the 
-		 * {@link EditPart} visuals.
-		 * @param notification the change that ocured in the model.
+		 * Any change to the model causes refresh of the {@link EditPart}
+		 * visuals.
+		 * 
+		 * @param notification
+		 *            the change that ocured in the model.
 		 */
-		@Override public void notifyChanged(Notification notification) {
+		@Override
+		public void notifyChanged(Notification notification) {
 			refreshVisuals();
 		}
 
 		/**
 		 * {@inheritDoc}
 		 */
-		@Override public Notifier getTarget() {			
-			return (OPMLink)getModel();
+		@Override
+		public Notifier getTarget() {
+			return (OPMLink) getModel();
 		}
 
 		/**
 		 * Does nothing.
 		 */
-		@Override public void setTarget(Notifier newTarget) {
+		@Override
+		public void setTarget(Notifier newTarget) {
 			// Do nothing.
 		}
 
 		/**
 		 * {@inheritDoc}
 		 */
-		@Override public boolean isAdapterForType(Object type) {
+		@Override
+		public boolean isAdapterForType(Object type) {
 			return type.equals(OPMLink.class);
 		}
 	}

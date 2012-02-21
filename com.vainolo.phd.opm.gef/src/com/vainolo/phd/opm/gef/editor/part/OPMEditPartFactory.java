@@ -1,4 +1,10 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.part;
+
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.EditPartFactory;
 
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -7,9 +13,6 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
-
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPartFactory;
 
 public class OPMEditPartFactory implements EditPartFactory {
 
@@ -24,17 +27,19 @@ public class OPMEditPartFactory implements EditPartFactory {
 		} else if (model instanceof OPMProcess) {
 			part = new OPMProcessEditPart();
 		} else if (model instanceof OPMProceduralLink) {
-			// It is important for OPMProceduralLink to be before OPMLink because
+			// It is important for OPMProceduralLink to be before OPMLink
+			// because
 			// they have an is-a relation and we would get the wrong EditPart.
 			part = new OPMProceduralLinkEditPart();
 		} else if (model instanceof OPMLink) {
 			part = new OPMLinkEditPart();
 		} else if (model instanceof OPMStructuralLinkAggregator) {
-		    part = new OPMStructuralLinkAggregatorEditPart();
-        } else if(model instanceof OPMState) {
-            part = new OPMStateEditPart();
-        } else {
-			throw new IllegalArgumentException("Model class "+model.getClass()+" not supported yet.");
+			part = new OPMStructuralLinkAggregatorEditPart();
+		} else if (model instanceof OPMState) {
+			part = new OPMStateEditPart();
+		} else {
+			throw new IllegalArgumentException("Model class "
+					+ model.getClass() + " not supported yet.");
 		}
 
 		if (part != null) {

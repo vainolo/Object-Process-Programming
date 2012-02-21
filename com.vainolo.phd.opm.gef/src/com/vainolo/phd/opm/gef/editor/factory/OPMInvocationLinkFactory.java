@@ -1,3 +1,6 @@
+/*******************************************************************************
+ * This is me!!!
+ *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.factory;
 
 import org.eclipse.gef.requests.CreationFactory;
@@ -12,16 +15,16 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
  */
 public class OPMInvocationLinkFactory implements CreationFactory {
 
-    @Override
-    public Object getNewObject() {
-        OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-        link.setKind(OPMProceduralLinkKind.INVOCATION);
-        return link;
-    }
+	@Override
+	public Object getNewObject() {
+		OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
+		link.setKind(OPMProceduralLinkKind.INVOCATION);
+		return link;
+	}
 
-    @Override
-    public Object getObjectType() {
-        return OPMProceduralLink.class;
-    }
+	@Override
+	public Object getObjectType() {
+		return OPMProceduralLink.class;
+	}
 
 }
