@@ -33,42 +33,42 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 public abstract class OPMNodeTest extends TestCase {
 
     /**
-     * The fixture for this Node test case.
-     * <!-- begin-user-doc -->
+	 * The fixture for this Node test case.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected OPMNode fixture = null;
 
     /**
-     * Constructs a new Node test case with the given name.
-     * <!-- begin-user-doc -->
+	 * Constructs a new Node test case with the given name.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     public OPMNodeTest(String name) {
-        super(name);
-    }
+		super(name);
+	}
 
     /**
-     * Sets the fixture for this Node test case.
-     * <!-- begin-user-doc -->
+	 * Sets the fixture for this Node test case.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected void setFixture(OPMNode fixture) {
-        this.fixture = fixture;
-    }
+		this.fixture = fixture;
+	}
 
     /**
-     * Returns the fixture for this Node test case.
-     * <!-- begin-user-doc -->
+	 * Returns the fixture for this Node test case.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
     protected OPMNode getFixture() {
-        return fixture;
-    }
+		return fixture;
+	}
 
     /**
      * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingStructuralLinks() <em>Get Outgoing Structural Links</em>}' operation.

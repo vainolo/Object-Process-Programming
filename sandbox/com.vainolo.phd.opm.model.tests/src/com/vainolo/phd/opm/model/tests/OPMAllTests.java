@@ -20,32 +20,32 @@ import junit.textui.TestRunner;
 public class OPMAllTests extends TestSuite {
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
+		TestRunner.run(suite());
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public static Test suite() {
-        TestSuite suite = new OPMAllTests("OPM Tests");
-        suite.addTest(OPMTests.suite());
-        return suite;
-    }
+		TestSuite suite = new OPMAllTests("OPM Tests");
+		suite.addTest(OPMTests.suite());
+		return suite;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public OPMAllTests(String name) {
-        super(name);
-    }
+		super(name);
+	}
 
 } //OPMAllTests

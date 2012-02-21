@@ -20,36 +20,36 @@ import junit.textui.TestRunner;
 public class OPMTests extends TestSuite {
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
+		TestRunner.run(suite());
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public static Test suite() {
-        TestSuite suite = new OPMTests("opm Tests");
-        suite.addTestSuite(OPMThingTest.class);
-        suite.addTestSuite(OPMStateTest.class);
-        suite.addTestSuite(OPMObjectTest.class);
-        suite.addTestSuite(OPMProcessTest.class);
-        suite.addTestSuite(OPMStructuralLinkAggregatorTest.class);
-        return suite;
-    }
+		TestSuite suite = new OPMTests("opm Tests");
+		suite.addTestSuite(OPMThingTest.class);
+		suite.addTestSuite(OPMStateTest.class);
+		suite.addTestSuite(OPMObjectTest.class);
+		suite.addTestSuite(OPMProcessTest.class);
+		suite.addTestSuite(OPMStructuralLinkAggregatorTest.class);
+		return suite;
+	}
 
 	/**
-     * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-     * @generated
-     */
+	 * @generated
+	 */
 	public OPMTests(String name) {
-        super(name);
-    }
+		super(name);
+	}
 
 } //OPMTests
