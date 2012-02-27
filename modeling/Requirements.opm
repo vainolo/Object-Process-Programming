@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="ASCII"?>
 <opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opm="www.vainolo.com/phd/opm">
-  <nodes xsi:type="opm:OPMObject" constraints="227,233,220,223">
+  <nodes xsi:type="opm:OPMObject" constraints="207,165,220,223">
     <nodes xsi:type="opm:OPMState" constraints="26,106,51,34"/>
-    <nodes xsi:type="opm:OPMObject" constraints="103,37,50,50" name="asdad"/>
+    <nodes xsi:type="opm:OPMObject" constraints="103,37,90,150" name="asdad">
+      <nodes xsi:type="opm:OPMState" constraints="5,20,50,50"/>
+    </nodes>
   </nodes>
   <nodes xsi:type="opm:OPMObject" constraints="177,121,50,50" name="as"/>
 </opm:OPMObjectProcessDiagram>

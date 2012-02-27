@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Activator: com.vainolo.phd.opm.model.presentation.OPMEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: com.vainolo.phd.opm.model.presentation
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
