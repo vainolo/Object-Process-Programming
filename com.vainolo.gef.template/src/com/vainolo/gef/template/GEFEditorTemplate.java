@@ -35,7 +35,7 @@ public class GEFEditorTemplate extends GraphicalEditorWithFlyoutPalette {
 	 */
 	public GEFEditorTemplate() {
 		// I am not sure why this is done but all of the code that I have read
-		// use this...
+		// use this... Any ideas?
 		setEditDomain(new DefaultEditDomain(this));
 	}
 
