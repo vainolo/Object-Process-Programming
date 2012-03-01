@@ -1,3 +1,8 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
+ *******************************************************************************/
 package com.vainolo.gef.template;
 
 import org.eclipse.gef.ContextMenuProvider;
@@ -9,7 +14,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
 /**
- * Create a menu provider with undo and redo operations.
+ * Create a context menu with undo and redo operations.
  * 
  * @author vainolo
  * 
@@ -26,8 +31,7 @@ public class GEFEditorTemplateContextMenuProvider extends ContextMenuProvider {
 	 * @param actionRegistry
 	 *            the registry from which the actions should be extracted
 	 */
-	public GEFEditorTemplateContextMenuProvider(EditPartViewer viewer,
-			final ActionRegistry actionRegistry) {
+	public GEFEditorTemplateContextMenuProvider(EditPartViewer viewer, final ActionRegistry actionRegistry) {
 		super(viewer);
 		setActionRegistry(actionRegistry);
 	}

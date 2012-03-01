@@ -1,3 +1,8 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
+ *******************************************************************************/
 package com.vainolo.gef.template.part;
 
 import java.util.Observable;
@@ -10,14 +15,30 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import com.vainolo.gef.template.model.Node;
 
+/**
+ * An edit part representation for the {@link Node} model entity.
+ * 
+ * @author vainolo
+ * 
+ */
 public class NodeEditPart extends AbstractGraphicalEditPart implements Observer {
 
-	Ellipse figure;
+	private Ellipse figure;
 
+	/**
+	 * Create a new edit part using the provided {@link Node} model.
+	 * 
+	 * @param model
+	 *            of this edit part.
+	 */
 	public NodeEditPart(Node model) {
 		setModel(model);
 	}
 
+	/**
+	 * Create an {@link Ellipse} as the representation of the model {@link Node}
+	 * .
+	 */
 	@Override
 	protected IFigure createFigure() {
 		figure = new Ellipse();
@@ -41,6 +62,10 @@ public class NodeEditPart extends AbstractGraphicalEditPart implements Observer 
 		refresh();
 	}
 
+	/**
+	 * When the model has changed, this method refreshed the visual
+	 * representation.
+	 */
 	@Override
 	protected void refreshVisuals() {
 		super.refreshVisuals();

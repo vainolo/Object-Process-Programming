@@ -1,3 +1,8 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
+ *******************************************************************************/
 package com.vainolo.gef.template.part;
 
 import java.util.List;
@@ -14,12 +19,30 @@ import com.vainolo.gef.template.model.Canvas;
 import com.vainolo.gef.template.model.Node;
 import com.vainolo.gef.template.policy.CanvasXYLayoutEditPolicy;
 
+/**
+ * The top-most (or bottom-most?) edit part of the editor. This is the edit part
+ * representation of the {@link Canvas} class, which contains {@link Node}
+ * instances, which are the model children of this edit part.
+ * 
+ * @author vainolo
+ * 
+ */
 public class CanvasEditPart extends AbstractGraphicalEditPart implements Observer {
 
+	/**
+	 * Create a new edit part using the provided {@link Canvas} model
+	 * 
+	 * @param model
+	 *            of this edit part.
+	 */
 	public CanvasEditPart(Canvas model) {
 		setModel(model);
 	}
 
+	/**
+	 * The canvas is a {@link FreeformLayer} figure that acts as the editor's
+	 * canvas.
+	 */
 	@Override
 	protected IFigure createFigure() {
 		FreeformLayer layer = new FreeformLayer();
@@ -27,6 +50,9 @@ public class CanvasEditPart extends AbstractGraphicalEditPart implements Observe
 		return layer;
 	}
 
+	/**
+	 * Returns the nodes of the canvas.
+	 */
 	@Override
 	protected List<Node> getModelChildren() {
 		Canvas c = (Canvas) getModel();
@@ -50,6 +76,11 @@ public class CanvasEditPart extends AbstractGraphicalEditPart implements Observe
 		refresh();
 	}
 
+	/**
+	 * Install the {@link CanvasXYLayoutEditPolicy} as an
+	 * {@link EditPolicy#LAYOUT_ROLE} (not that it matters since role is never
+	 * checked by the framework).
+	 */
 	@Override
 	protected void createEditPolicies() {
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new CanvasXYLayoutEditPolicy());
