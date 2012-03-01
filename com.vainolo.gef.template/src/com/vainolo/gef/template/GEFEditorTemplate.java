@@ -11,9 +11,6 @@ import org.eclipse.gef.ui.actions.ToggleSnapToGeometryAction;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.ui.IEditorPart;
 
-import com.vainolo.gef.template.model.Canvas;
-import com.vainolo.gef.template.part.TemplateEditPartFactory;
-
 public class GEFEditorTemplate extends GraphicalEditorWithFlyoutPalette {
 
 	Logger logger = Logger.getLogger(GEFEditorTemplate.class.getName());
@@ -25,14 +22,14 @@ public class GEFEditorTemplate extends GraphicalEditorWithFlyoutPalette {
 	@Override
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
-		getGraphicalViewer().setContents(new Canvas());
+		// getGraphicalViewer().setContents(<your_domain_model_root>);
 	}
 
 	@Override
 	protected void configureGraphicalViewer() {
 		super.configureGraphicalViewer();
 		// Set your edit part factory here
-		getGraphicalViewer().setEditPartFactory(new TemplateEditPartFactory());
+		// getGraphicalViewer().setEditPartFactory(<your_edit_part_factory>);
 		getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer()));
 		getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
 		getGraphicalViewer().setContextMenu(
