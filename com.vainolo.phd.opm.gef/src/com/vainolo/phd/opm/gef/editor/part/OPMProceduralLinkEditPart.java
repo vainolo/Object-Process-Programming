@@ -1,6 +1,9 @@
 /*******************************************************************************
- * This is me!!!
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
  *******************************************************************************/
+
 package com.vainolo.phd.opm.gef.editor.part;
 
 import org.eclipse.draw2d.ColorConstants;
@@ -27,10 +30,10 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 	private Label centerDecorationLabel;
 
 	/**
-	 * Extend the connection creted by {@link OPMLinkEditPart#createFigure()} by
-	 * adding decorations depending on the link kind. An agent link is decorated
-	 * at the target with black filled {@link CircleDecoration}. An instrument
-	 * link is decorated at the target with a white filled
+	 * Extend the connection created by {@link OPMLinkEditPart#createFigure()}
+	 * by adding decorations depending on the link kind. An agent link is
+	 * decorated at the target with black filled {@link CircleDecoration}. An
+	 * instrument link is decorated at the target with a white filled
 	 * {@link CircleDecoration}. A consumption or result link is decorated at
 	 * the target with a {@link PolylineDecoration} (which is an arrow). An
 	 * effect link link is decorated at the source and target with a
@@ -46,18 +49,12 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 		sourceDecorationLabel = new Label();
 		centerDecorationLabel = new Label();
 		targetDecorationLabel = new Label();
-		ConnectionLocator locator = new ConnectionLocator(connection,
-				ConnectionLocator.SOURCE);
+		ConnectionLocator locator = new ConnectionLocator(connection, ConnectionLocator.SOURCE);
 		connection.add(sourceDecorationLabel, locator);
 		locator = new ConnectionLocator(connection, ConnectionLocator.MIDDLE);
 		connection.add(centerDecorationLabel, locator);
 		locator = new ConnectionLocator(connection, ConnectionLocator.TARGET);
 		connection.add(targetDecorationLabel, locator);
-		// ConnectionEndpointLocator locator = new
-		// ConnectionEndpointLocator(connection, false);
-		// locator.setUDistance(20);
-		// locator.setVDistance(-20);
-		connection.add(centerDecorationLabel, locator);
 		return connection;
 	}
 
@@ -78,8 +75,7 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 	 * @param kind
 	 *            the {@link OPMProceduralLinkKind} of the model entity.
 	 */
-	private void decorateConnection(PolylineConnection connection,
-			OPMProceduralLinkKind kind) {
+	private void decorateConnection(PolylineConnection connection, OPMProceduralLinkKind kind) {
 		switch (kind) {
 		case AGENT:
 			CircleDecoration agentDecoration = new CircleDecoration();
