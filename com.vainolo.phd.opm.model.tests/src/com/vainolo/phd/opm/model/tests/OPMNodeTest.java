@@ -20,30 +20,29 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
  * <p>
  * The following operations are tested:
  * <ul>
- * <li>{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingStructuralLinks()
- * <em>Get Outgoing Structural Links</em>}</li>
- * <li>{@link com.vainolo.phd.opm.model.OPMNode#getIncomingStructuralLinks()
- * <em>Get Incoming Structural Links</em>}</li>
- * <li>{@link com.vainolo.phd.opm.model.OPMNode#getOpd() <em>Get Opd</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingStructuralLinks() <em>Get Outgoing Structural Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getIncomingStructuralLinks() <em>Get Incoming Structural Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getOpd() <em>Get Opd</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getIncomingProceduralLinks() <em>Get Incoming Procedural Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingProceduralLinks() <em>Get Outgoing Procedural Links</em>}</li>
  * </ul>
  * </p>
- * 
  * @generated
  */
 public abstract class OPMNodeTest extends TestCase {
 
 	/**
-	 * The fixture for this Node test case. <!-- begin-user-doc --> <!--
+	 * The fixture for this Node test case.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected OPMNode fixture = null;
 
 	/**
-	 * Constructs a new Node test case with the given name. <!-- begin-user-doc
+	 * Constructs a new Node test case with the given name.
+	 * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public OPMNodeTest(String name) {
@@ -51,9 +50,9 @@ public abstract class OPMNodeTest extends TestCase {
 	}
 
 	/**
-	 * Sets the fixture for this Node test case. <!-- begin-user-doc --> <!--
+	 * Sets the fixture for this Node test case.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected void setFixture(OPMNode fixture) {
@@ -61,9 +60,9 @@ public abstract class OPMNodeTest extends TestCase {
 	}
 
 	/**
-	 * Returns the fixture for this Node test case. <!-- begin-user-doc --> <!--
+	 * Returns the fixture for this Node test case.
+	 * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	protected OPMNode getFixture() {
@@ -184,6 +183,32 @@ public abstract class OPMNodeTest extends TestCase {
 		OPMNode node1 = OPMFactory.eINSTANCE.createOPMObject();
 		node1.setContainer(opd);
 		assertEquals(opd, node1.getOpd());
+	}
+
+	/**
+	 * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getIncomingProceduralLinks() <em>Get Incoming Procedural Links</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.OPMNode#getIncomingProceduralLinks()
+	 * @generated
+	 */
+	public void testGetIncomingProceduralLinks() {
+		// TODO: implement this operation test method
+		// Ensure that you remove @generated or mark it @generated NOT
+		fail();
+	}
+
+	/**
+	 * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingProceduralLinks() <em>Get Outgoing Procedural Links</em>}' operation.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.OPMNode#getOutgoingProceduralLinks()
+	 * @generated
+	 */
+	public void testGetOutgoingProceduralLinks() {
+		// TODO: implement this operation test method
+		// Ensure that you remove @generated or mark it @generated NOT
+		fail();
 	}
 
 } // OPMNodeTest

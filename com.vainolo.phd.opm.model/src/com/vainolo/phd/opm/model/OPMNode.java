@@ -146,4 +146,20 @@ public interface OPMNode extends EObject {
 	 */
     OPMObjectProcessDiagram getOpd();
 
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<OPMLink> getIncomingProceduralLinks();
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<OPMLink> getOutgoingProceduralLinks();
+
 } // OPMNode

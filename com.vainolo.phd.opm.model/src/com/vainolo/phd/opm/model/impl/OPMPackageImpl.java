@@ -656,6 +656,10 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 		addEOperation(opmNodeEClass, this.getOPMObjectProcessDiagram(), "getOpd", 0, 1, IS_UNIQUE, IS_ORDERED);
 
+		addEOperation(opmNodeEClass, this.getOPMLink(), "getIncomingProceduralLinks", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+		addEOperation(opmNodeEClass, this.getOPMLink(), "getOutgoingProceduralLinks", 0, -1, IS_UNIQUE, IS_ORDERED);
+
 		initEClass(opmThingEClass, OPMThing.class, "OPMThing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOPMThing_Description(), ecorePackage.getEString(), "description", null, 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
