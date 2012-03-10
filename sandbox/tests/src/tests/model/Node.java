@@ -14,7 +14,7 @@ public class Node extends Observable {
 	private List<Node> children;
 	
 	public Node(int x, int y) {
-	    size = 20;
+	    size = 50;
 		setLocation(new Point(x, y));
 		sourceLinks = new ArrayList<Link>();
 		targetLinks = new ArrayList<Link>();
@@ -27,32 +27,27 @@ public class Node extends Observable {
 
 	public void setLocation(Point location) {
 		this.location = location;
-		setChanged();
-		notifyObservers();
+		setChangedAndNotify();
 	}
 	
 	public void addSourceLink(Link link) {
 		sourceLinks.add(link);
-		setChanged();
-		notifyObservers();
+		setChangedAndNotify();
 	}
 	
 	public void removeSourceLink(Link link) {
 		sourceLinks.remove(link);
-		setChanged();
-		notifyObservers();
+		setChangedAndNotify();
 	}
 	
 	public void addTargetLink(Link link) {
 		targetLinks.add(link);
-		setChanged();
-		notifyObservers();
+		setChangedAndNotify();
 	}
 	
 	public void removeTargetLink(Link link) {
 		targetLinks.remove(link);
-		setChanged();
-		notifyObservers();
+		setChangedAndNotify();
 	}
 	
 	public List<Link> getSourceLinks() {
@@ -69,14 +64,12 @@ public class Node extends Observable {
 	
 	public void addChild(Node child) {
 	    children.add(child);
-	    setChanged();
-	    notifyObservers();
+	    setChangedAndNotify();
 	}
 	
 	public void removeChild(Node child) {
 	    children.remove(child);
-	    setChanged();
-	    notifyObservers();
+	    setChangedAndNotify();
 	}
 
 	public int getSize() {
@@ -85,7 +78,11 @@ public class Node extends Observable {
 	
 	public void setSize(final int size) {
 	    this.size = size;
-	    setChanged();
-	    notifyObservers();
+	    setChangedAndNotify();
+	}
+	
+	private void setChangedAndNotify() {
+		setChanged();
+		notifyObservers();
 	}
 }

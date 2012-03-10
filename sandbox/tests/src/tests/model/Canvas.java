@@ -9,14 +9,12 @@ public class Canvas extends Observable {
 
 	public void addNode(Node node) {
 		getNodes().add(node);
-		setChanged();
-		notifyObservers();
+		setChangedAndNotify();
 	}
 	
 	public void removeNode(Node node) {
 		getNodes().remove(node);
-		setChanged();
-		notifyObservers();
+		setChangedAndNotify();
 	}
 	
 	public List<Node> getNodes() {
@@ -25,4 +23,10 @@ public class Canvas extends Observable {
 		}
 		return nodes; 
 	}
+	
+	private void setChangedAndNotify() {
+		setChanged();
+		notifyObservers();
+	}
+	
 }
