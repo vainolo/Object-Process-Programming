@@ -6,8 +6,9 @@ import tests.model.Node;
 
 public class NodeFactory implements CreationFactory {
 
-	@Override public Object getNewObject() {
-		return new Node(0,0);
+	@Override
+	public Object getNewObject() {
+		return new Node(0, 0, null);
 	}
 
 	@Override
