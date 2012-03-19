@@ -7,10 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.emf.common.util.URI;
@@ -51,10 +52,8 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE,
-				new OPMThingDirectEditPolicy());
-		installEditPolicy(EditPolicy.LAYOUT_ROLE,
-				new OPMContainerXYLayoutPolicy());
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMThingDirectEditPolicy());
+		installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMContainerXYLayoutPolicy());
 		installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
 	}
 
@@ -75,29 +74,21 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 		if (req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
 			performDirectEditing();
 		} else if (req.getType() == RequestConstants.REQ_OPEN) {
-			IEditorPart editorPart = ((DefaultEditDomain) getViewer()
-					.getEditDomain()).getEditorPart();
-			IFileEditorInput input = (IFileEditorInput) editorPart
-					.getEditorInput();
+			IEditorPart editorPart = ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart();
+			IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
 			IFile file = input.getFile();
-			IFolder parent = (IFolder) file.getParent();
-			IFile newFile = parent.getFile(((OPMThing) getModel()).getName()
-					+ ".opm");
+			IContainer parent = file.getParent();
+			IFile newFile = parent.getFile(new Path(((OPMThing) getModel()).getName() + ".opm"));
 
 			try {
 				if (!newFile.exists()) {
 					ResourceSet resourceSet = new ResourceSetImpl();
-					Resource resource = resourceSet.createResource(URI
-							.createURI(newFile.getLocationURI().toString()));
-					resource.getContents().add(
-							OPMFactory.eINSTANCE
-									.createOPMObjectProcessDiagram());
+					Resource resource = resourceSet.createResource(URI.createURI(newFile.getLocationURI().toString()));
+					resource.getContents().add(OPMFactory.eINSTANCE.createOPMObjectProcessDiagram());
 					resource.save(null);
-					file.getWorkspace().getRoot()
-							.refreshLocal(IResource.DEPTH_INFINITE, null);
+					file.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
 				}
-				IEditorDescriptor editor = PlatformUI.getWorkbench()
-						.getEditorRegistry()
+				IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry()
 						.getDefaultEditor(newFile.getName());
 				IWorkbenchPage page = editorPart.getSite().getPage();
 				page.openEditor(new FileEditorInput(newFile), editor.getId());
@@ -117,9 +108,8 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
 	private void performDirectEditing() {
 		Label label = ((OPMThingFigure) getFigure()).getNameLabel();
-		OPMThingDirectEditManager manager = new OPMThingDirectEditManager(this,
-				TextCellEditor.class, new OPMThingCellEditorLocator(label),
-				label);
+		OPMThingDirectEditManager manager = new OPMThingDirectEditManager(this, TextCellEditor.class,
+				new OPMThingCellEditorLocator(label), label);
 		manager.show();
 	}
 
@@ -136,19 +126,16 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 	public Object getAdapter(Class key) {
 		if (key == SnapToHelper.class) {
 			List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
-			if (Boolean.TRUE.equals(getViewer().getProperty(
-					SnapToGeometry.PROPERTY_SNAP_ENABLED))) {
+			if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED))) {
 				helpers.add(new SnapToGeometry(this));
 			}
-			if (Boolean.TRUE.equals(getViewer().getProperty(
-					SnapToGrid.PROPERTY_GRID_ENABLED))) {
+			if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED))) {
 				helpers.add(new SnapToGrid(this));
 			}
 			if (helpers.size() == 0) {
 				return null;
 			} else {
-				return new CompoundSnapToHelper(
-						helpers.toArray(new SnapToHelper[0]));
+				return new CompoundSnapToHelper(helpers.toArray(new SnapToHelper[0]));
 			}
 		}
 
