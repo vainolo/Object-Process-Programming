@@ -775,6 +775,52 @@ public interface OPMPackage extends EPackage {
 	int OPM_NAMED_ELEMENT_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.LinkLabelImpl <em>Link Label</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.impl.LinkLabelImpl
+	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getLinkLabel()
+	 * @generated
+	 */
+	int LINK_LABEL = 11;
+
+	/**
+	 * The feature id for the '<em><b>Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_LABEL__TEXT = 0;
+
+	/**
+	 * The feature id for the '<em><b>Link</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_LABEL__LINK = 1;
+
+	/**
+	 * The feature id for the '<em><b>Location</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_LABEL__LOCATION = 2;
+
+	/**
+	 * The number of structural features of the '<em>Link Label</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LINK_LABEL_FEATURE_COUNT = 3;
+
+	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -782,7 +828,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregatorKind()
 	 * @generated
 	 */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 11;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 12;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
@@ -792,7 +838,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLinkKind()
 	 * @generated
 	 */
-	int OPM_PROCEDURAL_LINK_KIND = 12;
+	int OPM_PROCEDURAL_LINK_KIND = 13;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMLinkRouterKind <em>Link Router Kind</em>}' enum.
@@ -802,7 +848,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLinkRouterKind()
 	 * @generated
 	 */
-    int OPM_LINK_ROUTER_KIND = 13;
+    int OPM_LINK_ROUTER_KIND = 14;
 
     /**
 	 * The meta object id for the '<em>Rectangle</em>' data type.
@@ -812,7 +858,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
 	 * @generated
 	 */
-	int RECTANGLE = 15;
+	int RECTANGLE = 16;
 
 
 	/**
@@ -844,7 +890,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
 	 * @generated
 	 */
-	int POINT = 14;
+	int POINT = 15;
 
 
 	/**
@@ -1133,6 +1179,49 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getOPMNamedElement_Name();
+
+	/**
+	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.LinkLabel <em>Link Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Link Label</em>'.
+	 * @see com.vainolo.phd.opm.model.LinkLabel
+	 * @generated
+	 */
+	EClass getLinkLabel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.LinkLabel#getText <em>Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Text</em>'.
+	 * @see com.vainolo.phd.opm.model.LinkLabel#getText()
+	 * @see #getLinkLabel()
+	 * @generated
+	 */
+	EAttribute getLinkLabel_Text();
+
+	/**
+	 * Returns the meta object for the reference '{@link com.vainolo.phd.opm.model.LinkLabel#getLink <em>Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Link</em>'.
+	 * @see com.vainolo.phd.opm.model.LinkLabel#getLink()
+	 * @see #getLinkLabel()
+	 * @generated
+	 */
+	EReference getLinkLabel_Link();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.LinkLabel#getLocation <em>Location</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Location</em>'.
+	 * @see com.vainolo.phd.opm.model.LinkLabel#getLocation()
+	 * @see #getLinkLabel()
+	 * @generated
+	 */
+	EAttribute getLinkLabel_Location();
 
 	/**
 	 * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}'.
@@ -1461,6 +1550,40 @@ public interface OPMPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute OPM_NAMED_ELEMENT__NAME = eINSTANCE.getOPMNamedElement_Name();
+
+		/**
+		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.LinkLabelImpl <em>Link Label</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.phd.opm.model.impl.LinkLabelImpl
+		 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getLinkLabel()
+		 * @generated
+		 */
+		EClass LINK_LABEL = eINSTANCE.getLinkLabel();
+
+		/**
+		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LINK_LABEL__TEXT = eINSTANCE.getLinkLabel_Text();
+
+		/**
+		 * The meta object literal for the '<em><b>Link</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference LINK_LABEL__LINK = eINSTANCE.getLinkLabel_Link();
+
+		/**
+		 * The meta object literal for the '<em><b>Location</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LINK_LABEL__LOCATION = eINSTANCE.getLinkLabel_Location();
 
 		/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.

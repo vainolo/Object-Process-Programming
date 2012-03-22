@@ -6,6 +6,7 @@
  */
 package com.vainolo.phd.opm.model.impl;
 
+import com.vainolo.phd.opm.model.LinkLabel;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
@@ -119,6 +120,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     private EClass opmNamedElementEClass = null;
 
     /**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass linkLabelEClass = null;
+
+				/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -480,6 +488,42 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLinkLabel() {
+		return linkLabelEClass;
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLinkLabel_Text() {
+		return (EAttribute)linkLabelEClass.getEStructuralFeatures().get(0);
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getLinkLabel_Link() {
+		return (EReference)linkLabelEClass.getEStructuralFeatures().get(1);
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLinkLabel_Location() {
+		return (EAttribute)linkLabelEClass.getEStructuralFeatures().get(2);
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getOPMStructuralLinkAggregatorKind() {
 		return opmStructuralLinkAggregatorKindEEnum;
 	}
@@ -588,6 +632,11 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		opmNamedElementEClass = createEClass(OPM_NAMED_ELEMENT);
 		createEAttribute(opmNamedElementEClass, OPM_NAMED_ELEMENT__NAME);
 
+		linkLabelEClass = createEClass(LINK_LABEL);
+		createEAttribute(linkLabelEClass, LINK_LABEL__TEXT);
+		createEReference(linkLabelEClass, LINK_LABEL__LINK);
+		createEAttribute(linkLabelEClass, LINK_LABEL__LOCATION);
+
 		// Create enums
 		opmStructuralLinkAggregatorKindEEnum = createEEnum(OPM_STRUCTURAL_LINK_AGGREGATOR_KIND);
 		opmProceduralLinkKindEEnum = createEEnum(OPM_PROCEDURAL_LINK_KIND);
@@ -687,6 +736,11 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 		initEClass(opmNamedElementEClass, OPMNamedElement.class, "OPMNamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOPMNamedElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, OPMNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(linkLabelEClass, LinkLabel.class, "LinkLabel", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLinkLabel_Text(), ecorePackage.getEString(), "text", "Hello", 0, 1, LinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLinkLabel_Link(), this.getOPMLink(), null, "link", null, 0, 1, LinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getLinkLabel_Location(), this.getPoint(), "location", "0,0", 0, 1, LinkLabel.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(opmStructuralLinkAggregatorKindEEnum, OPMStructuralLinkAggregatorKind.class, "OPMStructuralLinkAggregatorKind");

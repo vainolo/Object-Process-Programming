@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="ASCII"?>
 <opm:OPMObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opm="www.vainolo.com/phd/opm">
-  <nodes xsi:type="opm:OPMObject" constraints="207,165,220,223">
-    <nodes xsi:type="opm:OPMState" constraints="26,106,51,34"/>
-    <nodes xsi:type="opm:OPMObject" constraints="103,37,90,150" name="asdad">
-      <nodes xsi:type="opm:OPMState" constraints="5,20,50,50"/>
-    </nodes>
-  </nodes>
-  <nodes xsi:type="opm:OPMObject" constraints="177,121,50,50" name="as"/>
+  <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.0" constraints="167,133,50,50" name="A"/>
+  <nodes xsi:type="opm:OPMObject" outgoingLinks="//@links.1" constraints="186,272,50,50" name="B"/>
+  <nodes xsi:type="opm:OPMProcess" incomingLinks="//@links.0 //@links.1" constraints="542,181,50,50" name="P"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.0" target="//@nodes.2" kind="Consumption"/>
+  <links xsi:type="opm:OPMProceduralLink" source="//@nodes.1" target="//@nodes.2" sourceDecoration="source" targetDecoration="target" centerDecoration="center" kind="Consumption">
+    <bendpoints>319,330</bendpoints>
+    <bendpoints>346,242</bendpoints>
+  </links>
 </opm:OPMObjectProcessDiagram>

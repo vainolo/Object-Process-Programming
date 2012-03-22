@@ -29,6 +29,8 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 	private Label sourceDecorationLabel;
 	private Label centerDecorationLabel;
 
+	// private final StringBuffer label = new StringBuffer("Hello World");
+
 	/**
 	 * Extend the connection created by {@link OPMLinkEditPart#createFigure()}
 	 * by adding decorations depending on the link kind. An agent link is
@@ -55,8 +57,16 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 		connection.add(centerDecorationLabel, locator);
 		locator = new ConnectionLocator(connection, ConnectionLocator.TARGET);
 		connection.add(targetDecorationLabel, locator);
+
 		return connection;
 	}
+
+	// @Override
+	// protected List getModelChildren() {
+	// List retVal = new ArrayList();
+	// retVal.add(label);
+	// return retVal;
+	// }
 
 	@Override
 	protected void refreshVisuals() {
@@ -64,6 +74,11 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 		targetDecorationLabel.setText(model.getTargetDecoration());
 		centerDecorationLabel.setText(model.getCenterDecoration());
 		sourceDecorationLabel.setText(model.getSourceDecoration());
+		// label.delete(0, label.length());
+		// label.append(model.getCenterDecoration());
+		// for (EditPart child : (List<EditPart>) getChildren()) {
+		// child.refresh();
+		// }
 		super.refreshVisuals();
 	}
 

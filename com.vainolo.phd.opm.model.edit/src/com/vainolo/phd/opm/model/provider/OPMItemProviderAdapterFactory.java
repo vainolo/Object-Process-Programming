@@ -260,6 +260,29 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.LinkLabel} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected LinkLabelItemProvider linkLabelItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link com.vainolo.phd.opm.model.LinkLabel}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createLinkLabelAdapter() {
+		if (linkLabelItemProvider == null) {
+			linkLabelItemProvider = new LinkLabelItemProvider(this);
+		}
+
+		return linkLabelItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -366,6 +389,7 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
 		if (opmStructuralLinkAggregatorItemProvider != null) opmStructuralLinkAggregatorItemProvider.dispose();
 		if (opmLinkItemProvider != null) opmLinkItemProvider.dispose();
 		if (opmProceduralLinkItemProvider != null) opmProceduralLinkItemProvider.dispose();
+		if (linkLabelItemProvider != null) linkLabelItemProvider.dispose();
 	}
 
 }

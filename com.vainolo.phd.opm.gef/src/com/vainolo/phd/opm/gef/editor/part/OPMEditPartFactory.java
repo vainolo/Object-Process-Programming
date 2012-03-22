@@ -6,6 +6,7 @@ package com.vainolo.phd.opm.gef.editor.part;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 
+import com.vainolo.phd.opm.model.LinkLabel;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -37,9 +38,10 @@ public class OPMEditPartFactory implements EditPartFactory {
 			part = new OPMStructuralLinkAggregatorEditPart();
 		} else if (model instanceof OPMState) {
 			part = new OPMStateEditPart();
+		} else if (model instanceof LinkLabel) {
+			part = new LabelEditPart();
 		} else {
-			throw new IllegalArgumentException("Model class "
-					+ model.getClass() + " not supported yet.");
+			throw new IllegalArgumentException("Model class " + model.getClass() + " not supported yet.");
 		}
 
 		if (part != null) {

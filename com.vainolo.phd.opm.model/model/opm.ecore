@@ -77,4 +77,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="OPMNamedElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LinkLabel">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="text" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="Hello"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="link" eType="#//OPMLink"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="location" eType="#//Point"
+        defaultValueLiteral="0,0"/>
+  </eClassifiers>
 </ecore:EPackage>
