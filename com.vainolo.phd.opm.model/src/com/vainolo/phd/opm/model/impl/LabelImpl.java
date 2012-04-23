@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  * The following features are implemented:
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.LabelImpl#getName <em>Name</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.impl.LabelImpl#getText <em>Text</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,7 +46,7 @@ public class LabelImpl extends OPMNodeImpl implements Label {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = "<<name>>";
 
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -58,26 +57,6 @@ public class LabelImpl extends OPMNodeImpl implements Label {
 	 * @ordered
 	 */
 	protected String name = NAME_EDEFAULT;
-
-	/**
-	 * The default value of the '{@link #getText() <em>Text</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getText()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String TEXT_EDEFAULT = "text";
-
-	/**
-	 * The cached value of the '{@link #getText() <em>Text</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getText()
-	 * @generated
-	 * @ordered
-	 */
-	protected String text = TEXT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -124,34 +103,11 @@ public class LabelImpl extends OPMNodeImpl implements Label {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getText() {
-		return text;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setText(String newText) {
-		String oldText = text;
-		text = newText;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.LABEL__TEXT, oldText, text));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case OPMPackage.LABEL__NAME:
 				return getName();
-			case OPMPackage.LABEL__TEXT:
-				return getText();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -166,9 +122,6 @@ public class LabelImpl extends OPMNodeImpl implements Label {
 		switch (featureID) {
 			case OPMPackage.LABEL__NAME:
 				setName((String)newValue);
-				return;
-			case OPMPackage.LABEL__TEXT:
-				setText((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -185,9 +138,6 @@ public class LabelImpl extends OPMNodeImpl implements Label {
 			case OPMPackage.LABEL__NAME:
 				setName(NAME_EDEFAULT);
 				return;
-			case OPMPackage.LABEL__TEXT:
-				setText(TEXT_EDEFAULT);
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -202,8 +152,6 @@ public class LabelImpl extends OPMNodeImpl implements Label {
 		switch (featureID) {
 			case OPMPackage.LABEL__NAME:
 				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case OPMPackage.LABEL__TEXT:
-				return TEXT_EDEFAULT == null ? text != null : !TEXT_EDEFAULT.equals(text);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -252,8 +200,6 @@ public class LabelImpl extends OPMNodeImpl implements Label {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (name: ");
 		result.append(name);
-		result.append(", text: ");
-		result.append(text);
 		result.append(')');
 		return result.toString();
 	}

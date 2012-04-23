@@ -830,22 +830,13 @@ public interface OPMPackage extends EPackage {
 	int LABEL__NAME = OPM_NODE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Text</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int LABEL__TEXT = OPM_NODE_FEATURE_COUNT + 1;
-
-	/**
 	 * The number of structural features of the '<em>Label</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int LABEL_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 2;
+	int LABEL_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
@@ -1218,17 +1209,6 @@ public interface OPMPackage extends EPackage {
 	EClass getLabel();
 
 	/**
-	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.Label#getText <em>Text</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Text</em>'.
-	 * @see com.vainolo.phd.opm.model.Label#getText()
-	 * @see #getLabel()
-	 * @generated
-	 */
-	EAttribute getLabel_Text();
-
-	/**
 	 * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1565,14 +1545,6 @@ public interface OPMPackage extends EPackage {
 		 * @generated
 		 */
 		EClass LABEL = eINSTANCE.getLabel();
-
-		/**
-		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute LABEL__TEXT = eINSTANCE.getLabel_Text();
 
 		/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.

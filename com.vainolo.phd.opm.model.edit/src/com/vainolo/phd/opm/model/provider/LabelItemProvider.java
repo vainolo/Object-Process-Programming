@@ -66,7 +66,6 @@ public class LabelItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
-			addTextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -85,28 +84,6 @@ public class LabelItemProvider
 				 getString("_UI_OPMNamedElement_name_feature"),
 				 getString("_UI_PropertyDescriptor_description", "_UI_OPMNamedElement_name_feature", "_UI_OPMNamedElement_type"),
 				 OPMPackage.Literals.OPM_NAMED_ELEMENT__NAME,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Text feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addTextPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_Label_text_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_Label_text_feature", "_UI_Label_type"),
-				 OPMPackage.Literals.LABEL__TEXT,
 				 true,
 				 false,
 				 false,
@@ -153,7 +130,6 @@ public class LabelItemProvider
 
 		switch (notification.getFeatureID(Label.class)) {
 			case OPMPackage.LABEL__NAME:
-			case OPMPackage.LABEL__TEXT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}

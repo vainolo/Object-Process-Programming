@@ -68,7 +68,7 @@ public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final String NAME_EDEFAULT = null;
+	protected static final String NAME_EDEFAULT = "<<name>>";
 
 	/**
 	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
