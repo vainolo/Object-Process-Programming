@@ -52,11 +52,11 @@ public class ResizeToContentsAction extends SelectionAction {
 			return false;
 		}
 		for (Object selectedObject : getSelectedObjects()) {
-			if (selectedObject instanceof OPMNodeEditPart) {
-				return true;
+			if (!(selectedObject instanceof OPMNodeEditPart)) {
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
 }
