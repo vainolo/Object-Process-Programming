@@ -6,6 +6,7 @@
  */
 package com.vainolo.phd.opm.model.impl;
 
+import com.vainolo.phd.opm.model.Label;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
@@ -119,6 +120,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     private EClass opmNamedElementEClass = null;
 
     /**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass labelEClass = null;
+
+				/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -480,6 +488,24 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getLabel() {
+		return labelEClass;
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getLabel_Text() {
+		return (EAttribute)labelEClass.getEStructuralFeatures().get(0);
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EEnum getOPMStructuralLinkAggregatorKind() {
 		return opmStructuralLinkAggregatorKindEEnum;
 	}
@@ -588,6 +614,9 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		opmNamedElementEClass = createEClass(OPM_NAMED_ELEMENT);
 		createEAttribute(opmNamedElementEClass, OPM_NAMED_ELEMENT__NAME);
 
+		labelEClass = createEClass(LABEL);
+		createEAttribute(labelEClass, LABEL__TEXT);
+
 		// Create enums
 		opmStructuralLinkAggregatorKindEEnum = createEEnum(OPM_STRUCTURAL_LINK_AGGREGATOR_KIND);
 		opmProceduralLinkKindEEnum = createEEnum(OPM_PROCEDURAL_LINK_KIND);
@@ -636,6 +665,8 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		opmProcessEClass.getESuperTypes().add(this.getOPMThing());
 		opmStructuralLinkAggregatorEClass.getESuperTypes().add(this.getOPMNode());
 		opmProceduralLinkEClass.getESuperTypes().add(this.getOPMLink());
+		labelEClass.getESuperTypes().add(this.getOPMNode());
+		labelEClass.getESuperTypes().add(this.getOPMNamedElement());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(opmContainerEClass, OPMContainer.class, "OPMContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -687,6 +718,9 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 		initEClass(opmNamedElementEClass, OPMNamedElement.class, "OPMNamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOPMNamedElement_Name(), ecorePackage.getEString(), "name", null, 0, 1, OPMNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(labelEClass, Label.class, "Label", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getLabel_Text(), ecorePackage.getEString(), "text", "text", 0, 1, Label.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(opmStructuralLinkAggregatorKindEEnum, OPMStructuralLinkAggregatorKind.class, "OPMStructuralLinkAggregatorKind");

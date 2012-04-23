@@ -775,6 +775,79 @@ public interface OPMPackage extends EPackage {
 	int OPM_NAMED_ELEMENT_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.LabelImpl <em>Label</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.impl.LabelImpl
+	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getLabel()
+	 * @generated
+	 */
+	int LABEL = 11;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Container</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__CONTAINER = OPM_NODE__CONTAINER;
+
+	/**
+	 * The feature id for the '<em><b>Constraints</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__NAME = OPM_NODE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Text</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL__TEXT = OPM_NODE_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Label</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int LABEL_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 2;
+
+	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -782,7 +855,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregatorKind()
 	 * @generated
 	 */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 11;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 12;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
@@ -792,7 +865,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLinkKind()
 	 * @generated
 	 */
-	int OPM_PROCEDURAL_LINK_KIND = 12;
+	int OPM_PROCEDURAL_LINK_KIND = 13;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMLinkRouterKind <em>Link Router Kind</em>}' enum.
@@ -802,7 +875,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLinkRouterKind()
 	 * @generated
 	 */
-    int OPM_LINK_ROUTER_KIND = 13;
+    int OPM_LINK_ROUTER_KIND = 14;
 
     /**
 	 * The meta object id for the '<em>Rectangle</em>' data type.
@@ -812,7 +885,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
 	 * @generated
 	 */
-	int RECTANGLE = 15;
+	int RECTANGLE = 16;
 
 
 	/**
@@ -844,7 +917,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
 	 * @generated
 	 */
-	int POINT = 14;
+	int POINT = 15;
 
 
 	/**
@@ -1133,6 +1206,27 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getOPMNamedElement_Name();
+
+	/**
+	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.Label <em>Label</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Label</em>'.
+	 * @see com.vainolo.phd.opm.model.Label
+	 * @generated
+	 */
+	EClass getLabel();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.Label#getText <em>Text</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Text</em>'.
+	 * @see com.vainolo.phd.opm.model.Label#getText()
+	 * @see #getLabel()
+	 * @generated
+	 */
+	EAttribute getLabel_Text();
 
 	/**
 	 * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}'.
@@ -1461,6 +1555,24 @@ public interface OPMPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute OPM_NAMED_ELEMENT__NAME = eINSTANCE.getOPMNamedElement_Name();
+
+		/**
+		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.LabelImpl <em>Label</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.phd.opm.model.impl.LabelImpl
+		 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getLabel()
+		 * @generated
+		 */
+		EClass LABEL = eINSTANCE.getLabel();
+
+		/**
+		 * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute LABEL__TEXT = eINSTANCE.getLabel_Text();
 
 		/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.

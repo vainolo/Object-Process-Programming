@@ -7,17 +7,16 @@
 package com.vainolo.phd.opm.model.provider;
 
 
-import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.Label;
 import com.vainolo.phd.opm.model.OPMPackage;
 
-import com.vainolo.phd.opm.model.OPMThing;
 import java.util.Collection;
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.common.util.ResourceLocator;
 
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
@@ -32,12 +31,12 @@ import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
 /**
- * This is the item provider adapter for a {@link com.vainolo.phd.opm.model.OPMThing} object.
+ * This is the item provider adapter for a {@link com.vainolo.phd.opm.model.Label} object.
  * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMThingItemProvider
+public class LabelItemProvider
 	extends OPMNodeItemProvider
 	implements
 		IEditingDomainItemProvider,
@@ -51,7 +50,7 @@ public class OPMThingItemProvider
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OPMThingItemProvider(AdapterFactory adapterFactory) {
+	public LabelItemProvider(AdapterFactory adapterFactory) {
 		super(adapterFactory);
 	}
 
@@ -67,7 +66,7 @@ public class OPMThingItemProvider
 			super.getPropertyDescriptors(object);
 
 			addNamePropertyDescriptor(object);
-			addDescriptionPropertyDescriptor(object);
+			addTextPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -95,19 +94,19 @@ public class OPMThingItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Description feature.
+	 * This adds a property descriptor for the Text feature.
 	 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-    protected void addDescriptionPropertyDescriptor(Object object) {
+	protected void addTextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_OPMThing_description_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_OPMThing_description_feature", "_UI_OPMThing_type"),
-				 OPMPackage.Literals.OPM_THING__DESCRIPTION,
+				 getString("_UI_Label_text_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Label_text_feature", "_UI_Label_type"),
+				 OPMPackage.Literals.LABEL__TEXT,
 				 true,
 				 false,
 				 false,
@@ -116,45 +115,15 @@ public class OPMThingItemProvider
 				 null));
 	}
 
-    /**
-	 * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
-	 * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
-	 * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
-		if (childrenFeatures == null) {
-			super.getChildrenFeatures(object);
-			childrenFeatures.add(OPMPackage.Literals.OPM_CONTAINER__NODES);
-		}
-		return childrenFeatures;
-	}
-
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EStructuralFeature getChildFeature(Object object, Object child) {
-		// Check the type of the specified child object and return the proper feature to use for
-		// adding (see {@link AddCommand}) it as a child.
-
-		return super.getChildFeature(object, child);
-	}
-
-				/**
-	 * This returns OPMThing.gif.
+	 * This returns Label.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/OPMThing"));
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/Label"));
 	}
 
 	/**
@@ -165,10 +134,10 @@ public class OPMThingItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((OPMThing)object).getName();
+		String label = ((Label)object).getName();
 		return label == null || label.length() == 0 ?
-			getString("_UI_OPMThing_type") :
-			getString("_UI_OPMThing_type") + " " + label;
+			getString("_UI_Label_type") :
+			getString("_UI_Label_type") + " " + label;
 	}
 
 	/**
@@ -182,13 +151,10 @@ public class OPMThingItemProvider
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(OPMThing.class)) {
-			case OPMPackage.OPM_THING__NAME:
-			case OPMPackage.OPM_THING__DESCRIPTION:
+		switch (notification.getFeatureID(Label.class)) {
+			case OPMPackage.LABEL__NAME:
+			case OPMPackage.LABEL__TEXT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-				return;
-			case OPMPackage.OPM_THING__NODES:
-				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
 		super.notifyChanged(notification);
@@ -204,36 +170,6 @@ public class OPMThingItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
-
-		newChildDescriptors.add
-			(createChildParameter
-				(OPMPackage.Literals.OPM_CONTAINER__NODES,
-				 OPMFactory.eINSTANCE.createOPMThing()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(OPMPackage.Literals.OPM_CONTAINER__NODES,
-				 OPMFactory.eINSTANCE.createOPMState()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(OPMPackage.Literals.OPM_CONTAINER__NODES,
-				 OPMFactory.eINSTANCE.createOPMObject()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(OPMPackage.Literals.OPM_CONTAINER__NODES,
-				 OPMFactory.eINSTANCE.createOPMProcess()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(OPMPackage.Literals.OPM_CONTAINER__NODES,
-				 OPMFactory.eINSTANCE.createOPMStructuralLinkAggregator()));
-
-		newChildDescriptors.add
-			(createChildParameter
-				(OPMPackage.Literals.OPM_CONTAINER__NODES,
-				 OPMFactory.eINSTANCE.createLabel()));
 	}
 
 }

@@ -1,5 +1,7 @@
 /*******************************************************************************
- * This is me!!!
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.policy;
 
@@ -17,6 +19,7 @@ import org.eclipse.gef.requests.CreateRequest;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeChangeConstraintCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
+import com.vainolo.phd.opm.model.Label;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -33,15 +36,13 @@ import com.vainolo.phd.opm.model.OPMState;
  */
 public class OPMContainerXYLayoutPolicy extends XYLayoutEditPolicy {
 
-	private static final Dimension DEFAULT_THING_DIMENSION = new Dimension(50,
-			50);
+	private static final Dimension DEFAULT_THING_DIMENSION = new Dimension(50, 50);
 
 	/**
 	 * Command created to change the constraints of a {@link OPMNode} instance.
 	 */
 	@Override
-	protected Command createChangeConstraintCommand(EditPart child,
-			Object constraint) {
+	protected Command createChangeConstraintCommand(EditPart child, Object constraint) {
 		OPMNodeChangeConstraintCommand command = new OPMNodeChangeConstraintCommand();
 		command.setNode((OPMNode) child.getModel());
 		command.setNewConstraint((Rectangle) constraint);
@@ -54,18 +55,16 @@ public class OPMContainerXYLayoutPolicy extends XYLayoutEditPolicy {
 	@Override
 	protected Command getCreateCommand(CreateRequest request) {
 		// This policy is only installed in OPMContainer instances.
-		Assert.isLegal(getHost().getModel() instanceof OPMContainer, this
-				.getClass().toString()
+		Assert.isLegal(getHost().getModel() instanceof OPMContainer, this.getClass().toString()
 				+ " was installed in an edit part that is not a container.");
 
 		OPMContainer model = (OPMContainer) getHost().getModel();
 
 		Command retVal = null;
-		if (request.getNewObjectType().equals(OPMObject.class)
-				|| request.getNewObjectType().equals(OPMProcess.class)
-				|| request.getNewObjectType().equals(OPMState.class)) {
-			if (request.getNewObjectType().equals(OPMState.class)
-					&& (!(model instanceof OPMObject))) {
+
+		if (request.getNewObjectType().equals(OPMObject.class) || request.getNewObjectType().equals(OPMProcess.class)
+				|| request.getNewObjectType().equals(OPMState.class) || request.getNewObjectType().equals(Label.class)) {
+			if (request.getNewObjectType().equals(OPMState.class) && (!(model instanceof OPMObject))) {
 				return UnexecutableCommand.INSTANCE;
 			}
 			OPMNodeCreateCommand command = new OPMNodeCreateCommand();

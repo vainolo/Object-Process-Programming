@@ -71,6 +71,7 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 			case OPMPackage.OPM_STRUCTURAL_LINK_AGGREGATOR: return createOPMStructuralLinkAggregator();
 			case OPMPackage.OPM_LINK: return createOPMLink();
 			case OPMPackage.OPM_PROCEDURAL_LINK: return createOPMProceduralLink();
+			case OPMPackage.LABEL: return createLabel();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -200,6 +201,16 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	public OPMProceduralLink createOPMProceduralLink() {
 		OPMProceduralLinkImpl opmProceduralLink = new OPMProceduralLinkImpl();
 		return opmProceduralLink;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Label createLabel() {
+		LabelImpl label = new LabelImpl();
+		return label;
 	}
 
 	/**
