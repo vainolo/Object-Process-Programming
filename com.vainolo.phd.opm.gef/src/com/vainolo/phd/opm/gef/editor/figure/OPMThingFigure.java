@@ -10,7 +10,7 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-public abstract class OPMThingFigure extends Figure implements OPMNodeFigure {
+public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OPMNamedElementFigure {
 
 	private final Label nameLabel;
 	private final TooltipFigure tooltipFigure;
@@ -35,6 +35,7 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure {
 	 * 
 	 * @return the name {@link Label} of the figure.
 	 */
+	@Override
 	public Label getNameLabel() {
 		return nameLabel;
 	}

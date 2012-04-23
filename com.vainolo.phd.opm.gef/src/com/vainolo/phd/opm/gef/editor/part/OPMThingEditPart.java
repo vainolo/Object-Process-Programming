@@ -39,7 +39,7 @@ import org.eclipse.ui.part.FileEditorInput;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
-import com.vainolo.phd.opm.gef.editor.policy.OPMThingDirectEditPolicy;
+import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMThing;
 
@@ -52,7 +52,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 	@Override
 	protected void createEditPolicies() {
 		super.createEditPolicies();
-		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMThingDirectEditPolicy());
+		installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMNamedEntityDirectEditPolicy());
 		installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMContainerXYLayoutPolicy());
 		installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
 	}
@@ -108,8 +108,8 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
 	private void performDirectEditing() {
 		Label label = ((OPMThingFigure) getFigure()).getNameLabel();
-		OPMThingDirectEditManager manager = new OPMThingDirectEditManager(this, TextCellEditor.class,
-				new OPMThingCellEditorLocator(label), label);
+		OPMNamedElementDirectEditManager manager = new OPMNamedElementDirectEditManager(this, TextCellEditor.class,
+				new OPMNamedElementCellEditorLocator(label), label);
 		manager.show();
 	}
 
