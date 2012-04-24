@@ -9,7 +9,6 @@ import java.util.List;
 import org.eclipse.draw2d.AbsoluteBendpoint;
 import org.eclipse.draw2d.BendpointConnectionRouter;
 import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.ManhattanConnectionRouter;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Adapter;
@@ -23,7 +22,6 @@ import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkBendpointEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkConnectionEditPolicy;
 import com.vainolo.phd.opm.model.OPMLink;
-import com.vainolo.phd.opm.model.OPMLinkRouterKind;
 
 /**
  * {@link EditPart} for the {@link OPMLink} model element.
@@ -56,14 +54,12 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 	 */
 	@Override
 	protected void createEditPolicies() {
-		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE,
-				new ConnectionEndpointEditPolicy());
-		installEditPolicy(EditPolicy.CONNECTION_ROLE,
-				new OPMLinkConnectionEditPolicy());
-		if (((OPMLink) getModel()).getRouterKind() == OPMLinkRouterKind.BENDPOINT) {
-			installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE,
-					new OPMLinkBendpointEditPolicy());
-		}
+		installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
+		installEditPolicy(EditPolicy.CONNECTION_ROLE, new OPMLinkConnectionEditPolicy());
+		// if (((OPMLink) getModel()).getRouterKind() ==
+		// OPMLinkRouterKind.BENDPOINT) {
+		installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OPMLinkBendpointEditPolicy());
+		// }
 	}
 
 	/**
@@ -73,33 +69,32 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 	@Override
 	protected PolylineConnection createFigure() {
 		PolylineConnection conn = new PolylineConnection();
-		switch (((OPMLink) getModel()).getRouterKind()) {
-		case BENDPOINT:
-			conn.setConnectionRouter(new BendpointConnectionRouter());
-			break;
-		case MANHATTAN:
-			conn.setConnectionRouter(new ManhattanConnectionRouter());
-			break;
-		}
+		// switch (((OPMLink) getModel()).getRouterKind()) {
+		// case BENDPOINT:
+		conn.setConnectionRouter(new BendpointConnectionRouter());
+		// break;
+		// case MANHATTAN:
+		// conn.setConnectionRouter(new ManhattanConnectionRouter());
+		// break;
+		// }
 		return conn;
 	}
 
 	@Override
 	protected void refreshVisuals() {
-		switch (((OPMLink) getModel()).getRouterKind()) {
-		case BENDPOINT:
-			Connection connection = getConnectionFigure();
-			List<Point> modelConstraint = ((OPMLink) getModel())
-					.getBendpoints();
-			List<AbsoluteBendpoint> figureConstraint = new ArrayList<AbsoluteBendpoint>();
-			for (Point p : modelConstraint) {
-				figureConstraint.add(new AbsoluteBendpoint(p));
-			}
-			connection.setRoutingConstraint(figureConstraint);
-			break;
-		case MANHATTAN:
-			break;
+		// switch (((OPMLink) getModel()).getRouterKind()) {
+		// case BENDPOINT:
+		Connection connection = getConnectionFigure();
+		List<Point> modelConstraint = ((OPMLink) getModel()).getBendpoints();
+		List<AbsoluteBendpoint> figureConstraint = new ArrayList<AbsoluteBendpoint>();
+		for (Point p : modelConstraint) {
+			figureConstraint.add(new AbsoluteBendpoint(p));
 		}
+		connection.setRoutingConstraint(figureConstraint);
+		// break;
+		// case MANHATTAN:
+		// break;
+		// }
 	}
 
 	@Override
