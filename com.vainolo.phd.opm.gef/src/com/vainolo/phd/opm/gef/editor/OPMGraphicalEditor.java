@@ -79,12 +79,18 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		getGraphicalViewer().setEditPartFactory(new OPMEditPartFactory());
 		getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer()));
 		getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
-		getGraphicalViewer().setContextMenu(
-				new OPMGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
+		getGraphicalViewer().setContextMenu(new OPMGraphicalEditorContextMenuProvider(getGraphicalViewer(),
+				getActionRegistry()));
+		configureKeyboardShortcuts();
+	}
 
+	private void configureKeyboardShortcuts() {
 		GraphicalViewerKeyHandler keyHandler = new GraphicalViewerKeyHandler(getGraphicalViewer());
 		keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
+		keyHandler.put(KeyStroke.getPressed(SWT.F3, 0),
+				getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
 		getGraphicalViewer().setKeyHandler(keyHandler);
+
 	}
 
 	@Override
@@ -93,8 +99,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	}
 
 	/**
-	 * Save the model using the resource from which it was opened, and mark the
-	 * current location in the {@link CommandStack}.
+	 * Save the model using the resource from which it was opened, and mark the current location in the
+	 * {@link CommandStack}.
 	 */
 	@Override
 	public void doSave(IProgressMonitor monitor) {
@@ -155,8 +161,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	}
 
 	/**
-	 * Fire a {@link IEditorPart#PROP_DIRTY} property change and call super
-	 * implementation.
+	 * Fire a {@link IEditorPart#PROP_DIRTY} property change and call super implementation.
 	 */
 	@Override
 	public void commandStackChanged(EventObject event) {
@@ -165,26 +170,20 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	}
 
 	/**
-	 * This methos implements adapting to {@link IPropertySheetPage}. All other
-	 * requests are forwarded to the
-	 * {@link GraphicalEditorWithFlyoutPalette#getAdapter(Class) parent}
-	 * implementation.
+	 * This methos implements adapting to {@link IPropertySheetPage}. All other requests are forwarded to the
+	 * {@link GraphicalEditorWithFlyoutPalette#getAdapter(Class) parent} implementation.
 	 */
 	@Override
 	public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
 		if (type.equals(IPropertySheetPage.class)) {
 			if (propertyPage == null) {
 				propertyPage = (UndoablePropertySheetPage) super.getAdapter(type);
-				// A new PropertySourceProvider was implemented to fetch the
-				// model
-				// from the edit part when required. The property source is
-				// provided
-				// by the generated EMF classes and wrapped by the
-				// AdapterFactoryContentProvider
+				// A new PropertySourceProvider was implemented to fetch the model
+				// from the edit part when required. The property source is provided
+				// by the generated EMF classes and wrapped by the AdapterFactoryContentProvider
 				// to yield standard eclipse interfaces.
 				IPropertySourceProvider sourceProvider = new IPropertySourceProvider() {
-					IPropertySourceProvider modelPropertySourceProvider = new AdapterFactoryContentProvider(
-							new OPMItemProviderAdapterFactory());
+					IPropertySourceProvider modelPropertySourceProvider = new AdapterFactoryContentProvider(new OPMItemProviderAdapterFactory());
 
 					@Override
 					public IPropertySource getPropertySource(Object object) {
@@ -213,8 +212,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	}
 
 	/**
-	 * A property source which unwraps values that are wrapped in an EMF
-	 * {@link PropertyValueWrapper}
+	 * A property source which unwraps values that are wrapped in an EMF {@link PropertyValueWrapper}
 	 * 
 	 * @author vainolo
 	 * 

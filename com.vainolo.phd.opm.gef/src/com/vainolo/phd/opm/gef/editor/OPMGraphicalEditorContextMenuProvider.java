@@ -32,7 +32,7 @@ public class OPMGraphicalEditorContextMenuProvider extends ContextMenuProvider {
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
         action = getActionRegistry().getAction(ActionFactory.REDO.getId());
         menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
-        action = getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS);
+        action = getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID);
         menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
     }
 

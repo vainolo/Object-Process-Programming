@@ -16,14 +16,14 @@ import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
 
 public class ResizeToContentsAction extends SelectionAction {
 
-	public static final String RESIZE_TO_CONTENTS = "ResizeToContents";
+	public static final String RESIZE_TO_CONTENTS_ID = "ResizeToContents";
 	public static final String RESIZE_TO_CONTENTS_REQUEST = "ResizeToContents";
 
 	Request request;
 
 	public ResizeToContentsAction(IWorkbenchPart part) {
 		super(part);
-		setId(RESIZE_TO_CONTENTS);
+		setId(RESIZE_TO_CONTENTS_ID);
 		setText("Resize to Contents");
 		request = new Request(RESIZE_TO_CONTENTS_REQUEST);
 	}
