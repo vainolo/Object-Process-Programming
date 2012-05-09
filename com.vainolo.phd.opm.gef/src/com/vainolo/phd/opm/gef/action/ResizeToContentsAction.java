@@ -19,7 +19,7 @@ public class ResizeToContentsAction extends SelectionAction {
 	public static final String RESIZE_TO_CONTENTS_ID = "ResizeToContents";
 	public static final String RESIZE_TO_CONTENTS_REQUEST = "ResizeToContents";
 
-	Request request;
+	private final Request request;
 
 	public ResizeToContentsAction(IWorkbenchPart part) {
 		super(part);
@@ -42,8 +42,7 @@ public class ResizeToContentsAction extends SelectionAction {
 	/**
 	 * {@inheritDoc}
 	 * <p>
-	 * The action is enabled if all the selected entities on the editor are
-	 * {@link OPMNodeEditPart} instances
+	 * The action is enabled if all the selected entities on the editor are {@link OPMNodeEditPart} instances
 	 * </p>
 	 */
 	@Override
