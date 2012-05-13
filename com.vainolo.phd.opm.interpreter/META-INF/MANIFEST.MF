@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Interpreter
+Bundle-SymbolicName: com.vainolo.phd.opm.interpreter;singleton:=true
+Bundle-Version: 0.1
+Bundle-Activator: com.vainolo.phd.opm.interpreter.Activator
+Bundle-Vendor: Arieh "Vainolo" Bibliowicz
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
