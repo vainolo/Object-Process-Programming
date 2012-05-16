@@ -1,14 +1,40 @@
 package com.vainolo.phd.opm.gef.editor.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
+import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 public class AngulateBendpoints extends Command {
 
+	private final List<Point> oldBendpoints;
+	private final OPMLink link;
+
+	public AngulateBendpoints(OPMLink link) {
+		oldBendpoints = new ArrayList<Point>();
+		this.link = link;
+	}
+
+	@Override
+	public void execute() {
+		link.getSource();
+		link.getTarget();
+
+		super.execute();
+	}
+
+	@Override
+	public void undo() {
+		// TODO Auto-generated method stub
+		super.undo();
+	}
+
 	private Point calculateMiddlePoint(Point source, Point target) {
-		Point p = Point.SINGLETON;
+		Point p = new Point();
 		p.x = source.x + target.x / 2;
 		p.y = source.y + target.y / 2;
 		return p;
