@@ -266,4 +266,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 			source.setPropertyValue(id, value);
 		}
 	}
+
+	public OPMObjectProcessDiagram getOPD() {
+		return opd;
+	}
 }

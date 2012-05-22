@@ -14,10 +14,9 @@ public enum Interpreter {
 		List<OPMNode> nodes = diagram.getNodes();
 		List<OPMProcess> processes = getProcesses(nodes);
 
-		// find processes which have:
-		// 1) only agent incoming links
-		//
-		System.out.println("Number of nodes: " + diagram.getNodes().size());
+		// find processes which have no incoming links
+		List<OPMProcess> startingProcesses = calculateStartingProcesses(processes);
+		System.out.println("Starting processes: " + startingProcesses.size());
 
 	}
 
@@ -29,5 +28,15 @@ public enum Interpreter {
 			}
 		}
 		return retVal;
+	}
+
+	private List<OPMProcess> calculateStartingProcesses(List<OPMProcess> processes) {
+		List<OPMProcess> startingProcesses = new ArrayList<OPMProcess>();
+		for (OPMProcess process : processes) {
+			if (process.getIncomingProceduralLinks().size() == 0) {
+				startingProcesses.add(process);
+			}
+		}
+		return startingProcesses;
 	}
 }
