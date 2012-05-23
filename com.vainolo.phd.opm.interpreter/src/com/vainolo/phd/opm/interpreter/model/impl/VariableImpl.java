@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.interpreter.model.impl.VariableImpl#getType <em>Type</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.interpreter.model.impl.VariableImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.interpreter.model.impl.VariableImpl#getName <em>Name</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,6 +71,35 @@ public class VariableImpl extends EObjectImpl implements Variable {
 	 * @ordered
 	 */
 	protected Object value = VALUE_EDEFAULT;
+
+	/**
+	 * This is true if the Value attribute has been set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean valueESet;
+
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -127,8 +157,54 @@ public class VariableImpl extends EObjectImpl implements Variable {
 	public void setValue(Object newValue) {
 		Object oldValue = value;
 		value = newValue;
+		boolean oldValueESet = valueESet;
+		valueESet = true;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InterpreterPackage.VARIABLE__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET, InterpreterPackage.VARIABLE__VALUE, oldValue, value, !oldValueESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void unsetValue() {
+		Object oldValue = value;
+		boolean oldValueESet = valueESet;
+		value = VALUE_EDEFAULT;
+		valueESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, InterpreterPackage.VARIABLE__VALUE, oldValue, VALUE_EDEFAULT, oldValueESet));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetValue() {
+		return valueESet;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InterpreterPackage.VARIABLE__NAME, oldName, name));
 	}
 
 	/**
@@ -142,6 +218,8 @@ public class VariableImpl extends EObjectImpl implements Variable {
 				return getType();
 			case InterpreterPackage.VARIABLE__VALUE:
 				return getValue();
+			case InterpreterPackage.VARIABLE__NAME:
+				return getName();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -159,6 +237,9 @@ public class VariableImpl extends EObjectImpl implements Variable {
 			case InterpreterPackage.VARIABLE__VALUE:
 				setValue(newValue);
 				return;
+			case InterpreterPackage.VARIABLE__NAME:
+				setName((String)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -174,7 +255,10 @@ public class VariableImpl extends EObjectImpl implements Variable {
 				setType(TYPE_EDEFAULT);
 				return;
 			case InterpreterPackage.VARIABLE__VALUE:
-				setValue(VALUE_EDEFAULT);
+				unsetValue();
+				return;
+			case InterpreterPackage.VARIABLE__NAME:
+				setName(NAME_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -190,7 +274,9 @@ public class VariableImpl extends EObjectImpl implements Variable {
 			case InterpreterPackage.VARIABLE__TYPE:
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 			case InterpreterPackage.VARIABLE__VALUE:
-				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+				return isSetValue();
+			case InterpreterPackage.VARIABLE__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -207,7 +293,9 @@ public class VariableImpl extends EObjectImpl implements Variable {
 		result.append(" (type: ");
 		result.append(type);
 		result.append(", value: ");
-		result.append(value);
+		if (valueESet) result.append(value); else result.append("<unset>");
+		result.append(", name: ");
+		result.append(name);
 		result.append(')');
 		return result.toString();
 	}

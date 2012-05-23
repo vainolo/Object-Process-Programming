@@ -2,10 +2,8 @@ package com.vainolo.phd.opm.interpreter.builtin;
 
 import javax.swing.JOptionPane;
 
-import com.vainolo.phd.opm.interpreter.AbstractProcess;
+import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
-import com.vainolo.phd.opm.interpreter.model.InterpreterFactory;
-import com.vainolo.phd.opm.interpreter.model.Variable;
 
 /**
  * Arguments:
@@ -16,12 +14,16 @@ import com.vainolo.phd.opm.interpreter.model.Variable;
  * @author vainolo
  * 
  */
-public class Input extends AbstractProcess implements OPMProcessInstance {
+public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 	@Override
 	public void execute() {
+		super.execute();
 		String retVal = JOptionPane.showInputDialog("Please enter your text here");
-		Variable v = InterpreterFactory.eINSTANCE.createVariable();
-		v.setValue(retVal);
-		setArgument("text", v);
+		setArgumentValue("text", retVal);
+	}
+
+	@Override
+	public String getName() {
+		return "Input";
 	}
 }

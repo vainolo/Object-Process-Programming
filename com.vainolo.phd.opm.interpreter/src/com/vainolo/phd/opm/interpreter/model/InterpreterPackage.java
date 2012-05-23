@@ -87,13 +87,22 @@ public interface InterpreterPackage extends EPackage {
 	int VARIABLE__VALUE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int VARIABLE__NAME = 2;
+
+	/**
 	 * The number of structural features of the '<em>Variable</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_FEATURE_COUNT = 2;
+	int VARIABLE_FEATURE_COUNT = 3;
 
 
 	/**
@@ -127,6 +136,17 @@ public interface InterpreterPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getVariable_Value();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.interpreter.model.Variable#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see com.vainolo.phd.opm.interpreter.model.Variable#getName()
+	 * @see #getVariable()
+	 * @generated
+	 */
+	EAttribute getVariable_Name();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -175,6 +195,14 @@ public interface InterpreterPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute VARIABLE__VALUE = eINSTANCE.getVariable_Value();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute VARIABLE__NAME = eINSTANCE.getVariable_Name();
 
 	}
 

@@ -2,7 +2,7 @@ package com.vainolo.phd.opm.interpreter.builtin;
 
 import javax.swing.JOptionPane;
 
-import com.vainolo.phd.opm.interpreter.AbstractProcess;
+import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 
 /**
@@ -14,12 +14,17 @@ import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
  * @author vainolo
  * 
  */
-public class Output extends AbstractProcess implements OPMProcessInstance {
+public class OPMOutputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 
 	@Override
 	public void execute() {
-		String text = (String) getArgument("text").getValue();
+		super.execute();
+		String text = (String) getArgumentValue("text");
 		JOptionPane.showMessageDialog(null, text);
 	}
 
+	@Override
+	public String getName() {
+		return "Output";
+	}
 }
