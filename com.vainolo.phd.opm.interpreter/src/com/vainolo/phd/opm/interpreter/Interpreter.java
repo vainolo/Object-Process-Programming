@@ -22,15 +22,25 @@ public enum Interpreter {
 	INSTANCE;
 
 	Map<String, Variable> variables = new HashMap<String, Variable>();
+	Map<OPMProcess, OPMProcessInstance> processInstances = new HashMap<OPMProcess, OPMProcessInstance>();
 
 	public void interpret(OPMObjectProcessDiagram diagram) {
+		variables.clear();
+		processInstances.clear();
+
 		List<OPMNode> nodes = diagram.getNodes();
 		List<OPMProcess> processes = getProcesses(nodes);
 
 		// find processes which have no incoming links
+		for (OPMProcess opmProcess : processes) {
+			OPMProcessInstance processInstance = getProcessInstanceFromOPMProcess(opmProcess);
+			processInstances.put(opmProcess, processInstance);
+		}
 		List<OPMProcess> startingProcesses = calculateStartingProcesses(processes);
-		OPMProcessInstance processInstance = getProcessInstanceFromOPMProcess(startingProcesses.get(0));
-		processInstance.execute();
+		for (OPMProcess startingProcess : startingProcesses) {
+			OPMProcessInstance startingProcessInstance = processInstances.get(startingProcess);
+			startingProcessInstance.execute();
+		}
 	}
 
 	public List<OPMProcess> getProcesses(List<OPMNode> nodes) {
@@ -72,13 +82,13 @@ public enum Interpreter {
 		links.addAll(process.getOutgoingProceduralLinks());
 		for (OPMLink link : links) {
 			OPMProceduralLink pLink = (OPMProceduralLink) link;
-			OPMObject linkSource = null;
+			OPMObject object = null;
 			if (pLink.getSource() instanceof OPMObject) {
-				linkSource = (OPMObject) pLink.getSource();
+				object = (OPMObject) pLink.getSource();
 			} else if (pLink.getTarget() instanceof OPMObject) {
-				linkSource = (OPMObject) pLink.getTarget();
+				object = (OPMObject) pLink.getTarget();
 			}
-			Variable var = createOrFetchObjectVariable(linkSource);
+			Variable var = createOrFetchObjectVariable(object);
 			addVariableToProcessIntance(var, processInstance, pLink);
 		}
 

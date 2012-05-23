@@ -29,8 +29,12 @@ public class OPMLaunchConfigurationDelegate extends LaunchConfigurationDelegate 
 				opd = editor.getOPD();
 			}
 		});
-
-		Interpreter.INSTANCE.interpret(opd);
+		(new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Interpreter.INSTANCE.interpret(opd);
+			}
+		})).start();
 
 	}
 }

@@ -7,9 +7,20 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
 	@Override
 	public void execute() {
 		super.execute();
-		int a = (int) getArgumentValue("a");
-		int b = (int) getArgumentValue("b");
-		int c = a + b;
+		int a = 0, b = 0, c = 0;
+		Object o = getArgumentValue("a");
+		if (o instanceof String) {
+			a = Integer.parseInt((String) o);
+		} else if (o instanceof Integer) {
+			a = (int) o;
+		}
+		o = getArgumentValue("b");
+		if (o instanceof String) {
+			b = Integer.parseInt((String) o);
+		} else if (o instanceof Integer) {
+			b = (int) o;
+		}
+		c = a + b;
 		setArgumentValue("c", c);
 	}
 
