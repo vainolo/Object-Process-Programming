@@ -74,7 +74,23 @@ public enum OPMProceduralLinkKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-    INVOCATION(5, "INVOCATION", "Invocation");
+    INVOCATION(5, "INVOCATION", "Invocation"), /**
+	 * The '<em><b>EVENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #EVENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	EVENT(6, "EVENT", "Event"), /**
+	 * The '<em><b>CONDITION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CONDITION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CONDITION(7, "CONDITION", "Condition");
 
 	/**
 	 * The '<em><b>AGENT</b></em>' literal value.
@@ -167,6 +183,36 @@ public enum OPMProceduralLinkKind implements Enumerator {
     public static final int INVOCATION_VALUE = 5;
 
     /**
+	 * The '<em><b>EVENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>EVENT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #EVENT
+	 * @model literal="Event"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int EVENT_VALUE = 6;
+
+	/**
+	 * The '<em><b>CONDITION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>CONDITION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CONDITION
+	 * @model literal="Condition"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CONDITION_VALUE = 7;
+
+				/**
 	 * An array of all the '<em><b>Procedural Link Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -180,6 +226,8 @@ public enum OPMProceduralLinkKind implements Enumerator {
 			EFFECT,
 			RESULT,
 			INVOCATION,
+			EVENT,
+			CONDITION,
 		};
 
 	/**
@@ -236,6 +284,8 @@ public enum OPMProceduralLinkKind implements Enumerator {
 			case EFFECT_VALUE: return EFFECT;
 			case RESULT_VALUE: return RESULT;
 			case INVOCATION_VALUE: return INVOCATION;
+			case EVENT_VALUE: return EVENT;
+			case CONDITION_VALUE: return CONDITION;
 		}
 		return null;
 	}

@@ -11,14 +11,15 @@ import org.eclipse.draw2d.ConnectionLocator;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.geometry.PointList;
 
 import com.vainolo.phd.opm.gef.editor.figure.CircleDecoration;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 /**
- * An extension of a {@link OPMLinkEditPart} used for {@link OPMProceduralLink}
- * instances. It add endpoint decorations to the regular link figure.
+ * An extension of a {@link OPMLinkEditPart} used for {@link OPMProceduralLink} instances. It add endpoint decorations
+ * to the regular link figure.
  * 
  * @author vainolo
  * 
@@ -30,14 +31,11 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 	private Label centerDecorationLabel;
 
 	/**
-	 * Extend the connection created by {@link OPMLinkEditPart#createFigure()}
-	 * by adding decorations depending on the link kind. An agent link is
-	 * decorated at the target with black filled {@link CircleDecoration}. An
-	 * instrument link is decorated at the target with a white filled
-	 * {@link CircleDecoration}. A consumption or result link is decorated at
-	 * the target with a {@link PolylineDecoration} (which is an arrow). An
-	 * effect link link is decorated at the source and target with a
-	 * {@link PolylineDecoration}.
+	 * Extend the connection created by {@link OPMLinkEditPart#createFigure()} by adding decorations depending on the
+	 * link kind. An agent link is decorated at the target with black filled {@link CircleDecoration}. An instrument
+	 * link is decorated at the target with a white filled {@link CircleDecoration}. A consumption or result link is
+	 * decorated at the target with a {@link PolylineDecoration} (which is an arrow). An effect link link is decorated
+	 * at the source and target with a {@link PolylineDecoration}.
 	 * 
 	 * @return a decorated {@link PolylineConnection} figure.
 	 */
@@ -94,12 +92,29 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 		case INVOCATION:
 			connection.setTargetDecoration(new PolylineDecoration());
 			break;
-
 		case EFFECT:
 			connection.setSourceDecoration(new PolylineDecoration());
 			connection.setTargetDecoration(new PolylineDecoration());
 			break;
-
+		case CONDITION:
+			PolylineDecoration decoration = new PolylineDecoration();
+			decoration.add(new Label("c"));
+			connection.setTargetDecoration(decoration);
+			break;
+		case EVENT:
+			decoration = new PolylineDecoration();
+			PointList pl = new PointList();
+			pl.addPoint(0, 1);
+			pl.addPoint(-1, 1);
+			pl.addPoint(-1, 0);
+			pl.addPoint(0, 0);
+			pl.addPoint(-1, 0);
+			pl.addPoint(-1, -1);
+			pl.addPoint(0, -1);
+			decoration.setTemplate(pl);
+			decoration.setScale(5, 5);
+			connection.setTargetDecoration(decoration);
+			break;
 		default:
 			throw new IllegalArgumentException("No case for kind " + kind);
 		}

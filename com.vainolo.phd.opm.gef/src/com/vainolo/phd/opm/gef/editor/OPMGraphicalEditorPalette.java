@@ -14,8 +14,10 @@ import org.eclipse.gef.palette.SelectionToolEntry;
 import com.vainolo.phd.opm.gef.editor.factory.LabelFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMAgentLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMAggregationStructuralLinkAggregatorFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMConditionLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMConsumptionLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMEffectLinkFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMEventLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMExhibitionStructuralLinkAggregatorFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMGeneralizationStructuralLinkAggregatorFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMInstrumentLinkFactory;
@@ -56,7 +58,7 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 
 	private void addNodeTools() {
 		CreationToolEntry entry = new CreationToolEntry("OPMObject", "Create a new Object", new OPMObjectFactory(),
-				null, null);
+														null, null);
 		entry.setToolClass(CreationAndDirectEditTool.class);
 		group.add(entry);
 
@@ -74,7 +76,7 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 
 	private void addOPMLinkTool() {
 		ConnectionCreationToolEntry entry = new ConnectionCreationToolEntry("Link", "Creates a new link",
-				new OPMLinkFactory(), null, null);
+																			new OPMLinkFactory(), null, null);
 		group.add(entry);
 	}
 
@@ -84,24 +86,30 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 	private void addOPMProceduralLinkTools() {
 		ConnectionCreationToolEntry entry;
 		entry = new ConnectionCreationToolEntry("Agent", "Create a new Agent link", new OPMAgentLinkFactory(), null,
-				null);
+												null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Instrument", "Create a new Instrument link",
-				new OPMInstrumentLinkFactory(), null, null);
+												new OPMInstrumentLinkFactory(), null, null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Consumption", "Create a new Consumption link",
-				new OPMConsumptionLinkFactory(), null, null);
+												new OPMConsumptionLinkFactory(), null, null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Result", "Create a new Result link", new OPMResultLinkFactory(), null,
-				null);
+												null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Effect", "Create a new Effect link", new OPMEffectLinkFactory(), null,
-				null);
+												null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Invocation", "Create a new Invocation link",
-				new OPMInvocationLinkFactory(), null, null);
+												new OPMInvocationLinkFactory(), null, null);
 		group.add(entry);
 
+		entry = new ConnectionCreationToolEntry("Event", "Create a new event link", new OPMEventLinkFactory(), null,
+												null);
+		group.add(entry);
+		entry = new ConnectionCreationToolEntry("Condition", "Create a new Condition link",
+												new OPMConditionLinkFactory(), null, null);
+		group.add(entry);
 	}
 
 	/**
@@ -110,13 +118,13 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 	private void addOPMStructuralLinkTools() {
 		ConnectionCreationToolEntry entry;
 		entry = new ConnectionCreationToolEntry("Aggregation", "Create a new Aggregation link",
-				new OPMAggregationStructuralLinkAggregatorFactory(), null, null);
+												new OPMAggregationStructuralLinkAggregatorFactory(), null, null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Exhibition", "Create a new Exhibition link",
-				new OPMExhibitionStructuralLinkAggregatorFactory(), null, null);
+												new OPMExhibitionStructuralLinkAggregatorFactory(), null, null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Generalization", "Create a new Generalization link",
-				new OPMGeneralizationStructuralLinkAggregatorFactory(), null, null);
+												new OPMGeneralizationStructuralLinkAggregatorFactory(), null, null);
 		group.add(entry);
 	}
 
