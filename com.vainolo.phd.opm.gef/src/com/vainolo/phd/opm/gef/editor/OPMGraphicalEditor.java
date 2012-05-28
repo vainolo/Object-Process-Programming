@@ -37,7 +37,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -155,7 +154,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		getActionRegistry().registerAction(action);
 		getSelectionActions().add(action.getId());
 
-		action = new DirectEditAction((IWorkbenchPart) this);
+		action = new DirectEditAction(this);
 		getActionRegistry().registerAction(action);
 		getSelectionActions().add(action.getId());
 	}

@@ -21,23 +21,26 @@ public class OPMGraphicalEditorActionBarContributor extends ActionBarContributor
 		addRetargetAction(new UndoRetargetAction());
 		addRetargetAction(new RedoRetargetAction());
 		addRetargetAction(new DeleteRetargetAction());
-        addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY, GEFMessages.ToggleGrid_Label, IAction.AS_CHECK_BOX));   
-        addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY, GEFMessages.ToggleSnapToGeometry_Label, IAction.AS_CHECK_BOX));
-		
+		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY,
+				GEFMessages.ToggleGrid_Label,
+				IAction.AS_CHECK_BOX));
+		addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY,
+				GEFMessages.ToggleSnapToGeometry_Label,
+				IAction.AS_CHECK_BOX));
 	}
-	
+
 	@Override
 	public void contributeToToolBar(IToolBarManager toolBarManager) {
 		super.contributeToToolBar(toolBarManager);
 		toolBarManager.add(getAction(ActionFactory.UNDO.getId()));
 		toolBarManager.add(getAction(ActionFactory.REDO.getId()));
 		toolBarManager.add(getAction(ActionFactory.DELETE.getId()));
-        toolBarManager.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
-        toolBarManager.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));		
+		toolBarManager.add(getAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY));
+		toolBarManager.add(getAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY));
 	}
 
 	@Override
 	protected void declareGlobalActionKeys() {
-		// Do nothing. This is an abstract function in the parent class.
+		addGlobalActionKey(ActionFactory.SELECT_ALL.getId());
 	}
 }
