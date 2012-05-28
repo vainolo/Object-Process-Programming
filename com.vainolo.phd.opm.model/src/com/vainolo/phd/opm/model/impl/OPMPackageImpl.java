@@ -19,6 +19,7 @@ import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMProcessKind;
 import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
@@ -152,6 +153,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EEnum opmProcessKindEEnum = null;
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EDataType rectangleEDataType = null;
 
 	/**
@@ -274,6 +282,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 */
 	public EClass getOPMProcess() {
 		return opmProcessEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getOPMProcess_Kind() {
+		return (EAttribute)opmProcessEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -524,6 +541,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EEnum getOPMProcessKind() {
+		return opmProcessKindEEnum;
+	}
+
+				/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EDataType getRectangle() {
 		return rectangleEDataType;
 	}
@@ -585,6 +611,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		opmObjectEClass = createEClass(OPM_OBJECT);
 
 		opmProcessEClass = createEClass(OPM_PROCESS);
+		createEAttribute(opmProcessEClass, OPM_PROCESS__KIND);
 
 		opmStructuralLinkAggregatorEClass = createEClass(OPM_STRUCTURAL_LINK_AGGREGATOR);
 		createEAttribute(opmStructuralLinkAggregatorEClass, OPM_STRUCTURAL_LINK_AGGREGATOR__KIND);
@@ -611,6 +638,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		opmStructuralLinkAggregatorKindEEnum = createEEnum(OPM_STRUCTURAL_LINK_AGGREGATOR_KIND);
 		opmProceduralLinkKindEEnum = createEEnum(OPM_PROCEDURAL_LINK_KIND);
 		opmLinkRouterKindEEnum = createEEnum(OPM_LINK_ROUTER_KIND);
+		opmProcessKindEEnum = createEEnum(OPM_PROCESS_KIND);
 
 		// Create data types
 		pointEDataType = createEDataType(POINT);
@@ -689,6 +717,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(opmProcessEClass, OPMProcess.class, "OPMProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getOPMProcess_Kind(), this.getOPMProcessKind(), "kind", "", 1, 1, OPMProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(opmStructuralLinkAggregatorEClass, OPMStructuralLinkAggregator.class, "OPMStructuralLinkAggregator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getOPMStructuralLinkAggregator_Kind(), this.getOPMStructuralLinkAggregatorKind(), "kind", null, 0, 1, OPMStructuralLinkAggregator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -730,6 +759,11 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		initEEnum(opmLinkRouterKindEEnum, OPMLinkRouterKind.class, "OPMLinkRouterKind");
 		addEEnumLiteral(opmLinkRouterKindEEnum, OPMLinkRouterKind.BENDPOINT);
 		addEEnumLiteral(opmLinkRouterKindEEnum, OPMLinkRouterKind.MANHATTAN);
+
+		initEEnum(opmProcessKindEEnum, OPMProcessKind.class, "OPMProcessKind");
+		addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.COMPOUND);
+		addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.BUILT_IN);
+		addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.JAVA);
 
 		// Initialize data types
 		initEDataType(pointEDataType, Point.class, "Point", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

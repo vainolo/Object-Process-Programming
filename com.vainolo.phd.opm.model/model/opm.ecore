@@ -33,7 +33,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMState" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//OPMProcessKind"
+        defaultValueLiteral=""/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLinkAggregator" eSuperTypes="#//OPMNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMStructuralLinkAggregatorKind"/>
   </eClassifiers>
@@ -81,4 +84,9 @@
         defaultValueLiteral="&lt;&lt;name>>"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
+  <eClassifiers xsi:type="ecore:EEnum" name="OPMProcessKind">
+    <eLiterals name="COMPOUND" literal="Compound"/>
+    <eLiterals name="BUILT_IN" value="1" literal="Built In"/>
+    <eLiterals name="JAVA" value="2" literal="Java"/>
+  </eClassifiers>
 </ecore:EPackage>

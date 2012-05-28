@@ -483,13 +483,22 @@ public interface OPMPackage extends EPackage {
     int OPM_PROCESS__DESCRIPTION = OPM_THING__DESCRIPTION;
 
     /**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_PROCESS__KIND = OPM_THING_FEATURE_COUNT + 0;
+
+				/**
 	 * The number of structural features of the '<em>Process</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_PROCESS_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 0;
+	int OPM_PROCESS_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 1;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl <em>Link</em>}' class.
@@ -869,6 +878,16 @@ public interface OPMPackage extends EPackage {
     int OPM_LINK_ROUTER_KIND = 14;
 
     /**
+	 * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProcessKind <em>Process Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.phd.opm.model.OPMProcessKind
+	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProcessKind()
+	 * @generated
+	 */
+	int OPM_PROCESS_KIND = 15;
+
+				/**
 	 * The meta object id for the '<em>Rectangle</em>' data type.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -876,7 +895,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
 	 * @generated
 	 */
-	int RECTANGLE = 16;
+	int RECTANGLE = 17;
 
 
 	/**
@@ -908,7 +927,7 @@ public interface OPMPackage extends EPackage {
 	 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
 	 * @generated
 	 */
-	int POINT = 15;
+	int POINT = 16;
 
 
 	/**
@@ -951,6 +970,17 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getOPMProcess();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMProcess#getKind <em>Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Kind</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMProcess#getKind()
+	 * @see #getOPMProcess()
+	 * @generated
+	 */
+	EAttribute getOPMProcess_Kind();
 
 	/**
 	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMLink <em>Link</em>}'.
@@ -1239,6 +1269,16 @@ public interface OPMPackage extends EPackage {
     EEnum getOPMLinkRouterKind();
 
     /**
+	 * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMProcessKind <em>Process Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Process Kind</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMProcessKind
+	 * @generated
+	 */
+	EEnum getOPMProcessKind();
+
+				/**
 	 * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Rectangle</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1337,6 +1377,14 @@ public interface OPMPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OPM_PROCESS = eINSTANCE.getOPMProcess();
+
+		/**
+		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPM_PROCESS__KIND = eINSTANCE.getOPMProcess_Kind();
 
 		/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl <em>Link</em>}' class.
@@ -1577,6 +1625,16 @@ public interface OPMPackage extends EPackage {
         EEnum OPM_LINK_ROUTER_KIND = eINSTANCE.getOPMLinkRouterKind();
 
         /**
+		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMProcessKind <em>Process Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.phd.opm.model.OPMProcessKind
+		 * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProcessKind()
+		 * @generated
+		 */
+		EEnum OPM_PROCESS_KIND = eINSTANCE.getOPMProcessKind();
+
+								/**
 		 * The meta object literal for the '<em>Rectangle</em>' data type.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
