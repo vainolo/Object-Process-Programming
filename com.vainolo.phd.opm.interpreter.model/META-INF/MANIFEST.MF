@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Interpreter
+Bundle-SymbolicName: com.vainolo.phd.opm.interpreter.model;singleton:=true
+Bundle-Version: 0.1
+Bundle-Vendor: Arieh "Vainolo" Bibliowicz
+Require-Bundle: org.eclipse.emf.ecore;bundle-version="2.7.0",
+ com.vainolo.phd.opm.model;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: com.vainolo.phd.opm.interpreter.model,
+ com.vainolo.phd.opm.interpreter.model.impl,
+ com.vainolo.phd.opm.interpreter.model.util
