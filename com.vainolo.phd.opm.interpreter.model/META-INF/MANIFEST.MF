@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Interpreter
+Bundle-Name: OPM Interpreter Model
 Bundle-SymbolicName: com.vainolo.phd.opm.interpreter.model;singleton:=true
 Bundle-Version: 0.1
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
