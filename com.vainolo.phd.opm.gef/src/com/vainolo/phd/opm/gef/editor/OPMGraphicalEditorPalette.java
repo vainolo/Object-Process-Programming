@@ -22,7 +22,6 @@ import com.vainolo.phd.opm.gef.editor.factory.OPMExhibitionStructuralLinkAggrega
 import com.vainolo.phd.opm.gef.editor.factory.OPMGeneralizationStructuralLinkAggregatorFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMInstrumentLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMInvocationLinkFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMObjectFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMProcessFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMResultLinkFactory;
@@ -40,7 +39,6 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 		addGroup();
 		addSelectionTool();
 		addNodeTools();
-		addOPMLinkTool();
 		addOPMProceduralLinkTools();
 		addOPMStructuralLinkTools();
 	}
@@ -57,27 +55,18 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 	}
 
 	private void addNodeTools() {
-		CreationToolEntry entry = new CreationToolEntry("OPMObject", "Create a new Object", new OPMObjectFactory(),
-														null, null);
+		CreationToolEntry entry = new CreationToolEntry("Label", "Create new Label", new LabelFactory(), null, null);
+		group.add(entry);
+		entry = new CreationToolEntry("OPMObject", "Create a new Object", new OPMObjectFactory(), null, null);
 		entry.setToolClass(CreationAndDirectEditTool.class);
 		group.add(entry);
-
 		entry = new CreationToolEntry("OPMProcess", "Create a new Process", new OPMProcessFactory(), null, null);
 		entry.setToolClass(CreationAndDirectEditTool.class);
 		group.add(entry);
-
 		entry = new CreationToolEntry("OPMState", "Create a new State", new OPMStateFactory(), null, null);
 		entry.setToolClass(CreationAndDirectEditTool.class);
 		group.add(entry);
 
-		entry = new CreationToolEntry("Label", "Create new Label", new LabelFactory(), null, null);
-		group.add(entry);
-	}
-
-	private void addOPMLinkTool() {
-		ConnectionCreationToolEntry entry = new ConnectionCreationToolEntry("Link", "Creates a new link",
-																			new OPMLinkFactory(), null, null);
-		group.add(entry);
 	}
 
 	/**
@@ -88,27 +77,26 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 		entry = new ConnectionCreationToolEntry("Agent", "Create a new Agent link", new OPMAgentLinkFactory(), null,
 												null);
 		group.add(entry);
-		entry = new ConnectionCreationToolEntry("Instrument", "Create a new Instrument link",
-												new OPMInstrumentLinkFactory(), null, null);
+		entry = new ConnectionCreationToolEntry("Condition", "Create a new Condition link",
+												new OPMConditionLinkFactory(), null, null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Consumption", "Create a new Consumption link",
 												new OPMConsumptionLinkFactory(), null, null);
 		group.add(entry);
-		entry = new ConnectionCreationToolEntry("Result", "Create a new Result link", new OPMResultLinkFactory(), null,
-												null);
+		entry = new ConnectionCreationToolEntry("Instrument", "Create a new Instrument link",
+												new OPMInstrumentLinkFactory(), null, null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Effect", "Create a new Effect link", new OPMEffectLinkFactory(), null,
+												null);
+		group.add(entry);
+		entry = new ConnectionCreationToolEntry("Event", "Create a new event link", new OPMEventLinkFactory(), null,
 												null);
 		group.add(entry);
 		entry = new ConnectionCreationToolEntry("Invocation", "Create a new Invocation link",
 												new OPMInvocationLinkFactory(), null, null);
 		group.add(entry);
-
-		entry = new ConnectionCreationToolEntry("Event", "Create a new event link", new OPMEventLinkFactory(), null,
+		entry = new ConnectionCreationToolEntry("Result", "Create a new Result link", new OPMResultLinkFactory(), null,
 												null);
-		group.add(entry);
-		entry = new ConnectionCreationToolEntry("Condition", "Create a new Condition link",
-												new OPMConditionLinkFactory(), null, null);
 		group.add(entry);
 	}
 
