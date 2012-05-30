@@ -10,14 +10,16 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 /**
- * Factory used by palette tools to create {@link OPMProceduralLink} of {@link OPMProceduralLinkKind#EVENT} kind.
+ * Factory used by palette tools to create {@link OPMProceduralLink} of
+ * {@link OPMProceduralLinkKind#CONSUMPTION_CONDITION} kind.
  */
-public class OPMEventLinkFactory implements CreationFactory {
+public class OPMConsumptionConditionLinkFactory implements CreationFactory {
 
 	@Override
 	public Object getNewObject() {
 		OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-		link.setKind(OPMProceduralLinkKind.EVENT);
+		link.setKind(OPMProceduralLinkKind.CONSUMPTION_CONDITION);
+		link.setTargetDecoration("c");
 		return link;
 	}
 
