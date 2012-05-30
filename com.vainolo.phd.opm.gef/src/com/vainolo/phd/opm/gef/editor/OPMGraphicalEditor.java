@@ -34,6 +34,7 @@ import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
@@ -71,6 +72,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 	protected void initializeGraphicalViewer() {
 		super.initializeGraphicalViewer();
 		getGraphicalViewer().setContents(opd);
+		getGraphicalControl().setFont(new Font(null, "Consolas", 10, SWT.NORMAL));
 	}
 
 	@Override
@@ -80,15 +82,15 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 		getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer()));
 		getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
 		getGraphicalViewer().setContextMenu(new OPMGraphicalEditorContextMenuProvider(getGraphicalViewer(),
-				getActionRegistry()));
+																						getActionRegistry()));
 		configureKeyboardShortcuts();
 	}
 
 	private void configureKeyboardShortcuts() {
 		GraphicalViewerKeyHandler keyHandler = new GraphicalViewerKeyHandler(getGraphicalViewer());
 		keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
-		keyHandler.put(KeyStroke.getPressed(SWT.F3, 0),
-				getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
+		keyHandler.put(	KeyStroke.getPressed(SWT.F3, 0),
+						getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
 		getGraphicalViewer().setKeyHandler(keyHandler);
 
 	}
@@ -183,7 +185,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 				// by the generated EMF classes and wrapped by the AdapterFactoryContentProvider
 				// to yield standard eclipse interfaces.
 				IPropertySourceProvider sourceProvider = new IPropertySourceProvider() {
-					IPropertySourceProvider modelPropertySourceProvider = new AdapterFactoryContentProvider(new OPMItemProviderAdapterFactory());
+					IPropertySourceProvider modelPropertySourceProvider = new AdapterFactoryContentProvider(
+																											new OPMItemProviderAdapterFactory());
 
 					@Override
 					public IPropertySource getPropertySource(Object object) {

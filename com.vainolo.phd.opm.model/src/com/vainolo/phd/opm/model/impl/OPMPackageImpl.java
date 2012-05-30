@@ -753,8 +753,10 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.EFFECT);
 		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.RESULT);
 		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.INVOCATION);
-		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.EVENT);
-		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.CONDITION);
+		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.INSTRUMENT_EVENT);
+		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.INSTRUMENT_CONDITION);
+		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.CONSUMPTION_EVENT);
+		addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.CONSUMPTION_CONDITION);
 
 		initEEnum(opmLinkRouterKindEEnum, OPMLinkRouterKind.class, "OPMLinkRouterKind");
 		addEEnumLiteral(opmLinkRouterKindEEnum, OPMLinkRouterKind.BENDPOINT);

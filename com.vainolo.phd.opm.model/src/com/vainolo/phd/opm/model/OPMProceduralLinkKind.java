@@ -75,22 +75,38 @@ public enum OPMProceduralLinkKind implements Enumerator {
 	 * @ordered
 	 */
     INVOCATION(5, "INVOCATION", "Invocation"), /**
-	 * The '<em><b>EVENT</b></em>' literal object.
+	 * The '<em><b>INSTRUMENT EVENT</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #EVENT_VALUE
+	 * @see #INSTRUMENT_EVENT_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	EVENT(6, "EVENT", "Event"), /**
-	 * The '<em><b>CONDITION</b></em>' literal object.
+	INSTRUMENT_EVENT(6, "INSTRUMENT_EVENT", "Instrument Event"), /**
+	 * The '<em><b>INSTRUMENT CONDITION</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #CONDITION_VALUE
+	 * @see #INSTRUMENT_CONDITION_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	CONDITION(7, "CONDITION", "Condition");
+	INSTRUMENT_CONDITION(7, "INSTRUMENT_CONDITION", "Instrument Condition"), /**
+	 * The '<em><b>CONSUMPTION EVENT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CONSUMPTION_EVENT_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CONSUMPTION_EVENT(8, "CONSUMPTION_EVENT", "Consumption Event"), /**
+	 * The '<em><b>CONSUMPTION CONDITION</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CONSUMPTION_CONDITION_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CONSUMPTION_CONDITION(9, "CONSUMPTION_CONDITION", "Consumption Condition");
 
 	/**
 	 * The '<em><b>AGENT</b></em>' literal value.
@@ -183,34 +199,64 @@ public enum OPMProceduralLinkKind implements Enumerator {
     public static final int INVOCATION_VALUE = 5;
 
     /**
-	 * The '<em><b>EVENT</b></em>' literal value.
+	 * The '<em><b>INSTRUMENT EVENT</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>EVENT</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>INSTRUMENT EVENT</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #EVENT
-	 * @model literal="Event"
+	 * @see #INSTRUMENT_EVENT
+	 * @model literal="Instrument Event"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int EVENT_VALUE = 6;
+	public static final int INSTRUMENT_EVENT_VALUE = 6;
 
 	/**
-	 * The '<em><b>CONDITION</b></em>' literal value.
+	 * The '<em><b>INSTRUMENT CONDITION</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>CONDITION</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>INSTRUMENT CONDITION</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #CONDITION
-	 * @model literal="Condition"
+	 * @see #INSTRUMENT_CONDITION
+	 * @model literal="Instrument Condition"
 	 * @generated
 	 * @ordered
 	 */
-	public static final int CONDITION_VALUE = 7;
+	public static final int INSTRUMENT_CONDITION_VALUE = 7;
+
+	/**
+	 * The '<em><b>CONSUMPTION EVENT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>CONSUMPTION EVENT</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CONSUMPTION_EVENT
+	 * @model literal="Consumption Event"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CONSUMPTION_EVENT_VALUE = 8;
+
+	/**
+	 * The '<em><b>CONSUMPTION CONDITION</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>CONSUMPTION CONDITION</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CONSUMPTION_CONDITION
+	 * @model literal="Consumption Condition"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CONSUMPTION_CONDITION_VALUE = 9;
 
 				/**
 	 * An array of all the '<em><b>Procedural Link Kind</b></em>' enumerators.
@@ -226,8 +272,10 @@ public enum OPMProceduralLinkKind implements Enumerator {
 			EFFECT,
 			RESULT,
 			INVOCATION,
-			EVENT,
-			CONDITION,
+			INSTRUMENT_EVENT,
+			INSTRUMENT_CONDITION,
+			CONSUMPTION_EVENT,
+			CONSUMPTION_CONDITION,
 		};
 
 	/**
@@ -284,8 +332,10 @@ public enum OPMProceduralLinkKind implements Enumerator {
 			case EFFECT_VALUE: return EFFECT;
 			case RESULT_VALUE: return RESULT;
 			case INVOCATION_VALUE: return INVOCATION;
-			case EVENT_VALUE: return EVENT;
-			case CONDITION_VALUE: return CONDITION;
+			case INSTRUMENT_EVENT_VALUE: return INSTRUMENT_EVENT;
+			case INSTRUMENT_CONDITION_VALUE: return INSTRUMENT_CONDITION;
+			case CONSUMPTION_EVENT_VALUE: return CONSUMPTION_EVENT;
+			case CONSUMPTION_CONDITION_VALUE: return CONSUMPTION_CONDITION;
 		}
 		return null;
 	}

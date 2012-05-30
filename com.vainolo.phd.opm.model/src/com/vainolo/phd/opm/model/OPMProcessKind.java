@@ -40,7 +40,7 @@ public enum OPMProcessKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	BUILT_IN(2, "BUILT_IN", "Built In"),
+	BUILT_IN(1, "BUILT_IN", "Built In"),
 
 	/**
 	 * The '<em><b>JAVA</b></em>' literal object.
@@ -50,7 +50,7 @@ public enum OPMProcessKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JAVA(0, "JAVA", "Java");
+	JAVA(2, "JAVA", "Java");
 
 	/**
 	 * The '<em><b>COMPOUND</b></em>' literal value.
@@ -80,7 +80,7 @@ public enum OPMProcessKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int BUILT_IN_VALUE = 2;
+	public static final int BUILT_IN_VALUE = 1;
 
 	/**
 	 * The '<em><b>JAVA</b></em>' literal value.
@@ -95,7 +95,7 @@ public enum OPMProcessKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int JAVA_VALUE = 0;
+	public static final int JAVA_VALUE = 2;
 
 	/**
 	 * An array of all the '<em><b>Process Kind</b></em>' enumerators.
@@ -160,6 +160,7 @@ public enum OPMProcessKind implements Enumerator {
 		switch (value) {
 			case COMPOUND_VALUE: return COMPOUND;
 			case BUILT_IN_VALUE: return BUILT_IN;
+			case JAVA_VALUE: return JAVA;
 		}
 		return null;
 	}

@@ -70,8 +70,10 @@
     <eLiterals name="EFFECT" value="3" literal="Effect"/>
     <eLiterals name="RESULT" value="4" literal="Result"/>
     <eLiterals name="INVOCATION" value="5" literal="Invocation"/>
-    <eLiterals name="EVENT" value="6" literal="Event"/>
-    <eLiterals name="CONDITION" value="7" literal="Condition"/>
+    <eLiterals name="INSTRUMENT_EVENT" value="6" literal="Instrument Event"/>
+    <eLiterals name="INSTRUMENT_CONDITION" value="7" literal="Instrument Condition"/>
+    <eLiterals name="CONSUMPTION_EVENT" value="8" literal="Consumption Event"/>
+    <eLiterals name="CONSUMPTION_CONDITION" value="9" literal="Consumption Condition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMLinkRouterKind">
     <eLiterals name="BENDPOINT" literal="Bendpoint"/>
