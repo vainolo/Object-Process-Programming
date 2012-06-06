@@ -11,7 +11,7 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 public interface OPMProcessInstance {
 	public void execute();
 
-	public void setArgumentValue(String name, Object variable);
+	public void setArgumentValue(String name, Object value);
 
 	public Object getArgumentValue(String name);
 
