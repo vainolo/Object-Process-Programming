@@ -1,7 +1,9 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
+ *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
@@ -10,14 +12,12 @@ import org.eclipse.emf.common.util.BasicEMap;
 import org.eclipse.emf.common.util.EMap;
 
 import com.vainolo.phd.opm.interpreter.model.Variable;
+import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, Adapter {
-	private final EMap<String, Variable> arguments = new BasicEMap<>();
+	private final EMap<String, Argument> arguments = new BasicEMap<>();
 
-	private final EMap<String, Variable> instruments = new BasicEMap<>();
-	private final EMap<String, Variable> consumptions = new BasicEMap<>();
-	private final EMap<String, Variable> effects = new BasicEMap<>();
-	private final EMap<String, Variable> results = new BasicEMap<>();
+	private boolean active = false;
 
 	@Override
 	public void execute() {
@@ -26,43 +26,21 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 
 	@Override
 	public void setArgumentValue(String name, Object value) {
-		arguments.get(name).setValue(value);
+		arguments.get(name).getVariable().setValue(value);
 	}
 
 	@Override
 	public Object getArgumentValue(String name) {
-		return arguments.get(name).getValue();
+		return arguments.get(name).getVariable().getValue();
 	}
 
 	@Override
-	public void addInstrument(String name, Variable variable) {
-		instruments.put(name, variable);
-		arguments.put(name, variable);
-		adaptToVariable(variable);
-	}
-
-	@Override
-	public void addAgent(String name) {
-	}
-
-	@Override
-	public void addConsumption(String name, Variable variable) {
-		consumptions.put(name, variable);
-		arguments.put(name, variable);
-		adaptToVariable(variable);
-	}
-
-	@Override
-	public void addEffect(String name, Variable variable) {
-		effects.put(name, variable);
-		arguments.put(name, variable);
-		adaptToVariable(variable);
-	}
-
-	@Override
-	public void addResult(String name, Variable variable) {
-		results.put(name, variable);
-		arguments.put(name, variable);
+	public void addArgument(String name, OPMProceduralLinkKind kind, Variable variable) {
+		Argument argument = new Argument(kind, variable);
+		arguments.put(name, argument);
+		if (isIncomingArgument(argument)) {
+			adaptToVariable(variable);
+		}
 	}
 
 	private void adaptToVariable(Variable var) {
@@ -71,16 +49,28 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 
 	@Override
 	public boolean isReady() {
-		List<Variable> requiredVariables = new ArrayList<Variable>();
-		requiredVariables.addAll(instruments.values());
-		requiredVariables.addAll(consumptions.values());
-		requiredVariables.addAll(effects.values());
-		for (Variable variable : requiredVariables) {
-			if (!variable.isSetValue()) {
-				return false;
+		for (Argument argument : arguments.values()) {
+			if (isIncomingArgument(argument)) {
+				if (!argument.getVariable().isSetValue()) {
+					return false;
+				}
 			}
 		}
 		return true;
+	}
+
+	private boolean isIncomingArgument(Argument argument) {
+		switch (argument.getKind()) {
+		case AGENT:
+		case INSTRUMENT:
+		case EFFECT:
+		case CONSUMPTION:
+			return true;
+		default:
+			return false;
+
+		}
+
 	}
 
 	@Override
@@ -111,4 +101,31 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 		System.out.println("Someone called setTarget... Who?");
 	}
 
+	@Override
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
+	@Override
+	public boolean isActive() {
+		return active;
+	}
+
+	private class Argument {
+		private final OPMProceduralLinkKind kind;
+		private final Variable variable;
+
+		public Argument(OPMProceduralLinkKind kind, Variable variable) {
+			this.kind = kind;
+			this.variable = variable;
+		}
+
+		private OPMProceduralLinkKind getKind() {
+			return kind;
+		}
+
+		private Variable getVariable() {
+			return variable;
+		}
+	}
 }

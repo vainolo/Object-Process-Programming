@@ -1,3 +1,8 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
+ *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
 import java.util.ArrayList;
@@ -15,14 +20,13 @@ import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
-import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 public enum Interpreter {
 	INSTANCE;
 
-	Map<String, Variable> variables = new HashMap<String, Variable>();
-	Map<OPMProcess, OPMProcessInstance> processInstances = new HashMap<OPMProcess, OPMProcessInstance>();
+	private final Map<String, Variable> variables = new HashMap<String, Variable>();
+	private final Map<OPMProcess, OPMProcessInstance> processInstances = new HashMap<OPMProcess, OPMProcessInstance>();
 
 	public void interpret(OPMObjectProcessDiagram diagram) {
 		variables.clear();
@@ -96,28 +100,7 @@ public enum Interpreter {
 	}
 
 	private void addVariableToProcessIntance(Variable var, OPMProcessInstance processInstance, OPMProceduralLink link) {
-		OPMProceduralLinkKind kind = link.getKind();
-		String name = link.getCenterDecoration();
-		switch (kind) {
-		case AGENT:
-			processInstance.addAgent(name);
-			break;
-		case CONSUMPTION:
-			processInstance.addConsumption(name, var);
-			break;
-		case EFFECT:
-			processInstance.addEffect(name, var);
-			break;
-		case INSTRUMENT:
-			processInstance.addInstrument(name, var);
-			break;
-		case INVOCATION:
-			break;
-		case RESULT:
-			processInstance.addResult(name, var);
-			break;
-		}
-
+		processInstance.addArgument(link.getCenterDecoration(), link.getKind(), var);
 	}
 
 	private Variable createOrFetchObjectVariable(OPMObject object) {
@@ -128,9 +111,5 @@ public enum Interpreter {
 			variables.put(object.getName(), var);
 		}
 		return var;
-	}
-
-	public static void main(String args[]) {
-		System.out.println("Hello");
 	}
 }

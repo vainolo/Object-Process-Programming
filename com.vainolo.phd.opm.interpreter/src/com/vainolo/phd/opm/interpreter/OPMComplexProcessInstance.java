@@ -6,6 +6,8 @@ public class OPMComplexProcessInstance extends OPMAbstractProcessInstance implem
 
 	private final OPMProcess process;
 
+	private final VariableManager variableManager = new VariableManager();
+
 	public OPMComplexProcessInstance(OPMProcess process) {
 		this.process = process;
 	}
