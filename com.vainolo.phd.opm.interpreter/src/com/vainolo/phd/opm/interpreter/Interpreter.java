@@ -13,7 +13,6 @@ import java.util.Map;
 import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMInputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMOutputProcessInstance;
-import com.vainolo.phd.opm.interpreter.model.InterpreterFactory;
 import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
@@ -25,11 +24,12 @@ import com.vainolo.phd.opm.model.OPMProcess;
 public enum Interpreter {
 	INSTANCE;
 
-	private final Map<String, Variable> variables = new HashMap<String, Variable>();
 	private final Map<OPMProcess, OPMProcessInstance> processInstances = new HashMap<OPMProcess, OPMProcessInstance>();
 
+	private VariableManager variableManager;
+
 	public void interpret(OPMObjectProcessDiagram diagram) {
-		variables.clear();
+		variableManager = new VariableManager();
 		processInstances.clear();
 
 		List<OPMNode> nodes = diagram.getNodes();
@@ -92,7 +92,7 @@ public enum Interpreter {
 			} else if (pLink.getTarget() instanceof OPMObject) {
 				object = (OPMObject) pLink.getTarget();
 			}
-			Variable var = createOrFetchObjectVariable(object);
+			Variable var = variableManager.getVariable(object);
 			addVariableToProcessIntance(var, processInstance, pLink);
 		}
 
@@ -101,15 +101,5 @@ public enum Interpreter {
 
 	private void addVariableToProcessIntance(Variable var, OPMProcessInstance processInstance, OPMProceduralLink link) {
 		processInstance.addArgument(link.getCenterDecoration(), link.getKind(), var);
-	}
-
-	private Variable createOrFetchObjectVariable(OPMObject object) {
-		Variable var = variables.get(object.getName());
-		if (var == null) {
-			var = InterpreterFactory.eINSTANCE.createVariable();
-			var.setName(object.getName());
-			variables.put(object.getName(), var);
-		}
-		return var;
 	}
 }
