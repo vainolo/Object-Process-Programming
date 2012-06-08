@@ -24,4 +24,18 @@ public class VariableManager {
 		}
 		return var;
 	}
+
+	public Variable getVariable(String name) {
+		Variable var = variables.get(name);
+		if (var == null) {
+			var = InterpreterFactory.eINSTANCE.createVariable();
+			var.setName(name);
+			variables.put(name, var);
+		}
+		return var;
+	}
+
+	public void addVariable(Variable variable) {
+		variables.put(variable.getName(), variable);
+	}
 }

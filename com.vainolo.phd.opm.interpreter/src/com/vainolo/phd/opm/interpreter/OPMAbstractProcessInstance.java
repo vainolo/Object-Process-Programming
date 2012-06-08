@@ -19,6 +19,10 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 
 	private boolean active = false;
 
+	protected EMap<String, Argument> getArguments() {
+		return arguments;
+	}
+
 	@Override
 	public void execute() {
 		System.out.println("Executing process " + getName());
@@ -75,7 +79,6 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 
 	@Override
 	public boolean isAdapterForType(Object type) {
-		System.out.println("Someone called isAdapterFor... who?");
 		if (type.getClass().equals(Variable.class)) {
 			return true;
 		}
@@ -84,21 +87,21 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 
 	@Override
 	public Notifier getTarget() {
-		System.out.println("Someone called getTarget... who?");
 		return null;
 	}
 
 	@Override
 	public void notifyChanged(Notification notification) {
-		System.out.println("Variable " + ((Variable) notification.getNotifier()).getName() + " notified");
-		if (isReady()) {
+		System.out.println("Process " + getName() + " notified " + notification);
+		System.out.println("Active=" + isActive() + ", isReady=" + isReady());
+		if (isActive() && isReady()) {
+			setActive(false);
 			execute();
 		}
 	}
 
 	@Override
 	public void setTarget(Notifier newTarget) {
-		System.out.println("Someone called setTarget... Who?");
 	}
 
 	@Override
@@ -109,23 +112,5 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 	@Override
 	public boolean isActive() {
 		return active;
-	}
-
-	private class Argument {
-		private final OPMProceduralLinkKind kind;
-		private final Variable variable;
-
-		public Argument(OPMProceduralLinkKind kind, Variable variable) {
-			this.kind = kind;
-			this.variable = variable;
-		}
-
-		private OPMProceduralLinkKind getKind() {
-			return kind;
-		}
-
-		private Variable getVariable() {
-			return variable;
-		}
 	}
 }
