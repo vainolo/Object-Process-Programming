@@ -1,5 +1,7 @@
 /*******************************************************************************
- * This is me!!!
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.part;
 
@@ -89,7 +91,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 					file.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
 				}
 				IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry()
-						.getDefaultEditor(newFile.getName());
+														.getDefaultEditor(newFile.getName());
 				IWorkbenchPage page = editorPart.getSite().getPage();
 				page.openEditor(new FileEditorInput(newFile), editor.getId());
 			} catch (PartInitException e) {
@@ -108,8 +110,9 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
 	private void performDirectEditing() {
 		Label label = ((OPMThingFigure) getFigure()).getNameLabel();
-		OPMNamedElementDirectEditManager manager = new OPMNamedElementDirectEditManager(this, TextCellEditor.class,
-				new OPMNamedElementCellEditorLocator(label), label);
+		OPMNamedElementDirectEditManager manager;
+		manager = new OPMNamedElementDirectEditManager(this, TextCellEditor.class,
+														new OPMNamedElementCellEditorLocator(label), label);
 		manager.show();
 	}
 
@@ -119,8 +122,8 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 	}
 
 	/**
-	 * Currently the class only adapts to create a {@link SnapToHelper} when the
-	 * editor is in snapping mode (either to grid or to shapes).
+	 * Currently the class only adapts to create a {@link SnapToHelper} when the editor is in snapping mode (either to
+	 * grid or to shapes).
 	 */
 	@Override
 	public Object getAdapter(Class key) {
