@@ -16,6 +16,7 @@ import com.vainolo.phd.opm.gef.editor.factory.LabelFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMAgentLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMAggregationStructuralLinkAggregatorFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMConsumptionConditionLinkFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMConsumptionEventLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMConsumptionLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMEffectLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMExhibitionStructuralLinkAggregatorFactory;
@@ -23,6 +24,7 @@ import com.vainolo.phd.opm.gef.editor.factory.OPMGeneralizationStructuralLinkAgg
 import com.vainolo.phd.opm.gef.editor.factory.OPMInstrumentConditionLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMInstrumentEventLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMInstrumentLinkFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMInvocationLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMObjectFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMProcessFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMResultLinkFactory;
@@ -135,7 +137,7 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 		group.add(entry);
 
 		entry = new ConnectionCreationToolEntry("Consumption Event", "Create a new Consumption Event link",
-												new OPMConsumptionLinkFactory(),
+												new OPMConsumptionEventLinkFactory(),
 												ImageDescriptor.createFromFile(	this.getClass(),
 																				"icons/consumption_event.ico"),
 												ImageDescriptor.createFromFile(	this.getClass(),
@@ -147,9 +149,13 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 												ImageDescriptor.createFromFile(this.getClass(), "icons/effect.ico"));
 		group.add(entry);
 
-		// entry = new ConnectionCreationToolEntry("Invocation", "Create a new Invocation link",
-		// new OPMInvocationLinkFactory(), null, null);
-		// group.add(entry);
+		entry = new ConnectionCreationToolEntry(
+												"Invocation",
+												"Create a new Invocation link",
+												new OPMInvocationLinkFactory(),
+												ImageDescriptor.createFromFile(this.getClass(), "icons/invocation.ico"),
+												ImageDescriptor.createFromFile(this.getClass(), "icons/invocation.ico"));
+		group.add(entry);
 
 		entry = new ConnectionCreationToolEntry("Result", "Create a new Result link", new OPMResultLinkFactory(),
 												ImageDescriptor.createFromFile(this.getClass(), "icons/result.ico"),

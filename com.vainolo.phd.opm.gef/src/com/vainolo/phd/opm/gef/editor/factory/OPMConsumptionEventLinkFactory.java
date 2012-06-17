@@ -1,5 +1,7 @@
 /*******************************************************************************
- * This is me!!!
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.factory;
 
@@ -19,7 +21,6 @@ public class OPMConsumptionEventLinkFactory implements CreationFactory {
 	public Object getNewObject() {
 		OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
 		link.setKind(OPMProceduralLinkKind.CONSUMPTION_EVENT);
-		link.setTargetDecoration("e");
 		return link;
 	}
 

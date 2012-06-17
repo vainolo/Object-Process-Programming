@@ -8,9 +8,13 @@ package com.vainolo.phd.opm.gef.editor.part;
 
 import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.ConnectionLocator;
+import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.ImageFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.PositionConstants;
+import org.eclipse.swt.graphics.Image;
 
 import com.vainolo.phd.opm.gef.editor.figure.CircleDecoration;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
@@ -25,8 +29,7 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
  */
 public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 
-	private Label targetDecorationLabel;
-	private Label sourceDecorationLabel;
+	private Figure targetDecoration;
 	private Label centerDecorationLabel;
 
 	/**
@@ -43,24 +46,21 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 		PolylineConnection connection = super.createFigure();
 		OPMProceduralLink model = (OPMProceduralLink) getModel();
 		decorateConnection(connection, model.getKind());
-		sourceDecorationLabel = new Label();
 		centerDecorationLabel = new Label();
-		targetDecorationLabel = new Label();
+		// targetDecorationLabel = new Label();
 		ConnectionLocator locator = new ConnectionLocator(connection, ConnectionLocator.SOURCE);
-		connection.add(sourceDecorationLabel, locator);
 		locator = new ConnectionLocator(connection, ConnectionLocator.MIDDLE);
 		connection.add(centerDecorationLabel, locator);
-		locator = new ConnectionLocator(connection, ConnectionLocator.TARGET);
-		connection.add(targetDecorationLabel, locator);
 		return connection;
 	}
 
 	@Override
 	protected void refreshVisuals() {
 		OPMProceduralLink model = (OPMProceduralLink) getModel();
-		targetDecorationLabel.setText(model.getTargetDecoration());
 		centerDecorationLabel.setText(model.getCenterDecoration());
-		sourceDecorationLabel.setText(model.getSourceDecoration());
+		if (targetDecoration != null) {
+			targetDecoration.revalidate();
+		}
 		super.refreshVisuals();
 	}
 
@@ -102,5 +102,30 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
 		default:
 			throw new IllegalArgumentException("No case for kind " + kind);
 		}
+
+		if (isEvent(kind) || isCondition(kind)) {
+			ConnectionLocator locator = new ConnectionLocator(connection, ConnectionLocator.TARGET);
+			locator.setRelativePosition(PositionConstants.WEST);
+			locator.setGap(10);
+			if (isEvent(kind)) {
+				targetDecoration = new ImageFigure(new Image(null, this.getClass()
+																		.getResourceAsStream("../icons/lightning.png")));
+			} else if (isCondition(kind)) {
+				targetDecoration = new ImageFigure(new Image(null, this.getClass()
+																		.getResourceAsStream("../icons/question.png")));
+			}
+
+			connection.add(targetDecoration, locator);
+		}
+	}
+
+	private boolean isEvent(OPMProceduralLinkKind kind) {
+		return kind == OPMProceduralLinkKind.CONSUMPTION_EVENT || kind == OPMProceduralLinkKind.INSTRUMENT_EVENT
+				|| kind == OPMProceduralLinkKind.INVOCATION;
+	}
+
+	private boolean isCondition(OPMProceduralLinkKind kind) {
+		return kind == OPMProceduralLinkKind.CONSUMPTION_CONDITION
+				|| kind == OPMProceduralLinkKind.INSTRUMENT_CONDITION;
 	}
 }
