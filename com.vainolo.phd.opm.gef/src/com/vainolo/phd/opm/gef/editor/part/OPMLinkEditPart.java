@@ -1,6 +1,3 @@
-/*******************************************************************************
- * This is me!!!
- *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.part;
 
 import java.util.ArrayList;
@@ -19,6 +16,7 @@ import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 
+import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkBendpointEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkConnectionEditPolicy;
 import com.vainolo.phd.opm.model.OPMLink;
@@ -43,13 +41,10 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 	/**
 	 * Installs two edit policies:
 	 * <ol>
-	 * <li>For the {@link EditPolicy#CONNECTION_ENDPOINTS_ROLE} a
-	 * {@link ConnectionEndpoinEditPolicy}.</li>
-	 * <li>For the {@link EditPolicy#CONNECTION_ROLE} a
-	 * {@link OPMLinkConnectionEditPolicy}.</li>
-	 * <li>For the {@link EditPolicy#CONNECTION_BENDPOINTS_ROLE} a
-	 * {@link OPMLinkBendpointEditPolicy} (for links that use a
-	 * {@link BendpointConnectionRouter}).</li>
+	 * <li>For the {@link EditPolicy#CONNECTION_ENDPOINTS_ROLE} a {@link ConnectionEndpoinEditPolicy}.</li>
+	 * <li>For the {@link EditPolicy#CONNECTION_ROLE} a {@link OPMLinkConnectionEditPolicy}.</li>
+	 * <li>For the {@link EditPolicy#CONNECTION_BENDPOINTS_ROLE} a {@link OPMLinkBendpointEditPolicy} (for links that
+	 * use a {@link BendpointConnectionRouter}).</li>
 	 * </ol>
 	 */
 	@Override
@@ -63,8 +58,7 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 	}
 
 	/**
-	 * Create a {@link PolylineConnection} with a
-	 * {@link BendpointConnectionRouter}
+	 * Create a {@link PolylineConnection} with a {@link BendpointConnectionRouter}
 	 */
 	@Override
 	protected PolylineConnection createFigure() {
@@ -77,6 +71,7 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 		// conn.setConnectionRouter(new ManhattanConnectionRouter());
 		// break;
 		// }
+		conn.setLineWidth(OPMFigureConstants.connectionLineWidth);
 		return conn;
 	}
 
@@ -114,8 +109,7 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 	}
 
 	/**
-	 * Observer for changes in an OPMLink. Refreshes the {@link EditPart}
-	 * visuals on every change to the model.
+	 * Observer for changes in an OPMLink. Refreshes the {@link EditPart} visuals on every change to the model.
 	 * 
 	 * @author vainolo
 	 * 
@@ -123,8 +117,7 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
 	public class OPMLinkAdapter implements Adapter {
 
 		/**
-		 * Any change to the model causes refresh of the {@link EditPart}
-		 * visuals.
+		 * Any change to the model causes refresh of the {@link EditPart} visuals.
 		 * 
 		 * @param notification
 		 *            the change that ocured in the model.

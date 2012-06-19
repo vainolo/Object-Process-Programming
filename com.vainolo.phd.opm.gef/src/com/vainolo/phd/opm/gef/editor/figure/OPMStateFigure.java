@@ -14,8 +14,7 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 /**
- * A figure representing an OPM State. A state is represented by a rountangle
- * (rounded rectangle).
+ * A figure representing an OPM State. A state is represented by a rountangle (rounded rectangle).
  * 
  * @author vainolo
  * 
@@ -32,6 +31,8 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
 		add(nameLabel);
 		rectangle = new RoundedRectangle();
 		rectangle.setFill(false);
+		rectangle.setForegroundColor(OPMFigureConstants.opmStateColor);
+		rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
 		add(rectangle);
 	}
 
@@ -46,8 +47,7 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
 	}
 
 	/**
-	 * All connections to the figure use the same anchor: a
-	 * {@link ChopboxAnchor}.
+	 * All connections to the figure use the same anchor: a {@link ChopboxAnchor}.
 	 * 
 	 * @return a {@link ChopboxAnchor} for the state.
 	 */

@@ -1,5 +1,7 @@
 /*******************************************************************************
- * This is me!!!
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.figure;
 
@@ -20,6 +22,8 @@ public class OPMObjectFigure extends OPMThingFigure {
 		rectangle = new RectangleFigure();
 		rectangle.setFill(false);
 		rectangle.setLayoutManager(new XYLayout());
+		rectangle.setForegroundColor(OPMFigureConstants.opmObjectColor);
+		rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
 		add(rectangle);
 	}
 

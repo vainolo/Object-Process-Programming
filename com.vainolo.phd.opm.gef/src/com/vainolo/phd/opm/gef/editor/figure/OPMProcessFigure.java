@@ -1,5 +1,7 @@
 /*******************************************************************************
- * This is me!!!
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.figure;
 
@@ -12,32 +14,36 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 public class OPMProcessFigure extends OPMThingFigure {
-	private Ellipse ellipse;
-	private ConnectionAnchor connectionAnchor;	
-	
+	private final Ellipse ellipse;
+	private ConnectionAnchor connectionAnchor;
+
 	public OPMProcessFigure() {
-	    super();
+		super();
 		ellipse = new Ellipse();
 		ellipse.setLayoutManager(new XYLayout());
 		ellipse.setFill(false);
+		ellipse.setForegroundColor(OPMFigureConstants.opmProcessColor);
+		ellipse.setLineWidth(OPMFigureConstants.entityBorderWidth);
 		add(ellipse);
 	}
-	
+
 	@Override
 	public IFigure getContentPane() {
-	    return ellipse;
+		return ellipse;
 	}
 
-	@Override protected void paintFigure(Graphics graphics) {
+	@Override
+	protected void paintFigure(Graphics graphics) {
 		Rectangle r = getBounds().getCopy();
 		setConstraint(ellipse, new Rectangle(0, 0, r.width, r.height));
 		setConstraint(getNameLabel(), new Rectangle(0, 0, r.width, r.height));
 		ellipse.invalidate();
 		getNameLabel().invalidate();
 	}
-	
+
 	/**
 	 * Creates an {@link EllipseAnchor} on the figure.
+	 * 
 	 * @return an {@link EllipseAnchor} on the figure.
 	 */
 	private ConnectionAnchor getConnectionAnchor() {
@@ -47,13 +53,13 @@ public class OPMProcessFigure extends OPMThingFigure {
 		return connectionAnchor;
 	}
 
-    @Override
-    public ConnectionAnchor getSourceConnectionAnchor() {
-        return getConnectionAnchor();
-    }
+	@Override
+	public ConnectionAnchor getSourceConnectionAnchor() {
+		return getConnectionAnchor();
+	}
 
-    @Override
-    public ConnectionAnchor getTargetConnectionAnchor() {
-        return getConnectionAnchor();
-    }		
+	@Override
+	public ConnectionAnchor getTargetConnectionAnchor() {
+		return getConnectionAnchor();
+	}
 }
