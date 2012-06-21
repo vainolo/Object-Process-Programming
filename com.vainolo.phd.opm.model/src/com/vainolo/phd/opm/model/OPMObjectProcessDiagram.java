@@ -45,4 +45,20 @@ public interface OPMObjectProcessDiagram extends OPMContainer {
 	 */
 	EList<OPMLink> getLinks();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<OPMProcess> getProcesses();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation"
+	 * @generated
+	 */
+	EList<OPMObject> getObjects();
+
 } // OPMObjectProcessDiagram

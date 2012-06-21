@@ -8,6 +8,8 @@
         eType="#//OPMNode" containment="true" eOpposite="#//OPMNode/container"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMObjectProcessDiagram" eSuperTypes="#//OPMContainer">
+    <eOperations name="getProcesses" upperBound="-1" eType="#//OPMProcess"/>
+    <eOperations name="getObjects" upperBound="-1" eType="#//OPMObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//OPMLink" containment="true" eOpposite="#//OPMLink/opd"/>
   </eClassifiers>

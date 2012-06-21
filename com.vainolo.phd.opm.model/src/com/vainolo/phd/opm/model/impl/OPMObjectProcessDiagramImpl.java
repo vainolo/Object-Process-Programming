@@ -6,46 +6,40 @@
  */
 package com.vainolo.phd.opm.model.impl;
 
-import com.vainolo.phd.opm.model.Label;
-import com.vainolo.phd.opm.model.OPMLink;
-import com.vainolo.phd.opm.model.OPMNode;
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
-import com.vainolo.phd.opm.model.OPMPackage;
-import com.vainolo.phd.opm.model.OPMThing;
-
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMNode;
+import com.vainolo.phd.opm.model.OPMObject;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMPackage;
+import com.vainolo.phd.opm.model.OPMProcess;
+
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Object Process Diagram</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Object Process Diagram</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getLinks <em>Links</em>}</li>
+ * <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getLinks <em>Links</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPMObjectProcessDiagram {
 	/**
-	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list. <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * 
 	 * @see #getLinks()
 	 * @generated
 	 * @ordered
@@ -53,8 +47,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
 	protected EList<OPMLink> links;
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	protected OPMObjectProcessDiagramImpl() {
@@ -62,8 +56,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
@@ -72,104 +66,139 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
+	@Override
 	public EList<OPMLink> getLinks() {
 		if (links == null) {
-			links = new EObjectContainmentWithInverseEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS, OPMPackage.OPM_LINK__OPD);
+			links = new EObjectContainmentWithInverseEList<OPMLink>(OPMLink.class, this,
+																	OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
+																	OPMPackage.OPM_LINK__OPD);
 		}
 		return links;
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	@Override
+	public EList<OPMProcess> getProcesses() {
+		EList<OPMProcess> retVal = new BasicEList<OPMProcess>();
+		for (OPMNode node : getNodes()) {
+			if (node instanceof OPMProcess) {
+				retVal.add((OPMProcess) node);
+			}
+		}
+		return retVal;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	@Override
+	public EList<OPMObject> getObjects() {
+		EList<OPMObject> retVal = new BasicEList<OPMObject>();
+		for (OPMNode node : getNodes()) {
+			if (node instanceof OPMObject) {
+				retVal.add((OPMObject) node);
+			}
+		}
+		return retVal;
+	}
+
+	/**
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinks()).basicAdd(otherEnd, msgs);
+		case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getLinks()).basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-				return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
+		case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+			return ((InternalEList<?>) getLinks()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-				return getLinks();
+		case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+			return getLinks();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-				getLinks().clear();
-				getLinks().addAll((Collection<? extends OPMLink>)newValue);
-				return;
+		case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+			getLinks().clear();
+			getLinks().addAll((Collection<? extends OPMLink>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-				getLinks().clear();
-				return;
+		case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+			getLinks().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
 
 	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * 
 	 * @generated
 	 */
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-				return links != null && !links.isEmpty();
+		case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+			return links != null && !links.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //OPMObjectProcessDiagramImpl
+} // OPMObjectProcessDiagramImpl
