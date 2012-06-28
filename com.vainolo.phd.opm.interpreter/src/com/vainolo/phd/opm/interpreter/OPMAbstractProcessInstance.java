@@ -15,7 +15,7 @@ import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, Adapter {
-	private final EMap<String, Argument> arguments = new BasicEMap<>();
+	private final EMap<String, Argument> arguments = new BasicEMap<String, Argument>();
 
 	private boolean active = false;
 
@@ -42,9 +42,8 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 	public void addArgument(String name, OPMProceduralLinkKind kind, Variable variable) {
 		Argument argument = new Argument(kind, variable);
 		arguments.put(name, argument);
-		if (isIncomingArgument(argument)) {
+		if(isIncomingArgument(argument))
 			adaptToVariable(variable);
-		}
 	}
 
 	private void adaptToVariable(Variable var) {
@@ -53,18 +52,15 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 
 	@Override
 	public boolean isReady() {
-		for (Argument argument : arguments.values()) {
-			if (isIncomingArgument(argument)) {
-				if (!argument.getVariable().isSetValue()) {
+		for(Argument argument : arguments.values())
+			if(isIncomingArgument(argument))
+				if(!argument.getVariable().isSetValue())
 					return false;
-				}
-			}
-		}
 		return true;
 	}
 
 	private boolean isIncomingArgument(Argument argument) {
-		switch (argument.getKind()) {
+		switch(argument.getKind()) {
 		case AGENT:
 		case INSTRUMENT:
 		case EFFECT:
@@ -79,9 +75,8 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 
 	@Override
 	public boolean isAdapterForType(Object type) {
-		if (type.getClass().equals(Variable.class)) {
+		if(type.getClass().equals(Variable.class))
 			return true;
-		}
 		return false;
 	}
 
@@ -94,7 +89,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 	public void notifyChanged(Notification notification) {
 		System.out.println("Process " + getName() + " notified " + notification);
 		System.out.println("Active=" + isActive() + ", isReady=" + isReady());
-		if (isActive() && isReady()) {
+		if(isActive() && isReady()) {
 			setActive(false);
 			execute();
 		}
