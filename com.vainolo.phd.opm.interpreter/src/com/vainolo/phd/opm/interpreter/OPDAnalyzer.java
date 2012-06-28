@@ -14,6 +14,7 @@ import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph.CycleFoundException;
 import org.jgrapht.graph.DefaultEdge;
 
+import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
 
@@ -24,10 +25,21 @@ import com.vainolo.phd.opm.model.OPMProcess;
  */
 public final class OPDAnalyzer {
 
-	public static List<OPMProcess> getNextProcessesToExecute(DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
+	public static List<OPMProcess> getNextProcessesToExecute(DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
+			OPMProcess process) {
+		Preconditions.checkArgument(opdDag != null);
+		Preconditions.checkArgument(process != null);
 		List<OPMProcess> retVal = new ArrayList<OPMProcess>();
 
+		for(DefaultEdge edge : opdDag.outgoingEdgesOf(process))
+			retVal.add(opdDag.getEdgeTarget(edge));
+
 		return retVal;
+	}
+
+	public static List<OPMProcess> getInitialProcesses(DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
+
+		return null;
 	}
 
 	public static DirectedAcyclicGraph<OPMProcess, DefaultEdge> createOPDDAG(final OPMObjectProcessDiagram opd) {
