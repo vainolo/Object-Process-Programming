@@ -208,6 +208,7 @@ public class OPDAnalyzerTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetNextProcessToExecute_NullProcess_IllegalArgumentException() {
 		opdDag = OPDAnalyzer.createOPDDAG(opd);
+
 		OPDAnalyzer.getNextProcessesToExecute(opdDag, null);
 	}
 
@@ -222,7 +223,9 @@ public class OPDAnalyzerTest {
 	@Test
 	public void testGetNextProcessToExecute_SerialOPD_1() {
 		prepareSerialOPDTest();
+
 		List<OPMProcess> nextProcesses = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(1));
+
 		assertEquals(1, nextProcesses.size());
 		assertTrue(nextProcesses.contains(processes.get(2)));
 	}
@@ -230,7 +233,9 @@ public class OPDAnalyzerTest {
 	@Test
 	public void testGetNextProcessToExecute_SerialOPD_2() {
 		prepareSerialOPDTest();
+
 		nextProcesses = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(3));
+
 		assertEquals(1, nextProcesses.size());
 		assertTrue(nextProcesses.contains(processes.get(4)));
 	}
@@ -238,7 +243,9 @@ public class OPDAnalyzerTest {
 	@Test
 	public void testGetNextProcessToExecute_SerialOPD_3() {
 		prepareSerialOPDTest();
+
 		nextProcesses = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(4));
+
 		assertEquals(0, nextProcesses.size());
 	}
 
@@ -256,7 +263,9 @@ public class OPDAnalyzerTest {
 	@Test
 	public void testGetNextProcessToExecute_ParallelOPD_1() {
 		prepareParallelOPDTest();
+
 		nextProcesses = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(1));
+
 		assertEquals(3, nextProcesses.size());
 		assertTrue(nextProcesses.contains(processes.get(2)));
 		assertTrue(nextProcesses.contains(processes.get(3)));
@@ -266,7 +275,9 @@ public class OPDAnalyzerTest {
 	@Test
 	public void testGetNextProcessToExecute_ParallelOPD_2() {
 		prepareParallelOPDTest();
+
 		nextProcesses = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(2));
+
 		assertEquals(2, nextProcesses.size());
 		assertTrue(nextProcesses.contains(processes.get(5)));
 		assertTrue(nextProcesses.contains(processes.get(6)));
@@ -275,9 +286,42 @@ public class OPDAnalyzerTest {
 	@Test
 	public void textGetNextProcessToExecute_ParallelOPD_3() {
 		prepareParallelOPDTest();
+
 		nextProcesses = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(5));
+
 		List<OPMProcess> nextProcesses2 = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(6));
 		assertEquals(nextProcesses, nextProcesses2);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetInitialProcesses_EmptyOPD() {
+		OPDAnalyzer.createOPDDAG(opd);
+		List<OPMProcess> initialProcesses = OPDAnalyzer.getInitialProcesses(opdDag);
+		assertEquals(0, initialProcesses.size());
+	}
+
+	@Test
+	public void testGetInitialProcesses_OneProcess() {
+		createProcess(1);
+		opdDag = OPDAnalyzer.createOPDDAG(opd);
+		List<OPMProcess> initialProcesses = OPDAnalyzer.getInitialProcesses(opdDag);
+		assertEquals(1, initialProcesses.size());
+	}
+
+	@Test
+	public void testGetInitialProcesses_TwoParallelProcesses() {
+		createProcess(1);
+		createParalleProcess(processes.get(1), 2);
+		createSerialProcess(processes.get(1), 3);
+		createSerialProcess(processes.get(2), 4);
+		createSerialProcess(processes.get(3), 5);
+		createSerialProcess(processes.get(5), 6);
+		createParalleProcess(processes.get(5), 7);
+		opdDag = OPDAnalyzer.createOPDDAG(opd);
+		List<OPMProcess> initialProcesses = OPDAnalyzer.getInitialProcesses(opdDag);
+		assertEquals(2, initialProcesses.size());
+		assertTrue(initialProcesses.contains(processes.get(1)));
+		assertTrue(initialProcesses.contains(processes.get(2)));
 	}
 
 	/**

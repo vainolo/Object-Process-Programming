@@ -38,8 +38,15 @@ public final class OPDAnalyzer {
 	}
 
 	public static List<OPMProcess> getInitialProcesses(DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
+		Preconditions.checkArgument(opdDag != null);
 
-		return null;
+		List<OPMProcess> retVal = new ArrayList<OPMProcess>();
+
+		for(OPMProcess process : opdDag.vertexSet())
+			if(opdDag.inDegreeOf(process) == 0)
+				retVal.add(process);
+
+		return retVal;
 	}
 
 	public static DirectedAcyclicGraph<OPMProcess, DefaultEdge> createOPDDAG(final OPMObjectProcessDiagram opd) {
