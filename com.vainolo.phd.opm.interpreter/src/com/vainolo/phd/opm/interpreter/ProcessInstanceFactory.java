@@ -20,37 +20,33 @@ import com.vainolo.phd.opm.model.OPMProcess;
 public enum ProcessInstanceFactory {
 	INSTANCE;
 
-	public OPMProcessInstance getProcessInstanceFromOPMProcess(OPMProcess process, VariableManager variableManager) {
+	public OPMProcessInstance getProcessInstanceFromOPMProcess(final OPMProcess process,
+			final VariableManager variableManager) {
 		// Create process instance.
 		OPMProcessInstance processInstance;
-		if (process.getName().equals("Input")) {
+		if(process.getName().equals("Input"))
 			processInstance = new OPMInputProcessInstance();
-		} else if (process.getName().equals("Output")) {
+		else if(process.getName().equals("Output"))
 			processInstance = new OPMOutputProcessInstance();
-		} else if (process.getName().equals("Add")) {
+		else if(process.getName().equals("Add"))
 			processInstance = new OPMAddProcessInstance();
-		} else {
+		else
 			processInstance = new OPMComplexProcessInstance(process);
-		}
 
 		// Fetch (or create) the variables used by the process.
-		List<OPMLink> links = new ArrayList<OPMLink>();
+		final List<OPMLink> links = new ArrayList<OPMLink>();
 		links.addAll(process.getIncomingProceduralLinks());
 		links.addAll(process.getOutgoingProceduralLinks());
-		for (OPMLink link : links) {
-			OPMProceduralLink pLink = (OPMProceduralLink) link;
+		for(final OPMLink link : links) {
+			final OPMProceduralLink pLink = (OPMProceduralLink) link;
 			OPMObject object = null;
-			if (pLink.getSource() instanceof OPMObject) {
+			if(pLink.getSource() instanceof OPMObject)
 				object = (OPMObject) pLink.getSource();
-			} else if (pLink.getTarget() instanceof OPMObject) {
+			else if(pLink.getTarget() instanceof OPMObject)
 				object = (OPMObject) pLink.getTarget();
-			}
-			Variable var = variableManager.getVariable(object);
+			final Variable var = variableManager.getVariable(object.getName());
 			processInstance.addArgument(pLink.getCenterDecoration(), pLink.getKind(), var);
 		}
-
-		// Add dummy activation variable
-		// processInstance.addArgument("activation", OPMProceduralLinkKind.INSTRUMENT_EVENT, variableManager);
 
 		return processInstance;
 	}
