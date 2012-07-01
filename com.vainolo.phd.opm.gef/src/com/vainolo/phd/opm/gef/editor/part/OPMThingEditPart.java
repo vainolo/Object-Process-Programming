@@ -43,6 +43,7 @@ import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMThing;
 
 public abstract class OPMThingEditPart extends OPMNodeEditPart {
@@ -61,9 +62,9 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
 	@Override
 	protected void refreshVisuals() {
-		OPMThingFigure figure = (OPMThingFigure) getFigure();
-		OPMThing model = (OPMThing) getModel();
-		GraphicalEditPart parent = (GraphicalEditPart) getParent();
+		final OPMThingFigure figure = (OPMThingFigure) getFigure();
+		final OPMThing model = (OPMThing) getModel();
+		final GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
 		figure.getNameLabel().setText(model.getName());
 		parent.setLayoutConstraint(this, figure, model.getConstraints());
@@ -72,35 +73,39 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 	}
 
 	@Override
-	public void performRequest(Request req) {
-		if (req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
+	public void performRequest(final Request req) {
+		if(req.getType() == RequestConstants.REQ_DIRECT_EDIT)
 			performDirectEditing();
-		} else if (req.getType() == RequestConstants.REQ_OPEN) {
-			IEditorPart editorPart = ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart();
-			IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
-			IFile file = input.getFile();
-			IContainer parent = file.getParent();
-			IFile newFile = parent.getFile(new Path(((OPMThing) getModel()).getName() + ".opm"));
+		else if(req.getType() == RequestConstants.REQ_OPEN) {
+			final String thingName = ((OPMThing) getModel()).getName();
+			final IEditorPart editorPart = ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart();
+			final IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
+			final IFile file = input.getFile();
+			final IContainer parent = file.getParent();
+			final IFile newFile = parent.getFile(new Path(thingName + ".opm"));
 
 			try {
-				if (!newFile.exists()) {
-					ResourceSet resourceSet = new ResourceSetImpl();
-					Resource resource = resourceSet.createResource(URI.createURI(newFile.getLocationURI().toString()));
-					resource.getContents().add(OPMFactory.eINSTANCE.createOPMObjectProcessDiagram());
+				if(!newFile.exists()) {
+					final ResourceSet resourceSet = new ResourceSetImpl();
+					final Resource resource = resourceSet.createResource(URI.createURI(newFile.getLocationURI()
+							.toString()));
+					final OPMObjectProcessDiagram diagram = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
+					diagram.setName(thingName);
+					resource.getContents().add(diagram);
 					resource.save(null);
 					file.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
 				}
-				IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry()
-														.getDefaultEditor(newFile.getName());
-				IWorkbenchPage page = editorPart.getSite().getPage();
+				final IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry()
+						.getDefaultEditor(newFile.getName());
+				final IWorkbenchPage page = editorPart.getSite().getPage();
 				page.openEditor(new FileEditorInput(newFile), editor.getId());
-			} catch (PartInitException e) {
+			} catch(final PartInitException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (IOException e) {
+			} catch(final IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} catch (CoreException e) {
+			} catch(final CoreException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -109,10 +114,10 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 	}
 
 	private void performDirectEditing() {
-		Label label = ((OPMThingFigure) getFigure()).getNameLabel();
+		final Label label = ((OPMThingFigure) getFigure()).getNameLabel();
 		OPMNamedElementDirectEditManager manager;
 		manager = new OPMNamedElementDirectEditManager(this, TextCellEditor.class,
-														new OPMNamedElementCellEditorLocator(label), label);
+				new OPMNamedElementCellEditorLocator(label), label);
 		manager.show();
 	}
 
@@ -126,20 +131,17 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
 	 * grid or to shapes).
 	 */
 	@Override
-	public Object getAdapter(Class key) {
-		if (key == SnapToHelper.class) {
-			List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
-			if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED))) {
+	public Object getAdapter(final Class key) {
+		if(key == SnapToHelper.class) {
+			final List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
+			if(Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED)))
 				helpers.add(new SnapToGeometry(this));
-			}
-			if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED))) {
+			if(Boolean.TRUE.equals(getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED)))
 				helpers.add(new SnapToGrid(this));
-			}
-			if (helpers.size() == 0) {
+			if(helpers.size() == 0)
 				return null;
-			} else {
+			else
 				return new CompoundSnapToHelper(helpers.toArray(new SnapToHelper[0]));
-			}
 		}
 
 		return super.getAdapter(key);
