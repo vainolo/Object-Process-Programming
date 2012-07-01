@@ -50,7 +50,15 @@ public enum OPMProcessKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	JAVA(2, "JAVA", "Java");
+	JAVA(2, "JAVA", "Java"), /**
+	 * The '<em><b>CONCEPTUAL</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #CONCEPTUAL_VALUE
+	 * @generated
+	 * @ordered
+	 */
+	CONCEPTUAL(3, "CONCEPTUAL", "Conceptual");
 
 	/**
 	 * The '<em><b>COMPOUND</b></em>' literal value.
@@ -98,6 +106,21 @@ public enum OPMProcessKind implements Enumerator {
 	public static final int JAVA_VALUE = 2;
 
 	/**
+	 * The '<em><b>CONCEPTUAL</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>CONCEPTUAL</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #CONCEPTUAL
+	 * @model literal="Conceptual"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int CONCEPTUAL_VALUE = 3;
+
+	/**
 	 * An array of all the '<em><b>Process Kind</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -108,6 +131,7 @@ public enum OPMProcessKind implements Enumerator {
 			COMPOUND,
 			BUILT_IN,
 			JAVA,
+			CONCEPTUAL,
 		};
 
 	/**
@@ -161,6 +185,7 @@ public enum OPMProcessKind implements Enumerator {
 			case COMPOUND_VALUE: return COMPOUND;
 			case BUILT_IN_VALUE: return BUILT_IN;
 			case JAVA_VALUE: return JAVA;
+			case CONCEPTUAL_VALUE: return CONCEPTUAL;
 		}
 		return null;
 	}

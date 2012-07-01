@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface OPMObjectProcessDiagram extends OPMContainer {
+public interface OPMObjectProcessDiagram extends OPMContainer, OPMNamedElement {
 	/**
 	 * Returns the value of the '<em><b>Links</b></em>' containment reference list.
 	 * The list contents are of type {@link com.vainolo.phd.opm.model.OPMLink}.

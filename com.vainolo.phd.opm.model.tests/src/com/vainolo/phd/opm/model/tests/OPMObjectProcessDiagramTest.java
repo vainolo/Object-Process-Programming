@@ -32,7 +32,6 @@ public class OPMObjectProcessDiagramTest extends OPMContainerTest {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @generated
 	 */
 	public static void main(String[] args) {
@@ -50,18 +49,17 @@ public class OPMObjectProcessDiagramTest extends OPMContainerTest {
 	}
 
 	/**
-	 * Returns the fixture for this Object Process Diagram test case. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Returns the fixture for this Object Process Diagram test case.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override
 	protected OPMObjectProcessDiagram getFixture() {
-		return (OPMObjectProcessDiagram) fixture;
+		return (OPMObjectProcessDiagram)fixture;
 	}
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see junit.framework.TestCase#setUp()
 	 * @generated
 	 */
@@ -72,7 +70,6 @@ public class OPMObjectProcessDiagramTest extends OPMContainerTest {
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
 	 * @see junit.framework.TestCase#tearDown()
 	 * @generated
 	 */
@@ -82,20 +79,15 @@ public class OPMObjectProcessDiagramTest extends OPMContainerTest {
 	}
 
 	/**
-	 * Tests the '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getProcesses() <em>Get Processes</em>}'
-	 * operation. <!-- begin-user-doc --> <!-- end-user-doc -->
-	 * 
+	 * Tests the '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getProcesses() <em>Get Processes</em>}' operation.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getProcesses()
 	 * @generated
 	 */
 	public void testGetProcesses() {
-		OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
-		OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
-		getFixture().getNodes().add(object);
-		getFixture().getNodes().add(process);
-		EList<OPMProcess> processes = getFixture().getProcesses();
-		assertEquals(processes.size(), 1);
-		assertEquals(getFixture().getProcesses().get(0), process);
+		// TODO: implement this operation test method
+		// Ensure that you remove @generated or mark it @generated NOT
+		fail();
 	}
 
 	/**

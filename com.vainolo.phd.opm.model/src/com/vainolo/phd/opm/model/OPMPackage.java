@@ -109,13 +109,22 @@ public interface OPMPackage extends EPackage {
     int OPM_OBJECT_PROCESS_DIAGRAM__NODES = OPM_CONTAINER__NODES;
 
     /**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_OBJECT_PROCESS_DIAGRAM__NAME = OPM_CONTAINER_FEATURE_COUNT + 0;
+
+				/**
 	 * The feature id for the '<em><b>Links</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 0;
+	int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
 
     /**
 	 * The number of structural features of the '<em>Object Process Diagram</em>' class.
@@ -124,7 +133,7 @@ public interface OPMPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 1;
+	int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 2;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl <em>Node</em>}' class.

@@ -674,6 +674,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 		// Add supertypes to classes
 		opmObjectProcessDiagramEClass.getESuperTypes().add(this.getOPMContainer());
+		opmObjectProcessDiagramEClass.getESuperTypes().add(this.getOPMNamedElement());
 		opmThingEClass.getESuperTypes().add(this.getOPMNode());
 		opmThingEClass.getESuperTypes().add(this.getOPMContainer());
 		opmThingEClass.getESuperTypes().add(this.getOPMNamedElement());
@@ -770,6 +771,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 		addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.COMPOUND);
 		addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.BUILT_IN);
 		addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.JAVA);
+		addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.CONCEPTUAL);
 
 		// Initialize data types
 		initEDataType(pointEDataType, Point.class, "Point", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

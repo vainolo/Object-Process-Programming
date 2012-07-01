@@ -7,7 +7,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
         eType="#//OPMNode" containment="true" eOpposite="#//OPMNode/container"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMObjectProcessDiagram" eSuperTypes="#//OPMContainer">
+  <eClassifiers xsi:type="ecore:EClass" name="OPMObjectProcessDiagram" eSuperTypes="#//OPMContainer #//OPMNamedElement">
     <eOperations name="getProcesses" upperBound="-1" eType="#//OPMProcess"/>
     <eOperations name="getObjects" upperBound="-1" eType="#//OPMObject"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
@@ -92,5 +92,6 @@
     <eLiterals name="COMPOUND" literal="Compound"/>
     <eLiterals name="BUILT_IN" value="1" literal="Built In"/>
     <eLiterals name="JAVA" value="2" literal="Java"/>
+    <eLiterals name="CONCEPTUAL" value="3" literal="Conceptual"/>
   </eClassifiers>
 </ecore:EPackage>

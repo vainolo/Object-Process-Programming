@@ -82,6 +82,7 @@ public class OPMSwitch<T> extends Switch<T> {
 				OPMObjectProcessDiagram opmObjectProcessDiagram = (OPMObjectProcessDiagram)theEObject;
 				T result = caseOPMObjectProcessDiagram(opmObjectProcessDiagram);
 				if (result == null) result = caseOPMContainer(opmObjectProcessDiagram);
+				if (result == null) result = caseOPMNamedElement(opmObjectProcessDiagram);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

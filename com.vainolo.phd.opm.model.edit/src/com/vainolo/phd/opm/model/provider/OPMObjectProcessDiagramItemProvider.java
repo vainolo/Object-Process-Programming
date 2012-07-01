@@ -28,6 +28,7 @@ import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 
@@ -66,8 +67,31 @@ public class OPMObjectProcessDiagramItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
+			addNamePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
+	}
+
+	/**
+	 * This adds a property descriptor for the Name feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNamePropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_OPMNamedElement_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_OPMNamedElement_name_feature", "_UI_OPMNamedElement_type"),
+				 OPMPackage.Literals.OPM_NAMED_ELEMENT__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -119,7 +143,10 @@ public class OPMObjectProcessDiagramItemProvider
 	 */
 	@Override
 	public String getText(Object object) {
-		return getString("_UI_OPMObjectProcessDiagram_type");
+		String label = ((OPMObjectProcessDiagram)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_OPMObjectProcessDiagram_type") :
+			getString("_UI_OPMObjectProcessDiagram_type") + " " + label;
 	}
 
 	/**
@@ -134,6 +161,9 @@ public class OPMObjectProcessDiagramItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(OPMObjectProcessDiagram.class)) {
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
