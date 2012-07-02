@@ -6,20 +6,10 @@ import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 	@Override
 	public void execute() {
-		super.execute();
-		int a = 0, b = 0, c = 0;
-		Object o = getArgumentValue("a");
-		if(o instanceof String)
-			a = Integer.parseInt((String) o);
-		else if(o instanceof Integer)
-			a = (Integer) o;
-		o = getArgumentValue("b");
-		if(o instanceof String)
-			b = Integer.parseInt((String) o);
-		else if(o instanceof Integer)
-			b = (Integer) o;
-		c = a + b;
-		setArgumentValue("c", c);
+		final int a = (Integer) getVarManager().getVariable("a").getValue();
+		final int b = (Integer) getVarManager().getVariable("b").getValue();
+		final int c = a + b;
+		getVarManager().createVariable("c").setValue(c);
 	}
 
 	@Override

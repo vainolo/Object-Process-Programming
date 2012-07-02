@@ -19,26 +19,24 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 
 import com.vainolo.phd.opm.interpreter.Interpreter;
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 
 public class OPMLaunchConfigurationDelegate extends LaunchConfigurationDelegate implements ILaunchConfigurationDelegate {
 
-	private OPMObjectProcessDiagram opd;
+	private String processName;
 	private IContainer container;
 
 	@Override
-	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
-			throws CoreException {
+	public void launch(final ILaunchConfiguration configuration, final String mode, final ILaunch launch,
+			final IProgressMonitor monitor) throws CoreException {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		workbench.getDisplay().syncExec(new Runnable() {
 			@Override
 			public void run() {
-				IEditorPart activeEditor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-				OPMGraphicalEditor editor = (OPMGraphicalEditor) activeEditor;
-				opd = editor.getOPD();
-
-				IFileEditorInput input = (IFileEditorInput) activeEditor.getEditorInput();
-				IFile file = input.getFile();
+				final IEditorPart activeEditor = workbench.getActiveWorkbenchWindow().getActivePage().getActiveEditor();
+				final OPMGraphicalEditor editor = (OPMGraphicalEditor) activeEditor;
+				processName = editor.getOPD().getName();
+				final IFileEditorInput input = (IFileEditorInput) activeEditor.getEditorInput();
+				final IFile file = input.getFile();
 				container = file.getParent();
 
 			}
@@ -46,7 +44,7 @@ public class OPMLaunchConfigurationDelegate extends LaunchConfigurationDelegate 
 		(new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Interpreter.INSTANCE.interpret(opd, container);
+				Interpreter.INSTANCE.interpret(processName, container);
 			}
 		})).start();
 

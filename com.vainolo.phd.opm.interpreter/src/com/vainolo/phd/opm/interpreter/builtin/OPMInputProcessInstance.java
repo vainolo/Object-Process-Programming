@@ -18,8 +18,15 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
 	@Override
 	public void execute() {
 		super.execute();
-		String retVal = JOptionPane.showInputDialog("Please enter your text here");
-		setArgumentValue("text", retVal);
+		final String retVal = showInputDialog();
+		getVarManager().createVariable("text").setValue(retVal);
+	}
+
+	/**
+	 * Method is public for testing purposes. Do not call directly.
+	 */
+	public String showInputDialog() {
+		return JOptionPane.showInputDialog("Please enter your text here");
 	}
 
 	@Override

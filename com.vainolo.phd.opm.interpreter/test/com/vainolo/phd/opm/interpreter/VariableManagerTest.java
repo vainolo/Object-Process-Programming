@@ -87,38 +87,12 @@ public class VariableManagerTest {
 	}
 
 	/**
-	 * Add a non existent variable to the variable manager.
-	 */
-	@Test
-	public void testAddVariable_NewVariable_VariableExists() {
-		final String varName = "var";
-		final Variable var = InterpreterFactory.eINSTANCE.createVariable();
-		var.setName(varName);
-
-		variableManager.addVariable(var);
-
-		assertEquals(var, variableManager.getVariable(varName));
-	}
-
-	/**
-	 * Try to add an variable with the name of an existing variable.
-	 */
-	@Test(expected = IllegalArgumentException.class)
-	public void testAddVariable_VariableWithExistingName_Exception() {
-		final String varName = "var";
-		final Variable var = entityFactory.createVariable();
-		var.setName(varName);
-		variableManager.createVariable(varName);
-		variableManager.addVariable(var);
-	}
-
-	/**
 	 * Perform pre-test initialization.
 	 * 
 	 * @throws Exception
 	 *             if the initialization fails for some reason
 	 * 
-	 * @generatedBy CodePro at 6/29/12 11:06 AM
+	 * @generatedBy CodePro at 7/1/12 8:37 PM
 	 */
 	@Before
 	public void setUp() throws Exception {
@@ -132,7 +106,7 @@ public class VariableManagerTest {
 	 * @throws Exception
 	 *             if the clean-up fails for some reason
 	 * 
-	 * @generatedBy CodePro at 6/29/12 11:06 AM
+	 * @generatedBy CodePro at 7/1/12 8:37 PM
 	 */
 	@After
 	public void tearDown() throws Exception {
@@ -145,7 +119,7 @@ public class VariableManagerTest {
 	 * @param args
 	 *            the command line arguments
 	 * 
-	 * @generatedBy CodePro at 6/29/12 11:06 AM
+	 * @generatedBy CodePro at 7/1/12 8:37 PM
 	 */
 	public static void main(final String[] args) {
 		new org.junit.runner.JUnitCore().run(VariableManagerTest.class);

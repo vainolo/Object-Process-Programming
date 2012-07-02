@@ -31,17 +31,12 @@ public class VariableManager {
 		return var;
 	}
 
-	public void addVariable(final Variable variable) {
-		Preconditions.checkArgument(variable != null, "Variable cannot be null");
-		Preconditions.checkArgument(!variables.containsKey(variable.getName()), "Variable name already in use");
-		variables.put(variable.getName(), variable);
-	}
-
-	public void createVariable(final String name) {
+	public Variable createVariable(final String name) {
 		Preconditions.checkArgument(name != null, "Variable name cannot be null");
 		Preconditions.checkState(!variables.containsKey(name));
 		final Variable var = InterpreterFactory.eINSTANCE.createVariable();
 		var.setName(name);
 		variables.put(name, var);
+		return var;
 	}
 }

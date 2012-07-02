@@ -5,22 +5,20 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.util.BasicEMap;
-import org.eclipse.emf.common.util.EMap;
+import com.google.common.base.Preconditions;
 
-import com.vainolo.phd.opm.interpreter.model.Variable;
-import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
+public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
+	private VariableManager varManager = new VariableManager();
 
-public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, Adapter {
-	private final EMap<String, Argument> arguments = new BasicEMap<String, Argument>();
+	private String name;
 
-	private boolean active = false;
+	public void setName(final String name) {
+		this.name = name;
+	}
 
-	protected EMap<String, Argument> getArguments() {
-		return arguments;
+	@Override
+	public String getName() {
+		return name;
 	}
 
 	@Override
@@ -29,83 +27,21 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance, 
 	}
 
 	@Override
-	public void setArgumentValue(String name, Object value) {
-		arguments.get(name).getVariable().setValue(value);
+	public Object getArgumentValue(final String name) {
+		Preconditions.checkArgument(name != null);
+		return getVarManager().getVariable(name).getValue();
 	}
 
 	@Override
-	public Object getArgumentValue(String name) {
-		return arguments.get(name).getVariable().getValue();
+	public void setArgumentValue(final String name, final Object value) {
+		Preconditions.checkArgument(name != null);
+		Preconditions.checkArgument(value != null);
+		getVarManager().createVariable(name).setValue(value);
 	}
 
-	@Override
-	public void addArgument(String name, OPMProceduralLinkKind kind, Variable variable) {
-		Argument argument = new Argument(kind, variable);
-		arguments.put(name, argument);
-		if(isIncomingArgument(argument))
-			adaptToVariable(variable);
-	}
-
-	private void adaptToVariable(Variable var) {
-		var.eAdapters().add(this);
-	}
-
-	@Override
-	public boolean isReady() {
-		for(Argument argument : arguments.values())
-			if(isIncomingArgument(argument))
-				if(!argument.getVariable().isSetValue())
-					return false;
-		return true;
-	}
-
-	private boolean isIncomingArgument(Argument argument) {
-		switch(argument.getKind()) {
-		case AGENT:
-		case INSTRUMENT:
-		case EFFECT:
-		case CONSUMPTION:
-			return true;
-		default:
-			return false;
-
-		}
-
-	}
-
-	@Override
-	public boolean isAdapterForType(Object type) {
-		if(type.getClass().equals(Variable.class))
-			return true;
-		return false;
-	}
-
-	@Override
-	public Notifier getTarget() {
-		return null;
-	}
-
-	@Override
-	public void notifyChanged(Notification notification) {
-		System.out.println("Process " + getName() + " notified " + notification);
-		System.out.println("Active=" + isActive() + ", isReady=" + isReady());
-		if(isActive() && isReady()) {
-			setActive(false);
-			execute();
-		}
-	}
-
-	@Override
-	public void setTarget(Notifier newTarget) {
-	}
-
-	@Override
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	@Override
-	public boolean isActive() {
-		return active;
+	protected VariableManager getVarManager() {
+		if(varManager == null)
+			varManager = new VariableManager();
+		return varManager;
 	}
 }
