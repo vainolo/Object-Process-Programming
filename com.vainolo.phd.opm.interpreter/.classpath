@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="D:/developer/code/Object-Process-Programming/com.vainolo.phd.opm.interpreter/lib/cglib-nodep-2.2.jar"/>
 	<classpathentry kind="lib" path="lib/easymock-3.1.jar" sourcepath="lib/easymock-3.1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-1.2.jar" sourcepath="lib/objenesis-1.2-sources.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/JUI"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

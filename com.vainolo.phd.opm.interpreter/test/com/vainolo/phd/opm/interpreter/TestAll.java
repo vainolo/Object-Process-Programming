@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
  * of the tests within its package as well as within any subpackages of its
  * package.
  *
- * @generatedBy CodePro at 02/07/12 22:51
+ * @generatedBy CodePro at 03/07/12 09:16
  * @author vainolo
  * @version $Revision: 1.0 $
  */
@@ -17,6 +17,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
 	OPDAnalyzerTest.class,
 	VariableManagerTest.class,
+	OPMCompoundProcessInstanceTest.class,
 	InterpreterTest.class,
 	OPMAbstractProcessInstanceTest.class,
 	OPMProcessInstanceFactoryTest.class,
@@ -29,7 +30,7 @@ public class TestAll {
 	 *
 	 * @param args the command line arguments
 	 *
-	 * @generatedBy CodePro at 02/07/12 22:51
+	 * @generatedBy CodePro at 03/07/12 09:16
 	 */
 	public static void main(String[] args) {
 		JUnitCore.runClasses(new Class[] { TestAll.class });

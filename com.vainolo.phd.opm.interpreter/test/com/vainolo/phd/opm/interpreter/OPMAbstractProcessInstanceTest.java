@@ -5,13 +5,14 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import static org.junit.Assert.assertEquals;
-
-import org.easymock.EasyMock;
 import org.easymock.IMockBuilder;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.easymock.EasyMock.*;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * 
@@ -27,10 +28,10 @@ public class OPMAbstractProcessInstanceTest {
 	public void testExecute() {
 		builder.addMockedMethod("getName");
 		fixture = builder.createMock();
-		EasyMock.expect(fixture.getName()).andReturn("Something");
-		EasyMock.replay(fixture);
+		expect(fixture.getName()).andReturn("Something");
+		replay(fixture);
 		fixture.execute();
-		EasyMock.verify(fixture);
+		verify(fixture);
 	}
 
 	@Test
@@ -48,11 +49,10 @@ public class OPMAbstractProcessInstanceTest {
 	 * @throws Exception
 	 *             if the initialization fails for some reason
 	 * 
-	 * @generatedBy CodePro at 7/1/12 8:31 PM
 	 */
 	@Before
 	public void setUp() throws Exception {
-		builder = EasyMock.createMockBuilder(OPMAbstractProcessInstance.class);
+		builder = createMockBuilder(OPMAbstractProcessInstance.class);
 
 	}
 
@@ -62,7 +62,6 @@ public class OPMAbstractProcessInstanceTest {
 	 * @throws Exception
 	 *             if the clean-up fails for some reason
 	 * 
-	 * @generatedBy CodePro at 7/1/12 8:31 PM
 	 */
 	@After
 	public void tearDown() throws Exception {

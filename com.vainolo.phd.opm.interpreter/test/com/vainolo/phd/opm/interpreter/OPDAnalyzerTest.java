@@ -37,7 +37,7 @@ public class OPDAnalyzerTest {
 	private List<OPMProcess> nextProcesses;
 
 	private void createProcess(final Integer name) {
-		OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
+		final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
 		process.setName(name.toString());
 		process.setConstraints(new Rectangle(10, 10, 10, 10));
 		processes.put(name, process);
@@ -45,9 +45,9 @@ public class OPDAnalyzerTest {
 	}
 
 	private void createParalleProcess(final OPMProcess process, final Integer name) {
-		OPMProcess newProcess = OPMFactory.eINSTANCE.createOPMProcess();
+		final OPMProcess newProcess = OPMFactory.eINSTANCE.createOPMProcess();
 		newProcess.setName(name.toString());
-		Rectangle constraints = new Rectangle();
+		final Rectangle constraints = new Rectangle();
 		constraints.setX(process.getConstraints().x() + SPACING);
 		constraints.setY(process.getConstraints().y());
 		constraints.setSize(process.getConstraints().getSize().getCopy());
@@ -57,9 +57,9 @@ public class OPDAnalyzerTest {
 	}
 
 	private void createSerialProcess(final OPMProcess process, final Integer name) {
-		OPMProcess newProcess = OPMFactory.eINSTANCE.createOPMProcess();
+		final OPMProcess newProcess = OPMFactory.eINSTANCE.createOPMProcess();
 		newProcess.setName(name.toString());
-		Rectangle constraints = new Rectangle();
+		final Rectangle constraints = new Rectangle();
 		constraints.setX(process.getConstraints().x());
 		constraints.setY(process.getConstraints().getBottom().y() + SPACING);
 		constraints.setSize(process.getConstraints().getSize().getCopy());
@@ -224,7 +224,7 @@ public class OPDAnalyzerTest {
 	public void testGetNextProcessToExecute_SerialOPD_1() {
 		prepareSerialOPDTest();
 
-		List<OPMProcess> nextProcesses = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(1));
+		final List<OPMProcess> nextProcesses = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(1));
 
 		assertEquals(1, nextProcesses.size());
 		assertTrue(nextProcesses.contains(processes.get(2)));
@@ -289,14 +289,14 @@ public class OPDAnalyzerTest {
 
 		nextProcesses = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(5));
 
-		List<OPMProcess> nextProcesses2 = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(6));
+		final List<OPMProcess> nextProcesses2 = OPDAnalyzer.getNextProcessesToExecute(opdDag, processes.get(6));
 		assertEquals(nextProcesses, nextProcesses2);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetInitialProcesses_EmptyOPD() {
 		OPDAnalyzer.createOPDDAG(opd);
-		List<OPMProcess> initialProcesses = OPDAnalyzer.getInitialProcesses(opdDag);
+		final List<OPMProcess> initialProcesses = OPDAnalyzer.getInitialProcesses(opdDag);
 		assertEquals(0, initialProcesses.size());
 	}
 
@@ -304,7 +304,7 @@ public class OPDAnalyzerTest {
 	public void testGetInitialProcesses_OneProcess() {
 		createProcess(1);
 		opdDag = OPDAnalyzer.createOPDDAG(opd);
-		List<OPMProcess> initialProcesses = OPDAnalyzer.getInitialProcesses(opdDag);
+		final List<OPMProcess> initialProcesses = OPDAnalyzer.getInitialProcesses(opdDag);
 		assertEquals(1, initialProcesses.size());
 	}
 
@@ -318,7 +318,7 @@ public class OPDAnalyzerTest {
 		createSerialProcess(processes.get(5), 6);
 		createParalleProcess(processes.get(5), 7);
 		opdDag = OPDAnalyzer.createOPDDAG(opd);
-		List<OPMProcess> initialProcesses = OPDAnalyzer.getInitialProcesses(opdDag);
+		final List<OPMProcess> initialProcesses = OPDAnalyzer.getInitialProcesses(opdDag);
 		assertEquals(2, initialProcesses.size());
 		assertTrue(initialProcesses.contains(processes.get(1)));
 		assertTrue(initialProcesses.contains(processes.get(2)));

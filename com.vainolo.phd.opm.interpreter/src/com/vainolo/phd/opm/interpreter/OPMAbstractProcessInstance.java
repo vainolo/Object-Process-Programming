@@ -5,6 +5,7 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Preconditions;
 
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
@@ -43,5 +44,10 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 		if(varManager == null)
 			varManager = new VariableManager();
 		return varManager;
+	}
+
+	@VisibleForTesting
+	void setVarManager(final VariableManager varManager) {
+		this.varManager = varManager;
 	}
 }

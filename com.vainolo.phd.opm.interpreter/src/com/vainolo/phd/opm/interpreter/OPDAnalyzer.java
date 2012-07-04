@@ -25,24 +25,24 @@ import com.vainolo.phd.opm.model.OPMProcess;
  */
 public final class OPDAnalyzer {
 
-	public static List<OPMProcess> getNextProcessesToExecute(DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
-			OPMProcess process) {
+	public static List<OPMProcess> getNextProcessesToExecute(
+			final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag, final OPMProcess process) {
 		Preconditions.checkArgument(opdDag != null);
 		Preconditions.checkArgument(process != null);
-		List<OPMProcess> retVal = new ArrayList<OPMProcess>();
+		final List<OPMProcess> retVal = new ArrayList<OPMProcess>();
 
-		for(DefaultEdge edge : opdDag.outgoingEdgesOf(process))
+		for(final DefaultEdge edge : opdDag.outgoingEdgesOf(process))
 			retVal.add(opdDag.getEdgeTarget(edge));
 
 		return retVal;
 	}
 
-	public static List<OPMProcess> getInitialProcesses(DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
-		Preconditions.checkArgument(opdDag != null);
+	public static List<OPMProcess> getInitialProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
+		Preconditions.checkArgument(opdDag != null, "OPD DAG cannot be null.");
 
-		List<OPMProcess> retVal = new ArrayList<OPMProcess>();
+		final List<OPMProcess> retVal = new ArrayList<OPMProcess>();
 
-		for(OPMProcess process : opdDag.vertexSet())
+		for(final OPMProcess process : opdDag.vertexSet())
 			if(opdDag.inDegreeOf(process) == 0)
 				retVal.add(process);
 
@@ -60,17 +60,19 @@ public final class OPDAnalyzer {
 		return dag;
 	}
 
-	private static void removeDuplicateEdges(DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag) {
-		for(OPMProcess vertex : dag.vertexSet())
+	private static void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag) {
+		for(final OPMProcess vertex : dag.vertexSet())
 			removeDuplicateEdges(dag, vertex);
 	}
 
-	private static void removeDuplicateEdges(DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, OPMProcess vertex) {
-		DirectedNeighborIndex<OPMProcess, DefaultEdge> dni = new DirectedNeighborIndex<OPMProcess, DefaultEdge>(dag);
-		OPMProcess[] successors = dni.successorsOf(vertex).toArray(new OPMProcess[0]);
+	private static void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
+			final OPMProcess vertex) {
+		final DirectedNeighborIndex<OPMProcess, DefaultEdge> dni = new DirectedNeighborIndex<OPMProcess, DefaultEdge>(
+				dag);
+		final OPMProcess[] successors = dni.successorsOf(vertex).toArray(new OPMProcess[0]);
 
-		for(OPMProcess firstTargetVertex : successors)
-			for(OPMProcess secondTargetVertex : successors) {
+		for(final OPMProcess firstTargetVertex : successors)
+			for(final OPMProcess secondTargetVertex : successors) {
 				if(firstTargetVertex.equals(secondTargetVertex))
 					continue;
 
@@ -87,7 +89,8 @@ public final class OPDAnalyzer {
 			}
 	}
 
-	private static void addEdges(DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, OPMObjectProcessDiagram opd) {
+	private static void addEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
+			final OPMObjectProcessDiagram opd) {
 		for(final OPMProcess process : opd.getProcesses())
 			for(final OPMProcess otherProcess : opd.getProcesses()) {
 				if(process.equals(otherProcess))
@@ -103,7 +106,8 @@ public final class OPDAnalyzer {
 			}
 	}
 
-	private static void createNodes(DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, OPMObjectProcessDiagram opd) {
+	private static void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
+			final OPMObjectProcessDiagram opd) {
 		for(final OPMProcess process : opd.getProcesses())
 			dag.addVertex(process);
 	}

@@ -39,4 +39,8 @@ public class VariableManager {
 		variables.put(name, var);
 		return var;
 	}
+
+	public boolean variableExists(final String name) {
+		return variables.containsKey(name);
+	}
 }
