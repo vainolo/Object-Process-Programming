@@ -8,6 +8,7 @@ package com.vainolo.phd.opm.interpreter.model;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 
 /**
@@ -69,22 +70,13 @@ public interface InterpreterPackage extends EPackage {
 	int VARIABLE = 0;
 
 	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int VARIABLE__TYPE = 0;
-
-	/**
 	 * The feature id for the '<em><b>Value</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__VALUE = 1;
+	int VARIABLE__VALUE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -93,7 +85,7 @@ public interface InterpreterPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE__NAME = 2;
+	int VARIABLE__NAME = 1;
 
 	/**
 	 * The number of structural features of the '<em>Variable</em>' class.
@@ -102,7 +94,7 @@ public interface InterpreterPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int VARIABLE_FEATURE_COUNT = 3;
+	int VARIABLE_FEATURE_COUNT = 2;
 
 
 	/**
@@ -114,17 +106,6 @@ public interface InterpreterPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getVariable();
-
-	/**
-	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.interpreter.model.Variable#getType <em>Type</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Type</em>'.
-	 * @see com.vainolo.phd.opm.interpreter.model.Variable#getType()
-	 * @see #getVariable()
-	 * @generated
-	 */
-	EAttribute getVariable_Type();
 
 	/**
 	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.interpreter.model.Variable#getValue <em>Value</em>}'.
@@ -179,14 +160,6 @@ public interface InterpreterPackage extends EPackage {
 		 * @generated
 		 */
 		EClass VARIABLE = eINSTANCE.getVariable();
-
-		/**
-		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute VARIABLE__TYPE = eINSTANCE.getVariable_Type();
 
 		/**
 		 * The meta object literal for the '<em><b>Value</b></em>' attribute feature.

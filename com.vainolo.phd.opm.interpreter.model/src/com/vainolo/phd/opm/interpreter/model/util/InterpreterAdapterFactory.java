@@ -52,6 +52,7 @@ public class InterpreterAdapterFactory extends AdapterFactoryImpl {
 	 * @return whether this factory is applicable for the type of the object.
 	 * @generated
 	 */
+	@Override
 	public boolean isFactoryForType(Object object) {
 		if (object == modelPackage) {
 			return true;
@@ -68,12 +69,14 @@ public class InterpreterAdapterFactory extends AdapterFactoryImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected InterpreterSwitch modelSwitch =
-		new InterpreterSwitch() {
-			public Object caseVariable(Variable object) {
+	protected InterpreterSwitch<Adapter> modelSwitch =
+		new InterpreterSwitch<Adapter>() {
+			@Override
+			public Adapter caseVariable(Variable object) {
 				return createVariableAdapter();
 			}
-			public Object defaultCase(EObject object) {
+			@Override
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};
@@ -86,8 +89,9 @@ public class InterpreterAdapterFactory extends AdapterFactoryImpl {
 	 * @return the adapter for the <code>target</code>.
 	 * @generated
 	 */
+	@Override
 	public Adapter createAdapter(Notifier target) {
-		return (Adapter)modelSwitch.doSwitch((EObject)target);
+		return modelSwitch.doSwitch((EObject)target);
 	}
 
 

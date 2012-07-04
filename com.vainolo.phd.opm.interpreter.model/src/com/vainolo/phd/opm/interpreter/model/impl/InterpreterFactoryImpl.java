@@ -9,6 +9,7 @@ package com.vainolo.phd.opm.interpreter.model.impl;
 import com.vainolo.phd.opm.interpreter.model.*;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EDataType;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 
@@ -57,6 +58,7 @@ public class InterpreterFactoryImpl extends EFactoryImpl implements InterpreterF
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@Override
 	public EObject create(EClass eClass) {
 		switch (eClass.getClassifierID()) {
 			case InterpreterPackage.VARIABLE: return createVariable();
@@ -90,6 +92,7 @@ public class InterpreterFactoryImpl extends EFactoryImpl implements InterpreterF
 	 * @deprecated
 	 * @generated
 	 */
+	@Deprecated
 	public static InterpreterPackage getPackage() {
 		return InterpreterPackage.eINSTANCE;
 	}
