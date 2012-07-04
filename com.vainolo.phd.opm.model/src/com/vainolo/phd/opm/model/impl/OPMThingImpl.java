@@ -51,297 +51,297 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	/**
-	 * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getNodes()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getNodes()
+   * @generated
+   * @ordered
+   */
     protected EList<OPMNode> nodes;
 
     /**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
 	protected static final String NAME_EDEFAULT = "<<name>>";
 
 	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getName()
+   * @generated
+   * @ordered
+   */
 	protected String name = NAME_EDEFAULT;
 
 	/**
-	 * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getDescription()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
     protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-	 * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @see #getDescription()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getDescription()
+   * @generated
+   * @ordered
+   */
     protected String description = DESCRIPTION_EDEFAULT;
 
     /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected OPMThingImpl() {
-		super();
-	}
+    super();
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected EClass eStaticClass() {
-		return OPMPackage.Literals.OPM_THING;
-	}
+    return OPMPackage.Literals.OPM_THING;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     public EList<OPMNode> getNodes() {
-		if (nodes == null) {
-			nodes = new EObjectContainmentWithInverseEList<OPMNode>(OPMNode.class, this, OPMPackage.OPM_THING__NODES, OPMPackage.OPM_NODE__CONTAINER);
-		}
-		return nodes;
-	}
+    if (nodes == null) {
+      nodes = new EObjectContainmentWithInverseEList<OPMNode>(OPMNode.class, this, OPMPackage.OPM_THING__NODES, OPMPackage.OPM_NODE__CONTAINER);
+    }
+    return nodes;
+  }
 
     /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public String getName() {
-		return name;
-	}
+    return name;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__NAME, oldName, name));
-	}
+    String oldName = name;
+    name = newName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__NAME, oldName, name));
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     public String getDescription() {
-		return description;
-	}
+    return description;
+  }
 
     /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     public void setDescription(String newDescription) {
-		String oldDescription = description;
-		description = newDescription;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__DESCRIPTION, oldDescription, description));
-	}
+    String oldDescription = description;
+    description = newDescription;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__DESCRIPTION, oldDescription, description));
+  }
 
     /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case OPMPackage.OPM_THING__NODES:
-				return ((InternalEList<InternalEObject>)(InternalEList<?>)getNodes()).basicAdd(otherEnd, msgs);
-		}
-		return super.eInverseAdd(otherEnd, featureID, msgs);
-	}
+    switch (featureID) {
+      case OPMPackage.OPM_THING__NODES:
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getNodes()).basicAdd(otherEnd, msgs);
+    }
+    return super.eInverseAdd(otherEnd, featureID, msgs);
+  }
 
     /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case OPMPackage.OPM_THING__NODES:
-				return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID) {
+      case OPMPackage.OPM_THING__NODES:
+        return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
     /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case OPMPackage.OPM_THING__NODES:
-				return getNodes();
-			case OPMPackage.OPM_THING__NAME:
-				return getName();
-			case OPMPackage.OPM_THING__DESCRIPTION:
-				return getDescription();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID) {
+      case OPMPackage.OPM_THING__NODES:
+        return getNodes();
+      case OPMPackage.OPM_THING__NAME:
+        return getName();
+      case OPMPackage.OPM_THING__DESCRIPTION:
+        return getDescription();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case OPMPackage.OPM_THING__NODES:
-				getNodes().clear();
-				getNodes().addAll((Collection<? extends OPMNode>)newValue);
-				return;
-			case OPMPackage.OPM_THING__NAME:
-				setName((String)newValue);
-				return;
-			case OPMPackage.OPM_THING__DESCRIPTION:
-				setDescription((String)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID) {
+      case OPMPackage.OPM_THING__NODES:
+        getNodes().clear();
+        getNodes().addAll((Collection<? extends OPMNode>)newValue);
+        return;
+      case OPMPackage.OPM_THING__NAME:
+        setName((String)newValue);
+        return;
+      case OPMPackage.OPM_THING__DESCRIPTION:
+        setDescription((String)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public void eUnset(int featureID) {
-		switch (featureID) {
-			case OPMPackage.OPM_THING__NODES:
-				getNodes().clear();
-				return;
-			case OPMPackage.OPM_THING__NAME:
-				setName(NAME_EDEFAULT);
-				return;
-			case OPMPackage.OPM_THING__DESCRIPTION:
-				setDescription(DESCRIPTION_EDEFAULT);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID) {
+      case OPMPackage.OPM_THING__NODES:
+        getNodes().clear();
+        return;
+      case OPMPackage.OPM_THING__NAME:
+        setName(NAME_EDEFAULT);
+        return;
+      case OPMPackage.OPM_THING__DESCRIPTION:
+        setDescription(DESCRIPTION_EDEFAULT);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case OPMPackage.OPM_THING__NODES:
-				return nodes != null && !nodes.isEmpty();
-			case OPMPackage.OPM_THING__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-			case OPMPackage.OPM_THING__DESCRIPTION:
-				return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID) {
+      case OPMPackage.OPM_THING__NODES:
+        return nodes != null && !nodes.isEmpty();
+      case OPMPackage.OPM_THING__NAME:
+        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case OPMPackage.OPM_THING__DESCRIPTION:
+        return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+    }
+    return super.eIsSet(featureID);
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     @Override
     public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == OPMContainer.class) {
-			switch (derivedFeatureID) {
-				case OPMPackage.OPM_THING__NODES: return OPMPackage.OPM_CONTAINER__NODES;
-				default: return -1;
-			}
-		}
-		if (baseClass == OPMNamedElement.class) {
-			switch (derivedFeatureID) {
-				case OPMPackage.OPM_THING__NAME: return OPMPackage.OPM_NAMED_ELEMENT__NAME;
-				default: return -1;
-			}
-		}
-		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-	}
+    if (baseClass == OPMContainer.class) {
+      switch (derivedFeatureID) {
+        case OPMPackage.OPM_THING__NODES: return OPMPackage.OPM_CONTAINER__NODES;
+        default: return -1;
+      }
+    }
+    if (baseClass == OPMNamedElement.class) {
+      switch (derivedFeatureID) {
+        case OPMPackage.OPM_THING__NAME: return OPMPackage.OPM_NAMED_ELEMENT__NAME;
+        default: return -1;
+      }
+    }
+    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+  }
 
     /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     @Override
     public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == OPMContainer.class) {
-			switch (baseFeatureID) {
-				case OPMPackage.OPM_CONTAINER__NODES: return OPMPackage.OPM_THING__NODES;
-				default: return -1;
-			}
-		}
-		if (baseClass == OPMNamedElement.class) {
-			switch (baseFeatureID) {
-				case OPMPackage.OPM_NAMED_ELEMENT__NAME: return OPMPackage.OPM_THING__NAME;
-				default: return -1;
-			}
-		}
-		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
+    if (baseClass == OPMContainer.class) {
+      switch (baseFeatureID) {
+        case OPMPackage.OPM_CONTAINER__NODES: return OPMPackage.OPM_THING__NODES;
+        default: return -1;
+      }
+    }
+    if (baseClass == OPMNamedElement.class) {
+      switch (baseFeatureID) {
+        case OPMPackage.OPM_NAMED_ELEMENT__NAME: return OPMPackage.OPM_THING__NAME;
+        default: return -1;
+      }
+    }
+    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+  }
 
     /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	public String toString() {
-		if (eIsProxy()) return super.toString();
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", description: ");
-		result.append(description);
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (name: ");
+    result.append(name);
+    result.append(", description: ");
+    result.append(description);
+    result.append(')');
+    return result.toString();
+  }
 
 } //OPMThingImpl

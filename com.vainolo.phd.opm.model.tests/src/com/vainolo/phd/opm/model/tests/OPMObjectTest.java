@@ -20,55 +20,55 @@ import junit.textui.TestRunner;
 public class OPMObjectTest extends OPMThingTest {
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public static void main(String[] args) {
-		TestRunner.run(OPMObjectTest.class);
-	}
+    TestRunner.run(OPMObjectTest.class);
+  }
 
 	/**
-	 * Constructs a new Object test case with the given name.
-	 * <!-- begin-user-doc -->
+   * Constructs a new Object test case with the given name.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public OPMObjectTest(String name) {
-		super(name);
-	}
+    super(name);
+  }
 
 	/**
-	 * Returns the fixture for this Object test case.
-	 * <!-- begin-user-doc -->
+   * Returns the fixture for this Object test case.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected OPMObject getFixture() {
-		return (OPMObject)fixture;
-	}
+    return (OPMObject)fixture;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see junit.framework.TestCase#setUp()
-	 * @generated
-	 */
+   * @see junit.framework.TestCase#setUp()
+   * @generated
+   */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OPMFactory.eINSTANCE.createOPMObject());
-	}
+    setFixture(OPMFactory.eINSTANCE.createOPMObject());
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see junit.framework.TestCase#tearDown()
-	 * @generated
-	 */
+   * @see junit.framework.TestCase#tearDown()
+   * @generated
+   */
 	@Override
 	protected void tearDown() throws Exception {
-		setFixture(null);
-	}
+    setFixture(null);
+  }
 
 } //OPMObjectTest

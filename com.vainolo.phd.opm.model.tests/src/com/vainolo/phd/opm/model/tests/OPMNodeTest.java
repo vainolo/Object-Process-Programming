@@ -32,42 +32,42 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 public abstract class OPMNodeTest extends TestCase {
 
 	/**
-	 * The fixture for this Node test case.
-	 * <!-- begin-user-doc --> <!--
+   * The fixture for this Node test case.
+   * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected OPMNode fixture = null;
 
 	/**
-	 * Constructs a new Node test case with the given name.
-	 * <!-- begin-user-doc
+   * Constructs a new Node test case with the given name.
+   * <!-- begin-user-doc
 	 * --> <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public OPMNodeTest(String name) {
-		super(name);
-	}
+    super(name);
+  }
 
 	/**
-	 * Sets the fixture for this Node test case.
-	 * <!-- begin-user-doc --> <!--
+   * Sets the fixture for this Node test case.
+   * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected void setFixture(OPMNode fixture) {
-		this.fixture = fixture;
-	}
+    this.fixture = fixture;
+  }
 
 	/**
-	 * Returns the fixture for this Node test case.
-	 * <!-- begin-user-doc --> <!--
+   * Returns the fixture for this Node test case.
+   * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	protected OPMNode getFixture() {
-		return fixture;
-	}
+    return fixture;
+  }
 
 	/**
 	 * Tests the '
@@ -186,29 +186,29 @@ public abstract class OPMNodeTest extends TestCase {
 	}
 
 	/**
-	 * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getIncomingProceduralLinks() <em>Get Incoming Procedural Links</em>}' operation.
-	 * <!-- begin-user-doc -->
+   * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getIncomingProceduralLinks() <em>Get Incoming Procedural Links</em>}' operation.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see com.vainolo.phd.opm.model.OPMNode#getIncomingProceduralLinks()
-	 * @generated
-	 */
+   * @see com.vainolo.phd.opm.model.OPMNode#getIncomingProceduralLinks()
+   * @generated
+   */
 	public void testGetIncomingProceduralLinks() {
-		// TODO: implement this operation test method
-		// Ensure that you remove @generated or mark it @generated NOT
-		fail();
-	}
+    // TODO: implement this operation test method
+    // Ensure that you remove @generated or mark it @generated NOT
+    fail();
+  }
 
 	/**
-	 * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingProceduralLinks() <em>Get Outgoing Procedural Links</em>}' operation.
-	 * <!-- begin-user-doc -->
+   * Tests the '{@link com.vainolo.phd.opm.model.OPMNode#getOutgoingProceduralLinks() <em>Get Outgoing Procedural Links</em>}' operation.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see com.vainolo.phd.opm.model.OPMNode#getOutgoingProceduralLinks()
-	 * @generated
-	 */
+   * @see com.vainolo.phd.opm.model.OPMNode#getOutgoingProceduralLinks()
+   * @generated
+   */
 	public void testGetOutgoingProceduralLinks() {
-		// TODO: implement this operation test method
-		// Ensure that you remove @generated or mark it @generated NOT
-		fail();
-	}
+    // TODO: implement this operation test method
+    // Ensure that you remove @generated or mark it @generated NOT
+    fail();
+  }
 
 } // OPMNodeTest

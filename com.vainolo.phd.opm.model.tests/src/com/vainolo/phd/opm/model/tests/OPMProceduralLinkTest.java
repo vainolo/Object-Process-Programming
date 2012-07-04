@@ -20,55 +20,55 @@ import junit.textui.TestRunner;
 public class OPMProceduralLinkTest extends OPMLinkTest {
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public static void main(String[] args) {
-		TestRunner.run(OPMProceduralLinkTest.class);
-	}
+    TestRunner.run(OPMProceduralLinkTest.class);
+  }
 
 	/**
-	 * Constructs a new Procedural Link test case with the given name.
-	 * <!-- begin-user-doc -->
+   * Constructs a new Procedural Link test case with the given name.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	public OPMProceduralLinkTest(String name) {
-		super(name);
-	}
+    super(name);
+  }
 
 	/**
-	 * Returns the fixture for this Procedural Link test case.
-	 * <!-- begin-user-doc -->
+   * Returns the fixture for this Procedural Link test case.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
 	@Override
 	protected OPMProceduralLink getFixture() {
-		return (OPMProceduralLink)fixture;
-	}
+    return (OPMProceduralLink)fixture;
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see junit.framework.TestCase#setUp()
-	 * @generated
-	 */
+   * @see junit.framework.TestCase#setUp()
+   * @generated
+   */
 	@Override
 	protected void setUp() throws Exception {
-		setFixture(OPMFactory.eINSTANCE.createOPMProceduralLink());
-	}
+    setFixture(OPMFactory.eINSTANCE.createOPMProceduralLink());
+  }
 
 	/**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see junit.framework.TestCase#tearDown()
-	 * @generated
-	 */
+   * @see junit.framework.TestCase#tearDown()
+   * @generated
+   */
 	@Override
 	protected void tearDown() throws Exception {
-		setFixture(null);
-	}
+    setFixture(null);
+  }
 
 } //OPMProceduralLinkTest

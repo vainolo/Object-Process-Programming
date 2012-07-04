@@ -22,41 +22,41 @@ import junit.textui.TestRunner;
 public abstract class OPMContainerTest extends TestCase {
 
     /**
-	 * The fixture for this Container test case.
-	 * <!-- begin-user-doc -->
+   * The fixture for this Container test case.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     protected OPMContainer fixture = null;
 
     /**
-	 * Constructs a new Container test case with the given name.
-	 * <!-- begin-user-doc -->
+   * Constructs a new Container test case with the given name.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     public OPMContainerTest(String name) {
-		super(name);
-	}
+    super(name);
+  }
 
     /**
-	 * Sets the fixture for this Container test case.
-	 * <!-- begin-user-doc -->
+   * Sets the fixture for this Container test case.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     protected void setFixture(OPMContainer fixture) {
-		this.fixture = fixture;
-	}
+    this.fixture = fixture;
+  }
 
     /**
-	 * Returns the fixture for this Container test case.
-	 * <!-- begin-user-doc -->
+   * Returns the fixture for this Container test case.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
     protected OPMContainer getFixture() {
-		return fixture;
-	}
+    return fixture;
+  }
 
 } //OPMContainerTest

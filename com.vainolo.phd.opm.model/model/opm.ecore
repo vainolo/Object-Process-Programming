@@ -19,8 +19,8 @@
     <eOperations name="getIncomingStructuralLinks" ordered="false" upperBound="-1"
         eType="#//OPMLink"/>
     <eOperations name="getOpd" eType="#//OPMObjectProcessDiagram"/>
-    <eOperations name="getIncomingProceduralLinks" upperBound="-1" eType="#//OPMLink"/>
-    <eOperations name="getOutgoingProceduralLinks" upperBound="-1" eType="#//OPMLink"/>
+    <eOperations name="getIncomingProceduralLinks" upperBound="-1" eType="#//OPMProceduralLink"/>
+    <eOperations name="getOutgoingProceduralLinks" upperBound="-1" eType="#//OPMProceduralLink"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="incomingLinks" upperBound="-1"
         eType="#//OPMLink" eOpposite="#//OPMLink/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingLinks" upperBound="-1"

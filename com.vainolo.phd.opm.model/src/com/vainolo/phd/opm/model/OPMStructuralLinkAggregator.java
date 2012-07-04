@@ -25,32 +25,32 @@ package com.vainolo.phd.opm.model;
  */
 public interface OPMStructuralLinkAggregator extends OPMNode {
 	/**
-	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
-	 * The literals are from the enumeration {@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Kind</b></em>' attribute.
+   * The literals are from the enumeration {@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind}.
+   * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Kind</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Kind</em>' attribute.
-	 * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind
-	 * @see #setKind(OPMStructuralLinkAggregatorKind)
-	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMStructuralLinkAggregator_Kind()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Kind</em>' attribute.
+   * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind
+   * @see #setKind(OPMStructuralLinkAggregatorKind)
+   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMStructuralLinkAggregator_Kind()
+   * @model
+   * @generated
+   */
 	OPMStructuralLinkAggregatorKind getKind();
 
 	/**
-	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator#getKind <em>Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregator#getKind <em>Kind</em>}' attribute.
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Kind</em>' attribute.
-	 * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind
-	 * @see #getKind()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Kind</em>' attribute.
+   * @see com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind
+   * @see #getKind()
+   * @generated
+   */
 	void setKind(OPMStructuralLinkAggregatorKind value);
 
 } // OPMStructuralLinkAggregator
