@@ -6,6 +6,7 @@
 package com.vainolo.phd.opm.interpreter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.Path;
@@ -18,8 +19,10 @@ import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
@@ -30,98 +33,128 @@ import com.vainolo.phd.opm.model.OPMProcess;
  */
 public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 
-	private OPMObjectProcessDiagram opd;
-	private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
-	private boolean firstStep = true;
+  private OPMObjectProcessDiagram opd;
+  private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
+  private boolean firstStep = true;
+  private List<OPMProcess> nextProcesses;
 
-	public OPMCompoundProcessInstance(final String processName) {
-		setName(processName);
-	}
+  public OPMCompoundProcessInstance(final String processName) {
+    setName(processName);
+  }
 
-	/**
-	 * First implementation. Before each variable is created we check if the variable exists because it may have been
-	 * created as an argument. In the future this should be done with a more explicity property of the objects.
-	 */
-	void createLocalVariables() {
-		for(final OPMObject object : getOpd().getObjects())
-			if(!getVarManager().variableExists(object.getName()))
-				getVarManager().createVariable(object.getName());
-	}
+  /**
+   * First implementation. Before each variable is created we check if the variable exists because it may have been
+   * created as an argument. In the future this should be done with a more explicity property of the objects.
+   */
+  void createLocalVariables() {
+    for(final OPMObject object : getOpd().getObjects())
+      if(!getVarManager().variableExists(object.getName()))
+        getVarManager().createVariable(object.getName());
+  }
 
-	@Override
-	public void execute() {
-		super.execute();
-	}
+  @Override
+  public void execute() {
+    super.execute();
+  }
 
-	public void executeStep() {
-		List<OPMProcess> processesToExecute = null;
-		if(isFirstStep()) {
-			prepare();
-			processesToExecute = getInitialProcesses();
-		} else
-			processesToExecute = getNextProcesses();
-		executeProcesses(processesToExecute);
-		setFirstStep(false);
-	}
+  public void executeStep() {
+    List<OPMProcess> processesToExecute = null;
+    if(isFirstStep()) {
+      prepare();
+      processesToExecute = getInitialProcesses();
+    } else
+      processesToExecute = getNextProcesses();
+    executeProcesses(processesToExecute);
+    setFirstStep(false);
+  }
 
-	void prepare() {
-		loadProcessDefinition();
-		createLocalVariables();
-	}
+  void prepare() {
+    loadProcessDefinition();
+    createLocalVariables();
+  }
 
-	OPMObjectProcessDiagram getOpd() {
-		return opd;
-	}
+  OPMObjectProcessDiagram getOpd() {
+    return opd;
+  }
 
-	void setOpd(final OPMObjectProcessDiagram opd) {
-		this.opd = opd;
-	}
+  void setOpd(final OPMObjectProcessDiagram opd) {
+    this.opd = opd;
+  }
 
-	DirectedAcyclicGraph<OPMProcess, DefaultEdge> getOpdDag() {
-		return opdDag;
-	}
+  DirectedAcyclicGraph<OPMProcess, DefaultEdge> getOpdDag() {
+    return opdDag;
+  }
 
-	void setOpdDag(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
-		this.opdDag = opdDag;
-	}
+  void setOpdDag(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
+    this.opdDag = opdDag;
+  }
 
-	boolean isFirstStep() {
-		return firstStep;
-	}
+  boolean isFirstStep() {
+    return firstStep;
+  }
 
-	void setFirstStep(final boolean firstStep) {
-		this.firstStep = firstStep;
-	}
+  void setFirstStep(final boolean firstStep) {
+    this.firstStep = firstStep;
+  }
 
-	List<OPMProcess> getInitialProcesses() {
-		return OPDAnalyzer.getInitialProcesses(getOpdDag());
-	}
+  List<OPMProcess> getInitialProcesses() {
+    return OPDAnalyzer.getInitialProcesses(getOpdDag());
+  }
 
-	void executeProcesses(final List<OPMProcess> arrayList) {
-		throw new UnsupportedOperationException();
-	}
+  void executeProcesses(final List<OPMProcess> processes) {
+    setNextProcesses(new ArrayList<OPMProcess>());
+    for(OPMProcess process : processes) {
+      OPMProcessInstance instance = getProcessInstanceFactory().createProcessInstance(process.getName(),
+          process.getKind());
+      for(OPMProceduralLink link : process.getIncomingProceduralLinks()) {
+        OPMObject source = (OPMObject) link.getSource();
+        Variable var = getVarManager().getVariable(source.getName());
+        instance.setArgumentValue(link.getCenterDecoration(), var.getValue());
+      }
 
-	public List<OPMProcess> getNextProcesses() {
-		throw new UnsupportedOperationException();
-	}
+      instance.execute();
 
-	void loadProcessDefinition() {
-		final ResourceSet resourceSet = new ResourceSetImpl();
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-		final Resource opdResource = resourceSet.createResource(URI.createFileURI(getProcessFilename()));
-		try {
-			opdResource.load(null);
-			setOpd((OPMObjectProcessDiagram) opdResource.getContents().get(0));
-			setOpdDag(OPDAnalyzer.createOPDDAG(getOpd()));
-		} catch(final IOException e) {
-			throw new IllegalStateException("OPD File for process " + getProcessFilename()
-					+ " could not be loaded. Please check that it's located in the path.", e);
-		}
-	}
+      for(OPMProceduralLink link : process.getOutgoingProceduralLinks()) {
+        OPMObject target = (OPMObject) link.getTarget();
+        Object value = instance.getArgumentValue(link.getCenterDecoration());
+        getVarManager().createVariable(target.getName()).setValue(value);
+      }
 
-	@VisibleForTesting
-	String getProcessFilename() {
-		return Interpreter.INSTANCE.getContainer().getFile(new Path(getName() + ".opm")).getLocationURI().toString();
-	}
+      getNextProcesses().addAll(OPDAnalyzer.getNextProcessesToExecute(getOpdDag(), process));
+    }
+
+  }
+
+  private void setNextProcesses(final List<OPMProcess> nextProcesses) {
+    this.nextProcesses = nextProcesses;
+  }
+
+  public List<OPMProcess> getNextProcesses() {
+    return nextProcesses;
+  }
+
+  void loadProcessDefinition() {
+    final ResourceSet resourceSet = new ResourceSetImpl();
+    resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
+        .put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+    final Resource opdResource = resourceSet.createResource(URI.createFileURI(getProcessFilename()));
+    try {
+      opdResource.load(null);
+      setOpd((OPMObjectProcessDiagram) opdResource.getContents().get(0));
+      setOpdDag(OPDAnalyzer.createOPDDAG(getOpd()));
+    } catch(final IOException e) {
+      throw new IllegalStateException("OPD File for process " + getProcessFilename()
+          + " could not be loaded. Please check that it's located in the path.", e);
+    }
+  }
+
+  @VisibleForTesting
+  String getProcessFilename() {
+    return Interpreter.INSTANCE.getContainer().getFile(new Path(getName() + ".opm")).getLocationURI().toString();
+  }
+
+  @VisibleForTesting
+  OPMProcessInstanceFactory getProcessInstanceFactory() {
+    return OPMProcessInstanceFactory.INSTANCE;
+  }
 }
