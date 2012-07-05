@@ -15,7 +15,6 @@ public enum OPMProcessInstanceFactoryImpl implements OPMProcessInstanceFactory {
 
   @Override
   public OPMProcessInstance createProcessInstance(final String processName, final OPMProcessKind kind) {
-    // Create process instance.
     OPMProcessInstance processInstance;
     switch(kind) {
       case BUILT_IN:
