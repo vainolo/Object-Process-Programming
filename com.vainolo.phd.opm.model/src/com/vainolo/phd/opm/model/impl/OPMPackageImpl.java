@@ -753,13 +753,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     initEEnum(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.class, "OPMProceduralLinkKind");
     addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.AGENT);
-    addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.INSTRUMENT);
-    addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.CONSUMPTION);
     addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.EFFECT);
+    addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.EFFECT_EVENT);
+    addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.EFFECT_CONDITION);
     addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.RESULT);
     addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.INVOCATION);
+    addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.INSTRUMENT);
     addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.INSTRUMENT_EVENT);
     addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.INSTRUMENT_CONDITION);
+    addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.CONSUMPTION);
     addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.CONSUMPTION_EVENT);
     addEEnumLiteral(opmProceduralLinkKindEEnum, OPMProceduralLinkKind.CONSUMPTION_CONDITION);
 

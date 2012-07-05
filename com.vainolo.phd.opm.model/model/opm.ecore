@@ -67,13 +67,15 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMProceduralLinkKind">
     <eLiterals name="AGENT" literal="Agent"/>
-    <eLiterals name="INSTRUMENT" value="1" literal="Instrument"/>
-    <eLiterals name="CONSUMPTION" value="2" literal="Consumption"/>
     <eLiterals name="EFFECT" value="3" literal="Effect"/>
+    <eLiterals name="EFFECT_EVENT" value="10" literal="Effect Event"/>
+    <eLiterals name="EFFECT_CONDITION" value="10" literal="Effect Condition"/>
     <eLiterals name="RESULT" value="4" literal="Result"/>
     <eLiterals name="INVOCATION" value="5" literal="Invocation"/>
+    <eLiterals name="INSTRUMENT" value="1" literal="Instrument"/>
     <eLiterals name="INSTRUMENT_EVENT" value="6" literal="Instrument Event"/>
     <eLiterals name="INSTRUMENT_CONDITION" value="7" literal="Instrument Condition"/>
+    <eLiterals name="CONSUMPTION" value="2" literal="Consumption"/>
     <eLiterals name="CONSUMPTION_EVENT" value="8" literal="Consumption Event"/>
     <eLiterals name="CONSUMPTION_CONDITION" value="9" literal="Consumption Condition"/>
   </eClassifiers>
