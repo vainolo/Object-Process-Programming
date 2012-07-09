@@ -12,6 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
+import com.vainolo.phd.opm.interpreter.model.InterpreterFactory;
+import com.vainolo.phd.opm.interpreter.model.Variable;
+import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 /**
  * 
@@ -21,59 +24,61 @@ import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
  */
 public class OPMOutputProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
-	private IMockBuilder<OPMOutputProcessInstance> builder;
-	private OPMOutputProcessInstance fixture;
+  private IMockBuilder<OPMOutputProcessInstance> builder;
+  private OPMOutputProcessInstance fixture;
 
-	@Override
-	@Test
-	public void testExecute() {
-		final String text = "Hello";
-		builder = EasyMock.createMockBuilder(OPMOutputProcessInstance.class);
-		builder.addMockedMethod("showMessageDialog");
-		fixture = builder.createMock();
-		fixture.showMessageDialog("Hello");
-		EasyMock.replay(fixture);
+  @Override
+  @Test
+  public void testExecute() {
+    final String inputText = "Hello";
+    Variable text = InterpreterFactory.eINSTANCE.createVariable();
+    text.setValue(inputText);
+    builder = EasyMock.createMockBuilder(OPMOutputProcessInstance.class);
+    builder.addMockedMethod("showMessageDialog");
+    fixture = builder.createMock();
+    fixture.showMessageDialog("Hello");
+    EasyMock.replay(fixture);
 
-		fixture.setArgumentValue("text", text);
-		fixture.execute();
+    fixture.addParameter("text", text, OPMProceduralLinkKind.INSTRUMENT);
+    fixture.execute();
 
-		EasyMock.verify(fixture);
+    EasyMock.verify(fixture);
 
-	}
+  }
 
-	/**
-	 * Perform pre-test initialization.
-	 * 
-	 * @throws Exception
-	 *             if the initialization fails for some reason
-	 */
-	@Override
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
-	}
+  /**
+   * Perform pre-test initialization.
+   * 
+   * @throws Exception
+   *           if the initialization fails for some reason
+   */
+  @Override
+  @Before
+  public void setUp() throws Exception {
+    super.setUp();
+  }
 
-	/**
-	 * Perform post-test clean-up.
-	 * 
-	 * @throws Exception
-	 *             if the clean-up fails for some reason
-	 */
-	@Override
-	@After
-	public void tearDown() throws Exception {
-		super.tearDown();
-	}
+  /**
+   * Perform post-test clean-up.
+   * 
+   * @throws Exception
+   *           if the clean-up fails for some reason
+   */
+  @Override
+  @After
+  public void tearDown() throws Exception {
+    super.tearDown();
+  }
 
-	/**
-	 * Launch the test.
-	 * 
-	 * @param args
-	 *            the command line arguments
-	 * 
-	 * @generatedBy CodePro at 02/07/12 22:51
-	 */
-	public static void main(final String[] args) {
-		new org.junit.runner.JUnitCore().run(OPMOutputProcessInstanceTest.class);
-	}
+  /**
+   * Launch the test.
+   * 
+   * @param args
+   *          the command line arguments
+   * 
+   * @generatedBy CodePro at 02/07/12 22:51
+   */
+  public static void main(final String[] args) {
+    new org.junit.runner.JUnitCore().run(OPMOutputProcessInstanceTest.class);
+  }
 }

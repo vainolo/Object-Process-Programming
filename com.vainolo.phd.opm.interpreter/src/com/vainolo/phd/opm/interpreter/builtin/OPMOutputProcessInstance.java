@@ -16,19 +16,19 @@ import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
  */
 public class OPMOutputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 
-	@Override
-	public void execute() {
-		super.execute();
-		final String text = getArgumentValue("text").toString();
-		showMessageDialog(text);
-	}
+  @Override
+  public void execute() {
+    super.execute();
+    final String text = getVarManager().getVariable("text").getValue().toString();
+    showMessageDialog(text);
+  }
 
-	@Override
-	public String getName() {
-		return "Output";
-	}
+  @Override
+  public String getName() {
+    return "Output";
+  }
 
-	public void showMessageDialog(final String text) {
-		JOptionPane.showMessageDialog(null, text);
-	}
+  public void showMessageDialog(final String text) {
+    JOptionPane.showMessageDialog(null, text);
+  }
 }

@@ -5,49 +5,78 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
+import java.util.Set;
+
+import com.vainolo.phd.opm.interpreter.model.Variable;
+import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
-	private VariableManager varManager = new VariableManager();
+  private VariableManager varManager = new VariableManager();
+  private String name = "";
+  private boolean executing = false;
+  private boolean finished = false;
+  private boolean active = false;
 
-	private String name;
+  public void setName(final String name) {
+    this.name = name;
+  }
 
-	public void setName(final String name) {
-		this.name = name;
-	}
+  @Override
+  public String getName() {
+    return name;
+  }
 
-	@Override
-	public String getName() {
-		return name;
-	}
+  @Override
+  public void execute() {
+    System.out.println("Executing process " + getName());
+  }
 
-	@Override
-	public void execute() {
-		System.out.println("Executing process " + getName());
-	}
+  protected VariableManager getVarManager() {
+    if(varManager == null) {
+      varManager = new VariableManager();
+    }
+    return varManager;
+  }
 
-	@Override
-	public Object getArgumentValue(final String name) {
-		Preconditions.checkArgument(name != null);
-		return getVarManager().getVariable(name).getValue();
-	}
+  @Override
+  public void addParameter(final String name, final Variable variable, final OPMProceduralLinkKind kind) {
+    getVarManager().addParameter(name, variable, kind);
+  }
 
-	@Override
-	public void setArgumentValue(final String name, final Object value) {
-		Preconditions.checkArgument(name != null);
-		Preconditions.checkArgument(value != null);
-		getVarManager().createVariable(name).setValue(value);
-	}
+  @Override
+  public boolean isReady() {
+    Set<Variable> incomingParameters = getVarManager().getIncomingParameters();
+    for(Variable var : incomingParameters) {
+      if(!var.isSetValue()) {
+        return false;
+      }
+    }
+    return true;
+  }
 
-	protected VariableManager getVarManager() {
-		if(varManager == null)
-			varManager = new VariableManager();
-		return varManager;
-	}
+  @Override
+  public boolean isExecuting() {
+    return executing;
+  }
 
-	@VisibleForTesting
-	void setVarManager(final VariableManager varManager) {
-		this.varManager = varManager;
-	}
+  @Override
+  public boolean isFinished() {
+    return finished;
+  }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  private void setExecuting(final boolean executing) {
+    this.executing = executing;
+  }
+
+  private void setFinished(final boolean finished) {
+    this.finished = finished;
+  }
+
+  private void setActive(final boolean active) {
+    this.active = active;
+  }
 }

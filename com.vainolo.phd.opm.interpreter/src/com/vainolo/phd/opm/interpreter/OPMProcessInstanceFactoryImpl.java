@@ -14,21 +14,21 @@ public enum OPMProcessInstanceFactoryImpl implements OPMProcessInstanceFactory {
   INSTANCE;
 
   @Override
-  public OPMProcessInstance createProcessInstance(final String processName, final OPMProcessKind kind) {
+  public OPMProcessInstance createProcessInstance(final String name, final OPMProcessKind kind) {
     OPMProcessInstance processInstance;
     switch(kind) {
       case BUILT_IN:
-        processInstance = createBuildInProcess(processName);
+        processInstance = createBuildInProcess(name);
         break;
       case COMPOUND:
-        processInstance = new OPMCompoundProcessInstance(processName);
+        processInstance = new OPMCompoundProcessInstance(name);
         break;
       case CONCEPTUAL:
         throw new UnsupportedOperationException("Conceptual processes are not supported yet.");
       case JAVA:
         throw new UnsupportedOperationException("Java processes are not supported yet.");
       default:
-        throw new IllegalStateException("Received unexpected OPMProcessKind " + kind.getName());
+        throw new IllegalStateException("Received unexpected OPMProcessKind " + kind.getLiteral());
     }
 
     return processInstance;

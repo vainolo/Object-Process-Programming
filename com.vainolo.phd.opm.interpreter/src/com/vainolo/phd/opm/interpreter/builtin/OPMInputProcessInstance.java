@@ -15,22 +15,22 @@ import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
  * 
  */
 public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
-	@Override
-	public void execute() {
-		super.execute();
-		final String retVal = showInputDialog();
-		getVarManager().createVariable("text").setValue(retVal);
-	}
+  @Override
+  public void execute() {
+    super.execute();
+    final String retVal = showInputDialog();
+    getVarManager().getVariable("text").setValue(retVal);
+  }
 
-	/**
-	 * Method is public for testing purposes. Do not call directly.
-	 */
-	public String showInputDialog() {
-		return JOptionPane.showInputDialog("Please enter your text here");
-	}
+  /**
+   * Method is public for testing purposes. Do not call directly.
+   */
+  public String showInputDialog() {
+    return JOptionPane.showInputDialog("Please enter your text here");
+  }
 
-	@Override
-	public String getName() {
-		return "Input";
-	}
+  @Override
+  public String getName() {
+    return "Input";
+  }
 }

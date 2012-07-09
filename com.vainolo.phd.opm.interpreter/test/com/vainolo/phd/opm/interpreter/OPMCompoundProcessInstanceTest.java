@@ -5,11 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
-import org.easymock.EasyMock;
 import org.easymock.IMockBuilder;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -29,9 +26,7 @@ import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
-import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.model.OPMProcessKind;
 
 import static org.easymock.EasyMock.*;
 
@@ -48,95 +43,6 @@ public class OPMCompoundProcessInstanceTest extends OPMAbstractProcessInstanceTe
   private IMockBuilder<OPMCompoundProcessInstance> builder;
   private OPMCompoundProcessInstance fixture;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
-  private OPDAnalyzer analyzer;
-
-  @Test
-  public void testExecuteStep_FirstStep() {
-    builder.addMockedMethod("prepare");
-    builder.addMockedMethod("isFirstStep");
-    builder.addMockedMethod("getInitialProcesses");
-    builder.addMockedMethod("executeProcesses");
-    final List<OPMProcess> processList = new ArrayList<OPMProcess>();
-
-    fixture = builder.createStrictMock();
-    expect(fixture.isFirstStep()).andReturn(true);
-    fixture.prepare();
-    expect(fixture.getInitialProcesses()).andReturn(processList);
-    fixture.executeProcesses(processList);
-    fixture.setFirstStep(false);
-    replay(fixture);
-
-    fixture.executeStep();
-
-    verify(fixture);
-  }
-
-  @Test
-  public void testExecuteStep_NotFirstStep() {
-    builder.addMockedMethod("prepare");
-    builder.addMockedMethod("isFirstStep");
-    builder.addMockedMethod("getNextProcesses");
-    builder.addMockedMethod("executeProcesses");
-    final List<OPMProcess> processList = new ArrayList<OPMProcess>();
-
-    fixture = builder.createStrictMock();
-    expect(fixture.isFirstStep()).andReturn(false);
-    expect(fixture.getNextProcesses()).andReturn(processList);
-    fixture.executeProcesses(processList);
-    replay(fixture);
-
-    fixture.executeStep();
-
-    verify(fixture);
-  }
-
-  @Test
-  public void testExecuteStep_TwoExecutions() {
-    builder.addMockedMethod("prepare");
-    builder.addMockedMethod("getInitialProcesses");
-    builder.addMockedMethod("getNextProcesses");
-    builder.addMockedMethod("executeProcesses");
-    final List<OPMProcess> processList = new ArrayList<OPMProcess>();
-
-    fixture = builder.createStrictMock();
-    fixture.prepare();
-    expect(fixture.getInitialProcesses()).andReturn(processList);
-    fixture.executeProcesses(processList);
-    expect(fixture.getNextProcesses()).andReturn(processList);
-    fixture.executeProcesses(processList);
-    replay(fixture);
-
-    fixture.setFirstStep(true);
-    fixture.executeStep();
-    fixture.executeStep();
-
-    verify(fixture);
-
-  }
-
-  @Test
-  public void testPrepare() {
-    builder.addMockedMethod("loadProcessDefinition");
-    builder.addMockedMethod("createLocalVariables");
-    fixture = builder.createStrictMock();
-    fixture.loadProcessDefinition();
-    fixture.createLocalVariables();
-    replay(fixture);
-
-    fixture.prepare();
-
-    verify(fixture);
-
-  }
-
-  @Test
-  public void testSetAndGetOPD() {
-    fixture = builder.createMock();
-    final OPMObjectProcessDiagram diagram = EasyMock.createMock(OPMObjectProcessDiagram.class);
-
-    fixture.setOpd(diagram);
-    assertEquals(diagram, fixture.getOpd());
-  }
 
   @Test
   public void TestCreateLocalVariables() {
@@ -217,42 +123,6 @@ public class OPMCompoundProcessInstanceTest extends OPMAbstractProcessInstanceTe
     resource.delete(null);
 
     verify(fixture);
-  }
-
-  @Test
-  public void testExecuteProcesses() {
-    int numOfProcesses = 3;
-    OPMProcessInstanceFactory factory = EasyMock.createMock(OPMProcessInstanceFactory.class);
-    OPMProcessInstance processInstance = EasyMock.createMock(OPMProcessInstance.class);
-    opdDag = EasyMock.createMock(DirectedAcyclicGraph.class);
-    List<OPMProcess> processList = new ArrayList<OPMProcess>();
-
-    for(int i = 0; i < numOfProcesses; i++)
-      processList.add(EasyMock.createMock(OPMProcess.class));
-    builder.addMockedMethod("getProcessInstanceFactory");
-    builder.addMockedMethod("getOpdDag");
-    fixture = builder.createMock();
-
-    for(int i = 0; i < numOfProcesses; i++) {
-      expect(processList.get(i).getName()).andReturn("P" + i).anyTimes();
-      expect(processList.get(i).getKind()).andReturn(OPMProcessKind.COMPOUND);
-      expect(processList.get(i).getIncomingProceduralLinks()).andReturn(new BasicEList<OPMProceduralLink>());
-      expect(fixture.getProcessInstanceFactory()).andReturn(factory);
-      expect(factory.createProcessInstance(anyObject(String.class), anyObject(OPMProcessKind.class))).andReturn(
-          processInstance);
-      processInstance.execute();
-      expect(processList.get(i).getOutgoingProceduralLinks()).andReturn(new BasicEList<OPMProceduralLink>());
-      expect(fixture.getOpdDag()).andReturn(opdDag);
-      expect(opdDag.outgoingEdgesOf(anyObject(OPMProcess.class))).andReturn(new HashSet<DefaultEdge>());
-      replay(processList.get(i));
-    }
-    replay(fixture, processInstance, factory, opdDag);
-
-    fixture.executeProcesses(processList);
-
-    verify(fixture, processInstance, factory, opdDag);
-    for(int i = 0; i < numOfProcesses; i++)
-      verify(processList.get(i));
   }
 
   /**

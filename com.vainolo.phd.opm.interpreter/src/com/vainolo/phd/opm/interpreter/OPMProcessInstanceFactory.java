@@ -9,8 +9,8 @@ import com.vainolo.phd.opm.model.OPMProcessKind;
 
 public interface OPMProcessInstanceFactory {
 
-	OPMProcessInstanceFactory INSTANCE = OPMProcessInstanceFactoryImpl.INSTANCE;
+  OPMProcessInstanceFactory INSTANCE = OPMProcessInstanceFactoryImpl.INSTANCE;
 
-	OPMProcessInstance createProcessInstance(final String processName, final OPMProcessKind kind);
+  OPMProcessInstance createProcessInstance(String name, OPMProcessKind kind);
 
 }

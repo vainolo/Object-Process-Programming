@@ -5,6 +5,9 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import com.vainolo.phd.opm.interpreter.model.Variable;
+import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
+
 /**
  * 
  * @author Arieh 'Vainolo' Bibliowicz
@@ -13,25 +16,20 @@ package com.vainolo.phd.opm.interpreter;
  */
 public interface OPMProcessInstance {
 
-	/**
-	 * The name of the process.
-	 * 
-	 * @return
-	 */
-	String getName();
+  String getName();
 
-	/**
-	 * Execute the process.
-	 */
-	void execute();
+  void execute();
 
-	/**
-	 * Get the value of an argument.
-	 */
-	public Object getArgumentValue(String name);
+  void addParameter(String name, Variable variable, OPMProceduralLinkKind kind);
 
-	/**
-	 * Set the value of an argument
-	 */
-	public abstract void setArgumentValue(final String name, final Object value);
+  /**
+   * Check if all parameters are available.
+   * 
+   * @return
+   */
+  boolean isReady();
+
+  boolean isFinished();
+
+  boolean isExecuting();
 }
