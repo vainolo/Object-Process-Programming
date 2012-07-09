@@ -3,7 +3,7 @@
  * You can use this code for educational purposes. For any other uses
  * please contact me: vainolo@gmail.com
  *******************************************************************************/
-package com.vainolo.phd.opm.interpreter;
+package com.vainolo.phd.opm.interpreter.utils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,8 +17,6 @@ import org.jgrapht.experimental.dag.DirectedAcyclicGraph.CycleFoundException;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
-import com.vainolo.phd.opm.interpreter.utils.OPMProceduralLinkFilter;
-import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
