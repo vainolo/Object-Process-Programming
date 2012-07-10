@@ -7,14 +7,6 @@ package com.vainolo.phd.opm.interpreter;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-
-import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
-import com.vainolo.phd.opm.interpreter.builtin.OPMInputProcessInstance;
-import com.vainolo.phd.opm.interpreter.builtin.OPMOutputProcessInstance;
-import com.vainolo.phd.opm.model.OPMProcessKind;
-
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -24,54 +16,6 @@ import static org.junit.Assert.*;
 public class OPMProcessInstanceFactoryTest {
 
   private OPMProcessInstanceFactory fixture;
-
-  @Test
-  public void testCreateProcessInstance_BuiltInInputProcess() {
-    final String processName = "Input";
-    final OPMProcessKind kind = OPMProcessKind.BUILT_IN;
-
-    final OPMProcessInstance result = fixture.createProcessInstance(processName, kind);
-
-    // add additional test code here
-    assertNotNull(result);
-    assertEquals(processName, result.getName());
-    assertTrue(result instanceof OPMInputProcessInstance);
-  }
-
-  @Test
-  public void testCreateProcessInstance_BuiltInAddProcess() {
-    final String processName = "Add";
-    final OPMProcessKind kind = OPMProcessKind.BUILT_IN;
-
-    final OPMProcessInstance result = fixture.createProcessInstance(processName, kind);
-
-    // add additional test code here
-    assertNotNull(result);
-    assertEquals(processName, result.getName());
-    assertTrue(result instanceof OPMAddProcessInstance);
-  }
-
-  @Test
-  public void testCreateProcessInstance_BuiltInOutputProcess() {
-    final String processName = "Output";
-    final OPMProcessKind kind = OPMProcessKind.BUILT_IN;
-
-    final OPMProcessInstance result = fixture.createProcessInstance(processName, kind);
-
-    // add additional test code here
-    assertNotNull(result);
-    assertEquals(processName, result.getName());
-    assertTrue(result instanceof OPMOutputProcessInstance);
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void testCreateProcessInstance_UnexistentBuiltInProcess() {
-    final String processName = "something";
-    final OPMProcessKind kind = OPMProcessKind.BUILT_IN;
-
-    final OPMProcessInstance result = fixture.createProcessInstance(processName, kind);
-
-  }
 
   /**
    * Perform pre-test initialization.

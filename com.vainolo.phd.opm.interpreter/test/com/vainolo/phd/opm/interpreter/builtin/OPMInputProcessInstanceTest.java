@@ -1,17 +1,10 @@
 package com.vainolo.phd.opm.interpreter.builtin;
 
-import org.easymock.EasyMock;
 import org.easymock.IMockBuilder;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
-import com.vainolo.phd.opm.interpreter.model.InterpreterFactory;
-import com.vainolo.phd.opm.interpreter.model.Variable;
-import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * 
@@ -23,25 +16,6 @@ public class OPMInputProcessInstanceTest extends OPMAbstractProcessInstanceTest 
 
   private OPMInputProcessInstance fixture;
   private IMockBuilder<OPMInputProcessInstance> builder;
-
-  @Override
-  @Test
-  public void testExecute() {
-    final String inputText = "Hello";
-    Variable text = InterpreterFactory.eINSTANCE.createVariable();
-    builder = EasyMock.createMockBuilder(OPMInputProcessInstance.class);
-    builder.addMockedMethod("showInputDialog");
-    fixture = builder.createMock();
-    EasyMock.expect(fixture.showInputDialog()).andReturn(inputText);
-    EasyMock.replay(fixture);
-
-    fixture.addParameter("text", text, OPMProceduralLinkKind.RESULT);
-    fixture.execute();
-    assertEquals(inputText, text.getValue());
-
-    EasyMock.verify(fixture);
-
-  }
 
   /**
    * Perform pre-test initialization.

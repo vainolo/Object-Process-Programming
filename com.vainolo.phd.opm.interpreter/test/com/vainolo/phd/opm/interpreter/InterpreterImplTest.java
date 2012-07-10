@@ -5,46 +5,16 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import org.eclipse.core.resources.IContainer;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-
-import com.vainolo.phd.opm.model.OPMProcessKind;
-
-import static org.easymock.EasyMock.*;
 
 /**
  * 
  * @author Arieh 'Vainolo' Bibliowicz
+ * @created 9 Jul 2012
  * 
  */
 public class InterpreterImplTest {
-
-  /**
-   * Run the void interpret(String,IContainer) method test.
-   * 
-   * @throws Exception
-   * 
-   * @generatedBy CodePro at 7/1/12 5:41 PM
-   */
-  @Test
-  public void testInterpret_interpret() throws Exception {
-    Interpreter fixture = Interpreter.INSTANCE;
-
-    String processName = "P1";
-    IContainer container = null;
-    OPMProcessInstance instance = createMock(OPMProcessInstance.class);
-    OPMProcessInstanceFactory factory = createMock(OPMProcessInstanceFactory.class);
-    expect(factory.createProcessInstance(processName, OPMProcessKind.COMPOUND)).andReturn(instance);
-    instance.execute();
-    fixture.setFactory(factory);
-    replay(instance, factory);
-
-    fixture.interpret(processName, container);
-
-    verify(instance, factory);
-  }
 
   /**
    * Perform pre-test initialization.

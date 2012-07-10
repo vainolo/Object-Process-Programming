@@ -10,10 +10,5 @@
 
 <plugin>
 
-   <extension point="org.eclipse.emf.ecore.generated_package">
-      <package
-            uri="http://www.vainolo.com/opm/phd/interpreter"
-            class="com.vainolo.phd.opm.interpreter.model.InterpreterPackage"/>
-   </extension>
 
 </plugin>

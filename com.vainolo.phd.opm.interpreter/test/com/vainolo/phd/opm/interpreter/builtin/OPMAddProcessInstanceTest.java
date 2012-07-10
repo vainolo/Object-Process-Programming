@@ -10,11 +10,6 @@ import org.junit.Before;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
-import com.vainolo.phd.opm.interpreter.model.InterpreterFactory;
-import com.vainolo.phd.opm.interpreter.model.Variable;
-import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * 
@@ -24,24 +19,6 @@ import static org.junit.Assert.assertEquals;
 public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
   private OPMAbstractProcessInstance fixture;
-
-  @Override
-  public void testExecute() {
-    Variable a = InterpreterFactory.eINSTANCE.createVariable();
-    Variable b = InterpreterFactory.eINSTANCE.createVariable();
-    Variable c = InterpreterFactory.eINSTANCE.createVariable();
-    a.setValue(4);
-    b.setValue(6);
-    fixture = new OPMAddProcessInstance();
-    fixture.addParameter("a", a, OPMProceduralLinkKind.INSTRUMENT);
-    fixture.addParameter("b", b, OPMProceduralLinkKind.INSTRUMENT);
-    fixture.addParameter("c", c, OPMProceduralLinkKind.RESULT);
-
-    fixture.execute();
-    Object result = c.getValue();
-
-    assertEquals(10, result);
-  }
 
   /**
    * Perform pre-test initialization.

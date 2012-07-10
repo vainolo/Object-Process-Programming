@@ -6,21 +6,21 @@
 package com.vainolo.phd.opm.interpreter;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.interpreter.model.InterpreterFactory;
 import com.vainolo.phd.opm.interpreter.model.Variable;
-import com.vainolo.phd.opm.interpreter.utils.OPMProceduralLinkFilter;
-import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.utils.SimpleLoggerFactory;
 
 public class VariableManager {
+  private static Logger logger = SimpleLoggerFactory.createLogger(VariableManager.class.getName());
+
   private final Map<String, Variable> variables = new HashMap<String, Variable>();
   private Map<String, Set<OPMProcess>> targets = new HashMap<String, Set<OPMProcess>>();
-  private Map<String, OPMProceduralLinkKind> parameterKinds = new HashMap<String, OPMProceduralLinkKind>();
 
   /**
    * Fetch the variable with the specified name. Assumes that the variable exists and Throws an
@@ -31,16 +31,19 @@ public class VariableManager {
    * @return the variable.
    */
   public Variable getVariable(final String name) {
+    logger.info("Getting variable " + name);
     Preconditions.checkArgument(name != null, "Variable name cannot be null");
     final Variable var = variables.get(name);
-    if(var == null)
+    if(var == null) {
       throw new IllegalStateException("Tried to fetch variable " + name + " but variable doesn't exist.");
+    }
     return var;
   }
 
   public Variable createVariable(final String name) {
-    Preconditions.checkArgument(name != null, "Variable name cannot be null");
-    Preconditions.checkState(!variables.containsKey(name));
+    logger.info("Creating variable " + name);
+    Preconditions.checkArgument(name != null, "Variable name cannot be null.");
+    Preconditions.checkState(!variables.containsKey(name), "Tried to create existing variable %s.", name);
     final Variable var = InterpreterFactory.eINSTANCE.createVariable();
     var.setName(name);
     variables.put(name, var);
@@ -51,32 +54,10 @@ public class VariableManager {
     return variables.containsKey(name);
   }
 
-  public void addVariable(final String name, final Variable variable) {
-    Preconditions.checkState(!variables.containsKey(name));
-    variables.put(name, variable);
-  }
-
-  public void addVariableTarget(final String name, final OPMProcess process) {
-    if(!targets.containsKey(name))
-      targets.put(name, new HashSet<OPMProcess>());
-    targets.get(name).add(process);
-  }
-
-  public Set<OPMProcess> getVariableTargets(final String name) {
-    return targets.get(name);
-  }
-
-  public void addParameter(final String name, final Variable variable, final OPMProceduralLinkKind kind) {
-    addVariable(name, variable);
-    parameterKinds.put(name, kind);
-  }
-
-  public Set<Variable> getIncomingParameters() {
-    Set<Variable> parameters = new HashSet<Variable>();
-    for(String parameterName : parameterKinds.keySet())
-      if(OPMProceduralLinkFilter.incomingFilter.filter(parameterKinds.get(parameterName)))
-        parameters.add(getVariable(parameterName));
-    return parameters;
-
+  public void addParameter(final String name, final Object value) {
+    logger.info("Adding parameter " + name);
+    Preconditions.checkArgument(name != null, "Name of parameter cannot be null.");
+    Preconditions.checkArgument(value != null, "Value of argument cannot be null.");
+    createVariable(name).setValue(value);
   }
 }

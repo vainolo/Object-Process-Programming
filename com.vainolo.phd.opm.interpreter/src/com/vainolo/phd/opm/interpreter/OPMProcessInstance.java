@@ -5,8 +5,7 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import com.vainolo.phd.opm.interpreter.model.Variable;
-import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
+import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
  * 
@@ -16,20 +15,62 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
  */
 public interface OPMProcessInstance {
 
+  /**
+   * Get the name of the process.
+   * 
+   * @return the name of the process.
+   */
   String getName();
 
-  void execute();
-
-  void addParameter(String name, Variable variable, OPMProceduralLinkKind kind);
+  /**
+   * Get the name of the process that created this process instance.
+   * 
+   * @return the process that created this process instance.
+   */
+  OPMProcess getProcess();
 
   /**
-   * Check if all parameters are available.
-   * 
-   * @return
+   * Execute the process.
    */
-  boolean isReady();
+  void execute();
 
+  /**
+   * Set the value of an argument.
+   * 
+   * @param name
+   *          of the argument.
+   * @param value
+   *          of the argument.
+   */
+  void addArgument(String name, Object value);
+
+  /**
+   * Get the value of an argument.
+   * 
+   * @param name
+   *          of the argument.
+   * @return value of the argument.
+   * @throws IllegalStateException
+   *           if the argument has no value (only occurs for outgoing arguments).
+   */
+  Object getArgument(String name);
+
+  /**
+   * Check if the process has finished.
+   * 
+   * @return <code>true</code> if the process has finished execution, <code>false</code> otherwise.
+   */
   boolean isFinished();
 
+  /**
+   * Check if the process is currently executing.
+   * 
+   * @return <code>true</code> if the process is currently executing, <code>false</code> otherwise.
+   */
   boolean isExecuting();
+
+  /**
+   * Skip process execution;
+   */
+  void skip();
 }

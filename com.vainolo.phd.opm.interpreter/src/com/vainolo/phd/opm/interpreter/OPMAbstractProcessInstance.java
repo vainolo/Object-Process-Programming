@@ -5,30 +5,41 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import java.util.Set;
+import java.util.logging.Logger;
 
-import com.vainolo.phd.opm.interpreter.model.Variable;
-import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
+import com.google.common.base.Preconditions;
+import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.utils.SimpleLoggerFactory;
 
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
+  private static Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
+
   private VariableManager varManager = new VariableManager();
-  private String name = "";
   private boolean executing = false;
   private boolean finished = false;
   private boolean active = false;
+  private OPMProcess process;
 
-  public void setName(final String name) {
-    this.name = name;
+  public OPMAbstractProcessInstance(final OPMProcess process) {
+    this.process = process;
+  }
+
+  @Override
+  public OPMProcess getProcess() {
+    return process;
   }
 
   @Override
   public String getName() {
-    return name;
+    return getProcess().getName();
   }
 
+  /**
+   * Print the process's name
+   */
   @Override
   public void execute() {
-    System.out.println("Executing process " + getName());
+    logger.info("Executing process " + getName());
   }
 
   protected VariableManager getVarManager() {
@@ -39,19 +50,16 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   }
 
   @Override
-  public void addParameter(final String name, final Variable variable, final OPMProceduralLinkKind kind) {
-    getVarManager().addParameter(name, variable, kind);
+  public void addArgument(final String name, final Object value) {
+    getVarManager().addParameter(name, value);
   }
 
   @Override
-  public boolean isReady() {
-    Set<Variable> incomingParameters = getVarManager().getIncomingParameters();
-    for(Variable var : incomingParameters) {
-      if(!var.isSetValue()) {
-        return false;
-      }
-    }
-    return true;
+  public Object getArgument(final String name) {
+    Preconditions.checkArgument(name != null, "Argument name cannot be null.");
+    Preconditions.checkState(getVarManager().variableExists(name), "Variable %s does not exist.", name);
+    Preconditions.checkState(getVarManager().getVariable(name).isSetValue(), "Variable %s is not set.", name);
+    return getVarManager().getVariable(name).getValue();
   }
 
   @Override
@@ -68,15 +76,20 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
     return active;
   }
 
-  private void setExecuting(final boolean executing) {
+  protected void setExecuting(final boolean executing) {
     this.executing = executing;
   }
 
-  private void setFinished(final boolean finished) {
+  protected void setFinished(final boolean finished) {
     this.finished = finished;
   }
 
-  private void setActive(final boolean active) {
+  protected void setActive(final boolean active) {
     this.active = active;
+  }
+
+  @Override
+  public void skip() {
+    setFinished(true);
   }
 }

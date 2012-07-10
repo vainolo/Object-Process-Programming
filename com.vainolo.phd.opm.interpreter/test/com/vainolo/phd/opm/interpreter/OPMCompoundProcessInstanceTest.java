@@ -21,7 +21,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.vainolo.jui.SystemProperties;
 import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -29,8 +28,6 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 import static org.easymock.EasyMock.*;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * 
@@ -62,27 +59,19 @@ public class OPMCompoundProcessInstanceTest extends OPMAbstractProcessInstanceTe
     expect(fixture.getVarManager()).andReturn(varManager).anyTimes();
     expect(fixture.getOpd()).andReturn(opd);
     expect(opd.getObjects()).andReturn(objects);
-    for(int i = 0; i < numOfObjects; i++)
-      if(i % 3 == 0)
+    for(int i = 0; i < numOfObjects; i++) {
+      if(i % 3 == 0) {
         expect(varManager.variableExists("O" + i)).andReturn(true);
-      else {
+      } else {
         expect(varManager.variableExists("O" + i)).andReturn(false);
         expect(varManager.createVariable("O" + i)).andReturn(var);
       }
+    }
     replay(fixture, varManager, opd);
 
     fixture.createLocalVariables();
 
     verify(fixture, varManager, opd);
-  }
-
-  @Test
-  public void testSetOpdDag() {
-    fixture = builder.createMock();
-    final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag = createMock(DirectedAcyclicGraph.class);
-
-    fixture.setOpdDag(opdDag);
-    assertEquals(opdDag, fixture.getOpdDag());
   }
 
   @Test
@@ -102,7 +91,7 @@ public class OPMCompoundProcessInstanceTest extends OPMAbstractProcessInstanceTe
   @Test
   public void testLoadProcessDefinition() throws Exception {
     final String processName = "p1";
-    final String tempfile = System.getProperty(SystemProperties.osTempDir) + processName + ".opm";
+    final String tempfile = System.getProperty("java.io.tmpdir") + processName + ".opm";
     final URI tempFileURI = URI.createFileURI(tempfile);
     final ResourceSet resourceSet = new ResourceSetImpl();
     resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
@@ -118,7 +107,7 @@ public class OPMCompoundProcessInstanceTest extends OPMAbstractProcessInstanceTe
     expect(fixture.getProcessFilename()).andReturn(tempfile).atLeastOnce();
     replay(fixture);
 
-    fixture.loadProcessDefinition();
+    fixture.loadOPD();
 
     resource.delete(null);
 

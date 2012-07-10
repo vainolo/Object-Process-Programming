@@ -8,6 +8,8 @@ package com.vainolo.phd.opm.interpreter;
 import org.eclipse.core.resources.IContainer;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMProcessKind;
 
 /**
@@ -28,14 +30,17 @@ public enum Interpreter {
 
   public void interpret(final String processName, final IContainer container) {
     this.containter = container;
-    final OPMProcessInstance instance = getFactory().createProcessInstance(processName, OPMProcessKind.COMPOUND);
+    OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
+    process.setName(processName);
+    final OPMProcessInstance instance = getFactory().createProcessInstance(process, OPMProcessKind.COMPOUND);
     instance.execute();
   }
 
   @VisibleForTesting
   OPMProcessInstanceFactory getFactory() {
-    if(factory == null)
+    if(factory == null) {
       factory = OPMProcessInstanceFactory.INSTANCE;
+    }
     return factory;
   }
 

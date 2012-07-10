@@ -1,9 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
+ *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
 import javax.swing.JOptionPane;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
+import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
  * Arguments:
@@ -15,11 +21,15 @@ import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
  * 
  */
 public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
+  public OPMInputProcessInstance(final OPMProcess process) {
+    super(process);
+  }
+
   @Override
   public void execute() {
     super.execute();
     final String retVal = showInputDialog();
-    getVarManager().getVariable("text").setValue(retVal);
+    addArgument("text", retVal);
   }
 
   /**

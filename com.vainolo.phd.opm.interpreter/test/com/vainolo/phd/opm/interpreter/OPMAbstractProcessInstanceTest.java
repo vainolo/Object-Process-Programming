@@ -12,8 +12,6 @@ import org.junit.Test;
 
 import static org.easymock.EasyMock.*;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * 
  * @author Arieh 'Vainolo' Bibliowicz
@@ -21,62 +19,53 @@ import static org.junit.Assert.assertEquals;
  */
 public class OPMAbstractProcessInstanceTest {
 
-	private OPMAbstractProcessInstance fixture;
-	private IMockBuilder<OPMAbstractProcessInstance> builder;
+  private OPMAbstractProcessInstance fixture;
+  private IMockBuilder<OPMAbstractProcessInstance> builder;
 
-	@Test
-	public void testExecute() {
-		builder.addMockedMethod("getName");
-		fixture = builder.createMock();
-		expect(fixture.getName()).andReturn("Something");
-		replay(fixture);
-		fixture.execute();
-		verify(fixture);
-	}
+  @Test
+  public void testExecute() {
+    builder.addMockedMethod("getName");
+    fixture = builder.createMock();
+    expect(fixture.getName()).andReturn("Something");
+    replay(fixture);
+    fixture.execute();
+    verify(fixture);
+  }
 
-	@Test
-	public void testSetAndGetName() {
-		fixture = builder.createMock();
-		final String name = "foo";
-		fixture.setName(name);
+  /**
+   * Perform pre-test initialization.
+   * 
+   * @throws Exception
+   *           if the initialization fails for some reason
+   * 
+   */
+  @Before
+  public void setUp() throws Exception {
+    builder = createMockBuilder(OPMAbstractProcessInstance.class);
 
-		assertEquals(name, fixture.getName());
-	}
+  }
 
-	/**
-	 * Perform pre-test initialization.
-	 * 
-	 * @throws Exception
-	 *             if the initialization fails for some reason
-	 * 
-	 */
-	@Before
-	public void setUp() throws Exception {
-		builder = createMockBuilder(OPMAbstractProcessInstance.class);
+  /**
+   * Perform post-test clean-up.
+   * 
+   * @throws Exception
+   *           if the clean-up fails for some reason
+   * 
+   */
+  @After
+  public void tearDown() throws Exception {
+    // Add additional tear down code here
+  }
 
-	}
-
-	/**
-	 * Perform post-test clean-up.
-	 * 
-	 * @throws Exception
-	 *             if the clean-up fails for some reason
-	 * 
-	 */
-	@After
-	public void tearDown() throws Exception {
-		// Add additional tear down code here
-	}
-
-	/**
-	 * Launch the test.
-	 * 
-	 * @param args
-	 *            the command line arguments
-	 * 
-	 * @generatedBy CodePro at 7/1/12 8:31 PM
-	 */
-	public static void main(final String[] args) {
-		new org.junit.runner.JUnitCore().run(OPMAbstractProcessInstanceTest.class);
-	}
+  /**
+   * Launch the test.
+   * 
+   * @param args
+   *          the command line arguments
+   * 
+   * @generatedBy CodePro at 7/1/12 8:31 PM
+   */
+  public static void main(final String[] args) {
+    new org.junit.runner.JUnitCore().run(OPMAbstractProcessInstanceTest.class);
+  }
 }
