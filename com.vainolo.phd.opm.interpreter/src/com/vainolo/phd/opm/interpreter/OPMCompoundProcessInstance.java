@@ -25,8 +25,6 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.interpreter.utils.IsOPMConditionalParameter;
@@ -72,7 +70,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   void createLocalVariables() {
     logger.info("Creating local variables.");
-    for(final OPMObject object : getOpd().getObjects()) {
+    for(final OPMObject object : opd.getObjects()) {
       if(!getVarManager().variableExists(object.getName())) {
         getVarManager().createVariable(object.getName());
       }
@@ -85,15 +83,14 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   @Override
   public void execute() {
     super.execute();
-    loadOpdDag();
+    opdDag = OPDAnalyzer.createOPDDAG(opd);
 
-    OPDExecutionFollower follower = new OPDExecutionFollower(getOpd());
-
+    OPDExecutionFollower follower = new OPDExecutionFollower(opd);
     createLocalVariables();
-    Set<OPMProcess> initialProcesses = OPDAnalyzer.calculateInitialProcesses(getOpdDag());
+    Set<OPMProcess> initialProcesses = OPDAnalyzer.calculateInitialProcesses(opdDag);
     OPMProcessInstance processInstance = null;
     for(OPMProcess process : initialProcesses) {
-      processInstance = getProcessInstanceFactory().createProcessInstance(process, process.getKind());
+      processInstance = OPMProcessInstanceFactory.INSTANCE.createProcessInstance(process, process.getKind());
       waitingInstances.add(processInstance);
     }
     while(waitingInstances.size() > 0) {
@@ -182,7 +179,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     }
 
     for(OPMProcess followingProcess : followingProcesses) {
-      OPMProcessInstance processInstance = getProcessInstanceFactory().createProcessInstance(followingProcess,
+      OPMProcessInstance processInstance = OPMProcessInstanceFactory.INSTANCE.createProcessInstance(followingProcess,
           followingProcess.getKind());
       waitingInstances.add(processInstance);
     }
@@ -190,36 +187,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     return executedInstances;
   }
 
-  @VisibleForTesting
-  OPMObjectProcessDiagram getOpd() {
-    Preconditions.checkState(opd != null, "A null OPD should never be fetched.");
-    return opd;
-  }
-
-  @VisibleForTesting
-  DirectedAcyclicGraph<OPMProcess, DefaultEdge> getOpdDag() {
-    return opdDag;
-  }
-
-  private void loadOpdDag() {
-    opdDag = OPDAnalyzer.createOPDDAG(getOpd());
-  }
-
-  private boolean isFirstStep() {
-    return firstStep;
-  }
-
-  private void setFirstStep(final boolean firstStep) {
-    this.firstStep = firstStep;
-  }
-
-  @VisibleForTesting
-  Set<OPMProcess> getInitialProcesses() {
-    return OPDAnalyzer.calculateInitialProcesses(getOpdDag());
-  }
-
-  @VisibleForTesting
-  void loadOPD() {
+  private void loadOPD() {
     final ResourceSet resourceSet = new ResourceSetImpl();
     resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
         .put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
@@ -233,17 +201,11 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     }
   }
 
-  @VisibleForTesting
-  String getProcessFilename() {
+  private String getProcessFilename() {
     return Interpreter.INSTANCE.getContainer().getFile(new Path(getName() + ".opm")).getFullPath().toString();
   }
 
-  @VisibleForTesting
-  OPMProcessInstanceFactory getProcessInstanceFactory() {
-    return OPMProcessInstanceFactory.INSTANCE;
-  }
-
-  class OPMProcessInstanceRunnable implements Runnable {
+  private class OPMProcessInstanceRunnable implements Runnable {
     private OPMProcessInstance instance;
 
     public OPMProcessInstanceRunnable(final OPMProcessInstance instance) {
