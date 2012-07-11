@@ -31,7 +31,6 @@ public class VariableManager {
    * @return the variable.
    */
   public Variable getVariable(final String name) {
-    logger.info("Getting variable " + name);
     Preconditions.checkArgument(name != null, "Variable name cannot be null");
     final Variable var = variables.get(name);
     if(var == null) {

@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
+import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.interpreter.utils.IsOPMConditionalParameter;
@@ -50,13 +51,11 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   private OPMObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
-  private boolean firstStep = true;
   private Map<OPMProcess, OPMProcessInstance> instances = new HashMap<OPMProcess, OPMProcessInstance>();
 
   private Set<OPMProcessInstance> waitingInstances = new HashSet<OPMProcessInstance>();
-  private Executor executor = Executors.newCachedThreadPool();;
-  private BlockingQueue<OPMProcessInstance> processQueue;
-  private int running = 0;
+  private Executor executor = Executors.newCachedThreadPool();
+  private BlockingQueue<OPMProcessInstanceRunnable> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
 
   public OPMCompoundProcessInstance(final OPMProcess process) {
     super(process);
@@ -122,38 +121,21 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
     for(Iterator<OPMProcessInstance> waitingInstanceIterator = waitingInstances.iterator(); waitingInstanceIterator
         .hasNext();) {
-      boolean skipped = false;
       boolean notReady = false;
       OPMProcessInstance instance = waitingInstanceIterator.next();
       process = instance.getProcess();
       Set<Parameter> parameters = OPDAnalyzer.calculateAllParameters(process);
 
       // Check conditions. If they are not available, skip the process.
-      for(Parameter parameter : Sets.filter(parameters, IsOPMConditionalParameter.INSTANCE)) {
-        Variable argument = getVarManager().getVariable(parameter.getObject().getName());
-        if(!argument.isSetValue()) {
-          instance.skip();
-          waitingInstanceIterator.remove();
-          logger.info("Skipping instance " + instance.getName());
-          follower.addSkippedProcess(process);
-          skipped = true;
-          break;
-        }
-      }
-      if(skipped) {
+      if(shouldSkipProcess(instance, parameters)) {
+        waitingInstanceIterator.remove();
+        follower.addSkippedProcess(instance.getProcess());
+        followingProcesses.addAll(follower.findNextProcessesToExecute(instance.getProcess()));
         continue;
       }
 
       // Check that all arguments are ready
-      for(Parameter parameter : Sets.filter(parameters, IsOPMWaitIncomingParameter.INSTANCE)) {
-        Variable argument = getVarManager().getVariable(parameter.getObject().getName());
-        if(!argument.isSetValue()) {
-          logger.info("Instance " + instance.getName() + " kept waiting.");
-          notReady = true;
-          break;
-        }
-      }
-      if(notReady) {
+      if(!isReady(instance, parameters)) {
         continue;
       }
 
@@ -162,20 +144,22 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
         Object argumentValue = getVarManager().getVariable(parameter.getObject().getName()).getValue();
         instance.addArgument(parameterName, argumentValue);
       }
-      instance.execute();
-      for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
-        Variable var = getVarManager().getVariable(parameter.getObject().getName());
-        var.setValue(instance.getArgument(parameter.getName()));
 
-        // Send to execution all processes that have an event link from this object
-        followingProcesses.addAll(OPDAnalyzer.calculateConnectedEventProcesses(parameter.getObject()));
+      OPMProcessInstanceRunnable runnable = new OPMProcessInstanceRunnable(instance);
+      executor.execute(runnable);
+      OPMProcessInstanceRunnable returnedRunnable;
+      while(true) {
+        try {
+          returnedRunnable = runningProcessInstanceQueue.take();
+          break;
+        } catch(InterruptedException e) {
+        }
       }
-      // Send to execution all processes that are invoked by this process.
-      followingProcesses.addAll(OPDAnalyzer.calculateInvocationProcesses(process));
+
+      postExecutionHandling(instance, parameters, followingProcesses, follower);
 
       waitingInstanceIterator.remove();
       follower.addExecutedProcess(process);
-      followingProcesses.addAll(follower.findNextProcessesToExecute(process));
     }
 
     for(OPMProcess followingProcess : followingProcesses) {
@@ -185,6 +169,43 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     }
 
     return executedInstances;
+  }
+
+  private boolean isReady(final OPMProcessInstance instance, final Set<Parameter> parameters) {
+    for(Parameter parameter : Sets.filter(parameters, IsOPMWaitIncomingParameter.INSTANCE)) {
+      Variable argument = getVarManager().getVariable(parameter.getObject().getName());
+      if(!argument.isSetValue()) {
+        logger.info("Instance " + instance.getName() + " kept waiting.");
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private boolean shouldSkipProcess(final OPMProcessInstance instance, final Set<Parameter> parameters) {
+    for(Parameter parameter : Sets.filter(parameters, IsOPMConditionalParameter.INSTANCE)) {
+      Variable argument = getVarManager().getVariable(parameter.getObject().getName());
+      if(!argument.isSetValue()) {
+        instance.skip();
+        logger.info("Skipping instance " + instance.getName());
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private void postExecutionHandling(final OPMProcessInstance instance, final Set<Parameter> parameters,
+      final Set<OPMProcess> followingProcesses, final OPDExecutionFollower follower) {
+    for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
+      Variable var = getVarManager().getVariable(parameter.getObject().getName());
+      var.setValue(instance.getArgument(parameter.getName()));
+
+      // Send to execution all processes that have an event link from this object
+      followingProcesses.addAll(OPDAnalyzer.calculateConnectedEventProcesses(parameter.getObject()));
+    }
+    // Send to execution all processes that are invoked by this process.
+    followingProcesses.addAll(OPDAnalyzer.calculateInvocationProcesses(instance.getProcess()));
+    followingProcesses.addAll(follower.findNextProcessesToExecute(instance.getProcess()));
   }
 
   private void loadOPD() {
@@ -215,6 +236,17 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     @Override
     public void run() {
       instance.execute();
+      try {
+        runningProcessInstanceQueue.put(this);
+      } catch(InterruptedException e) {
+        // The blocking queue should not throw this exception since it is "unbounded" (size of Integer.MAX_INT). So this
+        // is very problematic.
+        throw new IllegalStateException("Process execution communication queue threw an unexpected exception.", e);
+      }
+    }
+
+    public OPMProcessInstance getInstance() {
+      return instance;
     }
   }
 }
