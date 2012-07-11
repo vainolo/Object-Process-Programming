@@ -9,24 +9,21 @@ import com.google.common.base.Predicate;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
- * Predicate that returns true for incoming conditional links.
+ * Predicate that returns true for invocation conditional links.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * @created 9 Jul 2012
  * 
  */
-public enum IsOPMConditionalProceduralLink implements Predicate<OPMProceduralLink> {
+public enum IsOPMInvocationLink implements Predicate<OPMProceduralLink> {
   INSTANCE;
 
   @Override
   public boolean apply(final OPMProceduralLink link) {
     switch(link.getKind()) {
-      case CONSUMPTION_CONDITION:
-      case EFFECT_CONDITION:
-      case INSTRUMENT_CONDITION:
+      case INVOCATION:
         return true;
     }
     return false;
   }
-
 }

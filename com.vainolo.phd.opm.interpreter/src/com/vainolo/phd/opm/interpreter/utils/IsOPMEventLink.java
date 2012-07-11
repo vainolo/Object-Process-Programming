@@ -6,20 +6,29 @@
 package com.vainolo.phd.opm.interpreter.utils;
 
 import com.google.common.base.Predicate;
+import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
- * Predicate that returns true for incoming conditional parameters.
+ * Predicate that returns true for outgoing procedural event links.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * @created 9 Jul 2012
  * 
  */
-public enum IsOPMConditionalParameter implements Predicate<Parameter> {
+public enum IsOPMEventLink implements Predicate<OPMProceduralLink> {
   INSTANCE;
 
   @Override
-  public boolean apply(final Parameter input) {
-    return IsOPMConditionalLink.INSTANCE.apply(input.getLink());
+  public boolean apply(final OPMProceduralLink link) {
+    switch(link.getKind()) {
+      case CONSUMPTION_EVENT:
+      case EFFECT_EVENT:
+      case INSTRUMENT_EVENT:
+        return true;
+    }
+
+    return false;
+
   }
 
 }

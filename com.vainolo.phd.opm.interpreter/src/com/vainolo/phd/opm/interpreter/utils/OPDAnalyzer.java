@@ -19,7 +19,9 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
@@ -27,11 +29,29 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
+ * Various utilities used to execute an OPD.
  * 
  * @author vainolo
  * 
  */
 public final class OPDAnalyzer {
+
+  /**
+   * <p>
+   * Calculate all the processes that should be invoked when the given process ends.
+   * 
+   * @param process
+   *          to analyze.
+   * @return a set of processes to execute when the provided process finishes execution.
+   */
+  public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
+    Set<OPMProceduralLink> outgoingProceduralLinks = ImmutableSet.copyOf(process.getOutgoingProceduralLinks());
+    Set<OPMProcess> invocationProcesses = Sets.newHashSet();
+    for(OPMProceduralLink invocationLink : Sets.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
+      invocationProcesses.add((OPMProcess) invocationLink.getTarget());
+    }
+    return invocationProcesses;
+  }
 
   /**
    * <p>
@@ -55,6 +75,34 @@ public final class OPDAnalyzer {
     }
 
     return retVal;
+  }
+
+  /**
+   * <p>
+   * Calculate the processes that are connected to this object using event procedural links.
+   * </p>
+   * 
+   * @param object
+   * @return
+   */
+  public static Set<OPMProcess> calculateConnectedEventProcesses(final OPMObject object) {
+    Set<OPMProcess> processes = Sets.newHashSet();
+
+    Collection<OPMProceduralLink> incomingLinks = object.getIncomingProceduralLinks();
+    incomingLinks = Collections2.filter(incomingLinks, IsOPMEventLink.INSTANCE);
+    Collection<OPMProceduralLink> outgoingLinks = object.getOutgoingProceduralLinks();
+    outgoingLinks = Collections2.filter(outgoingLinks, IsOPMEventLink.INSTANCE);
+
+    // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
+    // collections freely.
+    for(OPMProceduralLink link : incomingLinks) {
+      processes.add((OPMProcess) link.getSource());
+    }
+    for(OPMProceduralLink link : outgoingLinks) {
+      processes.add((OPMProcess) link.getTarget());
+    }
+
+    return processes;
   }
 
   /**
@@ -337,5 +385,22 @@ public final class OPDAnalyzer {
     }
 
     return parameters;
+  }
+
+  /**
+   * <p>
+   * Calculate a set of all the procedural links that are connected to an OPM node. The returned set is
+   * <b>immutable</b>.
+   * </p>
+   * 
+   * 
+   * @param node
+   *          to analyze
+   * @return and <b>immutable</b> set containing all procedural links that start or end at the provided node.
+   */
+  private static Set<OPMProceduralLink> calculateAllProceduralLinks(final OPMNode node) {
+    ImmutableSet<OPMProceduralLink> incLinks = ImmutableSet.copyOf(node.getIncomingProceduralLinks());
+    ImmutableSet<OPMProceduralLink> outLinks = ImmutableSet.copyOf(node.getOutgoingProceduralLinks());
+    return Sets.union(incLinks, outLinks);
   }
 }

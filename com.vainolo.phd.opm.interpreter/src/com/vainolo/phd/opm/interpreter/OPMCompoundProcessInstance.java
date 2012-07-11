@@ -169,7 +169,13 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
       for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
         Variable var = getVarManager().getVariable(parameter.getObject().getName());
         var.setValue(instance.getArgument(parameter.getName()));
+
+        // Send to execution all processes that have an event link from this object
+        followingProcesses.addAll(OPDAnalyzer.calculateConnectedEventProcesses(parameter.getObject()));
       }
+      // Send to execution all processes that are invoked by this process.
+      followingProcesses.addAll(OPDAnalyzer.calculateInvocationProcesses(process));
+
       waitingInstanceIterator.remove();
       follower.addExecutedProcess(process);
       followingProcesses.addAll(follower.findNextProcessesToExecute(process));

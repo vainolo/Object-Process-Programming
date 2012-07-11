@@ -9,6 +9,7 @@ import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMConceptualProcess;
 import com.vainolo.phd.opm.interpreter.builtin.OPMInputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMOutputProcessInstance;
+import com.vainolo.phd.opm.interpreter.builtin.OPMSleepProcessInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMProcessKind;
 
@@ -45,6 +46,8 @@ public enum OPMProcessInstanceFactory {
       processInstance = new OPMOutputProcessInstance(process);
     } else if(process.getName().equals("Add")) {
       processInstance = new OPMAddProcessInstance(process);
+    } else if(process.getName().equals("Sleep")) {
+      processInstance = new OPMSleepProcessInstance(process);
     } else {
       throw new IllegalStateException("Tried to create unexistent build-in process " + process.getName());
     }
