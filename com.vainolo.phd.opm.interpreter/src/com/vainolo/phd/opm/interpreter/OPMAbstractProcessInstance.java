@@ -51,7 +51,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 
   @Override
   public void addArgument(final String name, final Object value) {
-    getVarManager().addParameter(name, value);
+    getVarManager().setArgumentValue(name, value);
   }
 
   @Override
