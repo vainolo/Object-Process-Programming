@@ -113,13 +113,16 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     Set<OPMProcess> followingProcesses = null;
 
     for(Iterator<OPMProcessInstance> waitingInstanceIt = waitingInstances.iterator(); waitingInstanceIt.hasNext();) {
-      InstanceExecutor instanceExecutor =
-          new InstanceExecutor(waitingInstanceIt.next(), getVarManager(), follower, executorService,
-              runningProcessInstanceQueue);
+      InstanceExecutor instanceExecutor = new InstanceExecutor(waitingInstanceIt.next(), this);
       instanceExecutor.tryToExecuteInstance();
 
       if((instanceExecutor.getExecutionStatus().equals(ExecutionStatus.SKIPPED)) ||
           (instanceExecutor.getExecutionStatus().equals(ExecutionStatus.EXECUTED))) {
+        if(instanceExecutor.getExecutionStatus().equals(ExecutionStatus.SKIPPED))
+          follower.addSkippedProcess(instanceExecutor.getProcess());
+        else if(instanceExecutor.getExecutionStatus().equals(ExecutionStatus.EXECUTED))
+          follower.addExecutedProcess(instanceExecutor.getProcess());
+
         followingProcesses = calculateFollowingProcesses(instanceExecutor);
         waitingInstanceIt.remove();
       }
@@ -166,5 +169,13 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   private String getProcessFilename() {
     return Interpreter.INSTANCE.getContainer().getFile(new Path(getName() + ".opm")).getFullPath().toString();
+  }
+
+  public BlockingQueue<OPMProcessInstanceRunnable> getInstanceQueue() {
+    return runningProcessInstanceQueue;
+  }
+
+  public ExecutorService getExecutorService() {
+    return executorService;
   }
 }
