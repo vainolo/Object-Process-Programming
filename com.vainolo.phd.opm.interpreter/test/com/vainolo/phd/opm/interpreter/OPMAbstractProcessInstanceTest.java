@@ -28,7 +28,7 @@ public class OPMAbstractProcessInstanceTest {
     fixture = builder.createMock();
     expect(fixture.getName()).andReturn("Something");
     replay(fixture);
-    fixture.execute();
+    fixture.executing();
     verify(fixture);
   }
 

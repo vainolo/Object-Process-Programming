@@ -19,8 +19,8 @@ import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
-public class InstanceExecutor {
-  private static Logger logger = SimpleLoggerFactory.createLogger(InstanceExecutor.class.getName());
+public class OPMInstanceExecutor {
+  private static Logger logger = SimpleLoggerFactory.createLogger(OPMInstanceExecutor.class.getName());
 
   private final OPMProcessInstance instance;
   private final Set<Parameter> parameters;
@@ -28,7 +28,7 @@ public class InstanceExecutor {
 
   private ExecutionStatus executionStatus = ExecutionStatus.NOT_EXECUTED;
 
-  public InstanceExecutor(OPMProcessInstance instance, OPMCompoundProcessInstance parent) {
+  public OPMInstanceExecutor(OPMProcessInstance instance, OPMCompoundProcessInstance parent) {
     this.instance = instance;
     this.parameters = OPDAnalyzer.calculateAllParameters(getProcess());
     this.parent = parent;
@@ -54,17 +54,21 @@ public class InstanceExecutor {
     } else {
       // All OK, Execute!
       putIncomingArgumentsValues();
-      OPMProcessInstanceRunnable runnable = new OPMProcessInstanceRunnable(instance, parent.getInstanceQueue());
+      OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, parent.getResultQueue());
+      executionStatus = ExecutionStatus.EXECUTING;
       parent.getExecutorService().execute(runnable);
       while(true) {
         try {
-          parent.getInstanceQueue().take();
+          parent.getResultQueue().take();
           break;
         } catch(InterruptedException e) {}
       }
-      fetchOutgoingArgumentsValues();
-      executionStatus = ExecutionStatus.EXECUTED;
     }
+  }
+
+  public void afterExecutionHandling() {
+    fetchOutgoingArgumentsValues();
+    executionStatus = ExecutionStatus.EXECUTED;
   }
 
   private void fetchOutgoingArgumentsValues() {
@@ -116,7 +120,20 @@ public class InstanceExecutor {
     return Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE);
   }
 
+  public boolean wasSkipped() {
+    return getExecutionStatus().equals(ExecutionStatus.SKIPPED);
+  }
+
+  public boolean wasExecuted() {
+    switch(getExecutionStatus()) {
+      case EXECUTED:
+      case EXECUTING:
+        return true;
+    }
+    return false;
+  }
+
   public enum ExecutionStatus {
-    EXECUTED, SKIPPED, NOT_EXECUTED;
+    EXECUTING, EXECUTED, SKIPPED, NOT_EXECUTED;
   }
 }

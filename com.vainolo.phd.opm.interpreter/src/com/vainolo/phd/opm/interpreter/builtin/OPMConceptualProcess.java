@@ -29,8 +29,7 @@ public class OPMConceptualProcess extends OPMAbstractProcessInstance implements 
   }
 
   @Override
-  public void execute() {
-    super.execute();
+  protected void executing() {
     Set<Parameter> outgoingParameters = OPDAnalyzer.calculateAllParameters(getProcess());
     outgoingParameters = Sets.filter(outgoingParameters, IsOPMOutgoingParameter.INSTANCE);
     for(Parameter parameter : outgoingParameters) {

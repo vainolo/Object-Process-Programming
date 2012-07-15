@@ -22,7 +22,7 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
   }
 
   @Override
-  public void execute() {
+  public void executing() {
     final int a = Integer.parseInt(getVarManager().getVariable("a").getValue().toString());
     final int b = Integer.parseInt(getVarManager().getVariable("b").getValue().toString());
     final int c = a + b;

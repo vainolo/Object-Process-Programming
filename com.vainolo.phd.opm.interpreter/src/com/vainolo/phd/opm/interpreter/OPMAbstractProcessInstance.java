@@ -34,12 +34,24 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
     return getProcess().getName();
   }
 
+  abstract protected void executing();
+
   /**
    * Print the process's name
    */
   @Override
   public void execute() {
-    logger.info("Executing process " + getName());
+    preExecution();
+    executing();
+    postExecution();
+  }
+
+  private void preExecution() {
+    logger.info("Started executing process " + getName());
+  }
+
+  private void postExecution() {
+    logger.info("Finished executing process " + getName());
   }
 
   protected VariableManager getVarManager() {

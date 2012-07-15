@@ -25,7 +25,6 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.InstanceExecutor.ExecutionStatus;
 import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionFollower;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
@@ -47,7 +46,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
   private Set<OPMProcessInstance> waitingInstances = new HashSet<OPMProcessInstance>();
   private ExecutorService executorService = Executors.newCachedThreadPool();
-  BlockingQueue<OPMProcessInstanceRunnable> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
+  BlockingQueue<OPMInstanceRunnable> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
   private OPDExecutionFollower follower;
   private OPMProcessInstanceFactory instanceFactory = OPMProcessInstanceFactory.INSTANCE;
 
@@ -74,20 +73,21 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    * Execute the OPD using OPM execution semantics.
    */
   @Override
-  public void execute() {
-    super.execute();
+  protected void executing() {
     opdDag = OPDAnalyzer.createOPDDAG(opd);
+    createLocalVariables();
 
     follower = new OPDExecutionFollower(opd);
-    createLocalVariables();
     Set<OPMProcess> initialProcesses = OPDAnalyzer.calculateInitialProcesses(opdDag);
-    OPMProcessInstance processInstance = null;
+
     for(OPMProcess process : initialProcesses) {
-      processInstance = instanceFactory.createProcessInstance(process, process.getKind());
+      OPMProcessInstance processInstance = instanceFactory.createProcessInstance(process, process.getKind());
       waitingInstances.add(processInstance);
     }
+
     while(waitingInstances.size() > 0) {
       tryToExecuteWaitingInstances();
+
     }
   }
 
@@ -113,14 +113,19 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     Set<OPMProcess> followingProcesses = null;
 
     for(Iterator<OPMProcessInstance> waitingInstanceIt = waitingInstances.iterator(); waitingInstanceIt.hasNext();) {
-      InstanceExecutor instanceExecutor = new InstanceExecutor(waitingInstanceIt.next(), this);
+      OPMInstanceExecutor instanceExecutor = new OPMInstanceExecutor(waitingInstanceIt.next(), this);
+
       instanceExecutor.tryToExecuteInstance();
 
-      if((instanceExecutor.getExecutionStatus().equals(ExecutionStatus.SKIPPED)) ||
-          (instanceExecutor.getExecutionStatus().equals(ExecutionStatus.EXECUTED))) {
-        if(instanceExecutor.getExecutionStatus().equals(ExecutionStatus.SKIPPED))
+      if(instanceExecutor.wasExecuted())
+        instanceExecutor.afterExecutionHandling();
+
+      if(instanceExecutor.wasSkipped() || instanceExecutor.wasExecuted()) {
+
+        if(instanceExecutor.wasSkipped())
           follower.addSkippedProcess(instanceExecutor.getProcess());
-        else if(instanceExecutor.getExecutionStatus().equals(ExecutionStatus.EXECUTED))
+
+        else if(instanceExecutor.wasExecuted())
           follower.addExecutedProcess(instanceExecutor.getProcess());
 
         followingProcesses = calculateFollowingProcesses(instanceExecutor);
@@ -132,7 +137,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     return executedInstances;
   }
 
-  private Set<OPMProcess> calculateFollowingProcesses(InstanceExecutor instanceExecutor) {
+  private Set<OPMProcess> calculateFollowingProcesses(OPMInstanceExecutor instanceExecutor) {
     Set<OPMProcess> followingProcesses = Sets.newHashSet();
     switch(instanceExecutor.getExecutionStatus()) {
       case EXECUTED:
@@ -171,7 +176,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     return Interpreter.INSTANCE.getContainer().getFile(new Path(getName() + ".opm")).getFullPath().toString();
   }
 
-  public BlockingQueue<OPMProcessInstanceRunnable> getInstanceQueue() {
+  public BlockingQueue<OPMInstanceRunnable> getResultQueue() {
     return runningProcessInstanceQueue;
   }
 

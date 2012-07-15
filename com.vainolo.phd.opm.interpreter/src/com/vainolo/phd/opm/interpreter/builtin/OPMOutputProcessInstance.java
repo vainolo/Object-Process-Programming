@@ -27,8 +27,7 @@ public class OPMOutputProcessInstance extends OPMAbstractProcessInstance impleme
   }
 
   @Override
-  public void execute() {
-    super.execute();
+  protected void executing() {
     final String text = getVarManager().getVariable("text").getValue().toString();
     showMessageDialog(text);
   }

@@ -7,19 +7,19 @@ package com.vainolo.phd.opm.interpreter;
 
 import java.util.concurrent.BlockingQueue;
 
-class OPMProcessInstanceRunnable implements Runnable {
-  private OPMProcessInstance instance;
-  private BlockingQueue<OPMProcessInstanceRunnable> runningProcessInstanceQueue;
+class OPMInstanceRunnable implements Runnable {
+  private OPMInstanceExecutor executor;
+  private BlockingQueue<OPMInstanceRunnable> runningProcessInstanceQueue;
 
-  public OPMProcessInstanceRunnable(final OPMProcessInstance instance,
-      BlockingQueue<OPMProcessInstanceRunnable> runningProcessInstanceQueue) {
-    this.instance = instance;
+  public OPMInstanceRunnable(final OPMInstanceExecutor opmInstanceExecutor,
+      BlockingQueue<OPMInstanceRunnable> runningProcessInstanceQueue) {
+    this.executor = opmInstanceExecutor;
     this.runningProcessInstanceQueue = runningProcessInstanceQueue;
   }
 
   @Override
   public void run() {
-    instance.execute();
+    executor.getInstance().execute();
     try {
       runningProcessInstanceQueue.put(this);
     } catch(InterruptedException e) {
@@ -29,7 +29,7 @@ class OPMProcessInstanceRunnable implements Runnable {
     }
   }
 
-  public OPMProcessInstance getInstance() {
-    return instance;
+  public OPMInstanceExecutor getInstance() {
+    return executor;
   }
 }

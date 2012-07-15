@@ -27,7 +27,7 @@ public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implemen
   }
 
   @Override
-  public void execute() {
+  protected void executing() {
     final int time = Integer.parseInt(getVarManager().getVariable("time").getValue().toString());
     logger.info("Sleeping for " + time + " seconds.");
     try {
