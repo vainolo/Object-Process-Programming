@@ -114,6 +114,10 @@ public class OPMInstanceExecutor {
     return Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE);
   }
 
+  public boolean wasNotExecuted() {
+    return getExecutionStatus().equals(ExecutionStatus.NOT_EXECUTED);
+  }
+
   public boolean wasSkipped() {
     return getExecutionStatus().equals(ExecutionStatus.SKIPPED);
   }

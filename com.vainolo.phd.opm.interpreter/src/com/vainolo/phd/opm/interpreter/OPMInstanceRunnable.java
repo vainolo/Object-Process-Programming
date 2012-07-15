@@ -9,11 +9,11 @@ import java.util.concurrent.BlockingQueue;
 
 class OPMInstanceRunnable implements Runnable {
   private OPMInstanceExecutor executor;
-  private BlockingQueue<OPMInstanceRunnable> runningProcessInstanceQueue;
+  private BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue;
 
-  public OPMInstanceRunnable(final OPMInstanceExecutor opmInstanceExecutor,
-      BlockingQueue<OPMInstanceRunnable> runningProcessInstanceQueue) {
-    this.executor = opmInstanceExecutor;
+  public OPMInstanceRunnable(final OPMInstanceExecutor executor,
+      BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue) {
+    this.executor = executor;
     this.runningProcessInstanceQueue = runningProcessInstanceQueue;
   }
 
@@ -21,7 +21,7 @@ class OPMInstanceRunnable implements Runnable {
   public void run() {
     executor.getInstance().execute();
     try {
-      runningProcessInstanceQueue.put(this);
+      runningProcessInstanceQueue.put(executor);
     } catch(InterruptedException e) {
       // The blocking queue should not throw this exception since it is "unbounded" (size of Integer.MAX_INT). So this
       // is very problematic.
@@ -29,7 +29,7 @@ class OPMInstanceRunnable implements Runnable {
     }
   }
 
-  public OPMInstanceExecutor getInstance() {
+  public OPMInstanceExecutor getExecutor() {
     return executor;
   }
 }
