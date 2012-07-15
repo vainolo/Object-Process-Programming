@@ -117,8 +117,15 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
       instanceExecutor.tryToExecuteInstance();
 
-      if(instanceExecutor.wasExecuted())
+      if(instanceExecutor.wasExecuted()) {
+        while(true) {
+          try {
+            getResultQueue().take();
+            break;
+          } catch(InterruptedException e) {}
+        }
         instanceExecutor.afterExecutionHandling();
+      }
 
       if(instanceExecutor.wasSkipped() || instanceExecutor.wasExecuted()) {
 

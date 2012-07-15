@@ -53,16 +53,10 @@ public class OPMInstanceExecutor {
       executionStatus = ExecutionStatus.NOT_EXECUTED;
     } else {
       // All OK, Execute!
+      executionStatus = ExecutionStatus.EXECUTING;
       putIncomingArgumentsValues();
       OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, parent.getResultQueue());
-      executionStatus = ExecutionStatus.EXECUTING;
       parent.getExecutorService().execute(runnable);
-      while(true) {
-        try {
-          parent.getResultQueue().take();
-          break;
-        } catch(InterruptedException e) {}
-      }
     }
   }
 
