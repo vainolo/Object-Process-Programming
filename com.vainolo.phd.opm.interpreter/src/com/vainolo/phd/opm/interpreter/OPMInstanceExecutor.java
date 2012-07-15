@@ -19,6 +19,12 @@ import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
+/**
+ * 
+ * @author Arieh 'Vainolo' Bibliowicz
+ * @created 15 Jul 2012
+ * 
+ */
 public class OPMInstanceExecutor {
   private static Logger logger = SimpleLoggerFactory.createLogger(OPMInstanceExecutor.class.getName());
 

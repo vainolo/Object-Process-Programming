@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
@@ -85,17 +86,30 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
       waitingInstances.add(processInstance);
     }
 
-    while(waitingInstances.size() > 0) {
-      tryToExecuteWaitingInstances();
+    Preconditions.checkState(waitingInstances.size() > 0, "Did not find any process to execute.");
 
-      waitFirstForInstanceToFinish();
+    int executingInstances = 0;
+    while((waitingInstances.size() > 0) || (executingInstances > 0)) {
+      executingInstances += tryToExecuteWaitingInstances();
 
+      if(executingInstances > 0) {
+        waitForInstanceToFinish();
+        executingInstances--;
+      }
     }
   }
 
-  private void waitFirstForInstanceToFinish() {
-    // TODO Auto-generated method stub
-
+  private void waitForInstanceToFinish() {
+    OPMInstanceExecutor executor = null;
+    while(true) {
+      try {
+        executor = getResultQueue().take();
+        break;
+      } catch(InterruptedException e) {}
+    }
+    executor.afterExecutionHandling();
+    follower.addExecutedProcess(executor.getProcess());
+    putProcessesInWaitingList(calculateFollowingProcesses(executor));
   }
 
   /**
@@ -132,16 +146,6 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
         executedInstances++;
         waitingInstanceIt.remove();
       } else {
-        OPMInstanceExecutor resultExecutor = null;
-        while(true) {
-          try {
-            resultExecutor = getResultQueue().take();
-            break;
-          } catch(InterruptedException e) {}
-        }
-        resultExecutor.afterExecutionHandling();
-        follower.addExecutedProcess(resultExecutor.getProcess());
-        followingProcesses.addAll(calculateFollowingProcesses(resultExecutor));
         waitingInstanceIt.remove();
         executedInstances++;
       }
