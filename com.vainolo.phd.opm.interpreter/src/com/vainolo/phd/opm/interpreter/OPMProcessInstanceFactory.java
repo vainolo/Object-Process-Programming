@@ -29,7 +29,8 @@ public enum OPMProcessInstanceFactory {
         processInstance = new OPMConceptualProcess(process);
         break;
       case JAVA:
-        throw new UnsupportedOperationException("Java processes are not supported yet.");
+        processInstance = new OPMJavaProcessInstance(process);
+        break;
       default:
         throw new IllegalStateException("Received unexpected OPMProcessKind " + kind.getLiteral());
     }

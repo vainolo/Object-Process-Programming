@@ -5,12 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import org.easymock.IMockBuilder;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
-
-import static org.easymock.EasyMock.*;
 
 /**
  * 
@@ -18,19 +14,6 @@ import static org.easymock.EasyMock.*;
  * 
  */
 public class OPMAbstractProcessInstanceTest {
-
-  private OPMAbstractProcessInstance fixture;
-  private IMockBuilder<OPMAbstractProcessInstance> builder;
-
-  @Test
-  public void testExecute() {
-    builder.addMockedMethod("getName");
-    fixture = builder.createMock();
-    expect(fixture.getName()).andReturn("Something");
-    replay(fixture);
-    fixture.executing();
-    verify(fixture);
-  }
 
   /**
    * Perform pre-test initialization.
@@ -41,7 +24,6 @@ public class OPMAbstractProcessInstanceTest {
    */
   @Before
   public void setUp() throws Exception {
-    builder = createMockBuilder(OPMAbstractProcessInstance.class);
 
   }
 
