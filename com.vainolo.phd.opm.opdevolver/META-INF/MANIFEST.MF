@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OPD Evolver
+Bundle-SymbolicName: com.vainolo.phd.opm.opdevolver
+Bundle-Version: 0.1
+Bundle-Activator: com.vainolo.phd.opm.opdevolver.Activator
+Bundle-Vendor: Arieh "Vainolo" Bibliowicz
+Require-Bundle: org.eclipse.core.runtime
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
