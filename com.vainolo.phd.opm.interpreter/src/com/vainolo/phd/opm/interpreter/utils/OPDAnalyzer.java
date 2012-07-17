@@ -7,7 +7,6 @@ package com.vainolo.phd.opm.interpreter.utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -25,7 +24,6 @@ import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
-import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
@@ -173,58 +171,14 @@ public final class OPDAnalyzer {
    * @return
    */
   public static DirectedAcyclicGraph<OPMProcess, DefaultEdge> createOPDDAG(final OPMObjectProcessDiagram opd) {
-    final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag = new DirectedAcyclicGraph<OPMProcess, DefaultEdge>(
-        DefaultEdge.class);
+    final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag =
+        new DirectedAcyclicGraph<OPMProcess, DefaultEdge>(DefaultEdge.class);
 
     createNodes(dag, opd);
     createExecutionOrderEdges(dag, opd);
     removeDuplicateEdges(dag);
 
     return dag;
-  }
-
-  /**
-   * <p>
-   * Calculate all incoming parameters of a process.
-   * </p>
-   * <ul>
-   * <li> {@link OPMProceduralLinkKind#INSTRUMENT}</li>
-   * <li> {@link OPMProceduralLinkKind#INSTRUMENT_CONDITION}</li>
-   * <li> {@link OPMProceduralLinkKind#INSTRUMENT_EVENT}</li>
-   * <li> {@link OPMProceduralLinkKind#CONSUMPTION}</li>
-   * <li> {@link OPMProceduralLinkKind#CONSUMPTION_CONDITION}</li>
-   * <li> {@link OPMProceduralLinkKind#CONSUMPTION_EVENT}</li>
-   * <li> {@link OPMProceduralLinkKind#EFFECT}</li>
-   * <li> {@link OPMProceduralLinkKind#EFFECT_CONDITION}</li>
-   * <li> {@link OPMProceduralLinkKind#EFFECT_EVENT}</li>
-   * </ul>
-   * 
-   * @param process
-   *          the process to analyze.
-   * @return all incoming parameters of the process.
-   */
-  public static Set<Parameter> calculateIncomingParameters(final OPMProcess process) {
-    return getConnectedObjectsByLinkFilter(process, OPMProceduralLinkFilter.incomingFilter);
-  }
-
-  /**
-   * <p>
-   * Calculate all outgoing parameters of a process. A Parameters is outgoing if it is connected to the process with one
-   * of the following link kinds:
-   * </p>
-   * <ul>
-   * <li> {@link OPMProceduralLinkKind#EFFECT}</li>
-   * <li> {@link OPMProceduralLinkKind#EFFECT_CONDITION}</li>
-   * <li> {@link OPMProceduralLinkKind#EFFECT_EVENT}</li>
-   * <li> {@link OPMProceduralLinkKind#RESULT}</li>
-   * </ul>
-   * 
-   * @param process
-   *          to analyze.
-   * @return all outgoing parameters of the process.
-   */
-  public static Set<Parameter> calculateOutgoingParameters(final OPMProcess process) {
-    return getConnectedObjectsByLinkFilter(process, OPMProceduralLinkFilter.outgoingFilter);
   }
 
   /**
@@ -261,8 +215,9 @@ public final class OPDAnalyzer {
             continue;
           }
           GraphEdgeChangeEvent<OPMProcess, DefaultEdge> event;
-          event = new GraphEdgeChangeEvent<OPMProcess, DefaultEdge>(new Object(), GraphEdgeChangeEvent.EDGE_REMOVED,
-              removedEdge);
+          event =
+              new GraphEdgeChangeEvent<OPMProcess, DefaultEdge>(new Object(), GraphEdgeChangeEvent.EDGE_REMOVED,
+                  removedEdge);
           dni.edgeRemoved(event);
         }
       }
@@ -333,32 +288,6 @@ public final class OPDAnalyzer {
     for(final OPMProcess process : opd.getProcesses()) {
       dag.addVertex(process);
     }
-  }
-
-  /**
-   * Filter the objects connected to a process using the given link filter
-   * 
-   * @param process
-   *          to analyze.
-   * @param filter
-   *          the filter used to filter links.
-   * @return a set of parameters where each parameter contains the connected object, the kind of link it has to the
-   *         process and the parameter name.
-   */
-  private static Set<Parameter> getConnectedObjectsByLinkFilter(final OPMProcess process,
-      final OPMProceduralLinkFilter filter) {
-
-    Set<Parameter> parameters = new HashSet<Parameter>();
-    for(OPMProceduralLink link : process.getIncomingProceduralLinks()) {
-      if(filter.filter(link.getKind())) {
-        if(link.getSource() instanceof OPMObject) {
-          parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource(), link, process));
-        } else {
-          parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget(), link, process));
-        }
-      }
-    }
-    return parameters;
   }
 
   /**
