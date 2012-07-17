@@ -10,10 +10,10 @@ import java.util.logging.Logger;
 
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.model.Variable;
-import com.vainolo.phd.opm.interpreter.utils.IsOPMConditionalParameter;
-import com.vainolo.phd.opm.interpreter.utils.IsOPMIncomingParameter;
-import com.vainolo.phd.opm.interpreter.utils.IsOPMOutgoingParameter;
-import com.vainolo.phd.opm.interpreter.utils.IsOPMWaitIncomingParameter;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMConditionalParameter;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMIncomingParameter;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingParameter;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMWaitIncomingParameter;
 import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;

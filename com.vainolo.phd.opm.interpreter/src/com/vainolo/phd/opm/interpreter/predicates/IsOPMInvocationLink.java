@@ -3,23 +3,27 @@
  * You can use this code for educational purposes. For any other uses
  * please contact me: vainolo@gmail.com
  *******************************************************************************/
-package com.vainolo.phd.opm.interpreter.utils;
+package com.vainolo.phd.opm.interpreter.predicates;
 
 import com.google.common.base.Predicate;
+import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
- * Predicate that returns true for incoming parameters.
+ * Predicate that returns true for invocation conditional links.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
- * @created 10 Jul 2012
+ * @created 9 Jul 2012
  * 
  */
-public enum IsOPMIncomingParameter implements Predicate<Parameter> {
+public enum IsOPMInvocationLink implements Predicate<OPMProceduralLink> {
   INSTANCE;
 
   @Override
-  public boolean apply(final Parameter input) {
-    return IsOPMIncomingProceduralLink.INSTANCE.apply(input.getLink());
+  public boolean apply(final OPMProceduralLink link) {
+    switch(link.getKind()) {
+      case INVOCATION:
+        return true;
+    }
+    return false;
   }
-
 }

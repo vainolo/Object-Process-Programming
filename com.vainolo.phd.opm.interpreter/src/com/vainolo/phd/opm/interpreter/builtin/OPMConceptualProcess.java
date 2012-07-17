@@ -10,7 +10,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
-import com.vainolo.phd.opm.interpreter.utils.IsOPMOutgoingParameter;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingParameter;
 import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;

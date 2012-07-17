@@ -3,32 +3,24 @@
  * You can use this code for educational purposes. For any other uses
  * please contact me: vainolo@gmail.com
  *******************************************************************************/
-package com.vainolo.phd.opm.interpreter.utils;
+package com.vainolo.phd.opm.interpreter.predicates;
 
 import com.google.common.base.Predicate;
-import com.vainolo.phd.opm.model.OPMProceduralLink;
+import com.vainolo.phd.opm.interpreter.utils.Parameter;
 
 /**
- * Predicate that returns true for outgoing procedural event links.
+ * Predicate that returns true for incoming conditional parameters.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * @created 9 Jul 2012
  * 
  */
-public enum IsOPMEventLink implements Predicate<OPMProceduralLink> {
+public enum IsOPMConditionalParameter implements Predicate<Parameter> {
   INSTANCE;
 
   @Override
-  public boolean apply(final OPMProceduralLink link) {
-    switch(link.getKind()) {
-      case CONSUMPTION_EVENT:
-      case EFFECT_EVENT:
-      case INSTRUMENT_EVENT:
-        return true;
-    }
-
-    return false;
-
+  public boolean apply(final Parameter input) {
+    return IsOPMConditionalLink.INSTANCE.apply(input.getLink());
   }
 
 }
