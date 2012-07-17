@@ -37,7 +37,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class OPMLinkItemProvider
-	extends ItemProviderAdapter
+	extends OPMNodeItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -249,11 +249,8 @@ public class OPMLinkItemProvider
    */
 	@Override
 	public String getText(Object object) {
-    OPMLinkRouterKind labelValue = ((OPMLink)object).getRouterKind();
-    String label = labelValue == null ? null : labelValue.toString();
-    return label == null || label.length() == 0 ?
-      getString("_UI_OPMLink_type") :
-      getString("_UI_OPMLink_type") + " " + label;
+    OPMLink opmLink = (OPMLink)object;
+    return getString("_UI_OPMLink_type") + " " + opmLink.getId();
   }
 
 	/**
@@ -289,17 +286,6 @@ public class OPMLinkItemProvider
 	@Override
 	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
     super.collectNewChildDescriptors(newChildDescriptors, object);
-  }
-
-	/**
-   * Return the resource locator for this item provider's resources.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
-	@Override
-	public ResourceLocator getResourceLocator() {
-    return OPMEditPlugin.INSTANCE;
   }
 
 }

@@ -73,13 +73,13 @@ public enum OPMProceduralLinkKind implements Enumerator {
    * @ordered
    */
     INVOCATION(5, "INVOCATION", "Invocation"), /**
-  * The '<em><b>INSTRUMENT</b></em>' literal object.
-  * <!-- begin-user-doc -->
+   * The '<em><b>INSTRUMENT</b></em>' literal object.
+   * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
-  * @see #INSTRUMENT_VALUE
-  * @generated
-  * @ordered
-  */
+   * @see #INSTRUMENT_VALUE
+   * @generated
+   * @ordered
+   */
 INSTRUMENT(1, "INSTRUMENT", "Instrument"), /**
    * The '<em><b>INSTRUMENT EVENT</b></em>' literal object.
    * <!-- begin-user-doc -->
@@ -183,123 +183,123 @@ INSTRUMENT(1, "INSTRUMENT", "Instrument"), /**
   public static final int EFFECT_CONDITION_VALUE = 10;
 
         /**
-         * The '<em><b>RESULT</b></em>' literal value.
-         * <!-- begin-user-doc -->
+   * The '<em><b>RESULT</b></em>' literal value.
+   * <!-- begin-user-doc -->
          * <p>
          * If the meaning of '<em><b>RESULT</b></em>' literal object isn't clear,
          * there really should be more of a description here...
          * </p>
          * <!-- end-user-doc -->
-         * @see #RESULT
-         * @model literal="Result"
-         * @generated
-         * @ordered
-         */
+   * @see #RESULT
+   * @model literal="Result"
+   * @generated
+   * @ordered
+   */
         public static final int RESULT_VALUE = 4;
 
         /**
-         * The '<em><b>INVOCATION</b></em>' literal value.
-         * <!-- begin-user-doc -->
+   * The '<em><b>INVOCATION</b></em>' literal value.
+   * <!-- begin-user-doc -->
            * <p>
            * If the meaning of '<em><b>INVOCATION</b></em>' literal object isn't clear,
            * there really should be more of a description here...
            * </p>
            * <!-- end-user-doc -->
-         * @see #INVOCATION
-         * @model literal="Invocation"
-         * @generated
-         * @ordered
-         */
+   * @see #INVOCATION
+   * @model literal="Invocation"
+   * @generated
+   * @ordered
+   */
           public static final int INVOCATION_VALUE = 5;
 
         /**
-         * The '<em><b>INSTRUMENT</b></em>' literal value.
-         * <!-- begin-user-doc -->
+   * The '<em><b>INSTRUMENT</b></em>' literal value.
+   * <!-- begin-user-doc -->
          * <p>
          * If the meaning of '<em><b>INSTRUMENT</b></em>' literal object isn't clear,
          * there really should be more of a description here...
          * </p>
          * <!-- end-user-doc -->
-         * @see #INSTRUMENT
-         * @model literal="Instrument"
-         * @generated
-         * @ordered
-         */
+   * @see #INSTRUMENT
+   * @model literal="Instrument"
+   * @generated
+   * @ordered
+   */
         public static final int INSTRUMENT_VALUE = 1;
 
         /**
-  * The '<em><b>INSTRUMENT EVENT</b></em>' literal value.
-  * <!-- begin-user-doc -->
+   * The '<em><b>INSTRUMENT EVENT</b></em>' literal value.
+   * <!-- begin-user-doc -->
  * <p>
  * If the meaning of '<em><b>INSTRUMENT EVENT</b></em>' literal object isn't clear,
  * there really should be more of a description here...
  * </p>
  * <!-- end-user-doc -->
-  * @see #INSTRUMENT_EVENT
-  * @model literal="Instrument Event"
-  * @generated
-  * @ordered
-  */
+   * @see #INSTRUMENT_EVENT
+   * @model literal="Instrument Event"
+   * @generated
+   * @ordered
+   */
 public static final int INSTRUMENT_EVENT_VALUE = 6;
 
         /**
-         * The '<em><b>INSTRUMENT CONDITION</b></em>' literal value.
-         * <!-- begin-user-doc -->
+   * The '<em><b>INSTRUMENT CONDITION</b></em>' literal value.
+   * <!-- begin-user-doc -->
          * <p>
          * If the meaning of '<em><b>INSTRUMENT CONDITION</b></em>' literal object isn't clear,
          * there really should be more of a description here...
          * </p>
          * <!-- end-user-doc -->
-         * @see #INSTRUMENT_CONDITION
-         * @model literal="Instrument Condition"
-         * @generated
-         * @ordered
-         */
+   * @see #INSTRUMENT_CONDITION
+   * @model literal="Instrument Condition"
+   * @generated
+   * @ordered
+   */
         public static final int INSTRUMENT_CONDITION_VALUE = 7;
 
         /**
-         * The '<em><b>CONSUMPTION</b></em>' literal value.
-         * <!-- begin-user-doc -->
+   * The '<em><b>CONSUMPTION</b></em>' literal value.
+   * <!-- begin-user-doc -->
          * <p>
          * If the meaning of '<em><b>CONSUMPTION</b></em>' literal object isn't clear,
          * there really should be more of a description here...
          * </p>
          * <!-- end-user-doc -->
-         * @see #CONSUMPTION
-         * @model literal="Consumption"
-         * @generated
-         * @ordered
-         */
+   * @see #CONSUMPTION
+   * @model literal="Consumption"
+   * @generated
+   * @ordered
+   */
         public static final int CONSUMPTION_VALUE = 2;
 
         /**
-         * The '<em><b>CONSUMPTION EVENT</b></em>' literal value.
-         * <!-- begin-user-doc -->
+   * The '<em><b>CONSUMPTION EVENT</b></em>' literal value.
+   * <!-- begin-user-doc -->
          * <p>
          * If the meaning of '<em><b>CONSUMPTION EVENT</b></em>' literal object isn't clear,
          * there really should be more of a description here...
          * </p>
          * <!-- end-user-doc -->
-         * @see #CONSUMPTION_EVENT
-         * @model literal="Consumption Event"
-         * @generated
-         * @ordered
-         */
+   * @see #CONSUMPTION_EVENT
+   * @model literal="Consumption Event"
+   * @generated
+   * @ordered
+   */
         public static final int CONSUMPTION_EVENT_VALUE = 8;
 
         /**
-         * The '<em><b>CONSUMPTION CONDITION</b></em>' literal value.
-         * <!-- begin-user-doc -->
+   * The '<em><b>CONSUMPTION CONDITION</b></em>' literal value.
+   * <!-- begin-user-doc -->
          * <p>
          * If the meaning of '<em><b>CONSUMPTION CONDITION</b></em>' literal object isn't clear,
          * there really should be more of a description here...
          * </p>
          * <!-- end-user-doc -->
-         * @see #CONSUMPTION_CONDITION
-         * @model literal="Consumption Condition"
-         * @generated
-         * @ordered
-         */
+   * @see #CONSUMPTION_CONDITION
+   * @model literal="Consumption Condition"
+   * @generated
+   * @ordered
+   */
         public static final int CONSUMPTION_CONDITION_VALUE = 9;
 
         /**

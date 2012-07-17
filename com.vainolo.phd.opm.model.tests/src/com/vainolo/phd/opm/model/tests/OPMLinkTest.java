@@ -19,15 +19,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMLinkTest extends TestCase {
-
-	/**
-   * The fixture for this Link test case.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
-	protected OPMLink fixture = null;
+public class OPMLinkTest extends OPMNodeTest {
 
 	/**
    * <!-- begin-user-doc -->
@@ -49,23 +41,14 @@ public class OPMLinkTest extends TestCase {
   }
 
 	/**
-   * Sets the fixture for this Link test case.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
-	protected void setFixture(OPMLink fixture) {
-    this.fixture = fixture;
-  }
-
-	/**
    * Returns the fixture for this Link test case.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
-	protected OPMLink getFixture() {
-    return fixture;
+	@Override
+  protected OPMLink getFixture() {
+    return (OPMLink)fixture;
   }
 
 	/**

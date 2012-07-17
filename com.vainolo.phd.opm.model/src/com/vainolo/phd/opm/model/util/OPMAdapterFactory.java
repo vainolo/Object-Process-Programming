@@ -76,6 +76,14 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
         return createOPMContainerAdapter();
       }
       @Override
+      public Adapter caseOPMElementWithID(OPMElementWithID object) {
+        return createOPMElementWithIDAdapter();
+      }
+      @Override
+      public Adapter caseOPMNamedElement(OPMNamedElement object) {
+        return createOPMNamedElementAdapter();
+      }
+      @Override
       public Adapter caseOPMObjectProcessDiagram(OPMObjectProcessDiagram object) {
         return createOPMObjectProcessDiagramAdapter();
       }
@@ -112,10 +120,6 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
         return createOPMProceduralLinkAdapter();
       }
       @Override
-      public Adapter caseOPMNamedElement(OPMNamedElement object) {
-        return createOPMNamedElementAdapter();
-      }
-      @Override
       public Adapter caseLabel(Label object) {
         return createLabelAdapter();
       }
@@ -150,6 +154,20 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
    * @generated
    */
     public Adapter createOPMContainerAdapter() {
+    return null;
+  }
+
+    /**
+   * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMElementWithID <em>Element With ID</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.vainolo.phd.opm.model.OPMElementWithID
+   * @generated
+   */
+  public Adapter createOPMElementWithIDAdapter() {
     return null;
   }
 

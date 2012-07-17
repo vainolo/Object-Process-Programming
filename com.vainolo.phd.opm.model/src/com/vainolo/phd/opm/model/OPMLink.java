@@ -33,7 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface OPMLink extends EObject {
+public interface OPMLink extends OPMNode {
 	/**
    * Returns the value of the '<em><b>Opd</b></em>' container reference.
    * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLinks <em>Links</em>}'.

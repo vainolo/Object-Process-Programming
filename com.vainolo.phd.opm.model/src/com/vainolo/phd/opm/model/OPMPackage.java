@@ -90,6 +90,34 @@ public interface OPMPackage extends EPackage {
     int OPM_CONTAINER_FEATURE_COUNT = 1;
 
     /**
+   * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMElementWithIDImpl <em>Element With ID</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.vainolo.phd.opm.model.impl.OPMElementWithIDImpl
+   * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMElementWithID()
+   * @generated
+   */
+  int OPM_ELEMENT_WITH_ID = 1;
+
+    /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_ELEMENT_WITH_ID__ID = 0;
+
+    /**
+   * The number of structural features of the '<em>Element With ID</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_ELEMENT_WITH_ID_FEATURE_COUNT = 1;
+
+    /**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl <em>Object Process Diagram</em>}' class.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -97,43 +125,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObjectProcessDiagram()
    * @generated
    */
-	int OPM_OBJECT_PROCESS_DIAGRAM = 1;
-
-	/**
-   * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_OBJECT_PROCESS_DIAGRAM__NODES = OPM_CONTAINER__NODES;
-
-    /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_OBJECT_PROCESS_DIAGRAM__NAME = OPM_CONTAINER_FEATURE_COUNT + 0;
-
-				/**
-   * The feature id for the '<em><b>Links</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
-
-    /**
-   * The number of structural features of the '<em>Object Process Diagram</em>' class.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 2;
+	int OPM_OBJECT_PROCESS_DIAGRAM = 3;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl <em>Node</em>}' class.
@@ -143,52 +135,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMNode()
    * @generated
    */
-	int OPM_NODE = 2;
-
-	/**
-   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_NODE__INCOMING_LINKS = 0;
-
-	/**
-   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_NODE__OUTGOING_LINKS = 1;
-
-	/**
-   * The feature id for the '<em><b>Container</b></em>' container reference.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_NODE__CONTAINER = 2;
-
-    /**
-   * The feature id for the '<em><b>Constraints</b></em>' attribute.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_NODE__CONSTRAINTS = 3;
-
-    /**
-   * The number of structural features of the '<em>Node</em>' class.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_NODE_FEATURE_COUNT = 4;
+	int OPM_NODE = 4;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMThingImpl <em>Thing</em>}' class.
@@ -198,79 +145,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMThing()
    * @generated
    */
-	int OPM_THING = 3;
-
-	/**
-   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_THING__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
-
-	/**
-   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_THING__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
-
-	/**
-   * The feature id for the '<em><b>Container</b></em>' container reference.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_THING__CONTAINER = OPM_NODE__CONTAINER;
-
-    /**
-   * The feature id for the '<em><b>Constraints</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_THING__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
-
-				/**
-   * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_THING__NODES = OPM_NODE_FEATURE_COUNT + 0;
-
-    /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 1;
-
-	/**
-   * The feature id for the '<em><b>Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_THING__DESCRIPTION = OPM_NODE_FEATURE_COUNT + 2;
-
-    /**
-   * The number of structural features of the '<em>Thing</em>' class.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 3;
+	int OPM_THING = 5;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMStateImpl <em>State</em>}' class.
@@ -280,61 +155,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMState()
    * @generated
    */
-    int OPM_STATE = 4;
-
-    /**
-   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_STATE__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
-
-    /**
-   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_STATE__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
-
-    /**
-   * The feature id for the '<em><b>Container</b></em>' container reference.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_STATE__CONTAINER = OPM_NODE__CONTAINER;
-
-    /**
-   * The feature id for the '<em><b>Constraints</b></em>' attribute.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_STATE__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
-
-    /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_STATE__NAME = OPM_NODE_FEATURE_COUNT + 0;
-
-    /**
-   * The number of structural features of the '<em>State</em>' class.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_STATE_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
+    int OPM_STATE = 6;
 
     /**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl <em>Object</em>}' class.
@@ -344,79 +165,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObject()
    * @generated
    */
-	int OPM_OBJECT = 5;
-
-	/**
-   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_OBJECT__INCOMING_LINKS = OPM_THING__INCOMING_LINKS;
-
-	/**
-   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_OBJECT__OUTGOING_LINKS = OPM_THING__OUTGOING_LINKS;
-
-	/**
-   * The feature id for the '<em><b>Container</b></em>' container reference.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_OBJECT__CONTAINER = OPM_THING__CONTAINER;
-
-    /**
-   * The feature id for the '<em><b>Constraints</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_OBJECT__CONSTRAINTS = OPM_THING__CONSTRAINTS;
-
-				/**
-   * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_OBJECT__NODES = OPM_THING__NODES;
-
-    /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_OBJECT__NAME = OPM_THING__NAME;
-
-	/**
-   * The feature id for the '<em><b>Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_OBJECT__DESCRIPTION = OPM_THING__DESCRIPTION;
-
-    /**
-   * The number of structural features of the '<em>Object</em>' class.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 0;
+	int OPM_OBJECT = 7;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl <em>Process</em>}' class.
@@ -426,88 +175,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProcess()
    * @generated
    */
-	int OPM_PROCESS = 6;
-
-	/**
-   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCESS__INCOMING_LINKS = OPM_THING__INCOMING_LINKS;
-
-	/**
-   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCESS__OUTGOING_LINKS = OPM_THING__OUTGOING_LINKS;
-
-	/**
-   * The feature id for the '<em><b>Container</b></em>' container reference.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_PROCESS__CONTAINER = OPM_THING__CONTAINER;
-
-    /**
-   * The feature id for the '<em><b>Constraints</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCESS__CONSTRAINTS = OPM_THING__CONSTRAINTS;
-
-				/**
-   * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_PROCESS__NODES = OPM_THING__NODES;
-
-    /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCESS__NAME = OPM_THING__NAME;
-
-	/**
-   * The feature id for the '<em><b>Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_PROCESS__DESCRIPTION = OPM_THING__DESCRIPTION;
-
-    /**
-   * The feature id for the '<em><b>Kind</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCESS__KIND = OPM_THING_FEATURE_COUNT + 0;
-
-				/**
-   * The number of structural features of the '<em>Process</em>' class.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCESS_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 1;
+	int OPM_PROCESS = 8;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl <em>Link</em>}' class.
@@ -517,7 +185,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLink()
    * @generated
    */
-	int OPM_LINK = 8;
+	int OPM_LINK = 10;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMStructuralLinkAggregatorImpl <em>Structural Link Aggregator</em>}' class.
@@ -527,142 +195,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregator()
    * @generated
    */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR = 7;
-
-	/**
-   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
-
-	/**
-   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
-
-	/**
-   * The feature id for the '<em><b>Container</b></em>' container reference.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_STRUCTURAL_LINK_AGGREGATOR__CONTAINER = OPM_NODE__CONTAINER;
-
-    /**
-   * The feature id for the '<em><b>Constraints</b></em>' attribute.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_STRUCTURAL_LINK_AGGREGATOR__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
-
-    /**
-   * The feature id for the '<em><b>Kind</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR__KIND = OPM_NODE_FEATURE_COUNT + 0;
-
-	/**
-   * The number of structural features of the '<em>Structural Link Aggregator</em>' class.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
-
-    /**
-   * The feature id for the '<em><b>Opd</b></em>' container reference.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_LINK__OPD = 0;
-
-    /**
-   * The feature id for the '<em><b>Source</b></em>' reference.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_LINK__SOURCE = 1;
-
-    /**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_LINK__TARGET = 2;
-
-    /**
-   * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_LINK__BENDPOINTS = 3;
-
-    /**
-   * The feature id for the '<em><b>Router Kind</b></em>' attribute.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_LINK__ROUTER_KIND = 4;
-
-    /**
-   * The feature id for the '<em><b>Source Decoration</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_LINK__SOURCE_DECORATION = 5;
-
-				/**
-   * The feature id for the '<em><b>Target Decoration</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_LINK__TARGET_DECORATION = 6;
-
-				/**
-   * The feature id for the '<em><b>Center Decoration</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_LINK__CENTER_DECORATION = 7;
-
-				/**
-   * The number of structural features of the '<em>Link</em>' class.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_LINK_FEATURE_COUNT = 8;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR = 9;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl <em>Procedural Link</em>}' class.
@@ -672,97 +205,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLink()
    * @generated
    */
-	int OPM_PROCEDURAL_LINK = 9;
-
-	/**
-   * The feature id for the '<em><b>Opd</b></em>' container reference.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK__OPD = OPM_LINK__OPD;
-
-	/**
-   * The feature id for the '<em><b>Source</b></em>' reference.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK__SOURCE = OPM_LINK__SOURCE;
-
-	/**
-   * The feature id for the '<em><b>Target</b></em>' reference.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK__TARGET = OPM_LINK__TARGET;
-
-	/**
-   * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK__BENDPOINTS = OPM_LINK__BENDPOINTS;
-
-	/**
-   * The feature id for the '<em><b>Router Kind</b></em>' attribute.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-    int OPM_PROCEDURAL_LINK__ROUTER_KIND = OPM_LINK__ROUTER_KIND;
-
-    /**
-   * The feature id for the '<em><b>Source Decoration</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK__SOURCE_DECORATION = OPM_LINK__SOURCE_DECORATION;
-
-	/**
-   * The feature id for the '<em><b>Target Decoration</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK__TARGET_DECORATION = OPM_LINK__TARGET_DECORATION;
-
-	/**
-   * The feature id for the '<em><b>Center Decoration</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK__CENTER_DECORATION = OPM_LINK__CENTER_DECORATION;
-
-				/**
-   * The feature id for the '<em><b>Kind</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
-
-	/**
-   * The number of structural features of the '<em>Procedural Link</em>' class.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK_FEATURE_COUNT = OPM_LINK_FEATURE_COUNT + 1;
+	int OPM_PROCEDURAL_LINK = 11;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMNamedElementImpl <em>Named Element</em>}' class.
@@ -772,7 +215,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMNamedElement()
    * @generated
    */
-	int OPM_NAMED_ELEMENT = 10;
+	int OPM_NAMED_ELEMENT = 2;
 
 	/**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -792,6 +235,735 @@ public interface OPMPackage extends EPackage {
    */
 	int OPM_NAMED_ELEMENT_FEATURE_COUNT = 1;
 
+  /**
+   * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_OBJECT_PROCESS_DIAGRAM__NODES = OPM_CONTAINER__NODES;
+
+  /**
+  * The feature id for the '<em><b>Name</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_OBJECT_PROCESS_DIAGRAM__NAME = OPM_CONTAINER_FEATURE_COUNT + 0;
+
+  /**
+  * The feature id for the '<em><b>Links</b></em>' containment reference list.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
+
+  /**
+  * The number of structural features of the '<em>Object Process Diagram</em>' class.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_NODE__ID = OPM_ELEMENT_WITH_ID__ID;
+
+  /**
+   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_NODE__INCOMING_LINKS = OPM_ELEMENT_WITH_ID_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_NODE__OUTGOING_LINKS = OPM_ELEMENT_WITH_ID_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Container</b></em>' container reference.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_NODE__CONTAINER = OPM_ELEMENT_WITH_ID_FEATURE_COUNT + 2;
+
+  /**
+  * The feature id for the '<em><b>Constraints</b></em>' attribute.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_NODE__CONSTRAINTS = OPM_ELEMENT_WITH_ID_FEATURE_COUNT + 3;
+
+  /**
+  * The number of structural features of the '<em>Node</em>' class.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_NODE_FEATURE_COUNT = OPM_ELEMENT_WITH_ID_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_THING__ID = OPM_NODE__ID;
+
+  /**
+   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_THING__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_THING__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Container</b></em>' container reference.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_THING__CONTAINER = OPM_NODE__CONTAINER;
+
+  /**
+  * The feature id for the '<em><b>Constraints</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_THING__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
+
+  /**
+  * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_THING__NODES = OPM_NODE_FEATURE_COUNT + 0;
+
+  /**
+  * The feature id for the '<em><b>Name</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_THING__DESCRIPTION = OPM_NODE_FEATURE_COUNT + 2;
+
+  /**
+  * The number of structural features of the '<em>Thing</em>' class.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STATE__ID = OPM_NODE__ID;
+
+  /**
+  * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_STATE__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
+
+  /**
+  * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_STATE__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
+
+  /**
+  * The feature id for the '<em><b>Container</b></em>' container reference.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_STATE__CONTAINER = OPM_NODE__CONTAINER;
+
+  /**
+  * The feature id for the '<em><b>Constraints</b></em>' attribute.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_STATE__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
+
+  /**
+  * The feature id for the '<em><b>Name</b></em>' attribute.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_STATE__NAME = OPM_NODE_FEATURE_COUNT + 0;
+
+  /**
+  * The number of structural features of the '<em>State</em>' class.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_STATE_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_OBJECT__ID = OPM_THING__ID;
+
+  /**
+   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_OBJECT__INCOMING_LINKS = OPM_THING__INCOMING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_OBJECT__OUTGOING_LINKS = OPM_THING__OUTGOING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Container</b></em>' container reference.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_OBJECT__CONTAINER = OPM_THING__CONTAINER;
+
+  /**
+  * The feature id for the '<em><b>Constraints</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_OBJECT__CONSTRAINTS = OPM_THING__CONSTRAINTS;
+
+  /**
+  * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_OBJECT__NODES = OPM_THING__NODES;
+
+  /**
+  * The feature id for the '<em><b>Name</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_OBJECT__NAME = OPM_THING__NAME;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_OBJECT__DESCRIPTION = OPM_THING__DESCRIPTION;
+
+  /**
+  * The number of structural features of the '<em>Object</em>' class.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_PROCESS__ID = OPM_THING__ID;
+
+  /**
+   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCESS__INCOMING_LINKS = OPM_THING__INCOMING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCESS__OUTGOING_LINKS = OPM_THING__OUTGOING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Container</b></em>' container reference.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_PROCESS__CONTAINER = OPM_THING__CONTAINER;
+
+  /**
+  * The feature id for the '<em><b>Constraints</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_PROCESS__CONSTRAINTS = OPM_THING__CONSTRAINTS;
+
+  /**
+  * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_PROCESS__NODES = OPM_THING__NODES;
+
+  /**
+  * The feature id for the '<em><b>Name</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_PROCESS__NAME = OPM_THING__NAME;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_PROCESS__DESCRIPTION = OPM_THING__DESCRIPTION;
+
+  /**
+  * The feature id for the '<em><b>Kind</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_PROCESS__KIND = OPM_THING_FEATURE_COUNT + 0;
+
+  /**
+  * The number of structural features of the '<em>Process</em>' class.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_PROCESS_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK_AGGREGATOR__ID = OPM_NODE__ID;
+
+  /**
+   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_STRUCTURAL_LINK_AGGREGATOR__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_STRUCTURAL_LINK_AGGREGATOR__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Container</b></em>' container reference.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_STRUCTURAL_LINK_AGGREGATOR__CONTAINER = OPM_NODE__CONTAINER;
+
+  /**
+  * The feature id for the '<em><b>Constraints</b></em>' attribute.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_STRUCTURAL_LINK_AGGREGATOR__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
+
+  /**
+  * The feature id for the '<em><b>Kind</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_STRUCTURAL_LINK_AGGREGATOR__KIND = OPM_NODE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Structural Link Aggregator</em>' class.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_LINK__ID = OPM_NODE__ID;
+
+  /**
+   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_LINK__INCOMING_LINKS = OPM_NODE__INCOMING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_LINK__OUTGOING_LINKS = OPM_NODE__OUTGOING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Container</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_LINK__CONTAINER = OPM_NODE__CONTAINER;
+
+  /**
+   * The feature id for the '<em><b>Constraints</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_LINK__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
+
+  /**
+  * The feature id for the '<em><b>Opd</b></em>' container reference.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_LINK__OPD = OPM_NODE_FEATURE_COUNT + 0;
+
+  /**
+  * The feature id for the '<em><b>Source</b></em>' reference.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_LINK__SOURCE = OPM_NODE_FEATURE_COUNT + 1;
+
+  /**
+  * The feature id for the '<em><b>Target</b></em>' reference.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_LINK__TARGET = OPM_NODE_FEATURE_COUNT + 2;
+
+  /**
+  * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_LINK__BENDPOINTS = OPM_NODE_FEATURE_COUNT + 3;
+
+  /**
+  * The feature id for the '<em><b>Router Kind</b></em>' attribute.
+  * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+  int OPM_LINK__ROUTER_KIND = OPM_NODE_FEATURE_COUNT + 4;
+
+  /**
+  * The feature id for the '<em><b>Source Decoration</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_LINK__SOURCE_DECORATION = OPM_NODE_FEATURE_COUNT + 5;
+
+  /**
+  * The feature id for the '<em><b>Target Decoration</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_LINK__TARGET_DECORATION = OPM_NODE_FEATURE_COUNT + 6;
+
+  /**
+  * The feature id for the '<em><b>Center Decoration</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_LINK__CENTER_DECORATION = OPM_NODE_FEATURE_COUNT + 7;
+
+  /**
+  * The number of structural features of the '<em>Link</em>' class.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_LINK_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 8;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_PROCEDURAL_LINK__ID = OPM_LINK__ID;
+
+  /**
+   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_PROCEDURAL_LINK__INCOMING_LINKS = OPM_LINK__INCOMING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_PROCEDURAL_LINK__OUTGOING_LINKS = OPM_LINK__OUTGOING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Container</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_PROCEDURAL_LINK__CONTAINER = OPM_LINK__CONTAINER;
+
+  /**
+   * The feature id for the '<em><b>Constraints</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_PROCEDURAL_LINK__CONSTRAINTS = OPM_LINK__CONSTRAINTS;
+
+  /**
+   * The feature id for the '<em><b>Opd</b></em>' container reference.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCEDURAL_LINK__OPD = OPM_LINK__OPD;
+
+  /**
+   * The feature id for the '<em><b>Source</b></em>' reference.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCEDURAL_LINK__SOURCE = OPM_LINK__SOURCE;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCEDURAL_LINK__TARGET = OPM_LINK__TARGET;
+
+  /**
+   * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCEDURAL_LINK__BENDPOINTS = OPM_LINK__BENDPOINTS;
+
+  /**
+   * The feature id for the '<em><b>Router Kind</b></em>' attribute.
+   * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+    int OPM_PROCEDURAL_LINK__ROUTER_KIND = OPM_LINK__ROUTER_KIND;
+
+  /**
+  * The feature id for the '<em><b>Source Decoration</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_PROCEDURAL_LINK__SOURCE_DECORATION = OPM_LINK__SOURCE_DECORATION;
+
+  /**
+   * The feature id for the '<em><b>Target Decoration</b></em>' attribute.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCEDURAL_LINK__TARGET_DECORATION = OPM_LINK__TARGET_DECORATION;
+
+  /**
+   * The feature id for the '<em><b>Center Decoration</b></em>' attribute.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCEDURAL_LINK__CENTER_DECORATION = OPM_LINK__CENTER_DECORATION;
+
+  /**
+  * The feature id for the '<em><b>Kind</b></em>' attribute.
+  * <!-- begin-user-doc -->
+ * <!-- end-user-doc -->
+  * @generated
+  * @ordered
+  */
+int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Procedural Link</em>' class.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCEDURAL_LINK_FEATURE_COUNT = OPM_LINK_FEATURE_COUNT + 1;
+
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.LabelImpl <em>Label</em>}' class.
    * <!-- begin-user-doc -->
@@ -800,9 +972,18 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getLabel()
    * @generated
    */
-	int LABEL = 11;
+	int LABEL = 12;
 
 	/**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LABEL__ID = OPM_NODE__ID;
+
+  /**
    * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -864,7 +1045,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregatorKind()
    * @generated
    */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 12;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 13;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
@@ -874,7 +1055,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLinkKind()
    * @generated
    */
-	int OPM_PROCEDURAL_LINK_KIND = 13;
+	int OPM_PROCEDURAL_LINK_KIND = 14;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMLinkRouterKind <em>Link Router Kind</em>}' enum.
@@ -884,7 +1065,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLinkRouterKind()
    * @generated
    */
-    int OPM_LINK_ROUTER_KIND = 14;
+    int OPM_LINK_ROUTER_KIND = 15;
 
     /**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProcessKind <em>Process Kind</em>}' enum.
@@ -894,7 +1075,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProcessKind()
    * @generated
    */
-	int OPM_PROCESS_KIND = 15;
+	int OPM_PROCESS_KIND = 16;
 
 				/**
    * The meta object id for the '<em>Rectangle</em>' data type.
@@ -904,7 +1085,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
    * @generated
    */
-	int RECTANGLE = 17;
+	int RECTANGLE = 18;
 
 
 	/**
@@ -929,6 +1110,27 @@ public interface OPMPackage extends EPackage {
     EReference getOPMContainer_Nodes();
 
     /**
+   * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMElementWithID <em>Element With ID</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Element With ID</em>'.
+   * @see com.vainolo.phd.opm.model.OPMElementWithID
+   * @generated
+   */
+  EClass getOPMElementWithID();
+
+    /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMElementWithID#getId <em>Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Id</em>'.
+   * @see com.vainolo.phd.opm.model.OPMElementWithID#getId()
+   * @see #getOPMElementWithID()
+   * @generated
+   */
+  EAttribute getOPMElementWithID_Id();
+
+    /**
    * The meta object id for the '<em>Point</em>' data type.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -936,7 +1138,7 @@ public interface OPMPackage extends EPackage {
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
    * @generated
    */
-	int POINT = 16;
+	int POINT = 17;
 
 
 	/**
@@ -1348,6 +1550,24 @@ public interface OPMPackage extends EPackage {
      * @generated
      */
         EReference OPM_CONTAINER__NODES = eINSTANCE.getOPMContainer_Nodes();
+
+        /**
+     * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMElementWithIDImpl <em>Element With ID</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.impl.OPMElementWithIDImpl
+     * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMElementWithID()
+     * @generated
+     */
+    EClass OPM_ELEMENT_WITH_ID = eINSTANCE.getOPMElementWithID();
+
+        /**
+     * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPM_ELEMENT_WITH_ID__ID = eINSTANCE.getOPMElementWithID_Id();
 
         /**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl <em>Object Process Diagram</em>}' class.

@@ -44,7 +44,7 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
  *
  * @generated
  */
-public abstract class OPMNodeImpl extends EObjectImpl implements OPMNode {
+public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNode {
   /**
    * The cached value of the '{@link #getIncomingLinks() <em>Incoming Links</em>}' reference list.
    * <!-- begin-user-doc

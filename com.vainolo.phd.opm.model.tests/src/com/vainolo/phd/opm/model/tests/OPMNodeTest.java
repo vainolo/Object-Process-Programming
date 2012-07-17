@@ -29,15 +29,7 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
  * </p>
  * @generated
  */
-public abstract class OPMNodeTest extends TestCase {
-
-	/**
-   * The fixture for this Node test case.
-   * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-   * @generated
-   */
-	protected OPMNode fixture = null;
+public abstract class OPMNodeTest extends OPMElementWithIDTest {
 
 	/**
    * Constructs a new Node test case with the given name.
@@ -50,23 +42,14 @@ public abstract class OPMNodeTest extends TestCase {
   }
 
 	/**
-   * Sets the fixture for this Node test case.
-   * <!-- begin-user-doc --> <!--
-	 * end-user-doc -->
-   * @generated
-   */
-	protected void setFixture(OPMNode fixture) {
-    this.fixture = fixture;
-  }
-
-	/**
    * Returns the fixture for this Node test case.
    * <!-- begin-user-doc --> <!--
 	 * end-user-doc -->
    * @generated
    */
-	protected OPMNode getFixture() {
-    return fixture;
+	@Override
+  protected OPMNode getFixture() {
+    return (OPMNode)fixture;
   }
 
 	/**

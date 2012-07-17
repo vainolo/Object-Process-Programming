@@ -233,6 +233,16 @@ public class OPMThingItemProvider
     newChildDescriptors.add
       (createChildParameter
         (OPMPackage.Literals.OPM_CONTAINER__NODES,
+         OPMFactory.eINSTANCE.createOPMLink()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (OPMPackage.Literals.OPM_CONTAINER__NODES,
+         OPMFactory.eINSTANCE.createOPMProceduralLink()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (OPMPackage.Literals.OPM_CONTAINER__NODES,
          OPMFactory.eINSTANCE.createLabel()));
   }
 

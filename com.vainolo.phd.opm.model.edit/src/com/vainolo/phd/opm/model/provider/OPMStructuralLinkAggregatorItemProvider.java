@@ -109,11 +109,8 @@ public class OPMStructuralLinkAggregatorItemProvider
    */
 	@Override
 	public String getText(Object object) {
-    Rectangle labelValue = ((OPMStructuralLinkAggregator)object).getConstraints();
-    String label = labelValue == null ? null : labelValue.toString();
-    return label == null || label.length() == 0 ?
-      getString("_UI_OPMStructuralLinkAggregator_type") :
-      getString("_UI_OPMStructuralLinkAggregator_type") + " " + label;
+    OPMStructuralLinkAggregator opmStructuralLinkAggregator = (OPMStructuralLinkAggregator)object;
+    return getString("_UI_OPMStructuralLinkAggregator_type") + " " + opmStructuralLinkAggregator.getId();
   }
 
 	/**

@@ -8,6 +8,7 @@ package com.vainolo.phd.opm.model.impl;
 
 import com.vainolo.phd.opm.model.Label;
 import com.vainolo.phd.opm.model.OPMContainer;
+import com.vainolo.phd.opm.model.OPMElementWithID;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMLinkRouterKind;
@@ -49,6 +50,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    * @generated
    */
     private EClass opmContainerEClass = null;
+
+    /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass opmElementWithIDEClass = null;
 
     /**
    * <!-- begin-user-doc -->
@@ -246,6 +254,24 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    */
     public EReference getOPMContainer_Nodes() {
     return (EReference)opmContainerEClass.getEStructuralFeatures().get(0);
+  }
+
+    /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getOPMElementWithID() {
+    return opmElementWithIDEClass;
+  }
+
+    /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getOPMElementWithID_Id() {
+    return (EAttribute)opmElementWithIDEClass.getEStructuralFeatures().get(0);
   }
 
     /**
@@ -594,6 +620,12 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     opmContainerEClass = createEClass(OPM_CONTAINER);
     createEReference(opmContainerEClass, OPM_CONTAINER__NODES);
 
+    opmElementWithIDEClass = createEClass(OPM_ELEMENT_WITH_ID);
+    createEAttribute(opmElementWithIDEClass, OPM_ELEMENT_WITH_ID__ID);
+
+    opmNamedElementEClass = createEClass(OPM_NAMED_ELEMENT);
+    createEAttribute(opmNamedElementEClass, OPM_NAMED_ELEMENT__NAME);
+
     opmObjectProcessDiagramEClass = createEClass(OPM_OBJECT_PROCESS_DIAGRAM);
     createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__LINKS);
 
@@ -628,9 +660,6 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     opmProceduralLinkEClass = createEClass(OPM_PROCEDURAL_LINK);
     createEAttribute(opmProceduralLinkEClass, OPM_PROCEDURAL_LINK__KIND);
-
-    opmNamedElementEClass = createEClass(OPM_NAMED_ELEMENT);
-    createEAttribute(opmNamedElementEClass, OPM_NAMED_ELEMENT__NAME);
 
     labelEClass = createEClass(LABEL);
 
@@ -675,6 +704,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     // Add supertypes to classes
     opmObjectProcessDiagramEClass.getESuperTypes().add(this.getOPMContainer());
     opmObjectProcessDiagramEClass.getESuperTypes().add(this.getOPMNamedElement());
+    opmNodeEClass.getESuperTypes().add(this.getOPMElementWithID());
     opmThingEClass.getESuperTypes().add(this.getOPMNode());
     opmThingEClass.getESuperTypes().add(this.getOPMContainer());
     opmThingEClass.getESuperTypes().add(this.getOPMNamedElement());
@@ -683,6 +713,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     opmObjectEClass.getESuperTypes().add(this.getOPMThing());
     opmProcessEClass.getESuperTypes().add(this.getOPMThing());
     opmStructuralLinkAggregatorEClass.getESuperTypes().add(this.getOPMNode());
+    opmLinkEClass.getESuperTypes().add(this.getOPMNode());
     opmProceduralLinkEClass.getESuperTypes().add(this.getOPMLink());
     labelEClass.getESuperTypes().add(this.getOPMNode());
     labelEClass.getESuperTypes().add(this.getOPMNamedElement());
@@ -690,6 +721,12 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     // Initialize classes and features; add operations and parameters
     initEClass(opmContainerEClass, OPMContainer.class, "OPMContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOPMContainer_Nodes(), this.getOPMNode(), this.getOPMNode_Container(), "nodes", null, 0, -1, OPMContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(opmElementWithIDEClass, OPMElementWithID.class, "OPMElementWithID", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getOPMElementWithID_Id(), ecorePackage.getELong(), "id", null, 0, 1, OPMElementWithID.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(opmNamedElementEClass, OPMNamedElement.class, "OPMNamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getOPMNamedElement_Name(), ecorePackage.getEString(), "name", "<<name>>", 0, 1, OPMNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmObjectProcessDiagramEClass, OPMObjectProcessDiagram.class, "OPMObjectProcessDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOPMObjectProcessDiagram_Links(), this.getOPMLink(), this.getOPMLink_Opd(), "links", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -739,9 +776,6 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     initEClass(opmProceduralLinkEClass, OPMProceduralLink.class, "OPMProceduralLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMProceduralLink_Kind(), this.getOPMProceduralLinkKind(), "kind", null, 0, 1, OPMProceduralLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(opmNamedElementEClass, OPMNamedElement.class, "OPMNamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getOPMNamedElement_Name(), ecorePackage.getEString(), "name", "<<name>>", 0, 1, OPMNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(labelEClass, Label.class, "Label", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

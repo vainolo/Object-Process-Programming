@@ -48,7 +48,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *
  * @generated
  */
-public class OPMLinkImpl extends EObjectImpl implements OPMLink {
+public class OPMLinkImpl extends OPMNodeImpl implements OPMLink {
 	/**
    * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
    * <!-- begin-user-doc -->

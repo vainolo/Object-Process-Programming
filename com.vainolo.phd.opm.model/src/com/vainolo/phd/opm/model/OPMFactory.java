@@ -26,6 +26,15 @@ public interface OPMFactory extends EFactory {
 	OPMFactory eINSTANCE = com.vainolo.phd.opm.model.impl.OPMFactoryImpl.init();
 
 	/**
+   * Returns a new object of class '<em>Element With ID</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Element With ID</em>'.
+   * @generated
+   */
+  OPMElementWithID createOPMElementWithID();
+
+  /**
    * Returns a new object of class '<em>Object Process Diagram</em>'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

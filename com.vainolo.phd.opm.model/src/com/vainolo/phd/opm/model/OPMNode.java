@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface OPMNode extends EObject {
+public interface OPMNode extends OPMElementWithID {
 	/**
    * Returns the value of the '<em><b>Incoming Links</b></em>' reference list.
    * The list contents are of type {@link com.vainolo.phd.opm.model.OPMLink}.

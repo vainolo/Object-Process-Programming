@@ -76,6 +76,29 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
   }
 
 	/**
+   * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMElementWithID} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected OPMElementWithIDItemProvider opmElementWithIDItemProvider;
+
+  /**
+   * This creates an adapter for a {@link com.vainolo.phd.opm.model.OPMElementWithID}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createOPMElementWithIDAdapter() {
+    if (opmElementWithIDItemProvider == null) {
+      opmElementWithIDItemProvider = new OPMElementWithIDItemProvider(this);
+    }
+
+    return opmElementWithIDItemProvider;
+  }
+
+  /**
    * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram} instances.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -381,6 +404,7 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
    * @generated
    */
 	public void dispose() {
+    if (opmElementWithIDItemProvider != null) opmElementWithIDItemProvider.dispose();
     if (opmObjectProcessDiagramItemProvider != null) opmObjectProcessDiagramItemProvider.dispose();
     if (opmThingItemProvider != null) opmThingItemProvider.dispose();
     if (opmStateItemProvider != null) opmStateItemProvider.dispose();
