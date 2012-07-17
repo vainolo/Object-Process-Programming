@@ -105,6 +105,24 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
   }
 
   @Test
+  public void testExecuting_InheritedMethod() {
+    process.setName("Test6");
+    process.setDescription("java.lang.Object.equals(java.lang.Object)");
+
+    String a = "hello";
+    String b = "hello";
+
+    instance = new OPMJavaProcessInstance(process);
+    instance.addArgument("arg0", a);
+    instance.addArgument("this", b);
+    instance.execute();
+
+    Object result = instance.getArgument("result");
+
+    assertEquals(true, result);
+  }
+
+  @Test
   public void testExecuting_MethodWithBooleanParameter() {
     fail();
   }
