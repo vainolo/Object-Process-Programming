@@ -66,7 +66,7 @@ public class OPMExample {
       System.out.println("Enter a list of file paths or URIs that have content like this:");
       try {
         Resource resource = resourceSet.createResource(URI.createURI("http:///My.opm"));
-        OPMElementWithID root = OPMFactory.eINSTANCE.createOPMElementWithID();
+        OPMObjectProcessDiagram root = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
         resource.getContents().add(root);
         resource.save(System.out, null);
       }

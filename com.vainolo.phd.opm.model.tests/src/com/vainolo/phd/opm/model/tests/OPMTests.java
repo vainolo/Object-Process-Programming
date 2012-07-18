@@ -36,7 +36,6 @@ public class OPMTests extends TestSuite {
 	public static Test suite() {
     TestSuite suite = new OPMTests("opm Tests");
     suite.addTestSuite(OPMObjectProcessDiagramTest.class);
-    suite.addTestSuite(OPMThingTest.class);
     suite.addTestSuite(OPMStateTest.class);
     suite.addTestSuite(OPMObjectTest.class);
     suite.addTestSuite(OPMProcessTest.class);

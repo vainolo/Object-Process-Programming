@@ -21,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see com.vainolo.phd.opm.model.OPMPackage#getOPMElementWithID()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface OPMElementWithID extends EObject {

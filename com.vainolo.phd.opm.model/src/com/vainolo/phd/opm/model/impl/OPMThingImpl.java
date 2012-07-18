@@ -49,7 +49,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class OPMThingImpl extends OPMNodeImpl implements OPMThing {
+public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	/**
    * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
    * <!-- begin-user-doc -->

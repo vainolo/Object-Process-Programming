@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *
  * @generated
  */
-public class OPMElementWithIDImpl extends EObjectImpl implements OPMElementWithID {
+public abstract class OPMElementWithIDImpl extends EObjectImpl implements OPMElementWithID {
   /**
    * The default value of the '{@link #getId() <em>Id</em>}' attribute.
    * <!-- begin-user-doc -->

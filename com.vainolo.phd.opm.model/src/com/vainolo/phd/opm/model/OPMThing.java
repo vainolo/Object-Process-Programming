@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing()
- * @model
+ * @model abstract="true"
  * @generated
  */
 public interface OPMThing extends OPMNode, OPMContainer, OPMNamedElement {

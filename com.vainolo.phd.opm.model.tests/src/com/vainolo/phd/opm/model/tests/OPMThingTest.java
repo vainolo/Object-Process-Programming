@@ -19,16 +19,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMThingTest extends OPMNodeTest {
-
-	/**
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
-	public static void main(String[] args) {
-    TestRunner.run(OPMThingTest.class);
-  }
+public abstract class OPMThingTest extends OPMNodeTest {
 
 	/**
    * Constructs a new Thing test case with the given name.
@@ -49,28 +40,6 @@ public class OPMThingTest extends OPMNodeTest {
 	@Override
 	protected OPMThing getFixture() {
     return (OPMThing)fixture;
-  }
-
-	/**
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @see junit.framework.TestCase#setUp()
-   * @generated
-   */
-	@Override
-	protected void setUp() throws Exception {
-    setFixture(OPMFactory.eINSTANCE.createOPMThing());
-  }
-
-	/**
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @see junit.framework.TestCase#tearDown()
-   * @generated
-   */
-	@Override
-	protected void tearDown() throws Exception {
-    setFixture(null);
   }
 
 } //OPMThingTest

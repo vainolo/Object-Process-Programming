@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLinks <em>Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNextId <em>Next Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,6 +47,32 @@ public interface OPMObjectProcessDiagram extends OPMContainer, OPMNamedElement {
 	EList<OPMLink> getLinks();
 
 	/**
+   * Returns the value of the '<em><b>Next Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Next Id</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Next Id</em>' attribute.
+   * @see #setNextId(long)
+   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObjectProcessDiagram_NextId()
+   * @model
+   * @generated
+   */
+  long getNextId();
+
+  /**
+   * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNextId <em>Next Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Next Id</em>' attribute.
+   * @see #getNextId()
+   * @generated
+   */
+  void setNextId(long value);
+
+  /**
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @model kind="operation"

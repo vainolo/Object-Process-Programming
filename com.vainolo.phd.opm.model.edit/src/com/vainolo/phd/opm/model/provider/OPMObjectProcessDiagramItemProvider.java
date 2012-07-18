@@ -68,6 +68,7 @@ public class OPMObjectProcessDiagramItemProvider
       super.getPropertyDescriptors(object);
 
       addNamePropertyDescriptor(object);
+      addNextIdPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -95,6 +96,28 @@ public class OPMObjectProcessDiagramItemProvider
   }
 
 	/**
+   * This adds a property descriptor for the Next Id feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addNextIdPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPMObjectProcessDiagram_nextId_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPMObjectProcessDiagram_nextId_feature", "_UI_OPMObjectProcessDiagram_type"),
+         OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
    * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
    * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -162,6 +185,7 @@ public class OPMObjectProcessDiagramItemProvider
 
     switch (notification.getFeatureID(OPMObjectProcessDiagram.class)) {
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:

@@ -34,6 +34,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getLinks <em>Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getNextId <em>Next Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,6 +70,25 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
 	protected EList<OPMLink> links;
 
 	/**
+   * The default value of the '{@link #getNextId() <em>Next Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNextId()
+   * @generated
+   * @ordered
+   */
+  protected static final long NEXT_ID_EDEFAULT = 0L;
+  /**
+   * The cached value of the '{@link #getNextId() <em>Next Id</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getNextId()
+   * @generated
+   * @ordered
+   */
+  protected long nextId = NEXT_ID_EDEFAULT;
+
+  /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
    * @generated
    */
@@ -119,6 +139,27 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
   }
 
 	/**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public long getNextId() {
+    return nextId;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNextId(long newNextId) {
+    long oldNextId = nextId;
+    nextId = newNextId;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID, oldNextId, nextId));
+  }
+
+  /**
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
 	 * @generated NOT
@@ -188,6 +229,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
         return getName();
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
         return getLinks();
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+        return getNextId();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -207,6 +250,9 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
         getLinks().clear();
         getLinks().addAll((Collection<? extends OPMLink>)newValue);
         return;
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+        setNextId((Long)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -224,6 +270,9 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
         getLinks().clear();
         return;
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+        setNextId(NEXT_ID_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -239,6 +288,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
         return links != null && !links.isEmpty();
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+        return nextId != NEXT_ID_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -287,6 +338,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", nextId: ");
+    result.append(nextId);
     result.append(')');
     return result.toString();
   }

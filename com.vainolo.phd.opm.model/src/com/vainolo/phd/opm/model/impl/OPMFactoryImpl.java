@@ -63,9 +63,7 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	@Override
 	public EObject create(EClass eClass) {
     switch (eClass.getClassifierID()) {
-      case OPMPackage.OPM_ELEMENT_WITH_ID: return createOPMElementWithID();
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM: return createOPMObjectProcessDiagram();
-      case OPMPackage.OPM_THING: return createOPMThing();
       case OPMPackage.OPM_STATE: return createOPMState();
       case OPMPackage.OPM_OBJECT: return createOPMObject();
       case OPMPackage.OPM_PROCESS: return createOPMProcess();
@@ -130,16 +128,6 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 
 	/**
    * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public OPMElementWithID createOPMElementWithID() {
-    OPMElementWithIDImpl opmElementWithID = new OPMElementWithIDImpl();
-    return opmElementWithID;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
@@ -176,16 +164,6 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
 	public OPMLink createOPMLink() {
     OPMLinkImpl opmLink = new OPMLinkImpl();
     return opmLink;
-  }
-
-	/**
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
-	public OPMThing createOPMThing() {
-    OPMThingImpl opmThing = new OPMThingImpl();
-    return opmThing;
   }
 
 	/**

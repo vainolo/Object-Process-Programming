@@ -19,7 +19,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public class OPMElementWithIDTest extends TestCase {
+public abstract class OPMElementWithIDTest extends TestCase {
 
   /**
    * The fixture for this Element With ID test case.
@@ -28,15 +28,6 @@ public class OPMElementWithIDTest extends TestCase {
    * @generated
    */
   protected OPMElementWithID fixture = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public static void main(String[] args) {
-    TestRunner.run(OPMElementWithIDTest.class);
-  }
 
   /**
    * Constructs a new Element With ID test case with the given name.
@@ -66,28 +57,6 @@ public class OPMElementWithIDTest extends TestCase {
    */
   protected OPMElementWithID getFixture() {
     return fixture;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see junit.framework.TestCase#setUp()
-   * @generated
-   */
-  @Override
-  protected void setUp() throws Exception {
-    setFixture(OPMFactory.eINSTANCE.createOPMElementWithID());
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see junit.framework.TestCase#tearDown()
-   * @generated
-   */
-  @Override
-  protected void tearDown() throws Exception {
-    setFixture(null);
   }
 
 } //OPMElementWithIDTest

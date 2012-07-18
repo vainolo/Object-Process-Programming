@@ -227,21 +227,21 @@ public interface OPMPackage extends EPackage {
   int OPM_CONTAINER__ID = OPM_ELEMENT_WITH_ID__ID;
 
   /**
-  * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
-  * <!-- begin-user-doc -->
+   * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  * @generated
-  * @ordered
-  */
+   * @generated
+   * @ordered
+   */
   int OPM_CONTAINER__NODES = OPM_ELEMENT_WITH_ID_FEATURE_COUNT + 0;
 
   /**
-  * The number of structural features of the '<em>Container</em>' class.
-  * <!-- begin-user-doc -->
+   * The number of structural features of the '<em>Container</em>' class.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-  * @generated
-  * @ordered
-  */
+   * @generated
+   * @ordered
+   */
   int OPM_CONTAINER_FEATURE_COUNT = OPM_ELEMENT_WITH_ID_FEATURE_COUNT + 1;
 
   /**
@@ -335,13 +335,22 @@ int OPM_OBJECT_PROCESS_DIAGRAM__NAME = OPM_CONTAINER_FEATURE_COUNT + 0;
 int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Next Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID = OPM_CONTAINER_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>Object Process Diagram</em>' class.
    * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 2;
+int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1181,6 +1190,17 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 	EReference getOPMObjectProcessDiagram_Links();
 
 	/**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNextId <em>Next Id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Next Id</em>'.
+   * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNextId()
+   * @see #getOPMObjectProcessDiagram()
+   * @generated
+   */
+  EAttribute getOPMObjectProcessDiagram_NextId();
+
+  /**
    * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMObject <em>Object</em>}'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1606,6 +1626,14 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 		EReference OPM_OBJECT_PROCESS_DIAGRAM__LINKS = eINSTANCE.getOPMObjectProcessDiagram_Links();
 
 		/**
+     * The meta object literal for the '<em><b>Next Id</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID = eINSTANCE.getOPMObjectProcessDiagram_NextId();
+
+    /**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl <em>Object</em>}' class.
      * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
