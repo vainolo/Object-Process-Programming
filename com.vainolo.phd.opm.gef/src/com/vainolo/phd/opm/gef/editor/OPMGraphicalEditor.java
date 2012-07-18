@@ -10,7 +10,6 @@ import java.util.EventObject;
 import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -45,6 +44,7 @@ import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import com.vainolo.phd.opm.gef.action.ResizeToContentsAction;
+import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
 import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
@@ -110,13 +110,11 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     }
 
     try {
+      opd.setNextId(OPMIdManager.getNextId());
       opdResource.save(null);
       opdFile.touch(null);
       getCommandStack().markSaveLocation();
-    } catch(IOException e) {
-      // TODO do something smarter.
-      e.printStackTrace();
-    } catch(CoreException e) {
+    } catch(Exception e) {
       // TODO do something smarter.
       e.printStackTrace();
     }
@@ -130,7 +128,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   private void loadInput(IEditorInput input) {
-    OPMPackage.eINSTANCE.eClass(); // This initializes the OPMPackage singleton implementation.
+    OPMPackage.eINSTANCE.eClass(); // This initializes the OPMPackage singleton implementation. Must be called before
+                                   // reading the file.
     ResourceSet resourceSet = new ResourceSetImpl();
     if(input instanceof IFileEditorInput) {
       IFileEditorInput fileInput = (IFileEditorInput) input;
@@ -139,6 +138,12 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
       try {
         opdResource.load(null);
         opd = (OPMObjectProcessDiagram) opdResource.getContents().get(0);
+        if(opd.getId() == 0) {
+          opd.setId(1);
+          opd.setNextId(2);
+        }
+        OPMIdManager.setId(opd.getNextId());
+
       } catch(IOException e) {
         // TODO do something smarter.
         e.printStackTrace();

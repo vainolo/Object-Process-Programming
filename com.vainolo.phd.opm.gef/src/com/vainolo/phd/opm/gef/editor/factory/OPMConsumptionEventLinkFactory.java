@@ -17,16 +17,17 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
  */
 public class OPMConsumptionEventLinkFactory implements CreationFactory {
 
-	@Override
-	public Object getNewObject() {
-		OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-		link.setKind(OPMProceduralLinkKind.CONSUMPTION_EVENT);
-		return link;
-	}
+  @Override
+  public Object getNewObject() {
+    OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
+    link.setKind(OPMProceduralLinkKind.CONSUMPTION_EVENT);
+    link.setId(OPMIdManager.getNextId());
+    return link;
+  }
 
-	@Override
-	public Object getObjectType() {
-		return OPMProceduralLink.class;
-	}
+  @Override
+  public Object getObjectType() {
+    return OPMProceduralLink.class;
+  }
 
 }
