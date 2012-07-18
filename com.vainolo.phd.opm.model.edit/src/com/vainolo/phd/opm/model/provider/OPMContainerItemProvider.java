@@ -37,7 +37,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class OPMContainerItemProvider
-    extends ItemProviderAdapter
+    extends OPMElementWithIDItemProvider
     implements
         IEditingDomainItemProvider,
         IStructuredItemContentProvider,
@@ -107,7 +107,8 @@ public class OPMContainerItemProvider
    */
     @Override
     public String getText(Object object) {
-    return getString("_UI_OPMContainer_type");
+    OPMContainer opmContainer = (OPMContainer)object;
+    return getString("_UI_OPMContainer_type") + " " + opmContainer.getId();
   }
 
     /**
@@ -179,17 +180,6 @@ public class OPMContainerItemProvider
       (createChildParameter
         (OPMPackage.Literals.OPM_CONTAINER__NODES,
          OPMFactory.eINSTANCE.createLabel()));
-  }
-
-    /**
-   * Return the resource locator for this item provider's resources.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   */
-    @Override
-    public ResourceLocator getResourceLocator() {
-    return OPMEditPlugin.INSTANCE;
   }
 
 }

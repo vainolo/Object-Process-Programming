@@ -617,23 +617,23 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     isCreated = true;
 
     // Create classes and their features
-    opmContainerEClass = createEClass(OPM_CONTAINER);
-    createEReference(opmContainerEClass, OPM_CONTAINER__NODES);
-
     opmElementWithIDEClass = createEClass(OPM_ELEMENT_WITH_ID);
     createEAttribute(opmElementWithIDEClass, OPM_ELEMENT_WITH_ID__ID);
 
     opmNamedElementEClass = createEClass(OPM_NAMED_ELEMENT);
     createEAttribute(opmNamedElementEClass, OPM_NAMED_ELEMENT__NAME);
 
-    opmObjectProcessDiagramEClass = createEClass(OPM_OBJECT_PROCESS_DIAGRAM);
-    createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__LINKS);
+    opmContainerEClass = createEClass(OPM_CONTAINER);
+    createEReference(opmContainerEClass, OPM_CONTAINER__NODES);
 
     opmNodeEClass = createEClass(OPM_NODE);
     createEReference(opmNodeEClass, OPM_NODE__INCOMING_LINKS);
     createEReference(opmNodeEClass, OPM_NODE__OUTGOING_LINKS);
     createEReference(opmNodeEClass, OPM_NODE__CONTAINER);
     createEAttribute(opmNodeEClass, OPM_NODE__CONSTRAINTS);
+
+    opmObjectProcessDiagramEClass = createEClass(OPM_OBJECT_PROCESS_DIAGRAM);
+    createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__LINKS);
 
     opmThingEClass = createEClass(OPM_THING);
     createEAttribute(opmThingEClass, OPM_THING__DESCRIPTION);
@@ -702,9 +702,10 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    opmContainerEClass.getESuperTypes().add(this.getOPMElementWithID());
+    opmNodeEClass.getESuperTypes().add(this.getOPMElementWithID());
     opmObjectProcessDiagramEClass.getESuperTypes().add(this.getOPMContainer());
     opmObjectProcessDiagramEClass.getESuperTypes().add(this.getOPMNamedElement());
-    opmNodeEClass.getESuperTypes().add(this.getOPMElementWithID());
     opmThingEClass.getESuperTypes().add(this.getOPMNode());
     opmThingEClass.getESuperTypes().add(this.getOPMContainer());
     opmThingEClass.getESuperTypes().add(this.getOPMNamedElement());
@@ -719,21 +720,14 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     labelEClass.getESuperTypes().add(this.getOPMNamedElement());
 
     // Initialize classes and features; add operations and parameters
-    initEClass(opmContainerEClass, OPMContainer.class, "OPMContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOPMContainer_Nodes(), this.getOPMNode(), this.getOPMNode_Container(), "nodes", null, 0, -1, OPMContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(opmElementWithIDEClass, OPMElementWithID.class, "OPMElementWithID", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMElementWithID_Id(), ecorePackage.getELong(), "id", null, 0, 1, OPMElementWithID.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmNamedElementEClass, OPMNamedElement.class, "OPMNamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMNamedElement_Name(), ecorePackage.getEString(), "name", "<<name>>", 0, 1, OPMNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(opmObjectProcessDiagramEClass, OPMObjectProcessDiagram.class, "OPMObjectProcessDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOPMObjectProcessDiagram_Links(), this.getOPMLink(), this.getOPMLink_Opd(), "links", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    addEOperation(opmObjectProcessDiagramEClass, this.getOPMProcess(), "getProcesses", 0, -1, IS_UNIQUE, IS_ORDERED);
-
-    addEOperation(opmObjectProcessDiagramEClass, this.getOPMObject(), "getObjects", 0, -1, IS_UNIQUE, IS_ORDERED);
+    initEClass(opmContainerEClass, OPMContainer.class, "OPMContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getOPMContainer_Nodes(), this.getOPMNode(), this.getOPMNode_Container(), "nodes", null, 0, -1, OPMContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmNodeEClass, OPMNode.class, "OPMNode", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOPMNode_IncomingLinks(), this.getOPMLink(), this.getOPMLink_Target(), "incomingLinks", null, 0, -1, OPMNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -750,6 +744,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     addEOperation(opmNodeEClass, this.getOPMProceduralLink(), "getIncomingProceduralLinks", 0, -1, IS_UNIQUE, IS_ORDERED);
 
     addEOperation(opmNodeEClass, this.getOPMProceduralLink(), "getOutgoingProceduralLinks", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+    initEClass(opmObjectProcessDiagramEClass, OPMObjectProcessDiagram.class, "OPMObjectProcessDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getOPMObjectProcessDiagram_Links(), this.getOPMLink(), this.getOPMLink_Opd(), "links", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    addEOperation(opmObjectProcessDiagramEClass, this.getOPMProcess(), "getProcesses", 0, -1, IS_UNIQUE, IS_ORDERED);
+
+    addEOperation(opmObjectProcessDiagramEClass, this.getOPMObject(), "getObjects", 0, -1, IS_UNIQUE, IS_ORDERED);
 
     initEClass(opmThingEClass, OPMThing.class, "OPMThing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMThing_Description(), ecorePackage.getEString(), "description", null, 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

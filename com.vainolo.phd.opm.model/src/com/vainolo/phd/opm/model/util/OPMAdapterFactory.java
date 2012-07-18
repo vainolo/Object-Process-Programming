@@ -72,10 +72,6 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
 	protected OPMSwitch<Adapter> modelSwitch =
 		new OPMSwitch<Adapter>() {
       @Override
-      public Adapter caseOPMContainer(OPMContainer object) {
-        return createOPMContainerAdapter();
-      }
-      @Override
       public Adapter caseOPMElementWithID(OPMElementWithID object) {
         return createOPMElementWithIDAdapter();
       }
@@ -84,12 +80,16 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
         return createOPMNamedElementAdapter();
       }
       @Override
-      public Adapter caseOPMObjectProcessDiagram(OPMObjectProcessDiagram object) {
-        return createOPMObjectProcessDiagramAdapter();
+      public Adapter caseOPMContainer(OPMContainer object) {
+        return createOPMContainerAdapter();
       }
       @Override
       public Adapter caseOPMNode(OPMNode object) {
         return createOPMNodeAdapter();
+      }
+      @Override
+      public Adapter caseOPMObjectProcessDiagram(OPMObjectProcessDiagram object) {
+        return createOPMObjectProcessDiagramAdapter();
       }
       @Override
       public Adapter caseOPMThing(OPMThing object) {

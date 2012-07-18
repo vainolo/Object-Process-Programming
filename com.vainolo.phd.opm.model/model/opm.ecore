@@ -3,10 +3,6 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="opm"
     nsURI="www.vainolo.com/phd/opm" nsPrefix="opm">
-  <eClassifiers xsi:type="ecore:EClass" name="OPMContainer" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
-        eType="#//OPMNode" containment="true" eOpposite="#//OPMNode/container"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMElementWithID">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"
         iD="true"/>
@@ -15,11 +11,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="&lt;&lt;name>>"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMObjectProcessDiagram" eSuperTypes="#//OPMContainer #//OPMNamedElement">
-    <eOperations name="getProcesses" upperBound="-1" eType="#//OPMProcess"/>
-    <eOperations name="getObjects" upperBound="-1" eType="#//OPMObject"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
-        eType="#//OPMLink" containment="true" eOpposite="#//OPMLink/opd"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMContainer" abstract="true" eSuperTypes="#//OPMElementWithID">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
+        eType="#//OPMNode" containment="true" eOpposite="#//OPMNode/container"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMNode" abstract="true" eSuperTypes="#//OPMElementWithID">
     <eOperations name="getOutgoingStructuralLinks" ordered="false" upperBound="-1"
@@ -37,6 +31,12 @@
         eOpposite="#//OPMContainer/nodes"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="constraints" eType="#//Rectangle"
         defaultValueLiteral="0,0,50,50"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMObjectProcessDiagram" eSuperTypes="#//OPMContainer #//OPMNamedElement">
+    <eOperations name="getProcesses" upperBound="-1" eType="#//OPMProcess"/>
+    <eOperations name="getObjects" upperBound="-1" eType="#//OPMObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+        eType="#//OPMLink" containment="true" eOpposite="#//OPMLink/opd"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMThing" eSuperTypes="#//OPMNode #//OPMContainer #//OPMNamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -68,6 +68,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="OPMProceduralLink" eSuperTypes="#//OPMLink">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMProceduralLinkKind"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMStructuralLinkAggregatorKind">
     <eLiterals name="AGGREGATION" literal="Aggregation"/>
     <eLiterals name="EXHIBITION" value="1" literal="Exhibition"/>
@@ -93,7 +94,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Point" instanceClassName="org.eclipse.draw2d.geometry.Point"/>
   <eClassifiers xsi:type="ecore:EDataType" name="Rectangle" instanceClassName="org.eclipse.draw2d.geometry.Rectangle"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMProcessKind">
     <eLiterals name="COMPOUND" literal="Compound"/>
     <eLiterals name="BUILT_IN" value="1" literal="Built In"/>

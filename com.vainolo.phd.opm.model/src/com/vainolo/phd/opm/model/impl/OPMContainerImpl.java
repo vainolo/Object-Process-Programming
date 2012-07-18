@@ -37,7 +37,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public abstract class OPMContainerImpl extends EObjectImpl implements OPMContainer {
+public abstract class OPMContainerImpl extends OPMElementWithIDImpl implements OPMContainer {
     /**
    * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
    * <!-- begin-user-doc -->

@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model abstract="true"
  * @generated
  */
-public interface OPMContainer extends EObject {
+public interface OPMContainer extends OPMElementWithID {
 	/**
    * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.
    * The list contents are of type {@link com.vainolo.phd.opm.model.OPMNode}.

@@ -19,15 +19,7 @@ import junit.textui.TestRunner;
  * <!-- end-user-doc -->
  * @generated
  */
-public abstract class OPMContainerTest extends TestCase {
-
-    /**
-   * The fixture for this Container test case.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   */
-    protected OPMContainer fixture = null;
+public abstract class OPMContainerTest extends OPMElementWithIDTest {
 
     /**
    * Constructs a new Container test case with the given name.
@@ -40,23 +32,14 @@ public abstract class OPMContainerTest extends TestCase {
   }
 
     /**
-   * Sets the fixture for this Container test case.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @generated
-   */
-    protected void setFixture(OPMContainer fixture) {
-    this.fixture = fixture;
-  }
-
-    /**
    * Returns the fixture for this Container test case.
    * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
    * @generated
    */
+    @Override
     protected OPMContainer getFixture() {
-    return fixture;
+    return (OPMContainer)fixture;
   }
 
 } //OPMContainerTest

@@ -72,12 +72,6 @@ public class OPMSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
     switch (classifierID) {
-      case OPMPackage.OPM_CONTAINER: {
-        OPMContainer opmContainer = (OPMContainer)theEObject;
-        T result = caseOPMContainer(opmContainer);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case OPMPackage.OPM_ELEMENT_WITH_ID: {
         OPMElementWithID opmElementWithID = (OPMElementWithID)theEObject;
         T result = caseOPMElementWithID(opmElementWithID);
@@ -90,11 +84,10 @@ public class OPMSwitch<T> extends Switch<T> {
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM: {
-        OPMObjectProcessDiagram opmObjectProcessDiagram = (OPMObjectProcessDiagram)theEObject;
-        T result = caseOPMObjectProcessDiagram(opmObjectProcessDiagram);
-        if (result == null) result = caseOPMContainer(opmObjectProcessDiagram);
-        if (result == null) result = caseOPMNamedElement(opmObjectProcessDiagram);
+      case OPMPackage.OPM_CONTAINER: {
+        OPMContainer opmContainer = (OPMContainer)theEObject;
+        T result = caseOPMContainer(opmContainer);
+        if (result == null) result = caseOPMElementWithID(opmContainer);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -102,6 +95,15 @@ public class OPMSwitch<T> extends Switch<T> {
         OPMNode opmNode = (OPMNode)theEObject;
         T result = caseOPMNode(opmNode);
         if (result == null) result = caseOPMElementWithID(opmNode);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM: {
+        OPMObjectProcessDiagram opmObjectProcessDiagram = (OPMObjectProcessDiagram)theEObject;
+        T result = caseOPMObjectProcessDiagram(opmObjectProcessDiagram);
+        if (result == null) result = caseOPMContainer(opmObjectProcessDiagram);
+        if (result == null) result = caseOPMNamedElement(opmObjectProcessDiagram);
+        if (result == null) result = caseOPMElementWithID(opmObjectProcessDiagram);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
