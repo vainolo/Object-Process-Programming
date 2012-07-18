@@ -11,7 +11,6 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.Path;
@@ -46,7 +45,6 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   private OPMObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
   private Set<OPMProcessInstance> waitingInstances = new HashSet<OPMProcessInstance>();
-  private ExecutorService executorService = Executors.newCachedThreadPool();
   BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
   private OPDExecutionFollower follower;
   private OPMProcessInstanceFactory instanceFactory = OPMProcessInstanceFactory.INSTANCE;
@@ -197,6 +195,6 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   }
 
   public ExecutorService getExecutorService() {
-    return executorService;
+    return Interpreter.INSTANCE.getExecutorService();
   }
 }

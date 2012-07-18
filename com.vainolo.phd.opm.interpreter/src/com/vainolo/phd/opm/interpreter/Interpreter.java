@@ -5,6 +5,9 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.eclipse.core.resources.IContainer;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -23,6 +26,7 @@ public enum Interpreter {
 
   private IContainer containter;
   private OPMProcessInstanceFactory factory;
+  public ExecutorService executorService = Executors.newCachedThreadPool();
 
   public IContainer getContainer() {
     return containter;
@@ -47,6 +51,10 @@ public enum Interpreter {
   @VisibleForTesting
   void setFactory(final OPMProcessInstanceFactory factory) {
     this.factory = factory;
+  }
+
+  public ExecutorService getExecutorService() {
+    return executorService;
   }
 
 }
