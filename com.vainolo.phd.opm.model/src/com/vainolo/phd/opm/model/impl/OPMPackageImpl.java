@@ -312,6 +312,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 	/**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getOPMObject_Parameter() {
+    return (EAttribute)opmObjectEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
@@ -651,6 +660,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     opmStateEClass = createEClass(OPM_STATE);
 
     opmObjectEClass = createEClass(OPM_OBJECT);
+    createEAttribute(opmObjectEClass, OPM_OBJECT__PARAMETER);
 
     opmProcessEClass = createEClass(OPM_PROCESS);
     createEAttribute(opmProcessEClass, OPM_PROCESS__KIND);
@@ -769,6 +779,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     initEClass(opmStateEClass, OPMState.class, "OPMState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getOPMObject_Parameter(), ecorePackage.getEBoolean(), "parameter", "false", 0, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmProcessEClass, OPMProcess.class, "OPMProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMProcess_Kind(), this.getOPMProcessKind(), "kind", "", 1, 1, OPMProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
