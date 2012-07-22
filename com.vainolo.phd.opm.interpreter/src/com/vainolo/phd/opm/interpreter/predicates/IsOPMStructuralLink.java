@@ -6,24 +6,25 @@
 package com.vainolo.phd.opm.interpreter.predicates;
 
 import com.google.common.base.Predicate;
-import com.vainolo.phd.opm.model.OPMProceduralLink;
+import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMPackage;
 
 /**
- * Predicate that returns true for invocation links.
+ * Predicate that returns true for OPM structural links.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * @created 9 Jul 2012
  * 
  */
-public enum IsOPMInvocationLink implements Predicate<OPMProceduralLink> {
+public enum IsOPMStructuralLink implements Predicate<OPMLink> {
   INSTANCE;
 
   @Override
-  public boolean apply(final OPMProceduralLink link) {
-    switch(link.getKind()) {
-      case INVOCATION:
-        return true;
-    }
+  public boolean apply(final OPMLink link) {
+    if(OPMPackage.eINSTANCE.getOPMStructuralLinkAggregator().isInstance(link.getSource()) ||
+        OPMPackage.eINSTANCE.getOPMStructuralLinkAggregator().isInstance(link.getTarget()))
+      return true;
+
     return false;
   }
 }

@@ -20,11 +20,11 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import com.vainolo.phd.opm.interpreter.OPDUtils;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMEventLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMIncomingProceduralLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMInvocationLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingProceduralLink;
-import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
@@ -47,7 +47,7 @@ public final class OPDAnalyzer {
    * @return a set of processes to execute when the provided process finishes execution.
    */
   public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
-    Set<OPMProceduralLink> outgoingProceduralLinks = ImmutableSet.copyOf(process.getOutgoingProceduralLinks());
+    Set<OPMProceduralLink> outgoingProceduralLinks = ImmutableSet.copyOf(OPDUtils.getOutgoingProceduralLinks(process));
     Set<OPMProcess> invocationProcesses = Sets.newHashSet();
     for(OPMProceduralLink invocationLink : Sets.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
       invocationProcesses.add((OPMProcess) invocationLink.getTarget());
@@ -90,9 +90,9 @@ public final class OPDAnalyzer {
   public static Set<OPMProcess> calculateConnectedEventProcesses(final OPMObject object) {
     Set<OPMProcess> processes = Sets.newHashSet();
 
-    Collection<OPMProceduralLink> incomingLinks = object.getIncomingProceduralLinks();
+    Collection<OPMProceduralLink> incomingLinks = OPDUtils.getIncomingProceduralLinks(object);
     incomingLinks = Collections2.filter(incomingLinks, IsOPMEventLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = object.getOutgoingProceduralLinks();
+    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.getOutgoingProceduralLinks(object);
     outgoingLinks = Collections2.filter(outgoingLinks, IsOPMEventLink.INSTANCE);
 
     // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
@@ -262,8 +262,8 @@ public final class OPDAnalyzer {
    */
   private static void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : opd.getProcesses()) {
-      for(final OPMProcess otherProcess : opd.getProcesses()) {
+    for(final OPMProcess process : OPDUtils.getProcesses(opd)) {
+      for(final OPMProcess otherProcess : OPDUtils.getProcesses(opd)) {
         if(process.equals(otherProcess)) {
           continue;
         }
@@ -289,7 +289,7 @@ public final class OPDAnalyzer {
    */
   private static void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : opd.getProcesses()) {
+    for(final OPMProcess process : OPDUtils.getProcesses(opd)) {
       dag.addVertex(process);
     }
   }
@@ -303,9 +303,9 @@ public final class OPDAnalyzer {
    */
   public static Set<Parameter> calculateAllParameters(final OPMProcess process) {
     Set<Parameter> parameters = Sets.newHashSet();
-    Collection<OPMProceduralLink> incomingLinks = process.getIncomingProceduralLinks();
+    Collection<OPMProceduralLink> incomingLinks = OPDUtils.getIncomingProceduralLinks(process);
     incomingLinks = Collections2.filter(incomingLinks, IsOPMIncomingProceduralLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = process.getOutgoingProceduralLinks();
+    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.getOutgoingProceduralLinks(process);
     outgoingLinks = Collections2.filter(outgoingLinks, IsOPMOutgoingProceduralLink.INSTANCE);
 
     // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
@@ -318,22 +318,5 @@ public final class OPDAnalyzer {
     }
 
     return parameters;
-  }
-
-  /**
-   * <p>
-   * Calculate a set of all the procedural links that are connected to an OPM node. The returned set is
-   * <b>immutable</b>.
-   * </p>
-   * 
-   * 
-   * @param node
-   *          to analyze
-   * @return and <b>immutable</b> set containing all procedural links that start or end at the provided node.
-   */
-  private static Set<OPMProceduralLink> calculateAllProceduralLinks(final OPMNode node) {
-    ImmutableSet<OPMProceduralLink> incLinks = ImmutableSet.copyOf(node.getIncomingProceduralLinks());
-    ImmutableSet<OPMProceduralLink> outLinks = ImmutableSet.copyOf(node.getOutgoingProceduralLinks());
-    return Sets.union(incLinks, outLinks);
   }
 }

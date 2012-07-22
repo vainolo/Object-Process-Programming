@@ -3,31 +3,27 @@
  * You can use this code for educational purposes. For any other uses
  * please contact me: vainolo@gmail.com
  *******************************************************************************/
-package com.vainolo.phd.opm.gef.editor.factory;
+package com.vainolo.phd.opm.interpreter.predicates;
 
-import org.eclipse.gef.requests.CreationFactory;
-
-import com.vainolo.phd.opm.model.OPMFactory;
+import com.google.common.base.Predicate;
 import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMPackage;
 
 /**
+ * Predicate that returns true for OPM procedural links.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
+ * @created 9 Jul 2012
  * 
  */
-public enum OPMLinkFactory implements CreationFactory {
+public enum IsOPMProceduralLink implements Predicate<OPMLink> {
   INSTANCE;
 
   @Override
-  public OPMLink getNewObject() {
-    OPMLink link = OPMFactory.eINSTANCE.createOPMLink();
-    link.setId(OPMIdManager.getNextId());
-    return link;
-  }
-
-  @Override
-  public Object getObjectType() {
-    return OPMLink.class;
+  public boolean apply(final OPMLink link) {
+    if(OPMPackage.eINSTANCE.getOPMProceduralLink().isInstance(link))
+      return true;
+    return false;
   }
 
 }

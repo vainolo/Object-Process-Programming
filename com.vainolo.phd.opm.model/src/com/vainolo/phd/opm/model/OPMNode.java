@@ -122,44 +122,4 @@ public interface OPMNode extends OPMElementWithID {
    */
     void setConstraints(Rectangle value);
 
-    /**
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @model kind="operation" ordered="false"
-   * @generated
-   */
-    EList<OPMLink> getOutgoingStructuralLinks();
-
-    /**
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @model kind="operation" ordered="false"
-   * @generated
-   */
-    EList<OPMLink> getIncomingStructuralLinks();
-
-    /**
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @model kind="operation"
-   * @generated
-   */
-    OPMObjectProcessDiagram getOpd();
-
-				/**
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @model kind="operation"
-   * @generated
-   */
-	EList<OPMProceduralLink> getIncomingProceduralLinks();
-
-				/**
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @model kind="operation"
-   * @generated
-   */
-	EList<OPMProceduralLink> getOutgoingProceduralLinks();
-
 } // OPMNode
