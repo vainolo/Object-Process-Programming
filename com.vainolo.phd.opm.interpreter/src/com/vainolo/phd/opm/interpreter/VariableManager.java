@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import com.google.common.base.Preconditions;
-import com.vainolo.phd.opm.interpreter.model.InterpreterFactory;
-import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 public class VariableManager {
@@ -40,7 +38,7 @@ public class VariableManager {
     logger.info("Creating variable " + name);
     Preconditions.checkArgument(name != null, "Variable name cannot be null.");
     Preconditions.checkState(!variables.containsKey(name), "Tried to create existing variable %s.", name);
-    final Variable var = InterpreterFactory.eINSTANCE.createVariable();
+    final Variable var = new Variable();
     var.setName(name);
     variables.put(name, var);
     return var;

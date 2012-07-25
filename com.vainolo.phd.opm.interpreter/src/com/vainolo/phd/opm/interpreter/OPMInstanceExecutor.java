@@ -9,7 +9,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMConditionalParameter;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMIncomingParameter;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingParameter;
@@ -89,7 +88,7 @@ public class OPMInstanceExecutor {
   private boolean isReady() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMWaitParameter.INSTANCE)) {
       Variable argument = parent.getVarManager().getVariable(parameter.getObject().getName());
-      if(!argument.isSetValue()) {
+      if(!argument.isValueSet()) {
         logger.info("Instance " + getName() + " kept waiting.");
         return false;
       }
@@ -100,7 +99,7 @@ public class OPMInstanceExecutor {
   private boolean shouldSkipProcess() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMConditionalParameter.INSTANCE)) {
       Variable argument = parent.getVarManager().getVariable(parameter.getObject().getName());
-      if(!argument.isSetValue()) {
+      if(!argument.isValueSet()) {
         logger.info("Skipping instance " + getName());
         return true;
       }
