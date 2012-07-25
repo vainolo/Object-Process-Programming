@@ -30,6 +30,7 @@ import com.vainolo.phd.opm.interpreter.utils.OPDExecutionFollower;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -52,8 +53,6 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   public OPMCompoundProcessInstance(final OPMProcess process) {
     super(process);
     loadOPD();
-    System.out.println(logger.getHandlers().length);
-
   }
 
   /**
@@ -64,6 +63,14 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     for(final OPMObject object : OPDUtils.findObjects(opd)) {
       if(!getVarManager().variableExists(object.getName())) {
         getVarManager().createVariable(object.getName());
+      }
+    }
+    if(opd.getKind().equals(OPMObjectProcessDiagramKind.COMPOUND)) {
+      OPMProcess zoomedInProcess = OPDUtils.findZoomedInProcess(opd);
+      for(OPMObject object : OPDUtils.findObjects(zoomedInProcess)) {
+        if(!getVarManager().variableExists(object.getName())) {
+          getVarManager().createVariable(object.getName());
+        }
       }
     }
   }

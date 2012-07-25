@@ -33,8 +33,8 @@ import static java.util.Collections.checkedCollection;
 public class OPDUtils {
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public static Collection<OPMObject> findObjects(OPMObjectProcessDiagram opd) {
-    Collection objects = filter(opd.getNodes(), IsOPMObjectNode.INSTANCE);
+  public static Collection<OPMObject> findObjects(OPMContainer container) {
+    Collection objects = filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
     return checkedCollection(objects, OPMObject.class);
   }
 
@@ -46,14 +46,7 @@ public class OPDUtils {
         processes = findProcesses(opd);
         break;
       case COMPOUND:
-        processes = findProcesses(opd, opd.getName());
-        if(processes.size() > 1)
-          throw new RuntimeException("Compound process should have only one process directly below the OPD. Found " +
-              processes.size() + ".");
-        if(processes.size() == 0)
-          throw new RuntimeException("Compound process does not contain a zoomed-in process.");
-
-        OPMProcess zoomedInProcess = processes.iterator().next();
+        OPMProcess zoomedInProcess = findZoomedInProcess(opd);
         processes = findProcesses(zoomedInProcess);
     }
     return processes;
@@ -81,7 +74,17 @@ public class OPDUtils {
 
     Collection<OPMProcess> processes = findProcesses(container);
     return filter(processes, OPMNamedElementNameEquals.INSTANCE.setExpectedName(name));
+  }
 
+  public static OPMProcess findZoomedInProcess(OPMObjectProcessDiagram opd) {
+    Preconditions.checkNotNull(opd);
+    Collection<OPMProcess> processes = findProcesses(opd);
+    if(processes.size() > 1)
+      throw new RuntimeException("A compound OPD can have only one main process. Found " + processes.size() + ". ");
+    if(processes.size() == 0)
+      throw new RuntimeException("A compound OPD must have one main process. Found none.");
+
+    return processes.iterator().next();
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
