@@ -11,6 +11,8 @@ import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
+import static com.google.common.base.Preconditions.*;
+
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   private static Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
@@ -32,6 +34,10 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 
   @Override
   public void setArgumentValue(String name, Object value) {
+    checkArgument(name != null, "Argument name cannot be null.");
+    checkArgument(value != null, "Argument %s value cannot be null.", name);
+    checkState(getVarManager().variableExists(name), "Process %s doesn't have a parameter named %s.", getName(), name);
+
     getVarManager().getVariable(name).setValue(value);
   }
 

@@ -20,8 +20,8 @@ public class VariableManager {
   private final Map<String, Variable> variables = new HashMap<String, Variable>();
 
   /**
-   * Fetch the variable with the specified name. Assumes that the variable exists and Throws an
-   * {@link IllegalStateException} if it doesn't.
+   * Fetch the variable with the specified name. Assumes that the variable exists and Throws an {@link RuntimeException}
+   * if it doesn't.
    * 
    * @param name
    *          name of the variable.
@@ -31,7 +31,7 @@ public class VariableManager {
     Preconditions.checkArgument(name != null, "Variable name cannot be null");
     final Variable var = variables.get(name);
     if(var == null) {
-      throw new IllegalStateException("Tried to fetch variable " + name + " but variable doesn't exist.");
+      throw new RuntimeException("Tried to fetch variable " + name + " but variable doesn't exist.");
     }
     return var;
   }
