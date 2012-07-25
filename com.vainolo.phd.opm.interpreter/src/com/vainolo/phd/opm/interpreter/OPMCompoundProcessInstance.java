@@ -61,7 +61,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   void createLocalVariables() {
     logger.info("Creating local variables.");
-    for(final OPMObject object : OPDUtils.getObjects(opd)) {
+    for(final OPMObject object : OPDUtils.findObjects(opd)) {
       if(!getVarManager().variableExists(object.getName())) {
         getVarManager().createVariable(object.getName());
       }

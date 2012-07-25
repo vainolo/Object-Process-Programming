@@ -84,7 +84,7 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
     CompoundCommand compoundCommand = new CompoundCommand();
 
     // For every outgoing structural link, create a command to delete the aggregator node at the end of the link.
-    for(OPMLink outgoingStructuralLink : OPDUtils.getOutgoingStructuralLinks(nodeToDelete)) {
+    for(OPMLink outgoingStructuralLink : OPDUtils.findOutgoingStructuralLinks(nodeToDelete)) {
       OPMNode aggregatorNode = outgoingStructuralLink.getTarget();
       OPMNodeDeleteCommand aggregatorNodeDeleteCommand = new OPMNodeDeleteCommand();
       aggregatorNodeDeleteCommand.setNode(aggregatorNode);
@@ -93,7 +93,7 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
 
     // For every incoming structural link whose aggregator has only one outgoing link, create a command to delete the
     // aggregator.
-    for(OPMLink incomingStructuralLink : OPDUtils.getIncomingStructuralLinks(nodeToDelete)) {
+    for(OPMLink incomingStructuralLink : OPDUtils.findIncomingStructuralLinks(nodeToDelete)) {
       OPMNode aggregatorNode = incomingStructuralLink.getSource();
       if(aggregatorNode.getOutgoingLinks().size() == 1) {
         OPMNodeDeleteCommand aggregatorNodeDeleteCommand = new OPMNodeDeleteCommand();

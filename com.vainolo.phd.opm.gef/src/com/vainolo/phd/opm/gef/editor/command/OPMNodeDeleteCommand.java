@@ -78,7 +78,7 @@ public final class OPMNodeDeleteCommand extends Command {
         link.setOpd((OPMObjectProcessDiagram) container);
       } else {
         OPMNode containerNode = (OPMNode) container;
-        link.setOpd(OPDUtils.getOPD(containerNode));
+        link.setOpd(OPDUtils.findOPD(containerNode));
       }
 
     }

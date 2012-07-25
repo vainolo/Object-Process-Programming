@@ -47,7 +47,7 @@ public final class OPDAnalyzer {
    * @return a set of processes to execute when the provided process finishes execution.
    */
   public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
-    Set<OPMProceduralLink> outgoingProceduralLinks = ImmutableSet.copyOf(OPDUtils.getOutgoingProceduralLinks(process));
+    Set<OPMProceduralLink> outgoingProceduralLinks = ImmutableSet.copyOf(OPDUtils.findOutgoingProceduralLinks(process));
     Set<OPMProcess> invocationProcesses = Sets.newHashSet();
     for(OPMProceduralLink invocationLink : Sets.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
       invocationProcesses.add((OPMProcess) invocationLink.getTarget());
@@ -90,9 +90,9 @@ public final class OPDAnalyzer {
   public static Set<OPMProcess> calculateConnectedEventProcesses(final OPMObject object) {
     Set<OPMProcess> processes = Sets.newHashSet();
 
-    Collection<OPMProceduralLink> incomingLinks = OPDUtils.getIncomingProceduralLinks(object);
+    Collection<OPMProceduralLink> incomingLinks = OPDUtils.findIncomingProceduralLinks(object);
     incomingLinks = Collections2.filter(incomingLinks, IsOPMEventLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.getOutgoingProceduralLinks(object);
+    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.findOutgoingProceduralLinks(object);
     outgoingLinks = Collections2.filter(outgoingLinks, IsOPMEventLink.INSTANCE);
 
     // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
@@ -165,6 +165,11 @@ public final class OPDAnalyzer {
    * <code>P1</code> is above another process <code>P2</code> (the lowest point of <code>P1</code> is below the highest
    * point of <code>P2</code>), then <code>P2</code> is only executed after <code>P1</code> has finished execution.
    * </p>
+   * 
+   * <p>
+   * Process execution is indifferent of whether the OPD is a system OPD or a compound OPD. Execution is the same in
+   * both cases, with the difference than in a system OPD the processes are directly in the OPM and in a compound OPD
+   * the processes are inside the zoomed-in (compound) process.
    * 
    * <p>
    * An OPD can also contain special <em>invocation</em> links that can change the execution order of the OPD. They are
@@ -262,8 +267,8 @@ public final class OPDAnalyzer {
    */
   private static void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : OPDUtils.getProcesses(opd)) {
-      for(final OPMProcess otherProcess : OPDUtils.getProcesses(opd)) {
+    for(final OPMProcess process : OPDUtils.findExecutableProcesses(opd)) {
+      for(final OPMProcess otherProcess : OPDUtils.findExecutableProcesses(opd)) {
         if(process.equals(otherProcess)) {
           continue;
         }
@@ -289,7 +294,7 @@ public final class OPDAnalyzer {
    */
   private static void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : OPDUtils.getProcesses(opd)) {
+    for(final OPMProcess process : OPDUtils.findExecutableProcesses(opd)) {
       dag.addVertex(process);
     }
   }
@@ -303,9 +308,9 @@ public final class OPDAnalyzer {
    */
   public static Set<Parameter> calculateAllParameters(final OPMProcess process) {
     Set<Parameter> parameters = Sets.newHashSet();
-    Collection<OPMProceduralLink> incomingLinks = OPDUtils.getIncomingProceduralLinks(process);
+    Collection<OPMProceduralLink> incomingLinks = OPDUtils.findIncomingProceduralLinks(process);
     incomingLinks = Collections2.filter(incomingLinks, IsOPMIncomingProceduralLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.getOutgoingProceduralLinks(process);
+    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.findOutgoingProceduralLinks(process);
     outgoingLinks = Collections2.filter(outgoingLinks, IsOPMOutgoingProceduralLink.INSTANCE);
 
     // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
