@@ -92,6 +92,8 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
         return createOPMLinkRouterKindFromString(eDataType, initialValue);
       case OPMPackage.OPM_PROCESS_KIND:
         return createOPMProcessKindFromString(eDataType, initialValue);
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM_KIND:
+        return createOPMObjectProcessDiagramKindFromString(eDataType, initialValue);
       case OPMPackage.POINT:
         return createPointFromString(eDataType, initialValue);
       case OPMPackage.RECTANGLE:
@@ -117,6 +119,8 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
         return convertOPMLinkRouterKindToString(eDataType, instanceValue);
       case OPMPackage.OPM_PROCESS_KIND:
         return convertOPMProcessKindToString(eDataType, instanceValue);
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM_KIND:
+        return convertOPMObjectProcessDiagramKindToString(eDataType, instanceValue);
       case OPMPackage.POINT:
         return convertPointToString(eDataType, instanceValue);
       case OPMPackage.RECTANGLE:
@@ -287,6 +291,26 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
   }
 
 				/**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public OPMObjectProcessDiagramKind createOPMObjectProcessDiagramKindFromString(EDataType eDataType, String initialValue) {
+    OPMObjectProcessDiagramKind result = OPMObjectProcessDiagramKind.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+        /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertOPMObjectProcessDiagramKindToString(EDataType eDataType, Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+        /**
 	 * <!-- begin-user-doc -->
 	 * Create a <code>Rectangle</code> instance from a <code>String</code>. The expected
 	 * representation is "x,y,width,height". Illegal representations will return a null

@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLinks <em>Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNextId <em>Next Id</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getKind <em>Kind</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,5 +72,35 @@ public interface OPMObjectProcessDiagram extends OPMContainer, OPMNamedElement {
    * @generated
    */
   void setNextId(long value);
+
+  /**
+   * Returns the value of the '<em><b>Kind</b></em>' attribute.
+   * The default value is <code>"Compound"</code>.
+   * The literals are from the enumeration {@link com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Kind</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Kind</em>' attribute.
+   * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind
+   * @see #setKind(OPMObjectProcessDiagramKind)
+   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObjectProcessDiagram_Kind()
+   * @model default="Compound" required="true"
+   * @generated
+   */
+  OPMObjectProcessDiagramKind getKind();
+
+  /**
+   * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getKind <em>Kind</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Kind</em>' attribute.
+   * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind
+   * @see #getKind()
+   * @generated
+   */
+  void setKind(OPMObjectProcessDiagramKind value);
 
 } // OPMObjectProcessDiagram

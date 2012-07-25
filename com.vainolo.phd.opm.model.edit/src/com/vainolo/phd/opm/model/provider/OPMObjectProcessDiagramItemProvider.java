@@ -69,6 +69,7 @@ public class OPMObjectProcessDiagramItemProvider
 
       addNamePropertyDescriptor(object);
       addNextIdPropertyDescriptor(object);
+      addKindPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -113,6 +114,28 @@ public class OPMObjectProcessDiagramItemProvider
          false,
          false,
          ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Kind feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addKindPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPMObjectProcessDiagram_kind_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPMObjectProcessDiagram_kind_feature", "_UI_OPMObjectProcessDiagram_type"),
+         OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__KIND,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
          null,
          null));
   }
@@ -186,6 +209,7 @@ public class OPMObjectProcessDiagramItemProvider
     switch (notification.getFeatureID(OPMObjectProcessDiagram.class)) {
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:

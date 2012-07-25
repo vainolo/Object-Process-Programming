@@ -16,6 +16,7 @@ import com.vainolo.phd.opm.model.OPMNamedElement;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
@@ -165,6 +166,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 				/**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum opmObjectProcessDiagramKindEEnum = null;
+
+        /**
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
@@ -299,6 +307,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    */
   public EAttribute getOPMObjectProcessDiagram_NextId() {
     return (EAttribute)opmObjectProcessDiagramEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getOPMObjectProcessDiagram_Kind() {
+    return (EAttribute)opmObjectProcessDiagramEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -582,6 +599,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
 				/**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EEnum getOPMObjectProcessDiagramKind() {
+    return opmObjectProcessDiagramKindEEnum;
+  }
+
+        /**
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
@@ -644,6 +670,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     opmObjectProcessDiagramEClass = createEClass(OPM_OBJECT_PROCESS_DIAGRAM);
     createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__LINKS);
     createEAttribute(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID);
+    createEAttribute(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__KIND);
 
     opmThingEClass = createEClass(OPM_THING);
     createEAttribute(opmThingEClass, OPM_THING__DESCRIPTION);
@@ -678,6 +705,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     opmProceduralLinkKindEEnum = createEEnum(OPM_PROCEDURAL_LINK_KIND);
     opmLinkRouterKindEEnum = createEEnum(OPM_LINK_ROUTER_KIND);
     opmProcessKindEEnum = createEEnum(OPM_PROCESS_KIND);
+    opmObjectProcessDiagramKindEEnum = createEEnum(OPM_OBJECT_PROCESS_DIAGRAM_KIND);
 
     // Create data types
     pointEDataType = createEDataType(POINT);
@@ -748,6 +776,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     initEClass(opmObjectProcessDiagramEClass, OPMObjectProcessDiagram.class, "OPMObjectProcessDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOPMObjectProcessDiagram_Links(), this.getOPMLink(), this.getOPMLink_Opd(), "links", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPMObjectProcessDiagram_NextId(), ecorePackage.getELong(), "nextId", null, 0, 1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPMObjectProcessDiagram_Kind(), this.getOPMObjectProcessDiagramKind(), "kind", "Compound", 1, 1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmThingEClass, OPMThing.class, "OPMThing", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMThing_Description(), ecorePackage.getEString(), "description", null, 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -806,6 +835,10 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.BUILT_IN);
     addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.JAVA);
     addEEnumLiteral(opmProcessKindEEnum, OPMProcessKind.CONCEPTUAL);
+
+    initEEnum(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.class, "OPMObjectProcessDiagramKind");
+    addEEnumLiteral(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.COMPOUND);
+    addEEnumLiteral(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.SYSTEM);
 
     // Initialize data types
     initEDataType(pointEDataType, Point.class, "Point", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

@@ -29,6 +29,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
         eType="#//OPMLink" containment="true" eOpposite="#//OPMLink/opd"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="nextId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//ELong"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//OPMObjectProcessDiagramKind"
+        defaultValueLiteral="Compound"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMThing" abstract="true" eSuperTypes="#//OPMNode #//OPMContainer #//OPMNamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -91,5 +93,9 @@
     <eLiterals name="BUILT_IN" value="1" literal="Built In"/>
     <eLiterals name="JAVA" value="2" literal="Java"/>
     <eLiterals name="CONCEPTUAL" value="3" literal="Conceptual"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OPMObjectProcessDiagramKind">
+    <eLiterals name="COMPOUND" value="1" literal="Compound"/>
+    <eLiterals name="SYSTEM" literal="System"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -344,13 +344,22 @@ int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
   int OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID = OPM_CONTAINER_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Kind</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_OBJECT_PROCESS_DIAGRAM__KIND = OPM_CONTAINER_FEATURE_COUNT + 3;
+
+  /**
    * The number of structural features of the '<em>Object Process Diagram</em>' class.
    * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 3;
+int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1105,6 +1114,16 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 	int OPM_PROCESS_KIND = 16;
 
 				/**
+   * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind <em>Object Process Diagram Kind</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind
+   * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObjectProcessDiagramKind()
+   * @generated
+   */
+  int OPM_OBJECT_PROCESS_DIAGRAM_KIND = 17;
+
+        /**
    * The meta object id for the '<em>Rectangle</em>' data type.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1112,7 +1131,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
    * @generated
    */
-	int RECTANGLE = 18;
+	int RECTANGLE = 19;
 
 
 	/**
@@ -1165,7 +1184,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
    * @generated
    */
-	int POINT = 17;
+	int POINT = 18;
 
 
 	/**
@@ -1199,6 +1218,17 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @generated
    */
   EAttribute getOPMObjectProcessDiagram_NextId();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getKind <em>Kind</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Kind</em>'.
+   * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getKind()
+   * @see #getOPMObjectProcessDiagram()
+   * @generated
+   */
+  EAttribute getOPMObjectProcessDiagram_Kind();
 
   /**
    * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMObject <em>Object</em>}'.
@@ -1528,6 +1558,16 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 	EEnum getOPMProcessKind();
 
 				/**
+   * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind <em>Object Process Diagram Kind</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Object Process Diagram Kind</em>'.
+   * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind
+   * @generated
+   */
+  EEnum getOPMObjectProcessDiagramKind();
+
+        /**
    * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Rectangle</em>}'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1632,6 +1672,14 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
      * @generated
      */
     EAttribute OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID = eINSTANCE.getOPMObjectProcessDiagram_NextId();
+
+    /**
+     * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPM_OBJECT_PROCESS_DIAGRAM__KIND = eINSTANCE.getOPMObjectProcessDiagram_Kind();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl <em>Object</em>}' class.
@@ -1910,6 +1958,16 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 		EEnum OPM_PROCESS_KIND = eINSTANCE.getOPMProcessKind();
 
 								/**
+     * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind <em>Object Process Diagram Kind</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind
+     * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObjectProcessDiagramKind()
+     * @generated
+     */
+    EEnum OPM_OBJECT_PROCESS_DIAGRAM_KIND = eINSTANCE.getOPMObjectProcessDiagramKind();
+
+                /**
      * The meta object literal for the '<em>Rectangle</em>' data type.
      * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->

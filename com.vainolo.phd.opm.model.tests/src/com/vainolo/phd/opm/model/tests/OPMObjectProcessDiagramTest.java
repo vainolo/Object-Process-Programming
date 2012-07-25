@@ -28,7 +28,6 @@ public class OPMObjectProcessDiagramTest extends OPMContainerTest {
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   public static void main(String[] args) {
@@ -48,17 +47,15 @@ public class OPMObjectProcessDiagramTest extends OPMContainerTest {
   /**
    * Returns the fixture for this Object Process Diagram test case.
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   protected OPMObjectProcessDiagram getFixture() {
-    return (OPMObjectProcessDiagram) fixture;
+    return (OPMObjectProcessDiagram)fixture;
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @see junit.framework.TestCase#setUp()
    * @generated
    */
@@ -69,7 +66,6 @@ public class OPMObjectProcessDiagramTest extends OPMContainerTest {
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @see junit.framework.TestCase#tearDown()
    * @generated
    */
