@@ -38,7 +38,12 @@ public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implemen
   }
 
   @Override
-  public String getName() {
-    return "Add";
+  protected void initProcessInstance() {
+    // nothing to do here
+  }
+
+  @Override
+  protected void initParameterVariables() {
+    getVarManager().createVariable("time");
   }
 }

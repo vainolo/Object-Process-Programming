@@ -24,6 +24,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   private String methodName = null;
   private String[] parameters = new String[0]; // to avoid null checking and instead use iteration on zero length array
 
+  private Method method;
   private Object[] arguments;
   private Object target = null;
 
@@ -32,8 +33,19 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   }
 
   @Override
+  protected void initProcessInstance() {
+    loadMethod();
+  }
+
+  @Override
+  protected void initParameterVariables() {
+    for(String parameter : parameters) {
+      getVarManager().createVariable(parameter);
+    }
+  }
+
+  @Override
   protected void executing() {
-    Method method = loadMethod();
 
     arguments = new Object[parameters.length];
     for(int i = 0; i < parameters.length; i++) {

@@ -6,6 +6,7 @@
 package com.vainolo.phd.opm.interpreter;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -52,7 +53,19 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   public OPMCompoundProcessInstance(final OPMProcess process) {
     super(process);
+  }
+
+  @Override
+  protected void initProcessInstance() {
     loadOPD();
+  }
+
+  @Override
+  protected void initParameterVariables() {
+    Collection<OPMObject> parameters = OPDUtils.findObjects(opd);
+    for(OPMObject object : parameters) {
+      getVarManager().createVariable(object.getName());
+    }
   }
 
   /**
@@ -60,11 +73,6 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   void createLocalVariables() {
     logger.info("Creating local variables.");
-    for(final OPMObject object : OPDUtils.findObjects(opd)) {
-      if(!getVarManager().variableExists(object.getName())) {
-        getVarManager().createVariable(object.getName());
-      }
-    }
     if(opd.getKind().equals(OPMObjectProcessDiagramKind.COMPOUND)) {
       OPMProcess zoomedInProcess = OPDUtils.findZoomedInProcess(opd);
       for(OPMObject object : OPDUtils.findObjects(zoomedInProcess)) {

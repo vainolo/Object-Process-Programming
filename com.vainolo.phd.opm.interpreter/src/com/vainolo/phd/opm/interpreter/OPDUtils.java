@@ -38,6 +38,15 @@ public class OPDUtils {
     return checkedCollection(objects, OPMObject.class);
   }
 
+  /**
+   * Find the processes that should be executed when the OPD is executed. For a system diagram, these are all the
+   * processes directly below the OPD. For compound processes, these are the processes inside the zoomed-in process
+   * named as the OPD.
+   * 
+   * @param opd
+   *          where the processes exist.
+   * @return the executable processes in the OPD.
+   */
   public static Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
     checkNotNull(opd);
     Collection<OPMProcess> processes = null;
@@ -52,6 +61,13 @@ public class OPDUtils {
     return processes;
   }
 
+  /**
+   * Find all processes directly inside a {@link OPMContainer} (only one level).
+   * 
+   * @param container
+   *          where the processes are located.
+   * @return the processes directly inside the container.
+   */
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public static Collection<OPMProcess> findProcesses(OPMContainer container) {
     checkNotNull(container);

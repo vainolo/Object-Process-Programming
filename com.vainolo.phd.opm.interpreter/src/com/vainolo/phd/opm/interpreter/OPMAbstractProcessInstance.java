@@ -22,6 +22,17 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 
   public OPMAbstractProcessInstance(final OPMProcess process) {
     this.process = process;
+    initProcessInstance();
+    initParameterVariables();
+  }
+
+  protected abstract void initProcessInstance();
+
+  protected abstract void initParameterVariables();
+
+  @Override
+  public void setArgumentValue(String name, Object value) {
+    getVarManager().getVariable(name).setValue(value);
   }
 
   @Override
@@ -59,11 +70,6 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
       varManager = new VariableManager();
     }
     return varManager;
-  }
-
-  @Override
-  public void setArgumentValue(final String name, final Object value) {
-    getVarManager().setArgumentValue(name, value);
   }
 
   @Override
