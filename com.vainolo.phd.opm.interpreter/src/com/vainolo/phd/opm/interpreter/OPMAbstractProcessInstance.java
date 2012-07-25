@@ -62,12 +62,12 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   }
 
   @Override
-  public void addArgument(final String name, final Object value) {
+  public void setArgumentValue(final String name, final Object value) {
     getVarManager().setArgumentValue(name, value);
   }
 
   @Override
-  public Object getArgument(final String name) {
+  public Object getArgumentValue(final String name) {
     Preconditions.checkArgument(name != null, "Argument name cannot be null.");
     Preconditions.checkState(getVarManager().variableExists(name), "Variable %s does not exist.", name);
     Preconditions.checkState(getVarManager().getVariable(name).isSetValue(), "Variable %s is not set.", name);

@@ -74,14 +74,14 @@ public class OPMInstanceExecutor {
   private void fetchOutgoingArgumentsValues() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
       Variable var = parent.getVarManager().getVariable(parameter.getObject().getName());
-      var.setValue(instance.getArgument(parameter.getName()));
+      var.setValue(instance.getArgumentValue(parameter.getName()));
     }
   }
 
   private void putIncomingArgumentsValues() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMIncomingParameter.INSTANCE)) {
       Object argumentValue = parent.getVarManager().getVariable(parameter.getObject().getName()).getValue();
-      instance.addArgument(parameter.getName(), argumentValue);
+      instance.setArgumentValue(parameter.getName(), argumentValue);
     }
 
   }

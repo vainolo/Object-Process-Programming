@@ -26,7 +26,7 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
     final int a = Integer.parseInt(getVarManager().getVariable("a").getValue().toString());
     final int b = Integer.parseInt(getVarManager().getVariable("b").getValue().toString());
     final int c = a + b;
-    addArgument("c", c);
+    setArgumentValue("c", c);
   }
 
   @Override

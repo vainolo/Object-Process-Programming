@@ -45,9 +45,9 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
     List<String> list = new ArrayList<String>();
     instance = new OPMJavaProcessInstance(process);
-    instance.addArgument("this", list);
-    instance.addArgument("arg0", 0);
-    instance.addArgument("arg1", "Hello");
+    instance.setArgumentValue("this", list);
+    instance.setArgumentValue("arg0", 0);
+    instance.setArgumentValue("arg1", "Hello");
 
     instance.execute();
 
@@ -62,10 +62,10 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
     List<Float> list = new ArrayList<Float>();
     list.add(5f);
 
-    instance.addArgument("this", list);
+    instance.setArgumentValue("this", list);
     instance.execute();
 
-    Object result = instance.getArgument("result");
+    Object result = instance.getArgumentValue("result");
 
     assertEquals(1, result);
   }
@@ -78,7 +78,7 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
     instance = new OPMJavaProcessInstance(process);
     instance.execute();
 
-    Object result = instance.getArgument("result");
+    Object result = instance.getArgumentValue("result");
     assertEquals(System.lineSeparator(), result);
 
   }
@@ -96,11 +96,11 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
     java.util.Collections.copy(l2, l1);
 
     instance = new OPMJavaProcessInstance(process);
-    instance.addArgument("arg0", l2);
-    instance.addArgument("arg1", l1);
+    instance.setArgumentValue("arg0", l2);
+    instance.setArgumentValue("arg1", l1);
     instance.execute();
 
-    List<Integer> l3 = (List<Integer>) instance.getArgument("arg1");
+    List<Integer> l3 = (List<Integer>) instance.getArgumentValue("arg1");
     assertArrayEquals(l1.toArray(), l3.toArray());
   }
 
@@ -113,11 +113,11 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
     String b = "hello";
 
     instance = new OPMJavaProcessInstance(process);
-    instance.addArgument("arg0", a);
-    instance.addArgument("this", b);
+    instance.setArgumentValue("arg0", a);
+    instance.setArgumentValue("this", b);
     instance.execute();
 
-    Object result = instance.getArgument("result");
+    Object result = instance.getArgumentValue("result");
 
     assertEquals(true, result);
   }

@@ -42,7 +42,7 @@ public interface OPMProcessInstance {
    * @param value
    *          of the argument.
    */
-  void addArgument(String name, Object value);
+  void setArgumentValue(String name, Object value);
 
   /**
    * Get the value of an argument.
@@ -53,7 +53,7 @@ public interface OPMProcessInstance {
    * @throws IllegalStateException
    *           if the argument has no value (only occurs for outgoing arguments).
    */
-  Object getArgument(String name);
+  Object getArgumentValue(String name);
 
   /**
    * Check if the process has finished.

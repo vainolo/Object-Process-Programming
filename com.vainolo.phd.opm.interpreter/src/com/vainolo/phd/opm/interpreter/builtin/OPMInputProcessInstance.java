@@ -28,7 +28,7 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
   @Override
   protected void executing() {
     final String retVal = showInputDialog();
-    addArgument("text", retVal);
+    setArgumentValue("text", retVal);
   }
 
   /**

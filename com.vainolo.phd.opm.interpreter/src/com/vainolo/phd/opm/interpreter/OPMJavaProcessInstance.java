@@ -37,16 +37,16 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
 
     arguments = new Object[parameters.length];
     for(int i = 0; i < parameters.length; i++) {
-      arguments[i] = getArgument("arg" + i);
+      arguments[i] = getArgumentValue("arg" + i);
     }
 
     if(!Modifier.isStatic(method.getModifiers()))
-      target = getArgument("this");
+      target = getArgumentValue("this");
 
     Object result = callMethod(method);
 
     if(!method.getReturnType().equals(Void.TYPE)) {
-      addArgument("result", result);
+      setArgumentValue("result", result);
     }
   }
 
