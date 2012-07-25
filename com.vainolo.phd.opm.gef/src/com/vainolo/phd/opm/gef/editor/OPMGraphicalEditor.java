@@ -115,8 +115,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
       opdFile.touch(null);
       getCommandStack().markSaveLocation();
     } catch(Exception e) {
-      // TODO do something smarter.
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 
@@ -145,8 +144,6 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         OPMIdManager.setId(opd.getNextId());
 
       } catch(IOException e) {
-        // TODO do something smarter.
-        e.printStackTrace();
         opdResource = null;
       }
     }

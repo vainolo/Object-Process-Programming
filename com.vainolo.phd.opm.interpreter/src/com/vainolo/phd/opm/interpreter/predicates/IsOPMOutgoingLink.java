@@ -7,26 +7,27 @@ package com.vainolo.phd.opm.interpreter.predicates;
 
 import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
-import com.vainolo.phd.opm.model.OPMNamedElement;
+import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMNode;
 
 /**
- * Predicate that returns true when an {@link OPMNamedElement} has the specified name.
+ * Return true when the link is an outgoing link to the given node.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
- * @created 9 Jul 2012
  * 
  */
-public class OPMNamedElementNameEquals implements Predicate<OPMNamedElement> {
+public class IsOPMOutgoingLink implements Predicate<OPMLink> {
 
-  private final String expectedName;
+  private final OPMNode node;
 
-  public OPMNamedElementNameEquals(String expectedName) {
-    Preconditions.checkNotNull(expectedName);
-    this.expectedName = expectedName;
+  public IsOPMOutgoingLink(OPMNode node) {
+    Preconditions.checkNotNull(node);
+    this.node = node;
   }
 
   @Override
-  public boolean apply(final OPMNamedElement element) {
-    return expectedName.equals(element.getName());
+  public boolean apply(OPMLink link) {
+    Preconditions.checkNotNull(node);
+    return link.getSource().equals(node);
   }
 }

@@ -6,24 +6,31 @@
 package com.vainolo.phd.opm.interpreter.predicates;
 
 import com.google.common.base.Predicate;
-import com.vainolo.phd.opm.interpreter.utils.Parameter;
+import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
- * Predicate that returns true for wait inducing incoming parameters
+ * Predicate that returns true for links that get outgoing data from an object.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * @created 10 Jul 2012
  * 
  */
-public enum IsOPMWaitIncomingParameter implements Predicate<Parameter> {
+public enum IsOPMObjectOutgoingDataLink implements Predicate<OPMProceduralLink> {
   INSTANCE;
 
   @Override
-  public boolean apply(final Parameter input) {
-    switch(input.getLink().getKind()) {
+  public boolean apply(final OPMProceduralLink link) {
+    switch(link.getKind()) {
+      case AGENT:
       case INSTRUMENT:
+      case INSTRUMENT_CONDITION:
+      case INSTRUMENT_EVENT:
       case CONSUMPTION:
+      case CONSUMPTION_CONDITION:
+      case CONSUMPTION_EVENT:
       case EFFECT:
+      case EFFECT_CONDITION:
+      case EFFECT_EVENT:
         return true;
     }
     return false;

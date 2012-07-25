@@ -26,6 +26,7 @@ import org.jgrapht.graph.DefaultEdge;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
+import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionFollower;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
@@ -62,7 +63,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   @Override
   protected void initParameterVariables() {
-    Collection<OPMObject> parameters = OPDUtils.findObjects(opd);
+    Collection<OPMObject> parameters = OPMAnalysis.findContainedObjects(opd);
     for(OPMObject object : parameters) {
       getVarManager().createVariable(object.getName());
     }
@@ -74,8 +75,8 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   void createLocalVariables() {
     logger.info("Creating local variables.");
     if(opd.getKind().equals(OPMObjectProcessDiagramKind.COMPOUND)) {
-      OPMProcess zoomedInProcess = OPDUtils.findZoomedInProcess(opd);
-      for(OPMObject object : OPDUtils.findObjects(zoomedInProcess)) {
+      OPMProcess zoomedInProcess = OPMAnalysis.findZoomedInProcess(opd);
+      for(OPMObject object : OPMAnalysis.findContainedObjects(zoomedInProcess)) {
         if(!getVarManager().variableExists(object.getName())) {
           getVarManager().createVariable(object.getName());
         }

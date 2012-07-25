@@ -10,7 +10,7 @@ import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
 
-import com.vainolo.phd.opm.interpreter.OPDUtils;
+import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
@@ -78,7 +78,7 @@ public final class OPMNodeDeleteCommand extends Command {
         link.setOpd((OPMObjectProcessDiagram) container);
       } else {
         OPMNode containerNode = (OPMNode) container;
-        link.setOpd(OPDUtils.findOPD(containerNode));
+        link.setOpd(OPMAnalysis.findOPD(containerNode));
       }
 
     }

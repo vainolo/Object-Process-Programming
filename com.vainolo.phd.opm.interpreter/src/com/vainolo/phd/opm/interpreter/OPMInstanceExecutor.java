@@ -13,7 +13,7 @@ import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMConditionalParameter;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMIncomingParameter;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingParameter;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMWaitIncomingParameter;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMWaitParameter;
 import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;
@@ -87,7 +87,7 @@ public class OPMInstanceExecutor {
   }
 
   private boolean isReady() {
-    for(Parameter parameter : Sets.filter(parameters, IsOPMWaitIncomingParameter.INSTANCE)) {
+    for(Parameter parameter : Sets.filter(parameters, IsOPMWaitParameter.INSTANCE)) {
       Variable argument = parent.getVarManager().getVariable(parameter.getObject().getName());
       if(!argument.isSetValue()) {
         logger.info("Instance " + getName() + " kept waiting.");

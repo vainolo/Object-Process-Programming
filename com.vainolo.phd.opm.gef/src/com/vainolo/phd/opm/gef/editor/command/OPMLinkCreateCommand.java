@@ -17,62 +17,60 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
  */
 public class OPMLinkCreateCommand extends Command {
 
-	/** Source {@link OPMNode} of the link. */
-	private OPMNode source;
-	/** Target {@link OPMNode} of the link. */
-	private OPMNode target;
-	/** {@link OPMLink} that is being added by the {@link Command}. */
-	private OPMLink link;
-	/** Container {@link OPMObjectProcessDiagram}. */
-	private OPMObjectProcessDiagram opd;
+  /** Source {@link OPMNode} of the link. */
+  private OPMNode source;
+  /** Target {@link OPMNode} of the link. */
+  private OPMNode target;
+  /** {@link OPMLink} that is being added by the {@link Command}. */
+  private OPMLink link;
+  /** Container {@link OPMObjectProcessDiagram}. */
+  private OPMObjectProcessDiagram opd;
 
-	/**
-	 * The command can be executed when all parameters have been set.
-	 */
-	@Override
-	public boolean canExecute() {
-		return source != null && target != null && link != null && opd != null;
-	}
+  /**
+   * The command can be executed when all parameters have been set.
+   */
+  @Override
+  public boolean canExecute() {
+    return source != null && target != null && link != null && opd != null;
+  }
 
-	/**
-	 * Connect the {@link OPMLink} to the given source and target
-	 * {@link OPMNode} instances and add it to the containing
-	 * {@link OPMObjectProcessDiagram}.
-	 */
-	@Override
-	public void execute() {
-		link.setSource(source);
-		link.setTarget(target);
-		link.setOpd(opd);
-	}
+  /**
+   * Connect the {@link OPMLink} to the given source and target {@link OPMNode} instances and add it to the containing
+   * {@link OPMObjectProcessDiagram}.
+   */
+  @Override
+  public void execute() {
+    link.setSource(source);
+    link.setTarget(target);
+    link.setOpd(opd);
+  }
 
-	/**
-	 * Detach the {@link OPMLink} from the source and target {@link OPMNode}
-	 * instances and from the containing {@link OPMObjectProcessDiagram}.
-	 */
-	@Override
-	public void undo() {
-		link.getSource().getOutgoingLinks().remove(link);
-		link.setSource(null);
-		link.getTarget().getIncomingLinks().remove(link);
-		link.setTarget(null);
-		link.setOpd(null);
-	}
+  /**
+   * Detach the {@link OPMLink} from the source and target {@link OPMNode} instances and from the containing
+   * {@link OPMObjectProcessDiagram}.
+   */
+  @Override
+  public void undo() {
+    link.getSource().getOutgoingLinks().remove(link);
+    link.setSource(null);
+    link.getTarget().getIncomingLinks().remove(link);
+    link.setTarget(null);
+    link.setOpd(null);
+  }
 
-	// TODO change all parameters to only one parameter function.
-	public void setTarget(OPMNode target) {
-		this.target = target;
-	}
+  public void setTarget(OPMNode target) {
+    this.target = target;
+  }
 
-	public void setSource(OPMNode source) {
-		this.source = source;
-	}
+  public void setSource(OPMNode source) {
+    this.source = source;
+  }
 
-	public void setLink(OPMLink link) {
-		this.link = link;
-	}
+  public void setLink(OPMLink link) {
+    this.link = link;
+  }
 
-	public void setOPD(OPMObjectProcessDiagram opd) {
-		this.opd = opd;
-	}
+  public void setOPD(OPMObjectProcessDiagram opd) {
+    this.opd = opd;
+  }
 }

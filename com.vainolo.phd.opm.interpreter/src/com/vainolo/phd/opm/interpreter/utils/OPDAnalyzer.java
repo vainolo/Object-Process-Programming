@@ -18,13 +18,12 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.OPDUtils;
+import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMEventLink;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMIncomingProceduralLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMInvocationLink;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingProceduralLink;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessIncomingDataLink;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessOutgoingDataLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
@@ -47,9 +46,12 @@ public final class OPDAnalyzer {
    * @return a set of processes to execute when the provided process finishes execution.
    */
   public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
-    Set<OPMProceduralLink> outgoingProceduralLinks = ImmutableSet.copyOf(OPDUtils.findOutgoingProceduralLinks(process));
+
+    // BUG! findOutgoingProceduralLinks does not retrieve invocation links!
+
+    Collection<OPMProceduralLink> outgoingProceduralLinks = OPMAnalysis.findOutgoingInvocationLinks(process);
     Set<OPMProcess> invocationProcesses = Sets.newHashSet();
-    for(OPMProceduralLink invocationLink : Sets.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
+    for(OPMProceduralLink invocationLink : Collections2.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
       invocationProcesses.add((OPMProcess) invocationLink.getTarget());
     }
     return invocationProcesses;
@@ -90,9 +92,9 @@ public final class OPDAnalyzer {
   public static Set<OPMProcess> calculateConnectedEventProcesses(final OPMObject object) {
     Set<OPMProcess> processes = Sets.newHashSet();
 
-    Collection<OPMProceduralLink> incomingLinks = OPDUtils.findIncomingProceduralLinks(object);
+    Collection<OPMProceduralLink> incomingLinks = OPMAnalysis.findIncomingProceduralLinks(object);
     incomingLinks = Collections2.filter(incomingLinks, IsOPMEventLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.findOutgoingProceduralLinks(object);
+    Collection<OPMProceduralLink> outgoingLinks = OPMAnalysis.findOutgoingProceduralLinks(object);
     outgoingLinks = Collections2.filter(outgoingLinks, IsOPMEventLink.INSTANCE);
 
     // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
@@ -267,8 +269,8 @@ public final class OPDAnalyzer {
    */
   private static void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : OPDUtils.findExecutableProcesses(opd)) {
-      for(final OPMProcess otherProcess : OPDUtils.findExecutableProcesses(opd)) {
+    for(final OPMProcess process : OPMAnalysis.findExecutableProcesses(opd)) {
+      for(final OPMProcess otherProcess : OPMAnalysis.findExecutableProcesses(opd)) {
         if(process.equals(otherProcess)) {
           continue;
         }
@@ -294,7 +296,7 @@ public final class OPDAnalyzer {
    */
   private static void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : OPDUtils.findExecutableProcesses(opd)) {
+    for(final OPMProcess process : OPMAnalysis.findExecutableProcesses(opd)) {
       dag.addVertex(process);
     }
   }
@@ -308,10 +310,10 @@ public final class OPDAnalyzer {
    */
   public static Set<Parameter> calculateAllParameters(final OPMProcess process) {
     Set<Parameter> parameters = Sets.newHashSet();
-    Collection<OPMProceduralLink> incomingLinks = OPDUtils.findIncomingProceduralLinks(process);
-    incomingLinks = Collections2.filter(incomingLinks, IsOPMIncomingProceduralLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.findOutgoingProceduralLinks(process);
-    outgoingLinks = Collections2.filter(outgoingLinks, IsOPMOutgoingProceduralLink.INSTANCE);
+    Collection<OPMProceduralLink> incomingLinks = OPMAnalysis.findIncomingDataLinks(process);
+    incomingLinks = Collections2.filter(incomingLinks, IsOPMProcessIncomingDataLink.INSTANCE);
+    Collection<OPMProceduralLink> outgoingLinks = OPMAnalysis.findOutgoingDataLinks(process);
+    outgoingLinks = Collections2.filter(outgoingLinks, IsOPMProcessOutgoingDataLink.INSTANCE);
 
     // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
     // collections freely.
