@@ -94,14 +94,4 @@ public class VariableManagerTest {
   @After
   public void tearDown() {
   }
-
-  /**
-   * Launch the test.
-   * 
-   * @param args
-   *          the command line arguments
-   */
-  public static void main(final String[] args) {
-    new org.junit.runner.JUnitCore().run(VariableManagerTest.class);
-  }
 }
