@@ -28,8 +28,8 @@ import static org.junit.Assert.*;
  * @version $Revision: 1.0 $
  */
 public class OPDAnalyzerTest {
-  OPMObjectProcessDiagram opd;
-  DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
+  private OPMObjectProcessDiagram opd;
+  private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
   private static final int SPACING = 50;
 
   private final Map<Integer, OPMProcess> processes = new HashMap<Integer, OPMProcess>();

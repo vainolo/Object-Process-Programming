@@ -231,8 +231,7 @@ public final class OPDAnalyzer {
       if(removedEdge == null) {
         return;
       }
-      GraphEdgeChangeEvent<OPMProcess, DefaultEdge> event;
-      event =
+      final GraphEdgeChangeEvent<OPMProcess, DefaultEdge> event =
           new GraphEdgeChangeEvent<OPMProcess, DefaultEdge>(new Object(), GraphEdgeChangeEvent.EDGE_REMOVED,
               removedEdge);
       dni.edgeRemoved(event);

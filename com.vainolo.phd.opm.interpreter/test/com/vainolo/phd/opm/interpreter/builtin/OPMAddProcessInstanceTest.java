@@ -22,15 +22,15 @@ public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
   @Test
   public void Test_Add() {
-    OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
-    OPMAddProcessInstance instance = new OPMAddProcessInstance(process);
+    final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
+    final OPMAddProcessInstance instance = new OPMAddProcessInstance(process);
 
     instance.setArgumentValue("a", 1);
     instance.setArgumentValue("b", 2);
 
     instance.execute();
 
-    int value = (Integer) instance.getArgumentValue("c");
+    final int value = (Integer) instance.getArgumentValue("c");
     assertEquals(3, value);
 
   }

@@ -26,7 +26,7 @@ public enum Interpreter {
 
   private IContainer containter;
   private OPMProcessInstanceFactory factory;
-  public ExecutorService executorService = Executors.newCachedThreadPool();
+  private final ExecutorService executorService = Executors.newCachedThreadPool();
 
   public IContainer getContainer() {
     return containter;

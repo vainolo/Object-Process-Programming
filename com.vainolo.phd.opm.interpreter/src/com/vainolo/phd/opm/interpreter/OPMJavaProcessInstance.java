@@ -16,7 +16,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
-  Logger logger = SimpleLoggerFactory.createLogger(OPMJavaProcessInstance.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMJavaProcessInstance.class.getName());
 
   private final Pattern classAndMethodAndParametersPattern = Pattern.compile("(.*)\\.([^\\.]*)\\((.*)\\)");
 

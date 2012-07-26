@@ -49,7 +49,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
 
   private final Set<OPMProcessInstance> waitingInstances = new HashSet<OPMProcessInstance>();
-  BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
+  final BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
   private OPDExecutionFollower follower;
   private final OPMProcessInstanceFactory instanceFactory = OPMProcessInstanceFactory.INSTANCE;
 
