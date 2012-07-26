@@ -25,8 +25,9 @@ public enum IsOPMWaitParameter implements Predicate<Parameter> {
       case CONSUMPTION:
       case EFFECT:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 
 }

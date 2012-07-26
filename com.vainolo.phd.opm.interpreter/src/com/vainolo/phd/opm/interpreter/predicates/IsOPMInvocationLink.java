@@ -23,7 +23,8 @@ public enum IsOPMInvocationLink implements Predicate<OPMProceduralLink> {
     switch(link.getKind()) {
       case INVOCATION:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 }

@@ -23,7 +23,7 @@ public class VariableManagerTest {
    * @generatedBy CodePro at 6/29/12 11:06 AM
    */
   @Test
-  public void testConstructor() throws Exception {
+  public void testConstructor() {
     final VariableManager result = new VariableManager();
     assertNotNull(result);
   }
@@ -82,28 +82,17 @@ public class VariableManagerTest {
 
   /**
    * Perform pre-test initialization.
-   * 
-   * @throws Exception
-   *           if the initialization fails for some reason
-   * 
-   * @generatedBy CodePro at 7/1/12 8:37 PM
    */
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     variableManager = new VariableManager();
   }
 
   /**
    * Perform post-test clean-up.
-   * 
-   * @throws Exception
-   *           if the clean-up fails for some reason
-   * 
-   * @generatedBy CodePro at 7/1/12 8:37 PM
    */
   @After
-  public void tearDown() throws Exception {
-    // Add additional tear down code here
+  public void tearDown() {
   }
 
   /**
@@ -111,8 +100,6 @@ public class VariableManagerTest {
    * 
    * @param args
    *          the command line arguments
-   * 
-   * @generatedBy CodePro at 7/1/12 8:37 PM
    */
   public static void main(final String[] args) {
     new org.junit.runner.JUnitCore().run(VariableManagerTest.class);

@@ -104,7 +104,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     Preconditions.checkState(waitingInstances.size() > 0, "Did not find any process to execute.");
 
     int executingInstances = 0;
-    while((waitingInstances.size() > 0) || (executingInstances > 0)) {
+    while((waitingInstances.size() > 0) || (executingInstances > 0)) { // $codepro.audit.disable useForLoop
       executingInstances += tryToExecuteWaitingInstances();
 
       if(executingInstances > 0) {
@@ -116,7 +116,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   private void waitForInstanceToFinish() {
     OPMInstanceExecutor executor = null;
-    while(true) {
+    while(true) { // $codepro.audit.disable useForLoop
       try {
         executor = getResultQueue().take();
         break;
@@ -150,8 +150,9 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     int executedInstances = 0;
     final Set<OPMProcess> followingProcesses = Sets.newHashSet();
 
+    OPMInstanceExecutor instanceExecutor;
     for(final Iterator<OPMProcessInstance> waitingInstanceIt = waitingInstances.iterator(); waitingInstanceIt.hasNext();) {
-      OPMInstanceExecutor instanceExecutor = new OPMInstanceExecutor(waitingInstanceIt.next(), this);
+      instanceExecutor = new OPMInstanceExecutor(waitingInstanceIt.next(), this);
 
       instanceExecutor.tryToExecuteInstance();
 

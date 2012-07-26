@@ -5,7 +5,13 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
+import org.junit.Test;
+
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
+import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMProcess;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * 
@@ -14,15 +20,18 @@ import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
  */
 public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
-  /**
-   * Launch the test.
-   * 
-   * @param args
-   *          the command line arguments
-   * 
-   * @generatedBy CodePro at 02/07/12 16:48
-   */
-  public static void main(final String[] args) {
-    new org.junit.runner.JUnitCore().run(OPMAddProcessInstanceTest.class);
+  @Test
+  public void Test_Add() {
+    OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
+    OPMAddProcessInstance instance = new OPMAddProcessInstance(process);
+
+    instance.setArgumentValue("a", 1);
+    instance.setArgumentValue("b", 2);
+
+    instance.execute();
+
+    int value = (Integer) instance.getArgumentValue("c");
+    assertEquals(3, value);
+
   }
 }

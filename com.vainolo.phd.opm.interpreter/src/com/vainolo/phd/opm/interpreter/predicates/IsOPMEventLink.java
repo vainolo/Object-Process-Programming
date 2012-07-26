@@ -25,10 +25,9 @@ public enum IsOPMEventLink implements Predicate<OPMProceduralLink> {
       case EFFECT_EVENT:
       case INSTRUMENT_EVENT:
         return true;
+      default:
+        return false;
     }
-
-    return false;
-
   }
 
 }

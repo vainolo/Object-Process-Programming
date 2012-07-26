@@ -22,7 +22,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   private boolean active = false;
   private final OPMProcess process;
 
-  public OPMAbstractProcessInstance(final OPMProcess process) {
+  protected OPMAbstractProcessInstance(final OPMProcess process) {
     this.process = process;
     initProcessInstance();
     initParameterVariables();

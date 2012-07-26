@@ -132,8 +132,9 @@ public class OPMInstanceExecutor {
       case EXECUTED:
       case EXECUTING:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 
   public enum ExecutionStatus {

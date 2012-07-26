@@ -32,8 +32,9 @@ public enum IsOPMObjectOutgoingDataLink implements Predicate<OPMProceduralLink> 
       case EFFECT_CONDITION:
       case EFFECT_EVENT:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 
 }

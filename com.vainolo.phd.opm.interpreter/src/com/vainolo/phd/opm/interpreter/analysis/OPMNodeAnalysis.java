@@ -25,9 +25,8 @@ public class OPMNodeAnalysis {
 
   static OPMObjectProcessDiagram findOPD(OPMNode node) {
     OPMContainer currentContainer = node.getContainer();
-    while(!(currentContainer instanceof OPMObjectProcessDiagram)) {
-      final OPMNode containerNode = (OPMNode) currentContainer;
-      currentContainer = containerNode.getContainer();
+    while(!(currentContainer instanceof OPMObjectProcessDiagram)) { // $codepro.audit.disable useForLoop
+      currentContainer = ((OPMNode) currentContainer).getContainer();
     }
 
     return (OPMObjectProcessDiagram) currentContainer;

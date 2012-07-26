@@ -34,6 +34,8 @@ public class OPMObjectProcessDiagramAnalysis {
       case COMPOUND:
         final OPMProcess zoomedInProcess = findZoomedInProcess(opd);
         processes = OPMAnalysis.findContainedProcesses(zoomedInProcess);
+      default:
+        throw new RuntimeException("Method cannot handle opd of kind " + opd.getKind());
     }
     return processes;
   }

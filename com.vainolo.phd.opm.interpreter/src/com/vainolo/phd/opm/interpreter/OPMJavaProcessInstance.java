@@ -68,7 +68,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
     Object result = null;
     try {
       result = method.invoke(target, arguments);
-    } catch(Exception e) {
+    } catch(ReflectiveOperationException e) {
       logger.info("Method " + methodName + " could not be called. See log for details.");
       throw new RuntimeException(e);
     }

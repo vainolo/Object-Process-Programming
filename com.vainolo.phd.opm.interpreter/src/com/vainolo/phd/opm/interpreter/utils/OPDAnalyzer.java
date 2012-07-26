@@ -203,33 +203,39 @@ public final class OPDAnalyzer {
    * 
    * @param dag
    *          the DAG from which the edges are removed.
-   * @param vertex
+   * @param source
    *          the OPMProcess that is analyzed.
    */
   private static void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
-      final OPMProcess vertex) {
+      final OPMProcess source) {
     final DirectedNeighborIndex<OPMProcess, DefaultEdge> dni = new DirectedNeighborIndex<OPMProcess, DefaultEdge>(dag);
-    final OPMProcess[] successors = dni.successorsOf(vertex).toArray(new OPMProcess[0]);
+    final OPMProcess[] successors = dni.successorsOf(source).toArray(new OPMProcess[0]);
 
-    for(final OPMProcess firstTargetVertex : successors) {
-      for(final OPMProcess secondTargetVertex : successors) {
-        if(firstTargetVertex.equals(secondTargetVertex)) {
-          continue;
-        }
-
-        DefaultEdge removedEdge;
-        if(dni.successorsOf(firstTargetVertex).contains(secondTargetVertex)) {
-          removedEdge = dag.removeEdge(vertex, secondTargetVertex);
-          if(removedEdge == null) {
-            continue;
-          }
-          GraphEdgeChangeEvent<OPMProcess, DefaultEdge> event;
-          event =
-              new GraphEdgeChangeEvent<OPMProcess, DefaultEdge>(new Object(), GraphEdgeChangeEvent.EDGE_REMOVED,
-                  removedEdge);
-          dni.edgeRemoved(event);
-        }
+    for(final OPMProcess firstTarget : successors) {
+      for(final OPMProcess secondTarget : successors) {
+        removeDuplicateEdges(dag, source, dni, firstTarget, secondTarget);
       }
+    }
+  }
+
+  private static void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
+      final OPMProcess source, final DirectedNeighborIndex<OPMProcess, DefaultEdge> dni, final OPMProcess firstTarget,
+      final OPMProcess secondTarget) {
+    if(firstTarget.equals(secondTarget)) {
+      return;
+    }
+
+    final DefaultEdge removedEdge;
+    if(dni.successorsOf(firstTarget).contains(secondTarget)) {
+      removedEdge = dag.removeEdge(source, secondTarget);
+      if(removedEdge == null) {
+        return;
+      }
+      GraphEdgeChangeEvent<OPMProcess, DefaultEdge> event;
+      event =
+          new GraphEdgeChangeEvent<OPMProcess, DefaultEdge>(new Object(), GraphEdgeChangeEvent.EDGE_REMOVED,
+              removedEdge);
+      dni.edgeRemoved(event);
     }
   }
 
@@ -267,19 +273,24 @@ public final class OPDAnalyzer {
    */
   private static void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : OPMAnalysis.findExecutableProcesses(opd)) {
-      for(final OPMProcess otherProcess : OPMAnalysis.findExecutableProcesses(opd)) {
-        if(process.equals(otherProcess)) {
-          continue;
-        }
+    for(final OPMProcess process1 : OPMAnalysis.findExecutableProcesses(opd)) {
+      for(final OPMProcess process2 : OPMAnalysis.findExecutableProcesses(opd)) {
+        createEdgeIfRequired(dag, process1, process2);
+      }
+    }
+  }
 
-        if(process.getConstraints().getBottom().y() < otherProcess.getConstraints().getTop().y()) {
-          try {
-            dag.addDagEdge(process, otherProcess);
-          } catch(final CycleFoundException e) {
-            throw new RuntimeException("Creation of the OPD DAG resulted in a cycle. This should never happen.");
-          }
-        }
+  private static void createEdgeIfRequired(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
+      final OPMProcess process1, final OPMProcess process2) {
+    if(process1.equals(process2)) {
+      return;
+    }
+
+    if(process1.getConstraints().getBottom().y() < process2.getConstraints().getTop().y()) {
+      try {
+        dag.addDagEdge(process1, process2);
+      } catch(final CycleFoundException e) {
+        throw new RuntimeException("Creation of the OPD DAG resulted in a cycle. This should never happen.");
       }
     }
   }
