@@ -21,7 +21,7 @@ import static junit.framework.Assert.assertEquals;
 public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
   @Test
-  public void Test_Add() {
+  public void testAdd() {
     final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
     final OPMAddProcessInstance instance = new OPMAddProcessInstance(process);
 
