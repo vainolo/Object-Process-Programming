@@ -44,7 +44,7 @@ public class OPMConceptualProcess extends OPMAbstractProcessInstance implements 
 
   @Override
   protected void initParameterVariables() {
-    Set<Parameter> parameters = OPDAnalyzer.calculateAllParameters(getProcess());
+    final Set<Parameter> parameters = OPDAnalyzer.calculateAllParameters(getProcess());
     for(Parameter parameter : parameters) {
       getVarManager().createVariable(parameter.getName());
     }

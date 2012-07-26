@@ -32,7 +32,7 @@ public class OPMObjectProcessDiagramAnalysis {
         processes = OPMAnalysis.findContainedProcesses(opd);
         break;
       case COMPOUND:
-        OPMProcess zoomedInProcess = findZoomedInProcess(opd);
+        final OPMProcess zoomedInProcess = findZoomedInProcess(opd);
         processes = OPMAnalysis.findContainedProcesses(zoomedInProcess);
     }
     return processes;
@@ -48,7 +48,7 @@ public class OPMObjectProcessDiagramAnalysis {
    */
   static OPMProcess findZoomedInProcess(OPMObjectProcessDiagram opd) {
     Preconditions.checkNotNull(opd);
-    Collection<OPMProcess> processes = OPMAnalysis.findContainedProcesses(opd);
+    final Collection<OPMProcess> processes = OPMAnalysis.findContainedProcesses(opd);
     if(processes.size() > 1)
       throw new RuntimeException("A compound OPD can have only one main process. Found " + processes.size() + ". ");
     if(processes.size() == 0)

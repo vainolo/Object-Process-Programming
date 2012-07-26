@@ -14,13 +14,13 @@ import com.vainolo.utils.SimpleLoggerFactory;
 import static com.google.common.base.Preconditions.*;
 
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
-  private static Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
   private VariableManager varManager = new VariableManager();
   private boolean executing = false;
   private boolean finished = false;
   private boolean active = false;
-  private OPMProcess process;
+  private final OPMProcess process;
 
   public OPMAbstractProcessInstance(final OPMProcess process) {
     this.process = process;

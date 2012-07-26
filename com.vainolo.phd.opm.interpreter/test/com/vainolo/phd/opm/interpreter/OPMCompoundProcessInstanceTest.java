@@ -5,12 +5,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import org.easymock.IMockBuilder;
-import org.junit.After;
-import org.junit.Before;
-
-import static org.easymock.EasyMock.createMockBuilder;
-
 /**
  * 
  * @author Arieh 'Vainolo' Bibliowicz
@@ -18,8 +12,6 @@ import static org.easymock.EasyMock.createMockBuilder;
  * 
  */
 public class OPMCompoundProcessInstanceTest extends OPMAbstractProcessInstanceTest {
-
-  private IMockBuilder<OPMCompoundProcessInstance> builder;
 
   /**
    * Perform pre-test initialization.
@@ -31,18 +23,6 @@ public class OPMCompoundProcessInstanceTest extends OPMAbstractProcessInstanceTe
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    builder = createMockBuilder(OPMCompoundProcessInstance.class);
   }
 
-  /**
-   * Perform post-test clean-up.
-   * 
-   * @throws Exception
-   *           if the clean-up fails for some reason
-   */
-  @Override
-  @After
-  public void tearDown() throws Exception {
-    super.tearDown();
-  }
 }

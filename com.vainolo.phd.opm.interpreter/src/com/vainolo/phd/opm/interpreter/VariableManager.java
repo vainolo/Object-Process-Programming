@@ -13,7 +13,7 @@ import com.google.common.base.Preconditions;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 public class VariableManager {
-  private static Logger logger = SimpleLoggerFactory.createLogger(VariableManager.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(VariableManager.class.getName());
 
   private final Map<String, Variable> variables = new HashMap<String, Variable>();
 

@@ -33,6 +33,7 @@ public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implemen
     try {
       Thread.sleep(time * 1000);
     } catch(InterruptedException e) {
+      logger.finest("Sleep process interrupted. Returning.");
       return;
     }
   }

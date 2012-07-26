@@ -35,7 +35,7 @@ public class OPMNodeAnalysis {
   }
 
   static Collection<OPMLink> findAllStructuralLinks(OPMNode node) {
-    Collection<OPMLink> links = new ArrayList<OPMLink>(node.getIncomingLinks());
+    final Collection<OPMLink> links = new ArrayList<OPMLink>(node.getIncomingLinks());
     links.addAll(node.getOutgoingLinks());
     return filter(links, IsOPMStructuralLink.INSTANCE);
   }
@@ -50,7 +50,7 @@ public class OPMNodeAnalysis {
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   static Collection<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
-    Collection<OPMLink> links = new ArrayList<OPMLink>(node.getIncomingLinks());
+    final Collection<OPMLink> links = new ArrayList<OPMLink>(node.getIncomingLinks());
     links.addAll(node.getOutgoingLinks());
     return checkedCollection((Collection) filter(links, IsOPMProceduralLink.INSTANCE), OPMProceduralLink.class);
   }

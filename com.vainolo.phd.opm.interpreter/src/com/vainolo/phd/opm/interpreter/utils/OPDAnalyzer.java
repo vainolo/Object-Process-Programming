@@ -47,10 +47,8 @@ public final class OPDAnalyzer {
    */
   public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
 
-    // BUG! findOutgoingProceduralLinks does not retrieve invocation links!
-
-    Collection<OPMProceduralLink> outgoingProceduralLinks = OPMAnalysis.findOutgoingInvocationLinks(process);
-    Set<OPMProcess> invocationProcesses = Sets.newHashSet();
+    final Collection<OPMProceduralLink> outgoingProceduralLinks = OPMAnalysis.findOutgoingInvocationLinks(process);
+    final Set<OPMProcess> invocationProcesses = Sets.newHashSet();
     for(OPMProceduralLink invocationLink : Collections2.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
       invocationProcesses.add((OPMProcess) invocationLink.getTarget());
     }
@@ -90,7 +88,7 @@ public final class OPDAnalyzer {
    * @return
    */
   public static Set<OPMProcess> calculateConnectedEventProcesses(final OPMObject object) {
-    Set<OPMProcess> processes = Sets.newHashSet();
+    final Set<OPMProcess> processes = Sets.newHashSet();
 
     Collection<OPMProceduralLink> incomingLinks = OPMAnalysis.findIncomingProceduralLinks(object);
     incomingLinks = Collections2.filter(incomingLinks, IsOPMEventLink.INSTANCE);
@@ -309,7 +307,7 @@ public final class OPDAnalyzer {
    * @return A set containing all the parameters.
    */
   public static Set<Parameter> calculateAllParameters(final OPMProcess process) {
-    Set<Parameter> parameters = Sets.newHashSet();
+    final Set<Parameter> parameters = Sets.newHashSet();
     Collection<OPMProceduralLink> incomingLinks = OPMAnalysis.findIncomingDataLinks(process);
     incomingLinks = Collections2.filter(incomingLinks, IsOPMProcessIncomingDataLink.INSTANCE);
     Collection<OPMProceduralLink> outgoingLinks = OPMAnalysis.findOutgoingDataLinks(process);

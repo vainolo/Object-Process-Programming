@@ -33,8 +33,8 @@ public enum Interpreter {
   }
 
   public void interpret(final String processName, final IContainer container) {
+    final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
     this.containter = container;
-    OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
     process.setName(processName);
     final OPMProcessInstance instance = getFactory().createProcessInstance(process, OPMProcessKind.COMPOUND);
     instance.execute();

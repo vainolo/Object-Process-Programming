@@ -55,7 +55,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
     if(!Modifier.isStatic(method.getModifiers()))
       target = getArgumentValue("this");
 
-    Object result = callMethod(method);
+    final Object result = callMethod(method);
 
     if(!method.getReturnType().equals(Void.TYPE)) {
       setArgumentValue("result", result);
@@ -78,7 +78,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   private Method loadMethod() {
     // In the description we store the class name and the full signature of the method -
     // fullClassName.methodName(className1,className2...)
-    Matcher classAndMethodAndParametersMatcher =
+    final Matcher classAndMethodAndParametersMatcher =
         classAndMethodAndParametersPattern.matcher(getProcess().getDescription());
 
     if(!classAndMethodAndParametersMatcher.find()) {
@@ -146,7 +146,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
     if(char.class.getName().equals(name))
       return char.class;
 
-    if(name.startsWith("["))
+    if(name.charAt(0) == '[')
       throw new UnsupportedOperationException("Array parameters are not supported yet.");
 
     return Class.forName(name);

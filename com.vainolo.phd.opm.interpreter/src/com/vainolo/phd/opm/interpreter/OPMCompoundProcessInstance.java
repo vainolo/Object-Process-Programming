@@ -43,14 +43,15 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * 
  */
 public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
-  private static Logger logger = SimpleLoggerFactory.createLogger(OPMCompoundProcessInstance.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMCompoundProcessInstance.class.getName());
 
   private OPMObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
-  private Set<OPMProcessInstance> waitingInstances = new HashSet<OPMProcessInstance>();
+
+  private final Set<OPMProcessInstance> waitingInstances = new HashSet<OPMProcessInstance>();
   BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
   private OPDExecutionFollower follower;
-  private OPMProcessInstanceFactory instanceFactory = OPMProcessInstanceFactory.INSTANCE;
+  private final OPMProcessInstanceFactory instanceFactory = OPMProcessInstanceFactory.INSTANCE;
 
   public OPMCompoundProcessInstance(final OPMProcess process) {
     super(process);
@@ -63,7 +64,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   @Override
   protected void initParameterVariables() {
-    Collection<OPMObject> parameters = OPMAnalysis.findContainedObjects(opd);
+    final Collection<OPMObject> parameters = OPMAnalysis.findContainedObjects(opd);
     for(OPMObject object : parameters) {
       getVarManager().createVariable(object.getName());
     }
@@ -75,7 +76,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   void createLocalVariables() {
     logger.info("Creating local variables.");
     if(opd.getKind().equals(OPMObjectProcessDiagramKind.COMPOUND)) {
-      OPMProcess zoomedInProcess = OPMAnalysis.findZoomedInProcess(opd);
+      final OPMProcess zoomedInProcess = OPMAnalysis.findZoomedInProcess(opd);
       for(OPMObject object : OPMAnalysis.findContainedObjects(zoomedInProcess)) {
         if(!getVarManager().variableExists(object.getName())) {
           getVarManager().createVariable(object.getName());
@@ -93,7 +94,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     createLocalVariables();
 
     follower = new OPDExecutionFollower(opd);
-    Set<OPMProcess> initialProcesses = OPDAnalyzer.calculateInitialProcesses(opdDag);
+    final Set<OPMProcess> initialProcesses = OPDAnalyzer.calculateInitialProcesses(opdDag);
 
     for(OPMProcess process : initialProcesses) {
       OPMProcessInstance processInstance = instanceFactory.createProcessInstance(process, process.getKind());
@@ -119,7 +120,9 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
       try {
         executor = getResultQueue().take();
         break;
-      } catch(InterruptedException e) {}
+      } catch(InterruptedException e) {
+        logger.finest("Thread interrupred while waiting for result from queue. Will continue waiting.");
+      }
     }
     executor.afterExecutionHandling();
     follower.addExecutedProcess(executor.getProcess());
@@ -145,9 +148,9 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   private int tryToExecuteWaitingInstances() {
     int executedInstances = 0;
-    Set<OPMProcess> followingProcesses = Sets.newHashSet();
+    final Set<OPMProcess> followingProcesses = Sets.newHashSet();
 
-    for(Iterator<OPMProcessInstance> waitingInstanceIt = waitingInstances.iterator(); waitingInstanceIt.hasNext();) {
+    for(final Iterator<OPMProcessInstance> waitingInstanceIt = waitingInstances.iterator(); waitingInstanceIt.hasNext();) {
       OPMInstanceExecutor instanceExecutor = new OPMInstanceExecutor(waitingInstanceIt.next(), this);
 
       instanceExecutor.tryToExecuteInstance();
@@ -170,7 +173,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   }
 
   private Set<OPMProcess> calculateFollowingProcesses(OPMInstanceExecutor instanceExecutor) {
-    Set<OPMProcess> followingProcesses = Sets.newHashSet();
+    final Set<OPMProcess> followingProcesses = Sets.newHashSet();
     if(instanceExecutor.wasExecuted()) {
       for(Parameter parameter : instanceExecutor.getOutgoingParameters())
         followingProcesses.addAll(OPDAnalyzer.calculateConnectedEventProcesses(parameter.getObject()));

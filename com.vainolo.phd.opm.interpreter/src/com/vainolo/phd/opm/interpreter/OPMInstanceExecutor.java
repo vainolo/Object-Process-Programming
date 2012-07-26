@@ -25,7 +25,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * 
  */
 public class OPMInstanceExecutor {
-  private static Logger logger = SimpleLoggerFactory.createLogger(OPMInstanceExecutor.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMInstanceExecutor.class.getName());
 
   private final OPMProcessInstance instance;
   private final Set<Parameter> parameters;
@@ -60,7 +60,7 @@ public class OPMInstanceExecutor {
       // All OK, Execute!
       executionStatus = ExecutionStatus.EXECUTING;
       putIncomingArgumentsValues();
-      OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, parent.getResultQueue());
+      final OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, parent.getResultQueue());
       parent.getExecutorService().execute(runnable);
     }
   }

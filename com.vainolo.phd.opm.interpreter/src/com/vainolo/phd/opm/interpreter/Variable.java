@@ -7,6 +7,8 @@ package com.vainolo.phd.opm.interpreter;
 
 import com.google.common.base.Preconditions;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * 
  * @author Arieh 'Vainolo' Bibliowicz
@@ -19,11 +21,19 @@ public class Variable {
   private boolean valueSet = false;
 
   public void setName(String name) {
+    checkNotNull(name);
     this.name = name;
   }
 
   public void setValue(Object value) {
+    checkNotNull(value);
     this.value = value;
+    valueSet = true;
+  }
+  
+  public void unsetValue() {
+    valueSet = false;
+    value = null;
   }
 
   public boolean isValueSet() {

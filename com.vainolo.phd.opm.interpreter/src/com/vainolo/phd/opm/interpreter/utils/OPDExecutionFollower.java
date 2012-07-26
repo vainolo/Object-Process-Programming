@@ -24,11 +24,11 @@ import com.vainolo.phd.opm.model.OPMProcess;
  */
 public class OPDExecutionFollower {
 
-  private OPMObjectProcessDiagram opd;
-  private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
+  private final OPMObjectProcessDiagram opd;
+  private final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
 
-  private Set<OPMProcess> skippedProcesses = Sets.newHashSet();
-  private Set<OPMProcess> executedProcesses = Sets.newHashSet();
+  private final Set<OPMProcess> skippedProcesses = Sets.newHashSet();
+  private final Set<OPMProcess> executedProcesses = Sets.newHashSet();
 
   public OPDExecutionFollower(final OPMObjectProcessDiagram opd) {
     this.opd = opd;
@@ -55,8 +55,8 @@ public class OPDExecutionFollower {
    *         processes that have already finished.
    */
   public Set<OPMProcess> findNextProcessesToExecute(final OPMProcess process) {
-    List<OPMProcess> followingProcesses = OPDAnalyzer.calculateFollowingProcesses(opdDag, process);
-    Set<OPMProcess> retVal = Sets.newHashSet();
+    final List<OPMProcess> followingProcesses = OPDAnalyzer.calculateFollowingProcesses(opdDag, process);
+    final Set<OPMProcess> retVal = Sets.newHashSet();
     for(OPMProcess followingProcess : followingProcesses) {
       Set<OPMProcess> requiredProcesses = OPDAnalyzer.calculateRequiredProcesses(opdDag, followingProcess);
       if(!(Sets.difference(requiredProcesses, Sets.union(skippedProcesses, executedProcesses)).size() > 0)) {
