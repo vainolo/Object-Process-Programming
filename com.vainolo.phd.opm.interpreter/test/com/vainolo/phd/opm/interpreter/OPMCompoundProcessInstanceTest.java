@@ -13,16 +13,4 @@ package com.vainolo.phd.opm.interpreter;
  */
 public class OPMCompoundProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
-  /**
-   * Perform pre-test initialization.
-   * 
-   * @throws Exception
-   *           if the initialization fails for some reason
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
-  }
-
 }
