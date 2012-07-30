@@ -17,11 +17,9 @@ import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
-import com.vainolo.phd.opm.gef.editor.figure.OPMProceduralLinkFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkBendpointEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkConnectionEditPolicy;
 import com.vainolo.phd.opm.model.OPMLink;
-import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
  * {@link EditPart} for the {@link OPMLink} model element.
@@ -53,8 +51,6 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
   protected void createEditPolicies() {
     installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
     installEditPolicy(EditPolicy.CONNECTION_ROLE, new OPMLinkConnectionEditPolicy());
-    // if (((OPMLink) getModel()).getRouterKind() ==
-    // OPMLinkRouterKind.BENDPOINT) {
     installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OPMLinkBendpointEditPolicy());
     // }
   }
@@ -64,23 +60,14 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
    */
   @Override
   protected PolylineConnection createFigure() {
-    PolylineConnection conn = new OPMProceduralLinkFigure(((OPMProceduralLink) getModel()).getKind());
-    // switch (((OPMLink) getModel()).getRouterKind()) {
-    // case BENDPOINT:
+    PolylineConnection conn = new PolylineConnection();
     conn.setConnectionRouter(new BendpointConnectionRouter());
-    // break;
-    // case MANHATTAN:
-    // conn.setConnectionRouter(new ManhattanConnectionRouter());
-    // break;
-    // }
     conn.setLineWidth(OPMFigureConstants.connectionLineWidth);
     return conn;
   }
 
   @Override
   protected void refreshVisuals() {
-    // switch (((OPMLink) getModel()).getRouterKind()) {
-    // case BENDPOINT:
     Connection connection = getConnectionFigure();
     List<Point> modelConstraint = ((OPMLink) getModel()).getBendpoints();
     List<AbsoluteBendpoint> figureConstraint = new ArrayList<AbsoluteBendpoint>();
@@ -88,10 +75,7 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
       figureConstraint.add(new AbsoluteBendpoint(p));
     }
     connection.setRoutingConstraint(figureConstraint);
-    // break;
-    // case MANHATTAN:
-    // break;
-    // }
+
   }
 
   @Override

@@ -5,12 +5,12 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.figure;
 
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
@@ -18,9 +18,10 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 public class OPMProceduralLinkFigure extends PolylineConnection {
   private static final PolylineDecoration arrow = new PolylineDecoration();
   private static final PolylineDecoration invertedArrow = new PolylineDecoration();
+  private static final PolylineDecoration instrument = new PolylineDecoration();
 
   private static final int MIN_DECORATION_INTERVAL = 30;
-  private static final int SCALE = 5;
+  private static final int SCALE = 4;
 
   private OPMProceduralLinkKind kind;
   private PolylineDecoration decoration;
@@ -30,6 +31,18 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
 
     invertedArrow.setScale(SCALE, SCALE);
     invertedArrow.setRotation(Math.PI);
+
+    PointList instrumentPoints = new PointList();
+    instrumentPoints.addPoint(-8, 4);
+    instrumentPoints.addPoint(-3, -1);
+    instrumentPoints.addPoint(-3, -4);
+    instrumentPoints.addPoint(-2, -4);
+    instrumentPoints.addPoint(-3, -4);
+    instrumentPoints.addPoint(-3, -1);
+    instrumentPoints.addPoint(0, -1);
+    instrumentPoints.addPoint(0, -2);
+    instrument.setTemplate(instrumentPoints);
+    instrument.setScale(2, 2);
   }
 
   public OPMProceduralLinkFigure(OPMProceduralLinkKind kind) {
@@ -41,6 +54,12 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
       case CONSUMPTION_EVENT:
       case RESULT:
         decoration = arrow;
+        break;
+      case INSTRUMENT:
+      case INSTRUMENT_CONDITION:
+      case INSTRUMENT_EVENT:
+        decoration = instrument;
+        break;
     }
   }
 
@@ -63,6 +82,9 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
         case CONSUMPTION_CONDITION:
         case CONSUMPTION_EVENT:
         case RESULT:
+        case INSTRUMENT:
+        case INSTRUMENT_CONDITION:
+        case INSTRUMENT_EVENT:
           drawDecorationsBetweenPoints(p1, p2, g);
       }
     }
@@ -79,7 +101,7 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
     decoration.setReferencePoint(p1);
     // for an inverted line the reference point has to be changed: decoration.setReferencePoint(p2);
     // the decoration should also be an inverted arrow.
-    g.setForegroundColor(ColorConstants.red);
+    // g.setForegroundColor(ColorConstants.red);
     g.drawPolyline(decoration.getPoints());
 
     drawDecorationsBetweenPoints(p1, center, g);
