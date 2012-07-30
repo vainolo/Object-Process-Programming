@@ -35,10 +35,6 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   @Override
   protected void initProcessInstance() {
     loadMethod();
-  }
-
-  @Override
-  protected void initParameterVariables() {
     for(String parameter : parameters) {
       getVarManager().createVariable(parameter);
     }

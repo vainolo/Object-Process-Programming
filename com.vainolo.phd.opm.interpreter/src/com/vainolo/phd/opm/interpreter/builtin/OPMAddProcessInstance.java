@@ -21,12 +21,6 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
     super(process);
   }
 
-  protected void initParameterVariables() {
-    getVarManager().createVariable("a");
-    getVarManager().createVariable("b");
-    getVarManager().createVariable("c");
-  }
-
   @Override
   public void executing() {
     final int a = Integer.parseInt(getVarManager().getVariable("a").getValue().toString());
@@ -37,6 +31,8 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
 
   @Override
   protected void initProcessInstance() {
-    // nothing to do here.
+    getVarManager().createVariable("a");
+    getVarManager().createVariable("b");
+    getVarManager().createVariable("c");
   }
 }

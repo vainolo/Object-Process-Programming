@@ -25,12 +25,12 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   protected OPMAbstractProcessInstance(final OPMProcess process) {
     this.process = process;
     initProcessInstance();
-    initParameterVariables();
   }
 
+  /**
+   * This function should do all process initialization, such as initializing parameters, loading definitions, etc.
+   */
   protected abstract void initProcessInstance();
-
-  protected abstract void initParameterVariables();
 
   @Override
   public void setArgumentValue(String name, Object value) {

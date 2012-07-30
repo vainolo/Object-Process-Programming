@@ -60,10 +60,6 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   @Override
   protected void initProcessInstance() {
     loadOPD();
-  }
-
-  @Override
-  protected void initParameterVariables() {
     final Collection<OPMObject> parameters = OPMAnalysis.findContainedObjects(opd);
     for(OPMObject object : parameters) {
       getVarManager().createVariable(object.getName());
