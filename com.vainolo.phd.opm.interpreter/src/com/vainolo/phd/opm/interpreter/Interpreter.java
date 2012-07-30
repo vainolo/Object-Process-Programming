@@ -26,15 +26,15 @@ public enum Interpreter {
 
   private IContainer containter;
   private OPMProcessInstanceFactory factory;
-  public ExecutorService executorService = Executors.newCachedThreadPool();
+  private final ExecutorService executorService = Executors.newCachedThreadPool();
 
   public IContainer getContainer() {
     return containter;
   }
 
   public void interpret(final String processName, final IContainer container) {
+    final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
     this.containter = container;
-    OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
     process.setName(processName);
     final OPMProcessInstance instance = getFactory().createProcessInstance(process, OPMProcessKind.COMPOUND);
     instance.execute();

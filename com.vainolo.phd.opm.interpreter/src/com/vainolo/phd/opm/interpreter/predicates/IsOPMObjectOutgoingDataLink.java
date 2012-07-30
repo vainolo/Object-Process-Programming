@@ -9,21 +9,28 @@ import com.google.common.base.Predicate;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
- * Predicate that returns true for outgoing procedural event links.
+ * Predicate that returns true for links that get outgoing data from an object.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
- * @created 9 Jul 2012
+ * @created 10 Jul 2012
  * 
  */
-public enum IsOPMEventLink implements Predicate<OPMProceduralLink> {
+public enum IsOPMObjectOutgoingDataLink implements Predicate<OPMProceduralLink> {
   INSTANCE;
 
   @Override
   public boolean apply(final OPMProceduralLink link) {
     switch(link.getKind()) {
-      case CONSUMPTION_EVENT:
-      case EFFECT_EVENT:
+      case AGENT:
+      case INSTRUMENT:
+      case INSTRUMENT_CONDITION:
       case INSTRUMENT_EVENT:
+      case CONSUMPTION:
+      case CONSUMPTION_CONDITION:
+      case CONSUMPTION_EVENT:
+      case EFFECT:
+      case EFFECT_CONDITION:
+      case EFFECT_EVENT:
         return true;
       default:
         return false;

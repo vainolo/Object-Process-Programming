@@ -11,17 +11,34 @@ import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
+import static com.google.common.base.Preconditions.*;
+
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
-  private static Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
   private VariableManager varManager = new VariableManager();
   private boolean executing = false;
   private boolean finished = false;
   private boolean active = false;
-  private OPMProcess process;
+  private final OPMProcess process;
 
-  public OPMAbstractProcessInstance(final OPMProcess process) {
+  protected OPMAbstractProcessInstance(final OPMProcess process) {
     this.process = process;
+    initProcessInstance();
+    initParameterVariables();
+  }
+
+  protected abstract void initProcessInstance();
+
+  protected abstract void initParameterVariables();
+
+  @Override
+  public void setArgumentValue(String name, Object value) {
+    checkArgument(name != null, "Argument name cannot be null.");
+    checkArgument(value != null, "Argument %s value cannot be null.", name);
+    checkState(getVarManager().variableExists(name), "Process %s doesn't have a parameter named %s.", getName(), name);
+
+    getVarManager().getVariable(name).setValue(value);
   }
 
   @Override
@@ -62,15 +79,10 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   }
 
   @Override
-  public void addArgument(final String name, final Object value) {
-    getVarManager().setArgumentValue(name, value);
-  }
-
-  @Override
-  public Object getArgument(final String name) {
+  public Object getArgumentValue(final String name) {
     Preconditions.checkArgument(name != null, "Argument name cannot be null.");
     Preconditions.checkState(getVarManager().variableExists(name), "Variable %s does not exist.", name);
-    Preconditions.checkState(getVarManager().getVariable(name).isSetValue(), "Variable %s is not set.", name);
+    Preconditions.checkState(getVarManager().getVariable(name).isValueSet(), "Variable %s is not set.", name);
     return getVarManager().getVariable(name).getValue();
   }
 

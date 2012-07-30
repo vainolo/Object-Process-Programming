@@ -19,10 +19,10 @@ import com.vainolo.phd.opm.model.OPMProcess;
  * 
  */
 public class Parameter {
-  private String name;
-  private OPMObject object;
-  private OPMProceduralLink kind;
-  private OPMProcess process;
+  private final String name;
+  private final OPMObject object;
+  private final OPMProceduralLink kind;
+  private final OPMProcess process;
 
   /**
    * Create a new Parameter

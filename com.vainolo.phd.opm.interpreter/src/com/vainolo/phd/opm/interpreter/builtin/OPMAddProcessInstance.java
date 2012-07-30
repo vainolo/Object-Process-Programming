@@ -21,16 +21,22 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
     super(process);
   }
 
+  protected void initParameterVariables() {
+    getVarManager().createVariable("a");
+    getVarManager().createVariable("b");
+    getVarManager().createVariable("c");
+  }
+
   @Override
   public void executing() {
     final int a = Integer.parseInt(getVarManager().getVariable("a").getValue().toString());
     final int b = Integer.parseInt(getVarManager().getVariable("b").getValue().toString());
     final int c = a + b;
-    addArgument("c", c);
+    getVarManager().getVariable("c").setValue(c);
   }
 
   @Override
-  public String getName() {
-    return "Add";
+  protected void initProcessInstance() {
+    // nothing to do here.
   }
 }

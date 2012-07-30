@@ -6,6 +6,7 @@
 package com.vainolo.phd.opm.interpreter;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -25,6 +26,7 @@ import org.jgrapht.graph.DefaultEdge;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
+import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionFollower;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
@@ -41,18 +43,31 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * 
  */
 public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
-  private static Logger logger = SimpleLoggerFactory.createLogger(OPMCompoundProcessInstance.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMCompoundProcessInstance.class.getName());
 
   private OPMObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
-  private Set<OPMProcessInstance> waitingInstances = new HashSet<OPMProcessInstance>();
-  BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
+
+  private final Set<OPMProcessInstance> waitingInstances = new HashSet<OPMProcessInstance>();
+  final BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
   private OPDExecutionFollower follower;
-  private OPMProcessInstanceFactory instanceFactory = OPMProcessInstanceFactory.INSTANCE;
+  private final OPMProcessInstanceFactory instanceFactory = OPMProcessInstanceFactory.INSTANCE;
 
   public OPMCompoundProcessInstance(final OPMProcess process) {
     super(process);
+  }
+
+  @Override
+  protected void initProcessInstance() {
     loadOPD();
+  }
+
+  @Override
+  protected void initParameterVariables() {
+    final Collection<OPMObject> parameters = OPMAnalysis.findContainedObjects(opd);
+    for(OPMObject object : parameters) {
+      getVarManager().createVariable(object.getName());
+    }
   }
 
   /**
@@ -60,14 +75,9 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   void createLocalVariables() {
     logger.info("Creating local variables.");
-    for(final OPMObject object : OPDUtils.findObjects(opd)) {
-      if(!getVarManager().variableExists(object.getName())) {
-        getVarManager().createVariable(object.getName());
-      }
-    }
     if(opd.getKind().equals(OPMObjectProcessDiagramKind.COMPOUND)) {
-      OPMProcess zoomedInProcess = OPDUtils.findZoomedInProcess(opd);
-      for(OPMObject object : OPDUtils.findObjects(zoomedInProcess)) {
+      final OPMProcess zoomedInProcess = OPMAnalysis.findZoomedInProcess(opd);
+      for(OPMObject object : OPMAnalysis.findContainedObjects(zoomedInProcess)) {
         if(!getVarManager().variableExists(object.getName())) {
           getVarManager().createVariable(object.getName());
         }
@@ -84,7 +94,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     createLocalVariables();
 
     follower = new OPDExecutionFollower(opd);
-    Set<OPMProcess> initialProcesses = OPDAnalyzer.calculateInitialProcesses(opdDag);
+    final Set<OPMProcess> initialProcesses = OPDAnalyzer.calculateInitialProcesses(opdDag);
 
     for(OPMProcess process : initialProcesses) {
       OPMProcessInstance processInstance = instanceFactory.createProcessInstance(process, process.getKind());
@@ -94,7 +104,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     Preconditions.checkState(waitingInstances.size() > 0, "Did not find any process to execute.");
 
     int executingInstances = 0;
-    while((waitingInstances.size() > 0) || (executingInstances > 0)) {
+    while((waitingInstances.size() > 0) || (executingInstances > 0)) { // $codepro.audit.disable useForLoop
       executingInstances += tryToExecuteWaitingInstances();
 
       if(executingInstances > 0) {
@@ -106,11 +116,13 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   private void waitForInstanceToFinish() {
     OPMInstanceExecutor executor = null;
-    while(true) {
+    while(true) { // $codepro.audit.disable useForLoop
       try {
         executor = getResultQueue().take();
         break;
-      } catch(InterruptedException e) {}
+      } catch(InterruptedException e) {
+        logger.finest("Thread interrupred while waiting for result from queue. Will continue waiting.");
+      }
     }
     executor.afterExecutionHandling();
     follower.addExecutedProcess(executor.getProcess());
@@ -136,10 +148,11 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   private int tryToExecuteWaitingInstances() {
     int executedInstances = 0;
-    Set<OPMProcess> followingProcesses = Sets.newHashSet();
+    final Set<OPMProcess> followingProcesses = Sets.newHashSet();
 
-    for(Iterator<OPMProcessInstance> waitingInstanceIt = waitingInstances.iterator(); waitingInstanceIt.hasNext();) {
-      OPMInstanceExecutor instanceExecutor = new OPMInstanceExecutor(waitingInstanceIt.next(), this);
+    OPMInstanceExecutor instanceExecutor;
+    for(final Iterator<OPMProcessInstance> waitingInstanceIt = waitingInstances.iterator(); waitingInstanceIt.hasNext();) {
+      instanceExecutor = new OPMInstanceExecutor(waitingInstanceIt.next(), this);
 
       instanceExecutor.tryToExecuteInstance();
 
@@ -161,7 +174,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   }
 
   private Set<OPMProcess> calculateFollowingProcesses(OPMInstanceExecutor instanceExecutor) {
-    Set<OPMProcess> followingProcesses = Sets.newHashSet();
+    final Set<OPMProcess> followingProcesses = Sets.newHashSet();
     if(instanceExecutor.wasExecuted()) {
       for(Parameter parameter : instanceExecutor.getOutgoingParameters())
         followingProcesses.addAll(OPDAnalyzer.calculateConnectedEventProcesses(parameter.getObject()));

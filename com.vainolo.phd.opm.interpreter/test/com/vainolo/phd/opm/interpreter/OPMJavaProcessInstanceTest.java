@@ -8,7 +8,6 @@ package com.vainolo.phd.opm.interpreter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,11 +42,11 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
     process.setName("Test2");
     process.setDescription("java.util.ArrayList.add(int,    java.lang.Object)");
 
-    List<String> list = new ArrayList<String>();
+    final List<String> list = new ArrayList<String>();
     instance = new OPMJavaProcessInstance(process);
-    instance.addArgument("this", list);
-    instance.addArgument("arg0", 0);
-    instance.addArgument("arg1", "Hello");
+    instance.setArgumentValue("this", list);
+    instance.setArgumentValue("arg0", 0);
+    instance.setArgumentValue("arg1", "Hello");
 
     instance.execute();
 
@@ -59,13 +58,13 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
   public void testExecuting_InstanceMethodNoParametersWithReturnValue() {
     process.setName("Test3");
     process.setDescription("java.util.List.size()");
-    List<Float> list = new ArrayList<Float>();
+    final List<Float> list = new ArrayList<Float>();
     list.add(5f);
 
-    instance.addArgument("this", list);
+    instance.setArgumentValue("this", list);
     instance.execute();
 
-    Object result = instance.getArgument("result");
+    final Object result = instance.getArgumentValue("result");
 
     assertEquals(1, result);
   }
@@ -78,7 +77,7 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
     instance = new OPMJavaProcessInstance(process);
     instance.execute();
 
-    Object result = instance.getArgument("result");
+    final Object result = instance.getArgumentValue("result");
     assertEquals(System.lineSeparator(), result);
 
   }
@@ -88,19 +87,20 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
     process.setName("Test5");
     process.setDescription("java.util.Collections.copy(java.util.List,java.util.List)");
 
-    ArrayList<Integer> l1 = new ArrayList<Integer>();
+    final ArrayList<Integer> l1 = new ArrayList<Integer>();
     l1.add(1);
-    ArrayList<Integer> l2 = new ArrayList<Integer>();
+    final ArrayList<Integer> l2 = new ArrayList<Integer>();
     l2.add(2);
 
     java.util.Collections.copy(l2, l1);
 
     instance = new OPMJavaProcessInstance(process);
-    instance.addArgument("arg0", l2);
-    instance.addArgument("arg1", l1);
+    instance.setArgumentValue("arg0", l2);
+    instance.setArgumentValue("arg1", l1);
     instance.execute();
 
-    List<Integer> l3 = (List<Integer>) instance.getArgument("arg1");
+    @SuppressWarnings("unchecked")
+    final List<Integer> l3 = (List<Integer>) instance.getArgumentValue("arg1");
     assertArrayEquals(l1.toArray(), l3.toArray());
   }
 
@@ -109,15 +109,15 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
     process.setName("Test6");
     process.setDescription("java.lang.Object.equals(java.lang.Object)");
 
-    String a = "hello";
-    String b = "hello";
+    final String a = "hello";
+    final String b = "hello";
 
     instance = new OPMJavaProcessInstance(process);
-    instance.addArgument("arg0", a);
-    instance.addArgument("this", b);
+    instance.setArgumentValue("arg0", a);
+    instance.setArgumentValue("this", b);
     instance.execute();
 
-    Object result = instance.getArgument("result");
+    final Object result = instance.getArgumentValue("result");
 
     assertEquals(true, result);
   }
@@ -163,14 +163,9 @@ public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
   }
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     super.setUp();
     process = OPMFactory.eINSTANCE.createOPMProcess();
-  }
-
-  @After
-  public void tearDown() throws Exception {
-    super.tearDown();
   }
 
 }

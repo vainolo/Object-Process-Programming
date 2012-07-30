@@ -5,11 +5,13 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.Test;
 
-import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
+import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMProcess;
+
+import static junit.framework.Assert.assertEquals;
 
 /**
  * 
@@ -18,45 +20,18 @@ import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
  */
 public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
-  private OPMAbstractProcessInstance fixture;
+  @Test
+  public void testAdd() {
+    final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
+    final OPMAddProcessInstance instance = new OPMAddProcessInstance(process);
 
-  /**
-   * Perform pre-test initialization.
-   * 
-   * @throws Exception
-   *           if the initialization fails for some reason
-   * 
-   * @generatedBy CodePro at 02/07/12 16:48
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
-  }
+    instance.setArgumentValue("a", 1);
+    instance.setArgumentValue("b", 2);
 
-  /**
-   * Perform post-test clean-up.
-   * 
-   * @throws Exception
-   *           if the clean-up fails for some reason
-   * 
-   * @generatedBy CodePro at 02/07/12 16:48
-   */
-  @Override
-  @After
-  public void tearDown() throws Exception {
-    super.tearDown();
-  }
+    instance.execute();
 
-  /**
-   * Launch the test.
-   * 
-   * @param args
-   *          the command line arguments
-   * 
-   * @generatedBy CodePro at 02/07/12 16:48
-   */
-  public static void main(final String[] args) {
-    new org.junit.runner.JUnitCore().run(OPMAddProcessInstanceTest.class);
+    final int value = (Integer) instance.getArgumentValue("c");
+    assertEquals(3, value);
+
   }
 }

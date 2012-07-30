@@ -20,7 +20,7 @@ public enum IsOPMIncomingParameter implements Predicate<Parameter> {
 
   @Override
   public boolean apply(final Parameter input) {
-    return IsOPMIncomingProceduralLink.INSTANCE.apply(input.getLink());
+    return IsOPMProcessIncomingDataLink.INSTANCE.apply(input.getLink());
   }
 
 }

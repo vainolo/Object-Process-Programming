@@ -32,12 +32,17 @@ public class OPMOutputProcessInstance extends OPMAbstractProcessInstance impleme
     showMessageDialog(text);
   }
 
-  @Override
-  public String getName() {
-    return "Output";
-  }
-
   public void showMessageDialog(final String text) {
     JOptionPane.showMessageDialog(null, text);
+  }
+
+  @Override
+  protected void initProcessInstance() {
+    // nothing to do here.
+  }
+
+  @Override
+  protected void initParameterVariables() {
+    getVarManager().createVariable("text");
   }
 }

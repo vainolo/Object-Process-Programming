@@ -9,13 +9,13 @@ import com.google.common.base.Predicate;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
- * Predicate that returns true for outgoing procedural links.
+ * Predicate that returns true for links that provide data from a process.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * @created 10 Jul 2012
  * 
  */
-public enum IsOPMOutgoingProceduralLink implements Predicate<OPMProceduralLink> {
+public enum IsOPMProcessOutgoingDataLink implements Predicate<OPMProceduralLink> {
   INSTANCE;
 
   @Override
@@ -26,8 +26,9 @@ public enum IsOPMOutgoingProceduralLink implements Predicate<OPMProceduralLink> 
       case EFFECT_EVENT:
       case RESULT:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 
 }

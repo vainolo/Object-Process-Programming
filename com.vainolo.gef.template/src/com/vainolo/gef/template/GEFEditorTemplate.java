@@ -28,61 +28,60 @@ import com.vainolo.gef.template.part.TemplateEditPartFactory;
  */
 public class GEFEditorTemplate extends GraphicalEditorWithFlyoutPalette {
 
-	Logger logger = Logger.getLogger(GEFEditorTemplate.class.getName());
+  Logger logger = Logger.getLogger(GEFEditorTemplate.class.getName());
 
-	/**
-	 * Sets the domain of the editor.
-	 */
-	public GEFEditorTemplate() {
-		// I am not sure why this is done but all of the code that I have read
-		// use this... Any ideas?
-		setEditDomain(new DefaultEditDomain(this));
-	}
+  /**
+   * Sets the domain of the editor.
+   */
+  public GEFEditorTemplate() {
+    // I am not sure why this is done but all of the code that I have read
+    // use this... Any ideas?
+    setEditDomain(new DefaultEditDomain(this));
+  }
 
-	@Override
-	protected void initializeGraphicalViewer() {
-		super.initializeGraphicalViewer();
-		// Here we set the model that the editor uses
-		getGraphicalViewer().setContents(new Canvas());
-	}
+  @Override
+  protected void initializeGraphicalViewer() {
+    super.initializeGraphicalViewer();
+    // Here we set the model that the editor uses
+    getGraphicalViewer().setContents(new Canvas());
+  }
 
-	@Override
-	protected void configureGraphicalViewer() {
-		super.configureGraphicalViewer();
-		// The edit part factory is used to create edit parts for model classes
-		getGraphicalViewer().setEditPartFactory(new TemplateEditPartFactory());
-		getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer()));
-		getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
-		getGraphicalViewer().setContextMenu(
-				new GEFEditorTemplateContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
-	}
+  @Override
+  protected void configureGraphicalViewer() {
+    super.configureGraphicalViewer();
+    // The edit part factory is used to create edit parts for model classes
+    getGraphicalViewer().setEditPartFactory(new TemplateEditPartFactory());
+    getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer()));
+    getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
+    getGraphicalViewer().setContextMenu(
+        new GEFEditorTemplateContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
+  }
 
-	// This method should be used to save the editor contents without specifying
-	// where is should be saved
-	@Override
-	public void doSave(IProgressMonitor monitor) {
-		// TODO Auto-generated method stub
-	}
+  // This method should be used to save the editor contents without specifying
+  // where is should be saved
+  @Override
+  public void doSave(IProgressMonitor monitor) {
 
-	// This method should be used when you want set the input to the editor
-	/**
-	 * @Override protected void setInput(IEditorInput input) { // TODO
-	 *           Auto-generated method stub super.setInput(input); }
-	 */
+  }
 
-	@Override
-	protected PaletteRoot getPaletteRoot() {
-		return new GEFEditorTemplatePalette();
-	}
+  // This method should be used when you want set the input to the editor
+  /**
+   * @Override protected void setInput(IEditorInput input) { super.setInput(input); }
+   */
 
-	/**
-	 * When the command stack changes we fire an {@link IEditorPart#PROP_DIRTY}
-	 * property change so that the undo and redo can actions can calculate if
-	 * they are enabled.
-	 */
-	@Override
-	public void commandStackChanged(EventObject event) {
-		firePropertyChange(PROP_DIRTY);
-		super.commandStackChanged(event);
-	}
+  @Override
+  protected PaletteRoot getPaletteRoot() {
+    return new GEFEditorTemplatePalette();
+  }
+
+  /**
+   * When the command stack changes we fire an {@link IEditorPart#PROP_DIRTY} property change so that the undo and redo
+   * can actions can calculate if
+   * they are enabled.
+   */
+  @Override
+  public void commandStackChanged(EventObject event) {
+    firePropertyChange(PROP_DIRTY);
+    super.commandStackChanged(event);
+  }
 }

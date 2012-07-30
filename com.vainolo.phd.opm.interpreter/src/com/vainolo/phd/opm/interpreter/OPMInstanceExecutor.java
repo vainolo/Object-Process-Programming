@@ -9,11 +9,10 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.model.Variable;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMConditionalParameter;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMIncomingParameter;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingParameter;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMWaitIncomingParameter;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMWaitParameter;
 import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;
@@ -26,7 +25,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * 
  */
 public class OPMInstanceExecutor {
-  private static Logger logger = SimpleLoggerFactory.createLogger(OPMInstanceExecutor.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMInstanceExecutor.class.getName());
 
   private final OPMProcessInstance instance;
   private final Set<Parameter> parameters;
@@ -61,7 +60,7 @@ public class OPMInstanceExecutor {
       // All OK, Execute!
       executionStatus = ExecutionStatus.EXECUTING;
       putIncomingArgumentsValues();
-      OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, parent.getResultQueue());
+      final OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, parent.getResultQueue());
       parent.getExecutorService().execute(runnable);
     }
   }
@@ -74,22 +73,22 @@ public class OPMInstanceExecutor {
   private void fetchOutgoingArgumentsValues() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
       Variable var = parent.getVarManager().getVariable(parameter.getObject().getName());
-      var.setValue(instance.getArgument(parameter.getName()));
+      var.setValue(instance.getArgumentValue(parameter.getName()));
     }
   }
 
   private void putIncomingArgumentsValues() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMIncomingParameter.INSTANCE)) {
       Object argumentValue = parent.getVarManager().getVariable(parameter.getObject().getName()).getValue();
-      instance.addArgument(parameter.getName(), argumentValue);
+      instance.setArgumentValue(parameter.getName(), argumentValue);
     }
 
   }
 
   private boolean isReady() {
-    for(Parameter parameter : Sets.filter(parameters, IsOPMWaitIncomingParameter.INSTANCE)) {
+    for(Parameter parameter : Sets.filter(parameters, IsOPMWaitParameter.INSTANCE)) {
       Variable argument = parent.getVarManager().getVariable(parameter.getObject().getName());
-      if(!argument.isSetValue()) {
+      if(!argument.isValueSet()) {
         logger.info("Instance " + getName() + " kept waiting.");
         return false;
       }
@@ -100,7 +99,7 @@ public class OPMInstanceExecutor {
   private boolean shouldSkipProcess() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMConditionalParameter.INSTANCE)) {
       Variable argument = parent.getVarManager().getVariable(parameter.getObject().getName());
-      if(!argument.isSetValue()) {
+      if(!argument.isValueSet()) {
         logger.info("Skipping instance " + getName());
         return true;
       }
@@ -133,8 +132,9 @@ public class OPMInstanceExecutor {
       case EXECUTED:
       case EXECUTING:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 
   public enum ExecutionStatus {

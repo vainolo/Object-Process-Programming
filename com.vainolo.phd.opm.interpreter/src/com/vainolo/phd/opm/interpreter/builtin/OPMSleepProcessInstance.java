@@ -33,12 +33,18 @@ public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implemen
     try {
       Thread.sleep(time * 1000);
     } catch(InterruptedException e) {
+      logger.finest("Sleep process interrupted. Returning.");
       return;
     }
   }
 
   @Override
-  public String getName() {
-    return "Add";
+  protected void initProcessInstance() {
+    // nothing to do here
+  }
+
+  @Override
+  protected void initParameterVariables() {
+    getVarManager().createVariable("time");
   }
 }

@@ -18,13 +18,12 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.OPDUtils;
+import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMEventLink;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMIncomingProceduralLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMInvocationLink;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingProceduralLink;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessIncomingDataLink;
+import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessOutgoingDataLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
@@ -47,9 +46,10 @@ public final class OPDAnalyzer {
    * @return a set of processes to execute when the provided process finishes execution.
    */
   public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
-    Set<OPMProceduralLink> outgoingProceduralLinks = ImmutableSet.copyOf(OPDUtils.findOutgoingProceduralLinks(process));
-    Set<OPMProcess> invocationProcesses = Sets.newHashSet();
-    for(OPMProceduralLink invocationLink : Sets.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
+
+    final Collection<OPMProceduralLink> outgoingProceduralLinks = OPMAnalysis.findOutgoingInvocationLinks(process);
+    final Set<OPMProcess> invocationProcesses = Sets.newHashSet();
+    for(OPMProceduralLink invocationLink : Collections2.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
       invocationProcesses.add((OPMProcess) invocationLink.getTarget());
     }
     return invocationProcesses;
@@ -88,11 +88,11 @@ public final class OPDAnalyzer {
    * @return
    */
   public static Set<OPMProcess> calculateConnectedEventProcesses(final OPMObject object) {
-    Set<OPMProcess> processes = Sets.newHashSet();
+    final Set<OPMProcess> processes = Sets.newHashSet();
 
-    Collection<OPMProceduralLink> incomingLinks = OPDUtils.findIncomingProceduralLinks(object);
+    Collection<OPMProceduralLink> incomingLinks = OPMAnalysis.findIncomingProceduralLinks(object);
     incomingLinks = Collections2.filter(incomingLinks, IsOPMEventLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.findOutgoingProceduralLinks(object);
+    Collection<OPMProceduralLink> outgoingLinks = OPMAnalysis.findOutgoingProceduralLinks(object);
     outgoingLinks = Collections2.filter(outgoingLinks, IsOPMEventLink.INSTANCE);
 
     // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
@@ -203,33 +203,38 @@ public final class OPDAnalyzer {
    * 
    * @param dag
    *          the DAG from which the edges are removed.
-   * @param vertex
+   * @param source
    *          the OPMProcess that is analyzed.
    */
   private static void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
-      final OPMProcess vertex) {
+      final OPMProcess source) {
     final DirectedNeighborIndex<OPMProcess, DefaultEdge> dni = new DirectedNeighborIndex<OPMProcess, DefaultEdge>(dag);
-    final OPMProcess[] successors = dni.successorsOf(vertex).toArray(new OPMProcess[0]);
+    final OPMProcess[] successors = dni.successorsOf(source).toArray(new OPMProcess[0]);
 
-    for(final OPMProcess firstTargetVertex : successors) {
-      for(final OPMProcess secondTargetVertex : successors) {
-        if(firstTargetVertex.equals(secondTargetVertex)) {
-          continue;
-        }
-
-        DefaultEdge removedEdge;
-        if(dni.successorsOf(firstTargetVertex).contains(secondTargetVertex)) {
-          removedEdge = dag.removeEdge(vertex, secondTargetVertex);
-          if(removedEdge == null) {
-            continue;
-          }
-          GraphEdgeChangeEvent<OPMProcess, DefaultEdge> event;
-          event =
-              new GraphEdgeChangeEvent<OPMProcess, DefaultEdge>(new Object(), GraphEdgeChangeEvent.EDGE_REMOVED,
-                  removedEdge);
-          dni.edgeRemoved(event);
-        }
+    for(final OPMProcess firstTarget : successors) {
+      for(final OPMProcess secondTarget : successors) {
+        removeDuplicateEdges(dag, source, dni, firstTarget, secondTarget);
       }
+    }
+  }
+
+  private static void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
+      final OPMProcess source, final DirectedNeighborIndex<OPMProcess, DefaultEdge> dni, final OPMProcess firstTarget,
+      final OPMProcess secondTarget) {
+    if(firstTarget.equals(secondTarget)) {
+      return;
+    }
+
+    final DefaultEdge removedEdge;
+    if(dni.successorsOf(firstTarget).contains(secondTarget)) {
+      removedEdge = dag.removeEdge(source, secondTarget);
+      if(removedEdge == null) {
+        return;
+      }
+      final GraphEdgeChangeEvent<OPMProcess, DefaultEdge> event =
+          new GraphEdgeChangeEvent<OPMProcess, DefaultEdge>(new Object(), GraphEdgeChangeEvent.EDGE_REMOVED,
+              removedEdge);
+      dni.edgeRemoved(event);
     }
   }
 
@@ -267,19 +272,24 @@ public final class OPDAnalyzer {
    */
   private static void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : OPDUtils.findExecutableProcesses(opd)) {
-      for(final OPMProcess otherProcess : OPDUtils.findExecutableProcesses(opd)) {
-        if(process.equals(otherProcess)) {
-          continue;
-        }
+    for(final OPMProcess process1 : OPMAnalysis.findExecutableProcesses(opd)) {
+      for(final OPMProcess process2 : OPMAnalysis.findExecutableProcesses(opd)) {
+        createEdgeIfRequired(dag, process1, process2);
+      }
+    }
+  }
 
-        if(process.getConstraints().getBottom().y() < otherProcess.getConstraints().getTop().y()) {
-          try {
-            dag.addDagEdge(process, otherProcess);
-          } catch(final CycleFoundException e) {
-            throw new RuntimeException("Creation of the OPD DAG resulted in a cycle. This should never happen.");
-          }
-        }
+  private static void createEdgeIfRequired(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
+      final OPMProcess process1, final OPMProcess process2) {
+    if(process1.equals(process2)) {
+      return;
+    }
+
+    if(process1.getConstraints().getBottom().y() < process2.getConstraints().getTop().y()) {
+      try {
+        dag.addDagEdge(process1, process2);
+      } catch(final CycleFoundException e) {
+        throw new RuntimeException("Creation of the OPD DAG resulted in a cycle. This should never happen.");
       }
     }
   }
@@ -294,7 +304,7 @@ public final class OPDAnalyzer {
    */
   private static void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : OPDUtils.findExecutableProcesses(opd)) {
+    for(final OPMProcess process : OPMAnalysis.findExecutableProcesses(opd)) {
       dag.addVertex(process);
     }
   }
@@ -307,11 +317,11 @@ public final class OPDAnalyzer {
    * @return A set containing all the parameters.
    */
   public static Set<Parameter> calculateAllParameters(final OPMProcess process) {
-    Set<Parameter> parameters = Sets.newHashSet();
-    Collection<OPMProceduralLink> incomingLinks = OPDUtils.findIncomingProceduralLinks(process);
-    incomingLinks = Collections2.filter(incomingLinks, IsOPMIncomingProceduralLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = OPDUtils.findOutgoingProceduralLinks(process);
-    outgoingLinks = Collections2.filter(outgoingLinks, IsOPMOutgoingProceduralLink.INSTANCE);
+    final Set<Parameter> parameters = Sets.newHashSet();
+    Collection<OPMProceduralLink> incomingLinks = OPMAnalysis.findIncomingDataLinks(process);
+    incomingLinks = Collections2.filter(incomingLinks, IsOPMProcessIncomingDataLink.INSTANCE);
+    Collection<OPMProceduralLink> outgoingLinks = OPMAnalysis.findOutgoingDataLinks(process);
+    outgoingLinks = Collections2.filter(outgoingLinks, IsOPMProcessOutgoingDataLink.INSTANCE);
 
     // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
     // collections freely.

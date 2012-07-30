@@ -25,8 +25,9 @@ public enum IsOPMConditionalLink implements Predicate<OPMProceduralLink> {
       case EFFECT_CONDITION:
       case INSTRUMENT_CONDITION:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 
 }

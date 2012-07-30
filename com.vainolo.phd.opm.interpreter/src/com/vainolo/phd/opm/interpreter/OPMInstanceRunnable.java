@@ -8,8 +8,8 @@ package com.vainolo.phd.opm.interpreter;
 import java.util.concurrent.BlockingQueue;
 
 class OPMInstanceRunnable implements Runnable {
-  private OPMInstanceExecutor executor;
-  private BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue;
+  private final OPMInstanceExecutor executor;
+  private final BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue;
 
   public OPMInstanceRunnable(final OPMInstanceExecutor executor,
       BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue) {

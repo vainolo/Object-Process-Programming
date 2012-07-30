@@ -9,18 +9,19 @@ import com.google.common.base.Predicate;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
- * Predicate that returns true for incoming procedural links.
+ * Predicate that returns true for links that provide incoming data.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * @created 10 Jul 2012
  * 
  */
-public enum IsOPMIncomingProceduralLink implements Predicate<OPMProceduralLink> {
+public enum IsOPMProcessIncomingDataLink implements Predicate<OPMProceduralLink> {
   INSTANCE;
 
   @Override
   public boolean apply(final OPMProceduralLink link) {
     switch(link.getKind()) {
+      case AGENT:
       case CONSUMPTION:
       case CONSUMPTION_CONDITION:
       case CONSUMPTION_EVENT:
@@ -31,8 +32,9 @@ public enum IsOPMIncomingProceduralLink implements Predicate<OPMProceduralLink> 
       case EFFECT_CONDITION:
       case EFFECT_EVENT:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 
 }

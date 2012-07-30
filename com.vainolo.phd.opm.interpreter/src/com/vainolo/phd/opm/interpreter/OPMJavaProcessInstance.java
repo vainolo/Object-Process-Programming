@@ -16,7 +16,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
-  Logger logger = SimpleLoggerFactory.createLogger(OPMJavaProcessInstance.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMJavaProcessInstance.class.getName());
 
   private final Pattern classAndMethodAndParametersPattern = Pattern.compile("(.*)\\.([^\\.]*)\\((.*)\\)");
 
@@ -24,6 +24,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   private String methodName = null;
   private String[] parameters = new String[0]; // to avoid null checking and instead use iteration on zero length array
 
+  private Method method;
   private Object[] arguments;
   private Object target = null;
 
@@ -32,21 +33,32 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   }
 
   @Override
+  protected void initProcessInstance() {
+    loadMethod();
+  }
+
+  @Override
+  protected void initParameterVariables() {
+    for(String parameter : parameters) {
+      getVarManager().createVariable(parameter);
+    }
+  }
+
+  @Override
   protected void executing() {
-    Method method = loadMethod();
 
     arguments = new Object[parameters.length];
     for(int i = 0; i < parameters.length; i++) {
-      arguments[i] = getArgument("arg" + i);
+      arguments[i] = getArgumentValue("arg" + i);
     }
 
     if(!Modifier.isStatic(method.getModifiers()))
-      target = getArgument("this");
+      target = getArgumentValue("this");
 
-    Object result = callMethod(method);
+    final Object result = callMethod(method);
 
     if(!method.getReturnType().equals(Void.TYPE)) {
-      addArgument("result", result);
+      setArgumentValue("result", result);
     }
   }
 
@@ -56,7 +68,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
     Object result = null;
     try {
       result = method.invoke(target, arguments);
-    } catch(Exception e) {
+    } catch(ReflectiveOperationException e) {
       logger.info("Method " + methodName + " could not be called. See log for details.");
       throw new RuntimeException(e);
     }
@@ -66,7 +78,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   private Method loadMethod() {
     // In the description we store the class name and the full signature of the method -
     // fullClassName.methodName(className1,className2...)
-    Matcher classAndMethodAndParametersMatcher =
+    final Matcher classAndMethodAndParametersMatcher =
         classAndMethodAndParametersPattern.matcher(getProcess().getDescription());
 
     if(!classAndMethodAndParametersMatcher.find()) {
@@ -134,7 +146,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
     if(char.class.getName().equals(name))
       return char.class;
 
-    if(name.startsWith("["))
+    if(name.charAt(0) == '[')
       throw new UnsupportedOperationException("Array parameters are not supported yet.");
 
     return Class.forName(name);

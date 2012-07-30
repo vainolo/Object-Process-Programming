@@ -15,7 +15,7 @@ import com.vainolo.phd.opm.interpreter.utils.Parameter;
  * @created 10 Jul 2012
  * 
  */
-public enum IsOPMWaitIncomingParameter implements Predicate<Parameter> {
+public enum IsOPMWaitParameter implements Predicate<Parameter> {
   INSTANCE;
 
   @Override
@@ -25,8 +25,9 @@ public enum IsOPMWaitIncomingParameter implements Predicate<Parameter> {
       case CONSUMPTION:
       case EFFECT:
         return true;
+      default:
+        return false;
     }
-    return false;
   }
 
 }

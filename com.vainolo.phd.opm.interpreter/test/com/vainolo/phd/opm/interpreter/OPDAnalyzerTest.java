@@ -28,8 +28,8 @@ import static org.junit.Assert.*;
  * @version $Revision: 1.0 $
  */
 public class OPDAnalyzerTest {
-  OPMObjectProcessDiagram opd;
-  DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
+  private OPMObjectProcessDiagram opd;
+  private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
   private static final int SPACING = 50;
 
   private final Map<Integer, OPMProcess> processes = new HashMap<Integer, OPMProcess>();
@@ -329,27 +329,20 @@ public class OPDAnalyzerTest {
   /**
    * Perform pre-test initialization.
    * 
-   * @throws Exception
-   *           if the initialization fails for some reason
-   * 
    * @generatedBy CodePro at 6/27/12 11:34 AM
    */
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     opd = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
   }
 
   /**
    * Perform post-test clean-up.
    * 
-   * @throws Exception
-   *           if the clean-up fails for some reason
-   * 
    * @generatedBy CodePro at 6/27/12 11:34 AM
    */
   @After
-  public void tearDown() throws Exception {
-    // Add additional tear down code here
+  public void tearDown() {
   }
 
   /**

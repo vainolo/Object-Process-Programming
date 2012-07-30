@@ -16,8 +16,8 @@ import org.eclipse.ui.part.EditorActionBarContributor;
  */
 public class GEFEditorTemplateActionBarContributor extends EditorActionBarContributor {
 
-	public GEFEditorTemplateActionBarContributor() {
-		// TODO Auto-generated constructor stub
-	}
+  public GEFEditorTemplateActionBarContributor() {
+
+  }
 
 }
