@@ -5,6 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
+import java.math.BigDecimal;
+
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
@@ -23,9 +25,9 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
 
   @Override
   public void executing() {
-    final int a = Integer.parseInt(getVarManager().getVariable("a").getValue().toString());
-    final int b = Integer.parseInt(getVarManager().getVariable("b").getValue().toString());
-    final int c = a + b;
+    final BigDecimal a = new BigDecimal(getVarManager().getVariable("a").getValue().toString());
+    final BigDecimal b = new BigDecimal(getVarManager().getVariable("b").getValue().toString());
+    final BigDecimal c = a.add(b);
     getVarManager().getVariable("c").setValue(c);
   }
 

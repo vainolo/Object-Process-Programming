@@ -6,6 +6,7 @@
 package com.vainolo.phd.opm.interpreter;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -62,22 +63,31 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     loadOPD();
     final Collection<OPMObject> parameters = OPMAnalysis.findContainedObjects(opd);
     for(OPMObject object : parameters) {
-      getVarManager().createVariable(object.getName());
+      createVariable(object);
     }
   }
 
   /**
    * Create variables for all objects in the OPD.
    */
-  void createLocalVariables() {
-    logger.info("Creating local variables.");
+  private void createLocalVariables() {
     if(opd.getKind().equals(OPMObjectProcessDiagramKind.COMPOUND)) {
       final OPMProcess zoomedInProcess = OPMAnalysis.findZoomedInProcess(opd);
       for(OPMObject object : OPMAnalysis.findContainedObjects(zoomedInProcess)) {
-        if(!getVarManager().variableExists(object.getName())) {
-          getVarManager().createVariable(object.getName());
-        }
+        createVariable(object);
       }
+    }
+  }
+
+  /**
+   * Handle creation of local variables.
+   */
+  private void createVariable(OPMObject object) {
+    getVarManager().createVariable(object.getName());
+    if(object.getName().matches("^\\d.*")) {
+      Number value;
+      value = new BigDecimal(object.getName());
+      getVarManager().getVariable(object.getName()).setValue(value);
     }
   }
 
