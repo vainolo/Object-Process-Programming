@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OPM Validation
+Bundle-SymbolicName: com.vainolo.phd.opm.validation
+Bundle-Version: 0.1
+Bundle-Vendor: Arieh "Vainolo" Bibliowicz
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: com.vainolo.phd.opm.model;bundle-version="1.0.0"
