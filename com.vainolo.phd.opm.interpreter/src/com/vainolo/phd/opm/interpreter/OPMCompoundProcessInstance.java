@@ -5,7 +5,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashSet;
@@ -16,11 +15,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
@@ -35,6 +29,7 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.utilities.OPDLoader;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -201,16 +196,9 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   }
 
   private void loadOPD() {
-    final ResourceSet resourceSet = new ResourceSetImpl();
-    resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-        .put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-    final Resource opdResource = resourceSet.createResource(URI.createFileURI(getProcessFilename()));
-    try {
-      opdResource.load(null);
-      opd = (OPMObjectProcessDiagram) opdResource.getContents().get(0);
-    } catch(final IOException e) {
-      throw new IllegalStateException("OPD File for process " + getProcessFilename() +
-          " could not be loaded. Please check that it's located in the path.", e);
+    opd = OPDLoader.loadOPDFile(getProcessFilename());
+    if(opd == null) {
+      throw new RuntimeException("Could not load OPD file for proocess " + getProcess().getName());
     }
   }
 
