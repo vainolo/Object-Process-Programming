@@ -27,7 +27,7 @@ public class OPDLoader {
     final ResourceSet resourceSet = new ResourceSetImpl();
     resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
         .put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-    final Resource opdResource = resourceSet.createResource(URI.createFileURI(uri));
+    final Resource opdResource = resourceSet.createResource(URI.createURI(uri));
     try {
       opdResource.load(null);
       opd = (OPMObjectProcessDiagram) opdResource.getContents().get(0);

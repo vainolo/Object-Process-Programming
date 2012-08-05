@@ -5,16 +5,11 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor;
 
-import java.io.IOException;
 import java.util.EventObject;
 import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor.PropertyValueWrapper;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.gef.DefaultEditDomain;
@@ -49,13 +44,13 @@ import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.provider.OPMItemProviderAdapterFactory;
+import com.vainolo.phd.opm.utilities.OPDLoader;
 
 public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
   Logger logger = Logger.getLogger(OPMGraphicalEditor.class.getName());
 
   private IFile opdFile;
-  private Resource opdResource;
   private OPMObjectProcessDiagram opd;
 
   PropertySheetPage propertyPage;
@@ -105,13 +100,9 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
    */
   @Override
   public void doSave(IProgressMonitor monitor) {
-    if(opdResource == null) {
-      return;
-    }
-
     try {
       opd.setNextId(OPMIdManager.getNextId());
-      opdResource.save(null);
+      opd.eResource().save(null);
       opdFile.touch(null);
       getCommandStack().markSaveLocation();
     } catch(Exception e) {
@@ -129,26 +120,23 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   private void loadInput(IEditorInput input) {
     OPMPackage.eINSTANCE.eClass(); // This initializes the OPMPackage singleton implementation. Must be called before
                                    // reading the file.
-    ResourceSet resourceSet = new ResourceSetImpl();
     if(input instanceof IFileEditorInput) {
+
       IFileEditorInput fileInput = (IFileEditorInput) input;
       opdFile = fileInput.getFile();
-      opdResource = resourceSet.createResource(URI.createURI(opdFile.getLocationURI().toString()));
-      try {
-        opdResource.load(null);
-        opd = (OPMObjectProcessDiagram) opdResource.getContents().get(0);
-        if(opd.getId() == 0) {
-          opd.setId(1);
-          opd.setNextId(2);
-        }
-        OPMIdManager.setId(opd.getNextId());
-
-      } catch(IOException e) {
-        opdResource = null;
+      opd = OPDLoader.loadOPDFile(opdFile.getLocationURI().toString());
+      if(opd == null) {
+        throw new RuntimeException("Could not load OPD file " + opdFile.getLocationURI().toString());
       }
+      if(opd.getId() == 0) {
+        opd.setId(1);
+        opd.setNextId(2);
+      }
+      OPMIdManager.setId(opd.getNextId());
     }
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   protected void createActions() {
     super.createActions();

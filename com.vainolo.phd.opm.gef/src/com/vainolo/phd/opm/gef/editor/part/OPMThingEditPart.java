@@ -8,16 +8,12 @@ package com.vainolo.phd.opm.gef.editor.part;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPolicy;
@@ -39,9 +35,8 @@ import org.eclipse.ui.part.FileEditorInput;
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
-import com.vainolo.phd.opm.model.OPMFactory;
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMThing;
+import com.vainolo.phd.opm.utilities.OPDLoader;
 
 public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
@@ -77,28 +72,22 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
       final String thingName = ((OPMThing) getModel()).getName();
       final IEditorPart editorPart = ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart();
       final IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
-      final IFile file = input.getFile();
-      final IContainer parent = file.getParent();
-      final IFile newFile = parent.getFile(new Path(thingName + ".opm"));
-
-      try {
-        if(!newFile.exists()) {
-          final ResourceSet resourceSet = new ResourceSetImpl();
-          final Resource resource = resourceSet.createResource(URI.createURI(newFile.getLocationURI().toString()));
-          final OPMObjectProcessDiagram diagram = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
-          diagram.setName(thingName);
-          resource.getContents().add(diagram);
-          resource.save(null);
-          file.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
+      final IFile newFile = input.getFile().getParent().getFile(new Path(thingName + ".opm"));
+      if(!newFile.exists()) {
+        if(OPDLoader.createOPDFile(newFile.getLocationURI().toString(), thingName) == null) {
+          throw new RuntimeException("Could not create diagram for thing " + thingName);
         }
-        final IEditorDescriptor editor =
-            PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
-        final IWorkbenchPage page = editorPart.getSite().getPage();
-        page.openEditor(new FileEditorInput(newFile), editor.getId());
-      } catch(final Exception e) {
-        throw new RuntimeException(e);
-
+        try {
+          input.getFile().getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
+          final IEditorDescriptor editor =
+              PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
+          final IWorkbenchPage page = editorPart.getSite().getPage();
+          page.openEditor(new FileEditorInput(newFile), editor.getId());
+        } catch(CoreException e) {
+          e.printStackTrace();
+        }
       }
+
     }
   }
 
