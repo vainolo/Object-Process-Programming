@@ -43,8 +43,4 @@ public class Variable {
     Preconditions.checkState(isValueSet(), "Value of variable is not set.");
     return value;
   }
-
-  public String getName() {
-    return name;
-  }
 }
