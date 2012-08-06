@@ -24,58 +24,62 @@ public class OPDAnalysis {
   }
 
   public Collection<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMProcess process) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMProceduralLink> findOutgoingInvocationLinks(OPMProcess process) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMProceduralLink> findOutgoingProceduralLinks(OPMProcess process) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMObject> findContainedObjects(OPMContainer container) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMProcess> findContainedProcesses(OPMContainer container) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMProceduralLink> findIncomingProceduralLinks(OPMObject object) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMProceduralLink> findOutgoingProceduralLinks(OPMObject object) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public OPMProcess findZoomedInProcess(OPMObjectProcessDiagram opd) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMLink> findOutgoingStructuralLinks(OPMNode node) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   public OPMObjectProcessDiagram findOPD(OPMNode node) {
-    return null;
+    OPMContainer currentContainer = node.getContainer();
+    while(!(currentContainer instanceof OPMObjectProcessDiagram)) { // $codepro.audit.disable useForLoop
+      currentContainer = ((OPMNode) currentContainer).getContainer();
+    }
+    return (OPMObjectProcessDiagram) currentContainer;
   }
 }

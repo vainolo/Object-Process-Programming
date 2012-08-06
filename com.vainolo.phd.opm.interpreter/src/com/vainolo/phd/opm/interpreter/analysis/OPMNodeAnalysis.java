@@ -5,6 +5,9 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.analysis;
 
+import static com.google.common.collect.Collections2.filter;
+import static java.util.Collections.checkedCollection;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -18,9 +21,6 @@ import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 
-import static java.util.Collections.checkedCollection;
-import static com.google.common.collect.Collections2.filter;
-
 public class OPMNodeAnalysis {
 
   static OPMObjectProcessDiagram findOPD(OPMNode node) {
@@ -30,7 +30,6 @@ public class OPMNodeAnalysis {
     }
 
     return (OPMObjectProcessDiagram) currentContainer;
-
   }
 
   static Collection<OPMLink> findAllStructuralLinks(OPMNode node) {
