@@ -28,7 +28,6 @@ public class OPMNodeAnalysis {
     while(!(currentContainer instanceof OPMObjectProcessDiagram)) { // $codepro.audit.disable useForLoop
       currentContainer = ((OPMNode) currentContainer).getContainer();
     }
-
     return (OPMObjectProcessDiagram) currentContainer;
   }
 
