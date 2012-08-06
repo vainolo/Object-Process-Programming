@@ -5,9 +5,9 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import com.google.common.base.Preconditions;
-
 import static com.google.common.base.Preconditions.checkNotNull;
+
+import com.google.common.base.Preconditions;
 
 /**
  * 
@@ -20,17 +20,16 @@ public class Variable {
   private Object value;
   private boolean valueSet = false;
 
-  public void setName(String name) {
-    checkNotNull(name);
-    this.name = name;
+  public Variable(String name) {
+    checkNotNull(name, "Variable name cannot be null.");
   }
 
   public void setValue(Object value) {
-    checkNotNull(value);
+    checkNotNull(value, "Cannot set null value to variable. Use unsetValue instead.");
     this.value = value;
     valueSet = true;
   }
-  
+
   public void unsetValue() {
     valueSet = false;
     value = null;
@@ -41,12 +40,11 @@ public class Variable {
   }
 
   public Object getValue() {
-    Preconditions.checkState(isValueSet());
+    Preconditions.checkState(isValueSet(), "Value of variable is not set.");
     return value;
   }
 
   public String getName() {
     return name;
   }
-
 }
