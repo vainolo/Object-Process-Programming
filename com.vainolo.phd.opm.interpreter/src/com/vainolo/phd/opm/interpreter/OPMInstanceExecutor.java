@@ -72,14 +72,14 @@ public class OPMInstanceExecutor {
 
   private void fetchOutgoingArgumentsValues() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
-      Variable var = parent.getVarManager().getVariable(parameter.getObject().getName());
+      Variable var = parent.getVariable(parameter.getObject().getName());
       var.setValue(instance.getArgumentValue(parameter.getName()));
     }
   }
 
   private void putIncomingArgumentsValues() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMIncomingParameter.INSTANCE)) {
-      Object argumentValue = parent.getVarManager().getVariable(parameter.getObject().getName()).getValue();
+      Object argumentValue = parent.getVariable(parameter.getObject().getName()).getValue();
       instance.setArgumentValue(parameter.getName(), argumentValue);
     }
 
@@ -87,7 +87,7 @@ public class OPMInstanceExecutor {
 
   private boolean isReady() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMWaitParameter.INSTANCE)) {
-      Variable argument = parent.getVarManager().getVariable(parameter.getObject().getName());
+      Variable argument = parent.getVariable(parameter.getObject().getName());
       if(!argument.isValueSet()) {
         logger.info("Instance " + getName() + " kept waiting.");
         return false;
@@ -98,7 +98,7 @@ public class OPMInstanceExecutor {
 
   private boolean shouldSkipProcess() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMConditionalParameter.INSTANCE)) {
-      Variable argument = parent.getVarManager().getVariable(parameter.getObject().getName());
+      Variable argument = parent.getVariable(parameter.getObject().getName());
       if(!argument.isValueSet()) {
         logger.info("Skipping instance " + getName());
         return true;

@@ -47,11 +47,4 @@ public class VariableManager {
   public boolean variableExists(final String name) {
     return variables.containsKey(name);
   }
-
-  public void setArgumentValue(final String name, final Object value) {
-    logger.info("Adding parameter " + name);
-    Preconditions.checkArgument(name != null, "Name of parameter cannot be null.");
-    Preconditions.checkArgument(value != null, "Value of argument cannot be null.");
-    createVariable(name).setValue(value);
-  }
 }

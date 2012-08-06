@@ -28,7 +28,7 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
   @Override
   protected void executing() {
     final String retVal = showInputDialog();
-    getVarManager().getVariable("text").setValue(retVal);
+    getVariable("text").setValue(retVal);
   }
 
   /**
@@ -40,6 +40,6 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
 
   @Override
   protected void initProcessInstance() {
-    getVarManager().createVariable("text");
+    createVariable("text");
   }
 }

@@ -5,13 +5,13 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import static com.google.common.base.Preconditions.*;
+
 import java.util.logging.Logger;
 
 import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
-
-import static com.google.common.base.Preconditions.*;
 
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
@@ -71,11 +71,23 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
     logger.info("Finished executing process " + getName());
   }
 
-  protected VariableManager getVarManager() {
+  private VariableManager getVarManager() {
     if(varManager == null) {
       varManager = new VariableManager();
     }
     return varManager;
+  }
+
+  protected Variable getVariable(String name) {
+    return getVarManager().getVariable(name);
+  }
+
+  protected Variable createVariable(String name) {
+    return getVarManager().createVariable(name);
+  }
+
+  protected boolean variableExists(String name) {
+    return getVarManager().variableExists(name);
   }
 
   @Override

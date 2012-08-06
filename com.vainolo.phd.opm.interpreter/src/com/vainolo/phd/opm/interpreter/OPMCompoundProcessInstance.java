@@ -78,13 +78,13 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    * Handle creation of local variables.
    */
   private void createVariable(OPMObject object) {
-    getVarManager().createVariable(object.getName());
+    createVariable(object.getName());
     if(object.getName().matches("^\\d.*")) {
       Number value = new BigDecimal(object.getName());
-      getVarManager().getVariable(object.getName()).setValue(value);
+      getVariable(object.getName()).setValue(value);
     } else if(object.getName().startsWith("\"")) {
       String value = object.getName().replace("\"", "");
-      getVarManager().getVariable(object.getName()).setValue(value);
+      getVariable(object.getName()).setValue(value);
     }
   }
 

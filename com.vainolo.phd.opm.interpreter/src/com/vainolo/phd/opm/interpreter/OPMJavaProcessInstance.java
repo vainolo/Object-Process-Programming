@@ -36,7 +36,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   protected void initProcessInstance() {
     loadMethod();
     for(String parameter : parameters) {
-      getVarManager().createVariable(parameter);
+      createVariable(parameter);
     }
   }
 
@@ -96,8 +96,8 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
     Method method = null;
     try {
 
-      Class cls = null;
-      Class[] parameterClasses = null;
+      Class<?> cls = null;
+      Class<?>[] parameterClasses = null;
       cls = getClass(className);
 
       if(parameters.length != 0) {

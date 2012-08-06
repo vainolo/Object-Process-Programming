@@ -33,7 +33,7 @@ public class OPMConceptualProcess extends OPMAbstractProcessInstance implements 
     Set<Parameter> outgoingParameters = OPDAnalyzer.calculateAllParameters(getProcess());
     outgoingParameters = Sets.filter(outgoingParameters, IsOPMOutgoingParameter.INSTANCE);
     for(Parameter parameter : outgoingParameters) {
-      getVarManager().getVariable(parameter.getName()).setValue(new Object());
+      getVariable(parameter.getName()).setValue(new Object());
     }
   }
 
@@ -41,7 +41,7 @@ public class OPMConceptualProcess extends OPMAbstractProcessInstance implements 
   protected void initProcessInstance() {
     final Set<Parameter> parameters = OPDAnalyzer.calculateAllParameters(getProcess());
     for(Parameter parameter : parameters) {
-      getVarManager().createVariable(parameter.getName());
+      createVariable(parameter.getName());
     }
   }
 }
