@@ -10,7 +10,6 @@ import java.util.concurrent.Executors;
 
 import org.eclipse.core.resources.IContainer;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMProcessKind;
@@ -28,6 +27,10 @@ public enum Interpreter {
   private OPMProcessInstanceFactory factory;
   private final ExecutorService executorService = Executors.newCachedThreadPool();
 
+  private Interpreter() {
+    factory = OPMProcessInstanceFactory.INSTANCE;
+  }
+
   public IContainer getContainer() {
     return containter;
   }
@@ -36,25 +39,11 @@ public enum Interpreter {
     final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
     this.containter = container;
     process.setName(processName);
-    final OPMProcessInstance instance = getFactory().createProcessInstance(process, OPMProcessKind.COMPOUND);
+    final OPMProcessInstance instance = factory.createProcessInstance(process, OPMProcessKind.COMPOUND);
     instance.execute();
-  }
-
-  @VisibleForTesting
-  OPMProcessInstanceFactory getFactory() {
-    if(factory == null) {
-      factory = OPMProcessInstanceFactory.INSTANCE;
-    }
-    return factory;
-  }
-
-  @VisibleForTesting
-  void setFactory(final OPMProcessInstanceFactory factory) {
-    this.factory = factory;
   }
 
   public ExecutorService getExecutorService() {
     return executorService;
   }
-
 }
