@@ -80,12 +80,28 @@ public class OPDAnalysisTest {
     }
   }
 
+  @Test
   public void testFindContainedObjects_InsideInZoomedProcess() {
     Collection<OPMObject> result = inZoomedOPDFixture.findContainedObjects(inZoomedProcesses.get(0));
     assertEquals(5, result.size());
     for(int i = 5; i < 10; i++) {
       assertTrue(result.contains(inZoomedObjects.get(i)));
     }
+  }
+
+  @Test
+  public void testFindContainedProcesses_InZoomedOPD() {
+    Collection<OPMProcess> result = inZoomedOPDFixture.findContainedProcesses(inZoomedOPD);
+    assertEquals(1, result.size());
+    assertTrue(result.contains(inZoomedProcesses.get(0)));
+  }
+
+  @Test
+  public void testFindContainedProcesses_InsideInZoomedOPD() {
+    Collection<OPMProcess> result = inZoomedOPDFixture.findContainedProcesses(inZoomedProcesses.get(0));
+    assertEquals(5, result.size());
+    for(int i = 1; i < 6; i++)
+      assertTrue(result.contains(inZoomedProcesses.get(i)));
   }
 
   @Before
@@ -99,9 +115,9 @@ public class OPDAnalysisTest {
   public void initSystemOPD() {
     systemOPD = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
 
-    createProcesses(systemOPD, systemProcesses, 5);
-    createObjects(systemOPD, systemObjects, 5);
-    createAggregators(systemOPD, systemAggregators, 3);
+    createProcesses(systemOPD, systemProcesses, 5, 0);
+    createObjects(systemOPD, systemObjects, 5, 0);
+    createAggregators(systemOPD, systemAggregators, 3, 0);
 
     // create some structural links.
     OPMLink link = OPMFactory.eINSTANCE.createOPMLink();
@@ -143,37 +159,38 @@ public class OPDAnalysisTest {
 
   private void initInZoomedOPD() {
     inZoomedOPD = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
-    createProcesses(inZoomedOPD, inZoomedProcesses, 1);
-    createObjects(inZoomedOPD, inZoomedObjects, 5);
-    createAggregators(inZoomedOPD, inZoomedAggregators, 3);
+    createProcesses(inZoomedOPD, inZoomedProcesses, 1, 0);
+    createObjects(inZoomedOPD, inZoomedObjects, 5, 0);
+    createAggregators(inZoomedOPD, inZoomedAggregators, 3, 0);
 
     OPMProcess inZoomedProcess = inZoomedProcesses.get(0);
-    createObjects(inZoomedProcess, inZoomedObjects, 5);
+    createObjects(inZoomedProcess, inZoomedObjects, 5, 5);
+    createProcesses(inZoomedProcess, inZoomedProcesses, 5, 1);
   }
 
-  private void createObjects(OPMContainer container, Map<Integer, OPMObject> objects, int number) {
-    for(int i = 0; i < number; i++) {
+  private void createObjects(OPMContainer container, Map<Integer, OPMObject> objects, int number, int startIndex) {
+    for(int i = startIndex; i < startIndex + number; i++) {
       OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
-      object.setName(Integer.toString(i + 5));
-      objects.put(objects.size(), object);
+      object.setName(Integer.toString(i));
+      objects.put(i, object);
       container.getNodes().add(object);
     }
   }
 
-  private void createProcesses(OPMContainer container, Map<Integer, OPMProcess> processes, int number) {
-    for(int i = 0; i < number; i++) {
+  private void createProcesses(OPMContainer container, Map<Integer, OPMProcess> processes, int number, int startIndex) {
+    for(int i = startIndex; i < startIndex + number; i++) {
       OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
-      process.setName(Integer.toString(i + 5));
-      processes.put(processes.size(), process);
+      process.setName(Integer.toString(i));
+      processes.put(i, process);
       container.getNodes().add(process);
     }
   }
 
   private void createAggregators(OPMContainer container, Map<Integer, OPMStructuralLinkAggregator> aggregators,
-      int number) {
-    for(int i = 0; i < number; i++) {
+      int number, int startIndex) {
+    for(int i = startIndex; i < startIndex + number; i++) {
       OPMStructuralLinkAggregator aggregator = OPMFactory.eINSTANCE.createOPMStructuralLinkAggregator();
-      aggregators.put(aggregators.size(), aggregator);
+      aggregators.put(i, aggregator);
       container.getNodes().add(aggregator);
     }
   }

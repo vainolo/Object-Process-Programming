@@ -49,10 +49,6 @@ public class OPDAnalysis {
     throw new UnsupportedOperationException();
   }
 
-  public Collection<OPMProcess> findContainedProcesses(OPMContainer container) {
-    throw new UnsupportedOperationException();
-  }
-
   public Collection<OPMProceduralLink> findIncomingProceduralLinks(OPMObject object) {
     throw new UnsupportedOperationException();
   }
@@ -66,11 +62,18 @@ public class OPDAnalysis {
   }
 
   // Implementing
-  public Collection<OPMObject> findContainedObjects(OPMContainer container) {
-    return (Collection) filter(opd.getNodes(), IsOPMObjectNode.INSTANCE);
-  }
 
   // Finished implementing with tests
+
+  @SuppressWarnings("rawtypes")
+  public Collection<OPMProcess> findContainedProcesses(OPMContainer container) {
+    return (Collection) filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
+  }
+
+  @SuppressWarnings("rawtypes")
+  public Collection<OPMObject> findContainedObjects(OPMContainer container) {
+    return (Collection) filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
+  }
 
   public OPMProcess findZoomedInProcess(OPMObjectProcessDiagram opd) {
     Collection<OPMNode> processNodes = filter(opd.getNodes(), IsOPMProcessNode.INSTANCE);
