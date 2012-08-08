@@ -51,10 +51,6 @@ public class OPMAnalysis {
     return OPMObjectAnalysis.findOutgoingDataLinks(object);
   }
 
-  public static OPMProcess findZoomedInProcess(OPMObjectProcessDiagram opd) {
-    return OPMObjectProcessDiagramAnalysis.findZoomedInProcess(opd);
-  }
-
   public static Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
     return OPMObjectProcessDiagramAnalysis.findExecutableProcesses(opd);
   }

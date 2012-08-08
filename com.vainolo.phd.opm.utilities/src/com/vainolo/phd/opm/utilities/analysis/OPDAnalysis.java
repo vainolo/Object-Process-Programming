@@ -51,7 +51,7 @@ public class OPDAnalysis {
     return (Collection) filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
   }
 
-  public OPMProcess findInZoomedProcess(OPMObjectProcessDiagram opd) {
+  public static OPMProcess findInZoomedProcess(OPMObjectProcessDiagram opd) {
     Collection<OPMNode> processNodes = filter(opd.getNodes(), IsOPMProcessNode.INSTANCE);
     if(processNodes.size() != 1) {
       throw new RuntimeException("A compound OPD can containt only one process directly.");

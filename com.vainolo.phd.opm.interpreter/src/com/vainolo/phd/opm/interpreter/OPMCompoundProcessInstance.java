@@ -30,6 +30,7 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.OPDLoader;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -67,7 +68,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   private void createLocalVariables() {
     if(opd.getKind().equals(OPMObjectProcessDiagramKind.COMPOUND)) {
-      final OPMProcess zoomedInProcess = OPMAnalysis.findZoomedInProcess(opd);
+      final OPMProcess zoomedInProcess = OPDAnalysis.findInZoomedProcess(opd);
       for(OPMObject object : OPMAnalysis.findContainedObjects(zoomedInProcess)) {
         createVariable(object);
       }

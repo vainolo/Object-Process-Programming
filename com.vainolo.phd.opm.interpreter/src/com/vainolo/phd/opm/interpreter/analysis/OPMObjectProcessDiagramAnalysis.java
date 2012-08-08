@@ -5,13 +5,13 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.analysis;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 
-import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 
 public class OPMObjectProcessDiagramAnalysis {
 
@@ -32,7 +32,7 @@ public class OPMObjectProcessDiagramAnalysis {
         processes = OPMAnalysis.findContainedProcesses(opd);
         break;
       case COMPOUND:
-        final OPMProcess zoomedInProcess = findZoomedInProcess(opd);
+        final OPMProcess zoomedInProcess = OPDAnalysis.findInZoomedProcess(opd);
         processes = OPMAnalysis.findContainedProcesses(zoomedInProcess);
         break;
       default:
@@ -41,22 +41,4 @@ public class OPMObjectProcessDiagramAnalysis {
     return processes;
   }
 
-  /**
-   * Find the in-zoomed process in an OPD. The function assumes that the opd contains only one process, which is the
-   * in-zoomed process.
-   * 
-   * @param opd
-   *          where the process is located
-   * @return the (only) process that is directly on the OPD, which is the in-zoomed process.
-   */
-  static OPMProcess findZoomedInProcess(OPMObjectProcessDiagram opd) {
-    Preconditions.checkNotNull(opd);
-    final Collection<OPMProcess> processes = OPMAnalysis.findContainedProcesses(opd);
-    if(processes.size() > 1)
-      throw new RuntimeException("A compound OPD can have only one main process. Found " + processes.size() + ". ");
-    if(processes.size() == 0)
-      throw new RuntimeException("A compound OPD must have one main process. Found none.");
-
-    return processes.iterator().next();
-  }
 }
