@@ -6,6 +6,7 @@
 package com.vainolo.phd.opm.utilities.analysis;
 
 import static com.google.common.collect.Collections2.filter;
+import static com.google.common.collect.Iterables.*;
 
 import java.util.Collection;
 
@@ -17,53 +18,28 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMObjectNode;
+import com.vainolo.phd.opm.utilities.predicates.IsOPMProceduralLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessNode;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMStructuralLink;
 
 @SuppressWarnings("unchecked")
 public class OPDAnalysis {
 
-  private OPMObjectProcessDiagram opd;
-
-  public OPDAnalysis(OPMObjectProcessDiagram opd) {
-    this.opd = opd;
-  }
-
-  public Collection<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
-    throw new UnsupportedOperationException();
-  }
-
-  public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMProcess process) {
-    throw new UnsupportedOperationException();
-  }
-
-  public Collection<OPMProceduralLink> findOutgoingInvocationLinks(OPMProcess process) {
-    throw new UnsupportedOperationException();
-  }
-
-  public Collection<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
-    throw new UnsupportedOperationException();
-  }
-
-  public Collection<OPMProceduralLink> findOutgoingProceduralLinks(OPMProcess process) {
-    throw new UnsupportedOperationException();
-  }
-
-  public Collection<OPMProceduralLink> findIncomingProceduralLinks(OPMObject object) {
-    throw new UnsupportedOperationException();
-  }
-
-  public Collection<OPMProceduralLink> findOutgoingProceduralLinks(OPMObject object) {
-    throw new UnsupportedOperationException();
-  }
-
   public Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
-    throw new UnsupportedOperationException();
+    switch(opd.getKind()) {
+      case COMPOUND:
+        return findContainedProcesses(findInZoomedProcess(opd));
+      case SYSTEM:
+        return findContainedProcesses(opd);
+      default:
+        throw new IllegalStateException("Unknown OPD kind.");
+    }
   }
 
-  // Implementing
-
-  // Finished implementing with tests
+  @SuppressWarnings("rawtypes")
+  public Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
+    return (Iterable) filter(concat(node.getIncomingLinks(), node.getOutgoingLinks()), IsOPMProceduralLink.INSTANCE);
+  }
 
   @SuppressWarnings("rawtypes")
   public Collection<OPMProcess> findContainedProcesses(OPMContainer container) {
@@ -75,7 +51,7 @@ public class OPDAnalysis {
     return (Collection) filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
   }
 
-  public OPMProcess findZoomedInProcess(OPMObjectProcessDiagram opd) {
+  public OPMProcess findInZoomedProcess(OPMObjectProcessDiagram opd) {
     Collection<OPMNode> processNodes = filter(opd.getNodes(), IsOPMProcessNode.INSTANCE);
     if(processNodes.size() != 1) {
       throw new RuntimeException("A compound OPD can containt only one process directly.");
