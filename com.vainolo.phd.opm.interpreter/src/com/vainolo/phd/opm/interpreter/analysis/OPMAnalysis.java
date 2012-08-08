@@ -8,7 +8,6 @@ package com.vainolo.phd.opm.interpreter.analysis;
 import java.util.Collection;
 
 import com.vainolo.phd.opm.model.OPMContainer;
-import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -59,14 +58,6 @@ public class OPMAnalysis {
   public static Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
     return OPMObjectProcessDiagramAnalysis.findExecutableProcesses(opd);
   }
-
-  public static Collection<OPMLink> findOutgoingStructuralLinks(OPMNode node) {
-    return OPMNodeAnalysis.findOutgoingStructuralLinks(node);
-  }
-
-  // public static Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
-  // return OPMNodeAnalysis.findIncomingStructuralLinks(node);
-  // }
 
   public static OPMObjectProcessDiagram findOPD(OPMNode node) {
     return OPMNodeAnalysis.findOPD(node);

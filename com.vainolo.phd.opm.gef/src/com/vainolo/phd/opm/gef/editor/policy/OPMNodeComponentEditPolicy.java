@@ -19,7 +19,6 @@ import com.vainolo.phd.opm.gef.editor.command.OPMNodeChangeConstraintCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeDeleteCommand;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
 import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
-import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
@@ -85,7 +84,7 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
     CompoundCommand compoundCommand = new CompoundCommand();
 
     // For every outgoing structural link, create a command to delete the aggregator node at the end of the link.
-    for(OPMLink outgoingStructuralLink : OPMAnalysis.findOutgoingStructuralLinks(nodeToDelete)) {
+    for(OPMLink outgoingStructuralLink : OPDAnalysis.findOutgoingStructuralLinks(nodeToDelete)) {
       OPMNode aggregatorNode = outgoingStructuralLink.getTarget();
       OPMNodeDeleteCommand aggregatorNodeDeleteCommand = new OPMNodeDeleteCommand();
       aggregatorNodeDeleteCommand.setNode(aggregatorNode);

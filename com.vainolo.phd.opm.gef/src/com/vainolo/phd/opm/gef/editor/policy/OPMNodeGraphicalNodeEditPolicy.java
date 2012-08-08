@@ -24,6 +24,7 @@ import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMThing;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 
 /**
  * Policy used to connect two nodes in the diagram. Currently connections can
@@ -126,7 +127,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     // Search for an outgoing structural link aggregator matching the
     // requested kind.
     boolean aggregatorFound = false;
-    for(OPMLink structuralLink : OPMAnalysis.findOutgoingStructuralLinks(sNode)) {
+    for(OPMLink structuralLink : OPDAnalysis.findOutgoingStructuralLinks(sNode)) {
       OPMStructuralLinkAggregator existingAggregator = (OPMStructuralLinkAggregator) structuralLink.getTarget();
       if(existingAggregator.getKind() == agrNode.getKind()) {
         aggregatorFound = true;

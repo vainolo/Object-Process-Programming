@@ -37,14 +37,6 @@ public class OPMNodeAnalysis {
     return filter(links, IsOPMStructuralLink.INSTANCE);
   }
 
-  static Collection<OPMLink> findOutgoingStructuralLinks(OPMNode node) {
-    return filter(findAllStructuralLinks(node), new IsOPMOutgoingLink(node));
-  }
-
-  static Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
-    return filter(findAllStructuralLinks(node), new IsOPMIncomingLink(node));
-  }
-
   @SuppressWarnings({ "unchecked", "rawtypes" })
   static Collection<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
     final Collection<OPMLink> links = new ArrayList<OPMLink>(node.getIncomingLinks());

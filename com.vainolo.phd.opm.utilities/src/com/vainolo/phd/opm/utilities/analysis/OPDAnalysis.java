@@ -59,7 +59,7 @@ public class OPDAnalysis {
     return (OPMProcess) processNodes.iterator().next();
   }
 
-  public Collection<OPMLink> findOutgoingStructuralLinks(OPMNode node) {
+  public static Collection<OPMLink> findOutgoingStructuralLinks(OPMNode node) {
     return filter(node.getOutgoingLinks(), IsOPMStructuralLink.INSTANCE);
   }
 
