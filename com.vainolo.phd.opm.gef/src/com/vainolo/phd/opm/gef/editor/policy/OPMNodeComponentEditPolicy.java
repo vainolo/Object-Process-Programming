@@ -25,6 +25,7 @@ import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMThing;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 
 /**
  * {@link EditPolicy} used for delete requests.
@@ -93,7 +94,7 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
 
     // For every incoming structural link whose aggregator has only one outgoing link, create a command to delete the
     // aggregator.
-    for(OPMLink incomingStructuralLink : OPMAnalysis.findIncomingStructuralLinks(nodeToDelete)) {
+    for(OPMLink incomingStructuralLink : OPDAnalysis.findIncomingStructuralLinks(nodeToDelete)) {
       OPMNode aggregatorNode = incomingStructuralLink.getSource();
       if(aggregatorNode.getOutgoingLinks().size() == 1) {
         OPMNodeDeleteCommand aggregatorNodeDeleteCommand = new OPMNodeDeleteCommand();

@@ -63,7 +63,7 @@ public class OPDAnalysis {
     return filter(node.getOutgoingLinks(), IsOPMStructuralLink.INSTANCE);
   }
 
-  public Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
+  public static Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
     return filter(node.getIncomingLinks(), IsOPMStructuralLink.INSTANCE);
   }
 }

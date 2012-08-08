@@ -64,9 +64,9 @@ public class OPMAnalysis {
     return OPMNodeAnalysis.findOutgoingStructuralLinks(node);
   }
 
-  public static Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
-    return OPMNodeAnalysis.findIncomingStructuralLinks(node);
-  }
+  // public static Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
+  // return OPMNodeAnalysis.findIncomingStructuralLinks(node);
+  // }
 
   public static OPMObjectProcessDiagram findOPD(OPMNode node) {
     return OPMNodeAnalysis.findOPD(node);

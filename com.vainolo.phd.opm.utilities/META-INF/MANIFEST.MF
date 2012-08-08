@@ -20,5 +20,6 @@ Bundle-ClassPath: lib/simplelogger.jar,
 Export-Package: com.google.common.base,
  com.google.common.collect,
  com.vainolo.phd.opm.utilities,
+ com.vainolo.phd.opm.utilities.analysis,
  com.vainolo.utils,
  org.easymock
