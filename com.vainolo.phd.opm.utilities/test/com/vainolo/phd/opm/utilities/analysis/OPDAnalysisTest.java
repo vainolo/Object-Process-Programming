@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -205,11 +206,18 @@ public class OPDAnalysisTest {
   }
 
   @Test
-  public void findConnectedEventProcesses() {
+  public void testfindConnectedEventProcesses() {
     Collection<OPMProcess> result = fixture.findConnectedEventProcesses(inZoomedObjects.get(6));
     assertEquals(2, result.size());
     assertTrue(result.contains(inZoomedProcesses.get(2)));
     assertTrue(result.contains(inZoomedProcesses.get(4)));
+  }
+
+  @Test
+  public void testFindInvocationProcesses() {
+    Set<OPMProcess> result = fixture.calculateInvocationProcesses(inZoomedProcesses.get(2));
+    assertEquals(1, result.size());
+    assertTrue(result.contains(inZoomedProcesses.get(3)));
 
   }
 

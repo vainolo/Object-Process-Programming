@@ -181,7 +181,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     if(instanceExecutor.wasExecuted()) {
       for(Parameter parameter : instanceExecutor.getOutgoingParameters())
         followingProcesses.addAll(OPDAnalysis.findConnectedEventProcesses(parameter.getObject()));
-      followingProcesses.addAll(OPDAnalyzer.calculateInvocationProcesses(instanceExecutor.getProcess()));
+      followingProcesses.addAll(OPDAnalysis.calculateInvocationProcesses(instanceExecutor.getProcess()));
     }
     followingProcesses.addAll(follower.findNextProcessesToExecute(instanceExecutor.getProcess()));
     return followingProcesses;

@@ -18,7 +18,6 @@ import org.jgrapht.graph.DefaultEdge;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMInvocationLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessIncomingDataLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessOutgoingDataLink;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -34,24 +33,6 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
  * 
  */
 public final class OPDAnalyzer {
-
-  /**
-   * <p>
-   * Calculate all the processes that should be invoked when the given process ends.
-   * 
-   * @param process
-   *          to analyze.
-   * @return a set of processes to execute when the provided process finishes execution.
-   */
-  public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
-
-    final Iterable<OPMProceduralLink> outgoingProceduralLinks = OPDAnalysis.findOutgoingInvocationLinks(process);
-    final Set<OPMProcess> invocationProcesses = Sets.newHashSet();
-    for(OPMProceduralLink invocationLink : Iterables.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
-      invocationProcesses.add((OPMProcess) invocationLink.getTarget());
-    }
-    return invocationProcesses;
-  }
 
   /**
    * <p>

@@ -31,27 +31,27 @@ import com.vainolo.phd.opm.utilities.predicates.IsOPMStructuralLink;
 @SuppressWarnings("unchecked")
 public class OPDAnalysis {
 
-  // Implementing
-
   /**
-   * We assume that all effect links have the object as the source.
-   * 
-   * @param object
-   * @return
+   * It is assumed that the provided process is the source of the invocation links.
    */
-  public static Set<OPMProcess> findConnectedEventProcesses(OPMObject object) {
+  public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
     Set<OPMProcess> processes = Sets.newHashSet();
-    for(OPMProceduralLink link : findOutgoingEventLinks(object)) {
+    for(OPMProceduralLink link : filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE)) {
       processes.add((OPMProcess) link.getTarget());
     }
     return processes;
   }
 
-  private static Iterable<OPMProceduralLink> findOutgoingEventLinks(OPMObject object) {
-    return filter(findAllProceduralLinks(object), IsOPMEventLink.INSTANCE);
+  /**
+   * It is assumed that the given object is the source of the event links (even for effect link).
+   */
+  public static Set<OPMProcess> findConnectedEventProcesses(OPMObject object) {
+    Set<OPMProcess> processes = Sets.newHashSet();
+    for(OPMProceduralLink link : filter(findAllProceduralLinks(object), IsOPMEventLink.INSTANCE)) {
+      processes.add((OPMProcess) link.getTarget());
+    }
+    return processes;
   }
-
-  //
 
   @SuppressWarnings("rawtypes")
   private static Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
