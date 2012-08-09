@@ -18,6 +18,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMEventLink;
@@ -48,9 +49,9 @@ public final class OPDAnalyzer {
    */
   public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
 
-    final Collection<OPMProceduralLink> outgoingProceduralLinks = OPMAnalysis.findOutgoingInvocationLinks(process);
+    final Iterable<OPMProceduralLink> outgoingProceduralLinks = OPDAnalysis.findOutgoingInvocationLinks(process);
     final Set<OPMProcess> invocationProcesses = Sets.newHashSet();
-    for(OPMProceduralLink invocationLink : Collections2.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
+    for(OPMProceduralLink invocationLink : Iterables.filter(outgoingProceduralLinks, IsOPMInvocationLink.INSTANCE)) {
       invocationProcesses.add((OPMProcess) invocationLink.getTarget());
     }
     return invocationProcesses;
@@ -319,10 +320,10 @@ public final class OPDAnalyzer {
    */
   public static Set<Parameter> calculateAllParameters(final OPMProcess process) {
     final Set<Parameter> parameters = Sets.newHashSet();
-    Collection<OPMProceduralLink> incomingLinks = OPMAnalysis.findIncomingDataLinks(process);
-    incomingLinks = Collections2.filter(incomingLinks, IsOPMProcessIncomingDataLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = OPMAnalysis.findOutgoingDataLinks(process);
-    outgoingLinks = Collections2.filter(outgoingLinks, IsOPMProcessOutgoingDataLink.INSTANCE);
+    Iterable<OPMProceduralLink> incomingLinks = OPDAnalysis.findIncomingDataLinks(process);
+    incomingLinks = Iterables.filter(incomingLinks, IsOPMProcessIncomingDataLink.INSTANCE);
+    Iterable<OPMProceduralLink> outgoingLinks = OPDAnalysis.findOutgoingDataLinks(process);
+    outgoingLinks = Iterables.filter(outgoingLinks, IsOPMProcessOutgoingDataLink.INSTANCE);
 
     // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
     // collections freely.

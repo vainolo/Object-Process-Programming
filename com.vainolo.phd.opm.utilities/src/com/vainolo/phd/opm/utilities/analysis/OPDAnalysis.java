@@ -17,21 +17,45 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.utilities.predicates.IsOPMInvocationLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMObjectNode;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProceduralLink;
+import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessIncomingDataLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessNode;
+import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessOutgoingDataLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMStructuralLink;
 
 @SuppressWarnings("unchecked")
 public class OPDAnalysis {
 
-  // Need to check again
+  // Implementing
+
   @SuppressWarnings("rawtypes")
-  private Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
+  public static Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
     return (Iterable) filter(concat(node.getIncomingLinks(), node.getOutgoingLinks()), IsOPMProceduralLink.INSTANCE);
   }
 
   //
+
+  public static OPMObjectProcessDiagram findOPD(OPMNode node) {
+    OPMContainer currentContainer = node.getContainer();
+    while(!(currentContainer instanceof OPMObjectProcessDiagram)) { // $codepro.audit.disable useForLoop
+      currentContainer = ((OPMNode) currentContainer).getContainer();
+    }
+    return (OPMObjectProcessDiagram) currentContainer;
+  }
+
+  public static Iterable<OPMProceduralLink> findOutgoingInvocationLinks(OPMProcess process) {
+    return filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE);
+  }
+
+  public static Iterable<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
+    return filter(findAllProceduralLinks(process), IsOPMProcessIncomingDataLink.INSTANCE);
+  }
+
+  public static Iterable<OPMProceduralLink> findOutgoingDataLinks(OPMProcess process) {
+    return filter(findAllProceduralLinks(process), IsOPMProcessOutgoingDataLink.INSTANCE);
+  }
 
   public static Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
@@ -45,7 +69,7 @@ public class OPDAnalysis {
   }
 
   @SuppressWarnings("rawtypes")
-  public static Collection<OPMProcess> findContainedProcesses(OPMContainer container) {
+  private static Collection<OPMProcess> findContainedProcesses(OPMContainer container) {
     return (Collection) filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
   }
 

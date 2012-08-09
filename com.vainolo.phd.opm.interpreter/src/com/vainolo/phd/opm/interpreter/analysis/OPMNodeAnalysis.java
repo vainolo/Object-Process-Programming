@@ -15,21 +15,11 @@ import com.vainolo.phd.opm.interpreter.predicates.IsOPMIncomingLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMProceduralLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMStructuralLink;
-import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 public class OPMNodeAnalysis {
-
-  static OPMObjectProcessDiagram findOPD(OPMNode node) {
-    OPMContainer currentContainer = node.getContainer();
-    while(!(currentContainer instanceof OPMObjectProcessDiagram)) { // $codepro.audit.disable useForLoop
-      currentContainer = ((OPMNode) currentContainer).getContainer();
-    }
-    return (OPMObjectProcessDiagram) currentContainer;
-  }
 
   static Collection<OPMLink> findAllStructuralLinks(OPMNode node) {
     final Collection<OPMLink> links = new ArrayList<OPMLink>(node.getIncomingLinks());

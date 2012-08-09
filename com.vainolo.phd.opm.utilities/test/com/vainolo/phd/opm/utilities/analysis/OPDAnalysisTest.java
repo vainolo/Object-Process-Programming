@@ -101,21 +101,22 @@ public class OPDAnalysisTest {
     }
   }
 
-  @Test
-  public void testFindContainedProcesses_InZoomedOPD() {
-    Collection<OPMProcess> result = fixture.findContainedProcesses(inZoomedOPD);
-    assertEquals(IN_ZOOMED_PROCESSES, result.size());
-    for(int i = 0; i < IN_ZOOMED_PROCESSES; i++)
-      assertTrue(result.contains(inZoomedProcesses.get(i)));
-  }
-
-  @Test
-  public void testFindContainedProcesses_InsideInZoomedOPD() {
-    Collection<OPMProcess> result = fixture.findContainedProcesses(inZoomedProcesses.get(0));
-    assertEquals(IN_ZOOMED_INSIDE_PROCESS, result.size());
-    for(int i = IN_ZOOMED_PROCESSES; i < IN_ZOOMED_PROCESSES + IN_ZOOMED_INSIDE_PROCESS; i++)
-      assertTrue(result.contains(inZoomedProcesses.get(i)));
-  }
+  // Should not test, function is not public
+  // @Test
+  // public void testFindContainedProcesses_InZoomedOPD() {
+  // Collection<OPMProcess> result = fixture.findContainedProcesses(inZoomedOPD);
+  // assertEquals(IN_ZOOMED_PROCESSES, result.size());
+  // for(int i = 0; i < IN_ZOOMED_PROCESSES; i++)
+  // assertTrue(result.contains(inZoomedProcesses.get(i)));
+  // }
+  //
+  // @Test
+  // public void testFindContainedProcesses_InsideInZoomedOPD() {
+  // Collection<OPMProcess> result = fixture.findContainedProcesses(inZoomedProcesses.get(0));
+  // assertEquals(IN_ZOOMED_INSIDE_PROCESS, result.size());
+  // for(int i = IN_ZOOMED_PROCESSES; i < IN_ZOOMED_PROCESSES + IN_ZOOMED_INSIDE_PROCESS; i++)
+  // assertTrue(result.contains(inZoomedProcesses.get(i)));
+  // }
 
   @Test
   public void testFindAllProceduralLinks() {
@@ -142,6 +143,59 @@ public class OPDAnalysisTest {
     assertEquals(IN_ZOOMED_INSIDE_PROCESS, result.size());
     for(int i = IN_ZOOMED_PROCESSES; i < IN_ZOOMED_PROCESSES + IN_ZOOMED_INSIDE_PROCESS; i++)
       assertTrue(result.contains(inZoomedProcesses.get(i)));
+  }
+
+  @Test
+  public void testFindOutgoingDataLinks_Process() {
+    Iterable<OPMProceduralLink> result = fixture.findOutgoingDataLinks(inZoomedProcesses.get(2));
+
+    assertEquals(4, Iterables.size(result));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(5)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(6)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(7)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(12)));
+  }
+
+  @Test
+  public void testFindIncomingDataLinks_Process() {
+    Iterable<OPMProceduralLink> result = fixture.findIncomingDataLinks(inZoomedProcesses.get(2));
+
+    assertEquals(10, Iterables.size(result));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(1)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(2)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(3)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(4)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(5)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(6)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(7)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(8)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(9)));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(10)));
+
+  }
+
+  @Test
+  public void testFindOutgoingInvocationLinks() {
+    Iterable<OPMProceduralLink> result = fixture.findOutgoingInvocationLinks(inZoomedProcesses.get(2));
+
+    assertEquals(1, Iterables.size(result));
+    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(11)));
+  }
+
+  @Test
+  public void testFindOPD() {
+    OPMObjectProcessDiagram result = fixture.findOPD(systemObjects.get(2));
+    assertEquals(systemOPD, result);
+
+    result = fixture.findOPD(systemProcesses.get(1));
+    assertEquals(systemOPD, result);
+
+    result = fixture.findOPD(inZoomedObjects.get(10));
+    assertEquals(inZoomedOPD, result);
+
+    result = fixture.findOPD(inZoomedProcesses.get(4));
+    assertEquals(inZoomedOPD, result);
+
   }
 
   @Before
@@ -252,6 +306,7 @@ public class OPDAnalysisTest {
     OPMProcess inZoomedProcess = inZoomedProcesses.get(0);
     createObjects(inZoomedProcess, inZoomedObjects, IN_ZOOMED_INSIDE_OBJECTS, IN_ZOOMED_OBJECTS);
     createProcesses(inZoomedProcess, inZoomedProcesses, IN_ZOOMED_INSIDE_PROCESS, IN_ZOOMED_PROCESSES);
+    createInZoomedOPDProceduralLinks();
   }
 
   private void createInZoomedOPDProceduralLinks() {
