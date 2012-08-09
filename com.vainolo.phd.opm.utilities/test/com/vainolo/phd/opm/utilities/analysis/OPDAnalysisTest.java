@@ -69,9 +69,15 @@ public class OPDAnalysisTest {
     assertEquals(inZoomedProcesses.get(0), result);
   }
 
-  @Test(expected = RuntimeException.class)
+  @Test
   public void testFindInZoomedProcess_IllegalCall() {
-    fixture.findInZoomedProcess(systemOPD);
+    OPMProcess result = null;
+    try {
+      result = fixture.findInZoomedProcess(systemOPD);
+      fail("Should not get here.");
+    } catch(RuntimeException e) {
+      System.err.println(result);
+    }
   }
 
   @Test
@@ -118,14 +124,14 @@ public class OPDAnalysisTest {
   // assertTrue(result.contains(inZoomedProcesses.get(i)));
   // }
 
-  @Test
-  public void testFindAllProceduralLinks() {
-    Iterable<OPMProceduralLink> result = fixture.findAllProceduralLinks(systemProcesses.get(0));
-    assertEquals(7, Iterables.size(result));
-
-    result = fixture.findAllProceduralLinks(systemObjects.get(0));
-    assertEquals(1, Iterables.size(result));
-  }
+  // @Test
+  // public void testFindAllProceduralLinks() {
+  // Iterable<OPMProceduralLink> result = fixture.findAllProceduralLinks(systemProcesses.get(0));
+  // assertEquals(7, Iterables.size(result));
+  //
+  // result = fixture.findAllProceduralLinks(systemObjects.get(0));
+  // assertEquals(1, Iterables.size(result));
+  // }
 
   @Test
   public void testFindExecutableProcesses_SystemOPD() {
@@ -195,6 +201,15 @@ public class OPDAnalysisTest {
 
     result = fixture.findOPD(inZoomedProcesses.get(4));
     assertEquals(inZoomedOPD, result);
+
+  }
+
+  @Test
+  public void findConnectedEventProcesses() {
+    Collection<OPMProcess> result = fixture.findConnectedEventProcesses(inZoomedObjects.get(6));
+    assertEquals(2, result.size());
+    assertTrue(result.contains(inZoomedProcesses.get(2)));
+    assertTrue(result.contains(inZoomedProcesses.get(4)));
 
   }
 
@@ -381,6 +396,11 @@ public class OPDAnalysisTest {
     link.setTarget(inZoomedProcesses.get(2));
     link.setSource(inZoomedObjects.get(10));
     inZoomedProceduralLinks.put(12, link);
+
+    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
+    link.setKind(OPMProceduralLinkKind.CONSUMPTION_EVENT);
+    link.setSource(inZoomedObjects.get(6));
+    link.setTarget(inZoomedProcesses.get(4));
   }
 
   private void createObjects(OPMContainer container, Map<Integer, OPMObject> objects, int number, int startIndex) {

@@ -6,7 +6,6 @@
 package com.vainolo.phd.opm.interpreter.utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -17,11 +16,8 @@ import org.jgrapht.experimental.dag.DirectedAcyclicGraph.CycleFoundException;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMEventLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMInvocationLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessIncomingDataLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessOutgoingDataLink;
@@ -79,34 +75,6 @@ public final class OPDAnalyzer {
     }
 
     return retVal;
-  }
-
-  /**
-   * <p>
-   * Calculate the processes that are connected to this object using event procedural links.
-   * </p>
-   * 
-   * @param object
-   * @return
-   */
-  public static Set<OPMProcess> calculateConnectedEventProcesses(final OPMObject object) {
-    final Set<OPMProcess> processes = Sets.newHashSet();
-
-    Collection<OPMProceduralLink> incomingLinks = OPMAnalysis.findIncomingProceduralLinks(object);
-    incomingLinks = Collections2.filter(incomingLinks, IsOPMEventLink.INSTANCE);
-    Collection<OPMProceduralLink> outgoingLinks = OPMAnalysis.findOutgoingProceduralLinks(object);
-    outgoingLinks = Collections2.filter(outgoingLinks, IsOPMEventLink.INSTANCE);
-
-    // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
-    // collections freely.
-    for(OPMProceduralLink link : incomingLinks) {
-      processes.add((OPMProcess) link.getSource());
-    }
-    for(OPMProceduralLink link : outgoingLinks) {
-      processes.add((OPMProcess) link.getTarget());
-    }
-
-    return processes;
   }
 
   /**
