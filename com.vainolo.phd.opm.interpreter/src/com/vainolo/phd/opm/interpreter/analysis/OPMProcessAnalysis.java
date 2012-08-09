@@ -5,6 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.analysis;
 
+import static com.google.common.collect.Collections2.filter;
+
 import java.util.Collection;
 
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMInvocationLink;
@@ -12,8 +14,6 @@ import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessIncomingDataLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessOutgoingDataLink;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
-
-import static com.google.common.collect.Collections2.filter;
 
 public class OPMProcessAnalysis {
 

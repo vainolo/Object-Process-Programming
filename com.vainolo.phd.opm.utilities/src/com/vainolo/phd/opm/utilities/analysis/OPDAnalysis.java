@@ -25,7 +25,15 @@ import com.vainolo.phd.opm.utilities.predicates.IsOPMStructuralLink;
 @SuppressWarnings("unchecked")
 public class OPDAnalysis {
 
-  public Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
+  // Need to check again
+  @SuppressWarnings("rawtypes")
+  private Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
+    return (Iterable) filter(concat(node.getIncomingLinks(), node.getOutgoingLinks()), IsOPMProceduralLink.INSTANCE);
+  }
+
+  //
+
+  public static Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
       case COMPOUND:
         return findContainedProcesses(findInZoomedProcess(opd));
@@ -37,17 +45,12 @@ public class OPDAnalysis {
   }
 
   @SuppressWarnings("rawtypes")
-  public Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
-    return (Iterable) filter(concat(node.getIncomingLinks(), node.getOutgoingLinks()), IsOPMProceduralLink.INSTANCE);
-  }
-
-  @SuppressWarnings("rawtypes")
-  public Collection<OPMProcess> findContainedProcesses(OPMContainer container) {
+  public static Collection<OPMProcess> findContainedProcesses(OPMContainer container) {
     return (Collection) filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
   }
 
   @SuppressWarnings("rawtypes")
-  public Collection<OPMObject> findContainedObjects(OPMContainer container) {
+  public static Collection<OPMObject> findContainedObjects(OPMContainer container) {
     return (Collection) filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
   }
 

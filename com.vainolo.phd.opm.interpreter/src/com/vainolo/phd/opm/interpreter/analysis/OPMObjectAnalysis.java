@@ -5,14 +5,14 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.analysis;
 
+import static com.google.common.collect.Collections2.filter;
+
 import java.util.Collection;
 
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMObjectIncomingDataLink;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMObjectOutgoingDataLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
-
-import static com.google.common.collect.Collections2.filter;
 
 public class OPMObjectAnalysis {
 

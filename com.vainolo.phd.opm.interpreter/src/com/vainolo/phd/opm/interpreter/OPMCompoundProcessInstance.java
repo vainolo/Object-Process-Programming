@@ -21,7 +21,6 @@ import org.jgrapht.graph.DefaultEdge;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionFollower;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
@@ -57,7 +56,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   @Override
   protected void initProcessInstance() {
     loadOPD();
-    final Collection<OPMObject> parameters = OPMAnalysis.findContainedObjects(opd);
+    final Collection<OPMObject> parameters = OPDAnalysis.findContainedObjects(opd);
     for(OPMObject object : parameters) {
       createVariable(object);
     }
@@ -69,7 +68,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   private void createLocalVariables() {
     if(opd.getKind().equals(OPMObjectProcessDiagramKind.COMPOUND)) {
       final OPMProcess zoomedInProcess = OPDAnalysis.findInZoomedProcess(opd);
-      for(OPMObject object : OPMAnalysis.findContainedObjects(zoomedInProcess)) {
+      for(OPMObject object : OPDAnalysis.findContainedObjects(zoomedInProcess)) {
         createVariable(object);
       }
     }

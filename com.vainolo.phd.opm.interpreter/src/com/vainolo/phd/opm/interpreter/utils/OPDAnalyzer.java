@@ -28,6 +28,7 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 
 /**
  * Various utilities used to execute an OPD.
@@ -272,8 +273,8 @@ public final class OPDAnalyzer {
    */
   private static void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process1 : OPMAnalysis.findExecutableProcesses(opd)) {
-      for(final OPMProcess process2 : OPMAnalysis.findExecutableProcesses(opd)) {
+    for(final OPMProcess process1 : OPDAnalysis.findExecutableProcesses(opd)) {
+      for(final OPMProcess process2 : OPDAnalysis.findExecutableProcesses(opd)) {
         createEdgeIfRequired(dag, process1, process2);
       }
     }
@@ -304,7 +305,7 @@ public final class OPDAnalyzer {
    */
   private static void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : OPMAnalysis.findExecutableProcesses(opd)) {
+    for(final OPMProcess process : OPDAnalysis.findExecutableProcesses(opd)) {
       dag.addVertex(process);
     }
   }
