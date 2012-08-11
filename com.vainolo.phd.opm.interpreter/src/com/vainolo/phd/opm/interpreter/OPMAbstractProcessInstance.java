@@ -66,7 +66,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   }
 
   protected Variable createVariable(String name) {
-    return variables.put(name, new Variable(name));
+    return variables.put(name, new Variable());
   }
 
   protected boolean variableExists(String name) {

@@ -5,9 +5,12 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.*;
+
+import java.util.Set;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Sets;
 
 /**
  * 
@@ -15,13 +18,16 @@ import com.google.common.base.Preconditions;
  * 
  */
 public class Variable {
+  public static final String UNKNOWN_STATE = "unknown";
 
-  private String name;
   private Object value;
   private boolean valueSet = false;
 
-  public Variable(String name) {
-    checkNotNull(name, "Variable name cannot be null.");
+  private final Set<String> states = Sets.newHashSet(); // TODO: if the variable is of a specified type the states
+                                                        // should be defined in that type.
+  private String currentState = UNKNOWN_STATE;
+
+  public Variable() {
   }
 
   public void setValue(Object value) {
@@ -43,4 +49,21 @@ public class Variable {
     Preconditions.checkState(isValueSet(), "Value of variable is not set.");
     return value;
   }
+
+  public void addState(String stateName) {
+    checkNotNull(stateName, "State name cannot be null");
+    checkState(!states.contains(stateName), "State %s is already defined in instance.", stateName);
+    states.add(stateName);
+  }
+
+  public void setCurrentState(String stateName) {
+    checkNotNull(stateName, "State name cannot be null");
+    checkState(states.contains(stateName), "State %s not defined in instance.", stateName);
+    currentState = stateName;
+  }
+
+  public String getCurrentState() {
+    return currentState;
+  }
+
 }
