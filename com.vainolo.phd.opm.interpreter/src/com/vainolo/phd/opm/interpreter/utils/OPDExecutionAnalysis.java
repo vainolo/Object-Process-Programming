@@ -16,10 +16,7 @@ import org.jgrapht.experimental.dag.DirectedAcyclicGraph.CycleFoundException;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessIncomingDataLink;
-import com.vainolo.phd.opm.interpreter.predicates.IsOPMProcessOutgoingDataLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
@@ -269,20 +266,13 @@ public final class OPDExecutionAnalysis {
    */
   public static Set<Parameter> calculateAllParameters(final OPMProcess process) {
     final Set<Parameter> parameters = Sets.newHashSet();
-    Iterable<OPMProceduralLink> incomingLinks = OPDAnalysis.findIncomingDataLinks(process);
-    incomingLinks = Iterables.filter(incomingLinks, IsOPMProcessIncomingDataLink.INSTANCE);
-    Iterable<OPMProceduralLink> outgoingLinks = OPDAnalysis.findOutgoingDataLinks(process);
-    outgoingLinks = Iterables.filter(outgoingLinks, IsOPMProcessOutgoingDataLink.INSTANCE);
 
-    // Note that these lists are disjoint since they are the "real" connections of the model, so we can run over both
-    // collections freely.
-    for(OPMProceduralLink link : incomingLinks) {
-      parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource(), link, process));
+    for(OPMProceduralLink link : OPDAnalysis.findIncomingDataLinks(process)) {
+      parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource(), link));
     }
-    for(OPMProceduralLink link : outgoingLinks) {
-      parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget(), link, process));
+    for(OPMProceduralLink link : OPDAnalysis.findOutgoingDataLinks(process)) {
+      parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget(), link));
     }
-
     return parameters;
   }
 }

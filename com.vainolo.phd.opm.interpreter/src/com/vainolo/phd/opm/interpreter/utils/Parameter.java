@@ -7,7 +7,6 @@ package com.vainolo.phd.opm.interpreter.utils;
 
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
-import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
  * A data object that contains the name of a parameter, the object that is used as the parameter, the process for which
@@ -22,7 +21,6 @@ public class Parameter {
   private final String name;
   private final OPMObject object;
   private final OPMProceduralLink kind;
-  private final OPMProcess process;
 
   /**
    * Create a new Parameter
@@ -33,14 +31,11 @@ public class Parameter {
    *          that is used as a parameter.
    * @param link
    *          that connects between the object and the process.
-   * @param process
-   *          that is connected to the object.
    */
-  public Parameter(final String name, final OPMObject object, final OPMProceduralLink link, final OPMProcess process) {
+  public Parameter(final String name, final OPMObject object, final OPMProceduralLink link) {
     this.name = name;
     this.object = object;
     this.kind = link;
-    this.process = process;
   }
 
   public String getName() {
@@ -55,7 +50,4 @@ public class Parameter {
     return kind;
   }
 
-  public OPMProcess getProcess() {
-    return process;
-  }
 }
