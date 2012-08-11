@@ -9,22 +9,45 @@ import static com.google.common.base.Preconditions.*;
 
 import java.util.Set;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 
+/**
+ * 
+ * @author Arieh 'Vainolo' Bibliowicz
+ * 
+ */
 public class OPMObjectInstance {
   public static final String UNKNOWN_STATE = "unknown";
 
-  private final Set<String> states = Sets.newHashSet();
+  private Object value;
+  private boolean valueSet = false;
 
-  private Object value = null;
+  private final Set<String> states = Sets.newHashSet(); // TODO: if the variable is of a specified type the states
+                                                        // should be defined in that type.
   private String currentState = UNKNOWN_STATE;
 
   public OPMObjectInstance() {
   }
 
-  public OPMObjectInstance(Object value) {
-    checkNotNull(value, "Value cannot be null");
+  public void setValue(Object value) {
+    checkNotNull(value, "Cannot set null value to variable. Use unsetValue instead.");
     this.value = value;
+    valueSet = true;
+  }
+
+  public void unsetValue() {
+    valueSet = false;
+    value = null;
+  }
+
+  public boolean isValueSet() {
+    return valueSet;
+  }
+
+  public Object getValue() {
+    Preconditions.checkState(isValueSet(), "Value of variable is not set.");
+    return value;
   }
 
   public void addState(String stateName) {
@@ -43,12 +66,4 @@ public class OPMObjectInstance {
     return currentState;
   }
 
-  public void setValue(Object value) {
-    checkNotNull(value, "Value cannot be null.");
-    this.value = value;
-  }
-
-  public Object getValue() {
-    return value;
-  }
 }

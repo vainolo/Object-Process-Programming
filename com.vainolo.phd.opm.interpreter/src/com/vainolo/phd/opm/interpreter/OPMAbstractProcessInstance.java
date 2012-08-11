@@ -18,7 +18,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
-  private Map<String, Variable> variables = Maps.newHashMap();
+  private Map<String, OPMObjectInstance> variables = Maps.newHashMap();
   private boolean executing = false;
   private boolean finished = false;
   private boolean active = false;
@@ -61,12 +61,12 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
     logger.info("Finished executing process " + getName());
   }
 
-  protected Variable getVariable(String name) {
+  protected OPMObjectInstance getVariable(String name) {
     return variables.get(name);
   }
 
-  protected Variable createVariable(String name) {
-    return variables.put(name, new Variable());
+  protected OPMObjectInstance createVariable(String name) {
+    return variables.put(name, new OPMObjectInstance());
   }
 
   protected boolean variableExists(String name) {
