@@ -65,7 +65,7 @@ public class OPMInstanceExecutor {
     }
   }
 
-  public void afterExecutionHandling() {
+  public void finishExecution() {
     fetchOutgoingArgumentsValues();
     executionStatus = ExecutionStatus.EXECUTED;
   }

@@ -107,7 +107,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     Preconditions.checkState(waitingInstances.size() > 0, "Did not find any process to execute.");
 
     int executingInstances = 0;
-    while((waitingInstances.size() > 0) || (executingInstances > 0)) { // $codepro.audit.disable useForLoop
+    while((waitingInstances.size() > 0) || (executingInstances > 0)) {
       executingInstances += tryToExecuteWaitingInstances();
 
       if(executingInstances > 0) {
@@ -119,7 +119,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   private void waitForInstanceToFinish() {
     OPMInstanceExecutor executor = null;
-    while(true) { // $codepro.audit.disable useForLoop
+    while(true) {
       try {
         executor = getResultQueue().take();
         break;
@@ -127,7 +127,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
         logger.finest("Thread interrupred while waiting for result from queue. Will continue waiting.");
       }
     }
-    executor.afterExecutionHandling();
+    executor.finishExecution();
     follower.addExecutedProcess(executor.getProcess());
     putProcessesInWaitingList(calculateFollowingProcesses(executor));
   }
