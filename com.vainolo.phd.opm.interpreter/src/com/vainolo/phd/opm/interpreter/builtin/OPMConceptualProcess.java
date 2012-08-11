@@ -11,7 +11,7 @@ import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingParameter;
-import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
+import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalysis;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;
 
@@ -30,7 +30,7 @@ public class OPMConceptualProcess extends OPMAbstractProcessInstance implements 
 
   @Override
   protected void executing() {
-    Set<Parameter> outgoingParameters = OPDAnalyzer.calculateAllParameters(getProcess());
+    Set<Parameter> outgoingParameters = OPDExecutionAnalysis.calculateAllParameters(getProcess());
     outgoingParameters = Sets.filter(outgoingParameters, IsOPMOutgoingParameter.INSTANCE);
     for(Parameter parameter : outgoingParameters) {
       getVariable(parameter.getName()).setValue(new Object());
@@ -39,7 +39,7 @@ public class OPMConceptualProcess extends OPMAbstractProcessInstance implements 
 
   @Override
   protected void initProcessInstance() {
-    final Set<Parameter> parameters = OPDAnalyzer.calculateAllParameters(getProcess());
+    final Set<Parameter> parameters = OPDExecutionAnalysis.calculateAllParameters(getProcess());
     for(Parameter parameter : parameters) {
       createVariable(parameter.getName());
     }

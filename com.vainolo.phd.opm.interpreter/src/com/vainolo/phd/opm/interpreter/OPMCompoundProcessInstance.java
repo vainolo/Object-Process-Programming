@@ -21,7 +21,7 @@ import org.jgrapht.graph.DefaultEdge;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
+import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalysis;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionFollower;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -93,11 +93,11 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   @Override
   protected void executing() {
-    opdDag = OPDAnalyzer.createOPDDAG(opd);
+    opdDag = OPDExecutionAnalysis.createOPDDAG(opd);
     createLocalVariables();
 
     follower = new OPDExecutionFollower(opd);
-    final Set<OPMProcess> initialProcesses = OPDAnalyzer.calculateInitialProcesses(opdDag);
+    final Set<OPMProcess> initialProcesses = OPDExecutionAnalysis.calculateInitialProcesses(opdDag);
 
     for(OPMProcess process : initialProcesses) {
       OPMProcessInstance processInstance = instanceFactory.createProcessInstance(process, process.getKind());

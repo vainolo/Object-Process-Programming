@@ -32,7 +32,7 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
  * @author vainolo
  * 
  */
-public final class OPDAnalyzer {
+public final class OPDExecutionAnalysis {
 
   /**
    * <p>
@@ -192,9 +192,9 @@ public final class OPDAnalyzer {
   /**
    * <p>
    * Remove duplicate edges in the DAG. The edge creation algorithm (see
-   * {@link OPDAnalyzer#createExecutionOrderEdges(DirectedAcyclicGraph, OPMObjectProcessDiagram)}) creates one edge for
-   * each process execution relation. But because process execution order is transitive, there are edges that are
-   * redundant and can be removed.
+   * {@link OPDExecutionAnalysis#createExecutionOrderEdges(DirectedAcyclicGraph, OPMObjectProcessDiagram)}) creates one
+   * edge for each process execution relation. But because process execution order is transitive, there are edges that
+   * are redundant and can be removed.
    * </p>
    * 
    * <p>

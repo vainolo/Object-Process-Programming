@@ -108,32 +108,6 @@ public class OPDAnalysisTest {
     }
   }
 
-  // Should not test, function is not public
-  // @Test
-  // public void testFindContainedProcesses_InZoomedOPD() {
-  // Collection<OPMProcess> result = fixture.findContainedProcesses(inZoomedOPD);
-  // assertEquals(IN_ZOOMED_PROCESSES, result.size());
-  // for(int i = 0; i < IN_ZOOMED_PROCESSES; i++)
-  // assertTrue(result.contains(inZoomedProcesses.get(i)));
-  // }
-  //
-  // @Test
-  // public void testFindContainedProcesses_InsideInZoomedOPD() {
-  // Collection<OPMProcess> result = fixture.findContainedProcesses(inZoomedProcesses.get(0));
-  // assertEquals(IN_ZOOMED_INSIDE_PROCESS, result.size());
-  // for(int i = IN_ZOOMED_PROCESSES; i < IN_ZOOMED_PROCESSES + IN_ZOOMED_INSIDE_PROCESS; i++)
-  // assertTrue(result.contains(inZoomedProcesses.get(i)));
-  // }
-
-  // @Test
-  // public void testFindAllProceduralLinks() {
-  // Iterable<OPMProceduralLink> result = fixture.findAllProceduralLinks(systemProcesses.get(0));
-  // assertEquals(7, Iterables.size(result));
-  //
-  // result = fixture.findAllProceduralLinks(systemObjects.get(0));
-  // assertEquals(1, Iterables.size(result));
-  // }
-
   @Test
   public void testFindExecutableProcesses_SystemOPD() {
     Collection<OPMProcess> result = fixture.findExecutableProcesses(systemOPD);

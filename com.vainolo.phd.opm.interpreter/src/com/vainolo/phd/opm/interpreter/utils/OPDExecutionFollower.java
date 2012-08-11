@@ -32,7 +32,7 @@ public class OPDExecutionFollower {
 
   public OPDExecutionFollower(final OPMObjectProcessDiagram opd) {
     this.opd = opd;
-    opdDag = OPDAnalyzer.createOPDDAG(opd);
+    opdDag = OPDExecutionAnalysis.createOPDDAG(opd);
   }
 
   public void addSkippedProcess(final OPMProcess process) {
@@ -55,10 +55,10 @@ public class OPDExecutionFollower {
    *         processes that have already finished.
    */
   public Set<OPMProcess> findNextProcessesToExecute(final OPMProcess process) {
-    final List<OPMProcess> followingProcesses = OPDAnalyzer.calculateFollowingProcesses(opdDag, process);
+    final List<OPMProcess> followingProcesses = OPDExecutionAnalysis.calculateFollowingProcesses(opdDag, process);
     final Set<OPMProcess> retVal = Sets.newHashSet();
     for(OPMProcess followingProcess : followingProcesses) {
-      Set<OPMProcess> requiredProcesses = OPDAnalyzer.calculateRequiredProcesses(opdDag, followingProcess);
+      Set<OPMProcess> requiredProcesses = OPDExecutionAnalysis.calculateRequiredProcesses(opdDag, followingProcess);
       if(!(Sets.difference(requiredProcesses, Sets.union(skippedProcesses, executedProcesses)).size() > 0)) {
         retVal.add(followingProcess);
       }

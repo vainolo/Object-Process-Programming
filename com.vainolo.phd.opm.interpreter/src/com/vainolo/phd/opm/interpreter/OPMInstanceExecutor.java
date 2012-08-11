@@ -13,7 +13,7 @@ import com.vainolo.phd.opm.interpreter.predicates.IsOPMConditionalParameter;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMIncomingParameter;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMOutgoingParameter;
 import com.vainolo.phd.opm.interpreter.predicates.IsOPMWaitParameter;
-import com.vainolo.phd.opm.interpreter.utils.OPDAnalyzer;
+import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalysis;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
@@ -35,7 +35,7 @@ public class OPMInstanceExecutor {
 
   public OPMInstanceExecutor(OPMProcessInstance instance, OPMCompoundProcessInstance parent) {
     this.instance = instance;
-    this.parameters = OPDAnalyzer.calculateAllParameters(getProcess());
+    this.parameters = OPDExecutionAnalysis.calculateAllParameters(getProcess());
     this.parent = parent;
   }
 
