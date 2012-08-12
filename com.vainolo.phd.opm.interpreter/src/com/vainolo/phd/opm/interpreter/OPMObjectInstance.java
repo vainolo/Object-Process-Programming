@@ -56,14 +56,23 @@ public class OPMObjectInstance {
     states.add(stateName);
   }
 
-  public void setCurrentState(String stateName) {
+  public void setState(String stateName) {
     checkNotNull(stateName, "State name cannot be null");
-    checkState(states.contains(stateName), "State %s not defined in instance.", stateName);
+    if(!states.contains(stateName))
+      states.add(stateName);
     currentState = stateName;
   }
 
   public String getCurrentState() {
     return currentState;
+  }
+
+  @Override
+  public String toString() {
+    if(isValueSet())
+      return getValue().toString();
+    else
+      return currentState;
   }
 
 }

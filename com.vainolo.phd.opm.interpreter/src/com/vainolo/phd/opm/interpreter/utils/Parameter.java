@@ -7,6 +7,7 @@ package com.vainolo.phd.opm.interpreter.utils;
 
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
+import com.vainolo.phd.opm.model.OPMState;
 
 /**
  * A data object that contains the name of a parameter, the object that is used as the parameter, the process for which
@@ -20,22 +21,18 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 public class Parameter {
   private final String name;
   private final OPMObject object;
+  private final OPMState state;
   private final OPMProceduralLink kind;
 
-  /**
-   * Create a new Parameter
-   * 
-   * @param name
-   *          of the parameter inside the process (the link's center decoration).
-   * @param object
-   *          that is used as a parameter.
-   * @param link
-   *          that connects between the object and the process.
-   */
-  public Parameter(final String name, final OPMObject object, final OPMProceduralLink link) {
+  public Parameter(final String name, final OPMObject object, final OPMProceduralLink link, OPMState state) {
     this.name = name;
     this.object = object;
     this.kind = link;
+    this.state = state;
+  }
+
+  public Parameter(final String name, final OPMObject object, final OPMProceduralLink link) {
+    this(name, object, link, null);
   }
 
   public String getName() {
@@ -50,4 +47,11 @@ public class Parameter {
     return kind;
   }
 
+  public OPMState getState() {
+    return state;
+  }
+
+  public boolean isStateParameter() {
+    return state != null;
+  }
 }

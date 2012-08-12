@@ -16,6 +16,7 @@ import com.vainolo.phd.opm.interpreter.predicates.IsOPMWaitParameter;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalysis;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMProcessKind;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -35,8 +36,8 @@ public class OPMInstanceExecutor {
 
   public OPMInstanceExecutor(OPMProcessInstance instance, OPMCompoundProcessInstance parent) {
     this.instance = instance;
-    this.parameters = OPDExecutionAnalysis.calculateAllParameters(getProcess());
     this.parent = parent;
+    this.parameters = OPDExecutionAnalysis.calculateAllParameters(getProcess());
   }
 
   public OPMProcessInstance getInstance() {
@@ -73,7 +74,13 @@ public class OPMInstanceExecutor {
   private void fetchOutgoingArgumentsValues() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
       OPMObjectInstance var = parent.getVariable(parameter.getObject().getName());
-      var.setValue(instance.getArgumentValue(parameter.getName()));
+
+      if(getProcess().getKind().equals(OPMProcessKind.CONCEPTUAL)) {
+        var.setValue(new String("Something"));
+        var.setState("something");
+      } else {
+        var.setValue(instance.getArgumentValue(parameter.getName()));
+      }
     }
   }
 
@@ -82,7 +89,6 @@ public class OPMInstanceExecutor {
       Object argumentValue = parent.getVariable(parameter.getObject().getName()).getValue();
       instance.setArgumentValue(parameter.getName(), argumentValue);
     }
-
   }
 
   private boolean isReady() {
@@ -107,10 +113,6 @@ public class OPMInstanceExecutor {
     return false;
   }
 
-  public ExecutionStatus getExecutionStatus() {
-    return executionStatus;
-  }
-
   public Set<Parameter> getParameters() {
     return parameters;
   }
@@ -120,15 +122,15 @@ public class OPMInstanceExecutor {
   }
 
   public boolean wasNotExecuted() {
-    return getExecutionStatus().equals(ExecutionStatus.NOT_EXECUTED);
+    return executionStatus.equals(ExecutionStatus.NOT_EXECUTED);
   }
 
   public boolean wasSkipped() {
-    return getExecutionStatus().equals(ExecutionStatus.SKIPPED);
+    return executionStatus.equals(ExecutionStatus.SKIPPED);
   }
 
   public boolean wasExecuted() {
-    switch(getExecutionStatus()) {
+    switch(executionStatus) {
       case EXECUTED:
       case EXECUTING:
         return true;

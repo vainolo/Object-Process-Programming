@@ -19,8 +19,10 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 
 /**
@@ -268,10 +270,20 @@ public final class OPDExecutionAnalysis {
     final Set<Parameter> parameters = Sets.newHashSet();
 
     for(OPMProceduralLink link : OPDAnalysis.findIncomingDataLinks(process)) {
-      parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource(), link));
+      if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getSource())) {
+        parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource().getContainer(), link,
+            (OPMState) link.getSource()));
+      } else {
+        parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource(), link));
+      }
     }
     for(OPMProceduralLink link : OPDAnalysis.findOutgoingDataLinks(process)) {
-      parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget(), link));
+      if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getSource())) {
+        parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget().getContainer(), link,
+            (OPMState) link.getTarget()));
+      } else {
+        parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget(), link));
+      }
     }
     return parameters;
   }
