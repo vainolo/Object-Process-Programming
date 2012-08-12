@@ -17,6 +17,7 @@ import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMEventLink;
@@ -55,12 +56,19 @@ public class OPDAnalysis {
 
   @SuppressWarnings("rawtypes")
   private static Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
-    return (Iterable) filter(concat(node.getIncomingLinks(), node.getOutgoingLinks()), IsOPMProceduralLink.INSTANCE);
+    Iterable result = filter(concat(node.getIncomingLinks(), node.getOutgoingLinks()), IsOPMProceduralLink.INSTANCE);
+    if(OPMPackage.eINSTANCE.getOPMContainer().isInstance(node)) {
+      OPMContainer container = (OPMContainer) node;
+      for(OPMNode innerNode : container.getNodes()) {
+        result = concat(result, findAllProceduralLinks(innerNode));
+      }
+    }
+    return result;
   }
 
   public static OPMObjectProcessDiagram findOPD(OPMNode node) {
     OPMContainer currentContainer = node.getContainer();
-    while(!(currentContainer instanceof OPMObjectProcessDiagram)) { // $codepro.audit.disable useForLoop
+    while(!(currentContainer instanceof OPMObjectProcessDiagram)) {
       currentContainer = ((OPMNode) currentContainer).getContainer();
     }
     return (OPMObjectProcessDiagram) currentContainer;

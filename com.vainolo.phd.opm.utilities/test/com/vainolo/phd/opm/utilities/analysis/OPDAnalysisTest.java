@@ -25,6 +25,7 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 
 public class OPDAnalysisTest {
@@ -34,7 +35,9 @@ public class OPDAnalysisTest {
   private static final int IN_ZOOMED_OBJECTS = 7;
   private static final int IN_ZOOMED_PROCESSES = 1;
   private static final int IN_ZOOMED_INSIDE_OBJECTS = 5;
-  private static final int IN_ZOOMED_INSIDE_PROCESS = 5;
+  private static final int IN_ZOOMED_INSIDE_PROCESS = 8;
+  private static final int IN_ZOOMED_OBJECTS_WITH_STATES = 2;
+  private static final int IN_ZOOMED_OBJECTS_STATES = 6;
 
   private OPMObjectProcessDiagram systemOPD;
   private Map<Integer, OPMProcess> systemProcesses = Maps.newHashMap();
@@ -49,6 +52,8 @@ public class OPDAnalysisTest {
   private Map<Integer, OPMStructuralLinkAggregator> inZoomedAggregators = Maps.newHashMap();
   private Map<Integer, OPMLink> inZoomedStructuralLinks = Maps.newHashMap();
   private Map<Integer, OPMProceduralLink> inZoomedProceduralLinks = Maps.newHashMap();
+  private Map<Integer, OPMObject> inZoomedObjectsWithStates = Maps.newHashMap();
+  private Map<Integer, OPMState> inZoomedStates = Maps.newHashMap();
 
   private OPDAnalysis fixture;
 
@@ -81,9 +86,7 @@ public class OPDAnalysisTest {
     try {
       result = fixture.findInZoomedProcess(systemOPD);
       fail("Should not get here.");
-    } catch(RuntimeException e) {
-      System.err.println(result);
-    }
+    } catch(RuntimeException e) {}
   }
 
   @Test
@@ -98,9 +101,12 @@ public class OPDAnalysisTest {
   @Test
   public void testFindContainedObjects_InZoomedOPD() {
     Collection<OPMObject> result = fixture.findContainedObjects(inZoomedOPD);
-    assertEquals(IN_ZOOMED_OBJECTS, result.size());
+    assertEquals(IN_ZOOMED_OBJECTS + IN_ZOOMED_OBJECTS_WITH_STATES, result.size());
     for(int i = 0; i < IN_ZOOMED_OBJECTS; i++) {
       assertTrue(result.contains(inZoomedObjects.get(i)));
+    }
+    for(int i = 0; i < IN_ZOOMED_OBJECTS_WITH_STATES; i++) {
+      assertTrue(result.contains(inZoomedObjectsWithStates.get(i)));
     }
   }
 
@@ -140,6 +146,9 @@ public class OPDAnalysisTest {
     assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(6)));
     assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(7)));
     assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(12)));
+
+    result = fixture.findOutgoingDataLinks(inZoomedProcesses.get(6));
+    assertEquals(1, Iterables.size(result));
   }
 
   @Test
@@ -158,6 +167,11 @@ public class OPDAnalysisTest {
     assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(9)));
     assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(10)));
 
+    result = fixture.findIncomingDataLinks(inZoomedProcesses.get(5));
+    assertEquals(2, Iterables.size(result));
+    for(OPMProceduralLink link : result) {
+      assertTrue(inZoomedStates.values().contains(link.getSource()));
+    }
   }
 
   @Test
@@ -309,6 +323,40 @@ public class OPDAnalysisTest {
     createObjects(inZoomedProcess, inZoomedObjects, IN_ZOOMED_INSIDE_OBJECTS, IN_ZOOMED_OBJECTS);
     createProcesses(inZoomedProcess, inZoomedProcesses, IN_ZOOMED_INSIDE_PROCESS, IN_ZOOMED_PROCESSES);
     createInZoomedOPDProceduralLinks();
+    createInZoomedStatesAndProceduralLinks();
+  }
+
+  private void createInZoomedStatesAndProceduralLinks() {
+    for(int i = 0; i < IN_ZOOMED_OBJECTS_WITH_STATES; i++) {
+      OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
+      inZoomedOPD.getNodes().add(object);
+      inZoomedObjectsWithStates.put(i, object);
+    }
+
+    int j = 0;
+    for(OPMObject object : inZoomedObjectsWithStates.values()) {
+      for(int i = 0; i < IN_ZOOMED_OBJECTS_WITH_STATES; i++) {
+        OPMState state = OPMFactory.eINSTANCE.createOPMState();
+        object.getNodes().add(state);
+        inZoomedStates.put(i + j, state);
+      }
+      j++;
+    }
+
+    OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
+    link.setKind(OPMProceduralLinkKind.CONSUMPTION);
+    link.setSource(inZoomedStates.get(0));
+    link.setTarget(inZoomedProcesses.get(5));
+
+    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
+    link.setKind(OPMProceduralLinkKind.INSTRUMENT_EVENT);
+    link.setSource(inZoomedStates.get(1));
+    link.setTarget(inZoomedProcesses.get(5));
+
+    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
+    link.setKind(OPMProceduralLinkKind.RESULT);
+    link.setSource(inZoomedProcesses.get(6));
+    link.setTarget(inZoomedStates.get(2));
   }
 
   private void createInZoomedOPDProceduralLinks() {
