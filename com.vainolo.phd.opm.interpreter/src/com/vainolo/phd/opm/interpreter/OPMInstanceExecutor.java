@@ -67,14 +67,9 @@ public class OPMInstanceExecutor {
   }
 
   public void finishExecution() {
-    fetchOutgoingArgumentsValues();
-    executionStatus = ExecutionStatus.EXECUTED;
-  }
-
-  private void fetchOutgoingArgumentsValues() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
       OPMObjectInstance var = parent.getVariable(parameter.getObject().getName());
-
+    
       if(getProcess().getKind().equals(OPMProcessKind.CONCEPTUAL)) {
         var.setValue(new String("Something"));
         var.setState("something");
@@ -82,6 +77,7 @@ public class OPMInstanceExecutor {
         var.setValue(instance.getArgumentValue(parameter.getName()));
       }
     }
+    executionStatus = ExecutionStatus.EXECUTED;
   }
 
   private void putIncomingArgumentsValues() {
@@ -105,9 +101,16 @@ public class OPMInstanceExecutor {
   private boolean shouldSkipProcess() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMConditionalParameter.INSTANCE)) {
       OPMObjectInstance argument = parent.getVariable(parameter.getObject().getName());
-      if(!argument.isValueSet()) {
-        logger.info("Skipping instance " + getName());
-        return true;
+      if(parameter.isStateParameter()) {
+        if(!argument.getState().equals(parameter.getState().getName())) {
+          logger.info("Skipping instance " + getName());
+          return true;
+        }
+      } else {
+        if(!argument.isValueSet()) {
+          logger.info("Skipping instance " + getName());
+          return true;
+        }
       }
     }
     return false;

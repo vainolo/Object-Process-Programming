@@ -119,4 +119,9 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   public void skip() {
     setFinished(true);
   }
+
+  @Override
+  public void stop() {
+    // Do nothing
+  }
 }

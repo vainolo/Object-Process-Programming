@@ -73,4 +73,10 @@ public interface OPMProcessInstance {
    * Skip process execution;
    */
   void skip();
+
+  /**
+   * Stop process execution, if possible.
+   */
+  void stop();
+
 }

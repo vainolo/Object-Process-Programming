@@ -5,6 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import static com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory.createProcessInstance;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -24,11 +26,10 @@ public enum Interpreter {
   INSTANCE;
 
   private IContainer containter;
-  private OPMProcessInstanceFactory factory;
   private final ExecutorService executorService = Executors.newCachedThreadPool();
+  private OPMProcessInstance instance;
 
   private Interpreter() {
-    factory = OPMProcessInstanceFactory.INSTANCE;
   }
 
   public IContainer getContainer() {
@@ -39,11 +40,16 @@ public enum Interpreter {
     final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
     this.containter = container;
     process.setName(processName);
-    final OPMProcessInstance instance = factory.createProcessInstance(process, OPMProcessKind.COMPOUND);
+    instance = createProcessInstance(process, OPMProcessKind.COMPOUND);
     instance.execute();
   }
 
   public ExecutorService getExecutorService() {
     return executorService;
+  }
+
+  public void stopExecution() {
+    instance.stop();
+    executorService.shutdownNow();
   }
 }

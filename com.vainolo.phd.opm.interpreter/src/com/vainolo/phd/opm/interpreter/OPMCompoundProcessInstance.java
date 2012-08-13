@@ -5,10 +5,12 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import static com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory.createProcessInstance;
+
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ExecutorService;
@@ -22,7 +24,6 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Queues;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalysis;
-import com.vainolo.phd.opm.interpreter.utils.OPDExecutionFollower;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -44,10 +45,14 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   private OPMObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
 
-  private final Set<OPMProcessInstance> waitingInstances = new HashSet<OPMProcessInstance>();
+  private final Set<OPMProcessInstance> waitingInstances = Sets.newHashSet();
+  private final Set<OPMProcessInstance> executingInstances = Sets.newHashSet();
   final BlockingQueue<OPMInstanceExecutor> runningProcessInstanceQueue = Queues.newLinkedBlockingDeque();
-  private OPDExecutionFollower follower;
-  private final OPMProcessInstanceFactory instanceFactory = OPMProcessInstanceFactory.INSTANCE;
+
+  private Set<OPMProcess> executedProcesses = Sets.newHashSet();
+  private Set<OPMProcess> skippedProcesses = Sets.newHashSet();
+
+  private boolean stopped = false;
 
   public OPMCompoundProcessInstance(final OPMProcess process) {
     super(process);
@@ -96,23 +101,20 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     opdDag = OPDExecutionAnalysis.createOPDDAG(opd);
     createLocalVariables();
 
-    follower = new OPDExecutionFollower(opd);
     final Set<OPMProcess> initialProcesses = OPDExecutionAnalysis.calculateInitialProcesses(opdDag);
 
     for(OPMProcess process : initialProcesses) {
-      OPMProcessInstance processInstance = instanceFactory.createProcessInstance(process, process.getKind());
+      OPMProcessInstance processInstance = createProcessInstance(process, process.getKind());
       waitingInstances.add(processInstance);
     }
 
     Preconditions.checkState(waitingInstances.size() > 0, "Did not find any process to execute.");
 
-    int executingInstances = 0;
-    while((waitingInstances.size() > 0) || (executingInstances > 0)) {
-      executingInstances += tryToExecuteWaitingInstances();
+    while(!isStopped() && ((waitingInstances.size() > 0) || !executingInstances.isEmpty())) {
+      tryToExecuteWaitingInstances();
 
-      if(executingInstances > 0) {
+      if(!executingInstances.isEmpty()) {
         waitForInstanceToFinish();
-        executingInstances--;
       }
     }
   }
@@ -122,13 +124,18 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     while(true) {
       try {
         executor = getResultQueue().take();
+        executingInstances.remove(executor.getInstance());
         break;
       } catch(InterruptedException e) {
-        logger.finest("Thread interrupred while waiting for result from queue. Will continue waiting.");
+        if(isStopped()) {
+          return;
+        } else {
+          logger.finest("Thread interrupred while waiting for result from queue. Will continue waiting.");
+        }
       }
     }
     executor.finishExecution();
-    follower.addExecutedProcess(executor.getProcess());
+    addExecutedProcess(executor.getProcess());
     putProcessesInWaitingList(calculateFollowingProcesses(executor));
   }
 
@@ -142,38 +149,30 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    * is skipped.</li>
    * <li>If all of the parameters of the process are ready, execute the process.</li>
    * </ul>
-   * 
-   * @formatter:on
-   * 
-   * @param follower
-   *          of the execution of the OPD.
-   * @return the number of processes that were sent for execution.
    */
-  private int tryToExecuteWaitingInstances() {
-    int executedInstances = 0;
+  private void tryToExecuteWaitingInstances() {
     final Set<OPMProcess> followingProcesses = Sets.newHashSet();
 
     OPMInstanceExecutor instanceExecutor;
     for(final Iterator<OPMProcessInstance> waitingInstanceIt = waitingInstances.iterator(); waitingInstanceIt.hasNext();) {
-      instanceExecutor = new OPMInstanceExecutor(waitingInstanceIt.next(), this);
+      OPMProcessInstance waitingInstance = waitingInstanceIt.next();
+      instanceExecutor = new OPMInstanceExecutor(waitingInstance, this);
 
       instanceExecutor.tryToExecuteInstance();
 
       if(instanceExecutor.wasNotExecuted()) {
         // do nothing
       } else if(instanceExecutor.wasSkipped()) {
-        follower.addSkippedProcess(instanceExecutor.getProcess());
+        addSkippedProcess(instanceExecutor.getProcess());
         followingProcesses.addAll(calculateFollowingProcesses(instanceExecutor));
-        executedInstances++;
         waitingInstanceIt.remove();
       } else {
+        executingInstances.add(waitingInstance);
         waitingInstanceIt.remove();
-        executedInstances++;
       }
     }
 
     putProcessesInWaitingList(followingProcesses);
-    return executedInstances;
   }
 
   private Set<OPMProcess> calculateFollowingProcesses(OPMInstanceExecutor instanceExecutor) {
@@ -183,13 +182,13 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
         followingProcesses.addAll(OPDAnalysis.findConnectedEventProcesses(parameter.getObject()));
       followingProcesses.addAll(OPDAnalysis.calculateInvocationProcesses(instanceExecutor.getProcess()));
     }
-    followingProcesses.addAll(follower.findNextProcessesToExecute(instanceExecutor.getProcess()));
+    followingProcesses.addAll(findNextProcessesToExecute(instanceExecutor.getProcess()));
     return followingProcesses;
   }
 
   private void putProcessesInWaitingList(final Set<OPMProcess> processes) {
     for(OPMProcess process : processes) {
-      OPMProcessInstance processInstance = instanceFactory.createProcessInstance(process, process.getKind());
+      OPMProcessInstance processInstance = createProcessInstance(process, process.getKind());
       waitingInstances.add(processInstance);
     }
 
@@ -212,5 +211,42 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   public ExecutorService getExecutorService() {
     return Interpreter.INSTANCE.getExecutorService();
+  }
+
+  public void addSkippedProcess(OPMProcess process) {
+    skippedProcesses.add(process);
+  }
+
+  public void addExecutedProcess(OPMProcess process) {
+    executedProcesses.add(process);
+  }
+
+  public Set<OPMProcess> findNextProcessesToExecute(OPMProcess process) {
+    final List<OPMProcess> followingProcesses = OPDExecutionAnalysis.calculateFollowingProcesses(opdDag, process);
+    final Set<OPMProcess> retVal = Sets.newHashSet();
+    for(OPMProcess followingProcess : followingProcesses) {
+      Set<OPMProcess> requiredProcesses = OPDExecutionAnalysis.calculateRequiredProcesses(opdDag, followingProcess);
+      if(Sets.difference(requiredProcesses, Sets.union(skippedProcesses, executedProcesses)).size() == 0) {
+        retVal.add(followingProcess);
+      }
+    }
+
+    return retVal;
+  }
+
+  @Override
+  public synchronized void stop() {
+    this.stopped = true;
+    stopChildInstances();
+  }
+
+  private void stopChildInstances() {
+    for(OPMProcessInstance executingInstance : executingInstances) {
+      executingInstance.stop();
+    }
+  }
+
+  private synchronized boolean isStopped() {
+    return stopped;
   }
 }

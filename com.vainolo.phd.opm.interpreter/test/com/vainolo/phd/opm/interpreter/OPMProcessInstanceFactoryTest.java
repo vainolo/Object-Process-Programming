@@ -26,6 +26,6 @@ public class OPMProcessInstanceFactoryTest {
    */
   @Before
   public void setUp() {
-    fixture = OPMProcessInstanceFactory.INSTANCE;
+
   }
 }

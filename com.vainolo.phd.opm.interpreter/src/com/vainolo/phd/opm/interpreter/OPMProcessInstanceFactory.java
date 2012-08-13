@@ -13,10 +13,8 @@ import com.vainolo.phd.opm.interpreter.builtin.OPMSleepProcessInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMProcessKind;
 
-public enum OPMProcessInstanceFactory {
-  INSTANCE;
-
-  public OPMProcessInstance createProcessInstance(final OPMProcess process, final OPMProcessKind kind) {
+public class OPMProcessInstanceFactory {
+  public static OPMProcessInstance createProcessInstance(final OPMProcess process, final OPMProcessKind kind) {
     OPMProcessInstance processInstance;
     switch(kind) {
       case BUILT_IN:
@@ -38,7 +36,7 @@ public enum OPMProcessInstanceFactory {
     return processInstance;
   }
 
-  private OPMProcessInstance createBuildInProcess(final OPMProcess process) {
+  private static OPMProcessInstance createBuildInProcess(final OPMProcess process) {
     OPMProcessInstance processInstance;
 
     if(process.getName().equals("Input")) {

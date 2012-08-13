@@ -63,7 +63,7 @@ public class OPMObjectInstance {
     currentState = stateName;
   }
 
-  public String getCurrentState() {
+  public String getState() {
     return currentState;
   }
 
