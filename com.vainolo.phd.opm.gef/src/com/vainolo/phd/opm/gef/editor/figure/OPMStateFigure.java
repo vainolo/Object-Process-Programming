@@ -23,69 +23,70 @@ import org.eclipse.draw2d.geometry.Rectangle;
  * 
  */
 public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedElementFigure {
-	private final RoundedRectangle rectangle;
-	private ConnectionAnchor connectionAnchor;
-	private final Label nameLabel;
+  private final RoundedRectangle rectangle;
+  private ConnectionAnchor connectionAnchor;
+  private final Label nameLabel;
 
-	public OPMStateFigure() {
-		super();
-		setLayoutManager(new XYLayout());
-		nameLabel = new Label();
-		add(nameLabel);
-		rectangle = new RoundedRectangle();
-		rectangle.setFill(false);
-		rectangle.setForegroundColor(OPMFigureConstants.opmStateColor);
-		rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
-		add(rectangle);
-	}
+  public OPMStateFigure() {
+    super();
+    setLayoutManager(new XYLayout());
+    nameLabel = new Label();
+    nameLabel.setForegroundColor(OPMFigureConstants.opmLabelColor);
+    add(nameLabel);
+    rectangle = new RoundedRectangle();
+    rectangle.setFill(false);
+    rectangle.setForegroundColor(OPMFigureConstants.opmStateColor);
+    rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
+    add(rectangle);
+  }
 
-	/**
-	 * Get the label used to set the name of the state.
-	 * 
-	 * @return the label where the name of the state is shown.
-	 */
-	@Override
-	public Label getNameLabel() {
-		return nameLabel;
-	}
+  /**
+   * Get the label used to set the name of the state.
+   * 
+   * @return the label where the name of the state is shown.
+   */
+  @Override
+  public Label getNameLabel() {
+    return nameLabel;
+  }
 
-	/**
-	 * All connections to the figure use the same anchor: a {@link ChopboxAnchor}.
-	 * 
-	 * @return a {@link ChopboxAnchor} for the state.
-	 */
-	private ConnectionAnchor getConnectionAnchor() {
-		if (connectionAnchor == null) {
-			connectionAnchor = new ChopboxAnchor(this);
-		}
-		return connectionAnchor;
-	}
+  /**
+   * All connections to the figure use the same anchor: a {@link ChopboxAnchor}.
+   * 
+   * @return a {@link ChopboxAnchor} for the state.
+   */
+  private ConnectionAnchor getConnectionAnchor() {
+    if(connectionAnchor == null) {
+      connectionAnchor = new ChopboxAnchor(this);
+    }
+    return connectionAnchor;
+  }
 
-	@Override
-	public ConnectionAnchor getSourceConnectionAnchor() {
-		return getConnectionAnchor();
-	}
+  @Override
+  public ConnectionAnchor getSourceConnectionAnchor() {
+    return getConnectionAnchor();
+  }
 
-	@Override
-	public ConnectionAnchor getTargetConnectionAnchor() {
-		return getConnectionAnchor();
-	}
+  @Override
+  public ConnectionAnchor getTargetConnectionAnchor() {
+    return getConnectionAnchor();
+  }
 
-	@Override
-	public Dimension getPreferredSize(int wHint, int hHint) {
-		Dimension d = new Dimension();
-		Rectangle textRectangle = getNameLabel().getTextBounds().getCopy();
-		d.width = textRectangle.width;
-		d.height = textRectangle.height;
-		return d;
-	}
+  @Override
+  public Dimension getPreferredSize(int wHint, int hHint) {
+    Dimension d = new Dimension();
+    Rectangle textRectangle = getNameLabel().getTextBounds().getCopy();
+    d.width = textRectangle.width;
+    d.height = textRectangle.height;
+    return d;
+  }
 
-	@Override
-	protected void paintFigure(Graphics graphics) {
-		Rectangle r = getBounds().getCopy();
-		setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
-		setConstraint(getNameLabel(), new Rectangle(0, 0, r.width, r.height));
-		rectangle.invalidate();
-		getNameLabel().invalidate();
-	}
+  @Override
+  protected void paintFigure(Graphics graphics) {
+    Rectangle r = getBounds().getCopy();
+    setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
+    setConstraint(getNameLabel(), new Rectangle(0, 0, r.width, r.height));
+    rectangle.invalidate();
+    getNameLabel().invalidate();
+  }
 }
