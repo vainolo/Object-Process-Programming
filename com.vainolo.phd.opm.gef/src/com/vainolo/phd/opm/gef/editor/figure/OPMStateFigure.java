@@ -34,6 +34,7 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
     nameLabel.setForegroundColor(OPMFigureConstants.opmLabelColor);
     add(nameLabel);
     rectangle = new RoundedRectangle();
+    rectangle.setCornerDimensions(new Dimension(20, 20));
     rectangle.setFill(false);
     rectangle.setForegroundColor(OPMFigureConstants.opmStateColor);
     rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);

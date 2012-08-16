@@ -11,7 +11,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Rectangle;
 
 public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OPMNamedElementFigure {
 
@@ -70,10 +69,8 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
    */
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
-    Dimension d = new Dimension();
-    Rectangle textRectangle = getNameLabel().getTextBounds().getCopy();
-    d.width = textRectangle.width;
-    d.height = textRectangle.height;
-    return d;
+    setPreferredSize(getNameLabel().getPreferredSize().getCopy());
+    return super.getPreferredSize(wHint, hHint);
+
   }
 }
