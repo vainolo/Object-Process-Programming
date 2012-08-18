@@ -278,7 +278,7 @@ public final class OPDExecutionAnalysis {
       }
     }
     for(OPMProceduralLink link : OPDAnalysis.findOutgoingDataLinks(process)) {
-      if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getSource())) {
+      if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getTarget())) {
         parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget().getContainer(), link,
             (OPMState) link.getTarget()));
       } else {

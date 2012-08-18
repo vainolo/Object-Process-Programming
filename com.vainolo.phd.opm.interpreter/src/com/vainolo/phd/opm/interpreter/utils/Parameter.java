@@ -51,6 +51,11 @@ public class Parameter {
     return state;
   }
 
+  /**
+   * Returns true if the parameter starts or ends at a state.
+   * 
+   * @return true if the parameter starts or ends at a state, false otherwise.
+   */
   public boolean isStateParameter() {
     return state != null;
   }

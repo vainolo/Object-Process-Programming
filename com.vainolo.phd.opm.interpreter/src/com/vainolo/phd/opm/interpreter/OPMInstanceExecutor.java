@@ -69,12 +69,13 @@ public class OPMInstanceExecutor {
   public void finishExecution() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
       OPMObjectInstance var = parent.getVariable(parameter.getObject().getName());
-    
-      if(getProcess().getKind().equals(OPMProcessKind.CONCEPTUAL)) {
-        var.setValue(new String("Something"));
-        var.setState("something");
-      } else {
+
+      if(!getProcess().getKind().equals(OPMProcessKind.CONCEPTUAL)) {
         var.setValue(instance.getArgumentValue(parameter.getName()));
+      }
+
+      if(parameter.isStateParameter()) {
+        var.setState(parameter.getState().getName());
       }
     }
     executionStatus = ExecutionStatus.EXECUTED;
