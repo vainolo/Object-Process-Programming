@@ -92,8 +92,13 @@ public class OPMInstanceExecutor {
     for(Parameter parameter : Sets.filter(parameters, IsOPMWaitParameter.INSTANCE)) {
       OPMObjectInstance argument = parent.getVariable(parameter.getObject().getName());
       if(!argument.isValueSet()) {
-        logger.info("Instance " + getName() + " kept waiting.");
+        logger.info("Instance " + getName() + " kept waiting. Object " + parameter.getName() + " not ready.");
         return false;
+      }
+      if(argument.isValueSet() && parameter.isStateParameter() &&
+          !argument.getState().equals(parameter.getState().getName())) {
+        logger.info("Instance " + getName() + " kept waiting. Object " + parameter.getName() + " not in state " +
+            parameter.getState().getName() + ".");
       }
     }
     return true;
@@ -104,12 +109,13 @@ public class OPMInstanceExecutor {
       OPMObjectInstance argument = parent.getVariable(parameter.getObject().getName());
       if(parameter.isStateParameter()) {
         if(!argument.getState().equals(parameter.getState().getName())) {
-          logger.info("Skipping instance " + getName());
+          logger.info("Skipping instance " + getName() + ". Object " + parameter.getObject().getName() +
+              " not in state " + parameter.getState().getName() + ".");
           return true;
         }
       } else {
         if(!argument.isValueSet()) {
-          logger.info("Skipping instance " + getName());
+          logger.info("Skipping instance " + getName() + ". Object " + parameter.getObject().getName() + " not ready.");
           return true;
         }
       }
