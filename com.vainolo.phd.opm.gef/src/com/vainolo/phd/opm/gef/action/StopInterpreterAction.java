@@ -11,7 +11,7 @@ import com.vainolo.phd.opm.interpreter.Interpreter;
 
 public class StopInterpreterAction extends Action {
 
-  public static final String STOP_INTERPRETER_ID = "ResizeToContents";
+  public static final String STOP_INTERPRETER_ID = "StopInterpreter";
 
   public StopInterpreterAction() {
     super();
