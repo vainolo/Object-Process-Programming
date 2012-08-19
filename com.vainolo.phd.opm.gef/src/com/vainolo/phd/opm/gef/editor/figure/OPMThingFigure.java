@@ -9,6 +9,7 @@ package com.vainolo.phd.opm.gef.editor.figure;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 
@@ -29,6 +30,7 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
     setLayoutManager(new XYLayout());
     nameLabel = new Label();
     nameLabel.setForegroundColor(OPMFigureConstants.opmLabelColor);
+    nameLabel.setTextAlignment(PositionConstants.TOP);
     add(nameLabel);
     tooltipFigure = new TooltipFigure();
   }
@@ -71,6 +73,5 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
   public Dimension getPreferredSize(int wHint, int hHint) {
     setPreferredSize(getNameLabel().getPreferredSize().getCopy());
     return super.getPreferredSize(wHint, hHint);
-
   }
 }

@@ -36,9 +36,9 @@ public class OPMObjectFigure extends OPMThingFigure {
   @Override
   protected void paintFigure(Graphics graphics) {
     Rectangle r = getBounds().getCopy();
-    setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
+    setConstraint(rectangle, new Rectangle(0, 0, r.width(), r.height()));
     Label label = getNameLabel();
-    setConstraint(label, new Rectangle(0, 0, r.width, label.getPreferredSize().height() + 20));
+    setConstraint(label, new Rectangle(0, 0, r.width(), r.height()));
     rectangle.invalidate();
     getNameLabel().invalidate();
   }
