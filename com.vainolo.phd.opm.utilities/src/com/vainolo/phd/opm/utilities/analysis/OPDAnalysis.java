@@ -35,7 +35,7 @@ public class OPDAnalysis {
   /**
    * It is assumed that the provided process is the source of the invocation links.
    */
-  public static Set<OPMProcess> calculateInvocationProcesses(final OPMProcess process) {
+  public static Set<OPMProcess> findInvocationProcesses(final OPMProcess process) {
     Set<OPMProcess> processes = Sets.newHashSet();
     for(OPMProceduralLink link : filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE)) {
       processes.add((OPMProcess) link.getTarget());

@@ -208,7 +208,7 @@ public class OPDAnalysisTest {
 
   @Test
   public void testFindInvocationProcesses() {
-    Set<OPMProcess> result = fixture.calculateInvocationProcesses(inZoomedProcesses.get(2));
+    Set<OPMProcess> result = fixture.findInvocationProcesses(inZoomedProcesses.get(2));
     assertEquals(1, result.size());
     assertTrue(result.contains(inZoomedProcesses.get(3)));
 
