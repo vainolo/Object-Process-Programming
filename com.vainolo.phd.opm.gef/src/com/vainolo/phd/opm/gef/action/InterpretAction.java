@@ -28,10 +28,14 @@ public class InterpretAction extends Action {
   public void run() {
     final IEditorPart activeEditor =
         PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-    final OPMGraphicalEditor editor = (OPMGraphicalEditor) activeEditor;
-    String processName = editor.getOPD().getName();
-    final IFileEditorInput input = (IFileEditorInput) activeEditor.getEditorInput();
-    IContainer container = input.getFile().getParent();
-    Interpreter.INSTANCE.interpret(processName, container);
+    final String processName = ((OPMGraphicalEditor) activeEditor).getOPD().getName();
+    final IContainer container = ((IFileEditorInput) activeEditor.getEditorInput()).getFile().getParent();
+
+    (new Thread(new Runnable() {
+      @Override
+      public void run() {
+        Interpreter.INSTANCE.interpret(processName, container);
+      }
+    })).start();
   }
 }

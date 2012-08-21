@@ -26,7 +26,7 @@ public enum Interpreter {
   INSTANCE;
 
   private IContainer containter;
-  private final ExecutorService executorService = Executors.newCachedThreadPool();
+  private ExecutorService executorService;
   private OPMProcessInstance instance;
 
   private Interpreter() {
@@ -37,6 +37,7 @@ public enum Interpreter {
   }
 
   public void interpret(final String processName, final IContainer container) {
+    executorService = Executors.newCachedThreadPool();
     final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
     this.containter = container;
     process.setName(processName);

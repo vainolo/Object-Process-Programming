@@ -33,7 +33,7 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
  */
 public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
 
-  private static final int INSETS = 5;
+  private static final int INSETS = 10;
 
   /**
    * Create a command to delete a node. When a node is deleted all incoming and outgoing links are also deleted

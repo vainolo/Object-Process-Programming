@@ -130,7 +130,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
         if(isStopped()) {
           return;
         } else {
-          logger.finest("Thread interrupred while waiting for result from queue. Will continue waiting.");
+          logger.finest("Thread interrupted while waiting for result from queue. Will continue waiting.");
         }
       }
     }

@@ -72,6 +72,8 @@ public class OPMInstanceExecutor {
 
       if(!getProcess().getKind().equals(OPMProcessKind.CONCEPTUAL)) {
         var.setValue(instance.getArgumentValue(parameter.getName()));
+      } else {
+        var.setValue(new Object());
       }
 
       if(parameter.isStateParameter()) {
@@ -99,6 +101,7 @@ public class OPMInstanceExecutor {
           !argument.getState().equals(parameter.getState().getName())) {
         logger.info("Instance " + getName() + " kept waiting. Object " + parameter.getName() + " not in state " +
             parameter.getState().getName() + ".");
+        return false;
       }
     }
     return true;
