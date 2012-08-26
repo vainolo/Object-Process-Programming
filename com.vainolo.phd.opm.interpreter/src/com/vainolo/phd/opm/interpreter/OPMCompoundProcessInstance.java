@@ -6,8 +6,8 @@
 package com.vainolo.phd.opm.interpreter;
 
 import static com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory.createProcessInstance;
+import static com.vainolo.phd.opm.utilities.analysis.OPMLiterals.*;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -84,12 +84,10 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   private void createVariable(OPMObject object) {
     createVariable(object.getName());
-    if(object.getName().matches("^\\d.*")) {
-      Number value = new BigDecimal(object.getName());
-      getVariable(object.getName()).setValue(value);
-    } else if(object.getName().startsWith("\"")) {
-      String value = object.getName().replace("\"", "");
-      getVariable(object.getName()).setValue(value);
+    if(isOPMNumberLiteral(object.getName())) {
+      getVariable(object.getName()).setValue(parseOPMNumberLiteral(object.getName()));
+    } else if(isOPMStringLiteral(object.getName())) {
+      getVariable(object.getName()).setValue(parseOPMStringLiteral(object.getName()));
     }
   }
 
