@@ -61,6 +61,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   @Override
   protected void initProcessInstance() {
     loadOPD();
+    opdDag = OPDExecutionAnalysis.createOPDDAG(opd);
     final Collection<OPMObject> parameters = OPDAnalysis.findContainedObjects(opd);
     for(OPMObject object : parameters) {
       createVariable(object);
@@ -80,15 +81,16 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   }
 
   /**
-   * Handle creation of local variables.
+   * Handle creation of variables.
    */
   private void createVariable(OPMObject object) {
     createVariable(object.getName());
-    if(isOPMNumberLiteral(object.getName())) {
+    if(isOPMNumberLiteral(object.getName()))
       getVariable(object.getName()).setValue(parseOPMNumberLiteral(object.getName()));
-    } else if(isOPMStringLiteral(object.getName())) {
+    else if(isOPMStringLiteral(object.getName()))
       getVariable(object.getName()).setValue(parseOPMStringLiteral(object.getName()));
-    }
+    else if(isOPMBooleanLiteral(object.getName()))
+      getVariable(object.getName()).setValue(parseOPMBooleanLiteral(object.getName()));
   }
 
   /**
@@ -96,24 +98,18 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
    */
   @Override
   protected void executing() {
-    opdDag = OPDExecutionAnalysis.createOPDDAG(opd);
     createLocalVariables();
-
     final Set<OPMProcess> initialProcesses = OPDExecutionAnalysis.calculateInitialProcesses(opdDag);
 
-    for(OPMProcess process : initialProcesses) {
-      OPMProcessInstance processInstance = createProcessInstance(process, process.getKind());
-      waitingInstances.add(processInstance);
-    }
+    for(OPMProcess process : initialProcesses)
+      waitingInstances.add(createProcessInstance(process, process.getKind()));
 
     Preconditions.checkState(waitingInstances.size() > 0, "Did not find any process to execute.");
 
     while(!isStopped() && ((waitingInstances.size() > 0) || !executingInstances.isEmpty())) {
       tryToExecuteWaitingInstances();
-
-      if(!executingInstances.isEmpty()) {
+      if(!executingInstances.isEmpty())
         waitForInstanceToFinish();
-      }
     }
   }
 
@@ -184,6 +180,19 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     return followingProcesses;
   }
 
+  public Set<OPMProcess> findNextProcessesToExecute(OPMProcess process) {
+    final List<OPMProcess> followingProcesses = OPDExecutionAnalysis.calculateFollowingProcesses(opdDag, process);
+    final Set<OPMProcess> retVal = Sets.newHashSet();
+    for(OPMProcess followingProcess : followingProcesses) {
+      Set<OPMProcess> requiredProcesses = OPDExecutionAnalysis.calculateRequiredProcesses(opdDag, followingProcess);
+      if(Sets.difference(requiredProcesses, Sets.union(skippedProcesses, executedProcesses)).size() == 0) {
+        retVal.add(followingProcess);
+      }
+    }
+
+    return retVal;
+  }
+
   private void putProcessesInWaitingList(final Set<OPMProcess> processes) {
     for(OPMProcess process : processes) {
       OPMProcessInstance processInstance = createProcessInstance(process, process.getKind());
@@ -194,9 +203,8 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   private void loadOPD() {
     opd = OPDLoader.loadOPDFile(getProcessFilename());
-    if(opd == null) {
+    if(opd == null)
       throw new RuntimeException("Could not load OPD file for proocess " + getProcess().getName());
-    }
   }
 
   private String getProcessFilename() {
@@ -217,19 +225,6 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   public void addExecutedProcess(OPMProcess process) {
     executedProcesses.add(process);
-  }
-
-  public Set<OPMProcess> findNextProcessesToExecute(OPMProcess process) {
-    final List<OPMProcess> followingProcesses = OPDExecutionAnalysis.calculateFollowingProcesses(opdDag, process);
-    final Set<OPMProcess> retVal = Sets.newHashSet();
-    for(OPMProcess followingProcess : followingProcesses) {
-      Set<OPMProcess> requiredProcesses = OPDExecutionAnalysis.calculateRequiredProcesses(opdDag, followingProcess);
-      if(Sets.difference(requiredProcesses, Sets.union(skippedProcesses, executedProcesses)).size() == 0) {
-        retVal.add(followingProcess);
-      }
-    }
-
-    return retVal;
   }
 
   @Override

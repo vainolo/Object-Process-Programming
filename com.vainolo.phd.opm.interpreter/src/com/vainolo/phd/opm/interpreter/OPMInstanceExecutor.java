@@ -30,26 +30,14 @@ public class OPMInstanceExecutor {
 
   private final OPMProcessInstance instance;
   private final Set<Parameter> parameters;
-  private final OPMCompoundProcessInstance parent;
+  private final OPMCompoundProcessInstance caller;
 
   private ExecutionStatus executionStatus = ExecutionStatus.NOT_EXECUTED;
 
-  public OPMInstanceExecutor(OPMProcessInstance instance, OPMCompoundProcessInstance parent) {
+  public OPMInstanceExecutor(OPMProcessInstance instance, OPMCompoundProcessInstance caller) {
     this.instance = instance;
-    this.parent = parent;
+    this.caller = caller;
     this.parameters = OPDExecutionAnalysis.calculateAllParameters(getProcess());
-  }
-
-  public OPMProcessInstance getInstance() {
-    return instance;
-  }
-
-  public String getName() {
-    return instance.getName();
-  }
-
-  public OPMProcess getProcess() {
-    return instance.getProcess();
   }
 
   public void tryToExecuteInstance() {
@@ -60,47 +48,37 @@ public class OPMInstanceExecutor {
     } else {
       // All OK, Execute!
       executionStatus = ExecutionStatus.EXECUTING;
-      putIncomingArgumentsValues();
-      final OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, parent.getResultQueue());
-      parent.getExecutorService().execute(runnable);
+      assignIncomingParameterValues();
+      final OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, caller.getResultQueue());
+      caller.getExecutorService().execute(runnable);
     }
   }
 
   public void finishExecution() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
-      OPMObjectInstance var = parent.getVariable(parameter.getObject().getName());
-
-      if(!getProcess().getKind().equals(OPMProcessKind.CONCEPTUAL)) {
+      OPMObjectInstance var = caller.getVariable(parameter.getObject().getName());
+      if(!getProcess().getKind().equals(OPMProcessKind.CONCEPTUAL))
         var.setValue(instance.getArgumentValue(parameter.getName()));
-      } else {
+      else
         var.setValue(new Object());
-      }
 
-      if(parameter.isStateParameter()) {
+      if(parameter.isStateParameter())
         var.setState(parameter.getState().getName());
-      }
     }
     executionStatus = ExecutionStatus.EXECUTED;
   }
 
-  private void putIncomingArgumentsValues() {
+  private void assignIncomingParameterValues() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMIncomingParameter.INSTANCE)) {
-      Object argumentValue = parent.getVariable(parameter.getObject().getName()).getValue();
+      Object argumentValue = caller.getVariable(parameter.getObject().getName()).getValue();
       instance.setArgumentValue(parameter.getName(), argumentValue);
     }
   }
 
   private boolean isReady() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMWaitParameter.INSTANCE)) {
-      OPMObjectInstance argument = parent.getVariable(parameter.getObject().getName());
-      if(!argument.isValueSet()) {
-        logger.info("Instance " + getName() + " kept waiting. Object " + parameter.getName() + " not ready.");
-        return false;
-      }
-      if(argument.isValueSet() && parameter.isStateParameter() &&
-          !argument.getState().equals(parameter.getState().getName())) {
-        logger.info("Instance " + getName() + " kept waiting. Object " + parameter.getName() + " not in state " +
-            parameter.getState().getName() + ".");
+      if(!isArgumentReady(parameter)) {
+        logger.info("Instance " + getName() + " kept waiting.");
         return false;
       }
     }
@@ -109,25 +87,28 @@ public class OPMInstanceExecutor {
 
   private boolean shouldSkipProcess() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMConditionalParameter.INSTANCE)) {
-      OPMObjectInstance argument = parent.getVariable(parameter.getObject().getName());
-      if(parameter.isStateParameter()) {
-        if(!argument.getState().equals(parameter.getState().getName())) {
-          logger.info("Skipping instance " + getName() + ". Object " + parameter.getObject().getName() +
-              " not in state " + parameter.getState().getName() + ".");
-          return true;
-        }
-      } else {
-        if(!argument.isValueSet()) {
-          logger.info("Skipping instance " + getName() + ". Object " + parameter.getObject().getName() + " not ready.");
-          return true;
-        }
+      if(!isArgumentReady(parameter)) {
+        logger.info("Skipping instance " + getName());
+        return true;
       }
     }
     return false;
   }
 
-  public Set<Parameter> getParameters() {
-    return parameters;
+  private boolean isArgumentReady(Parameter parameter) {
+    OPMObjectInstance argument = caller.getVariable(parameter.getObject().getName());
+    if(!argument.isValueSet()) {
+      logger.info("Object " + parameter.getObject().getName() + " not ready.");
+      return false;
+    }
+    if(parameter.isStateParameter()) {
+      if(!argument.getState().equals(parameter.getState().getName())) {
+        logger.info("Object " + parameter.getObject().getName() + " not in state " + parameter.getState().getName() +
+            ".");
+        return false;
+      }
+    }
+    return true;
   }
 
   public Set<Parameter> getOutgoingParameters() {
@@ -150,6 +131,18 @@ public class OPMInstanceExecutor {
       default:
         return false;
     }
+  }
+
+  public OPMProcessInstance getInstance() {
+    return instance;
+  }
+
+  public String getName() {
+    return instance.getName();
+  }
+
+  public OPMProcess getProcess() {
+    return instance.getProcess();
   }
 
   public enum ExecutionStatus {
