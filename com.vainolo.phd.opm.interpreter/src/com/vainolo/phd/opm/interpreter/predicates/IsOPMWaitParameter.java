@@ -22,8 +22,14 @@ public enum IsOPMWaitParameter implements Predicate<Parameter> {
   public boolean apply(final Parameter input) {
     switch(input.getLink().getKind()) {
       case INSTRUMENT:
+      case INSTRUMENT_CONDITION:
+      case INSTRUMENT_EVENT:
       case CONSUMPTION:
+      case CONSUMPTION_CONDITION:
+      case CONSUMPTION_EVENT:
       case EFFECT:
+      case EFFECT_CONDITION:
+      case EFFECT_EVENT:
         return true;
       default:
         return false;
