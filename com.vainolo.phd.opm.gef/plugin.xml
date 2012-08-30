@@ -12,5 +12,14 @@
             name="OPM GEF Editor">
       </editor>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="com.vainolo.phd.opm.gef.OPLViewPart"
+            id="com.vainolo.phd.opm.gef.oplView"
+            name="OPL"
+            restorable="true">
+      </view>
+   </extension>
 
 </plugin>

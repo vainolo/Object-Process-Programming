@@ -17,6 +17,7 @@ import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalysis;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMProcessKind;
+import com.vainolo.phd.opm.utilities.analysis.OPMLiterals;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -57,10 +58,10 @@ public class OPMInstanceExecutor {
   public void finishExecution() {
     for(Parameter parameter : Sets.filter(parameters, IsOPMOutgoingParameter.INSTANCE)) {
       OPMObjectInstance var = caller.getVariable(parameter.getObject().getName());
-      if(!getProcess().getKind().equals(OPMProcessKind.CONCEPTUAL))
-        var.setValue(instance.getArgumentValue(parameter.getName()));
-      else
+      if(getProcess().getKind().equals(OPMProcessKind.CONCEPTUAL))
         var.setValue(new Object());
+      else
+        var.setValue(instance.getArgumentValue(parameter.getName()));
 
       if(parameter.isStateParameter())
         var.setState(parameter.getState().getName());
@@ -102,7 +103,11 @@ public class OPMInstanceExecutor {
       return false;
     }
     if(parameter.isStateParameter()) {
-      if(!argument.getState().equals(parameter.getState().getName())) {
+      if(Number.class.isInstance(argument.getValue())) {
+        Number stateValue = OPMLiterals.parseOPMNumberLiteral(parameter.getState().getName());
+        if(!argument.getValue().equals(stateValue))
+          return false;
+      } else if(!argument.getState().equals(parameter.getState().getName())) {
         logger.info("Object " + parameter.getObject().getName() + " not in state " + parameter.getState().getName() +
             ".");
         return false;
