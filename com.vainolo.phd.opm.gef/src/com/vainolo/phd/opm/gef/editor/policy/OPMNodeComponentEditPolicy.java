@@ -33,7 +33,7 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
  */
 public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
 
-  private static final int INSETS = 10;
+  private static final int INSETS = 15;
 
   /**
    * Create a command to delete a node. When a node is deleted all incoming and outgoing links are also deleted
@@ -58,7 +58,7 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
       OPMNodeFigure figure = (OPMNodeFigure) host.getFigure();
 
       Dimension preferredSize = figure.getPreferredSize();
-      preferredSize.expand(INSETS, INSETS);
+      preferredSize.expand(INSETS * 2, INSETS);
       Rectangle newConstraints = node.getConstraints().getCopy();
       newConstraints.setWidth(preferredSize.width);
       newConstraints.setHeight(preferredSize.height);
