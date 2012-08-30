@@ -9,6 +9,7 @@ package com.vainolo.phd.opm.model.impl;
 import com.vainolo.phd.opm.model.OPMNamedElement;
 import com.vainolo.phd.opm.model.OPMPackage;
 
+import com.vainolo.phd.opm.model.VerticalAlignment;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNamedElementImpl#getName <em>Name</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNamedElementImpl#getAlignment <em>Alignment</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,6 +51,26 @@ public abstract class OPMNamedElementImpl extends EObjectImpl implements OPMName
    * @ordered
    */
     protected String name = NAME_EDEFAULT;
+
+    /**
+   * The default value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAlignment()
+   * @generated
+   * @ordered
+   */
+  protected static final VerticalAlignment ALIGNMENT_EDEFAULT = VerticalAlignment.CENTER;
+
+    /**
+   * The cached value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAlignment()
+   * @generated
+   * @ordered
+   */
+  protected VerticalAlignment alignment = ALIGNMENT_EDEFAULT;
 
     /**
    * <!-- begin-user-doc -->
@@ -92,6 +114,27 @@ public abstract class OPMNamedElementImpl extends EObjectImpl implements OPMName
 
     /**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerticalAlignment getAlignment() {
+    return alignment;
+  }
+
+    /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAlignment(VerticalAlignment newAlignment) {
+    VerticalAlignment oldAlignment = alignment;
+    alignment = newAlignment == null ? ALIGNMENT_EDEFAULT : newAlignment;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT, oldAlignment, alignment));
+  }
+
+    /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
    * @generated
    */
@@ -100,6 +143,8 @@ public abstract class OPMNamedElementImpl extends EObjectImpl implements OPMName
     switch (featureID) {
       case OPMPackage.OPM_NAMED_ELEMENT__NAME:
         return getName();
+      case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
+        return getAlignment();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -114,6 +159,9 @@ public abstract class OPMNamedElementImpl extends EObjectImpl implements OPMName
     switch (featureID) {
       case OPMPackage.OPM_NAMED_ELEMENT__NAME:
         setName((String)newValue);
+        return;
+      case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
+        setAlignment((VerticalAlignment)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -130,6 +178,9 @@ public abstract class OPMNamedElementImpl extends EObjectImpl implements OPMName
       case OPMPackage.OPM_NAMED_ELEMENT__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
+        setAlignment(ALIGNMENT_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -144,6 +195,8 @@ public abstract class OPMNamedElementImpl extends EObjectImpl implements OPMName
     switch (featureID) {
       case OPMPackage.OPM_NAMED_ELEMENT__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
+        return alignment != ALIGNMENT_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -160,6 +213,8 @@ public abstract class OPMNamedElementImpl extends EObjectImpl implements OPMName
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", alignment: ");
+    result.append(alignment);
     result.append(')');
     return result.toString();
   }

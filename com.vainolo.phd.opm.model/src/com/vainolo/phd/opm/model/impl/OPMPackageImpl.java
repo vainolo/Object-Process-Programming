@@ -27,6 +27,7 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 import com.vainolo.phd.opm.model.OPMThing;
 
+import com.vainolo.phd.opm.model.VerticalAlignment;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.ecore.EAttribute;
@@ -170,6 +171,13 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    * @generated
    */
   private EEnum opmObjectProcessDiagramKindEEnum = null;
+
+        /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum verticalAlignmentEEnum = null;
 
         /**
    * <!-- begin-user-doc -->
@@ -554,6 +562,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     /**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getOPMNamedElement_Alignment() {
+    return (EAttribute)opmNamedElementEClass.getEStructuralFeatures().get(1);
+  }
+
+    /**
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
@@ -608,6 +625,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
         /**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EEnum getVerticalAlignment() {
+    return verticalAlignmentEEnum;
+  }
+
+        /**
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
@@ -657,6 +683,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     opmNamedElementEClass = createEClass(OPM_NAMED_ELEMENT);
     createEAttribute(opmNamedElementEClass, OPM_NAMED_ELEMENT__NAME);
+    createEAttribute(opmNamedElementEClass, OPM_NAMED_ELEMENT__ALIGNMENT);
 
     opmContainerEClass = createEClass(OPM_CONTAINER);
     createEReference(opmContainerEClass, OPM_CONTAINER__NODES);
@@ -706,6 +733,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     opmLinkRouterKindEEnum = createEEnum(OPM_LINK_ROUTER_KIND);
     opmProcessKindEEnum = createEEnum(OPM_PROCESS_KIND);
     opmObjectProcessDiagramKindEEnum = createEEnum(OPM_OBJECT_PROCESS_DIAGRAM_KIND);
+    verticalAlignmentEEnum = createEEnum(VERTICAL_ALIGNMENT);
 
     // Create data types
     pointEDataType = createEDataType(POINT);
@@ -763,6 +791,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     initEClass(opmNamedElementEClass, OPMNamedElement.class, "OPMNamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMNamedElement_Name(), ecorePackage.getEString(), "name", "<<name>>", 0, 1, OPMNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPMNamedElement_Alignment(), this.getVerticalAlignment(), "alignment", "Center", 0, 1, OPMNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmContainerEClass, OPMContainer.class, "OPMContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOPMContainer_Nodes(), this.getOPMNode(), this.getOPMNode_Container(), "nodes", null, 0, -1, OPMContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -839,6 +868,11 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     initEEnum(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.class, "OPMObjectProcessDiagramKind");
     addEEnumLiteral(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.COMPOUND);
     addEEnumLiteral(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.SYSTEM);
+
+    initEEnum(verticalAlignmentEEnum, VerticalAlignment.class, "VerticalAlignment");
+    addEEnumLiteral(verticalAlignmentEEnum, VerticalAlignment.TOP);
+    addEEnumLiteral(verticalAlignmentEEnum, VerticalAlignment.CENTER);
+    addEEnumLiteral(verticalAlignmentEEnum, VerticalAlignment.BOTTOM);
 
     // Initialize data types
     initEDataType(pointEDataType, Point.class, "Point", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);

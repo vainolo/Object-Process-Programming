@@ -30,7 +30,7 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
     setLayoutManager(new XYLayout());
     nameLabel = new Label();
     nameLabel.setForegroundColor(OPMFigureConstants.opmLabelColor);
-    nameLabel.setTextAlignment(PositionConstants.TOP);
+    nameLabel.setTextAlignment(PositionConstants.CENTER);
     add(nameLabel);
     tooltipFigure = new TooltipFigure();
   }

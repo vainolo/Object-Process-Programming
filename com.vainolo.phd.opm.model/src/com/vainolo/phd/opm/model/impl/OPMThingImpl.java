@@ -15,6 +15,7 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMThing;
 
+import com.vainolo.phd.opm.model.VerticalAlignment;
 import java.util.Collection;
 
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -43,6 +44,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getNodes <em>Nodes</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getName <em>Name</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getDescription <em>Description</em>}</li>
  * </ul>
  * </p>
@@ -81,6 +83,26 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 	protected String name = NAME_EDEFAULT;
 
 	/**
+   * The default value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAlignment()
+   * @generated
+   * @ordered
+   */
+  protected static final VerticalAlignment ALIGNMENT_EDEFAULT = VerticalAlignment.CENTER;
+
+  /**
+   * The cached value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getAlignment()
+   * @generated
+   * @ordered
+   */
+  protected VerticalAlignment alignment = ALIGNMENT_EDEFAULT;
+
+  /**
    * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
    * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -154,6 +176,27 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 
 	/**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerticalAlignment getAlignment() {
+    return alignment;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAlignment(VerticalAlignment newAlignment) {
+    VerticalAlignment oldAlignment = alignment;
+    alignment = newAlignment == null ? ALIGNMENT_EDEFAULT : newAlignment;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__ALIGNMENT, oldAlignment, alignment));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
    * @generated
    */
@@ -214,6 +257,8 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
         return getNodes();
       case OPMPackage.OPM_THING__NAME:
         return getName();
+      case OPMPackage.OPM_THING__ALIGNMENT:
+        return getAlignment();
       case OPMPackage.OPM_THING__DESCRIPTION:
         return getDescription();
     }
@@ -236,6 +281,9 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
       case OPMPackage.OPM_THING__NAME:
         setName((String)newValue);
         return;
+      case OPMPackage.OPM_THING__ALIGNMENT:
+        setAlignment((VerticalAlignment)newValue);
+        return;
       case OPMPackage.OPM_THING__DESCRIPTION:
         setDescription((String)newValue);
         return;
@@ -257,6 +305,9 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
       case OPMPackage.OPM_THING__NAME:
         setName(NAME_EDEFAULT);
         return;
+      case OPMPackage.OPM_THING__ALIGNMENT:
+        setAlignment(ALIGNMENT_EDEFAULT);
+        return;
       case OPMPackage.OPM_THING__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
@@ -276,6 +327,8 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
         return nodes != null && !nodes.isEmpty();
       case OPMPackage.OPM_THING__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case OPMPackage.OPM_THING__ALIGNMENT:
+        return alignment != ALIGNMENT_EDEFAULT;
       case OPMPackage.OPM_THING__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
     }
@@ -298,6 +351,7 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
     if (baseClass == OPMNamedElement.class) {
       switch (derivedFeatureID) {
         case OPMPackage.OPM_THING__NAME: return OPMPackage.OPM_NAMED_ELEMENT__NAME;
+        case OPMPackage.OPM_THING__ALIGNMENT: return OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT;
         default: return -1;
       }
     }
@@ -320,6 +374,7 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
     if (baseClass == OPMNamedElement.class) {
       switch (baseFeatureID) {
         case OPMPackage.OPM_NAMED_ELEMENT__NAME: return OPMPackage.OPM_THING__NAME;
+        case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT: return OPMPackage.OPM_THING__ALIGNMENT;
         default: return -1;
       }
     }
@@ -338,6 +393,8 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
+    result.append(", alignment: ");
+    result.append(alignment);
     result.append(", description: ");
     result.append(description);
     result.append(')');

@@ -10,6 +10,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="OPMNamedElement" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="&lt;&lt;name>>"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignment" eType="#//VerticalAlignment"
+        defaultValueLiteral="Center"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMContainer" abstract="true" eSuperTypes="#//OPMElementWithID">
     <eStructuralFeatures xsi:type="ecore:EReference" name="nodes" upperBound="-1"
@@ -97,5 +99,10 @@
   <eClassifiers xsi:type="ecore:EEnum" name="OPMObjectProcessDiagramKind">
     <eLiterals name="COMPOUND" value="1" literal="Compound"/>
     <eLiterals name="SYSTEM" literal="System"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VerticalAlignment">
+    <eLiterals name="TOP" value="8" literal="Top"/>
+    <eLiterals name="CENTER" value="16" literal="Center"/>
+    <eLiterals name="BOTTOM" value="32" literal="Bottom"/>
   </eClassifiers>
 </ecore:EPackage>
