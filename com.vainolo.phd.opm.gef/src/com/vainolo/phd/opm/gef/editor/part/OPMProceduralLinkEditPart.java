@@ -14,6 +14,7 @@ import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
 
 import com.vainolo.phd.opm.gef.editor.figure.CircleDecoration;
+import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
 import com.vainolo.phd.opm.gef.editor.figure.OPMProceduralLinkFigure;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
@@ -46,6 +47,7 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
   protected PolylineConnection createFigure() {
     OPMProceduralLink model = (OPMProceduralLink) getModel();
     PolylineConnection connection = new OPMProceduralLinkFigure(model.getKind());
+    connection.setLineWidth(OPMFigureConstants.connectionLineWidth);
     // decorateConnection(connection, model.getKind());
     centerDecorationLabel = new Label();
     ConnectionLocator locator = new ConnectionLocator(connection, ConnectionLocator.MIDDLE);

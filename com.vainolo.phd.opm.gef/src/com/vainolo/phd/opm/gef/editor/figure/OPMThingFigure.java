@@ -7,11 +7,13 @@
 package com.vainolo.phd.opm.gef.editor.figure;
 
 import org.eclipse.draw2d.Figure;
+import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
 
 public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OPMNamedElementFigure {
 
@@ -59,6 +61,15 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
     } else {
       setToolTip(null);
     }
+  }
+
+  @Override
+  protected void paintFigure(Graphics graphics) {
+    super.paintFigure(graphics);
+    Rectangle r = getBounds().getCopy();
+    Label label = getNameLabel();
+    setConstraint(nameLabel, new Rectangle(0, 0, r.width(), r.height()));
+    nameLabel.invalidate();
   }
 
   @Override

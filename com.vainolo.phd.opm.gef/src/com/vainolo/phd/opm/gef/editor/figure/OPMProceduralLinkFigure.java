@@ -5,6 +5,7 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.figure;
 
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.draw2d.PolylineDecoration;
@@ -48,8 +49,13 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
       case INSTRUMENT:
       case INSTRUMENT_CONDITION:
       case INSTRUMENT_EVENT:
-        g.drawOval(target.x() - 5, target.y() - 5, 10, 10);
-        g.fillOval(target.x() - 4, target.y() - 4, 8, 8);
+        int radius = OPMFigureConstants.agentCircleRadius;
+        g.pushState();
+        g.setBackgroundColor(ColorConstants.black);
+        g.fillOval(target.x() - radius, target.y() - radius, radius * 2, radius * 2);
+        g.setBackgroundColor(ColorConstants.white);
+        g.fillOval(target.x() - (radius - 2), target.y() - (radius - 2), (radius - 2) * 2, (radius - 2) * 2);
+        g.popState();
         break;
     }
 
