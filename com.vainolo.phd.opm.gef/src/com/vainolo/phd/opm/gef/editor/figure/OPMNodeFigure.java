@@ -18,17 +18,20 @@ import com.vainolo.phd.opm.model.OPMNode;
  * 
  */
 public interface OPMNodeFigure extends IFigure {
-	/**
-	 * Get the anchor used for links who use this figure as their source.
-	 * 
-	 * @return the anchor for source links.
-	 */
-	public ConnectionAnchor getSourceConnectionAnchor();
 
-	/**
-	 * Get the anchor used for links who use this figure as their target.
-	 * 
-	 * @return the anchor for target links.
-	 */
-	public ConnectionAnchor getTargetConnectionAnchor();
+  static final int INSETS = 2;
+
+  /**
+   * Get the anchor used for links who use this figure as their source.
+   * 
+   * @return the anchor for source links.
+   */
+  public ConnectionAnchor getSourceConnectionAnchor();
+
+  /**
+   * Get the anchor used for links who use this figure as their target.
+   * 
+   * @return the anchor for target links.
+   */
+  public ConnectionAnchor getTargetConnectionAnchor();
 }

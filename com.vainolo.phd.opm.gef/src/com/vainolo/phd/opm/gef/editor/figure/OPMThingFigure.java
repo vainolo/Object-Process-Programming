@@ -82,7 +82,11 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
    */
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
-    setPreferredSize(getNameLabel().getPreferredSize().getCopy());
+    Dimension d = new Dimension();
+    Rectangle textRectangle = nameLabel.getTextBounds().getCopy();
+    d.width = textRectangle.width;
+    d.height = textRectangle.height;
+    setPreferredSize(d);
     return super.getPreferredSize(wHint, hHint);
   }
 }
