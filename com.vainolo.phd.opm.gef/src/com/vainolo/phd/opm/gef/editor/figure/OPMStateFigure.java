@@ -80,14 +80,17 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
     d.width = textRectangle.width;
     d.height = textRectangle.height;
     setPreferredSize(d);
-    return super.getPreferredSize();
+    return super.getPreferredSize(wHint, hHint);
   }
 
   @Override
   protected void paintFigure(Graphics graphics) {
     Rectangle r = getBounds().getCopy();
-    setConstraint(rectangle, new Rectangle(0 + INSETS, 0 + INSETS, r.width - INSETS, r.height - INSETS));
-    setConstraint(getNameLabel(), new Rectangle(0 + INSETS, 0 + INSETS, r.width - INSETS, r.height - INSETS));
+    setConstraint(rectangle, new Rectangle(0 + OPMFigureConstants.opmNodeInsets, 0 + OPMFigureConstants.opmNodeInsets,
+        r.width - OPMFigureConstants.opmNodeInsets, r.height - OPMFigureConstants.opmNodeInsets));
+    setConstraint(getNameLabel(), new Rectangle(0 + OPMFigureConstants.opmNodeInsets,
+        0 + OPMFigureConstants.opmNodeInsets, r.width - OPMFigureConstants.opmNodeInsets, r.height -
+            OPMFigureConstants.opmNodeInsets));
     rectangle.invalidate();
     getNameLabel().invalidate();
   }

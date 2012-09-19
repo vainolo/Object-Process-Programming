@@ -16,7 +16,8 @@ public enum OPMFigureConstants {
   public static Color opmStateColor = ColorConstants.gray;
   public static int entityBorderWidth = 2;
   public static int inZoomedThingBorderWidth = 3;
-  public static int connectionLineWidth = 2;
+  public static int connectionLineWidth = 1;
   public static int agentCircleRadius = 5;
+  public static final int opmNodeInsets = 2;
 
 }
