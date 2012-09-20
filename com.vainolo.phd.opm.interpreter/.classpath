@@ -4,9 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="lib" path="lib/guava-12.0.jar" sourcepath="D:/developer/java/libs/guava/guava-libraries/guava/src"/>
 	<classpathentry exported="true" kind="lib" path="lib/jgrapht-jdk1.6.jar" sourcepath="D:/developer/java/libs/jgrapht/jgrapht-0.8.3/src"/>
-	<classpathentry exported="true" kind="lib" path="lib/objenesis-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/easymock-3.1.jar" sourcepath="D:/developer/code/Object-Process-Programming/com.vainolo.phd.opm.interpreter/lib/easymock-3.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

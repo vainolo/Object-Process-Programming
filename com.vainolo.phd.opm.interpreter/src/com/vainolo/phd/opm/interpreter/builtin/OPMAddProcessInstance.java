@@ -25,16 +25,16 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
 
   @Override
   public void executing() {
-    final BigDecimal a = new BigDecimal(getVarManager().getVariable("a").getValue().toString());
-    final BigDecimal b = new BigDecimal(getVarManager().getVariable("b").getValue().toString());
+    final BigDecimal a = new BigDecimal(getVariable("a").getValue().toString());
+    final BigDecimal b = new BigDecimal(getVariable("b").getValue().toString());
     final BigDecimal c = a.add(b);
-    getVarManager().getVariable("c").setValue(c);
+    getVariable("c").setValue(c);
   }
 
   @Override
   protected void initProcessInstance() {
-    getVarManager().createVariable("a");
-    getVarManager().createVariable("b");
-    getVarManager().createVariable("c");
+    createVariable("a");
+    createVariable("b");
+    createVariable("c");
   }
 }

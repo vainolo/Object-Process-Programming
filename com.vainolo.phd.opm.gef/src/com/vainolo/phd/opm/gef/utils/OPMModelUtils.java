@@ -1,6 +1,9 @@
 /*******************************************************************************
- * This is me!!!
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
  *******************************************************************************/
+
 package com.vainolo.phd.opm.gef.utils;
 
 import com.vainolo.phd.opm.model.OPMFactory;

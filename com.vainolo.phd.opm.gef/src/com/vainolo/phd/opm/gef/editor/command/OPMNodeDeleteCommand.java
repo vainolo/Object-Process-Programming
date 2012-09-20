@@ -1,6 +1,9 @@
 /*******************************************************************************
- * This is me!!!
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
  *******************************************************************************/
+
 package com.vainolo.phd.opm.gef.editor.command;
 
 import java.util.ArrayList;
@@ -10,11 +13,11 @@ import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
 
-import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 
 /**
  * Command used to delete a node. The functionality of this class fairly closed
@@ -78,7 +81,7 @@ public final class OPMNodeDeleteCommand extends Command {
         link.setOpd((OPMObjectProcessDiagram) container);
       } else {
         OPMNode containerNode = (OPMNode) container;
-        link.setOpd(OPMAnalysis.findOPD(containerNode));
+        link.setOpd(OPDAnalysis.findOPD(containerNode));
       }
 
     }

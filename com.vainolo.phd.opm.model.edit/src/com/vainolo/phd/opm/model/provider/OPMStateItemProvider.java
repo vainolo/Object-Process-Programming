@@ -62,6 +62,7 @@ public class OPMStateItemProvider
       super.getPropertyDescriptors(object);
 
       addNamePropertyDescriptor(object);
+      addAlignmentPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -80,6 +81,28 @@ public class OPMStateItemProvider
          getString("_UI_OPMNamedElement_name_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_OPMNamedElement_name_feature", "_UI_OPMNamedElement_type"),
          OPMPackage.Literals.OPM_NAMED_ELEMENT__NAME,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+    /**
+   * This adds a property descriptor for the Alignment feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addAlignmentPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPMNamedElement_alignment_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPMNamedElement_alignment_feature", "_UI_OPMNamedElement_type"),
+         OPMPackage.Literals.OPM_NAMED_ELEMENT__ALIGNMENT,
          true,
          false,
          false,
@@ -126,6 +149,7 @@ public class OPMStateItemProvider
 
     switch (notification.getFeatureID(OPMState.class)) {
       case OPMPackage.OPM_STATE__NAME:
+      case OPMPackage.OPM_STATE__ALIGNMENT:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

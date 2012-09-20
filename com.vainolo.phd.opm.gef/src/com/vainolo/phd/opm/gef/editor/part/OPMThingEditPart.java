@@ -59,6 +59,9 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
     final GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
     figure.getNameLabel().setText(model.getName());
+    figure.getNameLabel().setTextAlignment(model.getAlignment().getValue());
+    figure.getNameLabel().revalidate();
+    figure.getNameLabel().repaint();
     parent.setLayoutConstraint(this, figure, model.getConstraints());
 
     figure.setTooltipText(model.getDescription());
@@ -73,21 +76,20 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
       final IEditorPart editorPart = ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart();
       final IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
       final IFile newFile = input.getFile().getParent().getFile(new Path(thingName + ".opm"));
-      if(!newFile.exists()) {
-        if(OPDLoader.createOPDFile(newFile.getLocationURI().toString(), thingName) == null) {
-          throw new RuntimeException("Could not create diagram for thing " + thingName);
-        }
-        try {
+      try {
+        if(!newFile.exists()) {
+          if(OPDLoader.createOPDFile(newFile.getLocationURI().toString(), thingName) == null) {
+            throw new RuntimeException("Could not create diagram for thing " + thingName);
+          }
           input.getFile().getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
-          final IEditorDescriptor editor =
-              PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
-          final IWorkbenchPage page = editorPart.getSite().getPage();
-          page.openEditor(new FileEditorInput(newFile), editor.getId());
-        } catch(CoreException e) {
-          e.printStackTrace();
         }
+        final IEditorDescriptor editor =
+            PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
+        final IWorkbenchPage page = editorPart.getSite().getPage();
+        page.openEditor(new FileEditorInput(newFile), editor.getId());
+      } catch(CoreException e) {
+        e.printStackTrace();
       }
-
     }
   }
 

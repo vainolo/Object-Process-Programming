@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.vainolo.phd.opm.feature"
+      label="OPM Feature"
+      version="0.1"
+      provider-name="Arieh &quot;Vainolo&quot; Bibliowicz">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.gef" version="3.6.2" match="greaterOrEqual"/>
+      <import plugin="com.vainolo.phd.opm.model" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.6.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.6.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.edit" version="2.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.edit.ui" version="2.7.0" match="greaterOrEqual"/>
+      <import plugin="com.vainolo.phd.opm.model.edit" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.vainolo.phd.opm.interpreter" version="0.1.0" match="greaterOrEqual"/>
+      <import plugin="com.vainolo.phd.opm.utilities" version="0.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.7.100" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.draw2d" version="3.7.2" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.7.0" match="greaterOrEqual"/>
+      <import plugin="org.junit"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.draw2d" version="3.6.2" match="greaterOrEqual"/>
+      <import plugin="org.junit" version="4.8.2" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="com.vainolo.phd.opm.gef"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.interpreter"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.model.edit"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.model.editor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.model.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.utilities"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

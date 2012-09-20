@@ -209,13 +209,22 @@ public interface OPMPackage extends EPackage {
 	int OPM_NAMED_ELEMENT__NAME = 0;
 
 	/**
+   * The feature id for the '<em><b>Alignment</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_NAMED_ELEMENT__ALIGNMENT = 1;
+
+  /**
    * The number of structural features of the '<em>Named Element</em>' class.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-	int OPM_NAMED_ELEMENT_FEATURE_COUNT = 1;
+	int OPM_NAMED_ELEMENT_FEATURE_COUNT = 2;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -326,13 +335,22 @@ int OPM_NODE_FEATURE_COUNT = OPM_ELEMENT_WITH_ID_FEATURE_COUNT + 4;
 int OPM_OBJECT_PROCESS_DIAGRAM__NAME = OPM_CONTAINER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Alignment</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT = OPM_CONTAINER_FEATURE_COUNT + 1;
+
+  /**
    * The feature id for the '<em><b>Links</b></em>' containment reference list.
    * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
+int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Next Id</b></em>' attribute.
@@ -341,7 +359,7 @@ int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
    * @generated
    * @ordered
    */
-  int OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID = OPM_CONTAINER_FEATURE_COUNT + 2;
+  int OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID = OPM_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -350,7 +368,7 @@ int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
    * @generated
    * @ordered
    */
-  int OPM_OBJECT_PROCESS_DIAGRAM__KIND = OPM_CONTAINER_FEATURE_COUNT + 3;
+  int OPM_OBJECT_PROCESS_DIAGRAM__KIND = OPM_CONTAINER_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Object Process Diagram</em>' class.
@@ -359,7 +377,7 @@ int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 1;
    * @generated
    * @ordered
    */
-int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 4;
+int OPM_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OPM_CONTAINER_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -425,13 +443,22 @@ int OPM_THING__CONSTRAINTS = OPM_NODE__CONSTRAINTS;
 int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Alignment</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_THING__ALIGNMENT = OPM_NODE_FEATURE_COUNT + 2;
+
+  /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
    * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-    int OPM_THING__DESCRIPTION = OPM_NODE_FEATURE_COUNT + 2;
+    int OPM_THING__DESCRIPTION = OPM_NODE_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Thing</em>' class.
@@ -440,7 +467,7 @@ int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 1;
    * @generated
    * @ordered
    */
-int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 3;
+int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -497,13 +524,22 @@ int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 3;
   int OPM_STATE__NAME = OPM_NODE_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Alignment</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STATE__ALIGNMENT = OPM_NODE_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>State</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPM_STATE_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
+  int OPM_STATE_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -567,6 +603,15 @@ int OPM_OBJECT__CONSTRAINTS = OPM_THING__CONSTRAINTS;
    * @ordered
    */
 int OPM_OBJECT__NAME = OPM_THING__NAME;
+
+  /**
+   * The feature id for the '<em><b>Alignment</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_OBJECT__ALIGNMENT = OPM_THING__ALIGNMENT;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -648,6 +693,15 @@ int OPM_PROCESS__CONSTRAINTS = OPM_THING__CONSTRAINTS;
    * @ordered
    */
 int OPM_PROCESS__NAME = OPM_THING__NAME;
+
+  /**
+   * The feature id for the '<em><b>Alignment</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_PROCESS__ALIGNMENT = OPM_THING__ALIGNMENT;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -1065,13 +1119,22 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 	int LABEL__NAME = OPM_NODE_FEATURE_COUNT + 0;
 
 	/**
+   * The feature id for the '<em><b>Alignment</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LABEL__ALIGNMENT = OPM_NODE_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Label</em>' class.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-	int LABEL_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 1;
+	int LABEL_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 2;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind <em>Structural Link Aggregator Kind</em>}' enum.
@@ -1124,6 +1187,16 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
   int OPM_OBJECT_PROCESS_DIAGRAM_KIND = 17;
 
         /**
+   * The meta object id for the '{@link com.vainolo.phd.opm.model.VerticalAlignment <em>Vertical Alignment</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.vainolo.phd.opm.model.VerticalAlignment
+   * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getVerticalAlignment()
+   * @generated
+   */
+  int VERTICAL_ALIGNMENT = 18;
+
+        /**
    * The meta object id for the '<em>Rectangle</em>' data type.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1131,7 +1204,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
    * @generated
    */
-	int RECTANGLE = 19;
+	int RECTANGLE = 20;
 
 
 	/**
@@ -1184,7 +1257,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
    * @generated
    */
-	int POINT = 18;
+	int POINT = 19;
 
 
 	/**
@@ -1508,6 +1581,17 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 	EAttribute getOPMNamedElement_Name();
 
 	/**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMNamedElement#getAlignment <em>Alignment</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Alignment</em>'.
+   * @see com.vainolo.phd.opm.model.OPMNamedElement#getAlignment()
+   * @see #getOPMNamedElement()
+   * @generated
+   */
+  EAttribute getOPMNamedElement_Alignment();
+
+  /**
    * Returns the meta object for class '{@link com.vainolo.phd.opm.model.Label <em>Label</em>}'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1566,6 +1650,16 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @generated
    */
   EEnum getOPMObjectProcessDiagramKind();
+
+        /**
+   * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.VerticalAlignment <em>Vertical Alignment</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Vertical Alignment</em>'.
+   * @see com.vainolo.phd.opm.model.VerticalAlignment
+   * @generated
+   */
+  EEnum getVerticalAlignment();
 
         /**
    * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Rectangle</em>}'.
@@ -1908,6 +2002,14 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 		EAttribute OPM_NAMED_ELEMENT__NAME = eINSTANCE.getOPMNamedElement_Name();
 
 		/**
+     * The meta object literal for the '<em><b>Alignment</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPM_NAMED_ELEMENT__ALIGNMENT = eINSTANCE.getOPMNamedElement_Alignment();
+
+    /**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.LabelImpl <em>Label</em>}' class.
      * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1966,6 +2068,16 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
      * @generated
      */
     EEnum OPM_OBJECT_PROCESS_DIAGRAM_KIND = eINSTANCE.getOPMObjectProcessDiagramKind();
+
+                /**
+     * The meta object literal for the '{@link com.vainolo.phd.opm.model.VerticalAlignment <em>Vertical Alignment</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.VerticalAlignment
+     * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getVerticalAlignment()
+     * @generated
+     */
+    EEnum VERTICAL_ALIGNMENT = eINSTANCE.getVerticalAlignment();
 
                 /**
      * The meta object literal for the '<em>Rectangle</em>' data type.

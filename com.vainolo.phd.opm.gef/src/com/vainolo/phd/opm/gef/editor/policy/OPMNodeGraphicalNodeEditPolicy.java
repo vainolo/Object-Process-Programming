@@ -1,6 +1,9 @@
 /*******************************************************************************
- * This is me!!!
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
  *******************************************************************************/
+
 package com.vainolo.phd.opm.gef.editor.policy;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -17,13 +20,13 @@ import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
-import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMLinkRouterKind;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMThing;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 
 /**
  * Policy used to connect two nodes in the diagram. Currently connections can
@@ -63,7 +66,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     OPMLinkCreateCommand result = new OPMLinkCreateCommand();
     result.setSource((OPMNode) getHost().getModel());
     result.setLink((OPMLink) request.getNewObject());
-    result.setOPD(OPMAnalysis.findOPD((OPMNode) getHost().getModel()));
+    result.setOPD(OPDAnalysis.findOPD((OPMNode) getHost().getModel()));
     request.setStartCommand(result);
     return result;
   }
@@ -126,7 +129,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     // Search for an outgoing structural link aggregator matching the
     // requested kind.
     boolean aggregatorFound = false;
-    for(OPMLink structuralLink : OPMAnalysis.findOutgoingStructuralLinks(sNode)) {
+    for(OPMLink structuralLink : OPDAnalysis.findOutgoingStructuralLinks(sNode)) {
       OPMStructuralLinkAggregator existingAggregator = (OPMStructuralLinkAggregator) structuralLink.getTarget();
       if(existingAggregator.getKind() == agrNode.getKind()) {
         aggregatorFound = true;
@@ -136,13 +139,13 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
     if(aggregatorFound) {
       // Just create a link from the aggregator to the target.
-      command = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPMAnalysis.findOPD(agrNode));
+      command = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPDAnalysis.findOPD(agrNode));
     } else {
       // Create a compound command consisting of three commands.
       CompoundCommand cCommand = new CompoundCommand();
       cCommand.add(createCreateAggregatorNodeCommand(sNode, tNode, agrNode));
-      cCommand.add(createCreateOPMLlinkCreateCommand(sNode, agrNode, OPMAnalysis.findOPD(sNode)));
-      cCommand.add(createCreateOPMLlinkCreateCommand(agrNode, tNode, OPMAnalysis.findOPD(sNode)));
+      cCommand.add(createCreateOPMLlinkCreateCommand(sNode, agrNode, OPDAnalysis.findOPD(sNode)));
+      cCommand.add(createCreateOPMLlinkCreateCommand(agrNode, tNode, OPDAnalysis.findOPD(sNode)));
 
       command = cCommand;
     }

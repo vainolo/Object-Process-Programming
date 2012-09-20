@@ -14,47 +14,46 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 public class OPMObjectFigure extends OPMThingFigure {
-	private final RectangleFigure rectangle;
-	private ConnectionAnchor connectionAnchor;
+  private final RectangleFigure rectangle;
+  private ConnectionAnchor connectionAnchor;
 
-	public OPMObjectFigure() {
-		super();
-		rectangle = new RectangleFigure();
-		rectangle.setFill(false);
-		rectangle.setLayoutManager(new XYLayout());
-		rectangle.setForegroundColor(OPMFigureConstants.opmObjectColor);
-		rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
-		add(rectangle);
-	}
+  public OPMObjectFigure() {
+    super();
+    rectangle = new RectangleFigure();
+    rectangle.setFill(false);
+    rectangle.setLayoutManager(new XYLayout());
+    rectangle.setForegroundColor(OPMFigureConstants.opmObjectColor);
+    rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
+    add(rectangle);
+  }
 
-	@Override
-	public IFigure getContentPane() {
-		return rectangle;
-	}
+  @Override
+  public IFigure getContentPane() {
+    return rectangle;
+  }
 
-	@Override
-	protected void paintFigure(Graphics graphics) {
-		Rectangle r = getBounds().getCopy();
-		setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
-		setConstraint(getNameLabel(), new Rectangle(0, 0, r.width, r.height));
-		rectangle.invalidate();
-		getNameLabel().invalidate();
-	}
+  @Override
+  protected void paintFigure(Graphics graphics) {
+    super.paintFigure(graphics);
+    Rectangle r = getBounds().getCopy();
+    setConstraint(rectangle, new Rectangle(0, 0, r.width(), r.height()));
+    rectangle.invalidate();
+  }
 
-	public ConnectionAnchor getConnectionAnchor() {
-		if (connectionAnchor == null) {
-			connectionAnchor = new ChopboxAnchor(this);
-		}
-		return connectionAnchor;
-	}
+  public ConnectionAnchor getConnectionAnchor() {
+    if(connectionAnchor == null) {
+      connectionAnchor = new ChopboxAnchor(this);
+    }
+    return connectionAnchor;
+  }
 
-	@Override
-	public ConnectionAnchor getSourceConnectionAnchor() {
-		return getConnectionAnchor();
-	}
+  @Override
+  public ConnectionAnchor getSourceConnectionAnchor() {
+    return getConnectionAnchor();
+  }
 
-	@Override
-	public ConnectionAnchor getTargetConnectionAnchor() {
-		return getConnectionAnchor();
-	}
+  @Override
+  public ConnectionAnchor getTargetConnectionAnchor() {
+    return getConnectionAnchor();
+  }
 }

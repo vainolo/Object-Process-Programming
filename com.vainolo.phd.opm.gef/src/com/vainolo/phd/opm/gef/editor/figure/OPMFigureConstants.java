@@ -9,12 +9,15 @@ import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.swt.graphics.Color;
 
 public enum OPMFigureConstants {
-	INSTANCE;
-	public static Color opmObjectColor = ColorConstants.green;
-	public static Color opmProcessColor = ColorConstants.blue;
-	public static Color opmStateColor = ColorConstants.gray;
-	public static int entityBorderWidth = 1;
-	public static int inZoomedThingBorderWidth = 2;
-	public static int connectionLineWidth = 1;
+  INSTANCE;
+  public static Color opmLabelColor = ColorConstants.black;
+  public static Color opmObjectColor = ColorConstants.green;
+  public static Color opmProcessColor = ColorConstants.blue;
+  public static Color opmStateColor = ColorConstants.gray;
+  public static int entityBorderWidth = 2;
+  public static int inZoomedThingBorderWidth = 3;
+  public static int connectionLineWidth = 1;
+  public static int agentCircleRadius = 5;
+  public static final int opmNodeInsets = 2;
 
 }

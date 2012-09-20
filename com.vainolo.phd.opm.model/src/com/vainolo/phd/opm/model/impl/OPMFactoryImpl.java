@@ -94,6 +94,8 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
         return createOPMProcessKindFromString(eDataType, initialValue);
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM_KIND:
         return createOPMObjectProcessDiagramKindFromString(eDataType, initialValue);
+      case OPMPackage.VERTICAL_ALIGNMENT:
+        return createVerticalAlignmentFromString(eDataType, initialValue);
       case OPMPackage.POINT:
         return createPointFromString(eDataType, initialValue);
       case OPMPackage.RECTANGLE:
@@ -121,6 +123,8 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
         return convertOPMProcessKindToString(eDataType, instanceValue);
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM_KIND:
         return convertOPMObjectProcessDiagramKindToString(eDataType, instanceValue);
+      case OPMPackage.VERTICAL_ALIGNMENT:
+        return convertVerticalAlignmentToString(eDataType, instanceValue);
       case OPMPackage.POINT:
         return convertPointToString(eDataType, instanceValue);
       case OPMPackage.RECTANGLE:
@@ -307,6 +311,26 @@ public class OPMFactoryImpl extends EFactoryImpl implements OPMFactory {
    * @generated
    */
   public String convertOPMObjectProcessDiagramKindToString(EDataType eDataType, Object instanceValue) {
+    return instanceValue == null ? null : instanceValue.toString();
+  }
+
+        /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VerticalAlignment createVerticalAlignmentFromString(EDataType eDataType, String initialValue) {
+    VerticalAlignment result = VerticalAlignment.get(initialValue);
+    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+    return result;
+  }
+
+        /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String convertVerticalAlignmentToString(EDataType eDataType, Object instanceValue) {
     return instanceValue == null ? null : instanceValue.toString();
   }
 

@@ -13,22 +13,13 @@
       </editor>
    </extension>
    <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            delegate="com.vainolo.phd.opm.gef.editor.OPMLaunchConfigurationDelegate"
-            delegateName="com.vainolo.phd.opm.gef.editor.OPMLaunchConfigurationDelegate"
-            id="com.vainolo.phd.opm.gef.editor.OPMLaunchConfigurationDelegate"
-            modes="debug,run"
-            name="Executable OPM">
-      </launchConfigurationType>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-      <launchConfigurationTabGroup
-            class="com.vainolo.phd.opm.gef.editor.OPMLaunchConfigurationTabGroup"
-            id="com.vainolo.phd.opm.gef.editor.OPMLaunchConfigurationTabGroup"
-            type="com.vainolo.phd.opm.gef.editor.OPMLaunchConfigurationDelegate">
-      </launchConfigurationTabGroup>
+         point="org.eclipse.ui.views">
+      <view
+            class="com.vainolo.phd.opm.gef.OPLViewPart"
+            id="com.vainolo.phd.opm.gef.oplView"
+            name="OPL"
+            restorable="true">
+      </view>
    </extension>
 
 </plugin>

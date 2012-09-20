@@ -6,6 +6,7 @@
 package com.vainolo.phd.opm.interpreter;
 
 import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
+import com.vainolo.phd.opm.interpreter.builtin.OPMAssignProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMConceptualProcess;
 import com.vainolo.phd.opm.interpreter.builtin.OPMInputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMOutputProcessInstance;
@@ -13,10 +14,8 @@ import com.vainolo.phd.opm.interpreter.builtin.OPMSleepProcessInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMProcessKind;
 
-public enum OPMProcessInstanceFactory {
-  INSTANCE;
-
-  public OPMProcessInstance createProcessInstance(final OPMProcess process, final OPMProcessKind kind) {
+public class OPMProcessInstanceFactory {
+  public static OPMProcessInstance createProcessInstance(final OPMProcess process, final OPMProcessKind kind) {
     OPMProcessInstance processInstance;
     switch(kind) {
       case BUILT_IN:
@@ -38,7 +37,7 @@ public enum OPMProcessInstanceFactory {
     return processInstance;
   }
 
-  private OPMProcessInstance createBuildInProcess(final OPMProcess process) {
+  private static OPMProcessInstance createBuildInProcess(final OPMProcess process) {
     OPMProcessInstance processInstance;
 
     if(process.getName().equals("Input")) {
@@ -49,6 +48,8 @@ public enum OPMProcessInstanceFactory {
       processInstance = new OPMAddProcessInstance(process);
     } else if(process.getName().equals("Sleep")) {
       processInstance = new OPMSleepProcessInstance(process);
+    } else if(process.getName().equals("Assign") || process.getName().equals("=")) {
+      processInstance = new OPMAssignProcessInstance(process);
     } else {
       throw new IllegalStateException("Tried to create unexistent build-in process " + process.getName());
     }

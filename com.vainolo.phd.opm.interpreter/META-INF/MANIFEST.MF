@@ -3,17 +3,13 @@ Bundle-ManifestVersion: 2
 Bundle-Name: OPM Interpreter
 Bundle-SymbolicName: com.vainolo.phd.opm.interpreter;singleton:=true
 Bundle-Version: 0.1
-Require-Bundle: org.eclipse.core.resources;bundle-version="3.7.100",
+Require-Bundle: com.vainolo.phd.opm.utilities;bundle-version="0.1.0",
+ org.eclipse.core.resources;bundle-version="3.7.100",
  com.vainolo.phd.opm.model;bundle-version="1.0.0",
  org.eclipse.core.runtime;bundle-version="3.7.0",
  org.eclipse.draw2d;bundle-version="3.7.2",
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
- org.junit,
- com.vainolo.phd.opm.utilities;bundle-version="0.1.0"
-Export-Package: com.vainolo.phd.opm.interpreter,
- com.vainolo.phd.opm.interpreter.analysis
-Bundle-ClassPath: lib/guava-12.0.jar,
- .,
- lib/jgrapht-jdk1.6.jar,
- lib/objenesis-1.2.jar,
- lib/easymock-3.1.jar
+ org.junit
+Export-Package: com.vainolo.phd.opm.interpreter
+Bundle-ClassPath: .,
+ lib/jgrapht-jdk1.6.jar

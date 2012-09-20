@@ -28,7 +28,7 @@ public class OPMOutputProcessInstance extends OPMAbstractProcessInstance impleme
 
   @Override
   protected void executing() {
-    final String text = getVarManager().getVariable("text").getValue().toString();
+    final String text = getVariable("text").getValue().toString();
     showMessageDialog(text);
   }
 
@@ -38,6 +38,6 @@ public class OPMOutputProcessInstance extends OPMAbstractProcessInstance impleme
 
   @Override
   protected void initProcessInstance() {
-    getVarManager().createVariable("text");
+    createVariable("text");
   }
 }

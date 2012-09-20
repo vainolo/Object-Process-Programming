@@ -68,6 +68,7 @@ public class OPMObjectProcessDiagramItemProvider
       super.getPropertyDescriptors(object);
 
       addNamePropertyDescriptor(object);
+      addAlignmentPropertyDescriptor(object);
       addNextIdPropertyDescriptor(object);
       addKindPropertyDescriptor(object);
     }
@@ -97,6 +98,28 @@ public class OPMObjectProcessDiagramItemProvider
   }
 
 	/**
+   * This adds a property descriptor for the Alignment feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addAlignmentPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPMNamedElement_alignment_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPMNamedElement_alignment_feature", "_UI_OPMNamedElement_type"),
+         OPMPackage.Literals.OPM_NAMED_ELEMENT__ALIGNMENT,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This adds a property descriptor for the Next Id feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -208,6 +231,7 @@ public class OPMObjectProcessDiagramItemProvider
 
     switch (notification.getFeatureID(OPMObjectProcessDiagram.class)) {
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

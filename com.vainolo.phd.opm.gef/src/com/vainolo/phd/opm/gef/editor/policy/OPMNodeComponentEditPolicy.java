@@ -19,12 +19,12 @@ import com.vainolo.phd.opm.gef.editor.command.OPMNodeChangeConstraintCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeDeleteCommand;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
 import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
-import com.vainolo.phd.opm.interpreter.analysis.OPMAnalysis;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMThing;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 
 /**
  * {@link EditPolicy} used for delete requests.
@@ -33,7 +33,7 @@ import com.vainolo.phd.opm.model.OPMThing;
  */
 public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
 
-  private static final int INSETS = 20;
+  private static final int INSETS = 15;
 
   /**
    * Create a command to delete a node. When a node is deleted all incoming and outgoing links are also deleted
@@ -58,7 +58,7 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
       OPMNodeFigure figure = (OPMNodeFigure) host.getFigure();
 
       Dimension preferredSize = figure.getPreferredSize();
-      preferredSize.expand(INSETS, INSETS);
+      preferredSize.expand(INSETS * 2, INSETS);
       Rectangle newConstraints = node.getConstraints().getCopy();
       newConstraints.setWidth(preferredSize.width);
       newConstraints.setHeight(preferredSize.height);
@@ -84,7 +84,7 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
     CompoundCommand compoundCommand = new CompoundCommand();
 
     // For every outgoing structural link, create a command to delete the aggregator node at the end of the link.
-    for(OPMLink outgoingStructuralLink : OPMAnalysis.findOutgoingStructuralLinks(nodeToDelete)) {
+    for(OPMLink outgoingStructuralLink : OPDAnalysis.findOutgoingStructuralLinks(nodeToDelete)) {
       OPMNode aggregatorNode = outgoingStructuralLink.getTarget();
       OPMNodeDeleteCommand aggregatorNodeDeleteCommand = new OPMNodeDeleteCommand();
       aggregatorNodeDeleteCommand.setNode(aggregatorNode);
@@ -93,7 +93,7 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
 
     // For every incoming structural link whose aggregator has only one outgoing link, create a command to delete the
     // aggregator.
-    for(OPMLink incomingStructuralLink : OPMAnalysis.findIncomingStructuralLinks(nodeToDelete)) {
+    for(OPMLink incomingStructuralLink : OPDAnalysis.findIncomingStructuralLinks(nodeToDelete)) {
       OPMNode aggregatorNode = incomingStructuralLink.getSource();
       if(aggregatorNode.getOutgoingLinks().size() == 1) {
         OPMNodeDeleteCommand aggregatorNodeDeleteCommand = new OPMNodeDeleteCommand();
