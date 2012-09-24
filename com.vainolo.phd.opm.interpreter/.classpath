@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry exported="true" kind="lib" path="lib/jgrapht-jdk1.6.jar" sourcepath="D:/developer/java/libs/jgrapht/jgrapht-0.8.3/src"/>
+	<classpathentry exported="true" kind="lib" path="lib/jgrapht-jdk1.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
