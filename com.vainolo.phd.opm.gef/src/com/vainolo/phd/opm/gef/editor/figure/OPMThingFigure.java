@@ -33,8 +33,11 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
     nameLabel = new Label();
     nameLabel.setForegroundColor(OPMFigureConstants.opmLabelColor);
     nameLabel.setTextAlignment(PositionConstants.CENTER);
-    add(nameLabel);
     tooltipFigure = new TooltipFigure();
+  }
+
+  protected void addFiguresAtEnd() {
+    add(nameLabel);
   }
 
   /**
@@ -69,7 +72,7 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
     Rectangle r = getBounds().getCopy();
     Label label = getNameLabel();
     int insets = OPMFigureConstants.opmNodeInsets;
-    setConstraint(nameLabel, new Rectangle(insets, insets, r.width() - insets, r.height() - insets));
+    setConstraint(nameLabel, new Rectangle(insets, insets, r.width() - insets - 5, r.height() - insets - 5));
     nameLabel.invalidate();
   }
 

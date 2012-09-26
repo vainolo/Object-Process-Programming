@@ -623,13 +623,22 @@ int OPM_OBJECT__NAME = OPM_THING__NAME;
     int OPM_OBJECT__DESCRIPTION = OPM_THING__DESCRIPTION;
 
   /**
+   * The feature id for the '<em><b>Kind</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_OBJECT__KIND = OPM_THING_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>Object</em>' class.
    * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 0;
+int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1197,6 +1206,16 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
   int VERTICAL_ALIGNMENT = 18;
 
         /**
+   * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMObjectKind <em>Object Kind</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.vainolo.phd.opm.model.OPMObjectKind
+   * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObjectKind()
+   * @generated
+   */
+  int OPM_OBJECT_KIND = 19;
+
+        /**
    * The meta object id for the '<em>Rectangle</em>' data type.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1204,7 +1223,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
    * @generated
    */
-	int RECTANGLE = 20;
+	int RECTANGLE = 21;
 
 
 	/**
@@ -1257,7 +1276,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
    * @generated
    */
-	int POINT = 19;
+	int POINT = 20;
 
 
 	/**
@@ -1314,6 +1333,17 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 	EClass getOPMObject();
 
 	/**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObject#getKind <em>Kind</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Kind</em>'.
+   * @see com.vainolo.phd.opm.model.OPMObject#getKind()
+   * @see #getOPMObject()
+   * @generated
+   */
+  EAttribute getOPMObject_Kind();
+
+  /**
    * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMProcess <em>Process</em>}'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1662,6 +1692,16 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
   EEnum getVerticalAlignment();
 
         /**
+   * Returns the meta object for enum '{@link com.vainolo.phd.opm.model.OPMObjectKind <em>Object Kind</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Object Kind</em>'.
+   * @see com.vainolo.phd.opm.model.OPMObjectKind
+   * @generated
+   */
+  EEnum getOPMObjectKind();
+
+        /**
    * Returns the meta object for data type '{@link org.eclipse.draw2d.geometry.Rectangle <em>Rectangle</em>}'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1786,6 +1826,14 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 		EClass OPM_OBJECT = eINSTANCE.getOPMObject();
 
 		/**
+     * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPM_OBJECT__KIND = eINSTANCE.getOPMObject_Kind();
+
+    /**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl <em>Process</em>}' class.
      * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2078,6 +2126,16 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
      * @generated
      */
     EEnum VERTICAL_ALIGNMENT = eINSTANCE.getVerticalAlignment();
+
+                /**
+     * The meta object literal for the '{@link com.vainolo.phd.opm.model.OPMObjectKind <em>Object Kind</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.OPMObjectKind
+     * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObjectKind()
+     * @generated
+     */
+    EEnum OPM_OBJECT_KIND = eINSTANCE.getOPMObjectKind();
 
                 /**
      * The meta object literal for the '<em>Rectangle</em>' data type.

@@ -38,7 +38,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMState" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//OPMObjectKind"
+        defaultValueLiteral=""/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//OPMProcessKind"
         defaultValueLiteral=""/>
@@ -104,5 +107,9 @@
     <eLiterals name="TOP" value="8" literal="Top"/>
     <eLiterals name="CENTER" value="16" literal="Center"/>
     <eLiterals name="BOTTOM" value="32" literal="Bottom"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="OPMObjectKind">
+    <eLiterals name="SIMPLE" literal="Simple"/>
+    <eLiterals name="COLLECTION" value="1" literal="Collection"/>
   </eClassifiers>
 </ecore:EPackage>

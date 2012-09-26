@@ -13,18 +13,44 @@ import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import com.vainolo.phd.opm.model.OPMObjectKind;
+
 public class OPMObjectFigure extends OPMThingFigure {
   private final RectangleFigure rectangle;
+  private final RectangleFigure rectangle2;
   private ConnectionAnchor connectionAnchor;
+  private OPMObjectKind kind;
 
-  public OPMObjectFigure() {
+  public OPMObjectFigure(OPMObjectKind kind) {
     super();
+
+    this.kind = kind;
+
     rectangle = new RectangleFigure();
-    rectangle.setFill(false);
     rectangle.setLayoutManager(new XYLayout());
     rectangle.setForegroundColor(OPMFigureConstants.opmObjectColor);
     rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
+
+    rectangle2 = new RectangleFigure();
+    rectangle2.setLayoutManager(new XYLayout());
+    rectangle2.setForegroundColor(OPMFigureConstants.opmObjectColor);
+    rectangle2.setLineWidth(OPMFigureConstants.entityBorderWidth);
+    if(kind.equals(OPMObjectKind.COLLECTION)) {
+      add(rectangle2);
+    }
     add(rectangle);
+
+    super.addFiguresAtEnd();
+  }
+
+  public void setObjectKind(OPMObjectKind newKind) {
+    if(kind.equals(OPMObjectKind.COLLECTION) && newKind.equals(OPMObjectKind.SIMPLE)) {
+      remove(rectangle2);
+    } else if(kind.equals(OPMObjectKind.SIMPLE) && newKind.equals(OPMObjectKind.COLLECTION)) {
+      add(rectangle2, 0);
+
+    }
+    this.kind = newKind;
   }
 
   @Override
@@ -36,8 +62,12 @@ public class OPMObjectFigure extends OPMThingFigure {
   protected void paintFigure(Graphics graphics) {
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
-    setConstraint(rectangle, new Rectangle(0, 0, r.width(), r.height()));
+    setConstraint(rectangle, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
     rectangle.invalidate();
+    if(kind.equals(OPMObjectKind.COLLECTION)) {
+      setConstraint(rectangle2, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
+      rectangle2.invalidate();
+    }
   }
 
   public ConnectionAnchor getConnectionAnchor() {
