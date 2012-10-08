@@ -18,6 +18,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OPMNamedElementFigure {
 
   private final Label nameLabel;
+
   private final TooltipFigure tooltipFigure;
 
   /**
@@ -69,10 +70,10 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
   @Override
   protected void paintFigure(Graphics graphics) {
     super.paintFigure(graphics);
-    Rectangle r = getBounds().getCopy();
-    Label label = getNameLabel();
+    Rectangle r = nameLabel.getParent().getBounds().getCopy();
     int insets = OPMFigureConstants.opmNodeInsets;
-    setConstraint(nameLabel, new Rectangle(insets, insets, r.width() - insets - 5, r.height() - insets - 5));
+    nameLabel.getParent().setConstraint(
+        nameLabel, new Rectangle(insets, insets, r.width() - insets, r.height() - insets));
     nameLabel.invalidate();
   }
 

@@ -19,6 +19,7 @@ public class OPMProcessFigure extends OPMThingFigure {
 
   public OPMProcessFigure() {
     super();
+    super.addFiguresAtEnd();
     ellipse = new Ellipse();
     ellipse.setLayoutManager(new XYLayout());
     ellipse.setFill(false);

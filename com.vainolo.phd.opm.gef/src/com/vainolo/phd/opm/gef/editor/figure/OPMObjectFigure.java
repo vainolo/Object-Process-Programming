@@ -23,10 +23,12 @@ public class OPMObjectFigure extends OPMThingFigure {
 
   public OPMObjectFigure(OPMObjectKind kind) {
     super();
+    // super.addFiguresAtEnd();
 
     this.kind = kind;
 
     rectangle = new RectangleFigure();
+    // rectangle.setFill(false);
     rectangle.setLayoutManager(new XYLayout());
     rectangle.setForegroundColor(OPMFigureConstants.opmObjectColor);
     rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
@@ -39,8 +41,8 @@ public class OPMObjectFigure extends OPMThingFigure {
       add(rectangle2);
     }
     add(rectangle);
+    rectangle.add(getNameLabel());
 
-    super.addFiguresAtEnd();
   }
 
   public void setObjectKind(OPMObjectKind newKind) {
@@ -48,7 +50,6 @@ public class OPMObjectFigure extends OPMThingFigure {
       remove(rectangle2);
     } else if(kind.equals(OPMObjectKind.SIMPLE) && newKind.equals(OPMObjectKind.COLLECTION)) {
       add(rectangle2, 0);
-
     }
     this.kind = newKind;
   }
@@ -62,9 +63,12 @@ public class OPMObjectFigure extends OPMThingFigure {
   protected void paintFigure(Graphics graphics) {
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
-    setConstraint(rectangle, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
-    rectangle.invalidate();
-    if(kind.equals(OPMObjectKind.COLLECTION)) {
+    if(kind.equals(OPMObjectKind.SIMPLE)) {
+      setConstraint(rectangle, new Rectangle(0, 0, r.width(), r.height()));
+      rectangle.invalidate();
+    } else if(kind.equals(OPMObjectKind.COLLECTION)) {
+      setConstraint(rectangle, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
+      rectangle.invalidate();
       setConstraint(rectangle2, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
       rectangle2.invalidate();
     }
