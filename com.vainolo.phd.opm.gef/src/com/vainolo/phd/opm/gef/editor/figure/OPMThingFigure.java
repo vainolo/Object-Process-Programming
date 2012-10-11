@@ -7,18 +7,16 @@
 package com.vainolo.phd.opm.gef.editor.figure;
 
 import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.XYLayout;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.text.FlowPage;
+import org.eclipse.draw2d.text.TextFlow;
 
 public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OPMNamedElementFigure {
 
-  private final Label nameLabel;
-
+  private final TextFlow textFlow;
+  private final IFigure textFigure;
   private final TooltipFigure tooltipFigure;
 
   /**
@@ -31,24 +29,27 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
 
   public OPMThingFigure() {
     setLayoutManager(new XYLayout());
-    nameLabel = new Label();
-    nameLabel.setForegroundColor(OPMFigureConstants.opmLabelColor);
-    nameLabel.setTextAlignment(PositionConstants.CENTER);
     tooltipFigure = new TooltipFigure();
+    textFlow = new TextFlow();
+    textFlow.setForegroundColor(OPMFigureConstants.opmLabelColor);
+    FlowPage flowPage = new FlowPage();
+    flowPage.setHorizontalAligment(PositionConstants.CENTER);
+    flowPage.add(textFlow);
+    textFigure = flowPage;
   }
 
-  protected void addFiguresAtEnd() {
-    add(nameLabel);
+  public IFigure getTextFigure() {
+    return textFigure;
   }
 
-  /**
-   * Get the name {@link Label} of the figure.
-   * 
-   * @return the name {@link Label} of the figure.
-   */
-  @Override
-  public Label getNameLabel() {
-    return nameLabel;
+  public TextFlow getTextFlow() {
+    return textFlow;
+  }
+
+  public void setText(String text) {
+    if(textFlow != null) {
+      textFlow.setText(text);
+    }
   }
 
   /**
@@ -68,30 +69,7 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
   }
 
   @Override
-  protected void paintFigure(Graphics graphics) {
-    super.paintFigure(graphics);
-    Rectangle r = nameLabel.getParent().getBounds().getCopy();
-    int insets = OPMFigureConstants.opmNodeInsets;
-    nameLabel.getParent().setConstraint(
-        nameLabel, new Rectangle(insets, insets, r.width() - insets, r.height() - insets));
-    nameLabel.invalidate();
-  }
-
-  @Override
   protected final boolean useLocalCoordinates() {
     return true;
-  }
-
-  /**
-   * The thing's preferred size is the size of its name label.
-   */
-  @Override
-  public Dimension getPreferredSize(int wHint, int hHint) {
-    Dimension d = new Dimension();
-    Rectangle textRectangle = nameLabel.getTextBounds().getCopy();
-    d.width = textRectangle.width;
-    d.height = textRectangle.height;
-    setPreferredSize(d);
-    return super.getPreferredSize(wHint, hHint);
   }
 }

@@ -6,7 +6,10 @@
 package com.vainolo.phd.opm.gef.editor.figure;
 
 import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.text.TextFlow;
 
 public interface OPMNamedElementFigure {
-	public Label getNameLabel();
+  public Label getNameLabel();
+
+  public TextFlow getTextFlow();
 }
