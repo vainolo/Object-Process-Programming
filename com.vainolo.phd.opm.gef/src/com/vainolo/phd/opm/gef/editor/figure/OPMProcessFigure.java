@@ -40,10 +40,6 @@ public class OPMProcessFigure extends OPMThingFigure {
     Rectangle r = getBounds().getCopy();
     setConstraint(ellipse, new Rectangle(0, 0, r.width(), r.height()));
     ellipse.setConstraint(getTextFigure(), calculateInnerRectangle(r.width(), r.height()));
-
-    System.out.println(ellipse.getSize());
-    System.out.println(getTextFigure().getSize());
-    System.out.println(getTextFlow().getSize());
   }
 
   private Rectangle calculateInnerRectangle(int width, int heigth) {

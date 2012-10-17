@@ -38,17 +38,15 @@ public class OPMObjectFigure extends OPMThingFigure {
     rectangle2.setLayoutManager(new XYLayout());
     rectangle2.setForegroundColor(OPMFigureConstants.opmObjectColor);
     rectangle2.setLineWidth(OPMFigureConstants.entityBorderWidth);
-    if(kind.equals(OPMObjectKind.COLLECTION)) {
-      add(rectangle2);
-    }
+    add(rectangle2);
     add(rectangle);
   }
 
   public void setObjectKind(OPMObjectKind newKind) {
     if(kind.equals(OPMObjectKind.COLLECTION) && newKind.equals(OPMObjectKind.SIMPLE)) {
-      remove(rectangle2);
+      rectangle2.setVisible(false);
     } else if(kind.equals(OPMObjectKind.SIMPLE) && newKind.equals(OPMObjectKind.COLLECTION)) {
-      add(rectangle2, 0);
+      rectangle2.setVisible(true);
     }
     this.kind = newKind;
   }
