@@ -92,8 +92,6 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
     setConstraint(getNameLabel(), new Rectangle(0 + OPMFigureConstants.opmNodeInsets,
         0 + OPMFigureConstants.opmNodeInsets, r.width - OPMFigureConstants.opmNodeInsets, r.height -
             OPMFigureConstants.opmNodeInsets));
-    rectangle.invalidate();
-    getNameLabel().invalidate();
   }
 
   @Override

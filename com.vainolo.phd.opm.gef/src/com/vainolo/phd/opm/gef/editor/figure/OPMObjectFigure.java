@@ -7,6 +7,7 @@ package com.vainolo.phd.opm.gef.editor.figure;
 
 import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -20,6 +21,7 @@ import com.vainolo.phd.opm.model.OPMObjectKind;
 public class OPMObjectFigure extends OPMThingFigure {
   private final RectangleFigure rectangle;
   private final RectangleFigure rectangle2;
+  private final Figure rectangle3;
   private ConnectionAnchor connectionAnchor;
   private OPMObjectKind kind;
 
@@ -33,6 +35,10 @@ public class OPMObjectFigure extends OPMThingFigure {
     rectangle.setForegroundColor(OPMFigureConstants.opmObjectColor);
     rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
     rectangle.add(getTextFigure());
+
+    rectangle3 = new Figure();
+    rectangle3.setLayoutManager(new XYLayout());
+    rectangle.add(rectangle3);
 
     rectangle2 = new RectangleFigure();
     rectangle2.setLayoutManager(new XYLayout());
@@ -53,7 +59,7 @@ public class OPMObjectFigure extends OPMThingFigure {
 
   @Override
   public IFigure getContentPane() {
-    return rectangle;
+    return rectangle3;
   }
 
   @Override
@@ -63,10 +69,12 @@ public class OPMObjectFigure extends OPMThingFigure {
     if(kind.equals(OPMObjectKind.SIMPLE)) {
       setConstraint(rectangle, new Rectangle(0, 0, r.width(), r.height()));
       rectangle.setConstraint(getTextFigure(), new Rectangle(5, 5, r.width() - 5, r.height() - 5));
+      rectangle.setConstraint(rectangle3, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
     } else if(kind.equals(OPMObjectKind.COLLECTION)) {
       setConstraint(rectangle, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
       rectangle.setConstraint(getTextFigure(), new Rectangle(5, 5, r.width() - 15, r.height() - 15));
       setConstraint(rectangle2, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
+      setConstraint(rectangle3, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
     }
   }
 

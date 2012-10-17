@@ -36,6 +36,7 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
     flowPage.setHorizontalAligment(PositionConstants.CENTER);
     flowPage.add(textFlow);
     textFigure = flowPage;
+    textFigure.setOpaque(false);
   }
 
   public IFigure getTextFigure() {
