@@ -15,6 +15,7 @@ import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.text.TextFlow;
 
 /**
  * A figure representing an OPM State. A state is represented by a rountangle (rounded rectangle).
@@ -93,5 +94,11 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
             OPMFigureConstants.opmNodeInsets));
     rectangle.invalidate();
     getNameLabel().invalidate();
+  }
+
+  @Override
+  public TextFlow getTextFlow() {
+    // TODO Auto-generated method stub
+    return null;
   }
 }

@@ -21,9 +21,7 @@ public class OPMObjectEditPart extends OPMThingEditPart {
 
   @Override
   protected void refreshVisuals() {
-    OPMObjectFigure figure = (OPMObjectFigure) getFigure();
-    OPMObject model = (OPMObject) getModel();
-    figure.setObjectKind(model.getKind());
+    ((OPMObjectFigure) getFigure()).setObjectKind(((OPMObject) getModel()).getKind());
     super.refreshVisuals();
   }
 }

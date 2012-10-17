@@ -9,8 +9,10 @@ import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.vainolo.phd.opm.model.OPMObjectKind;
@@ -23,33 +25,28 @@ public class OPMObjectFigure extends OPMThingFigure {
 
   public OPMObjectFigure(OPMObjectKind kind) {
     super();
-    // super.addFiguresAtEnd();
 
     this.kind = kind;
 
     rectangle = new RectangleFigure();
-    // rectangle.setFill(false);
     rectangle.setLayoutManager(new XYLayout());
     rectangle.setForegroundColor(OPMFigureConstants.opmObjectColor);
     rectangle.setLineWidth(OPMFigureConstants.entityBorderWidth);
+    rectangle.add(getTextFigure());
 
     rectangle2 = new RectangleFigure();
     rectangle2.setLayoutManager(new XYLayout());
     rectangle2.setForegroundColor(OPMFigureConstants.opmObjectColor);
     rectangle2.setLineWidth(OPMFigureConstants.entityBorderWidth);
-    if(kind.equals(OPMObjectKind.COLLECTION)) {
-      add(rectangle2);
-    }
+    add(rectangle2);
     add(rectangle);
-    rectangle.add(getNameLabel());
-
   }
 
   public void setObjectKind(OPMObjectKind newKind) {
     if(kind.equals(OPMObjectKind.COLLECTION) && newKind.equals(OPMObjectKind.SIMPLE)) {
-      remove(rectangle2);
+      rectangle2.setVisible(false);
     } else if(kind.equals(OPMObjectKind.SIMPLE) && newKind.equals(OPMObjectKind.COLLECTION)) {
-      add(rectangle2, 0);
+      rectangle2.setVisible(true);
     }
     this.kind = newKind;
   }
@@ -65,12 +62,11 @@ public class OPMObjectFigure extends OPMThingFigure {
     Rectangle r = getBounds().getCopy();
     if(kind.equals(OPMObjectKind.SIMPLE)) {
       setConstraint(rectangle, new Rectangle(0, 0, r.width(), r.height()));
-      rectangle.invalidate();
+      rectangle.setConstraint(getTextFigure(), new Rectangle(5, 5, r.width() - 5, r.height() - 5));
     } else if(kind.equals(OPMObjectKind.COLLECTION)) {
       setConstraint(rectangle, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
-      rectangle.invalidate();
+      rectangle.setConstraint(getTextFigure(), new Rectangle(5, 5, r.width() - 15, r.height() - 15));
       setConstraint(rectangle2, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
-      rectangle2.invalidate();
     }
   }
 
@@ -89,5 +85,21 @@ public class OPMObjectFigure extends OPMThingFigure {
   @Override
   public ConnectionAnchor getTargetConnectionAnchor() {
     return getConnectionAnchor();
+  }
+
+  @Override
+  public Label getNameLabel() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Dimension getPreferredSize(int wHint, int hHint) {
+    prefSize = getTextFlow().getSize().getCopy();
+    if(kind.equals(OPMObjectKind.SIMPLE))
+      prefSize.expand(5, 5);
+    else
+      prefSize.expand(10, 10);
+    return prefSize;
   }
 }

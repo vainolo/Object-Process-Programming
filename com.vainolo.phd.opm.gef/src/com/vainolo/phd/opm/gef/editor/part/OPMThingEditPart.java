@@ -13,7 +13,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
+import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPolicy;
@@ -57,21 +57,16 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
     final OPMThingFigure figure = (OPMThingFigure) getFigure();
     final OPMThing model = (OPMThing) getModel();
     final GraphicalEditPart parent = (GraphicalEditPart) getParent();
-
-    figure.getNameLabel().setText(model.getName());
-    figure.getNameLabel().setTextAlignment(model.getAlignment().getValue());
-    figure.getNameLabel().revalidate();
-    figure.getNameLabel().repaint();
-    parent.setLayoutConstraint(this, figure, model.getConstraints());
-
+    figure.setText(model.getName());
     figure.setTooltipText(model.getDescription());
+    parent.setLayoutConstraint(this, figure, model.getConstraints());
   }
 
   @Override
   public void performRequest(final Request req) {
     if(req.getType() == RequestConstants.REQ_DIRECT_EDIT)
       performDirectEditing();
-    else if(req.getType() == RequestConstants.REQ_OPEN) {
+    if(req.getType() == RequestConstants.REQ_OPEN) {
       final String thingName = ((OPMThing) getModel()).getName();
       final IEditorPart editorPart = ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart();
       final IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
@@ -94,11 +89,11 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
   }
 
   private void performDirectEditing() {
-    final Label label = ((OPMThingFigure) getFigure()).getNameLabel();
+    TextFlow textFlow = ((OPMThingFigure) getFigure()).getTextFlow();
     OPMNamedElementDirectEditManager manager;
     manager =
-        new OPMNamedElementDirectEditManager(this, TextCellEditor.class, new OPMNamedElementCellEditorLocator(label),
-            label);
+        new OPMNamedElementDirectEditManager(this, TextCellEditor.class,
+            new OPMNamedElementCellEditorLocator(textFlow), textFlow);
     manager.show();
   }
 
