@@ -74,7 +74,7 @@ public class OPMObjectFigure extends OPMThingFigure {
       setConstraint(rectangle, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
       rectangle.setConstraint(getTextFigure(), new Rectangle(5, 5, r.width() - 15, r.height() - 15));
       setConstraint(rectangle2, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
-      setConstraint(rectangle3, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
+      rectangle.setConstraint(rectangle3, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
     }
   }
 

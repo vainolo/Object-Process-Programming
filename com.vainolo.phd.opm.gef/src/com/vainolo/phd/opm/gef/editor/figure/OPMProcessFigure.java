@@ -8,6 +8,7 @@ package com.vainolo.phd.opm.gef.editor.figure;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.EllipseAnchor;
+import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -17,6 +18,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 public class OPMProcessFigure extends OPMThingFigure {
   private final Ellipse ellipse;
+  private final IFigure contentPane;
   private ConnectionAnchor connectionAnchor;
 
   public OPMProcessFigure() {
@@ -26,12 +28,17 @@ public class OPMProcessFigure extends OPMThingFigure {
     ellipse.setForegroundColor(OPMFigureConstants.opmProcessColor);
     ellipse.setLineWidth(OPMFigureConstants.entityBorderWidth);
     ellipse.add(getTextFigure());
+
+    contentPane = new Figure();
+    contentPane.setLayoutManager(new XYLayout());
+    ellipse.add(contentPane);
+
     add(ellipse);
   }
 
   @Override
   public IFigure getContentPane() {
-    return ellipse;
+    return contentPane;
   }
 
   @Override
@@ -40,6 +47,7 @@ public class OPMProcessFigure extends OPMThingFigure {
     Rectangle r = getBounds().getCopy();
     setConstraint(ellipse, new Rectangle(0, 0, r.width(), r.height()));
     ellipse.setConstraint(getTextFigure(), calculateInnerRectangle(r.width(), r.height()));
+    ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width(), r.height()));
   }
 
   private Rectangle calculateInnerRectangle(int width, int heigth) {
