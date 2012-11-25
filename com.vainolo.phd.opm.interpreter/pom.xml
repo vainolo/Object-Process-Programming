@@ -8,7 +8,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <groupId>com.vainolo.phd.opm</groupId>
-  <artifactId>com.vainolo.phd.opm.model</artifactId>
-  <version>1.0.0</version>
+  <artifactId>com.vainolo.phd.opm.interpreter</artifactId>
+  <version>0.1.0</version>
   <packaging>eclipse-plugin</packaging>
 </project>
