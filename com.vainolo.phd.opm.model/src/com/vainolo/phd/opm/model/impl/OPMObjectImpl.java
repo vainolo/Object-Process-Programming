@@ -21,10 +21,10 @@ import com.vainolo.phd.opm.model.OPMPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl#getKind <em>Kind</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl#getKind <em>Kind</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
@@ -32,7 +32,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
    * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @see #getKind()
    * @generated
    * @ordered
@@ -42,7 +41,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
    * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @see #getKind()
    * @generated
    * @ordered
@@ -52,7 +50,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   protected OPMObjectImpl() {
@@ -62,7 +59,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -73,7 +69,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   public OPMObjectKind getKind() {
@@ -83,25 +78,23 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   public void setKind(OPMObjectKind newKind) {
     OPMObjectKind oldKind = kind;
     kind = newKind == null ? KIND_EDEFAULT : newKind;
-    if(eNotificationRequired())
+    if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT__KIND, oldKind, kind));
   }
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_OBJECT__KIND:
         return getKind();
     }
@@ -111,14 +104,13 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public void eSet(int featureID, Object newValue) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_OBJECT__KIND:
-        setKind((OPMObjectKind) newValue);
+        setKind((OPMObjectKind)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -127,12 +119,11 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public void eUnset(int featureID) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_OBJECT__KIND:
         setKind(KIND_EDEFAULT);
         return;
@@ -143,12 +134,11 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public boolean eIsSet(int featureID) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_OBJECT__KIND:
         return kind != KIND_EDEFAULT;
     }
@@ -158,13 +148,11 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public String toString() {
-    if(eIsProxy())
-      return super.toString();
+    if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (kind: ");
