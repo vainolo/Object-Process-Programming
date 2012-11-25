@@ -7,14 +7,12 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-    <module>com.vainolo.phd.opm.feature</module>
     <module>com.vainolo.phd.opm.gef</module>
     <module>com.vainolo.phd.opm.interpreter</module>
     <module>com.vainolo.phd.opm.model</module>
     <module>com.vainolo.phd.opm.model.edit</module>
     <module>com.vainolo.phd.opm.model.editor</module>
     <module>com.vainolo.phd.opm.model.tests</module>
-    <module>com.vainolo.phd.opm.updatesite</module>
     <module>com.vainolo.phd.opm.utilities</module>
   </modules>
   <build>
