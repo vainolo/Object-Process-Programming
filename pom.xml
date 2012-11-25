@@ -15,6 +15,19 @@
     <module>com.vainolo.phd.opm.model.tests</module>
     <module>com.vainolo.phd.opm.utilities</module>
   </modules>
+  
+  <properties>
+    <tycho-version>0.13.0</tycho-version>
+  </properties>
+  
+  <repositories>
+    <repository>
+      <id>indigo</id>
+      <layout>p2</layout>
+      <url>http://download.eclipse.org/releases/indigo</url>
+    </repository> 
+  </repositories>
+  
   <build>
     <plugins>
       <plugin>
