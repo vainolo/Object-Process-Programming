@@ -7,15 +7,15 @@ Bundle-Activator: com.vainolo.phd.opm.gef.Activator
 Bundle-Vendor: vainolo
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.eclipse.gef;bundle-version="3.6.2",
- com.vainolo.phd.opm.model;bundle-version="1.0.0",
- org.eclipse.ui.ide;bundle-version="3.6.2",
- org.eclipse.core.resources;bundle-version="3.6.1",
- org.eclipse.emf.edit;bundle-version="2.7.0",
- org.eclipse.emf.edit.ui;bundle-version="2.7.0",
- com.vainolo.phd.opm.model.edit;bundle-version="1.0.0",
- com.vainolo.phd.opm.interpreter;bundle-version="0.1.0",
- com.vainolo.phd.opm.utilities;bundle-version="0.1.0"
+ org.eclipse.gef,
+ com.vainolo.phd.opm.model,
+ org.eclipse.ui.ide,
+ org.eclipse.core.resources,
+ org.eclipse.emf.edit,
+ org.eclipse.emf.edit.ui,
+ com.vainolo.phd.opm.model.edit,
+ com.vainolo.phd.opm.interpreter,
+ com.vainolo.phd.opm.utilities
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: com.ibm.icu.text;version="4.4.2.2"

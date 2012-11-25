@@ -12,8 +12,8 @@
     <module>com.vainolo.phd.opm.model</module>
     <module>com.vainolo.phd.opm.model.edit</module>
     <module>com.vainolo.phd.opm.model.editor</module>
-    <module>com.vainolo.phd.opm.model.tests</module>
     <module>com.vainolo.phd.opm.utilities</module>
+    <module>com.vainolo.phd.opm.validation</module>
   </modules>
   
   <properties>

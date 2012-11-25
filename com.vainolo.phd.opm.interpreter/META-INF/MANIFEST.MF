@@ -13,3 +13,4 @@ Require-Bundle: com.vainolo.phd.opm.utilities;bundle-version="0.1.0",
 Export-Package: com.vainolo.phd.opm.interpreter
 Bundle-ClassPath: .,
  lib/jgrapht-jdk1.6.jar
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
