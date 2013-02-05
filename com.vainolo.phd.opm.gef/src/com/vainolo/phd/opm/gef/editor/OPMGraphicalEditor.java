@@ -17,6 +17,8 @@ import org.eclipse.gef.EditDomain;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.commands.CommandStack;
+import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
+import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.DirectEditAction;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
@@ -53,7 +55,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   private IFile opdFile;
   private OPMObjectProcessDiagram opd;
 
-  PropertySheetPage propertyPage;
+  private PropertySheetPage propertyPage;
+  private PaletteRoot palette;
 
   /**
    * Initialize the {@link EditDomain} of the editor.
@@ -78,20 +81,28 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getGraphicalViewer().setContextMenu(
         new OPMGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
     configureKeyboardShortcuts();
+
+    // D&D
+    getGraphicalViewer().addDropTargetListener(new TemplateTransferDropTargetListener(getGraphicalViewer()));
+    getEditDomain().getPaletteViewer().addDragSourceListener(
+        new TemplateTransferDragSourceListener(getEditDomain().getPaletteViewer()));
+    // end D&D
   }
 
   private void configureKeyboardShortcuts() {
     GraphicalViewerKeyHandler keyHandler = new GraphicalViewerKeyHandler(getGraphicalViewer());
     keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
-    keyHandler.put(KeyStroke.getPressed(SWT.F3, 0),
-        getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
+    keyHandler.put(
+        KeyStroke.getPressed(SWT.F3, 0), getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
     getGraphicalViewer().setKeyHandler(keyHandler);
 
   }
 
   @Override
   protected PaletteRoot getPaletteRoot() {
-    return new OPMGraphicalEditorPalette();
+    if(palette == null)
+      palette = new OPMGraphicalEditorPalette();
+    return palette;
   }
 
   /**

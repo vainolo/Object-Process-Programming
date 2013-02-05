@@ -7,8 +7,8 @@
     <artifactId>Object-Process-Programming</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.vainolo.phd.opm</groupId>
-  <artifactId>com.vainolo.phd.opm.gef</artifactId>
+  <groupId>com.vainolo.phd.opm.editor</groupId>
+  <artifactId>OPMEditor</artifactId>
   <version>0.1.0</version>
   <packaging>eclipse-plugin</packaging>
 </project>

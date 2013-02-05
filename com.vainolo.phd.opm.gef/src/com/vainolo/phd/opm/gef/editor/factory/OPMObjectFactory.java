@@ -6,6 +6,7 @@
 
 package com.vainolo.phd.opm.gef.editor.factory;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.requests.CreationFactory;
 
 import com.vainolo.phd.opm.model.OPMFactory;
@@ -16,6 +17,7 @@ public class OPMObjectFactory implements CreationFactory {
   @Override
   public Object getNewObject() {
     OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
+    object.setConstraints(new Rectangle(0, 0, 20, 20));
     object.setId(OPMIdManager.getNextId());
     return object;
   }
