@@ -18,7 +18,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.jdraw2d.HorizontalAlignment;
 
-public class OPMProcessFigure extends OPMThingFigure {
+public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementFigure {
   private final Ellipse ellipse;
   private final IFigure contentPane;
   private ConnectionAnchor connectionAnchor;
@@ -103,8 +103,7 @@ public class OPMProcessFigure extends OPMThingFigure {
   }
 
   @Override
-  public SmartLabelFigure getTextFigure() {
+  public SmartLabelFigure getNameFigure() {
     return smartLabel;
   }
-
 }

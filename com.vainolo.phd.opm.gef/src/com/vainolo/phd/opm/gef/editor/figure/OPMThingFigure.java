@@ -8,17 +8,10 @@ package com.vainolo.phd.opm.gef.editor.figure;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.XYLayout;
-import org.eclipse.draw2d.text.FlowPage;
-import org.eclipse.draw2d.text.TextFlow;
-
-import com.vainolo.draw2d.extras.SmartLabelFigure;
 
 public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OPMNamedElementFigure {
 
-  private final TextFlow textFlow;
-  private final IFigure textFigure;
   private final TooltipFigure tooltipFigure;
 
   /**
@@ -32,18 +25,7 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
   public OPMThingFigure() {
     setLayoutManager(new XYLayout());
     tooltipFigure = new TooltipFigure();
-    textFlow = new TextFlow();
-    textFlow.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
-    FlowPage flowPage = new FlowPage();
-    flowPage.setHorizontalAligment(PositionConstants.CENTER);
-    flowPage.add(textFlow);
-    textFigure = flowPage;
-    textFigure.setOpaque(false);
   }
-
-  public abstract SmartLabelFigure getTextFigure();
-
-  public abstract void setText(String text);
 
   /**
    * Set the text of the figure's tooltip. If the text is null or empty, no

@@ -13,8 +13,8 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.TextCellEditor;
 
 import com.vainolo.draw2d.extras.SmartLabelFigure;
-import com.vainolo.phd.opm.gef.editor.figure.LabelFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
+import com.vainolo.phd.opm.gef.editor.figure.OPMGenericLabelFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 
 /**
@@ -59,7 +59,7 @@ public class LabelEditPart extends OPMNodeEditPart {
   }
 
   private void performDirectEditing() {
-    SmartLabelFigure smartLabel = ((LabelFigure) getFigure()).getTextFigure();
+    SmartLabelFigure smartLabel = ((OPMGenericLabelFigure) getFigure()).getNameFigure();
     OPMNamedElementDirectEditManager manager =
         new OPMNamedElementDirectEditManager(this, TextCellEditor.class, new OPMNamedElementCellEditorLocator(
             smartLabel), smartLabel);

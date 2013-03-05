@@ -26,14 +26,14 @@ import com.vainolo.draw2d.extras.SmartLabelFigure;
 public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedElementFigure {
   private final RoundedRectangle rectangle;
   private ConnectionAnchor connectionAnchor;
-  private final SmartLabelFigure textFigure;
+  private final SmartLabelFigure smartLabel;
 
   public OPMStateFigure() {
     super();
     setLayoutManager(new XYLayout());
-    textFigure = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
-    textFigure.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
-    add(textFigure);
+    smartLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
+    smartLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
+    add(smartLabel);
     rectangle = new RoundedRectangle();
     rectangle.setCornerDimensions(new Dimension(20, 20));
     rectangle.setFill(false);
@@ -66,7 +66,7 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
 
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
-    return textFigure.calculateSize();
+    return smartLabel.calculateSize();
   }
 
   @Override
@@ -74,12 +74,12 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
     Rectangle r = getBounds().getCopy();
     setConstraint(rectangle, new Rectangle(0 + OPMFigureConstants.NODE_INSETS, 0 + OPMFigureConstants.NODE_INSETS,
         r.width - OPMFigureConstants.NODE_INSETS, r.height - OPMFigureConstants.NODE_INSETS));
-    setConstraint(textFigure, new Rectangle(0 + OPMFigureConstants.NODE_INSETS, 0 + OPMFigureConstants.NODE_INSETS,
+    setConstraint(smartLabel, new Rectangle(0 + OPMFigureConstants.NODE_INSETS, 0 + OPMFigureConstants.NODE_INSETS,
         r.width - OPMFigureConstants.NODE_INSETS, r.height - OPMFigureConstants.NODE_INSETS));
   }
 
   @Override
-  public SmartLabelFigure getTextFigure() {
-    return textFigure;
+  public SmartLabelFigure getNameFigure() {
+    return smartLabel;
   }
 }

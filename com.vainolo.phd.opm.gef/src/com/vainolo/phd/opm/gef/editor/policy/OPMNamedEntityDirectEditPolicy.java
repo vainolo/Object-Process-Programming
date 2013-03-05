@@ -35,6 +35,6 @@ public class OPMNamedEntityDirectEditPolicy extends DirectEditPolicy {
   @Override
   protected void showCurrentEditValue(DirectEditRequest request) {
     String value = (String) request.getCellEditor().getValue();
-    ((OPMNamedElementFigure) getHostFigure()).getTextFigure().setText(value);
+    ((OPMNamedElementFigure) getHostFigure()).getNameFigure().setText(value);
   }
 }

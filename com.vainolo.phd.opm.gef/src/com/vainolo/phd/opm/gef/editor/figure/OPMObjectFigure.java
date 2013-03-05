@@ -19,7 +19,7 @@ import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.jdraw2d.HorizontalAlignment;
 import com.vainolo.phd.opm.model.OPMObjectKind;
 
-public class OPMObjectFigure extends OPMThingFigure {
+public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFigure {
   private final RectangleFigure topRectangle;
   private final RectangleFigure shade1;
   private final RectangleFigure shade2;
@@ -125,11 +125,6 @@ public class OPMObjectFigure extends OPMThingFigure {
   }
 
   @Override
-  public void setText(String text) {
-    smartLabel.setText(text);
-  };
-
-  @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
     Dimension smartLabelSize = smartLabel.calculateSize();
     if(kind.equals(OPMObjectKind.SIMPLE))
@@ -139,7 +134,7 @@ public class OPMObjectFigure extends OPMThingFigure {
   }
 
   @Override
-  public SmartLabelFigure getTextFigure() {
+  public SmartLabelFigure getNameFigure() {
     return smartLabel;
   }
 }

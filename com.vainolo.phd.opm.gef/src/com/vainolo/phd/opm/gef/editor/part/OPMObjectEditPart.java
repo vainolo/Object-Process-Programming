@@ -29,7 +29,7 @@ public class OPMObjectEditPart extends OPMThingEditPart {
     OPMObjectFigure figure = (OPMObjectFigure) getFigure();
     OPMThing model = (OPMThing) getModel();
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
-    figure.setText(model.getName());
+    figure.getNameFigure().setText(model.getName());
     figure.setTooltipText(model.getDescription());
 
     Rectangle constraints = model.getConstraints().getCopy();

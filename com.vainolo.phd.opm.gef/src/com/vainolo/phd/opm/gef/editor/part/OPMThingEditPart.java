@@ -16,7 +16,6 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.gef.SnapToGeometry;
@@ -53,16 +52,6 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
   }
 
   @Override
-  protected void refreshVisuals() {
-    final OPMThingFigure figure = (OPMThingFigure) getFigure();
-    final OPMThing model = (OPMThing) getModel();
-    final GraphicalEditPart parent = (GraphicalEditPart) getParent();
-    figure.setText(model.getName());
-    figure.setTooltipText(model.getDescription());
-    parent.setLayoutConstraint(this, figure, model.getConstraints());
-  }
-
-  @Override
   public void performRequest(final Request req) {
     if(req.getType() == RequestConstants.REQ_DIRECT_EDIT)
       performDirectEditing();
@@ -89,7 +78,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
   }
 
   private void performDirectEditing() {
-    SmartLabelFigure textFigure = ((OPMThingFigure) getFigure()).getTextFigure();
+    SmartLabelFigure textFigure = ((OPMThingFigure) getFigure()).getNameFigure();
     OPMNamedElementDirectEditManager manager;
     manager =
         new OPMNamedElementDirectEditManager(this, TextCellEditor.class, new OPMNamedElementCellEditorLocator(
