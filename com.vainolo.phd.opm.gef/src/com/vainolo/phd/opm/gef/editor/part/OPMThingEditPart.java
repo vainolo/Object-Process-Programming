@@ -31,6 +31,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 import com.vainolo.draw2d.extras.SmartLabelFigure;
+import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
@@ -78,7 +79,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
   }
 
   private void performDirectEditing() {
-    SmartLabelFigure textFigure = ((OPMThingFigure) getFigure()).getNameFigure();
+    SmartLabelFigure textFigure = ((OPMNamedElementFigure) getFigure()).getNameFigure();
     OPMNamedElementDirectEditManager manager;
     manager =
         new OPMNamedElementDirectEditManager(this, TextCellEditor.class, new OPMNamedElementCellEditorLocator(

@@ -13,8 +13,8 @@ import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.TextCellEditor;
 
 import com.vainolo.draw2d.extras.SmartLabelFigure;
-import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
-import com.vainolo.phd.opm.gef.editor.figure.OPMGenericLabelFigure;
+import com.vainolo.phd.opm.gef.editor.figure.OPMLabelFigure;
+import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 
 /**
@@ -23,18 +23,15 @@ import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
  * @author vainolo
  * 
  */
-public class LabelEditPart extends OPMNodeEditPart {
+public class OPMLabelEditPart extends OPMNodeEditPart {
 
-  SmartLabelFigure nameLabel;
-
-  public LabelEditPart() {
+  public OPMLabelEditPart() {
     super();
   }
 
   @Override
   protected IFigure createFigure() {
-    nameLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
-    return nameLabel;
+    return new OPMLabelFigure();
   }
 
   @Override
@@ -47,8 +44,8 @@ public class LabelEditPart extends OPMNodeEditPart {
   protected void refreshVisuals() {
     com.vainolo.phd.opm.model.Label model = (com.vainolo.phd.opm.model.Label) getModel();
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
-    ((SmartLabelFigure) getFigure()).setText(model.getName());
-    parent.setLayoutConstraint(this, nameLabel, model.getConstraints());
+    ((OPMNamedElementFigure) getFigure()).getNameFigure().setText(model.getName());
+    parent.setLayoutConstraint(this, getFigure(), model.getConstraints());
   }
 
   @Override
@@ -59,7 +56,7 @@ public class LabelEditPart extends OPMNodeEditPart {
   }
 
   private void performDirectEditing() {
-    SmartLabelFigure smartLabel = ((OPMGenericLabelFigure) getFigure()).getNameFigure();
+    SmartLabelFigure smartLabel = ((OPMNamedElementFigure) getFigure()).getNameFigure();
     OPMNamedElementDirectEditManager manager =
         new OPMNamedElementDirectEditManager(this, TextCellEditor.class, new OPMNamedElementCellEditorLocator(
             smartLabel), smartLabel);

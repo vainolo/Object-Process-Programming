@@ -40,7 +40,7 @@ public class OPMEditPartFactory implements EditPartFactory {
     } else if(model instanceof OPMState) {
       part = new OPMStateEditPart();
     } else if(model instanceof Label) {
-      part = new LabelEditPart();
+      part = new OPMLabelEditPart();
     } else {
       throw new IllegalArgumentException("Model class " + model.getClass() + " not supported yet.");
     }

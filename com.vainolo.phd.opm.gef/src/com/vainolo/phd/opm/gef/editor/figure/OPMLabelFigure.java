@@ -12,11 +12,11 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.vainolo.draw2d.extras.SmartLabelFigure;
 
-public class OPMGenericLabelFigure extends Figure implements OPMNamedElementFigure {
+public class OPMLabelFigure extends Figure implements OPMNamedElementFigure {
 
   private final SmartLabelFigure smartLabel;
 
-  public OPMGenericLabelFigure() {
+  public OPMLabelFigure() {
     setLayoutManager(new XYLayout());
     smartLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
     smartLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
