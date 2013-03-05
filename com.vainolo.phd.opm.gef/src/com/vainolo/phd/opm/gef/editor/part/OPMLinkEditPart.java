@@ -67,7 +67,7 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
   protected PolylineConnection createFigure() {
     PolylineConnection conn = new PolylineConnection();
     conn.setConnectionRouter(new BendpointConnectionRouter());
-    conn.setLineWidth(OPMFigureConstants.connectionLineWidth);
+    conn.setLineWidth(OPMFigureConstants.CONNECTION_LINE_WIDTH);
     return conn;
   }
 

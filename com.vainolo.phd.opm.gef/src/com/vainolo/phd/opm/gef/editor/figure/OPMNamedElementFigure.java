@@ -5,11 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.figure;
 
-import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.text.TextFlow;
+import com.vainolo.draw2d.extras.SmartLabelFigure;
 
 public interface OPMNamedElementFigure {
-  public Label getNameLabel();
-
-  public TextFlow getTextFlow();
+  public SmartLabelFigure getTextFigure();
 }

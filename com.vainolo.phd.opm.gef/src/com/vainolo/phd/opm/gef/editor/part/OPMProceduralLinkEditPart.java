@@ -47,7 +47,7 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
   protected PolylineConnection createFigure() {
     OPMProceduralLink model = (OPMProceduralLink) getModel();
     PolylineConnection connection = new OPMProceduralLinkFigure(model.getKind());
-    connection.setLineWidth(OPMFigureConstants.connectionLineWidth);
+    connection.setLineWidth(OPMFigureConstants.CONNECTION_LINE_WIDTH);
     // decorateConnection(connection, model.getKind());
     centerDecorationLabel = new Label();
     ConnectionLocator locator = new ConnectionLocator(connection, ConnectionLocator.MIDDLE);

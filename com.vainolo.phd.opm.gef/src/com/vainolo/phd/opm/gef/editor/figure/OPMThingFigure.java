@@ -13,6 +13,8 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.TextFlow;
 
+import com.vainolo.draw2d.extras.SmartLabelFigure;
+
 public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OPMNamedElementFigure {
 
   private final TextFlow textFlow;
@@ -31,7 +33,7 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
     setLayoutManager(new XYLayout());
     tooltipFigure = new TooltipFigure();
     textFlow = new TextFlow();
-    textFlow.setForegroundColor(OPMFigureConstants.opmLabelColor);
+    textFlow.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
     FlowPage flowPage = new FlowPage();
     flowPage.setHorizontalAligment(PositionConstants.CENTER);
     flowPage.add(textFlow);
@@ -39,19 +41,9 @@ public abstract class OPMThingFigure extends Figure implements OPMNodeFigure, OP
     textFigure.setOpaque(false);
   }
 
-  public IFigure getTextFigure() {
-    return textFigure;
-  }
+  public abstract SmartLabelFigure getTextFigure();
 
-  public TextFlow getTextFlow() {
-    return textFlow;
-  }
-
-  public void setText(String text) {
-    if(textFlow != null) {
-      textFlow.setText(text);
-    }
-  }
+  public abstract void setText(String text);
 
   /**
    * Set the text of the figure's tooltip. If the text is null or empty, no

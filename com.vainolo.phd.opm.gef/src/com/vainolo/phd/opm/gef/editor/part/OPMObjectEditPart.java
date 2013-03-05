@@ -7,9 +7,13 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.GraphicalEditPart;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMObjectFigure;
 import com.vainolo.phd.opm.model.OPMObject;
+import com.vainolo.phd.opm.model.OPMThing;
 
 public class OPMObjectEditPart extends OPMThingEditPart {
 
@@ -22,6 +26,15 @@ public class OPMObjectEditPart extends OPMThingEditPart {
   @Override
   protected void refreshVisuals() {
     ((OPMObjectFigure) getFigure()).setObjectKind(((OPMObject) getModel()).getKind());
-    super.refreshVisuals();
+    OPMObjectFigure figure = (OPMObjectFigure) getFigure();
+    OPMThing model = (OPMThing) getModel();
+    GraphicalEditPart parent = (GraphicalEditPart) getParent();
+    figure.setText(model.getName());
+    figure.setTooltipText(model.getDescription());
+
+    Rectangle constraints = model.getConstraints().getCopy();
+    Dimension size = figure.getPreferredSize();
+    constraints.setSize(size);
+    parent.setLayoutConstraint(this, figure, constraints);
   }
 }

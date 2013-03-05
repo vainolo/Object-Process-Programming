@@ -11,23 +11,28 @@ import org.eclipse.draw2d.EllipseAnchor;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+
+import com.vainolo.draw2d.extras.SmartLabelFigure;
+import com.vainolo.jdraw2d.HorizontalAlignment;
 
 public class OPMProcessFigure extends OPMThingFigure {
   private final Ellipse ellipse;
   private final IFigure contentPane;
   private ConnectionAnchor connectionAnchor;
+  private final SmartLabelFigure smartLabel;
 
   public OPMProcessFigure() {
-    super();
     ellipse = new Ellipse();
     ellipse.setLayoutManager(new XYLayout());
-    ellipse.setForegroundColor(OPMFigureConstants.opmProcessColor);
-    ellipse.setLineWidth(OPMFigureConstants.entityBorderWidth);
-    ellipse.add(getTextFigure());
+    ellipse.setForegroundColor(OPMFigureConstants.PROCESS_COLOR);
+    ellipse.setLineWidth(OPMFigureConstants.ENTITY_BORDER_WIDTH);
+    smartLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
+    smartLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
+    smartLabel.setHorizontalAlignment(HorizontalAlignment.CENTER);
+    ellipse.add(smartLabel);
 
     contentPane = new Figure();
     contentPane.setLayoutManager(new XYLayout());
@@ -46,7 +51,7 @@ public class OPMProcessFigure extends OPMThingFigure {
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
     setConstraint(ellipse, new Rectangle(0, 0, r.width(), r.height()));
-    ellipse.setConstraint(getTextFigure(), calculateInnerRectangle(r.width(), r.height()));
+    ellipse.setConstraint(smartLabel, calculateInnerRectangle(r.width(), r.height()));
     ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width(), r.height()));
   }
 
@@ -56,8 +61,14 @@ public class OPMProcessFigure extends OPMThingFigure {
     rect.setHeight((int) (Math.sqrt(2) * heigth / 2));
     rect.setX(width / 2 - rect.width() / 2);
     rect.setY(heigth / 2 - rect.height() / 2);
-    rect.shrink(2, 2);
     return rect;
+  }
+
+  private Dimension calculateEllipseDimensionBasedOnLabelSize(Dimension labelDim) {
+    Dimension dim = new Dimension();
+    dim.setWidth((int) (2 * labelDim.width() / Math.sqrt(2)));
+    dim.setHeight((int) (2 * labelDim.height() / Math.sqrt(2)));
+    return dim;
   }
 
   /**
@@ -82,17 +93,18 @@ public class OPMProcessFigure extends OPMThingFigure {
     return getConnectionAnchor();
   }
 
-  @Override
-  public Label getNameLabel() {
-    // TODO Auto-generated method stub
-    return null;
+  public void setText(String text) {
+    smartLabel.setText(text);
   }
 
   public Dimension getPreferredSize(int wHint, int hHint) {
-    prefSize = getTextFlow().getSize().getCopy();
-    prefSize.expand(2, 2);
-    prefSize.setWidth((int) (prefSize.width() * Math.sqrt(2)));
-    prefSize.setHeight((int) (prefSize.height * Math.sqrt(2)));
-    return prefSize;
+    Dimension smartLabelSize = smartLabel.calculateSize();
+    return calculateEllipseDimensionBasedOnLabelSize(smartLabelSize);
   }
+
+  @Override
+  public SmartLabelFigure getTextFigure() {
+    return smartLabel;
+  }
+
 }

@@ -7,28 +7,20 @@ package com.vainolo.phd.opm.gef.editor.figure;
 
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.Label;
-import org.eclipse.draw2d.PositionConstants;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.draw2d.text.FlowPage;
-import org.eclipse.draw2d.text.TextFlow;
+
+import com.vainolo.draw2d.extras.SmartLabelFigure;
 
 public class LabelFigure extends Figure implements OPMNamedElementFigure {
 
-  private final TextFlow textFlow;
-  private final IFigure textFigure;
+  private final SmartLabelFigure smartLabel;
 
   public LabelFigure() {
     setLayoutManager(new XYLayout());
-    textFlow = new TextFlow();
-    textFlow.setForegroundColor(OPMFigureConstants.opmLabelColor);
-    FlowPage flowPage = new FlowPage();
-    flowPage.setHorizontalAligment(PositionConstants.CENTER);
-    flowPage.add(textFlow);
-    textFigure = flowPage;
-    add(flowPage);
+    smartLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
+    smartLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
+    add(smartLabel);
   }
 
   @Override
@@ -37,19 +29,10 @@ public class LabelFigure extends Figure implements OPMNamedElementFigure {
     Rectangle r = getBounds().getCopy();
     r.setX(0);
     r.setY(0);
-    setConstraint(textFigure, r);
+    setConstraint(smartLabel, r);
   }
 
-  @Override
-  public Label getNameLabel() {
-    return null;
-  }
-
-  public TextFlow getTextFlow() {
-    return textFlow;
-  }
-
-  public IFigure getTextFigure() {
-    return textFigure;
+  public SmartLabelFigure getTextFigure() {
+    return smartLabel;
   }
 }

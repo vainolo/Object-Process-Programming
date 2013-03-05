@@ -10,14 +10,17 @@ import org.eclipse.swt.graphics.Color;
 
 public enum OPMFigureConstants {
   INSTANCE;
-  public static Color opmLabelColor = ColorConstants.black;
-  public static Color opmObjectColor = ColorConstants.green;
-  public static Color opmProcessColor = ColorConstants.blue;
-  public static Color opmStateColor = ColorConstants.gray;
-  public static int entityBorderWidth = 2;
-  public static int inZoomedThingBorderWidth = 3;
-  public static int connectionLineWidth = 1;
-  public static int agentCircleRadius = 5;
-  public static final int opmNodeInsets = 2;
+
+  public static final double TEXT_WIDTH_TO_HEIGHT_RATIO = 2;
+  public static final Color LABEL_COLOR = ColorConstants.black;
+  public static final Color OBJECT_COLOR = ColorConstants.green;
+  public static final Color PROCESS_COLOR = ColorConstants.blue;
+  public static final Color STATE_COLOR = ColorConstants.gray;
+  public static final int ENTITY_BORDER_WIDTH = 2;
+  public static final int IN_ZOOMED_THING_BORDER_WIDTH = 3;
+  public static final int CONNECTION_LINE_WIDTH = 1;
+  public static final int AGENT_CIRCLE_RATIO = 5;
+  public static final int NODE_INSETS = 2;
+  public static final double GOLDEN_RATIO = 1.56261;
 
 }

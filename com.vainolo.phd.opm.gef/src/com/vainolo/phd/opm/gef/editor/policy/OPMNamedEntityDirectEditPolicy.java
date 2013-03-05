@@ -6,7 +6,6 @@
 package com.vainolo.phd.opm.gef.editor.policy;
 
 import org.eclipse.core.runtime.Status;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.requests.DirectEditRequest;
@@ -30,24 +29,12 @@ public class OPMNamedEntityDirectEditPolicy extends DirectEditPolicy {
     command.setModel((OPMNamedElement) getHost().getModel());
     command.setNewName((String) request.getCellEditor().getValue());
 
-    final EditPart editPart = getHost();
-    // Send a new request to resize the node after it's text has been changed.
-    // Display.getCurrent().asyncExec(new Runnable() {
-    // @Override
-    // public void run() {
-    // Request resizeRequest = new Request(ResizeToContentsAction.RESIZE_TO_CONTENTS_REQUEST);
-    // Command resizeCommand = editPart.getCommand(resizeRequest);
-    // editPart.getViewer().getEditDomain().getCommandStack().execute(resizeCommand);
-    //
-    // }
-    // });
-
     return command;
   }
 
   @Override
   protected void showCurrentEditValue(DirectEditRequest request) {
     String value = (String) request.getCellEditor().getValue();
-    ((OPMNamedElementFigure) getHostFigure()).getTextFlow().setText(value);
+    ((OPMNamedElementFigure) getHostFigure()).getTextFigure().setText(value);
   }
 }

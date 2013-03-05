@@ -13,7 +13,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPolicy;
@@ -32,6 +31,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
+import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
@@ -89,11 +89,11 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
   }
 
   private void performDirectEditing() {
-    TextFlow textFlow = ((OPMThingFigure) getFigure()).getTextFlow();
+    SmartLabelFigure textFigure = ((OPMThingFigure) getFigure()).getTextFigure();
     OPMNamedElementDirectEditManager manager;
     manager =
-        new OPMNamedElementDirectEditManager(this, TextCellEditor.class,
-            new OPMNamedElementCellEditorLocator(textFlow), textFlow);
+        new OPMNamedElementDirectEditManager(this, TextCellEditor.class, new OPMNamedElementCellEditorLocator(
+            textFigure), textFigure);
     manager.show();
   }
 

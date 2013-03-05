@@ -49,7 +49,7 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
       case INSTRUMENT:
       case INSTRUMENT_CONDITION:
       case INSTRUMENT_EVENT:
-        int radius = OPMFigureConstants.agentCircleRadius;
+        int radius = OPMFigureConstants.AGENT_CIRCLE_RATIO;
         g.pushState();
         g.setBackgroundColor(ColorConstants.black);
         g.fillOval(target.x() - radius, target.y() - radius, radius * 2, radius * 2);

@@ -6,24 +6,25 @@
 
 package com.vainolo.phd.opm.gef.editor.part;
 
-import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gef.tools.DirectEditManager;
 
+import com.vainolo.draw2d.extras.SmartLabelFigure;
+
 public class OPMNamedElementDirectEditManager extends DirectEditManager {
 
-  TextFlow textFlow;
+  SmartLabelFigure textFigure;
 
   public OPMNamedElementDirectEditManager(GraphicalEditPart source, Class editorType, CellEditorLocator locator,
-      TextFlow label) {
+      SmartLabelFigure label) {
     super(source, editorType, locator);
-    this.textFlow = label;
+    this.textFigure = label;
   }
 
   @Override
   protected void initCellEditor() {
-    String initialLabelText = textFlow.getText();
+    String initialLabelText = textFigure.getText();
     getCellEditor().setValue(initialLabelText);
   }
 }

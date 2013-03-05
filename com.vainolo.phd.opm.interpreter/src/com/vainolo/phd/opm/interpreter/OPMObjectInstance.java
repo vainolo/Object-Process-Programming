@@ -23,8 +23,7 @@ public class OPMObjectInstance {
   private Object value;
   private boolean valueSet = false;
 
-  private final Set<String> states = Sets.newHashSet(); // TODO: if the variable is of a specified type the states
-                                                        // should be defined in that type.
+  private final Set<String> states = Sets.newHashSet();
   private String currentState = UNKNOWN_STATE;
 
   public OPMObjectInstance() {

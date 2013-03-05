@@ -6,14 +6,15 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.text.TextFlow;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
 import org.eclipse.jface.viewers.TextCellEditor;
 
+import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.phd.opm.gef.editor.figure.LabelFigure;
+import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 
 /**
@@ -24,7 +25,7 @@ import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
  */
 public class LabelEditPart extends OPMNodeEditPart {
 
-  LabelFigure nameLabel;
+  SmartLabelFigure nameLabel;
 
   public LabelEditPart() {
     super();
@@ -32,7 +33,7 @@ public class LabelEditPart extends OPMNodeEditPart {
 
   @Override
   protected IFigure createFigure() {
-    nameLabel = new LabelFigure();
+    nameLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
     return nameLabel;
   }
 
@@ -46,7 +47,7 @@ public class LabelEditPart extends OPMNodeEditPart {
   protected void refreshVisuals() {
     com.vainolo.phd.opm.model.Label model = (com.vainolo.phd.opm.model.Label) getModel();
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
-    ((LabelFigure) getFigure()).getTextFlow().setText(model.getName());
+    ((SmartLabelFigure) getFigure()).setText(model.getName());
     parent.setLayoutConstraint(this, nameLabel, model.getConstraints());
   }
 
@@ -58,10 +59,10 @@ public class LabelEditPart extends OPMNodeEditPart {
   }
 
   private void performDirectEditing() {
-    TextFlow textFlow = ((LabelFigure) getFigure()).getTextFlow();
+    SmartLabelFigure smartLabel = ((LabelFigure) getFigure()).getTextFigure();
     OPMNamedElementDirectEditManager manager =
-        new OPMNamedElementDirectEditManager(this, TextCellEditor.class,
-            new OPMNamedElementCellEditorLocator(textFlow), textFlow);
+        new OPMNamedElementDirectEditManager(this, TextCellEditor.class, new OPMNamedElementCellEditorLocator(
+            smartLabel), smartLabel);
     manager.show();
   }
 

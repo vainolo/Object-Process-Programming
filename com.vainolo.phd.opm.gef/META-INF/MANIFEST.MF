@@ -15,7 +15,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.edit.ui,
  com.vainolo.phd.opm.model.edit,
  com.vainolo.phd.opm.interpreter,
- com.vainolo.phd.opm.utilities
+ com.vainolo.phd.opm.utilities,
+ com.vainolo.draw2d.extras,
+ com.vainolo.jdraw2d.eclipse
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: com.ibm.icu.text;version="4.4.2.2"

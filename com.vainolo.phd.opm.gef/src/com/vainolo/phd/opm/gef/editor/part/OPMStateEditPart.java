@@ -64,7 +64,7 @@ public class OPMStateEditPart extends OPMNodeEditPart {
     OPMState model = (OPMState) getModel();
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
-    figure.getNameLabel().setText(model.getName());
+    figure.getTextFigure().setText(model.getName());
     parent.setLayoutConstraint(this, figure, model.getConstraints());
   }
 
