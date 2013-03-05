@@ -14,6 +14,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 
 import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.jdraw2d.HorizontalAlignment;
@@ -26,6 +27,7 @@ public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementF
 
   public OPMProcessFigure() {
     ellipse = new Ellipse();
+    ellipse.setAntialias(SWT.ON);
     ellipse.setLayoutManager(new XYLayout());
     ellipse.setForegroundColor(OPMFigureConstants.PROCESS_COLOR);
     ellipse.setLineWidth(OPMFigureConstants.ENTITY_BORDER_WIDTH);

@@ -22,7 +22,6 @@ import org.eclipse.gef.SnapToGeometry;
 import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
-import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
@@ -30,9 +29,9 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
-import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
+import com.vainolo.phd.opm.gef.editor.part.delegates.DirectEditDelegate;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 import com.vainolo.phd.opm.model.OPMThing;
@@ -55,7 +54,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
   @Override
   public void performRequest(final Request req) {
     if(req.getType() == RequestConstants.REQ_DIRECT_EDIT)
-      performDirectEditing();
+      DirectEditDelegate.performDirectEditing(this, ((OPMNamedElementFigure) getFigure()).getNameFigure());
     if(req.getType() == RequestConstants.REQ_OPEN) {
       final String thingName = ((OPMThing) getModel()).getName();
       final IEditorPart editorPart = ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart();
@@ -76,15 +75,6 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
         e.printStackTrace();
       }
     }
-  }
-
-  private void performDirectEditing() {
-    SmartLabelFigure textFigure = ((OPMNamedElementFigure) getFigure()).getNameFigure();
-    OPMNamedElementDirectEditManager manager;
-    manager =
-        new OPMNamedElementDirectEditManager(this, TextCellEditor.class, new OPMNamedElementCellEditorLocator(
-            textFigure), textFigure);
-    manager.show();
   }
 
   @Override

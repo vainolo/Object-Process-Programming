@@ -14,6 +14,7 @@ import org.eclipse.draw2d.RoundedRectangle;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 
 import com.vainolo.draw2d.extras.SmartLabelFigure;
 
@@ -35,6 +36,7 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
     smartLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
     add(smartLabel);
     rectangle = new RoundedRectangle();
+    rectangle.setAntialias(SWT.ON);
     rectangle.setCornerDimensions(new Dimension(20, 20));
     rectangle.setFill(false);
     rectangle.setForegroundColor(OPMFigureConstants.STATE_COLOR);
@@ -66,16 +68,14 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
 
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
-    return smartLabel.calculateSize();
+    return smartLabel.calculateSize().expand(10, 10);
   }
 
   @Override
   protected void paintFigure(Graphics graphics) {
     Rectangle r = getBounds().getCopy();
-    setConstraint(rectangle, new Rectangle(0 + OPMFigureConstants.NODE_INSETS, 0 + OPMFigureConstants.NODE_INSETS,
-        r.width - OPMFigureConstants.NODE_INSETS, r.height - OPMFigureConstants.NODE_INSETS));
-    setConstraint(smartLabel, new Rectangle(0 + OPMFigureConstants.NODE_INSETS, 0 + OPMFigureConstants.NODE_INSETS,
-        r.width - OPMFigureConstants.NODE_INSETS, r.height - OPMFigureConstants.NODE_INSETS));
+    setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
+    setConstraint(smartLabel, new Rectangle(5, 5, r.width - 10, r.height - 5));
   }
 
   @Override

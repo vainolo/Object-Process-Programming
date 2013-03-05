@@ -20,7 +20,9 @@ import org.eclipse.gef.SnapToGrid;
 import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 
+import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMStateFigure;
+import com.vainolo.phd.opm.gef.editor.part.delegates.DirectEditDelegate;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 import com.vainolo.phd.opm.model.OPMState;
 
@@ -45,18 +47,9 @@ public class OPMStateEditPart extends OPMNodeEditPart {
   @Override
   public void performRequest(Request req) {
     if(req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
-      // performDirectEditing();
+      DirectEditDelegate.performDirectEditing(this, ((OPMNamedElementFigure) getFigure()).getNameFigure());
     }
   }
-
-  // private void performDirectEditing() {
-  // Label label = ((OPMStateFigure) getFigure()).getNameLabel();
-  // OPMNamedElementDirectEditManager manager = new OPMNamedElementDirectEditManager(this,
-  // TextCellEditor.class,
-  // new OPMNamedElementCellEditorLocator(label),
-  // label);
-  // manager.show();
-  // }
 
   @Override
   protected void refreshVisuals() {

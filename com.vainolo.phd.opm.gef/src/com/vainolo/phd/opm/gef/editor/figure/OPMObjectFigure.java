@@ -14,6 +14,7 @@ import org.eclipse.draw2d.RectangleFigure;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 
 import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.jdraw2d.HorizontalAlignment;
@@ -30,8 +31,9 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
   private final SmartLabelFigure smartLabel;
   private TooltipFigure tooltipFigure;
 
-  private RectangleFigure createObjectRectangleFigure() {
+  private RectangleFigure createRectangleFigure() {
     RectangleFigure figure = new RectangleFigure();
+    figure.setAntialias(SWT.ON);
     figure.setForegroundColor(OPMFigureConstants.OBJECT_COLOR);
     figure.setLineWidth(OPMFigureConstants.ENTITY_BORDER_WIDTH);
     return figure;
@@ -43,7 +45,7 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
 
     this.kind = kind;
 
-    topRectangle = createObjectRectangleFigure();
+    topRectangle = createRectangleFigure();
     topRectangle.setLayoutManager(new XYLayout());
 
     smartLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
@@ -55,11 +57,11 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     contentPane.setLayoutManager(new XYLayout());
     topRectangle.add(contentPane);
 
-    shade2 = createObjectRectangleFigure();
+    shade2 = createRectangleFigure();
     shade2.setLayoutManager(new XYLayout());
     add(shade2);
 
-    shade1 = createObjectRectangleFigure();
+    shade1 = createRectangleFigure();
     shade1.setLayoutManager(new XYLayout());
     add(shade1);
 
@@ -91,8 +93,7 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
       setConstraint(topRectangle, new Rectangle(0, 0, r.width(), r.height()));
       setConstraint(shade1, new Rectangle(0, 0, r.width(), r.height()));
       setConstraint(shade2, new Rectangle(0, 0, r.width(), r.height()));
-      // topRectangle.setConstraint(flowPage, new Rectangle(0, 0, r.width(), r.height()));
-      topRectangle.setConstraint(smartLabel, new Rectangle(0, 0, r.width(), r.height()));
+      topRectangle.setConstraint(smartLabel, new Rectangle(5, 5, r.width() - 10, r.height() - 5));
       topRectangle.setConstraint(contentPane, new Rectangle(0, 0, r.width(), r.height()));
 
     } else if(kind.equals(OPMObjectKind.COLLECTION)) {
@@ -100,8 +101,7 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
       setConstraint(topRectangle, new Rectangle(0, 0, r.width() - 10, r.height() - 10));
       setConstraint(shade1, new Rectangle(5, 5, r.width() - 10, r.height() - 10));
       setConstraint(shade2, new Rectangle(10, 10, r.width() - 10, r.height() - 10));
-      // topRectangle.setConstraint(flowPage, new Rectangle(0, 0, r.width() - 10, r.height() - 10));
-      topRectangle.setConstraint(smartLabel, new Rectangle(0, 0, r.width() - 10, r.height() - 10));
+      topRectangle.setConstraint(smartLabel, new Rectangle(5, 5, r.width() - 20, r.height() - 10));
       topRectangle.setConstraint(contentPane, new Rectangle(0, 0, r.width() - 10, r.height() - 10));
 
     }
@@ -128,9 +128,9 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
   public Dimension getPreferredSize(int wHint, int hHint) {
     Dimension smartLabelSize = smartLabel.calculateSize();
     if(kind.equals(OPMObjectKind.SIMPLE))
-      return smartLabelSize;
-    else
       return smartLabelSize.expand(10, 10);
+    else
+      return smartLabelSize.expand(20, 20);
   }
 
   @Override
