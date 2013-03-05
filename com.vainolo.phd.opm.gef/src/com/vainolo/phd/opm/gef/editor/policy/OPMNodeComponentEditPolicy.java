@@ -54,7 +54,6 @@ public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
       OPMNodeEditPart host = (OPMNodeEditPart) getHost();
       OPMNode node = (OPMNode) host.getModel();
       OPMNodeFigure figure = (OPMNodeFigure) host.getFigure();
-
       Dimension preferredSize = figure.getPreferredSize();
       Rectangle newConstraints = node.getConstraints().getCopy();
       newConstraints.setWidth(preferredSize.width);
