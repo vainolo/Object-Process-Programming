@@ -28,4 +28,9 @@ public class OPMProcessEditPart extends OPMThingEditPart {
     figure.setTooltipText(model.getDescription());
     parent.setLayoutConstraint(this, figure, model.getConstraints());
   }
+
+  @Override
+  public IFigure getContentPane() {
+    return ((OPMThingFigure) getFigure()).getContentPane();
+  }
 }

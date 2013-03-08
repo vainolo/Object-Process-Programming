@@ -12,7 +12,6 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.EditPolicy;
@@ -30,7 +29,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
-import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.gef.editor.part.delegates.DirectEditDelegate;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
@@ -75,11 +73,6 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
         e.printStackTrace();
       }
     }
-  }
-
-  @Override
-  public IFigure getContentPane() {
-    return ((OPMThingFigure) getFigure()).getContentPane();
   }
 
   /**

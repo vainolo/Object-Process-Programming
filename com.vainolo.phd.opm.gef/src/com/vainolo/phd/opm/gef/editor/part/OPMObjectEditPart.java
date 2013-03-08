@@ -12,6 +12,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMObjectFigure;
+import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMThing;
 
@@ -36,5 +37,10 @@ public class OPMObjectEditPart extends OPMThingEditPart {
     Dimension size = figure.getPreferredSize();
     constraints.setSize(size);
     parent.setLayoutConstraint(this, figure, constraints);
+  }
+
+  @Override
+  public IFigure getContentPane() {
+    return ((OPMThingFigure) getFigure()).getContentPane();
   }
 }
