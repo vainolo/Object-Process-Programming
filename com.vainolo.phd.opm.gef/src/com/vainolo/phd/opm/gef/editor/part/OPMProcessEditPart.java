@@ -20,6 +20,7 @@ public class OPMProcessEditPart extends OPMThingEditPart {
     return new OPMProcessFigure();
   }
 
+  @Override
   protected void refreshVisuals() {
     final OPMThingFigure figure = (OPMThingFigure) getFigure();
     final OPMThing model = (OPMThing) getModel();

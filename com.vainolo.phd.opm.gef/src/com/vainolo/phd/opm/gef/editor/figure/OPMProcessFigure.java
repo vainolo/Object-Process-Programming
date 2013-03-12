@@ -99,6 +99,7 @@ public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementF
     smartLabel.setText(text);
   }
 
+  @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
     Dimension smartLabelSize = smartLabel.calculateSize();
     return calculateEllipseDimensionBasedOnLabelSize(smartLabelSize);

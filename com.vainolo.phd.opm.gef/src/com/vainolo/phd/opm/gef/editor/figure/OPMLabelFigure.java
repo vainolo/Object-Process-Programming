@@ -32,6 +32,7 @@ public class OPMLabelFigure extends Figure implements OPMNamedElementFigure {
     setConstraint(smartLabel, r);
   }
 
+  @Override
   public SmartLabelFigure getNameFigure() {
     return smartLabel;
   }

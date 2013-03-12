@@ -9,7 +9,6 @@ package com.vainolo.phd.opm.gef.editor.part;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.draw2d.FreeformLayer;
 import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.LineBorder;
@@ -24,6 +23,7 @@ import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 
+import com.vainolo.phd.opm.gef.editor.figure.OPMObjectProcessDiagramFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -39,10 +39,10 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
   @Override
   protected IFigure createFigure() {
-    FreeformLayer layer = new FreeformLayer();
-    layer.setLayoutManager(new FreeformLayout());
-    layer.setBorder(new LineBorder(1));
-    return layer;
+    OPMObjectProcessDiagramFigure figure = new OPMObjectProcessDiagramFigure();
+    figure.setLayoutManager(new FreeformLayout());
+    figure.setBorder(new LineBorder(1));
+    return figure;
   }
 
   @Override
