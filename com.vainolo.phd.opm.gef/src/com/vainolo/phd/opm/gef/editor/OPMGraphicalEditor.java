@@ -38,6 +38,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
+import org.eclipse.ui.IKeyBindingService;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -94,12 +95,14 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
     // start zoom
     ScalableFreeformRootEditPart root = new ScalableFreeformRootEditPart();
+    root.getZoomManager().setZoomLevels(new double[] { 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0 });
+    root.getZoomManager().setZoomAnimationStyle(ZoomManager.ANIMATE_ZOOM_IN_OUT);
     IAction zoomIn = new ZoomInAction(root.getZoomManager());
     IAction zoomOut = new ZoomOutAction(root.getZoomManager());
     getActionRegistry().registerAction(zoomIn);
     getActionRegistry().registerAction(zoomOut);
-    getSite().getKeyBindingService().registerAction(zoomIn);
-    getSite().getKeyBindingService().registerAction(zoomOut);
+    ((IKeyBindingService) getSite().getService(IKeyBindingService.class)).registerAction(zoomIn);
+    ((IKeyBindingService) getSite().getService(IKeyBindingService.class)).registerAction(zoomOut);
     // end zoom.
 
     getGraphicalViewer().setRootEditPart(root);
