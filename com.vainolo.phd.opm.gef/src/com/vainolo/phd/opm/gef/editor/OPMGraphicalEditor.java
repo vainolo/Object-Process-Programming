@@ -19,11 +19,15 @@ import org.eclipse.gef.KeyStroke;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
+import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
+import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.DirectEditAction;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.gef.ui.actions.ToggleGridAction;
 import org.eclipse.gef.ui.actions.ToggleSnapToGeometryAction;
+import org.eclipse.gef.ui.actions.ZoomInAction;
+import org.eclipse.gef.ui.actions.ZoomOutAction;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
@@ -87,6 +91,18 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getEditDomain().getPaletteViewer().addDragSourceListener(
         new TemplateTransferDragSourceListener(getEditDomain().getPaletteViewer()));
     // end D&D
+
+    // start zoom
+    ScalableFreeformRootEditPart root = new ScalableFreeformRootEditPart();
+    IAction zoomIn = new ZoomInAction(root.getZoomManager());
+    IAction zoomOut = new ZoomOutAction(root.getZoomManager());
+    getActionRegistry().registerAction(zoomIn);
+    getActionRegistry().registerAction(zoomOut);
+    getSite().getKeyBindingService().registerAction(zoomIn);
+    getSite().getKeyBindingService().registerAction(zoomOut);
+    // end zoom.
+
+    getGraphicalViewer().setRootEditPart(root);
   }
 
   private void configureKeyboardShortcuts() {
@@ -171,7 +187,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   /**
-   * This methos implements adapting to {@link IPropertySheetPage}. All other requests are forwarded to the
+   * This method implements adapting to {@link IPropertySheetPage}. All other requests are forwarded to the
    * {@link GraphicalEditorWithFlyoutPalette#getAdapter(Class) parent} implementation.
    */
   @Override
@@ -209,7 +225,10 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         propertyPage.setRootEntry(root);
       }
       return propertyPage;
+    } else if(type == ZoomManager.class) {
+      return ((ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart()).getZoomManager();
     }
+
     return super.getAdapter(type);
   }
 

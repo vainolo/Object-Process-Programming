@@ -7,7 +7,6 @@ Bundle-Activator: com.vainolo.phd.opm.utilities.Activator
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Require-Bundle: org.eclipse.core.runtime,
  com.vainolo.phd.opm.model;bundle-version="1.0.0",
- org.junit;bundle-version="4.8.2",
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
