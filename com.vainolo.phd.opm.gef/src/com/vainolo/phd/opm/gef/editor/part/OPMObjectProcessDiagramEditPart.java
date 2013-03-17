@@ -9,10 +9,7 @@ package com.vainolo.phd.opm.gef.editor.part;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.draw2d.FreeformLayer;
-import org.eclipse.draw2d.FreeformLayout;
 import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LineBorder;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
@@ -39,10 +36,16 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
   @Override
   protected IFigure createFigure() {
-    FreeformLayer f = new FreeformLayer();
-    f.setLayoutManager(new FreeformLayout());
-    f.setBorder(new LineBorder(1));
-    return f;
+    // FreeformLayer f = new FreeformLayer();
+    // f.setLayoutManager(new FreeformLayout());
+    // f.setBorder(new LineBorder(1));
+    // return f;
+    return new OPMObjectProcessDiagramFigure();
+  }
+
+  @Override
+  public IFigure getContentPane() {
+    return ((OPMObjectProcessDiagramFigure) getFigure()).getContentPane();
   }
 
   @Override
