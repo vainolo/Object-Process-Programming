@@ -6,7 +6,6 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
 import org.eclipse.draw2d.BorderLayout;
-import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.draw2d.Figure;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.Label;
@@ -22,33 +21,26 @@ public class OPMObjectProcessDiagramFigure extends Figure {
   public OPMObjectProcessDiagramFigure() {
     setLayoutManager(new BorderLayout());
     setBorder(new LineBorder(1));
-    setBackgroundColor(ColorConstants.gray);
-    setOpaque(true);
 
     contentPane = new Figure();
     contentPane.setLayoutManager(new XYLayout());
     add(contentPane, BorderLayout.CENTER);
 
-    Label label = new Label("This is an OPD");
+    Label label = new Label("Here should go the name of the OPD");
     label.setTextAlignment(PositionConstants.TOP);
     add(label, BorderLayout.TOP);
-    label = new Label("These are the parameters");
-    label.setTextAlignment(PositionConstants.LEFT);
+    label = new Label("Parameters");
     add(label, BorderLayout.LEFT);
-    label = new Label("These are the results");
+    label = new Label("Results");
     label.setTextAlignment(PositionConstants.RIGHT);
     add(label, BorderLayout.RIGHT);
 
   }
 
   @Override
-  public Dimension getPreferredSize(int wHint, int hHint) {
-    return new Dimension(400, 400);
-  }
-
-  @Override
   public Rectangle getBounds() {
-    return new Rectangle(0, 0, 800, 800);
+    Dimension d = getPreferredSize();
+    return new Rectangle(0, 0, d.width, d.height);
   }
 
   public IFigure getContentPane() {
