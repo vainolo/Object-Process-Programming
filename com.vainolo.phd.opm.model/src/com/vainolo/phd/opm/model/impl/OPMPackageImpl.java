@@ -373,6 +373,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getOPMProcess_Order() {
+    return (EAttribute)opmProcessEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOPMLink() {
     return opmLinkEClass;
   }
@@ -733,6 +742,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     opmProcessEClass = createEClass(OPM_PROCESS);
     createEAttribute(opmProcessEClass, OPM_PROCESS__KIND);
+    createEAttribute(opmProcessEClass, OPM_PROCESS__ORDER);
 
     opmStructuralLinkAggregatorEClass = createEClass(OPM_STRUCTURAL_LINK_AGGREGATOR);
     createEAttribute(opmStructuralLinkAggregatorEClass, OPM_STRUCTURAL_LINK_AGGREGATOR__KIND);
@@ -843,6 +853,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     initEClass(opmProcessEClass, OPMProcess.class, "OPMProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMProcess_Kind(), this.getOPMProcessKind(), "kind", "", 1, 1, OPMProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPMProcess_Order(), ecorePackage.getEInt(), "order", null, 0, 1, OPMProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmStructuralLinkAggregatorEClass, OPMStructuralLinkAggregator.class, "OPMStructuralLinkAggregator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMStructuralLinkAggregator_Kind(), this.getOPMStructuralLinkAggregatorKind(), "kind", null, 0, 1, OPMStructuralLinkAggregator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

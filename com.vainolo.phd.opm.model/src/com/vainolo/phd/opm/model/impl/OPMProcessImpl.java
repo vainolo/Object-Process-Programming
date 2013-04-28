@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl#getKind <em>Kind</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl#getOrder <em>Order</em>}</li>
  * </ul>
  * </p>
  *
@@ -48,6 +49,25 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
 	protected OPMProcessKind kind = KIND_EDEFAULT;
 
 	/**
+   * The default value of the '{@link #getOrder() <em>Order</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOrder()
+   * @generated
+   * @ordered
+   */
+  protected static final int ORDER_EDEFAULT = 0;
+  /**
+   * The cached value of the '{@link #getOrder() <em>Order</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getOrder()
+   * @generated
+   * @ordered
+   */
+  protected int order = ORDER_EDEFAULT;
+
+  /**
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
@@ -89,6 +109,27 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
 
 	/**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public int getOrder() {
+    return order;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setOrder(int newOrder) {
+    int oldOrder = order;
+    order = newOrder;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_PROCESS__ORDER, oldOrder, order));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
@@ -97,6 +138,8 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
     switch (featureID) {
       case OPMPackage.OPM_PROCESS__KIND:
         return getKind();
+      case OPMPackage.OPM_PROCESS__ORDER:
+        return getOrder();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -111,6 +154,9 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
     switch (featureID) {
       case OPMPackage.OPM_PROCESS__KIND:
         setKind((OPMProcessKind)newValue);
+        return;
+      case OPMPackage.OPM_PROCESS__ORDER:
+        setOrder((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -127,6 +173,9 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
       case OPMPackage.OPM_PROCESS__KIND:
         setKind(KIND_EDEFAULT);
         return;
+      case OPMPackage.OPM_PROCESS__ORDER:
+        setOrder(ORDER_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -141,6 +190,8 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
     switch (featureID) {
       case OPMPackage.OPM_PROCESS__KIND:
         return kind != KIND_EDEFAULT;
+      case OPMPackage.OPM_PROCESS__ORDER:
+        return order != ORDER_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -157,6 +208,8 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (kind: ");
     result.append(kind);
+    result.append(", order: ");
+    result.append(order);
     result.append(')');
     return result.toString();
   }

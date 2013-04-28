@@ -30,13 +30,13 @@ import com.vainolo.phd.opm.model.OPMPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getIncomingLinks <em>Incoming Links</em>}</li>
- * <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getOutgoingLinks <em>Outgoing Links</em>}</li>
- * <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getContainer <em>Container</em>}</li>
- * <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getConstraints <em>Constraints</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getIncomingLinks <em>Incoming Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getOutgoingLinks <em>Outgoing Links</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getContainer <em>Container</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl#getConstraints <em>Constraints</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNode {
@@ -44,7 +44,6 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
    * The cached value of the '{@link #getIncomingLinks() <em>Incoming Links</em>}' reference list.
    * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
-   * 
    * @see #getIncomingLinks()
    * @generated
    * @ordered
@@ -55,7 +54,6 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
    * The cached value of the '{@link #getOutgoingLinks() <em>Outgoing Links</em>}' reference list.
    * <!-- begin-user-doc
    * --> <!-- end-user-doc -->
-   * 
    * @see #getOutgoingLinks()
    * @generated
    * @ordered
@@ -66,19 +64,16 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
    * The default value of the '{@link #getConstraints() <em>Constraints</em>}' attribute.
    * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @see #getConstraints()
    * @generated
    * @ordered
    */
-  protected static final Rectangle CONSTRAINTS_EDEFAULT = (Rectangle) OPMFactory.eINSTANCE.createFromString(
-      OPMPackage.eINSTANCE.getRectangle(), "0,0,50,50");
+  protected static final Rectangle CONSTRAINTS_EDEFAULT = (Rectangle)OPMFactory.eINSTANCE.createFromString(OPMPackage.eINSTANCE.getRectangle(), "0,0,50,50");
 
   /**
    * The cached value of the '{@link #getConstraints() <em>Constraints</em>}' attribute.
    * <!-- begin-user-doc --> <!--
    * end-user-doc -->
-   * 
    * @see #getConstraints()
    * @generated
    * @ordered
@@ -87,7 +82,6 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   protected OPMNodeImpl() {
@@ -96,7 +90,6 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
@@ -106,80 +99,66 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   public EList<OPMLink> getIncomingLinks() {
-    if(incomingLinks == null) {
-      incomingLinks =
-          new EObjectWithInverseResolvingEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_NODE__INCOMING_LINKS,
-              OPMPackage.OPM_LINK__TARGET);
+    if (incomingLinks == null) {
+      incomingLinks = new EObjectWithInverseResolvingEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_NODE__INCOMING_LINKS, OPMPackage.OPM_LINK__TARGET);
     }
     return incomingLinks;
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   public EList<OPMLink> getOutgoingLinks() {
-    if(outgoingLinks == null) {
-      outgoingLinks =
-          new EObjectWithInverseResolvingEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_NODE__OUTGOING_LINKS,
-              OPMPackage.OPM_LINK__SOURCE);
+    if (outgoingLinks == null) {
+      outgoingLinks = new EObjectWithInverseResolvingEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_NODE__OUTGOING_LINKS, OPMPackage.OPM_LINK__SOURCE);
     }
     return outgoingLinks;
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   public OPMContainer getContainer() {
-    if(eContainerFeatureID() != OPMPackage.OPM_NODE__CONTAINER)
-      return null;
-    return (OPMContainer) eContainer();
+    if (eContainerFeatureID() != OPMPackage.OPM_NODE__CONTAINER) return null;
+    return (OPMContainer)eContainer();
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   public NotificationChain basicSetContainer(OPMContainer newContainer, NotificationChain msgs) {
-    msgs = eBasicSetContainer((InternalEObject) newContainer, OPMPackage.OPM_NODE__CONTAINER, msgs);
+    msgs = eBasicSetContainer((InternalEObject)newContainer, OPMPackage.OPM_NODE__CONTAINER, msgs);
     return msgs;
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   public void setContainer(OPMContainer newContainer) {
-    if(newContainer != eInternalContainer() ||
-        (eContainerFeatureID() != OPMPackage.OPM_NODE__CONTAINER && newContainer != null)) {
-      if(EcoreUtil.isAncestor(this, newContainer))
+    if (newContainer != eInternalContainer() || (eContainerFeatureID() != OPMPackage.OPM_NODE__CONTAINER && newContainer != null)) {
+      if (EcoreUtil.isAncestor(this, newContainer))
         throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
       NotificationChain msgs = null;
-      if(eInternalContainer() != null)
+      if (eInternalContainer() != null)
         msgs = eBasicRemoveFromContainer(msgs);
-      if(newContainer != null)
-        msgs =
-            ((InternalEObject) newContainer).eInverseAdd(
-                this, OPMPackage.OPM_CONTAINER__NODES, OPMContainer.class, msgs);
+      if (newContainer != null)
+        msgs = ((InternalEObject)newContainer).eInverseAdd(this, OPMPackage.OPM_CONTAINER__NODES, OPMContainer.class, msgs);
       msgs = basicSetContainer(newContainer, msgs);
-      if(msgs != null)
-        msgs.dispatch();
-    } else if(eNotificationRequired())
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NODE__CONTAINER, newContainer, newContainer));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   public Rectangle getConstraints() {
@@ -188,50 +167,46 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   public void setConstraints(Rectangle newConstraints) {
     Rectangle oldConstraints = constraints;
     constraints = newConstraints;
-    if(eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NODE__CONSTRAINTS, oldConstraints,
-          constraints));
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NODE__CONSTRAINTS, oldConstraints, constraints));
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_NODE__INCOMING_LINKS:
-        return ((InternalEList<InternalEObject>) (InternalEList<?>) getIncomingLinks()).basicAdd(otherEnd, msgs);
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getIncomingLinks()).basicAdd(otherEnd, msgs);
       case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-        return ((InternalEList<InternalEObject>) (InternalEList<?>) getOutgoingLinks()).basicAdd(otherEnd, msgs);
+        return ((InternalEList<InternalEObject>)(InternalEList<?>)getOutgoingLinks()).basicAdd(otherEnd, msgs);
       case OPMPackage.OPM_NODE__CONTAINER:
-        if(eInternalContainer() != null)
+        if (eInternalContainer() != null)
           msgs = eBasicRemoveFromContainer(msgs);
-        return basicSetContainer((OPMContainer) otherEnd, msgs);
+        return basicSetContainer((OPMContainer)otherEnd, msgs);
     }
     return super.eInverseAdd(otherEnd, featureID, msgs);
   }
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_NODE__INCOMING_LINKS:
-        return ((InternalEList<?>) getIncomingLinks()).basicRemove(otherEnd, msgs);
+        return ((InternalEList<?>)getIncomingLinks()).basicRemove(otherEnd, msgs);
       case OPMPackage.OPM_NODE__OUTGOING_LINKS:
-        return ((InternalEList<?>) getOutgoingLinks()).basicRemove(otherEnd, msgs);
+        return ((InternalEList<?>)getOutgoingLinks()).basicRemove(otherEnd, msgs);
       case OPMPackage.OPM_NODE__CONTAINER:
         return basicSetContainer(null, msgs);
     }
@@ -240,12 +215,11 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-    switch(eContainerFeatureID()) {
+    switch (eContainerFeatureID()) {
       case OPMPackage.OPM_NODE__CONTAINER:
         return eInternalContainer().eInverseRemove(this, OPMPackage.OPM_CONTAINER__NODES, OPMContainer.class, msgs);
     }
@@ -254,12 +228,11 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_NODE__INCOMING_LINKS:
         return getIncomingLinks();
       case OPMPackage.OPM_NODE__OUTGOING_LINKS:
@@ -274,26 +247,25 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_NODE__INCOMING_LINKS:
         getIncomingLinks().clear();
-        getIncomingLinks().addAll((Collection<? extends OPMLink>) newValue);
+        getIncomingLinks().addAll((Collection<? extends OPMLink>)newValue);
         return;
       case OPMPackage.OPM_NODE__OUTGOING_LINKS:
         getOutgoingLinks().clear();
-        getOutgoingLinks().addAll((Collection<? extends OPMLink>) newValue);
+        getOutgoingLinks().addAll((Collection<? extends OPMLink>)newValue);
         return;
       case OPMPackage.OPM_NODE__CONTAINER:
-        setContainer((OPMContainer) newValue);
+        setContainer((OPMContainer)newValue);
         return;
       case OPMPackage.OPM_NODE__CONSTRAINTS:
-        setConstraints((Rectangle) newValue);
+        setConstraints((Rectangle)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -301,12 +273,11 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public void eUnset(int featureID) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_NODE__INCOMING_LINKS:
         getIncomingLinks().clear();
         return;
@@ -314,7 +285,7 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
         getOutgoingLinks().clear();
         return;
       case OPMPackage.OPM_NODE__CONTAINER:
-        setContainer((OPMContainer) null);
+        setContainer((OPMContainer)null);
         return;
       case OPMPackage.OPM_NODE__CONSTRAINTS:
         setConstraints(CONSTRAINTS_EDEFAULT);
@@ -325,12 +296,11 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public boolean eIsSet(int featureID) {
-    switch(featureID) {
+    switch (featureID) {
       case OPMPackage.OPM_NODE__INCOMING_LINKS:
         return incomingLinks != null && !incomingLinks.isEmpty();
       case OPMPackage.OPM_NODE__OUTGOING_LINKS:
@@ -345,13 +315,11 @@ public abstract class OPMNodeImpl extends OPMElementWithIDImpl implements OPMNod
 
   /**
    * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * 
    * @generated
    */
   @Override
   public String toString() {
-    if(eIsProxy())
-      return super.toString();
+    if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (constraints: ");

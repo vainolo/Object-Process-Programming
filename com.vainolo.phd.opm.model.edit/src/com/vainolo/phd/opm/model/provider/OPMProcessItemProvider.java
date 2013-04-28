@@ -62,6 +62,7 @@ public class OPMProcessItemProvider
       super.getPropertyDescriptors(object);
 
       addKindPropertyDescriptor(object);
+      addOrderPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -89,6 +90,28 @@ public class OPMProcessItemProvider
   }
 
 	/**
+   * This adds a property descriptor for the Order feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addOrderPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPMProcess_order_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPMProcess_order_feature", "_UI_OPMProcess_type"),
+         OPMPackage.Literals.OPM_PROCESS__ORDER,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns OPMProcess.gif.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -126,6 +149,7 @@ public class OPMProcessItemProvider
 
     switch (notification.getFeatureID(OPMProcess.class)) {
       case OPMPackage.OPM_PROCESS__KIND:
+      case OPMPackage.OPM_PROCESS__ORDER:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }
