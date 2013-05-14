@@ -4,11 +4,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.vainolo.phd.opm</groupId>
-    <artifactId>Object-Process-Programming</artifactId>
+    <artifactId>com.vainolo.phd.opm.releng</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../com.vainolo.phd.opm.releng</relativePath>
   </parent>
-  <groupId>com.vainolo.phd.opm</groupId>
   <artifactId>com.vainolo.phd.opm.utilities</artifactId>
-  <version>0.1.0</version>
   <packaging>eclipse-plugin</packaging>
 </project>

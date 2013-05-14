@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OPM GEF Editor
 Bundle-SymbolicName: com.vainolo.phd.opm.gef;singleton:=true
-Bundle-Version: 0.1
+Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.vainolo.phd.opm.gef.Activator
 Bundle-Vendor: vainolo
 Require-Bundle: org.eclipse.ui,
@@ -18,7 +18,7 @@ Require-Bundle: org.eclipse.ui,
  com.vainolo.phd.opm.utilities,
  com.vainolo.draw2d.extras,
  com.vainolo.jdraw2d.eclipse,
- com.vainolo.vainolibraries.eclipse
+ com.vainolo.vainolibraries.java.eclipse
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: com.ibm.icu.text;version="4.4.2.2"

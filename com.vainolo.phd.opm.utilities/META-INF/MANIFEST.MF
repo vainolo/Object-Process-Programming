@@ -2,11 +2,11 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OPM Utilities
 Bundle-SymbolicName: com.vainolo.phd.opm.utilities
-Bundle-Version: 0.1
+Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.vainolo.phd.opm.utilities.Activator
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Require-Bundle: org.eclipse.core.runtime,
- com.vainolo.phd.opm.model;bundle-version="1.0.0",
+ com.vainolo.phd.opm.model,
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy

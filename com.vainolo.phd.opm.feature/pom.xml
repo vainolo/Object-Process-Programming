@@ -7,8 +7,6 @@
     <artifactId>Object-Process-Programming</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>com.vainolo.phd.opm</groupId>
   <artifactId>com.vainolo.phd.opm.feature</artifactId>
-  <version>0.1</version>
   <packaging>eclipse-feature</packaging>
 </project>
