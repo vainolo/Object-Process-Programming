@@ -34,5 +34,7 @@
 		<module>../com.vainolo.phd.opm.model.tests</module>
 		<module>../com.vainolo.phd.opm.utilities</module>
 		<module>../com.vainolo.phd.opm.validation</module>
+		<module>../com.vainolo.phd.opm.feature</module>
+		<module>../com.vainolo.phd.opm.releng.p2</module>
 	</modules>
 </project>
