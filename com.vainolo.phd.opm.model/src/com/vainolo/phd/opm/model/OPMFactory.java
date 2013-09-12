@@ -18,92 +18,92 @@ import org.eclipse.emf.ecore.EFactory;
  */
 public interface OPMFactory extends EFactory {
 	/**
-   * The singleton instance of the factory.
-   * <!-- begin-user-doc -->
+	 * The singleton instance of the factory.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
 	OPMFactory eINSTANCE = com.vainolo.phd.opm.model.impl.OPMFactoryImpl.init();
 
 	/**
-   * Returns a new object of class '<em>Object Process Diagram</em>'.
-   * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Object Process Diagram</em>'.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @return a new object of class '<em>Object Process Diagram</em>'.
-   * @generated
-   */
+	 * @return a new object of class '<em>Object Process Diagram</em>'.
+	 * @generated
+	 */
 	OPMObjectProcessDiagram createOPMObjectProcessDiagram();
 
 	/**
-   * Returns a new object of class '<em>Object</em>'.
-   * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Object</em>'.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @return a new object of class '<em>Object</em>'.
-   * @generated
-   */
+	 * @return a new object of class '<em>Object</em>'.
+	 * @generated
+	 */
 	OPMObject createOPMObject();
 
 	/**
-   * Returns a new object of class '<em>Process</em>'.
-   * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Process</em>'.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @return a new object of class '<em>Process</em>'.
-   * @generated
-   */
+	 * @return a new object of class '<em>Process</em>'.
+	 * @generated
+	 */
 	OPMProcess createOPMProcess();
 
 	/**
-   * Returns a new object of class '<em>Link</em>'.
-   * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Link</em>'.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @return a new object of class '<em>Link</em>'.
-   * @generated
-   */
+	 * @return a new object of class '<em>Link</em>'.
+	 * @generated
+	 */
 	OPMLink createOPMLink();
 
 	/**
-   * Returns a new object of class '<em>State</em>'.
-   * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>State</em>'.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @return a new object of class '<em>State</em>'.
-   * @generated
-   */
+	 * @return a new object of class '<em>State</em>'.
+	 * @generated
+	 */
     OPMState createOPMState();
 
     /**
-   * Returns a new object of class '<em>Structural Link Aggregator</em>'.
-   * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Structural Link Aggregator</em>'.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @return a new object of class '<em>Structural Link Aggregator</em>'.
-   * @generated
-   */
+	 * @return a new object of class '<em>Structural Link Aggregator</em>'.
+	 * @generated
+	 */
 	OPMStructuralLinkAggregator createOPMStructuralLinkAggregator();
 
 	/**
-   * Returns a new object of class '<em>Procedural Link</em>'.
-   * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Procedural Link</em>'.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @return a new object of class '<em>Procedural Link</em>'.
-   * @generated
-   */
+	 * @return a new object of class '<em>Procedural Link</em>'.
+	 * @generated
+	 */
 	OPMProceduralLink createOPMProceduralLink();
 
 	/**
-   * Returns a new object of class '<em>Label</em>'.
-   * <!-- begin-user-doc -->
+	 * Returns a new object of class '<em>Label</em>'.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @return a new object of class '<em>Label</em>'.
-   * @generated
-   */
+	 * @return a new object of class '<em>Label</em>'.
+	 * @generated
+	 */
 	Label createLabel();
 
 	/**
-   * Returns the package supported by this factory.
-   * <!-- begin-user-doc -->
+	 * Returns the package supported by this factory.
+	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-   * @return the package supported by this factory.
-   * @generated
-   */
+	 * @return the package supported by this factory.
+	 * @generated
+	 */
 	OPMPackage getOPMPackage();
 
 } //OPMFactory

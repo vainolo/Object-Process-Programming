@@ -38,12 +38,14 @@
   <eClassifiers xsi:type="ecore:EClass" name="OPMState" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//OPMObjectKind"
-        defaultValueLiteral=""/>
+        defaultValueLiteral="Simple"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMProcess" eSuperTypes="#//OPMThing">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//OPMProcessKind"
-        defaultValueLiteral=""/>
+        defaultValueLiteral="Compound"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="order" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiplicity" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLinkAggregator" eSuperTypes="#//OPMNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMStructuralLinkAggregatorKind"/>
@@ -58,7 +60,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="bendpoints" upperBound="-1"
         eType="#//Point"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="routerKind" eType="#//OPMLinkRouterKind"
-        defaultValueLiteral=""/>
+        defaultValueLiteral="Bendpoint"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="centerDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

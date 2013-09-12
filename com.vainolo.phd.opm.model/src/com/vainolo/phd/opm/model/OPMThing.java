@@ -29,29 +29,29 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface OPMThing extends OPMNode, OPMContainer, OPMNamedElement {
 	/**
-   * Returns the value of the '<em><b>Description</b></em>' attribute.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Description</b></em>' attribute.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Description</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-   * @return the value of the '<em>Description</em>' attribute.
-   * @see #setDescription(String)
-   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing_Description()
-   * @model
-   * @generated
-   */
+	 * @return the value of the '<em>Description</em>' attribute.
+	 * @see #setDescription(String)
+	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing_Description()
+	 * @model
+	 * @generated
+	 */
     String getDescription();
 
     /**
-   * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMThing#getDescription <em>Description</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMThing#getDescription <em>Description</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Description</em>' attribute.
-   * @see #getDescription()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Description</em>' attribute.
+	 * @see #getDescription()
+	 * @generated
+	 */
     void setDescription(String value);
 
 } // OPMThing

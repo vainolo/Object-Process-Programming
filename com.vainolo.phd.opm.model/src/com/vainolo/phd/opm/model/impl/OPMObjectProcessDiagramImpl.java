@@ -42,378 +42,378 @@ import com.vainolo.phd.opm.model.VerticalAlignment;
  */
 public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPMObjectProcessDiagram {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
   protected static final String NAME_EDEFAULT = "<<name>>";
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
   protected String name = NAME_EDEFAULT;
   /**
-   * The default value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAlignment()
-   * @generated
-   * @ordered
-   */
+	 * @see #getAlignment()
+	 * @generated
+	 * @ordered
+	 */
   protected static final VerticalAlignment ALIGNMENT_EDEFAULT = VerticalAlignment.CENTER;
   /**
-   * The cached value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAlignment()
-   * @generated
-   * @ordered
-   */
+	 * @see #getAlignment()
+	 * @generated
+	 * @ordered
+	 */
   protected VerticalAlignment alignment = ALIGNMENT_EDEFAULT;
   /**
-   * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getLinks()
-   * @generated
-   * @ordered
-   */
+	 * @see #getLinks()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<OPMLink> links;
 
   /**
-   * The default value of the '{@link #getNextId() <em>Next Id</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getNextId() <em>Next Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNextId()
-   * @generated
-   * @ordered
-   */
+	 * @see #getNextId()
+	 * @generated
+	 * @ordered
+	 */
   protected static final long NEXT_ID_EDEFAULT = 0L;
   /**
-   * The cached value of the '{@link #getNextId() <em>Next Id</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getNextId() <em>Next Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNextId()
-   * @generated
-   * @ordered
-   */
+	 * @see #getNextId()
+	 * @generated
+	 * @ordered
+	 */
   protected long nextId = NEXT_ID_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getKind()
-   * @generated
-   * @ordered
-   */
+	 * @see #getKind()
+	 * @generated
+	 * @ordered
+	 */
   protected static final OPMObjectProcessDiagramKind KIND_EDEFAULT = OPMObjectProcessDiagramKind.COMPOUND;
   /**
-   * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getKind()
-   * @generated
-   * @ordered
-   */
+	 * @see #getKind()
+	 * @generated
+	 * @ordered
+	 */
   protected OPMObjectProcessDiagramKind kind = KIND_EDEFAULT;
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @generated
-   */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
   protected OPMObjectProcessDiagramImpl() {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @generated
-   */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass() {
-    return OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM;
-  }
+		return OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public String getName() {
-    return name;
-  }
+		return name;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setName(String newName) {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME, oldName, name));
-  }
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME, oldName, name));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public VerticalAlignment getAlignment() {
-    return alignment;
-  }
+		return alignment;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setAlignment(VerticalAlignment newAlignment) {
-    VerticalAlignment oldAlignment = alignment;
-    alignment = newAlignment == null ? ALIGNMENT_EDEFAULT : newAlignment;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT, oldAlignment, alignment));
-  }
+		VerticalAlignment oldAlignment = alignment;
+		alignment = newAlignment == null ? ALIGNMENT_EDEFAULT : newAlignment;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT, oldAlignment, alignment));
+	}
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @generated
-   */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
   public EList<OPMLink> getLinks() {
-    if (links == null) {
-      links = new EObjectContainmentWithInverseEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS, OPMPackage.OPM_LINK__OPD);
-    }
-    return links;
-  }
+		if (links == null) {
+			links = new EObjectContainmentWithInverseEList<OPMLink>(OPMLink.class, this, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS, OPMPackage.OPM_LINK__OPD);
+		}
+		return links;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public long getNextId() {
-    return nextId;
-  }
+		return nextId;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setNextId(long newNextId) {
-    long oldNextId = nextId;
-    nextId = newNextId;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID, oldNextId, nextId));
-  }
+		long oldNextId = nextId;
+		nextId = newNextId;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID, oldNextId, nextId));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public OPMObjectProcessDiagramKind getKind() {
-    return kind;
-  }
+		return kind;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setKind(OPMObjectProcessDiagramKind newKind) {
-    OPMObjectProcessDiagramKind oldKind = kind;
-    kind = newKind == null ? KIND_EDEFAULT : newKind;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND, oldKind, kind));
-  }
+		OPMObjectProcessDiagramKind oldKind = kind;
+		kind = newKind == null ? KIND_EDEFAULT : newKind;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND, oldKind, kind));
+	}
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @generated
-   */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch (featureID) {
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinks()).basicAdd(otherEnd, msgs);
-    }
-    return super.eInverseAdd(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinks()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @generated
-   */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch (featureID) {
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-        return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+				return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @generated
-   */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
-    switch (featureID) {
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
-        return getName();
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
-        return getAlignment();
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-        return getLinks();
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
-        return getNextId();
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
-        return getKind();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
+				return getName();
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
+				return getAlignment();
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+				return getLinks();
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+				return getNextId();
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
+				return getKind();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @generated
-   */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue) {
-    switch (featureID) {
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
-        setName((String)newValue);
-        return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
-        setAlignment((VerticalAlignment)newValue);
-        return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-        getLinks().clear();
-        getLinks().addAll((Collection<? extends OPMLink>)newValue);
-        return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
-        setNextId((Long)newValue);
-        return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
-        setKind((OPMObjectProcessDiagramKind)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
+				setName((String)newValue);
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
+				setAlignment((VerticalAlignment)newValue);
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+				getLinks().clear();
+				getLinks().addAll((Collection<? extends OPMLink>)newValue);
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+				setNextId((Long)newValue);
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
+				setKind((OPMObjectProcessDiagramKind)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @generated
-   */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID) {
-    switch (featureID) {
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
-        setAlignment(ALIGNMENT_EDEFAULT);
-        return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-        getLinks().clear();
-        return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
-        setNextId(NEXT_ID_EDEFAULT);
-        return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
-        setKind(KIND_EDEFAULT);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
+				setAlignment(ALIGNMENT_EDEFAULT);
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+				getLinks().clear();
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+				setNextId(NEXT_ID_EDEFAULT);
+				return;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
+				setKind(KIND_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc --> <!-- end-user-doc -->
-   * @generated
-   */
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID) {
-    switch (featureID) {
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
-        return alignment != ALIGNMENT_EDEFAULT;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
-        return links != null && !links.isEmpty();
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
-        return nextId != NEXT_ID_EDEFAULT;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
-        return kind != KIND_EDEFAULT;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
+				return alignment != ALIGNMENT_EDEFAULT;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
+				return links != null && !links.isEmpty();
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+				return nextId != NEXT_ID_EDEFAULT;
+			case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
+				return kind != KIND_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-    if (baseClass == OPMNamedElement.class) {
-      switch (derivedFeatureID) {
-        case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME: return OPMPackage.OPM_NAMED_ELEMENT__NAME;
-        case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT: return OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
+		if (baseClass == OPMNamedElement.class) {
+			switch (derivedFeatureID) {
+				case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME: return OPMPackage.OPM_NAMED_ELEMENT__NAME;
+				case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT: return OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-    if (baseClass == OPMNamedElement.class) {
-      switch (baseFeatureID) {
-        case OPMPackage.OPM_NAMED_ELEMENT__NAME: return OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME;
-        case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT: return OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-  }
+		if (baseClass == OPMNamedElement.class) {
+			switch (baseFeatureID) {
+				case OPMPackage.OPM_NAMED_ELEMENT__NAME: return OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME;
+				case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT: return OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public String toString() {
-    if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", alignment: ");
-    result.append(alignment);
-    result.append(", nextId: ");
-    result.append(nextId);
-    result.append(", kind: ");
-    result.append(kind);
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(", alignment: ");
+		result.append(alignment);
+		result.append(", nextId: ");
+		result.append(nextId);
+		result.append(", kind: ");
+		result.append(kind);
+		result.append(')');
+		return result.toString();
+	}
 
 } // OPMObjectProcessDiagramImpl

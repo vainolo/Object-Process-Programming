@@ -8,9 +8,9 @@
 
 	<repositories>
 		<repository>
-			<id>indigo</id>
+			<id>kepler</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/indigo</url>
+			<url>http://download.eclipse.org/releases/kepler</url>
 		</repository>
 	</repositories>
 
@@ -19,7 +19,7 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
-				<version>0.16.0</version>
+				<version>0.18.0</version>
 				<extensions>true</extensions>
 			</plugin>
 		</plugins>
@@ -35,6 +35,5 @@
 		<module>../com.vainolo.phd.opm.utilities</module>
 		<module>../com.vainolo.phd.opm.validation</module>
 		<module>../com.vainolo.phd.opm.feature</module>
-		<module>../com.vainolo.phd.opm.releng.p2</module>
 	</modules>
 </project>

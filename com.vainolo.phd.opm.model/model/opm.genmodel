@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
-    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.vainolo.phd.opm.model/src"
-    modelPluginID="com.vainolo.phd.opm.model" modelName="OPM" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="6.0" copyrightFields="false" interfaceNamePattern="">
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.vainolo.phd.opm.model/src" modelPluginID="com.vainolo.phd.opm.model"
+    modelName="OPM" importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0"
+    copyrightFields="false" interfaceNamePattern="">
   <foreignModel>opm.ecore</foreignModel>
   <genPackages prefix="OPM" basePackage="com.vainolo.phd" disposableProviderFactory="true"
       interfacePackageSuffix="model" metaDataPackageSuffix="model" classPackageSuffix="model.impl"
@@ -38,34 +37,53 @@
       <genEnumLiterals ecoreEnumLiteral="opm.ecore#//OPMProcessKind/JAVA"/>
       <genEnumLiterals ecoreEnumLiteral="opm.ecore#//OPMProcessKind/CONCEPTUAL"/>
     </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="opm.ecore#//OPMObjectProcessDiagramKind">
+      <genEnumLiterals ecoreEnumLiteral="opm.ecore#//OPMObjectProcessDiagramKind/COMPOUND"/>
+      <genEnumLiterals ecoreEnumLiteral="opm.ecore#//OPMObjectProcessDiagramKind/SYSTEM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="opm.ecore#//VerticalAlignment">
+      <genEnumLiterals ecoreEnumLiteral="opm.ecore#//VerticalAlignment/TOP"/>
+      <genEnumLiterals ecoreEnumLiteral="opm.ecore#//VerticalAlignment/CENTER"/>
+      <genEnumLiterals ecoreEnumLiteral="opm.ecore#//VerticalAlignment/BOTTOM"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="opm.ecore#//OPMObjectKind">
+      <genEnumLiterals ecoreEnumLiteral="opm.ecore#//OPMObjectKind/SIMPLE"/>
+      <genEnumLiterals ecoreEnumLiteral="opm.ecore#//OPMObjectKind/COLLECTION"/>
+    </genEnums>
     <genDataTypes ecoreDataType="opm.ecore#//Point"/>
     <genDataTypes ecoreDataType="opm.ecore#//Rectangle"/>
+    <genClasses image="false" ecoreClass="opm.ecore#//OPMElementWithID">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMElementWithID/id"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="opm.ecore#//OPMNamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMNamedElement/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMNamedElement/alignment"/>
+    </genClasses>
     <genClasses image="false" ecoreClass="opm.ecore#//OPMContainer">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference opm.ecore#//OPMContainer/nodes"/>
-    </genClasses>
-    <genClasses ecoreClass="opm.ecore#//OPMObjectProcessDiagram">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference opm.ecore#//OPMObjectProcessDiagram/links"/>
-      <genOperations ecoreOperation="opm.ecore#//OPMObjectProcessDiagram/getProcesses"/>
-      <genOperations ecoreOperation="opm.ecore#//OPMObjectProcessDiagram/getObjects"/>
     </genClasses>
     <genClasses image="false" ecoreClass="opm.ecore#//OPMNode">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opm.ecore#//OPMNode/incomingLinks"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opm.ecore#//OPMNode/outgoingLinks"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference opm.ecore#//OPMNode/container"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMNode/constraints"/>
-      <genOperations ecoreOperation="opm.ecore#//OPMNode/getOutgoingStructuralLinks"/>
-      <genOperations ecoreOperation="opm.ecore#//OPMNode/getIncomingStructuralLinks"/>
-      <genOperations ecoreOperation="opm.ecore#//OPMNode/getOpd"/>
-      <genOperations ecoreOperation="opm.ecore#//OPMNode/getIncomingProceduralLinks"/>
-      <genOperations ecoreOperation="opm.ecore#//OPMNode/getOutgoingProceduralLinks"/>
+    </genClasses>
+    <genClasses ecoreClass="opm.ecore#//OPMObjectProcessDiagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference opm.ecore#//OPMObjectProcessDiagram/links"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMObjectProcessDiagram/nextId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMObjectProcessDiagram/kind"/>
     </genClasses>
     <genClasses ecoreClass="opm.ecore#//OPMThing">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMThing/description"/>
     </genClasses>
     <genClasses ecoreClass="opm.ecore#//OPMState"/>
-    <genClasses ecoreClass="opm.ecore#//OPMObject"/>
+    <genClasses ecoreClass="opm.ecore#//OPMObject">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMObject/kind"/>
+    </genClasses>
     <genClasses ecoreClass="opm.ecore#//OPMProcess">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMProcess/kind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMProcess/order"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMProcess/multiplicity"/>
     </genClasses>
     <genClasses ecoreClass="opm.ecore#//OPMStructuralLinkAggregator">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMStructuralLinkAggregator/kind"/>
@@ -82,9 +100,6 @@
     </genClasses>
     <genClasses ecoreClass="opm.ecore#//OPMProceduralLink">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMProceduralLink/kind"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="opm.ecore#//OPMNamedElement">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPMNamedElement/name"/>
     </genClasses>
     <genClasses ecoreClass="opm.ecore#//Label"/>
   </genPackages>

@@ -39,133 +39,133 @@ import org.eclipse.emf.ecore.util.InternalEList;
  */
 public abstract class OPMContainerImpl extends OPMElementWithIDImpl implements OPMContainer {
     /**
-   * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @see #getNodes()
-   * @generated
-   * @ordered
-   */
+	 * @see #getNodes()
+	 * @generated
+	 * @ordered
+	 */
     protected EList<OPMNode> nodes;
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     protected OPMContainerImpl() {
-    super();
-  }
+		super();
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-    return OPMPackage.Literals.OPM_CONTAINER;
-  }
+		return OPMPackage.Literals.OPM_CONTAINER;
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public EList<OPMNode> getNodes() {
-    if (nodes == null) {
-      nodes = new EObjectContainmentWithInverseEList<OPMNode>(OPMNode.class, this, OPMPackage.OPM_CONTAINER__NODES, OPMPackage.OPM_NODE__CONTAINER);
-    }
-    return nodes;
-  }
+		if (nodes == null) {
+			nodes = new EObjectContainmentWithInverseEList<OPMNode>(OPMNode.class, this, OPMPackage.OPM_CONTAINER__NODES, OPMPackage.OPM_NODE__CONTAINER);
+		}
+		return nodes;
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @SuppressWarnings("unchecked")
     @Override
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch (featureID) {
-      case OPMPackage.OPM_CONTAINER__NODES:
-        return ((InternalEList<InternalEObject>)(InternalEList<?>)getNodes()).basicAdd(otherEnd, msgs);
-    }
-    return super.eInverseAdd(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_CONTAINER__NODES:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getNodes()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch (featureID) {
-      case OPMPackage.OPM_CONTAINER__NODES:
-        return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_CONTAINER__NODES:
+				return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-    switch (featureID) {
-      case OPMPackage.OPM_CONTAINER__NODES:
-        return getNodes();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_CONTAINER__NODES:
+				return getNodes();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @SuppressWarnings("unchecked")
     @Override
     public void eSet(int featureID, Object newValue) {
-    switch (featureID) {
-      case OPMPackage.OPM_CONTAINER__NODES:
-        getNodes().clear();
-        getNodes().addAll((Collection<? extends OPMNode>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_CONTAINER__NODES:
+				getNodes().clear();
+				getNodes().addAll((Collection<? extends OPMNode>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-    switch (featureID) {
-      case OPMPackage.OPM_CONTAINER__NODES:
-        getNodes().clear();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_CONTAINER__NODES:
+				getNodes().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-    switch (featureID) {
-      case OPMPackage.OPM_CONTAINER__NODES:
-        return nodes != null && !nodes.isEmpty();
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_CONTAINER__NODES:
+				return nodes != null && !nodes.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //OPMContainerImpl

@@ -23,190 +23,190 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum OPMLinkRouterKind implements Enumerator {
     /**
-   * The '<em><b>BENDPOINT</b></em>' literal object.
-   * <!-- begin-user-doc -->
+	 * The '<em><b>BENDPOINT</b></em>' literal object.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @see #BENDPOINT_VALUE
-   * @generated
-   * @ordered
-   */
+	 * @see #BENDPOINT_VALUE
+	 * @generated
+	 * @ordered
+	 */
     BENDPOINT(0, "BENDPOINT", "Bendpoint"),
 
     /**
-   * The '<em><b>MANHATTAN</b></em>' literal object.
-   * <!-- begin-user-doc -->
+	 * The '<em><b>MANHATTAN</b></em>' literal object.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @see #MANHATTAN_VALUE
-   * @generated
-   * @ordered
-   */
+	 * @see #MANHATTAN_VALUE
+	 * @generated
+	 * @ordered
+	 */
     MANHATTAN(1, "MANHATTAN", "Manhattan");
 
     /**
-   * The '<em><b>BENDPOINT</b></em>' literal value.
-   * <!-- begin-user-doc -->
+	 * The '<em><b>BENDPOINT</b></em>' literal value.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of '<em><b>BENDPOINT</b></em>' literal object isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-   * @see #BENDPOINT
-   * @model literal="Bendpoint"
-   * @generated
-   * @ordered
-   */
+	 * @see #BENDPOINT
+	 * @model literal="Bendpoint"
+	 * @generated
+	 * @ordered
+	 */
     public static final int BENDPOINT_VALUE = 0;
 
     /**
-   * The '<em><b>MANHATTAN</b></em>' literal value.
-   * <!-- begin-user-doc -->
+	 * The '<em><b>MANHATTAN</b></em>' literal value.
+	 * <!-- begin-user-doc -->
      * <p>
      * If the meaning of '<em><b>MANHATTAN</b></em>' literal object isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-   * @see #MANHATTAN
-   * @model literal="Manhattan"
-   * @generated
-   * @ordered
-   */
+	 * @see #MANHATTAN
+	 * @model literal="Manhattan"
+	 * @generated
+	 * @ordered
+	 */
     public static final int MANHATTAN_VALUE = 1;
 
     /**
-   * An array of all the '<em><b>Link Router Kind</b></em>' enumerators.
-   * <!-- begin-user-doc -->
+	 * An array of all the '<em><b>Link Router Kind</b></em>' enumerators.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     private static final OPMLinkRouterKind[] VALUES_ARRAY =
         new OPMLinkRouterKind[] {
-      BENDPOINT,
-      MANHATTAN,
-    };
+			BENDPOINT,
+			MANHATTAN,
+		};
 
     /**
-   * A public read-only list of all the '<em><b>Link Router Kind</b></em>' enumerators.
-   * <!-- begin-user-doc -->
+	 * A public read-only list of all the '<em><b>Link Router Kind</b></em>' enumerators.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public static final List<OPMLinkRouterKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
     /**
-   * Returns the '<em><b>Link Router Kind</b></em>' literal with the specified literal value.
-   * <!-- begin-user-doc -->
+	 * Returns the '<em><b>Link Router Kind</b></em>' literal with the specified literal value.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public static OPMLinkRouterKind get(String literal) {
-    for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-      OPMLinkRouterKind result = VALUES_ARRAY[i];
-      if (result.toString().equals(literal)) {
-        return result;
-      }
-    }
-    return null;
-  }
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			OPMLinkRouterKind result = VALUES_ARRAY[i];
+			if (result.toString().equals(literal)) {
+				return result;
+			}
+		}
+		return null;
+	}
 
     /**
-   * Returns the '<em><b>Link Router Kind</b></em>' literal with the specified name.
-   * <!-- begin-user-doc -->
+	 * Returns the '<em><b>Link Router Kind</b></em>' literal with the specified name.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public static OPMLinkRouterKind getByName(String name) {
-    for (int i = 0; i < VALUES_ARRAY.length; ++i) {
-      OPMLinkRouterKind result = VALUES_ARRAY[i];
-      if (result.getName().equals(name)) {
-        return result;
-      }
-    }
-    return null;
-  }
+		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
+			OPMLinkRouterKind result = VALUES_ARRAY[i];
+			if (result.getName().equals(name)) {
+				return result;
+			}
+		}
+		return null;
+	}
 
     /**
-   * Returns the '<em><b>Link Router Kind</b></em>' literal with the specified integer value.
-   * <!-- begin-user-doc -->
+	 * Returns the '<em><b>Link Router Kind</b></em>' literal with the specified integer value.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public static OPMLinkRouterKind get(int value) {
-    switch (value) {
-      case BENDPOINT_VALUE: return BENDPOINT;
-      case MANHATTAN_VALUE: return MANHATTAN;
-    }
-    return null;
-  }
+		switch (value) {
+			case BENDPOINT_VALUE: return BENDPOINT;
+			case MANHATTAN_VALUE: return MANHATTAN;
+		}
+		return null;
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     private final int value;
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     private final String name;
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     private final String literal;
 
     /**
-   * Only this class can construct instances.
-   * <!-- begin-user-doc -->
+	 * Only this class can construct instances.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     private OPMLinkRouterKind(int value, String name, String literal) {
-    this.value = value;
-    this.name = name;
-    this.literal = literal;
-  }
+		this.value = value;
+		this.name = name;
+		this.literal = literal;
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public int getValue() {
-    return value;
-  }
+	  return value;
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public String getName() {
-    return name;
-  }
+	  return name;
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public String getLiteral() {
-    return literal;
-  }
+	  return literal;
+	}
 
     /**
-   * Returns the literal value of the enumerator, which is its string representation.
-   * <!-- begin-user-doc -->
+	 * Returns the literal value of the enumerator, which is its string representation.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public String toString() {
-    return literal;
-  }
+		return literal;
+	}
     
 } //OPMLinkRouterKind

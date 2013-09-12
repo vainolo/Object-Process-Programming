@@ -26,21 +26,21 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface OPMContainer extends OPMElementWithID {
 	/**
-   * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.
-   * The list contents are of type {@link com.vainolo.phd.opm.model.OPMNode}.
-   * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMNode#getContainer <em>Container</em>}'.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Nodes</b></em>' containment reference list.
+	 * The list contents are of type {@link com.vainolo.phd.opm.model.OPMNode}.
+	 * It is bidirectional and its opposite is '{@link com.vainolo.phd.opm.model.OPMNode#getContainer <em>Container</em>}'.
+	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Nodes</em>' containment reference list isn't
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-   * @return the value of the '<em>Nodes</em>' containment reference list.
-   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMContainer_Nodes()
-   * @see com.vainolo.phd.opm.model.OPMNode#getContainer
-   * @model opposite="container" containment="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Nodes</em>' containment reference list.
+	 * @see com.vainolo.phd.opm.model.OPMPackage#getOPMContainer_Nodes()
+	 * @see com.vainolo.phd.opm.model.OPMNode#getContainer
+	 * @model opposite="container" containment="true"
+	 * @generated
+	 */
 	EList<OPMNode> getNodes();
 
 } // OPMContainer

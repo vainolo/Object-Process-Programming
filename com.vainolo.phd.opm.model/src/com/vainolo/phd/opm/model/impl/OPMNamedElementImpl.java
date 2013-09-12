@@ -33,190 +33,190 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  */
 public abstract class OPMNamedElementImpl extends EObjectImpl implements OPMNamedElement {
     /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String NAME_EDEFAULT = "<<name>>";
 
     /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
     protected String name = NAME_EDEFAULT;
 
     /**
-   * The default value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAlignment()
-   * @generated
-   * @ordered
-   */
+	 * @see #getAlignment()
+	 * @generated
+	 * @ordered
+	 */
   protected static final VerticalAlignment ALIGNMENT_EDEFAULT = VerticalAlignment.CENTER;
 
     /**
-   * The cached value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getAlignment() <em>Alignment</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getAlignment()
-   * @generated
-   * @ordered
-   */
+	 * @see #getAlignment()
+	 * @generated
+	 * @ordered
+	 */
   protected VerticalAlignment alignment = ALIGNMENT_EDEFAULT;
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     protected OPMNamedElementImpl() {
-    super();
-  }
+		super();
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     protected EClass eStaticClass() {
-    return OPMPackage.Literals.OPM_NAMED_ELEMENT;
-  }
+		return OPMPackage.Literals.OPM_NAMED_ELEMENT;
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public String getName() {
-    return name;
-  }
+		return name;
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     public void setName(String newName) {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NAMED_ELEMENT__NAME, oldName, name));
-  }
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NAMED_ELEMENT__NAME, oldName, name));
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public VerticalAlignment getAlignment() {
-    return alignment;
-  }
+		return alignment;
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setAlignment(VerticalAlignment newAlignment) {
-    VerticalAlignment oldAlignment = alignment;
-    alignment = newAlignment == null ? ALIGNMENT_EDEFAULT : newAlignment;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT, oldAlignment, alignment));
-  }
+		VerticalAlignment oldAlignment = alignment;
+		alignment = newAlignment == null ? ALIGNMENT_EDEFAULT : newAlignment;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT, oldAlignment, alignment));
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
-    switch (featureID) {
-      case OPMPackage.OPM_NAMED_ELEMENT__NAME:
-        return getName();
-      case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
-        return getAlignment();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_NAMED_ELEMENT__NAME:
+				return getName();
+			case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
+				return getAlignment();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public void eSet(int featureID, Object newValue) {
-    switch (featureID) {
-      case OPMPackage.OPM_NAMED_ELEMENT__NAME:
-        setName((String)newValue);
-        return;
-      case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
-        setAlignment((VerticalAlignment)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_NAMED_ELEMENT__NAME:
+				setName((String)newValue);
+				return;
+			case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
+				setAlignment((VerticalAlignment)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public void eUnset(int featureID) {
-    switch (featureID) {
-      case OPMPackage.OPM_NAMED_ELEMENT__NAME:
-        setName(NAME_EDEFAULT);
-        return;
-      case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
-        setAlignment(ALIGNMENT_EDEFAULT);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_NAMED_ELEMENT__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
+				setAlignment(ALIGNMENT_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public boolean eIsSet(int featureID) {
-    switch (featureID) {
-      case OPMPackage.OPM_NAMED_ELEMENT__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
-        return alignment != ALIGNMENT_EDEFAULT;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case OPMPackage.OPM_NAMED_ELEMENT__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case OPMPackage.OPM_NAMED_ELEMENT__ALIGNMENT:
+				return alignment != ALIGNMENT_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
     /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     @Override
     public String toString() {
-    if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", alignment: ");
-    result.append(alignment);
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(", alignment: ");
+		result.append(alignment);
+		result.append(')');
+		return result.toString();
+	}
 
 } //OPMNamedElementImpl
