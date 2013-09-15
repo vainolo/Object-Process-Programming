@@ -632,13 +632,22 @@ int OPM_OBJECT__NAME = OPM_THING__NAME;
   int OPM_OBJECT__KIND = OPM_THING_FEATURE_COUNT + 0;
 
   /**
+	 * The feature id for the '<em><b>Parameter</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OPM_OBJECT__PARAMETER = OPM_THING_FEATURE_COUNT + 1;
+
+		/**
 	 * The number of structural features of the '<em>Object</em>' class.
 	 * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 1;
+int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 2;
 
   /**
 	 * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1362,6 +1371,17 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
   EAttribute getOPMObject_Kind();
 
   /**
+	 * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObject#isParameter <em>Parameter</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Parameter</em>'.
+	 * @see com.vainolo.phd.opm.model.OPMObject#isParameter()
+	 * @see #getOPMObject()
+	 * @generated
+	 */
+	EAttribute getOPMObject_Parameter();
+
+		/**
 	 * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMProcess <em>Process</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1874,6 +1894,14 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
     EAttribute OPM_OBJECT__KIND = eINSTANCE.getOPMObject_Kind();
 
     /**
+		 * The meta object literal for the '<em><b>Parameter</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OPM_OBJECT__PARAMETER = eINSTANCE.getOPMObject_Parameter();
+
+				/**
 		 * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl <em>Process</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
