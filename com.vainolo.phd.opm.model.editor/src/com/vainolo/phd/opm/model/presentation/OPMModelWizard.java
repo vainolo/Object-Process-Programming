@@ -17,72 +17,57 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.StringTokenizer;
 
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.CommonPlugin;
-
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
-
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.xmi.XMLResource;
-
 import org.eclipse.emf.edit.ui.provider.ExtendedImageRegistry;
-
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
-
 import org.eclipse.core.runtime.IProgressMonitor;
-
 import org.eclipse.jface.dialogs.MessageDialog;
-
 import org.eclipse.jface.viewers.IStructuredSelection;
-
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
-
 import org.eclipse.swt.SWT;
-
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
-
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
-
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
-
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
 import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
+import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.provider.OPMEditPlugin;
 
 
-import org.eclipse.core.runtime.Path;
 
+
+
+
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
@@ -221,7 +206,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 	 * Do the work after everything is specified.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated not
 	 */
 	@Override
 	public boolean performFinish() {
@@ -254,6 +239,14 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 							EObject rootObject = createInitialModel();
 							if (rootObject != null) {
 								resource.getContents().add(rootObject);
+								OPMObjectProcessDiagram opd = (OPMObjectProcessDiagram) rootObject;
+								opd.setName(modelFile.getName().substring(0, modelFile.getName().length()-4));
+								OPMProcess p = OPMFactory.eINSTANCE.createOPMProcess();
+								p.setId(1);
+								p.setName(opd.getName());
+								p.setConstraints(new Rectangle(200,100,300,400));
+								opd.getNodes().add(p);
+								opd.setNextId(2);
 							}
 
 							// Save the contents of the resource to the file system.
@@ -396,7 +389,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated
+		 * @generated not
 		 */
 		public void createControl(Composite parent) {
 			Composite composite = new Composite(parent, SWT.NONE); {
@@ -429,14 +422,17 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 				initialObjectField.setLayoutData(data);
 			}
 
-			for (String objectName : getInitialObjectNames()) {
-				initialObjectField.add(getLabel(objectName));
-			}
-
-			if (initialObjectField.getItemCount() == 1) {
-				initialObjectField.select(0);
-			}
+//			for (String objectName : getInitialObjectNames()) {
+//				initialObjectField.add(getLabel(objectName));
+//			}
+//
+//			if (initialObjectField.getItemCount() == 1) {
+//				initialObjectField.select(0);
+//			}
+			initialObjectField.add("Object Process Diagram");
+			initialObjectField.select(0);
 			initialObjectField.addModifyListener(validator);
+			initialObjectField.setEnabled(false);
 
 			Label encodingLabel = new Label(composite, SWT.LEFT);
 			{
@@ -460,6 +456,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 
 			encodingField.select(0);
 			encodingField.addModifyListener(validator);
+			encodingField.setEnabled(false);
 
 			setPageComplete(validatePage());
 			setControl(composite);

@@ -14,5 +14,7 @@ Require-Bundle: org.eclipse.core.runtime,
  com.vainolo.phd.opm.model.edit;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.edit.ui;visibility:=reexport,
- org.eclipse.ui.ide;visibility:=reexport
+ org.eclipse.ui.ide;visibility:=reexport,
+ com.vainolo.phd.opm.model,
+ org.eclipse.draw2d
 Bundle-ActivationPolicy: lazy
