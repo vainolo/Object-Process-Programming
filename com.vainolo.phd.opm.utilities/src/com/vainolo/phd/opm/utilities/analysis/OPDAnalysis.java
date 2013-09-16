@@ -89,21 +89,31 @@ public class OPDAnalysis {
   public static Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
       case COMPOUND:
-        return findContainedProcesses(findInZoomedProcess(opd));
+        return findDirectlyContainedProcesses(findInZoomedProcess(opd));
       case SYSTEM:
-        return findContainedProcesses(opd);
+        return findDirectlyContainedProcesses(opd);
       default:
         throw new IllegalStateException("Unknown OPD kind.");
     }
   }
 
+  /**
+   * Find all the processes directly inside this container (non recursive).
+   * @param container The container to be searched.
+   * @return All processes directly contained in this container.
+   */
   @SuppressWarnings("rawtypes")
-  private static Collection<OPMProcess> findContainedProcesses(OPMContainer container) {
+  private static Collection<OPMProcess> findDirectlyContainedProcesses(OPMContainer container) {
     return (Collection) filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
   }
 
   @SuppressWarnings("rawtypes")
-  public static Collection<OPMObject> findContainedObjects(OPMContainer container) {
+  /**
+   * Find all the objects directly inside this container (non recursive).
+   * @param container The container to be searched.
+   * @return All objects directly contained in this container.
+   */
+  public static Collection<OPMObject> findFirstLevelContainedObjects(OPMContainer container) {
     return (Collection) filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
   }
 
