@@ -21,5 +21,18 @@
             restorable="true">
       </view>
    </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="com.vainolo.phd.opm.gef.Wizard.ID"
+            class="com.vainolo.phd.opm.gef.OPMModelWizard"
+            id="com.vainolo.phd.opm.gef.NewOPMModelWizardID"
+            name="OPM Model">
+      </wizard>
+      <category
+            id="com.vainolo.phd.opm.gef.Wizard.ID"
+            name="OPP">
+      </category>
+   </extension>
 
 </plugin>
