@@ -32,6 +32,7 @@ import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
 import com.vainolo.phd.opm.gef.editor.part.delegates.DirectEditDelegate;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMThing;
 import com.vainolo.phd.opm.utilities.OPDLoader;
 
@@ -60,13 +61,14 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
       final IFile newFile = input.getFile().getParent().getFile(new Path(thingName + ".opm"));
       try {
         if(!newFile.exists()) {
-          if(OPDLoader.createOPDFile(newFile.getLocationURI().toString(), thingName) == null) {
+          if(OPDLoader.createOPDFile(newFile.getLocationURI().toString(), thingName,
+              OPMObjectProcessDiagramKind.COMPOUND) == null) {
             throw new RuntimeException("Could not create diagram for thing " + thingName);
           }
           input.getFile().getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
         }
-        final IEditorDescriptor editor =
-            PlatformUI.getWorkbench().getEditorRegistry().getDefaultEditor(newFile.getName());
+        final IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry()
+            .getDefaultEditor(newFile.getName());
         final IWorkbenchPage page = editorPart.getSite().getPage();
         page.openEditor(new FileEditorInput(newFile), editor.getId());
       } catch(CoreException e) {
@@ -76,8 +78,8 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
   }
 
   /**
-   * Currently the class only adapts to create a {@link SnapToHelper} when the editor is in snapping mode (either to
-   * grid or to shapes).
+   * Currently the class only adapts to create a {@link SnapToHelper} when the
+   * editor is in snapping mode (either to grid or to shapes).
    */
   @Override
   public Object getAdapter(final Class key) {

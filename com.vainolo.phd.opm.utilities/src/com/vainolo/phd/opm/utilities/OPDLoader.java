@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 public class OPDLoader {
@@ -40,11 +41,12 @@ public class OPDLoader {
     return opd;
   }
 
-  public static OPMObjectProcessDiagram createOPDFile(String uri, String opdName) {
+  public static OPMObjectProcessDiagram createOPDFile(String uri, String opdName, OPMObjectProcessDiagramKind kind) {
     final ResourceSet resourceSet = new ResourceSetImpl();
     final Resource resource = resourceSet.createResource(URI.createURI(uri));
     OPMObjectProcessDiagram diagram = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
     diagram.setName(opdName);
+    diagram.setKind(kind);
     resource.getContents().add(diagram);
     try {
       resource.save(null);
