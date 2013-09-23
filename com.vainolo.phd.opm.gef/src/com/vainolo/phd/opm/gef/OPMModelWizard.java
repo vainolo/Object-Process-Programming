@@ -28,6 +28,13 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
+import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -41,6 +48,7 @@ import org.eclipse.ui.part.ISetSelectionTarget;
 
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 public class OPMModelWizard extends Wizard implements INewWizard {
@@ -51,6 +59,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
   protected IStructuredSelection selection;
   protected IWorkbench workbench;
   protected List<String> initialObjectNames;
+  private OPMModelWizardInitialObjectCreationPage initialObjectCreationPage;
 
   @Override
   public void init(IWorkbench workbench, IStructuredSelection selection) {
@@ -82,6 +91,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
               p.setConstraints(new Rectangle(200, 100, 300, 400));
               opd.getNodes().add(p);
               opd.setNextId(2);
+              opd.setKind(initialObjectCreationPage.getOPDKind());
             }
             resource.save(null);
           } catch(Exception exception) {
@@ -123,9 +133,9 @@ public class OPMModelWizard extends Wizard implements INewWizard {
   }
 
   /**
+   * New File wizard page
    * 
    * @author t-arib
-   * 
    */
   public class OPMModelWizardNewFileCreationPage extends WizardNewFileCreationPage {
 
@@ -150,6 +160,71 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 
     public IFile getModelFile() {
       return ResourcesPlugin.getWorkspace().getRoot().getFile(getContainerFullPath().append(getFileName()));
+    }
+  }
+
+  /**
+   */
+  public class OPMModelWizardInitialObjectCreationPage extends WizardPage {
+    protected Combo opdKind;
+    protected List<String> encodings;
+    protected Combo encodingField;
+
+    public OPMModelWizardInitialObjectCreationPage(String pageId) {
+      super(pageId);
+    }
+
+    @Override
+    public void createControl(Composite parent) {
+      Composite composite = new Composite(parent, SWT.NONE);
+      GridLayout layout = new GridLayout();
+      layout.numColumns = 1;
+      layout.verticalSpacing = 12;
+      composite.setLayout(layout);
+
+      GridData data = new GridData();
+      data.verticalAlignment = GridData.FILL;
+      data.grabExcessVerticalSpace = true;
+      data.horizontalAlignment = GridData.FILL;
+      composite.setLayoutData(data);
+
+      Label containerLabel = new Label(composite, SWT.LEFT);
+      containerLabel.setText("OPD Kind");
+
+      data = new GridData();
+      data.horizontalAlignment = GridData.FILL;
+      containerLabel.setLayoutData(data);
+
+      opdKind = new Combo(composite, SWT.BORDER);
+
+      data = new GridData();
+      data.horizontalAlignment = GridData.FILL;
+      data.grabExcessHorizontalSpace = true;
+      opdKind.setLayoutData(data);
+
+      for(String objectName : new String[] { OPMObjectProcessDiagramKind.SYSTEM.getLiteral(),
+          OPMObjectProcessDiagramKind.COMPOUND.getLiteral(), OPMObjectProcessDiagramKind.UNFOLDED.getLiteral() }) {
+        opdKind.add(objectName);
+      }
+
+      opdKind.select(0);
+      setControl(composite);
+    }
+
+    public OPMObjectProcessDiagramKind getOPDKind() {
+      return OPMObjectProcessDiagramKind.get(opdKind.getText());
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+      super.setVisible(visible);
+      if(visible) {
+        if(opdKind.getItemCount() == 1) {
+          opdKind.clearSelection();
+        } else {
+          opdKind.setFocus();
+        }
+      }
     }
   }
 
@@ -186,6 +261,12 @@ public class OPMModelWizard extends Wizard implements INewWizard {
         }
       }
     }
+
+    initialObjectCreationPage = new OPMModelWizardInitialObjectCreationPage("Whatever2");
+    initialObjectCreationPage.setTitle("OPD Kind");
+    initialObjectCreationPage.setDescription("Select the kind of OPD you are creating");
+    addPage(initialObjectCreationPage);
+
   }
 
   public IFile getModelFile() {
