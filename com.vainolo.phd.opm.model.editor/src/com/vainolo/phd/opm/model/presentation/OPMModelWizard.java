@@ -206,7 +206,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 	 * Do the work after everything is specified.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated not
+	 * @generated
 	 */
 	@Override
 	public boolean performFinish() {
@@ -239,14 +239,6 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 							EObject rootObject = createInitialModel();
 							if (rootObject != null) {
 								resource.getContents().add(rootObject);
-								OPMObjectProcessDiagram opd = (OPMObjectProcessDiagram) rootObject;
-								opd.setName(modelFile.getName().substring(0, modelFile.getName().length()-4));
-								OPMProcess p = OPMFactory.eINSTANCE.createOPMProcess();
-								p.setId(1);
-								p.setName(opd.getName());
-								p.setConstraints(new Rectangle(200,100,300,400));
-								opd.getNodes().add(p);
-								opd.setNextId(2);
 							}
 
 							// Save the contents of the resource to the file system.
@@ -389,7 +381,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 		/**
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @generated not
+		 * @generated
 		 */
 		public void createControl(Composite parent) {
 			Composite composite = new Composite(parent, SWT.NONE); {
@@ -422,17 +414,14 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 				initialObjectField.setLayoutData(data);
 			}
 
-//			for (String objectName : getInitialObjectNames()) {
-//				initialObjectField.add(getLabel(objectName));
-//			}
-//
-//			if (initialObjectField.getItemCount() == 1) {
-//				initialObjectField.select(0);
-//			}
-			initialObjectField.add("Object Process Diagram");
-			initialObjectField.select(0);
+			for (String objectName : getInitialObjectNames()) {
+				initialObjectField.add(getLabel(objectName));
+			}
+
+			if (initialObjectField.getItemCount() == 1) {
+				initialObjectField.select(0);
+			}
 			initialObjectField.addModifyListener(validator);
-			initialObjectField.setEnabled(false);
 
 			Label encodingLabel = new Label(composite, SWT.LEFT);
 			{
@@ -456,7 +445,6 @@ public class OPMModelWizard extends Wizard implements INewWizard {
 
 			encodingField.select(0);
 			encodingField.addModifyListener(validator);
-			encodingField.setEnabled(false);
 
 			setPageComplete(validatePage());
 			setControl(composite);
