@@ -6,7 +6,9 @@
 package com.vainolo.phd.opm.gef.action;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.resource.ImageDescriptor;
 
+import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
 import com.vainolo.phd.opm.interpreter.Interpreter;
 
 public class StopInterpreterAction extends Action {
@@ -17,6 +19,9 @@ public class StopInterpreterAction extends Action {
     super();
     setId(STOP_INTERPRETER_ID);
     setText("Stop Interpreter");
+    setToolTipText("Stop the interpreter's execution.");
+    setImageDescriptor(ImageDescriptor.createFromFile(OPMGEFEditorPlugin.class, "icons/opm_stop_interpreter.gif")); //$NON-NLS-1$
+    setEnabled(true);
   }
 
   @Override
