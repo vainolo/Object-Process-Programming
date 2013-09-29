@@ -51,7 +51,7 @@ public class OPMInstanceExecutor {
       executionStatus = ExecutionStatus.EXECUTING;
       assignIncomingParameterValues();
       final OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, caller.getResultQueue());
-      caller.getExecutorService().execute(runnable);
+      Interpreter.INSTANCE.getExecutorService().execute(runnable);
     }
   }
 
@@ -108,8 +108,8 @@ public class OPMInstanceExecutor {
         if(!argument.getValue().equals(stateValue))
           return false;
       } else if(!argument.getState().equals(parameter.getState().getName())) {
-        logger.info("Object " + parameter.getObject().getName() + " not in state " + parameter.getState().getName() +
-            ".");
+        logger.info("Object " + parameter.getObject().getName() + " not in state " + parameter.getState().getName()
+            + ".");
         return false;
       }
     }
@@ -130,11 +130,11 @@ public class OPMInstanceExecutor {
 
   public boolean wasExecuted() {
     switch(executionStatus) {
-      case EXECUTED:
-      case EXECUTING:
-        return true;
-      default:
-        return false;
+    case EXECUTED:
+    case EXECUTING:
+      return true;
+    default:
+      return false;
     }
   }
 
@@ -143,7 +143,7 @@ public class OPMInstanceExecutor {
   }
 
   public String getName() {
-    return instance.getName();
+    return instance.getProcess().getName();
   }
 
   public OPMProcess getProcess() {

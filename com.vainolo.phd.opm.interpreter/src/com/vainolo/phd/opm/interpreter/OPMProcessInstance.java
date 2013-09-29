@@ -16,14 +16,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
 public interface OPMProcessInstance {
 
   /**
-   * Get the name of the process.
-   * 
-   * @return the name of the process.
-   */
-  String getName();
-
-  /**
-   * Get the name of the process that created this process instance.
+   * Get the process that created this process instance.
    * 
    * @return the process that created this process instance.
    */
