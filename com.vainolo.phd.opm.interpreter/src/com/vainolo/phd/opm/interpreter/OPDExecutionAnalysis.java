@@ -3,7 +3,7 @@
  * You can use this code for educational purposes. For any other uses
  * please contact me: vainolo@gmail.com
  *******************************************************************************/
-package com.vainolo.phd.opm.interpreter.utils;
+package com.vainolo.phd.opm.interpreter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
+import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
