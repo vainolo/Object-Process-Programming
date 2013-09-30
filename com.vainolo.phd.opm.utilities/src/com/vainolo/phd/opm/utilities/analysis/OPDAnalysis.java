@@ -30,12 +30,13 @@ import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessOutgoingDataLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMStructuralLink;
 
 @SuppressWarnings("unchecked")
-public class OPDAnalysis {
-
+public enum OPDAnalysis {
+  INSTANCE;
+  
   /**
    * It is assumed that the provided process is the source of the invocation links.
    */
-  public static Set<OPMProcess> findInvocationProcesses(final OPMProcess process) {
+  public Set<OPMProcess> findInvocationProcesses(final OPMProcess process) {
     Set<OPMProcess> processes = Sets.newHashSet();
     for(OPMProceduralLink link : filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE)) {
       processes.add((OPMProcess) link.getTarget());
@@ -46,7 +47,7 @@ public class OPDAnalysis {
   /**
    * It is assumed that the given object is the source of the event links (even for effect link).
    */
-  public static Set<OPMProcess> findConnectedEventProcesses(OPMObject object) {
+  public Set<OPMProcess> findConnectedEventProcesses(OPMObject object) {
     Set<OPMProcess> processes = Sets.newHashSet();
     for(OPMProceduralLink link : filter(findAllProceduralLinks(object), IsOPMEventLink.INSTANCE)) {
       processes.add((OPMProcess) link.getTarget());
@@ -55,7 +56,7 @@ public class OPDAnalysis {
   }
 
   @SuppressWarnings("rawtypes")
-  private static Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
+  private Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
     Iterable result = filter(concat(node.getIncomingLinks(), node.getOutgoingLinks()), IsOPMProceduralLink.INSTANCE);
     if(OPMPackage.eINSTANCE.getOPMContainer().isInstance(node)) {
       OPMContainer container = (OPMContainer) node;
@@ -66,7 +67,7 @@ public class OPDAnalysis {
     return result;
   }
 
-  public static OPMObjectProcessDiagram findOPD(OPMNode node) {
+  public OPMObjectProcessDiagram findOPD(OPMNode node) {
     OPMContainer currentContainer = node.getContainer();
     while(!(currentContainer instanceof OPMObjectProcessDiagram)) {
       currentContainer = ((OPMNode) currentContainer).getContainer();
@@ -74,19 +75,19 @@ public class OPDAnalysis {
     return (OPMObjectProcessDiagram) currentContainer;
   }
 
-  public static Iterable<OPMProceduralLink> findOutgoingInvocationLinks(OPMProcess process) {
+  public Iterable<OPMProceduralLink> findOutgoingInvocationLinks(OPMProcess process) {
     return filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE);
   }
 
-  public static Iterable<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
+  public Iterable<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
     return filter(findAllProceduralLinks(process), IsOPMProcessIncomingDataLink.INSTANCE);
   }
 
-  public static Iterable<OPMProceduralLink> findOutgoingDataLinks(OPMProcess process) {
+  public Iterable<OPMProceduralLink> findOutgoingDataLinks(OPMProcess process) {
     return filter(findAllProceduralLinks(process), IsOPMProcessOutgoingDataLink.INSTANCE);
   }
 
-  public static Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
+  public Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
       case COMPOUND:
         return findDirectlyContainedProcesses(findInZoomedProcess(opd));

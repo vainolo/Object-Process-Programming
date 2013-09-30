@@ -180,8 +180,8 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     final Set<OPMProcess> followingProcesses = Sets.newHashSet();
     if(instanceExecutor.wasExecuted()) {
       for(Parameter parameter : instanceExecutor.getOutgoingParameters())
-        followingProcesses.addAll(OPDAnalysis.findConnectedEventProcesses(parameter.getObject()));
-      followingProcesses.addAll(OPDAnalysis.findInvocationProcesses(instanceExecutor.getProcess()));
+        followingProcesses.addAll(OPDAnalysis.INSTANCE.findConnectedEventProcesses(parameter.getObject()));
+      followingProcesses.addAll(OPDAnalysis.INSTANCE.findInvocationProcesses(instanceExecutor.getProcess()));
     }
     followingProcesses.addAll(findNextProcessesToExecute(instanceExecutor.getProcess()));
     return followingProcesses;

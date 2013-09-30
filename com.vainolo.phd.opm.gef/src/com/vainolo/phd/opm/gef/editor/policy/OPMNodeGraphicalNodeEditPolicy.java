@@ -39,8 +39,8 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
   private static final Dimension DEFAULT_AGGREGATOR_DIMENSION = new Dimension(15, 15);
 
   /**
-   * Create a command used to begin connecting to nodes. {@link OPMStructuralLinkAggregatorEditPart} nodes cannot be
-   * source nodes,
+   * Create a command used to begin connecting to nodes.
+   * {@link OPMStructuralLinkAggregatorEditPart} nodes cannot be source nodes,
    * therefore in this case a {@link UnexecutableCommand} is returned.
    * 
    * @return a {@link Command} that contains the initial information neede to
@@ -66,7 +66,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     OPMLinkCreateCommand result = new OPMLinkCreateCommand();
     result.setSource((OPMNode) getHost().getModel());
     result.setLink((OPMLink) request.getNewObject());
-    result.setOPD(OPDAnalysis.findOPD((OPMNode) getHost().getModel()));
+    result.setOPD(OPDAnalysis.INSTANCE.findOPD((OPMNode) getHost().getModel()));
     request.setStartCommand(result);
     return result;
   }
@@ -84,8 +84,10 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
    */
   @Override
   protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
-    // A null command must be returned (and not the usual UnexecutableCommand), otherwise GEF shows the used a symbol
-    // that the connection can be completed but when the used clicks it is not created.
+    // A null command must be returned (and not the usual UnexecutableCommand),
+    // otherwise GEF shows the used a symbol
+    // that the connection can be completed but when the used clicks it is not
+    // created.
     if(request.getStartCommand() == null || request.getTargetEditPart() instanceof OPMStructuralLinkAggregatorEditPart) {
       return null;
     }
@@ -105,13 +107,15 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
   /**
    * <p>
-   * When the user requests the creation of a structural link, the following is done:
+   * When the user requests the creation of a structural link, the following is
+   * done:
    * </p>
    * <ol>
-   * <li>If this is the first structural link of its kind between the source and target nodes, we create a new
-   * aggregator and connect it to the source and target.</li>
-   * <li>If there already is an aggregator of its kind between the nodes, we only add a new link from the aggregator to
-   * the new target.</li>
+   * <li>If this is the first structural link of its kind between the source and
+   * target nodes, we create a new aggregator and connect it to the source and
+   * target.</li>
+   * <li>If there already is an aggregator of its kind between the nodes, we
+   * only add a new link from the aggregator to the new target.</li>
    * </ol>
    * 
    * @param request
@@ -139,13 +143,13 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
     if(aggregatorFound) {
       // Just create a link from the aggregator to the target.
-      command = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPDAnalysis.findOPD(agrNode));
+      command = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPDAnalysis.INSTANCE.findOPD(agrNode));
     } else {
       // Create a compound command consisting of three commands.
       CompoundCommand cCommand = new CompoundCommand();
       cCommand.add(createCreateAggregatorNodeCommand(sNode, tNode, agrNode));
-      cCommand.add(createCreateOPMLlinkCreateCommand(sNode, agrNode, OPDAnalysis.findOPD(sNode)));
-      cCommand.add(createCreateOPMLlinkCreateCommand(agrNode, tNode, OPDAnalysis.findOPD(sNode)));
+      cCommand.add(createCreateOPMLlinkCreateCommand(sNode, agrNode, OPDAnalysis.INSTANCE.findOPD(sNode)));
+      cCommand.add(createCreateOPMLlinkCreateCommand(agrNode, tNode, OPDAnalysis.INSTANCE.findOPD(sNode)));
 
       command = cCommand;
     }
@@ -154,8 +158,8 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
   }
 
   /**
-   * Helper function to create a command that connects two nodes with a
-   * factory generated link.
+   * Helper function to create a command that connects two nodes with a factory
+   * generated link.
    * 
    * @param source
    *          the source of the link.
@@ -176,8 +180,8 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
   }
 
   /**
-   * Create a command that adds the provided {@link OPMStructuralLinkAggregator} to the diagram located between the
-   * source and the target {@link OPMNode}.
+   * Create a command that adds the provided {@link OPMStructuralLinkAggregator}
+   * to the diagram located between the source and the target {@link OPMNode}.
    * 
    * @param source
    *          the source for the structural link.

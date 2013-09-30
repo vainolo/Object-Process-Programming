@@ -42,7 +42,8 @@ public final class OPDExecutionAnalysis {
    *          the DAG of the OPD where the process is located.
    * @param process
    *          the process that wants to execute.
-   * @return a set of processes that have to finish for the given process to execute.
+   * @return a set of processes that have to finish for the given process to
+   *         execute.
    */
   public static Set<OPMProcess> calculateRequiredProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
       final OPMProcess process) {
@@ -59,16 +60,18 @@ public final class OPDExecutionAnalysis {
 
   /**
    * <p>
-   * Calculate which processes can be executed when the provided process ends. The returned processes may execute if
-   * they have no other predecessor processes. Otherwise they must wait for all other predecessor processes to end for
-   * them to execute.
+   * Calculate which processes can be executed when the provided process ends.
+   * The returned processes may execute if they have no other predecessor
+   * processes. Otherwise they must wait for all other predecessor processes to
+   * end for them to execute.
    * </p>
    * 
    * @param opdDag
    *          the DAG of the OPD where the process is located.
    * @param process
    *          the process that has finished.
-   * @return list of processes that are dependent on the current process for execution.
+   * @return list of processes that are dependent on the current process for
+   *         execution.
    */
   public static List<OPMProcess> calculateFollowingProcesses(
       final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag, final OPMProcess process) {
@@ -84,8 +87,8 @@ public final class OPDExecutionAnalysis {
   }
 
   /**
-   * Calculate the processes that should be executed when the OPD is invoked. These are the processes that have no
-   * predecessors in the OPD DAG.
+   * Calculate the processes that should be executed when the OPD is invoked.
+   * These are the processes that have no predecessors in the OPD DAG.
    * 
    * @param opdDag
    *          the OPD DAG that is analyzed.
@@ -111,27 +114,31 @@ public final class OPDExecutionAnalysis {
    * </p>
    * 
    * <p>
-   * The execution order of an OPD is defined by the location of the processes inside the OPD. When a process
-   * <code>P1</code> is above another process <code>P2</code> (the lowest point of <code>P1</code> is below the highest
-   * point of <code>P2</code>), then <code>P2</code> is only executed after <code>P1</code> has finished execution.
+   * The execution order of an OPD is defined by the location of the processes
+   * inside the OPD. When a process <code>P1</code> is above another process
+   * <code>P2</code> (the lowest point of <code>P1</code> is below the highest
+   * point of <code>P2</code>), then <code>P2</code> is only executed after
+   * <code>P1</code> has finished execution.
    * </p>
    * 
    * <p>
-   * Process execution is indifferent of whether the OPD is a system OPD or a compound OPD. Execution is the same in
-   * both cases, with the difference than in a system OPD the processes are directly in the OPM and in a compound OPD
+   * Process execution is indifferent of whether the OPD is a system OPD or a
+   * compound OPD. Execution is the same in both cases, with the difference than
+   * in a system OPD the processes are directly in the OPM and in a compound OPD
    * the processes are inside the zoomed-in (compound) process.
    * 
    * <p>
-   * An OPD can also contain special <em>invocation</em> links that can change the execution order of the OPD. They are
-   * not taken into account in this DAG because they are explicit in the diagram.
+   * An OPD can also contain special <em>invocation</em> links that can change
+   * the execution order of the OPD. They are not taken into account in this DAG
+   * because they are explicit in the diagram.
    * </p>
    * 
    * @param opd
    * @return
    */
   public static DirectedAcyclicGraph<OPMProcess, DefaultEdge> createOPDDAG(final OPMObjectProcessDiagram opd) {
-    final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag =
-        new DirectedAcyclicGraph<OPMProcess, DefaultEdge>(DefaultEdge.class);
+    final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag = new DirectedAcyclicGraph<OPMProcess, DefaultEdge>(
+        DefaultEdge.class);
 
     createNodes(dag, opd);
     createExecutionOrderEdges(dag, opd);
@@ -142,7 +149,8 @@ public final class OPDExecutionAnalysis {
 
   /**
    * <p>
-   * Remove duplicate edges that start at process <code>vertex</code>. This is done as follows:
+   * Remove duplicate edges that start at process <code>vertex</code>. This is
+   * done as follows:
    * </p>
    * 
    * <pre>
@@ -181,9 +189,8 @@ public final class OPDExecutionAnalysis {
       if(removedEdge == null) {
         return;
       }
-      final GraphEdgeChangeEvent<OPMProcess, DefaultEdge> event =
-          new GraphEdgeChangeEvent<OPMProcess, DefaultEdge>(new Object(), GraphEdgeChangeEvent.EDGE_REMOVED,
-              removedEdge);
+      final GraphEdgeChangeEvent<OPMProcess, DefaultEdge> event = new GraphEdgeChangeEvent<OPMProcess, DefaultEdge>(
+          new Object(), GraphEdgeChangeEvent.EDGE_REMOVED, removedEdge);
       dni.edgeRemoved(event);
     }
   }
@@ -191,16 +198,18 @@ public final class OPDExecutionAnalysis {
   /**
    * <p>
    * Remove duplicate edges in the DAG. The edge creation algorithm (see
-   * {@link OPDExecutionAnalysis#createExecutionOrderEdges(DirectedAcyclicGraph, OPMObjectProcessDiagram)}) creates one
-   * edge for each process execution relation. But because process execution order is transitive, there are edges that
-   * are redundant and can be removed.
+   * {@link OPDExecutionAnalysis#createExecutionOrderEdges(DirectedAcyclicGraph, OPMObjectProcessDiagram)}
+   * ) creates one edge for each process execution relation. But because process
+   * execution order is transitive, there are edges that are redundant and can
+   * be removed.
    * </p>
    * 
    * <p>
-   * For example: if <code>P1</code> executes before <code>P2</code> and <code>P2</code> executes before <code>P3</code>
-   * the algorithm will create edges <code>(P1,P2)</code>, <code>(P1,P3)</code>, and <code>(P2,P3)</code>. But the edge
-   * <code>(P1,P3)</code> is redundant since it the order is already prescribed by the other two edges. Therefore it can
-   * be removed.
+   * For example: if <code>P1</code> executes before <code>P2</code> and
+   * <code>P2</code> executes before <code>P3</code> the algorithm will create
+   * edges <code>(P1,P2)</code>, <code>(P1,P3)</code>, and <code>(P2,P3)</code>.
+   * But the edge <code>(P1,P3)</code> is redundant since it the order is
+   * already prescribed by the other two edges. Therefore it can be removed.
    * 
    * @param dag
    *          The DAG to analyze and remove edges.
@@ -212,8 +221,9 @@ public final class OPDExecutionAnalysis {
   }
 
   /**
-   * Create the edges that drive the execution order of the OPD. Process <code>P1</code> will execute before process
-   * <code>P2</code> if <code>P1</code>'s lowest border is below <code>P2</code>'s upper border.
+   * Create the edges that drive the execution order of the OPD. Process
+   * <code>P1</code> will execute before process <code>P2</code> if
+   * <code>P1</code>'s lowest border is below <code>P2</code>'s upper border.
    * 
    * @param dag
    *          the DAG where the edges will be added.
@@ -222,17 +232,18 @@ public final class OPDExecutionAnalysis {
    */
   private static void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process1 : OPDAnalysis.findExecutableProcesses(opd)) {
-      for(final OPMProcess process2 : OPDAnalysis.findExecutableProcesses(opd)) {
+    for(final OPMProcess process1 : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
+      for(final OPMProcess process2 : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
         createEdgeIfRequired(dag, process1, process2);
       }
     }
   }
 
   /**
-   * Create the initial edges between the processes. Two processes are connected if one is
-   * below the other (bottom->top).
-   * @param dag 
+   * Create the initial edges between the processes. Two processes are connected
+   * if one is below the other (bottom->top).
+   * 
+   * @param dag
    * @param process1
    * @param process2
    */
@@ -261,7 +272,7 @@ public final class OPDExecutionAnalysis {
    */
   private static void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process : OPDAnalysis.findExecutableProcesses(opd)) {
+    for(final OPMProcess process : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
       dag.addVertex(process);
     }
   }
@@ -276,7 +287,7 @@ public final class OPDExecutionAnalysis {
   public static Set<Parameter> calculateAllParameters(final OPMProcess process) {
     final Set<Parameter> parameters = Sets.newHashSet();
 
-    for(OPMProceduralLink link : OPDAnalysis.findIncomingDataLinks(process)) {
+    for(OPMProceduralLink link : OPDAnalysis.INSTANCE.findIncomingDataLinks(process)) {
       if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getSource())) {
         parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource().getContainer(), link,
             (OPMState) link.getSource()));
@@ -284,7 +295,7 @@ public final class OPDExecutionAnalysis {
         parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource(), link));
       }
     }
-    for(OPMProceduralLink link : OPDAnalysis.findOutgoingDataLinks(process)) {
+    for(OPMProceduralLink link : OPDAnalysis.INSTANCE.findOutgoingDataLinks(process)) {
       if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getTarget())) {
         parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget().getContainer(), link,
             (OPMState) link.getTarget()));

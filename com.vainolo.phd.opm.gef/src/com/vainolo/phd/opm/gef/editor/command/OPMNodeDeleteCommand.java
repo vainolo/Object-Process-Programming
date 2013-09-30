@@ -52,8 +52,8 @@ public final class OPMNodeDeleteCommand extends Command {
   }
 
   /**
-   * Detach all links from the node and from the other connecting node,
-   * storing the connection information in local data structures.
+   * Detach all links from the node and from the other connecting node, storing
+   * the connection information in local data structures.
    */
   private void detachLinks() {
     links = new ArrayList<OPMLink>();
@@ -81,7 +81,7 @@ public final class OPMNodeDeleteCommand extends Command {
         link.setOpd((OPMObjectProcessDiagram) container);
       } else {
         OPMNode containerNode = (OPMNode) container;
-        link.setOpd(OPDAnalysis.findOPD(containerNode));
+        link.setOpd(OPDAnalysis.INSTANCE.findOPD(containerNode));
       }
 
     }
