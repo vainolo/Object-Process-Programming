@@ -18,6 +18,7 @@ import org.jgrapht.graph.DefaultEdge;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
+import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
@@ -112,33 +113,32 @@ public enum OPDExecutionAnalysis {
 
   /**
    * <p>
-   * Create a DAG based on the process execution order of the OPD.
+   * Create a DAG based on the process execution order of an
+   * {@link OPMContainer}.
    * </p>
    * 
    * <p>
-   * The execution order of an OPD is defined by the location of the processes
-   * inside the OPD. When a process <code>P1</code> is above another process
-   * <code>P2</code> (the lowest point of <code>P1</code> is below the highest
-   * point of <code>P2</code>), then <code>P2</code> is only executed after
-   * <code>P1</code> has finished execution.
+   * The execution order of an {@link OPMContainer} is defined by the location
+   * of the processes inside the {@link OPMContainer}. When a process
+   * <code>P1</code> is above another process <code>P2</code> (the lowest point
+   * of <code>P1</code> is below the highest point of <code>P2</code>), then
+   * <code>P2</code> is only executed after <code>P1</code> has finished
+   * execution.
    * </p>
    * 
    * <p>
-   * Process execution is indifferent of whether the OPD is a system OPD or a
-   * compound OPD. Execution is the same in both cases, with the difference than
-   * in a system OPD the processes are directly in the OPM and in a compound OPD
-   * the processes are inside the zoomed-in (compound) process.
-   * 
-   * <p>
-   * An OPD can also contain special <em>invocation</em> links that can change
-   * the execution order of the OPD. They are not taken into account in this DAG
-   * because they are explicit in the diagram.
+   * An {@link OPMContainer} can also contain special <em>invocation</em> links
+   * that can change the execution order of the {@link OPMContainer}. They are
+   * not taken into account in this DAG because they are explicit in the
+   * diagram.
    * </p>
    * 
-   * @param opd
-   * @return
+   * @param container
+   *          to analyze
+   * @return a Directed Acyclic Graph (DAG) that represents the execution order
+   *         of the container.
    */
-  public DirectedAcyclicGraph<OPMProcess, DefaultEdge> createOPDDAG(final OPMObjectProcessDiagram opd) {
+  public DirectedAcyclicGraph<OPMProcess, DefaultEdge> createContainerExecutionDAG(final OPMContainer opd) {
     final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag = new DirectedAcyclicGraph<OPMProcess, DefaultEdge>(
         DefaultEdge.class);
 
@@ -222,19 +222,19 @@ public enum OPDExecutionAnalysis {
   }
 
   /**
-   * Create the edges that drive the execution order of the OPD. Process
-   * <code>P1</code> will execute before process <code>P2</code> if
+   * Create the edges that drive the execution order of the {@link OPMContainer}
+   * . Process <code>P1</code> will execute before process <code>P2</code> if
    * <code>P1</code>'s lowest border is below <code>P2</code>'s upper border.
    * 
    * @param dag
    *          the DAG where the edges will be added.
-   * @param opd
-   *          the OPD from which the processes are read.
+   * @param container
+   *          the container where the processes are located.
    */
   private void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
-      final OPMObjectProcessDiagram opd) {
-    for(final OPMProcess process1 : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
-      for(final OPMProcess process2 : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
+      final OPMContainer container) {
+    for(final OPMProcess process1 : OPDAnalysis.INSTANCE.findExecutableProcesses(container)) {
+      for(final OPMProcess process2 : OPDAnalysis.INSTANCE.findExecutableProcesses(container)) {
         createEdgeIfRequired(dag, process1, process2);
       }
     }
@@ -264,14 +264,14 @@ public enum OPDExecutionAnalysis {
   }
 
   /**
-   * Create a node for each OPMProcess in the OPD.
+   * Create a node for each OPMProcess in the OPMContainer.
    * 
    * @param dag
    *          the DAG where the nodes will be added.
    * @param opd
    *          the OPD from which the processes are read.
    */
-  private void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, final OPMObjectProcessDiagram opd) {
+  private void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, final OPMContainer opd) {
     for(final OPMProcess process : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
       dag.addVertex(process);
     }

@@ -87,25 +87,14 @@ public enum OPDAnalysis {
     return filter(findAllProceduralLinks(process), IsOPMProcessOutgoingDataLink.INSTANCE);
   }
 
-  public Collection<OPMProcess> findExecutableProcesses(OPMObjectProcessDiagram opd) {
-    switch(opd.getKind()) {
-      case COMPOUND:
-        return findDirectlyContainedProcesses(findInZoomedProcess(opd));
-      case SYSTEM:
-        return findDirectlyContainedProcesses(opd);
-      default:
-        throw new IllegalStateException("Unknown OPD kind.");
-    }
-  }
-
   /**
    * Find all the processes directly inside this container (non recursive).
    * @param container The container to be searched.
    * @return All processes directly contained in this container.
    */
   @SuppressWarnings("rawtypes")
-  private static Collection<OPMProcess> findDirectlyContainedProcesses(OPMContainer container) {
-    return (Collection) filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
+  public Collection<OPMProcess> findExecutableProcesses(OPMContainer container) {
+        return (Collection) filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
   }
 
   @SuppressWarnings("rawtypes")

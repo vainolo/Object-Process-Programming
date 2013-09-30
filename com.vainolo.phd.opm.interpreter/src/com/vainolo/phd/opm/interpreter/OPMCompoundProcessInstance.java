@@ -61,7 +61,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     opd = OPMFileUtils.INSTANCE.loadOPDFile(getProcessFilename());
     if(opd == null)
       throw new RuntimeException("Could not load OPD file for proocess " + getProcess().getName());
-    opdDag = OPDExecutionAnalysis.INSTANCE.createOPDDAG(opd);
+    opdDag = OPDExecutionAnalysis.INSTANCE.createContainerExecutionDAG(opd);
     final Collection<OPMObject> parameters = OPDAnalysis.findFirstLevelContainedObjects(opd);
     for(OPMObject object : parameters) {
       createVariable(object);
