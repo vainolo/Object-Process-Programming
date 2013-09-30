@@ -18,11 +18,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -46,10 +41,8 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
-import com.vainolo.phd.opm.model.OPMFactory;
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
-import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.utilities.OPMFileUtils;
 
 public class OPMModelWizard extends Wizard implements INewWizard {
 
@@ -77,23 +70,9 @@ public class OPMModelWizard extends Wizard implements INewWizard {
         @Override
         protected void execute(final IProgressMonitor progressMonitor) {
           try {
-            ResourceSet resourceSet = new ResourceSetImpl();
-            URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString(), true);
-            Resource resource = resourceSet.createResource(fileURI);
-
-            OPMObjectProcessDiagram opd = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
-            if(opd != null) {
-              resource.getContents().add(opd);
-              opd.setName(modelFile.getName().substring(0, modelFile.getName().length() - 4));
-              OPMProcess p = OPMFactory.eINSTANCE.createOPMProcess();
-              p.setId(1);
-              p.setName(opd.getName());
-              p.setConstraints(new Rectangle(200, 100, 300, 400));
-              opd.getNodes().add(p);
-              opd.setNextId(2);
-              opd.setKind(initialObjectCreationPage.getOPDKind());
-            }
-            resource.save(null);
+            OPMFileUtils.INSTANCE.createOPDFile2(modelFile,
+                modelFile.getName().substring(0, modelFile.getName().length() - 4),
+                initialObjectCreationPage.getOPDKind(), false, true);
           } catch(Exception exception) {
             OPMGEFEditorPlugin.INSTANCE.log(exception);
           } finally {
@@ -118,6 +97,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
       }
 
       try {
+        modelFile.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
         page.openEditor(new FileEditorInput(modelFile),
             workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
       } catch(PartInitException exception) {

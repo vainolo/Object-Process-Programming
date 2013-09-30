@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.gef.CompoundSnapToHelper;
 import org.eclipse.gef.DefaultEditDomain;
@@ -28,11 +27,14 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
+import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
 import com.vainolo.phd.opm.gef.editor.part.delegates.DirectEditDelegate;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
+import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
+import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMThing;
 import com.vainolo.phd.opm.utilities.OPMFileUtils;
 
@@ -59,20 +61,20 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
       final IEditorPart editorPart = ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart();
       final IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
       final IFile newFile = input.getFile().getParent().getFile(new Path(thingName + ".opm"));
+      final String directory = input.getFile().getParent().getLocationURI().toString();
       try {
         if(!newFile.exists()) {
-          if(OPMFileUtils.INSTANCE.createOPDFile(newFile.getLocationURI().toString(), thingName,
-              OPMObjectProcessDiagramKind.COMPOUND) == null) {
-            throw new RuntimeException("Could not create diagram for thing " + thingName);
-          }
-          input.getFile().getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
+          OPMFileUtils.INSTANCE.createOPDFile2(newFile, thingName, OPMObjectProcessDiagramKind.COMPOUND,
+              OPMObject.class.isInstance(getModel()), OPMProcess.class.isInstance(getModel()));
         }
+        input.getFile().getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
         final IEditorDescriptor editor = PlatformUI.getWorkbench().getEditorRegistry()
             .getDefaultEditor(newFile.getName());
         final IWorkbenchPage page = editorPart.getSite().getPage();
         page.openEditor(new FileEditorInput(newFile), editor.getId());
-      } catch(CoreException e) {
-        e.printStackTrace();
+      } catch(Exception e) {
+        OPMGEFEditorPlugin.INSTANCE.log("There was a problem creating or openning the OPM file.");
+        OPMGEFEditorPlugin.INSTANCE.log(e);
       }
     }
   }

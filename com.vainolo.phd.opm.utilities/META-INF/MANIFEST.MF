@@ -22,3 +22,5 @@ Export-Package: com.google.common.base,
  com.vainolo.phd.opm.utilities.analysis,
  com.vainolo.utils,
  org.easymock
+Import-Package: org.eclipse.core.resources,
+ org.eclipse.draw2d.geometry
