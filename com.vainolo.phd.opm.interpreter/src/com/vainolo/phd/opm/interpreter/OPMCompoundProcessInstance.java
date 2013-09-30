@@ -61,7 +61,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     opd = OPMFileUtils.INSTANCE.loadOPDFile(getProcessFilename());
     if(opd == null)
       throw new RuntimeException("Could not load OPD file for proocess " + getProcess().getName());
-    opdDag = OPDExecutionAnalysis.createOPDDAG(opd);
+    opdDag = OPDExecutionAnalysis.INSTANCE.createOPDDAG(opd);
     final Collection<OPMObject> parameters = OPDAnalysis.findFirstLevelContainedObjects(opd);
     for(OPMObject object : parameters) {
       createVariable(object);
@@ -102,7 +102,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   @Override
   protected void executing() {
     createLocalVariables();
-    final Set<OPMProcess> initialProcesses = OPDExecutionAnalysis.calculateInitialProcesses(opdDag);
+    final Set<OPMProcess> initialProcesses = OPDExecutionAnalysis.INSTANCE.calculateInitialProcesses(opdDag);
 
     for(OPMProcess process : initialProcesses)
       execState.getWaitingInstances().add(createProcessInstance(process, process.getKind()));
@@ -187,10 +187,12 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   }
 
   public Set<OPMProcess> findNextProcessesToExecute(OPMProcess process) {
-    final List<OPMProcess> followingProcesses = OPDExecutionAnalysis.calculateFollowingProcesses(opdDag, process);
+    final List<OPMProcess> followingProcesses = OPDExecutionAnalysis.INSTANCE.calculateFollowingProcesses(opdDag,
+        process);
     final Set<OPMProcess> retVal = Sets.newHashSet();
     for(OPMProcess followingProcess : followingProcesses) {
-      Set<OPMProcess> requiredProcesses = OPDExecutionAnalysis.calculateRequiredProcesses(opdDag, followingProcess);
+      Set<OPMProcess> requiredProcesses = OPDExecutionAnalysis.INSTANCE.calculateRequiredProcesses(opdDag,
+          followingProcess);
       if(Sets.difference(requiredProcesses,
           Sets.union(execState.getSkippedProcesses(), execState.getExecutedProcesses())).size() == 0) {
         retVal.add(followingProcess);

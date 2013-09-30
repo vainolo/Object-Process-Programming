@@ -32,7 +32,8 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
  * @author vainolo
  * 
  */
-public final class OPDExecutionAnalysis {
+public enum OPDExecutionAnalysis {
+  INSTANCE;
 
   /**
    * <p>
@@ -46,7 +47,7 @@ public final class OPDExecutionAnalysis {
    * @return a set of processes that have to finish for the given process to
    *         execute.
    */
-  public static Set<OPMProcess> calculateRequiredProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
+  public Set<OPMProcess> calculateRequiredProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
       final OPMProcess process) {
     Preconditions.checkArgument(opdDag != null);
     Preconditions.checkArgument(process != null);
@@ -74,8 +75,8 @@ public final class OPDExecutionAnalysis {
    * @return list of processes that are dependent on the current process for
    *         execution.
    */
-  public static List<OPMProcess> calculateFollowingProcesses(
-      final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag, final OPMProcess process) {
+  public List<OPMProcess> calculateFollowingProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
+      final OPMProcess process) {
     Preconditions.checkArgument(opdDag != null);
     Preconditions.checkArgument(process != null);
     final List<OPMProcess> retVal = new ArrayList<OPMProcess>();
@@ -95,7 +96,7 @@ public final class OPDExecutionAnalysis {
    *          the OPD DAG that is analyzed.
    * @return the processes that should be executed when the OPD is invoked.
    */
-  public static Set<OPMProcess> calculateInitialProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
+  public Set<OPMProcess> calculateInitialProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
     Preconditions.checkArgument(opdDag != null, "OPD DAG cannot be null.");
 
     final Set<OPMProcess> retVal = Sets.newHashSet();
@@ -137,7 +138,7 @@ public final class OPDExecutionAnalysis {
    * @param opd
    * @return
    */
-  public static DirectedAcyclicGraph<OPMProcess, DefaultEdge> createOPDDAG(final OPMObjectProcessDiagram opd) {
+  public DirectedAcyclicGraph<OPMProcess, DefaultEdge> createOPDDAG(final OPMObjectProcessDiagram opd) {
     final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag = new DirectedAcyclicGraph<OPMProcess, DefaultEdge>(
         DefaultEdge.class);
 
@@ -165,8 +166,7 @@ public final class OPDExecutionAnalysis {
    * @param source
    *          the OPMProcess that is analyzed.
    */
-  private static void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
-      final OPMProcess source) {
+  private void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, final OPMProcess source) {
     final DirectedNeighborIndex<OPMProcess, DefaultEdge> dni = new DirectedNeighborIndex<OPMProcess, DefaultEdge>(dag);
     final OPMProcess[] successors = dni.successorsOf(source).toArray(new OPMProcess[0]);
 
@@ -177,8 +177,8 @@ public final class OPDExecutionAnalysis {
     }
   }
 
-  private static void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
-      final OPMProcess source, final DirectedNeighborIndex<OPMProcess, DefaultEdge> dni, final OPMProcess firstTarget,
+  private void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, final OPMProcess source,
+      final DirectedNeighborIndex<OPMProcess, DefaultEdge> dni, final OPMProcess firstTarget,
       final OPMProcess secondTarget) {
     if(firstTarget.equals(secondTarget)) {
       return;
@@ -215,7 +215,7 @@ public final class OPDExecutionAnalysis {
    * @param dag
    *          The DAG to analyze and remove edges.
    */
-  private static void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag) {
+  private void removeDuplicateEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag) {
     for(final OPMProcess vertex : dag.vertexSet()) {
       removeDuplicateEdges(dag, vertex);
     }
@@ -231,7 +231,7 @@ public final class OPDExecutionAnalysis {
    * @param opd
    *          the OPD from which the processes are read.
    */
-  private static void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
+  private void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMObjectProcessDiagram opd) {
     for(final OPMProcess process1 : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
       for(final OPMProcess process2 : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
@@ -248,8 +248,8 @@ public final class OPDExecutionAnalysis {
    * @param process1
    * @param process2
    */
-  private static void createEdgeIfRequired(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
-      final OPMProcess process1, final OPMProcess process2) {
+  private void createEdgeIfRequired(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, final OPMProcess process1,
+      final OPMProcess process2) {
     if(process1.equals(process2)) {
       return;
     }
@@ -271,8 +271,7 @@ public final class OPDExecutionAnalysis {
    * @param opd
    *          the OPD from which the processes are read.
    */
-  private static void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
-      final OPMObjectProcessDiagram opd) {
+  private void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, final OPMObjectProcessDiagram opd) {
     for(final OPMProcess process : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
       dag.addVertex(process);
     }
@@ -285,7 +284,7 @@ public final class OPDExecutionAnalysis {
    *          to analyze.
    * @return A set containing all the parameters.
    */
-  public static Set<Parameter> calculateAllParameters(final OPMProcess process) {
+  public Set<Parameter> calculateAllParameters(final OPMProcess process) {
     final Set<Parameter> parameters = Sets.newHashSet();
 
     for(OPMProceduralLink link : OPDAnalysis.INSTANCE.findIncomingDataLinks(process)) {

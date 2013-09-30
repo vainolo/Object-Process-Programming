@@ -37,7 +37,7 @@ public class OPMInstanceExecutor {
   public OPMInstanceExecutor(OPMProcessInstance instance, OPMCompoundProcessInstance caller) {
     this.instance = instance;
     this.caller = caller;
-    this.parameters = OPDExecutionAnalysis.calculateAllParameters(getProcess());
+    this.parameters = OPDExecutionAnalysis.INSTANCE.calculateAllParameters(getProcess());
   }
 
   public void tryToExecuteInstance() {
