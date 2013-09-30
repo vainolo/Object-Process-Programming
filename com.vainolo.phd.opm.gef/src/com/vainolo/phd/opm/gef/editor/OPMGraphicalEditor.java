@@ -51,7 +51,7 @@ import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.provider.OPMItemProviderAdapterFactory;
-import com.vainolo.phd.opm.utilities.OPDLoader;
+import com.vainolo.phd.opm.utilities.OPDFileUtils;
 
 public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
@@ -111,8 +111,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   private void configureKeyboardShortcuts() {
     GraphicalViewerKeyHandler keyHandler = new GraphicalViewerKeyHandler(getGraphicalViewer());
     keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
-    keyHandler.put(
-        KeyStroke.getPressed(SWT.F3, 0), getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
+    keyHandler.put(KeyStroke.getPressed(SWT.F3, 0),
+        getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
     getGraphicalViewer().setKeyHandler(keyHandler);
 
   }
@@ -125,8 +125,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   /**
-   * Save the model using the resource from which it was opened, and mark the current location in the
-   * {@link CommandStack}.
+   * Save the model using the resource from which it was opened, and mark the
+   * current location in the {@link CommandStack}.
    */
   @Override
   public void doSave(IProgressMonitor monitor) {
@@ -148,13 +148,14 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   private void loadInput(IEditorInput input) {
-    OPMPackage.eINSTANCE.eClass(); // This initializes the OPMPackage singleton implementation. Must be called before
+    OPMPackage.eINSTANCE.eClass(); // This initializes the OPMPackage singleton
+                                   // implementation. Must be called before
                                    // reading the file.
     if(input instanceof IFileEditorInput) {
 
       IFileEditorInput fileInput = (IFileEditorInput) input;
       opdFile = fileInput.getFile();
-      opd = OPDLoader.loadOPDFile(opdFile.getLocationURI().toString());
+      opd = OPDFileUtils.INSTANCE.loadOPDFile(opdFile.getLocationURI().toString());
       if(opd == null) {
         throw new RuntimeException("Could not load OPD file " + opdFile.getLocationURI().toString());
       }
@@ -181,7 +182,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   /**
-   * Fire a {@link IEditorPart#PROP_DIRTY} property change and call super implementation.
+   * Fire a {@link IEditorPart#PROP_DIRTY} property change and call super
+   * implementation.
    */
   @Override
   public void commandStackChanged(EventObject event) {
@@ -190,8 +192,10 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   /**
-   * This method implements adapting to {@link IPropertySheetPage}. All other requests are forwarded to the
-   * {@link GraphicalEditorWithFlyoutPalette#getAdapter(Class) parent} implementation.
+   * This method implements adapting to {@link IPropertySheetPage}. All other
+   * requests are forwarded to the
+   * {@link GraphicalEditorWithFlyoutPalette#getAdapter(Class) parent}
+   * implementation.
    */
   @Override
   public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
@@ -200,7 +204,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         propertyPage = (UndoablePropertySheetPage) super.getAdapter(type);
         // A new PropertySourceProvider was implemented to fetch the model
         // from the edit part when required. The property source is provided
-        // by the generated EMF classes and wrapped by the AdapterFactoryContentProvider
+        // by the generated EMF classes and wrapped by the
+        // AdapterFactoryContentProvider
         // to yield standard eclipse interfaces.
         IPropertySourceProvider sourceProvider = new IPropertySourceProvider() {
           IPropertySourceProvider modelPropertySourceProvider = new AdapterFactoryContentProvider(
@@ -236,7 +241,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   /**
-   * A property source which unwraps values that are wrapped in an EMF {@link PropertyValueWrapper}
+   * A property source which unwraps values that are wrapped in an EMF
+   * {@link PropertyValueWrapper}
    * 
    * @author vainolo
    * 

@@ -20,10 +20,12 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.utils.SimpleLoggerFactory;
 
-public class OPDLoader {
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPDLoader.class.getName());
+public enum OPDFileUtils {
+  INSTANCE; 
+  
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPDFileUtils.class.getName());
 
-  public static OPMObjectProcessDiagram loadOPDFile(String uri) {
+  public OPMObjectProcessDiagram loadOPDFile(String uri) {
     OPMObjectProcessDiagram opd;
     final ResourceSet resourceSet = new ResourceSetImpl();
     resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
@@ -41,7 +43,7 @@ public class OPDLoader {
     return opd;
   }
 
-  public static OPMObjectProcessDiagram createOPDFile(String uri, String opdName, OPMObjectProcessDiagramKind kind) {
+  public OPMObjectProcessDiagram createOPDFile(String uri, String opdName, OPMObjectProcessDiagramKind kind) {
     final ResourceSet resourceSet = new ResourceSetImpl();
     final Resource resource = resourceSet.createResource(URI.createURI(uri));
     OPMObjectProcessDiagram diagram = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();

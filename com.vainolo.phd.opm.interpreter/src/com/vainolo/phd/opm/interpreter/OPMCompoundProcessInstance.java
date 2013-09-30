@@ -33,7 +33,7 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.utilities.OPDLoader;
+import com.vainolo.phd.opm.utilities.OPDFileUtils;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -59,7 +59,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
 
   @Override
   protected void initProcessInstance() {
-    opd = OPDLoader.loadOPDFile(getProcessFilename());
+    opd = OPDFileUtils.INSTANCE.loadOPDFile(getProcessFilename());
     if(opd == null)
       throw new RuntimeException("Could not load OPD file for proocess " + getProcess().getName());
     opdDag = OPDExecutionAnalysis.createOPDDAG(opd);
