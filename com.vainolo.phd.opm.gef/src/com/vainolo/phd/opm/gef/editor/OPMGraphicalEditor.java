@@ -51,7 +51,7 @@ import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.provider.OPMItemProviderAdapterFactory;
-import com.vainolo.phd.opm.utilities.OPDFileUtils;
+import com.vainolo.phd.opm.utilities.OPMFileUtils;
 
 public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
@@ -155,7 +155,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
       IFileEditorInput fileInput = (IFileEditorInput) input;
       opdFile = fileInput.getFile();
-      opd = OPDFileUtils.INSTANCE.loadOPDFile(opdFile.getLocationURI().toString());
+      opd = OPMFileUtils.INSTANCE.loadOPDFile(opdFile.getLocationURI().toString());
       if(opd == null) {
         throw new RuntimeException("Could not load OPD file " + opdFile.getLocationURI().toString());
       }

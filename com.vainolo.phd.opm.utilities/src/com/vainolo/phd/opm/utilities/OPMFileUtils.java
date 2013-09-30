@@ -20,10 +20,10 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.utils.SimpleLoggerFactory;
 
-public enum OPDFileUtils {
+public enum OPMFileUtils {
   INSTANCE; 
   
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPDFileUtils.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMFileUtils.class.getName());
 
   public OPMObjectProcessDiagram loadOPDFile(String uri) {
     OPMObjectProcessDiagram opd;

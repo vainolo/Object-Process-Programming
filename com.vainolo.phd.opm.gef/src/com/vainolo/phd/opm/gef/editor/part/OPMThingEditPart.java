@@ -34,7 +34,7 @@ import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMThing;
-import com.vainolo.phd.opm.utilities.OPDFileUtils;
+import com.vainolo.phd.opm.utilities.OPMFileUtils;
 
 public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
@@ -61,7 +61,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
       final IFile newFile = input.getFile().getParent().getFile(new Path(thingName + ".opm"));
       try {
         if(!newFile.exists()) {
-          if(OPDFileUtils.INSTANCE.createOPDFile(newFile.getLocationURI().toString(), thingName,
+          if(OPMFileUtils.INSTANCE.createOPDFile(newFile.getLocationURI().toString(), thingName,
               OPMObjectProcessDiagramKind.COMPOUND) == null) {
             throw new RuntimeException("Could not create diagram for thing " + thingName);
           }
