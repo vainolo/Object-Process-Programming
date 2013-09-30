@@ -14,7 +14,7 @@ import org.eclipse.ui.PlatformUI;
 
 import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
 import com.vainolo.phd.opm.gef.editor.OPMGraphicalEditor;
-import com.vainolo.phd.opm.interpreter.Interpreter;
+import com.vainolo.phd.opm.interpreter.OPMInterpreter;
 
 public class InterpretAction extends Action {
   public static final String INTERPRET_ID = "Interpret";
@@ -37,7 +37,7 @@ public class InterpretAction extends Action {
     (new Thread(new Runnable() {
       @Override
       public void run() {
-        Interpreter.INSTANCE.interpret(processName, container);
+        OPMInterpreter.INSTANCE.interpret(processName, container);
       }
     })).start();
   }

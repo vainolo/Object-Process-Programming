@@ -44,21 +44,24 @@ public interface OPMProcessInstance {
    *          of the argument.
    * @return value of the argument.
    * @throws IllegalStateException
-   *           if the argument has no value (only occurs for outgoing arguments).
+   *           if the argument has no value (only occurs for outgoing
+   *           arguments).
    */
   Object getArgumentValue(String name);
 
   /**
    * Check if the process has finished.
    * 
-   * @return <code>true</code> if the process has finished execution, <code>false</code> otherwise.
+   * @return <code>true</code> if the process has finished execution,
+   *         <code>false</code> otherwise.
    */
   boolean isFinished();
 
   /**
    * Check if the process is currently executing.
    * 
-   * @return <code>true</code> if the process is currently executing, <code>false</code> otherwise.
+   * @return <code>true</code> if the process is currently executing,
+   *         <code>false</code> otherwise.
    */
   boolean isExecuting();
 

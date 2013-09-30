@@ -51,7 +51,7 @@ public class OPMInstanceExecutor {
       executionStatus = ExecutionStatus.EXECUTING;
       assignIncomingParameterValues();
       final OPMInstanceRunnable runnable = new OPMInstanceRunnable(this, caller.getResultQueue());
-      Interpreter.INSTANCE.getExecutorService().execute(runnable);
+      OPMInterpreter.INSTANCE.getExecutorService().execute(runnable);
     }
   }
 

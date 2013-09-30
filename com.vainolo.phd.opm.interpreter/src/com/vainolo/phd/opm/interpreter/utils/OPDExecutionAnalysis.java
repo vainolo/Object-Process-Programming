@@ -229,6 +229,13 @@ public final class OPDExecutionAnalysis {
     }
   }
 
+  /**
+   * Create the initial edges between the processes. Two processes are connected if one is
+   * below the other (bottom->top).
+   * @param dag 
+   * @param process1
+   * @param process2
+   */
   private static void createEdgeIfRequired(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMProcess process1, final OPMProcess process2) {
     if(process1.equals(process2)) {

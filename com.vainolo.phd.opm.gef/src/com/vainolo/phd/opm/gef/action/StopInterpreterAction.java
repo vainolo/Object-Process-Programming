@@ -9,7 +9,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
-import com.vainolo.phd.opm.interpreter.Interpreter;
+import com.vainolo.phd.opm.interpreter.OPMInterpreter;
 
 public class StopInterpreterAction extends Action {
 
@@ -26,6 +26,6 @@ public class StopInterpreterAction extends Action {
 
   @Override
   public void run() {
-    Interpreter.INSTANCE.stopExecution();
+    OPMInterpreter.INSTANCE.stopExecution();
   }
 }

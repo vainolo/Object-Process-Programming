@@ -9,12 +9,14 @@ import static com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory.createPr
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IContainer;
 
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMProcessKind;
+import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
  * 
@@ -22,14 +24,16 @@ import com.vainolo.phd.opm.model.OPMProcessKind;
  * @created 5 Jul 2012
  * 
  */
-public enum Interpreter {
+public enum OPMInterpreter {
   INSTANCE;
+
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMInterpreter.class.getName());
 
   private IContainer containter;
   private ExecutorService executorService;
   private OPMProcessInstance instance;
 
-  private Interpreter() {
+  private OPMInterpreter() {
   }
 
   public IContainer getContainer() {
@@ -52,5 +56,9 @@ public enum Interpreter {
   public void stopExecution() {
     instance.stop();
     executorService.shutdownNow();
+  }
+
+  public void log(String text) {
+    logger.info(text);
   }
 }

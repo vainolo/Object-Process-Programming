@@ -5,7 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Map;
 import java.util.logging.Logger;
@@ -30,7 +31,8 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   }
 
   /**
-   * This function should do all process initialization, such as initializing parameters, loading definitions, etc.
+   * This function should do all process initialization, such as initializing
+   * parameters, loading definitions, etc.
    */
   protected abstract void initProcessInstance();
 
@@ -39,26 +41,35 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
     return process;
   }
 
-  @Override
-  public String getName() {
-    return getProcess().getName();
-  }
-
   abstract protected void executing();
 
+  /**
+   * Execution of an OPD is done in three steps: pre-execution, execution, and
+   * post-execution. All of these steps can be overriden by subclasses to
+   * implement the execution functionality. All subclasses must implement at the
+   * minimum the <code>executing</code> function.
+   */
   @Override
-  public void execute() {
+  public final void execute() {
     preExecution();
     executing();
     postExecution();
   }
 
-  private void preExecution() {
-    logger.info("Started executing process " + getName());
+  /**
+   * First step in the execution of an OPD (see {@link #execute()}). Default
+   * implementation, prints to log.
+   */
+  protected void preExecution() {
+    logger.info("Started executing process " + getProcess().getName());
   }
 
-  private void postExecution() {
-    logger.info("Finished executing process " + getName());
+  /**
+   * Last step in the execution of an OPD (see {@link #execute()}). Default
+   * implementation, prints to the log.
+   */
+  protected void postExecution() {
+    logger.info("Finished executing process " + getProcess().getName());
   }
 
   protected OPMObjectInstance getVariable(String name) {
@@ -85,7 +96,8 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   public void setArgumentValue(String name, Object value) {
     checkArgument(name != null, "Argument name cannot be null.");
     checkArgument(value != null, "Argument %s value cannot be null.", name);
-    checkState(variables.containsKey(name), "Process %s doesn't have a parameter named %s.", getName(), name);
+    checkState(variables.containsKey(name), "Process %s doesn't have a parameter named %s.", getProcess().getName(),
+        name);
     variables.get(name).setValue(value);
   }
 
