@@ -42,18 +42,19 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
 
   abstract protected void executing();
 
-  /**
-   * Execution of an OPD is done in three steps: pre-execution, execution, and
-   * post-execution. All of these steps can be overriden by subclasses to
-   * implement the execution functionality. All subclasses must implement at the
-   * minimum the <code>executing</code> function.
-   */
-  @Override
-  public final void execute() {
-    preExecution();
-    executing();
-    postExecution();
-  }
+  // /**
+  // * Execution of an OPD is done in three steps: pre-execution, execution, and
+  // * post-execution. All of these steps can be overriden by subclasses to
+  // * implement the execution functionality. All subclasses must implement at
+  // the
+  // * minimum the <code>executing</code> function.
+  // */
+  // @Override
+  // public final void execute() {
+  // preExecution();
+  // executing();
+  // postExecution();
+  // }
 
   /**
    * First step in the execution of an OPD (see {@link #execute()}). Default
@@ -101,15 +102,15 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
     variables.get(name).setValue(value);
   }
 
-  @Override
-  public boolean isExecuting() {
-    return executing;
-  }
+  // @Override
+  // public boolean isExecuting() {
+  // return executing;
+  // }
 
-  @Override
-  public boolean isFinished() {
-    return finished;
-  }
+  // @Override
+  // public boolean isFinished() {
+  // return finished;
+  // }
 
   public boolean isActive() {
     return active;
@@ -127,13 +128,13 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
     this.active = active;
   }
 
-  @Override
-  public void skip() {
-    setFinished(true);
-  }
+  // @Override
+  // public void skip() {
+  // setFinished(true);
+  // }
 
-  @Override
-  public void stop() {
-    // Do nothing
-  }
+  // @Override
+  // public void stop() {
+  // // Do nothing
+  // }
 }

@@ -39,12 +39,6 @@ public class OPMSystemOPDInstance implements OPMExecutableInstance {
   }
 
   @Override
-  public void execute() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
   public void setArgumentValue(String name, Object value) {
     // TODO Auto-generated method stub
 
@@ -55,29 +49,4 @@ public class OPMSystemOPDInstance implements OPMExecutableInstance {
     // TODO Auto-generated method stub
     return null;
   }
-
-  @Override
-  public boolean isFinished() {
-    // TODO Auto-generated method stub
-    return false;
-  }
-
-  @Override
-  public boolean isExecuting() {
-    // TODO Auto-generated method stub
-    return false;
-  }
-
-  @Override
-  public void skip() {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void stop() {
-    // TODO Auto-generated method stub
-
-  }
-
 }

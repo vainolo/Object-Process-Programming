@@ -5,7 +5,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-
 /**
  * 
  * @author Arieh 'Vainolo' Bibliowicz
@@ -14,10 +13,10 @@ package com.vainolo.phd.opm.interpreter;
  */
 public interface OPMExecutableInstance {
 
-  /**
-   * Execute the process.
-   */
-  void execute();
+  // /**
+  // * Execute the process.
+  // */
+  // void execute();
 
   /**
    * Set the value of an argument.
@@ -41,30 +40,30 @@ public interface OPMExecutableInstance {
    */
   Object getArgumentValue(String name);
 
-  /**
-   * Check if the process has finished.
-   * 
-   * @return <code>true</code> if the process has finished execution,
-   *         <code>false</code> otherwise.
-   */
-  boolean isFinished();
+  // /**
+  // * Check if the process has finished.
+  // *
+  // * @return <code>true</code> if the process has finished execution,
+  // * <code>false</code> otherwise.
+  // */
+  // boolean isFinished();
 
-  /**
-   * Check if the process is currently executing.
-   * 
-   * @return <code>true</code> if the process is currently executing,
-   *         <code>false</code> otherwise.
-   */
-  boolean isExecuting();
+  // /**
+  // * Check if the process is currently executing.
+  // *
+  // * @return <code>true</code> if the process is currently executing,
+  // * <code>false</code> otherwise.
+  // */
+  // boolean isExecuting();
 
-  /**
-   * Skip process execution;
-   */
-  void skip();
+  // /**
+  // * Skip process execution;
+  // */
+  // void skip();
 
-  /**
-   * Stop process execution, if possible.
-   */
-  void stop();
+  // /**
+  // * Stop process execution, if possible.
+  // */
+  // void stop();
 
 }

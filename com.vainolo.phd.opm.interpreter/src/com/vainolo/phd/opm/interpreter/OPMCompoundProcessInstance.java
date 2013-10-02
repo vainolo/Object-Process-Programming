@@ -222,17 +222,18 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
     execState.getSkippedProcesses().add(process);
   }
 
-  @Override
-  public synchronized void stop() {
-    this.stopped = true;
-    stopChildInstances();
-  }
+  // @Override
+  // public synchronized void stop() {
+  // this.stopped = true;
+  // stopChildInstances();
+  // }
 
-  private void stopChildInstances() {
-    for(OPMExecutableInstance executingInstance : execState.getExecutingInstances()) {
-      executingInstance.stop();
-    }
-  }
+  // private void stopChildInstances() {
+  // for(OPMExecutableInstance executingInstance :
+  // execState.getExecutingInstances()) {
+  // executingInstance.stop();
+  // }
+  // }
 
   private synchronized boolean isStopped() {
     return stopped;

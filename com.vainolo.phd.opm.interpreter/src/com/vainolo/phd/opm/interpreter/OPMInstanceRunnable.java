@@ -19,11 +19,12 @@ class OPMInstanceRunnable implements Runnable {
 
   @Override
   public void run() {
-    executor.getInstance().execute();
+    // executor.getInstance().execute();
     try {
       runningProcessInstanceQueue.put(executor);
     } catch(InterruptedException e) {
-      // The blocking queue should not throw this exception since it is "unbounded" (size of Integer.MAX_INT). So this
+      // The blocking queue should not throw this exception since it is
+      // "unbounded" (size of Integer.MAX_INT). So this
       // is very problematic.
       throw new IllegalStateException("Process execution communication queue threw an unexpected exception.", e);
     }

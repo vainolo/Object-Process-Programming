@@ -64,7 +64,7 @@ public enum OPMInterpreter {
   }
 
   public void stopExecution() {
-    instance.stop();
+    // instance.stop();
     executorService.shutdownNow();
   }
 
