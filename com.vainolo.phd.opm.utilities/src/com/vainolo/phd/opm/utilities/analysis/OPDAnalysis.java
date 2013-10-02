@@ -23,6 +23,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMEventLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMInvocationLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMObjectNode;
+import com.vainolo.phd.opm.utilities.predicates.IsOPMParameter;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProceduralLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessIncomingDataLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessNode;
@@ -121,5 +122,10 @@ public enum OPDAnalysis {
 
   public static Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
     return filter(node.getIncomingLinks(), IsOPMStructuralLink.INSTANCE);
+  }
+
+  @SuppressWarnings("rawtypes")
+  public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd) {
+    return (Collection)filter(opd.getNodes(), IsOPMParameter.INSTANCE);
   }
 }

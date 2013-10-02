@@ -8,7 +8,7 @@ package com.vainolo.phd.opm.interpreter.builtin;
 import java.util.logging.Logger;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
-import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -19,7 +19,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * @created 10 Jul 2012
  * 
  */
-public class OPMConceptualProcess extends OPMAbstractProcessInstance implements OPMProcessInstance {
+public class OPMConceptualProcess extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMConceptualProcess.class.getName());
 
   public OPMConceptualProcess(final OPMProcess process) {
@@ -28,7 +28,8 @@ public class OPMConceptualProcess extends OPMAbstractProcessInstance implements 
 
   @Override
   protected void executing() {
-    logger.info("Executing conceptual process " + getProcess().getName() + ".");
+    // logger.info("Executing conceptual process " + getProcess().getName() +
+    // ".");
   }
 
   @Override

@@ -11,34 +11,36 @@ import com.vainolo.phd.opm.interpreter.builtin.OPMConceptualProcess;
 import com.vainolo.phd.opm.interpreter.builtin.OPMInputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMOutputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMSleepProcessInstance;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.model.OPMProcessKind;
 
-public class OPMProcessInstanceFactory {
-  public static OPMProcessInstance createProcessInstance(final OPMProcess process, final OPMProcessKind kind) {
-    OPMProcessInstance processInstance;
-    switch(kind) {
-      case BUILT_IN:
-        processInstance = createBuildInProcess(process);
-        break;
-      case COMPOUND:
-        processInstance = new OPMCompoundProcessInstance(process);
-        break;
-      case CONCEPTUAL:
-        processInstance = new OPMConceptualProcess(process);
-        break;
-      case JAVA:
-        processInstance = new OPMJavaProcessInstance(process);
-        break;
-      default:
-        throw new IllegalStateException("Received unexpected OPMProcessKind " + kind.getLiteral());
+public class OPMExecutableInstanceFactory {
+  public static OPMExecutableInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
+    return null;
+  }
+
+  public static OPMExecutableInstance createExecutableInstance(final OPMProcess process) {
+    OPMExecutableInstance processInstance = null;
+    switch(process.getKind()) {
+    case BUILT_IN:
+      processInstance = createBuildInProcess(process);
+      break;
+    case COMPOUND:
+      processInstance = new OPMCompoundProcessInstance(process);
+      break;
+    case CONCEPTUAL:
+      processInstance = new OPMConceptualProcess(process);
+      break;
+    case JAVA:
+      processInstance = new OPMJavaProcessInstance(process);
+      break;
     }
 
     return processInstance;
   }
 
-  private static OPMProcessInstance createBuildInProcess(final OPMProcess process) {
-    OPMProcessInstance processInstance;
+  private static OPMExecutableInstance createBuildInProcess(final OPMProcess process) {
+    OPMExecutableInstance processInstance;
 
     if(process.getName().equals("Input")) {
       processInstance = new OPMInputProcessInstance(process);

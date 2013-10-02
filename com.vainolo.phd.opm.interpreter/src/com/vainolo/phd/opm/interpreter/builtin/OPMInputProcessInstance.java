@@ -8,7 +8,7 @@ package com.vainolo.phd.opm.interpreter.builtin;
 import javax.swing.JOptionPane;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
-import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
@@ -20,7 +20,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
  * @author vainolo
  * 
  */
-public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
+public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   public OPMInputProcessInstance(final OPMProcess process) {
     super(process);
   }

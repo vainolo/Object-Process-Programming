@@ -6,7 +6,6 @@
 package com.vainolo.phd.opm.interpreter;
 
 import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Map;
 import java.util.logging.Logger;
@@ -16,7 +15,7 @@ import com.google.common.collect.Maps;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
-public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
+public abstract class OPMAbstractProcessInstance implements OPMExecutableInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
   private Map<String, OPMObjectInstance> variables = Maps.newHashMap();
@@ -36,10 +35,10 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
    */
   protected abstract void initProcessInstance();
 
-  @Override
-  public OPMProcess getProcess() {
-    return process;
-  }
+  // @Override
+  // public OPMProcess getProcess() {
+  // return process;
+  // }
 
   abstract protected void executing();
 
@@ -61,7 +60,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
    * implementation, prints to log.
    */
   protected void preExecution() {
-    logger.info("Started executing process " + getProcess().getName());
+    // logger.info("Started executing process " + getProcess().getName());
   }
 
   /**
@@ -69,7 +68,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
    * implementation, prints to the log.
    */
   protected void postExecution() {
-    logger.info("Finished executing process " + getProcess().getName());
+    // logger.info("Finished executing process " + getProcess().getName());
   }
 
   protected OPMObjectInstance getVariable(String name) {
@@ -96,8 +95,9 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   public void setArgumentValue(String name, Object value) {
     checkArgument(name != null, "Argument name cannot be null.");
     checkArgument(value != null, "Argument %s value cannot be null.", name);
-    checkState(variables.containsKey(name), "Process %s doesn't have a parameter named %s.", getProcess().getName(),
-        name);
+    // checkState(variables.containsKey(name),
+    // "Process %s doesn't have a parameter named %s.", getProcess().getName(),
+    // name);
     variables.get(name).setValue(value);
   }
 

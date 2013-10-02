@@ -5,7 +5,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
  * 
@@ -13,14 +12,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
  * @created 2 Jul 2012
  * 
  */
-public interface OPMProcessInstance {
-
-  /**
-   * Get the process that created this process instance.
-   * 
-   * @return the process that created this process instance.
-   */
-  OPMProcess getProcess();
+public interface OPMExecutableInstance {
 
   /**
    * Execute the process.

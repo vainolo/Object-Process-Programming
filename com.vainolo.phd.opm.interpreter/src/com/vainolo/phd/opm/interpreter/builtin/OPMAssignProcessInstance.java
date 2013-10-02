@@ -6,7 +6,7 @@
 package com.vainolo.phd.opm.interpreter.builtin;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
-import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
@@ -16,7 +16,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
  * @created 9 Jul 2012
  * 
  */
-public class OPMAssignProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
+public class OPMAssignProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   public OPMAssignProcessInstance(final OPMProcess process) {
     super(process);
   }
