@@ -11,6 +11,7 @@ import static com.google.common.collect.Iterables.*;
 import java.util.Collection;
 import java.util.Set;
 
+import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
@@ -23,7 +24,6 @@ import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMEventLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMInvocationLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMObjectNode;
-import com.vainolo.phd.opm.utilities.predicates.IsOPMParameter;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProceduralLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessIncomingDataLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessNode;
@@ -94,17 +94,17 @@ public enum OPDAnalysis {
    * @return All processes directly contained in this container.
    */
   @SuppressWarnings("rawtypes")
-  public Collection<OPMProcess> findExecutableProcesses(OPMContainer container) {
+  public Collection<OPMProcess> findFirstLevelContainedProcesses(OPMContainer container) {
         return (Collection) filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
   }
 
-  @SuppressWarnings("rawtypes")
   /**
    * Find all the objects directly inside this container (non recursive).
    * @param container The container to be searched.
    * @return All objects directly contained in this container.
    */
-  public static Collection<OPMObject> findFirstLevelContainedObjects(OPMContainer container) {
+  @SuppressWarnings("rawtypes")
+  public Collection<OPMObject> findFirstLevelContainedObjects(OPMContainer container) {
     return (Collection) filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
   }
 
@@ -128,4 +128,38 @@ public enum OPDAnalysis {
   public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd) {
     return (Collection)filter(opd.getNodes(), IsOPMParameter.INSTANCE);
   }
+  
+  public Collection<OPMObject> findVariables(OPMObjectProcessDiagram opd) {
+    return (Collection)filter(opd.getNodes(), IsOPMVariable.INSTANCE);
+  }
+  
+  public enum IsOPMParameter implements Predicate<OPMNode> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(final OPMNode node) {
+      if(OPMObject.class.isInstance(node)) {
+        OPMObject o = (OPMObject)node;
+        if(o.isParameter()) { 
+          return true;
+        }
+      }
+      return false;
+    }
+  }  
+
+  public enum IsOPMVariable implements Predicate<OPMNode> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(final OPMNode node) {
+      if(OPMObject.class.isInstance(node)) {
+        OPMObject o = (OPMObject)node;
+        if(!o.isParameter()) { 
+          return true;
+        }
+      }
+      return false;
+    }
+  }  
 }
