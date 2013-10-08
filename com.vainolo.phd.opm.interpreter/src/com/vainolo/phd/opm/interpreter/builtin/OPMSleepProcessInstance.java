@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
-import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -22,13 +21,13 @@ import com.vainolo.utils.SimpleLoggerFactory;
 public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMSleepProcessInstance.class.getName());
 
-  public OPMSleepProcessInstance(final OPMProcess process) {
-    super(process);
+  public OPMSleepProcessInstance() {
+    createArgument("time");
   }
 
   @Override
   protected void executing() {
-    final int time = Integer.parseInt(getVariable("time").getValue().toString());
+    final int time = Integer.parseInt(getVariable("time").toString());
     logger.info("Sleeping for " + time + " seconds.");
     try {
       Thread.sleep(time * 1000);
@@ -39,7 +38,7 @@ public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implemen
   }
 
   @Override
-  protected void initProcessInstance() {
-    createVariable("time");
+  public String getName() {
+    return "Sleep";
   }
 }

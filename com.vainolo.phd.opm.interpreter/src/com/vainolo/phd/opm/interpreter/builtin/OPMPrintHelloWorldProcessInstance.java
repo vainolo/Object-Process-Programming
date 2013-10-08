@@ -9,33 +9,28 @@ import java.util.logging.Logger;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
-import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
- * An OPM process that upon execution simply creates all process outputs.
+ * Process that adds two integer values.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
- * @created 10 Jul 2012
+ * @created 9 Jul 2012
  * 
  */
-public class OPMConceptualProcess extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMPrintHelloWorldProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
 
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
-
-  private OPMProcess process;
-
-  public OPMConceptualProcess(OPMProcess process) {
-    this.process = process;
-  }
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMPrintHelloWorldProcessInstance.class
+      .getName());
 
   @Override
-  protected void executing() {
-    logger.info("Executing conceptual process " + getName() + ".");
+  public void executing() {
+    logger.info("Hello World");
   }
 
   @Override
   public String getName() {
-    return process.getName();
+    return "Hello World";
   }
+
 }

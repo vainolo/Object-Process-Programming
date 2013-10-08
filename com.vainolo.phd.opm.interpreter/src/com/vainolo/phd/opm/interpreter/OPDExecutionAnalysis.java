@@ -76,11 +76,11 @@ public enum OPDExecutionAnalysis {
    * @return list of processes that are dependent on the current process for
    *         execution.
    */
-  public List<OPMProcess> calculateFollowingProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
+  public Set<OPMProcess> calculateFollowingProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
       final OPMProcess process) {
     Preconditions.checkArgument(opdDag != null);
     Preconditions.checkArgument(process != null);
-    final List<OPMProcess> retVal = new ArrayList<OPMProcess>();
+    final Set<OPMProcess> retVal = Sets.newHashSet();
 
     for(final DefaultEdge edge : opdDag.outgoingEdgesOf(process)) {
       retVal.add(opdDag.getEdgeTarget(edge));
@@ -233,8 +233,8 @@ public enum OPDExecutionAnalysis {
    */
   private void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMContainer container) {
-    for(final OPMProcess process1 : OPDAnalysis.INSTANCE.findExecutableProcesses(container)) {
-      for(final OPMProcess process2 : OPDAnalysis.INSTANCE.findExecutableProcesses(container)) {
+    for(final OPMProcess process1 : OPDAnalysis.INSTANCE.findFirstLevelContainedProcesses(container)) {
+      for(final OPMProcess process2 : OPDAnalysis.INSTANCE.findFirstLevelContainedProcesses(container)) {
         createEdgeIfRequired(dag, process1, process2);
       }
     }
@@ -272,7 +272,7 @@ public enum OPDExecutionAnalysis {
    *          the OPD from which the processes are read.
    */
   private void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, final OPMContainer opd) {
-    for(final OPMProcess process : OPDAnalysis.INSTANCE.findExecutableProcesses(opd)) {
+    for(final OPMProcess process : OPDAnalysis.INSTANCE.findFirstLevelContainedProcesses(opd)) {
       dag.addVertex(process);
     }
   }

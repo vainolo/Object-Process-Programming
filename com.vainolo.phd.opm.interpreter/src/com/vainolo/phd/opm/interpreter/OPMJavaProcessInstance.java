@@ -29,33 +29,36 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   private Object[] arguments;
   private Object target = null;
 
+  private OPMProcess process;
+
   public OPMJavaProcessInstance(OPMProcess process) {
-    super(process);
+    this.process = process;
   }
 
   @Override
-  protected void initProcessInstance() {
-    loadMethod();
-    for(String parameter : parameters) {
-      createVariable(parameter);
-    }
+  public String getName() {
+    return process.getName();
   }
 
   @Override
   protected void executing() {
+    loadMethod();
+    for(String parameter : parameters) {
+      createVariable(parameter);
+    }
 
     arguments = new Object[parameters.length];
     for(int i = 0; i < parameters.length; i++) {
-      arguments[i] = getArgumentValue("arg" + i);
+      arguments[i] = getArgument("arg" + i);
     }
 
     if(!Modifier.isStatic(method.getModifiers()))
-      target = getArgumentValue("this");
+      target = getArgument("this");
 
     final Object result = callMethod(method);
 
     if(!method.getReturnType().equals(Void.TYPE)) {
-      setArgumentValue("result", result);
+      setArgument("result", result);
     }
   }
 

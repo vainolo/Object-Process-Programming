@@ -13,11 +13,6 @@ package com.vainolo.phd.opm.interpreter;
  */
 public interface OPMExecutableInstance {
 
-  // /**
-  // * Execute the process.
-  // */
-  // void execute();
-
   /**
    * Set the value of an argument.
    * 
@@ -26,7 +21,7 @@ public interface OPMExecutableInstance {
    * @param value
    *          of the argument.
    */
-  void setArgumentValue(String name, Object value);
+  void setArgument(String name, Object value);
 
   /**
    * Get the value of an argument.
@@ -38,32 +33,17 @@ public interface OPMExecutableInstance {
    *           if the argument has no value (only occurs for outgoing
    *           arguments).
    */
-  Object getArgumentValue(String name);
+  Object getArgument(String name);
 
-  // /**
-  // * Check if the process has finished.
-  // *
-  // * @return <code>true</code> if the process has finished execution,
-  // * <code>false</code> otherwise.
-  // */
-  // boolean isFinished();
+  /**
+   * Get the name of the OPD/Process
+   * 
+   * @return the name of the OPD/Process
+   */
+  String getName();
 
-  // /**
-  // * Check if the process is currently executing.
-  // *
-  // * @return <code>true</code> if the process is currently executing,
-  // * <code>false</code> otherwise.
-  // */
-  // boolean isExecuting();
-
-  // /**
-  // * Skip process execution;
-  // */
-  // void skip();
-
-  // /**
-  // * Stop process execution, if possible.
-  // */
-  // void stop();
-
+  /**
+   * Execute this instance.
+   */
+  void execute();
 }

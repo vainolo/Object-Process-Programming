@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
-import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
  * Arguments:
@@ -21,14 +20,15 @@ import com.vainolo.phd.opm.model.OPMProcess;
  * 
  */
 public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
-  public OPMInputProcessInstance(final OPMProcess process) {
-    super(process);
+
+  public OPMInputProcessInstance() {
+    createArgument("text");
   }
 
   @Override
   protected void executing() {
     final String retVal = showInputDialog();
-    getVariable("text").setValue(retVal);
+    setArgument("text", retVal);
   }
 
   /**
@@ -39,7 +39,8 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
   }
 
   @Override
-  protected void initProcessInstance() {
-    createVariable("text");
+  public String getName() {
+    return "Input";
   }
+
 }
