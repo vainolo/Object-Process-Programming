@@ -67,8 +67,9 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
 
     while(readyInstances.size() > 0) {
       OPMExecutableInstance instance = readyInstances.iterator().next();
-      OPMProcess process = instanceToProcessMapping.get(instance);
       readyInstances.remove(instance);
+
+      OPMProcess process = instanceToProcessMapping.get(instance);
       processToInstanceMapping.remove(process);
       instanceToProcessMapping.remove(instance);
       instance.execute();
@@ -78,6 +79,8 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
             followingProcess);
         if(Sets.intersection(precedingProcesses, Sets.union(readyInstances, waitingInstances)).size() == 0) {
           OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(followingProcess);
+          instanceToProcessMapping.put(newInstance, followingProcess);
+          processToInstanceMapping.put(followingProcess, newInstance);
           if(isReady(newInstance)) {
             readyInstances.add(newInstance);
           } else {
