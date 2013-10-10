@@ -5,8 +5,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import org.jgrapht.alg.DirectedNeighborIndex;
@@ -19,6 +17,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMContainer;
+import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
@@ -48,7 +47,7 @@ public enum OPDExecutionAnalysis {
    * @return a set of processes that have to finish for the given process to
    *         execute.
    */
-  public Set<OPMProcess> calculateRequiredProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
+  public Set<OPMProcess> findRequiredProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
       final OPMProcess process) {
     Preconditions.checkArgument(opdDag != null);
     Preconditions.checkArgument(process != null);
@@ -76,7 +75,7 @@ public enum OPDExecutionAnalysis {
    * @return list of processes that are dependent on the current process for
    *         execution.
    */
-  public Set<OPMProcess> calculateFollowingProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
+  public Set<OPMProcess> findFollowingProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag,
       final OPMProcess process) {
     Preconditions.checkArgument(opdDag != null);
     Preconditions.checkArgument(process != null);
@@ -287,7 +286,8 @@ public enum OPDExecutionAnalysis {
   public Set<Parameter> calculateAllParameters(final OPMProcess process) {
     final Set<Parameter> parameters = Sets.newHashSet();
 
-    for(OPMProceduralLink link : OPDAnalysis.INSTANCE.findIncomingDataLinks(process)) {
+    for(OPMLink theLink : OPDAnalysis.INSTANCE.findIncomingDataLinks(process)) {
+      OPMProceduralLink link = OPMProceduralLink.class.cast(theLink);
       if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getSource())) {
         parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource().getContainer(), link,
             (OPMState) link.getSource()));

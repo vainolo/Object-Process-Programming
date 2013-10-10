@@ -10,6 +10,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
@@ -67,15 +68,21 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
 
     while(readyInstances.size() > 0) {
       OPMExecutableInstance instance = readyInstances.iterator().next();
-      readyInstances.remove(instance);
-
       OPMProcess process = instanceToProcessMapping.get(instance);
+      readyInstances.remove(instance);
       processToInstanceMapping.remove(process);
       instanceToProcessMapping.remove(instance);
+
+      Collection<OPMLink> incomingDataLinks = OPDAnalysis.INSTANCE.findIncomingDataLinks(process);
+      for(OPMLink incomingDataLink : incomingDataLinks) {
+        OPMObject source = OPMObject.class.cast(incomingDataLink.getSource());
+
+      }
+
       instance.execute();
 
-      for(OPMProcess followingProcess : OPDExecutionAnalysis.INSTANCE.calculateFollowingProcesses(opdDag, process)) {
-        Set<OPMProcess> precedingProcesses = OPDExecutionAnalysis.INSTANCE.calculateRequiredProcesses(opdDag,
+      for(OPMProcess followingProcess : OPDExecutionAnalysis.INSTANCE.findFollowingProcesses(opdDag, process)) {
+        Set<OPMProcess> precedingProcesses = OPDExecutionAnalysis.INSTANCE.findRequiredProcesses(opdDag,
             followingProcess);
         if(Sets.intersection(precedingProcesses, Sets.union(readyInstances, waitingInstances)).size() == 0) {
           OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(followingProcess);
@@ -109,7 +116,13 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
 
     Collection<OPMObject> objectVariables = OPDAnalysis.INSTANCE.findVariables(opd);
     for(OPMObject objectVariable : objectVariables) {
-      createVariable(objectVariable.getName());
+      if(objectVariable.getName().contains("=")) {
+        String[] variable = objectVariable.getName().split("=");
+        createVariable(variable[0]);
+        setVariable(variable[0], variable[1]);
+      } else {
+        createVariable(objectVariable.getName());
+      }
     }
   }
 }

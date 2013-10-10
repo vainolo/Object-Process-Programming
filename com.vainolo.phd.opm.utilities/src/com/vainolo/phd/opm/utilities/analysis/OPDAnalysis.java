@@ -5,13 +5,13 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.utilities.analysis;
 
-import static com.google.common.collect.Collections2.filter;
-import static com.google.common.collect.Iterables.*;
 
 import java.util.Collection;
 import java.util.Set;
 
 import com.google.common.base.Predicate;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
@@ -25,9 +25,7 @@ import com.vainolo.phd.opm.utilities.predicates.IsOPMEventLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMInvocationLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMObjectNode;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProceduralLink;
-import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessIncomingDataLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessNode;
-import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessOutgoingDataLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMStructuralLink;
 
 @SuppressWarnings("unchecked")
@@ -39,7 +37,7 @@ public enum OPDAnalysis {
    */
   public Set<OPMProcess> findInvocationProcesses(final OPMProcess process) {
     Set<OPMProcess> processes = Sets.newHashSet();
-    for(OPMProceduralLink link : filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE)) {
+    for(OPMProceduralLink link : Iterables.filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE)) {
       processes.add((OPMProcess) link.getTarget());
     }
     return processes;
@@ -50,7 +48,7 @@ public enum OPDAnalysis {
    */
   public Set<OPMProcess> findConnectedEventProcesses(OPMObject object) {
     Set<OPMProcess> processes = Sets.newHashSet();
-    for(OPMProceduralLink link : filter(findAllProceduralLinks(object), IsOPMEventLink.INSTANCE)) {
+    for(OPMProceduralLink link : Iterables.filter(findAllProceduralLinks(object), IsOPMEventLink.INSTANCE)) {
       processes.add((OPMProcess) link.getTarget());
     }
     return processes;
@@ -58,11 +56,11 @@ public enum OPDAnalysis {
 
   @SuppressWarnings("rawtypes")
   private Iterable<OPMProceduralLink> findAllProceduralLinks(OPMNode node) {
-    Iterable result = filter(concat(node.getIncomingLinks(), node.getOutgoingLinks()), IsOPMProceduralLink.INSTANCE);
+    Iterable result = Iterables.filter(Iterables.concat(node.getIncomingLinks(), node.getOutgoingLinks()), IsOPMProceduralLink.INSTANCE);
     if(OPMPackage.eINSTANCE.getOPMContainer().isInstance(node)) {
       OPMContainer container = (OPMContainer) node;
       for(OPMNode innerNode : container.getNodes()) {
-        result = concat(result, findAllProceduralLinks(innerNode));
+        result = Iterables.concat(result, findAllProceduralLinks(innerNode));
       }
     }
     return result;
@@ -77,15 +75,22 @@ public enum OPDAnalysis {
   }
 
   public Iterable<OPMProceduralLink> findOutgoingInvocationLinks(OPMProcess process) {
-    return filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE);
+    return Iterables.filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE);
   }
 
-  public Iterable<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
-    return filter(findAllProceduralLinks(process), IsOPMProcessIncomingDataLink.INSTANCE);
+  /**
+   * Find all the incoming data links of the process.
+   * @param process to search.
+   * @return all incoming data links.
+   */
+  public Collection<OPMLink> findIncomingDataLinks(OPMProcess process) {
+    return Collections2.filter(process.getIncomingLinks(), IsOPMProcessIncomingDataLink.INSTANCE);
+    
+    
   }
 
   public Iterable<OPMProceduralLink> findOutgoingDataLinks(OPMProcess process) {
-    return filter(findAllProceduralLinks(process), IsOPMProcessOutgoingDataLink.INSTANCE);
+    return Iterables.filter(findAllProceduralLinks(process), IsOPMProcessOutgoingDataLink.INSTANCE);
   }
 
   /**
@@ -95,7 +100,7 @@ public enum OPDAnalysis {
    */
   @SuppressWarnings("rawtypes")
   public Collection<OPMProcess> findFirstLevelContainedProcesses(OPMContainer container) {
-        return (Collection) filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
+        return (Collection) Collections2.filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
   }
 
   /**
@@ -105,11 +110,11 @@ public enum OPDAnalysis {
    */
   @SuppressWarnings("rawtypes")
   public Collection<OPMObject> findFirstLevelContainedObjects(OPMContainer container) {
-    return (Collection) filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
+    return (Collection) Collections2.filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
   }
 
   public static OPMProcess findInZoomedProcess(OPMObjectProcessDiagram opd) {
-    Collection<OPMNode> processNodes = filter(opd.getNodes(), IsOPMProcessNode.INSTANCE);
+    Collection<OPMNode> processNodes = Collections2.filter(opd.getNodes(), IsOPMProcessNode.INSTANCE);
     if(processNodes.size() != 1) {
       throw new RuntimeException("A compound OPD can containt only one process directly.");
     }
@@ -117,22 +122,28 @@ public enum OPDAnalysis {
   }
 
   public static Collection<OPMLink> findOutgoingStructuralLinks(OPMNode node) {
-    return filter(node.getOutgoingLinks(), IsOPMStructuralLink.INSTANCE);
+    return Collections2.filter(node.getOutgoingLinks(), IsOPMStructuralLink.INSTANCE);
   }
 
   public static Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
-    return filter(node.getIncomingLinks(), IsOPMStructuralLink.INSTANCE);
+    return Collections2.filter(node.getIncomingLinks(), IsOPMStructuralLink.INSTANCE);
   }
 
   @SuppressWarnings("rawtypes")
   public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd) {
-    return (Collection)filter(opd.getNodes(), IsOPMParameter.INSTANCE);
+    return (Collection)Collections2.filter(opd.getNodes(), IsOPMParameter.INSTANCE);
   }
   
   public Collection<OPMObject> findVariables(OPMObjectProcessDiagram opd) {
-    return (Collection)filter(opd.getNodes(), IsOPMVariable.INSTANCE);
+    return (Collection)Collections2.filter(opd.getNodes(), IsOPMVariable.INSTANCE);
   }
+
   
+  /**
+   * Predicate to search for parameters.
+   * @author t-arib
+   *
+   */
   public enum IsOPMParameter implements Predicate<OPMNode> {
     INSTANCE;
 
@@ -148,6 +159,11 @@ public enum OPDAnalysis {
     }
   }  
 
+  /**
+   * Predicate to search for variables.
+   * @author t-arib
+   *
+   */
   public enum IsOPMVariable implements Predicate<OPMNode> {
     INSTANCE;
 
@@ -162,4 +178,53 @@ public enum OPDAnalysis {
       return false;
     }
   }  
+  
+  /**
+   * Predicate to search for incoming data links of a process.
+   * @author t-arib
+   *
+   */
+  public enum IsOPMProcessIncomingDataLink implements Predicate<OPMLink> {
+    INSTANCE;
+    @Override
+    public boolean apply(final OPMLink link) {
+      if(OPMProceduralLink.class.isInstance(link))
+        return false;
+      else {
+        OPMProceduralLink localLink = OPMProceduralLink.class.cast(link);
+        switch(localLink.getKind()) {
+        case AGENT:
+        case CONSUMPTION:
+        case INSTRUMENT:
+          return true;
+        default:
+          return false;
+      }
+        
+      }
+    }
+
+  }  
+
+  /**
+   * Predicate to search for outgoing data links of a process.
+   * 
+   * @author Arieh 'Vainolo' Bibliowicz
+   */
+  public enum IsOPMProcessOutgoingDataLink implements Predicate<OPMProceduralLink> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(final OPMProceduralLink link) {
+      switch(link.getKind()) {
+        case EFFECT:
+        case EFFECT_CONDITION:
+        case EFFECT_EVENT:
+        case RESULT:
+          return true;
+        default:
+          return false;
+      }
+    }
+  }
 }
