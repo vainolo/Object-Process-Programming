@@ -20,9 +20,9 @@ public class OPMAssignProcessInstance extends OPMAbstractProcessInstance impleme
   private OPMProcess process;
 
   public OPMAssignProcessInstance(final OPMProcess process) {
-    this.process = process;
-    createArgument("a");
-    createArgument("b");
+    // this.process = process;
+    // createArgument("a");
+    // createArgument("b");
   }
 
   @Override

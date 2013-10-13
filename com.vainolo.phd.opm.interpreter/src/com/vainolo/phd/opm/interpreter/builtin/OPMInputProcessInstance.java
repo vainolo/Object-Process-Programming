@@ -22,7 +22,7 @@ import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
 public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
 
   public OPMInputProcessInstance() {
-    createArgument("text");
+    // createArgument("text");
   }
 
   @Override

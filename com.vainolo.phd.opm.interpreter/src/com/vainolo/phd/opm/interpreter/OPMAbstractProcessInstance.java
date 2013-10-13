@@ -57,9 +57,13 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
     variables.put(object, null);
   }
 
+  protected void createArgument(OPMObject object) {
+    createVariable(object);
+    arguments.put(object.getName(), object);
+  }
+
   @Override
   public void setArgument(String name, Object value) {
-    Preconditions.checkArgument(arguments.containsKey(name), "%s is not an valid parameter of %s", name, getName());
     variables.put(arguments.get(name), value);
   }
 

@@ -1,6 +1,7 @@
 package com.vainolo.phd.opm.interpreter;
 
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -48,39 +49,75 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
 
   @Override
   protected void executing() {
+    // Initialize first set of processes that can be executed.
     Set<OPMProcess> initialProcesses = OPDExecutionAnalysis.INSTANCE.calculateInitialProcesses(opdDag);
-
     for(OPMProcess process : initialProcesses) {
       OPMExecutableInstance instance = OPMExecutableInstanceFactory.createExecutableInstance(process);
       instanceToProcessMapping.put(instance, process);
       processToInstanceMapping.put(process, instance);
-      if(isReady(instance)) {
-        readyInstances.add(instance);
-      } else {
-        waitingInstances.add(instance);
-      }
+      waitingInstances.add(instance);
     }
-
-    if(readyInstances.size() == 0) {
+    if(waitingInstances.size() == 0) {
       logger.info("Nothing to execute in " + getName());
       return;
     }
 
-    while(readyInstances.size() > 0) {
+    // Assign in the available arguments to the existing instances.
+    for(OPMObject parameter : OPDAnalysis.INSTANCE.findParameters(opd)) {
+      for(OPMLink outgoingDataLink : OPDAnalysis.INSTANCE.findOutgoingDataLinks(parameter)) {
+        OPMProcess targetProcess = OPMProcess.class.cast(outgoingDataLink.getTarget());
+        if(processToInstanceMapping.containsKey(targetProcess)) {
+          OPMExecutableInstance instance = processToInstanceMapping.get(targetProcess);
+          instance.setArgument(parameter.getName(), getVariable(parameter));
+        }
+      }
+    }
+
+    // Loop until no instances can be executed of the system is stuck
+    while(waitingInstances.size() > 0 || readyInstances.size() > 0) {
+
+      // If there are no ready instances, find if there are some that can become
+      // ready.
+      if(readyInstances.size() == 0) {
+        for(Iterator<OPMExecutableInstance> iterator = waitingInstances.iterator(); iterator.hasNext();) {
+          OPMExecutableInstance waitingInstance = iterator.next();
+          if(isReady(waitingInstance)) {
+            readyInstances.add(waitingInstance);
+            iterator.remove();
+          }
+        }
+      }
+      if(readyInstances.size() == 0) {
+        logger.info("Finished execution with waiting processes. Exiting.");
+        return;
+      }
+
+      // Get first ready instance and execute it.
       OPMExecutableInstance instance = readyInstances.iterator().next();
       OPMProcess process = instanceToProcessMapping.get(instance);
       readyInstances.remove(instance);
       processToInstanceMapping.remove(process);
       instanceToProcessMapping.remove(instance);
-
-      Collection<OPMLink> incomingDataLinks = OPDAnalysis.INSTANCE.findIncomingDataLinks(process);
-      for(OPMLink incomingDataLink : incomingDataLinks) {
-        OPMObject source = OPMObject.class.cast(incomingDataLink.getSource());
-
-      }
-
       instance.execute();
 
+      // Take results of the instance execution, assign them to the target
+      // object variables and
+      // to existing target waiting instances.
+      for(OPMLink instanceOutgoingDataLink : OPDAnalysis.INSTANCE.findOutgoingDataLinks(process)) {
+        OPMObject object = OPMObject.class.cast(instanceOutgoingDataLink.getTarget());
+        Object value = instance.getArgument(instanceOutgoingDataLink.getCenterDecoration());
+        setVariable(object, value);
+
+        for(OPMLink objectOutgoingDataLink : OPDAnalysis.INSTANCE.findOutgoingDataLinks(object)) {
+          OPMProcess targetProcess = OPMProcess.class.cast(objectOutgoingDataLink.getTarget());
+          if(processToInstanceMapping.containsKey(targetProcess)) {
+            OPMExecutableInstance existingInstance = processToInstanceMapping.get(targetProcess);
+            existingInstance.setArgument(object.getName(), getVariable(object));
+          }
+        }
+      }
+
+      // Find new processes that should be added to the waiting queue.
       for(OPMProcess followingProcess : OPDExecutionAnalysis.INSTANCE.findFollowingProcesses(opdDag, process)) {
         Set<OPMProcess> precedingProcesses = OPDExecutionAnalysis.INSTANCE.findRequiredProcesses(opdDag,
             followingProcess);
@@ -97,10 +134,6 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
       }
     }
 
-    if(waitingInstances.size() > 0) {
-      logger.info("Finished execution with waiting processes. System is now stuck.");
-    }
-
     logger.info("finished executing " + getName());
 
   }
@@ -111,18 +144,25 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
 
   private void createArgumentsAndLocalVariables() {
     for(OPMObject parameter : OPDAnalysis.INSTANCE.findParameters(opd)) {
-      createArgument(parameter.getName());
+      createArgument(parameter);
     }
 
     Collection<OPMObject> objectVariables = OPDAnalysis.INSTANCE.findVariables(opd);
     for(OPMObject objectVariable : objectVariables) {
-      if(objectVariable.getName().contains("=")) {
-        String[] variable = objectVariable.getName().split("=");
-        createVariable(variable[0]);
-        setVariable(variable[0], variable[1]);
-      } else {
-        createVariable(objectVariable.getName());
+      createVariable(objectVariable);
+
+      String objectName = objectVariable.getName();
+      if(objectName.length() == 0)
+        return;
+
+      Object objectValue = null;
+      if(objectName.startsWith("\"") || objectName.startsWith("'")) {
+        objectValue = objectName;
+      } else if(Character.isDigit(objectName.charAt(0))) {
+        objectValue = Double.parseDouble(objectName);
       }
+      setVariable(objectVariable, objectValue);
+
     }
   }
 }

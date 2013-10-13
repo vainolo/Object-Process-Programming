@@ -22,19 +22,19 @@ public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implemen
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMSleepProcessInstance.class.getName());
 
   public OPMSleepProcessInstance() {
-    createArgument("time");
+    // createArgument("time");
   }
 
   @Override
   protected void executing() {
-    final int time = Integer.parseInt(getVariable("time").toString());
-    logger.info("Sleeping for " + time + " seconds.");
-    try {
-      Thread.sleep(time * 1000);
-    } catch(InterruptedException e) {
-      logger.finest("Sleep process interrupted. Returning.");
-      return;
-    }
+    // final int time = Integer.parseInt(getVariable("time").toString());
+    // logger.info("Sleeping for " + time + " seconds.");
+    // try {
+    // Thread.sleep(time * 1000);
+    // } catch(InterruptedException e) {
+    // logger.finest("Sleep process interrupted. Returning.");
+    // return;
+    // }
   }
 
   @Override

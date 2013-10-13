@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
+import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMObject;
 
 /**
  * Process that adds two integer values.
@@ -19,9 +21,15 @@ import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
  */
 public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   public OPMAddProcessInstance() {
-    createArgument("a");
-    createArgument("b");
-    createArgument("c");
+    OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
+    object.setName("a");
+    createArgument(object);
+    object = OPMFactory.eINSTANCE.createOPMObject();
+    object.setName("b");
+    createArgument(object);
+    object = OPMFactory.eINSTANCE.createOPMObject();
+    object.setName("c");
+    createArgument(object);
   }
 
   @Override

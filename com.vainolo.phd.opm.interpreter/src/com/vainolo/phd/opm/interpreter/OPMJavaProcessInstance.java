@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import com.google.common.base.Preconditions;
+import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -44,7 +46,9 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   protected void executing() {
     loadMethod();
     for(String parameter : parameters) {
-      createVariable(parameter);
+      OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
+      object.setName(parameter);
+      createArgument(object);
     }
 
     arguments = new Object[parameters.length];

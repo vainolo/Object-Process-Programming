@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
+import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMObject;
 
 /**
  * Arguments:
@@ -22,7 +24,9 @@ import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
 public class OPMOutputProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
 
   public OPMOutputProcessInstance() {
-    createArgument("text");
+    OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
+    object.setName("text");
+    createArgument(object);
   }
 
   @Override
