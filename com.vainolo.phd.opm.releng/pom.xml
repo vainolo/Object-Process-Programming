@@ -19,7 +19,7 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
-				<version>0.18.0</version>
+				<version>0.18.1</version>
 				<extensions>true</extensions>
 			</plugin>
 		</plugins>
@@ -27,7 +27,6 @@
 
 	<modules>
 		<module>../com.vainolo.phd.opm.gef</module>
-		<module>../com.vainolo.phd.opm.interpreter</module>
 		<module>../com.vainolo.phd.opm.model</module>
 		<module>../com.vainolo.phd.opm.model.edit</module>
 		<module>../com.vainolo.phd.opm.model.editor</module>
@@ -35,5 +34,6 @@
 		<module>../com.vainolo.phd.opm.utilities</module>
 		<module>../com.vainolo.phd.opm.validation</module>
 		<module>../com.vainolo.phd.opm.feature</module>
+		<module>../com.vainolo.phd.opm.interpreter</module>
 	</modules>
 </project>

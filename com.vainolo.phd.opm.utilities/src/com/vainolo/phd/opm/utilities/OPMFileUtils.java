@@ -5,7 +5,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.utilities;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Logger;
 
@@ -23,8 +22,6 @@ import com.vainolo.phd.opm.model.OPMNamedElement;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
-import com.vainolo.phd.opm.model.OPMPackage;
-import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 public enum OPMFileUtils {

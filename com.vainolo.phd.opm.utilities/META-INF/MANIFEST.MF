@@ -1,20 +1,22 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OPM Utilities
-Bundle-SymbolicName: com.vainolo.phd.opm.utilities
+Bundle-SymbolicName: com.vainolo.phd.opm.utilities;singleton:=true
 Bundle-Version: 0.0.1.qualifier
 Bundle-Activator: com.vainolo.phd.opm.utilities.Activator
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Require-Bundle: org.eclipse.core.runtime,
  com.vainolo.phd.opm.model,
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
- com.vainolo.vainolibraries.java.eclipse;visibility:=reexport
+ com.vainolo.vainolibraries.java.eclipse;visibility:=reexport,
+ org.junit;bundle-version="4.11.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/simplelogger.jar
-Export-Package: 
- com.vainolo.phd.opm.utilities;uses:="org.eclipse.core.resources,org.osgi.framework,com.vainolo.phd.opm.model",
- com.vainolo.phd.opm.utilities.analysis;uses:="com.google.common.base,com.vainolo.phd.opm.model",
- com.vainolo.utils
+Bundle-ClassPath: lib/simplelogger.jar,
+ .
 Import-Package: org.eclipse.core.resources,
  org.eclipse.draw2d.geometry
+Export-Package: com.vainolo.phd.opm.utilities,
+ com.vainolo.phd.opm.utilities.analysis,
+ com.vainolo.phd.opm.utilities.predicates,
+ com.vainolo.utils

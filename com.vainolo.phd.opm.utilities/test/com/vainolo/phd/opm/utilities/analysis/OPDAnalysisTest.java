@@ -91,7 +91,7 @@ public class OPDAnalysisTest {
 
   @Test
   public void testFindContainedObjects_SystemOPD() {
-    Collection<OPMObject> result = fixture.findContainedObjects(systemOPD);
+    Collection<OPMObject> result = fixture.findFirstLevelContainedObjects(systemOPD);
     assertEquals(SYSTEM_OBJETCS, result.size());
     for(int i = 0; i < SYSTEM_OBJETCS; i++) {
       assertTrue(result.contains(systemObjects.get(i)));
@@ -100,7 +100,7 @@ public class OPDAnalysisTest {
 
   @Test
   public void testFindContainedObjects_InZoomedOPD() {
-    Collection<OPMObject> result = fixture.findContainedObjects(inZoomedOPD);
+    Collection<OPMObject> result = fixture.findFirstLevelContainedObjects(inZoomedOPD);
     assertEquals(IN_ZOOMED_OBJECTS + IN_ZOOMED_OBJECTS_WITH_STATES, result.size());
     for(int i = 0; i < IN_ZOOMED_OBJECTS; i++) {
       assertTrue(result.contains(inZoomedObjects.get(i)));
@@ -112,7 +112,7 @@ public class OPDAnalysisTest {
 
   @Test
   public void testFindContainedObjects_InsideInZoomedProcess() {
-    Collection<OPMObject> result = fixture.findContainedObjects(inZoomedProcesses.get(0));
+    Collection<OPMObject> result = fixture.findFirstLevelContainedObjects(inZoomedProcesses.get(0));
     assertEquals(IN_ZOOMED_INSIDE_OBJECTS, result.size());
     for(int i = IN_ZOOMED_OBJECTS; i < IN_ZOOMED_OBJECTS + IN_ZOOMED_INSIDE_OBJECTS; i++) {
       assertTrue(result.contains(inZoomedObjects.get(i)));
@@ -121,7 +121,7 @@ public class OPDAnalysisTest {
 
   @Test
   public void testFindExecutableProcesses_SystemOPD() {
-    Collection<OPMProcess> result = fixture.findExecutableProcesses(systemOPD);
+    Collection<OPMProcess> result = fixture.findFirstLevelContainedProcesses(systemOPD);
 
     assertEquals(SYSTEM_PROCESSES, result.size());
     for(int i = 0; i < SYSTEM_PROCESSES; i++)
@@ -130,7 +130,7 @@ public class OPDAnalysisTest {
 
   @Test
   public void testFindExecutableProcesses_InZoomedOPD() {
-    Collection<OPMProcess> result = fixture.findExecutableProcesses(inZoomedOPD);
+    Collection<OPMProcess> result = fixture.findFirstLevelContainedProcesses(inZoomedOPD);
 
     assertEquals(IN_ZOOMED_INSIDE_PROCESS, result.size());
     for(int i = IN_ZOOMED_PROCESSES; i < IN_ZOOMED_PROCESSES + IN_ZOOMED_INSIDE_PROCESS; i++)
@@ -153,7 +153,7 @@ public class OPDAnalysisTest {
 
   @Test
   public void testFindIncomingDataLinks_Process() {
-    Iterable<OPMProceduralLink> result = fixture.findIncomingDataLinks(inZoomedProcesses.get(2));
+    Collection<OPMLink> result = fixture.findIncomingDataLinks(inZoomedProcesses.get(2));
 
     assertEquals(10, Iterables.size(result));
     assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(1)));
@@ -169,7 +169,7 @@ public class OPDAnalysisTest {
 
     result = fixture.findIncomingDataLinks(inZoomedProcesses.get(5));
     assertEquals(2, Iterables.size(result));
-    for(OPMProceduralLink link : result) {
+    for(OPMLink link : result) {
       assertTrue(inZoomedStates.values().contains(link.getSource()));
     }
   }
@@ -218,7 +218,7 @@ public class OPDAnalysisTest {
   public void setUp() {
     initSystemOPD();
     initInZoomedOPD();
-    fixture = new OPDAnalysis();
+    fixture = OPDAnalysis.INSTANCE;
   }
 
   public void initSystemOPD() {
