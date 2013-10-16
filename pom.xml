@@ -21,6 +21,12 @@
 		  <layout>p2</layout>
 		  <url>https://raw.github.com/vainolo/draw2d-extras/master/com.vainolo.draw2d.extras.releng.p2/target/repository</url>
 		</repository>
+		<repository>
+		  <id>com.vainolo.jdraw2d.jdraw2d</id>
+		  <layout>p2</layout>
+		  <url>https://raw.github.com/vainolo/jdraw2d/master/com.vainolo.jdraw2d.releng.p2/target/repository</url>
+		</repository>
+		
 	</repositories>
   
 	<build>
