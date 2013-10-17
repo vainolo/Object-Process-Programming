@@ -10,14 +10,4 @@
   </parent>
   <artifactId>com.vainolo.phd.opm.utilities</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <dependencies>
-  	<dependency>
-  		<groupId>com.vainolo.vainolibraries</groupId>
-  		<artifactId>
-  			com.vainolo.vainolibraries.java.eclipse
-  		</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  		<type>eclipse-plugin</type>
-  	</dependency>
-  </dependencies>
 </project>
