@@ -29,7 +29,7 @@
 		<repository>
 		  <id>com.vainolo.vainolibraries</id>
 		  <layout>p2</layout>
-		  <url>https://raw.github.com/vainolo/vainolibraries/master/com.vainolo.vainolibraries.releng.p2/target/repository</url>
+		  <url>http://vainorepository.azurewebsites.net/vainolibraries-repository/</url>
 		</repository>
 	</repositories>
   
