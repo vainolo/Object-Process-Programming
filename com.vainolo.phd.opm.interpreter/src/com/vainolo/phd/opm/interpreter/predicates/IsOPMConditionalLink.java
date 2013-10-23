@@ -20,14 +20,6 @@ public enum IsOPMConditionalLink implements Predicate<OPMProceduralLink> {
 
   @Override
   public boolean apply(final OPMProceduralLink link) {
-    switch(link.getKind()) {
-      case CONSUMPTION_CONDITION:
-      case EFFECT_CONDITION:
-      case INSTRUMENT_CONDITION:
-        return true;
-      default:
-        return false;
-    }
+    return false;
   }
-
 }

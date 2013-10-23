@@ -20,14 +20,6 @@ public enum IsOPMEventLink implements Predicate<OPMProceduralLink> {
 
   @Override
   public boolean apply(final OPMProceduralLink link) {
-    switch(link.getKind()) {
-      case CONSUMPTION_EVENT:
-      case EFFECT_EVENT:
-      case INSTRUMENT_EVENT:
-        return true;
-      default:
-        return false;
-    }
+    return false;
   }
-
 }

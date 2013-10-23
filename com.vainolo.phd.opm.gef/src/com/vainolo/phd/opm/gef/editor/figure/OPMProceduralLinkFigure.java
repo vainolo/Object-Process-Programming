@@ -34,61 +34,53 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
     Point pointBeforeTarget = points.getPoint(points.size() - 2);
 
     switch(kind) {
-      case CONSUMPTION:
-      case CONSUMPTION_CONDITION:
-      case CONSUMPTION_EVENT:
-      case RESULT:
-      case EFFECT:
-      case EFFECT_CONDITION:
-      case EFFECT_EVENT:
-      case INVOCATION:
-        arrow.setLocation(target);
-        arrow.setReferencePoint(pointBeforeTarget);
-        g.drawPolyline(arrow.getPoints());
-        break;
-      case INSTRUMENT:
-      case INSTRUMENT_CONDITION:
-      case INSTRUMENT_EVENT:
-        int radius = OPMFigureConstants.AGENT_CIRCLE_RATIO;
-        g.pushState();
-        g.setBackgroundColor(ColorConstants.black);
-        g.fillOval(target.x() - radius, target.y() - radius, radius * 2, radius * 2);
-        g.setBackgroundColor(ColorConstants.white);
-        g.fillOval(target.x() - (radius - 2), target.y() - (radius - 2), (radius - 2) * 2, (radius - 2) * 2);
-        g.popState();
-        break;
+    case CONSUMPTION:
+    case RESULT:
+    case EFFECT:
+    case INVOCATION:
+      arrow.setLocation(target);
+      arrow.setReferencePoint(pointBeforeTarget);
+      g.drawPolyline(arrow.getPoints());
+      break;
+    case INSTRUMENT:
+      int radius = OPMFigureConstants.AGENT_CIRCLE_RATIO;
+      g.pushState();
+      g.setBackgroundColor(ColorConstants.black);
+      g.fillOval(target.x() - radius, target.y() - radius, radius * 2, radius * 2);
+      g.setBackgroundColor(ColorConstants.white);
+      g.fillOval(target.x() - (radius - 2), target.y() - (radius - 2), (radius - 2) * 2, (radius - 2) * 2);
+      g.popState();
+      break;
     }
 
     switch(kind) {
-      case EFFECT:
-      case EFFECT_CONDITION:
-      case EFFECT_EVENT:
-        arrow.setLocation(source);
-        arrow.setReferencePoint(pointAfterSource);
-        g.drawPolyline(arrow.getPoints());
-        break;
+    case EFFECT:
+      arrow.setLocation(source);
+      arrow.setReferencePoint(pointAfterSource);
+      g.drawPolyline(arrow.getPoints());
+      break;
     }
 
-    switch(kind) {
-      case INSTRUMENT_CONDITION:
-      case CONSUMPTION_CONDITION:
-      case EFFECT_CONDITION:
-        if(pointBeforeTarget.x() < target.x())
-          g.drawText("c", target.x() - 20, target.y() - 20);
-        else
-          g.drawText("c", target.x() + 20, target.y() - 20);
-        break;
-    }
+    // switch(kind) {
+    // case INSTRUMENT_CONDITION:
+    // case CONSUMPTION_CONDITION:
+    // case EFFECT_CONDITION:
+    // if(pointBeforeTarget.x() < target.x())
+    // g.drawText("c", target.x() - 20, target.y() - 20);
+    // else
+    // g.drawText("c", target.x() + 20, target.y() - 20);
+    // break;
+    // }
 
-    switch(kind) {
-      case INSTRUMENT_EVENT:
-      case CONSUMPTION_EVENT:
-      case EFFECT_EVENT:
-        if(pointBeforeTarget.x() < target.x())
-          g.drawText("e", target.x() - 20, target.y() - 20);
-        else
-          g.drawText("e", target.x() + 20, target.y() - 20);
-    }
+    // switch(kind) {
+    // case INSTRUMENT_EVENT:
+    // case CONSUMPTION_EVENT:
+    // case EFFECT_EVENT:
+    // if(pointBeforeTarget.x() < target.x())
+    // g.drawText("e", target.x() - 20, target.y() - 20);
+    // else
+    // g.drawText("e", target.x() + 20, target.y() - 20);
+    // }
   }
 
   @Override

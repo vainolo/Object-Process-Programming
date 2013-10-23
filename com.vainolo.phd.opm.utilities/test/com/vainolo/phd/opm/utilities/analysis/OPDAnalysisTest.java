@@ -349,11 +349,6 @@ public class OPDAnalysisTest {
     link.setTarget(inZoomedProcesses.get(5));
 
     link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-    link.setKind(OPMProceduralLinkKind.INSTRUMENT_EVENT);
-    link.setSource(inZoomedStates.get(1));
-    link.setTarget(inZoomedProcesses.get(5));
-
-    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
     link.setKind(OPMProceduralLinkKind.RESULT);
     link.setSource(inZoomedProcesses.get(6));
     link.setTarget(inZoomedStates.get(2));
@@ -373,52 +368,16 @@ public class OPDAnalysisTest {
     inZoomedProceduralLinks.put(2, link);
 
     link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-    link.setKind(OPMProceduralLinkKind.CONSUMPTION_CONDITION);
-    link.setSource(inZoomedObjects.get(2));
-    link.setTarget(inZoomedProcesses.get(2));
-    inZoomedProceduralLinks.put(3, link);
-
-    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-    link.setKind(OPMProceduralLinkKind.CONSUMPTION_EVENT);
-    link.setSource(inZoomedObjects.get(3));
-    link.setTarget(inZoomedProcesses.get(2));
-    inZoomedProceduralLinks.put(4, link);
-
-    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
     link.setKind(OPMProceduralLinkKind.EFFECT);
     link.setSource(inZoomedObjects.get(4));
     link.setTarget(inZoomedProcesses.get(2));
     inZoomedProceduralLinks.put(5, link);
 
     link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-    link.setKind(OPMProceduralLinkKind.EFFECT_CONDITION);
-    link.setSource(inZoomedObjects.get(5));
-    link.setTarget(inZoomedProcesses.get(2));
-    inZoomedProceduralLinks.put(6, link);
-
-    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-    link.setKind(OPMProceduralLinkKind.EFFECT_EVENT);
-    link.setSource(inZoomedObjects.get(6));
-    link.setTarget(inZoomedProcesses.get(2));
-    inZoomedProceduralLinks.put(7, link);
-
-    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
     link.setKind(OPMProceduralLinkKind.INSTRUMENT);
     link.setSource(inZoomedObjects.get(7));
     link.setTarget(inZoomedProcesses.get(2));
     inZoomedProceduralLinks.put(8, link);
-
-    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-    link.setKind(OPMProceduralLinkKind.INSTRUMENT_CONDITION);
-    link.setSource(inZoomedObjects.get(8));
-    link.setTarget(inZoomedProcesses.get(2));
-    inZoomedProceduralLinks.put(9, link);
-
-    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-    link.setKind(OPMProceduralLinkKind.INSTRUMENT_EVENT);
-    link.setSource(inZoomedObjects.get(9));
-    link.setTarget(inZoomedProcesses.get(2));
-    inZoomedProceduralLinks.put(10, link);
 
     link = OPMFactory.eINSTANCE.createOPMProceduralLink();
     link.setKind(OPMProceduralLinkKind.INVOCATION);
@@ -431,11 +390,6 @@ public class OPDAnalysisTest {
     link.setTarget(inZoomedProcesses.get(2));
     link.setSource(inZoomedObjects.get(10));
     inZoomedProceduralLinks.put(12, link);
-
-    link = OPMFactory.eINSTANCE.createOPMProceduralLink();
-    link.setKind(OPMProceduralLinkKind.CONSUMPTION_EVENT);
-    link.setSource(inZoomedObjects.get(6));
-    link.setTarget(inZoomedProcesses.get(4));
   }
 
   private void createObjects(OPMContainer container, Map<Integer, OPMObject> objects, int number, int startIndex) {
