@@ -201,7 +201,7 @@ public enum OPDAnalysis {
     INSTANCE;
     @Override
     public boolean apply(final OPMLink link) {
-      if(OPMProceduralLink.class.isInstance(link))
+      if(!OPMProceduralLink.class.isInstance(link))
         return false;
       else {
         OPMProceduralLink localLink = OPMProceduralLink.class.cast(link);

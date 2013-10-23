@@ -18,6 +18,12 @@ import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 import com.vainolo.utils.SimpleLoggerFactory;
 
+/**
+ * Executable instance used for a System OPD.
+ * 
+ * @author Arieh "Vainolo" Bibliowicz
+ * 
+ */
 public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
 
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMSystemOPDExecutableInstance.class.getName());
@@ -62,13 +68,12 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
       return;
     }
 
-    // Assign in the available arguments to the existing instances.
-    for(OPMObject parameter : OPDAnalysis.INSTANCE.findParameters(opd)) {
-      for(OPMLink outgoingDataLink : OPDAnalysis.INSTANCE.findOutgoingDataLinks(parameter)) {
-        OPMProcess targetProcess = OPMProcess.class.cast(outgoingDataLink.getTarget());
-        if(processToInstanceMapping.containsKey(targetProcess)) {
-          OPMExecutableInstance instance = processToInstanceMapping.get(targetProcess);
-          instance.setArgument(parameter.getName(), getVariable(parameter));
+    // Assign existing variables to all waiting instances
+    for(OPMExecutableInstance instance : waitingInstances) {
+      for(OPMLink incomingDataLink : OPDAnalysis.INSTANCE.findIncomingDataLinks(instanceToProcessMapping.get(instance))) {
+        OPMObject argument = OPMObject.class.cast(incomingDataLink.getSource());
+        if(getVariable(argument) != null) {
+          instance.setArgument(incomingDataLink.getCenterDecoration(), getVariable(argument));
         }
       }
     }
@@ -138,10 +143,22 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
 
   }
 
+  /**
+   * Check if an instance is ready for execution. Placeholder function that
+   * currently returns true.
+   * 
+   * @param instance
+   *          the {@link OPMExecutableInstance} to check for readiness
+   * @return always <code>true</code>
+   */
   private boolean isReady(OPMExecutableInstance instance) {
     return true;
   }
 
+  /**
+   * Initialize local parameters and variable placeholder. Also calculates
+   * values of variables that have a value.
+   */
   private void createArgumentsAndLocalVariables() {
     for(OPMObject parameter : OPDAnalysis.INSTANCE.findParameters(opd)) {
       createArgument(parameter);
@@ -157,12 +174,11 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
 
       Object objectValue = null;
       if(objectName.startsWith("\"") || objectName.startsWith("'")) {
-        objectValue = objectName;
+        objectValue = objectName.substring(1, objectName.length() - 1);
       } else if(Character.isDigit(objectName.charAt(0))) {
         objectValue = Double.parseDouble(objectName);
       }
       setVariable(objectVariable, objectValue);
-
     }
   }
 }

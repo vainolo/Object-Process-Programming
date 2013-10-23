@@ -32,7 +32,7 @@ public class OPMOutputProcessInstance extends OPMAbstractProcessInstance impleme
   @Override
   protected void executing() {
     final String text = getArgument("text").toString();
-    showMessageDialog(text);
+    System.out.println(text);
   }
 
   public void showMessageDialog(final String text) {

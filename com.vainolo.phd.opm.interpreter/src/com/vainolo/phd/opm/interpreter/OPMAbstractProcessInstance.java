@@ -13,6 +13,13 @@ import com.google.common.collect.Maps;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.utils.SimpleLoggerFactory;
 
+/**
+ * Default implementation of {@link OPMExecutableInstance} interface to be used
+ * by subclasses.
+ * 
+ * @author Arieh "Vainolo" Bibliowicz
+ * 
+ */
 public abstract class OPMAbstractProcessInstance implements OPMExecutableInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
@@ -53,10 +60,22 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
     logger.info("Finished executing process " + getName());
   }
 
+  /**
+   * Create a variable for the given object.
+   * 
+   * @param object
+   *          the object variable.
+   */
   protected void createVariable(OPMObject object) {
     variables.put(object, null);
   }
 
+  /**
+   * Create a variable and an argument mapping for the given object.
+   * 
+   * @param object
+   *          the parameter object.
+   */
   protected void createArgument(OPMObject object) {
     createVariable(object);
     arguments.put(object.getName(), object);
@@ -73,12 +92,28 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
     return variables.get(arguments.get(name));
   }
 
+  /**
+   * Set the value in an {@link OPMObject}
+   * 
+   * @param object
+   *          where a value can be stored
+   * @param value
+   *          the value to store
+   */
   protected void setVariable(OPMObject object, Object value) {
     Preconditions.checkArgument(variables.containsKey(object), "%s is not a valid variable of %s", object.getName(),
         getName());
     variables.put(object, value);
   }
 
+  /**
+   * Return the value stored in the {@link OPMObject}.
+   * 
+   * @param object
+   *          where a value can be stored
+   * @return the value of the {@link OPMObject}, or <code>null</code> if no
+   *         value has been assigned.
+   */
   protected Object getVariable(OPMObject object) {
     Preconditions.checkArgument(variables.containsKey(object), "%s is not a valid variable of %s", object.getName(),
         getName());
