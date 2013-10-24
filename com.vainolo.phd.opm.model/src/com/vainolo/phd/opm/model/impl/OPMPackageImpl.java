@@ -364,6 +364,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getOPMObject_Value() {
+    return (EAttribute)opmObjectEClass.getEStructuralFeatures().get(2);
+  }
+
+    /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOPMProcess() {
     return opmProcessEClass;
   }
@@ -758,6 +767,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     opmObjectEClass = createEClass(OPM_OBJECT);
     createEAttribute(opmObjectEClass, OPM_OBJECT__KIND);
     createEAttribute(opmObjectEClass, OPM_OBJECT__PARAMETER);
+    createEAttribute(opmObjectEClass, OPM_OBJECT__VALUE);
 
     opmProcessEClass = createEClass(OPM_PROCESS);
     createEAttribute(opmProcessEClass, OPM_PROCESS__KIND);
@@ -871,6 +881,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMObject_Kind(), this.getOPMObjectKind(), "kind", "Simple", 1, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPMObject_Parameter(), ecorePackage.getEBoolean(), "parameter", "false", 1, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPMObject_Value(), ecorePackage.getEJavaObject(), "value", null, 0, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmProcessEClass, OPMProcess.class, "OPMProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMProcess_Kind(), this.getOPMProcessKind(), "kind", "Compound", 1, 1, OPMProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
