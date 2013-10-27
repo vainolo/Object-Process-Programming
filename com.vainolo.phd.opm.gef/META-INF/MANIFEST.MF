@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.ui,
  com.vainolo.phd.opm.utilities,
  com.vainolo.draw2d.extras,
  com.vainolo.jdraw2d.eclipse,
- com.vainolo.vainolibraries.java.eclipse
+ com.vainolo.vainolibraries.java.eclipse,
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Import-Package: com.ibm.icu.text;version="4.4.2.2"

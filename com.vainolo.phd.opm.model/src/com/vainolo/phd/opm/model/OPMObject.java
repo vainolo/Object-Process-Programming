@@ -16,7 +16,6 @@ package com.vainolo.phd.opm.model;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.OPMObject#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMObject#isParameter <em>Parameter</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.OPMObject#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -82,31 +81,5 @@ public interface OPMObject extends OPMThing {
    * @generated
    */
 	void setParameter(boolean value);
-
-    /**
-   * Returns the value of the '<em><b>Value</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Value</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(Object)
-   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMObject_Value()
-   * @model
-   * @generated
-   */
-  Object getValue();
-
-    /**
-   * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMObject#getValue <em>Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Value</em>' attribute.
-   * @see #getValue()
-   * @generated
-   */
-  void setValue(Object value);
 
 } // OPMObject

@@ -63,7 +63,6 @@ public class OPMObjectItemProvider
 
       addKindPropertyDescriptor(object);
       addParameterPropertyDescriptor(object);
-      addValuePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -113,28 +112,6 @@ public class OPMObjectItemProvider
   }
 
 		/**
-   * This adds a property descriptor for the Value feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addValuePropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_OPMObject_value_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_OPMObject_value_feature", "_UI_OPMObject_type"),
-         OPMPackage.Literals.OPM_OBJECT__VALUE,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-         null,
-         null));
-  }
-
-    /**
    * This returns OPMObject.gif.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -173,7 +150,6 @@ public class OPMObjectItemProvider
     switch (notification.getFeatureID(OPMObject.class)) {
       case OPMPackage.OPM_OBJECT__KIND:
       case OPMPackage.OPM_OBJECT__PARAMETER:
-      case OPMPackage.OPM_OBJECT__VALUE:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }
