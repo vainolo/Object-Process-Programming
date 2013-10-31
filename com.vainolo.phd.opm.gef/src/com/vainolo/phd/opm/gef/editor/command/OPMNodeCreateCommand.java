@@ -34,7 +34,8 @@ public class OPMNodeCreateCommand extends Command {
   }
 
   /**
-   * Set the constraints for the {@link OPMNode} and add it to the container {@link OPMObjectProcessDiagram}.
+   * Set the constraints for the {@link OPMNode} and add it to the container
+   * {@link OPMObjectProcessDiagram}.
    */
   @Override
   public void execute() {
@@ -43,7 +44,8 @@ public class OPMNodeCreateCommand extends Command {
   }
 
   /**
-   * Remove the {@link OPMNode} from the container {@link OPMObjectProcessDiagram}.
+   * Remove the {@link OPMNode} from the container
+   * {@link OPMObjectProcessDiagram}.
    */
   @Override
   public void undo() {
@@ -58,7 +60,16 @@ public class OPMNodeCreateCommand extends Command {
     this.container = opd;
   }
 
+  public OPMContainer getContainer() {
+    return container;
+  }
+
   public void setNode(final OPMNode node) {
     this.node = node;
   }
+
+  public OPMNode getNode() {
+    return node;
+  }
+
 }

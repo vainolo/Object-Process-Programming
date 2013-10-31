@@ -7,6 +7,7 @@ package com.vainolo.phd.opm.gef.editor.command;
 
 import org.eclipse.gef.commands.Command;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -14,7 +15,7 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 /**
  * Command used to create a link between to {@link OPMNode OPMNode} instances.
  * 
- * @author vainolo
+ * @author Arieh "Vainolo" Bibliowicz
  * 
  */
 public class OPMLinkCreateCommand extends Command {
@@ -37,8 +38,8 @@ public class OPMLinkCreateCommand extends Command {
   }
 
   /**
-   * Connect the {@link OPMLink} to the given source and target {@link OPMNode} instances and add it to the containing
-   * {@link OPMObjectProcessDiagram}.
+   * Connect the {@link OPMLink} to the given source and target {@link OPMNode}
+   * instances and add it to the containing {@link OPMObjectProcessDiagram}.
    */
   @Override
   public void execute() {
@@ -48,8 +49,8 @@ public class OPMLinkCreateCommand extends Command {
   }
 
   /**
-   * Detach the {@link OPMLink} from the source and target {@link OPMNode} instances and from the containing
-   * {@link OPMObjectProcessDiagram}.
+   * Detach the {@link OPMLink} from the source and target {@link OPMNode}
+   * instances and from the containing {@link OPMObjectProcessDiagram}.
    */
   @Override
   public void undo() {
@@ -64,12 +65,24 @@ public class OPMLinkCreateCommand extends Command {
     this.target = target;
   }
 
+  public OPMNode getTarget() {
+    return target;
+  }
+
   public void setSource(OPMNode source) {
     this.source = source;
   }
 
+  public OPMNode getSource() {
+    return source;
+  }
+
   public void setLink(OPMLink link) {
     this.link = link;
+  }
+
+  public OPMLink getLink() {
+    return link;
   }
 
   public void setOPD(OPMObjectProcessDiagram opd) {

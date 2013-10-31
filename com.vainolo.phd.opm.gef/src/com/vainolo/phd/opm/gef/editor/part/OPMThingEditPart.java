@@ -37,6 +37,7 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMThing;
 import com.vainolo.phd.opm.utilities.OPMFileUtils;
+import com.vainolo.phd.opm.validation.OPMNodeValidator;
 
 public abstract class OPMThingEditPart extends OPMNodeEditPart {
 
@@ -48,7 +49,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
   protected void createEditPolicies() {
     super.createEditPolicies();
     installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMNamedEntityDirectEditPolicy());
-    installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMContainerXYLayoutPolicy());
+    installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMContainerXYLayoutPolicy(new OPMNodeValidator()));
     installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
   }
 

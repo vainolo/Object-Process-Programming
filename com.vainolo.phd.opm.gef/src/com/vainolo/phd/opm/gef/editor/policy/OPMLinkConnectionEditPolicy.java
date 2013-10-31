@@ -20,18 +20,17 @@ import com.vainolo.phd.opm.model.OPMLink;
  */
 public class OPMLinkConnectionEditPolicy extends ConnectionEditPolicy {
 
-	/**
-	 * Create a {@link OPMLinkDeleteCommand} and fill its details.
-	 * 
-	 * @param request
-	 *            the request that requires treatment.
-	 * @return a {@link OPMLinkDeleteCommand} that deletes a link from the
-	 *         model.
-	 */
-	@Override
-	protected OPMLinkDeleteCommand getDeleteCommand(GroupRequest request) {
-		OPMLinkDeleteCommand command = new OPMLinkDeleteCommand();
-		command.setLink((OPMLink) getHost().getModel());
-		return command;
-	}
+  /**
+   * Create a {@link OPMLinkDeleteCommand} and fill its details.
+   * 
+   * @param request
+   *          the request that requires treatment.
+   * @return a {@link OPMLinkDeleteCommand} that deletes a link from the model.
+   */
+  @Override
+  protected OPMLinkDeleteCommand getDeleteCommand(GroupRequest request) {
+    OPMLinkDeleteCommand command = new OPMLinkDeleteCommand();
+    command.setLink((OPMLink) getHost().getModel());
+    return command;
+  }
 }

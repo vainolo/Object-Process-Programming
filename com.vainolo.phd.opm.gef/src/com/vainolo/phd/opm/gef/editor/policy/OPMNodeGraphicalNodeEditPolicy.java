@@ -16,17 +16,15 @@ import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
+import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
-import com.vainolo.phd.opm.model.OPMLink;
-import com.vainolo.phd.opm.model.OPMLinkRouterKind;
-import com.vainolo.phd.opm.model.OPMNode;
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
-import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
-import com.vainolo.phd.opm.model.OPMThing;
+import com.vainolo.phd.opm.model.*;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
+import com.vainolo.phd.opm.validation.OPMLinkValidator;
 
 /**
  * Policy used to connect two nodes in the diagram. Currently connections can
@@ -37,6 +35,14 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
   private static final Dimension DEFAULT_AGGREGATOR_DIMENSION = new Dimension(15, 15);
+  OPMLinkValidator validator;
+  OPDAnalyzer analyzer;
+
+  public OPMNodeGraphicalNodeEditPolicy(OPMLinkValidator validator, OPDAnalyzer analyzer) {
+    Preconditions.checkNotNull(validator);
+    this.validator = validator;
+    this.analyzer = analyzer;
+  }
 
   /**
    * Create a command used to begin connecting to nodes.
@@ -48,12 +54,10 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
    */
   @Override
   protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
-    // We must return null and not the usual UnexecutableCommand because is
-    // we return a
-    // non-null value the framework thinks that the link can be created from
-    // this host,
-    // something that we don't want to happen.
-    if(request.getSourceEditPart() instanceof OPMStructuralLinkAggregatorEditPart) {
+    // We must return null and not the usual UnexecutableCommand because if we
+    // return a non-null value the framework thinks that the link can be created
+    // from this host, something that we don't want to happen.
+    if(getHost() instanceof OPMStructuralLinkAggregatorEditPart) {
       return null;
     }
 
@@ -63,10 +67,14 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
       return request.getStartCommand();
     }
 
+    if(!validator.validateAddSource((OPMNode) getHost().getModel(), (OPMLink) request.getNewObject())) {
+      return null;
+    }
+
     OPMLinkCreateCommand result = new OPMLinkCreateCommand();
     result.setSource((OPMNode) getHost().getModel());
     result.setLink((OPMLink) request.getNewObject());
-    result.setOPD(OPDAnalysis.INSTANCE.findOPD((OPMNode) getHost().getModel()));
+    result.setOPD(analyzer.findOPD((OPMNode) (OPMNode) getHost().getModel()));
     request.setStartCommand(result);
     return result;
   }
@@ -85,9 +93,8 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
   @Override
   protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
     // A null command must be returned (and not the usual UnexecutableCommand),
-    // otherwise GEF shows the used a symbol
-    // that the connection can be completed but when the used clicks it is not
-    // created.
+    // otherwise GEF shows the used a symbol that the connection can be
+    // completed but when the used clicks it is not created.
     if(request.getStartCommand() == null || request.getTargetEditPart() instanceof OPMStructuralLinkAggregatorEditPart) {
       return null;
     }
@@ -97,6 +104,10 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     if(request.getNewObject() instanceof OPMStructuralLinkAggregator) {
       command = handleOPMStructuralLinkRequest(request);
     } else {
+      if(!validator.validateAddTarget((OPMLink) request.getNewObject(), (OPMNode) getHost().getModel())) {
+        return null;
+      }
+
       OPMLinkCreateCommand linkCreateCommand = (OPMLinkCreateCommand) request.getStartCommand();
       linkCreateCommand.setTarget((OPMNode) getHost().getModel());
       command = linkCreateCommand;

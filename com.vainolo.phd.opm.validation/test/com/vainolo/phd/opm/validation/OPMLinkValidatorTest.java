@@ -15,8 +15,9 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 /**
  * Unit tests for the {@link OPMLinkValidator} class.
+ * 
  * @author t-arib
- *
+ * 
  */
 public class OPMLinkValidatorTest {
   OPMLinkValidator validator;
@@ -24,184 +25,184 @@ public class OPMLinkValidatorTest {
   OPMNode process;
   OPMNode target;
   OPMLink link;
-  
+
   private OPMLink createProceduralLink(OPMProceduralLinkKind kind) {
     OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
     link.setKind(kind);
     return link;
   }
-  
+
   @Test
   public void testValidateSource_ObjectSource_ConsumptionLink() {
     link = createProceduralLink(OPMProceduralLinkKind.CONSUMPTION);
-    boolean result = validator.validateSource(object, link);
-    assertEquals(true, result);
+    boolean result = validator.validateAddSource(object, link);
+    assertTrue(result);
   }
-  
+
   @Test
   public void testValidateSource_ObjectSource_InstrumentLink() {
     link = createProceduralLink(OPMProceduralLinkKind.INSTRUMENT);
-    boolean result = validator.validateSource(object, link);
-    assertEquals(true, result);
+    boolean result = validator.validateAddSource(object, link);
+    assertTrue(result);
   }
-  
+
   @Test
   public void testValidateSource_ObjectSource_AgentLink() {
     link = createProceduralLink(OPMProceduralLinkKind.AGENT);
-    boolean result = validator.validateSource(object, link);
-    assertEquals(true, result);
+    boolean result = validator.validateAddSource(object, link);
+    assertTrue(result);
   }
-  
+
   @Test
   public void testValidateSource_ObjectSource_ResultLink() {
     link = createProceduralLink(OPMProceduralLinkKind.RESULT);
-    boolean result = validator.validateSource(object, link);
-    assertEquals(false, result);
+    boolean result = validator.validateAddSource(object, link);
+    assertFalse(result);
   }
-  
+
   @Test
   public void testValidateSource_ObjectSource_EffectLink() {
     link = createProceduralLink(OPMProceduralLinkKind.EFFECT);
-    boolean result = validator.validateSource(object, link);
-    assertEquals(true, result);
+    boolean result = validator.validateAddSource(object, link);
+    assertTrue(result);
   }
-  
+
   @Test
   public void testValidateSource_ObjectSource_InvocationLink() {
     link = createProceduralLink(OPMProceduralLinkKind.INVOCATION);
-    boolean result = validator.validateSource(object, link);
-    assertEquals(false, result);
+    boolean result = validator.validateAddSource(object, link);
+    assertFalse(result);
   }
 
   @Test
   public void testValidateSource_ProcessSource_ConsumptionLink() {
     link = createProceduralLink(OPMProceduralLinkKind.CONSUMPTION);
-    boolean result = validator.validateSource(process, link);
-    assertEquals(false, result);
+    boolean result = validator.validateAddSource(process, link);
+    assertFalse(result);
   }
-  
+
   @Test
   public void testValidateSource_ProcessSource_InstrumentLink() {
     link = createProceduralLink(OPMProceduralLinkKind.INSTRUMENT);
-    boolean result = validator.validateSource(process, link);
-    assertEquals(false, result);
+    boolean result = validator.validateAddSource(process, link);
+    assertFalse(result);
   }
 
   @Test
   public void testValidateSource_ProcessSource_AgentLink() {
     link = createProceduralLink(OPMProceduralLinkKind.AGENT);
-    boolean result = validator.validateSource(process, link);
-    assertEquals(false, result);
+    boolean result = validator.validateAddSource(process, link);
+    assertFalse(result);
   }
 
   @Test
   public void testValidateSource_ProcessSource_ResultLink() {
     link = createProceduralLink(OPMProceduralLinkKind.RESULT);
-    boolean result = validator.validateSource(process, link);
-    assertEquals(true, result);
+    boolean result = validator.validateAddSource(process, link);
+    assertTrue(result);
   }
 
   @Test
   public void testValidateSource_ProcessSource_EffectLink() {
     link = createProceduralLink(OPMProceduralLinkKind.EFFECT);
-    boolean result = validator.validateSource(process, link);
-    assertEquals(true, result);
+    boolean result = validator.validateAddSource(process, link);
+    assertTrue(result);
   }
+
   @Test
   public void testValidateSource_ProcessSource_InvocationLink() {
     link = createProceduralLink(OPMProceduralLinkKind.INVOCATION);
-    boolean result = validator.validateSource(process, link);
-    assertEquals(true, result);
+    boolean result = validator.validateAddSource(process, link);
+    assertTrue(result);
   }
 
   @Test
   public void testValidateTarget_ConsumptionLink_ObjectTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.CONSUMPTION);
-    boolean result = validator.validateTarget(link, object);
-    assertEquals(false, result);
+    boolean result = validator.validateAddTarget(link, object);
+    assertFalse(result);
   }
 
   @Test
   public void testValidateTarget_InstrumentLink_ObjectTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.INSTRUMENT);
-    boolean result = validator.validateTarget(link, object);
-    assertEquals(false, result);
+    boolean result = validator.validateAddTarget(link, object);
+    assertFalse(result);
   }
 
   @Test
   public void testValidateTarget_AgentLink_ObjectTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.AGENT);
-    boolean result = validator.validateTarget(link, object);
-    assertEquals(false, result);
+    boolean result = validator.validateAddTarget(link, object);
+    assertFalse(result);
   }
 
   @Test
   public void testValidateTarget_ResultLink_ObjectTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.RESULT);
-    boolean result = validator.validateTarget(link, object);
-    assertEquals(true, result);
+    boolean result = validator.validateAddTarget(link, object);
+    assertTrue(result);
   }
 
   @Test
   public void testValidateTarget_EffectLink_ObjectTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.EFFECT);
-    boolean result = validator.validateTarget(link, object);
-    assertEquals(true, result);
+    boolean result = validator.validateAddTarget(link, object);
+    assertTrue(result);
   }
 
   @Test
   public void testValidateTarget_InvocationLink_ObjectTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.INVOCATION);
-    boolean result = validator.validateTarget(link, object);
-    assertEquals(false, result);
+    boolean result = validator.validateAddTarget(link, object);
+    assertFalse(result);
   }
 
   @Test
   public void testValidateTarget_ConsumptionLink_ProcessTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.CONSUMPTION);
-    boolean result = validator.validateTarget(link, process);
-    assertEquals(true, result);
+    boolean result = validator.validateAddTarget(link, process);
+    assertTrue(result);
   }
 
   @Test
   public void testValidateTarget_InstrumentLink_ProcessTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.INSTRUMENT);
-    boolean result = validator.validateTarget(link, process);
-    assertEquals(true, result);
+    boolean result = validator.validateAddTarget(link, process);
+    assertTrue(result);
   }
 
   @Test
   public void testValidateTarget_AgentLink_ProcessTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.AGENT);
-    boolean result = validator.validateTarget(link, process);
-    assertEquals(true, result);
+    boolean result = validator.validateAddTarget(link, process);
+    assertTrue(result);
   }
 
   @Test
   public void testValidateTarget_ResultLink_ProcessTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.RESULT);
-    boolean result = validator.validateTarget(link, process);
-    assertEquals(false, result);
+    boolean result = validator.validateAddTarget(link, process);
+    assertFalse(result);
   }
-  
+
   @Test
   public void testValidateTarget_EffectLink_ProcessTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.EFFECT);
-    boolean result = validator.validateTarget(link, process);
-    assertEquals(true, result);
+    boolean result = validator.validateAddTarget(link, process);
+    assertTrue(result);
   }
-  
+
   @Test
   public void testValidateTarget_InvocationLink_ProcessTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.INVOCATION);
-    boolean result = validator.validateTarget(link, process);
-    assertEquals(true, result);
+    boolean result = validator.validateAddTarget(link, process);
+    assertTrue(result);
   }
-  
-  
+
   @Before
   public void setUp() {
-    validator = new OPMLinkValidator();    
+    validator = new OPMLinkValidator();
     object = OPMFactory.eINSTANCE.createOPMObject();
     process = OPMFactory.eINSTANCE.createOPMProcess();
   }

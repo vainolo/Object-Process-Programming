@@ -25,6 +25,7 @@ import com.vainolo.phd.opm.gef.editor.figure.OPMObjectProcessDiagramFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMContainerXYLayoutPolicy;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.validation.OPMNodeValidator;
 
 public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
@@ -51,7 +52,7 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
   @Override
   protected void createEditPolicies() {
-    installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMContainerXYLayoutPolicy());
+    installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPMContainerXYLayoutPolicy(new OPMNodeValidator()));
     installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
   }
 
@@ -79,8 +80,8 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
   }
 
   /**
-   * Currently the class only adapts to create a {@link SnapToHelper} when the editor is in snapping mode (either to
-   * grid or to shapes).
+   * Currently the class only adapts to create a {@link SnapToHelper} when the
+   * editor is in snapping mode (either to grid or to shapes).
    */
   @Override
   public Object getAdapter(Class key) {

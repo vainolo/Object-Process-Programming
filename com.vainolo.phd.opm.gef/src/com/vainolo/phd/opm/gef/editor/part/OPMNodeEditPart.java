@@ -25,6 +25,8 @@ import com.vainolo.phd.opm.gef.editor.policy.OPMNodeGraphicalNodeEditPolicy;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
+import com.vainolo.phd.opm.validation.OPMLinkValidator;
 
 public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implements NodeEditPart {
 
@@ -65,12 +67,14 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
   }
 
   /**
-   * Install edit policies that can be applied to {@link OPMNodeEditPart} instances.
+   * Install edit policies that can be applied to {@link OPMNodeEditPart}
+   * instances.
    */
   @Override
   protected void createEditPolicies() {
     installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMNodeComponentEditPolicy());
-    installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMNodeGraphicalNodeEditPolicy());
+    installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMNodeGraphicalNodeEditPolicy(new OPMLinkValidator(),
+        new OPDAnalyzer()));
   }
 
   @Override

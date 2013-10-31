@@ -8,3 +8,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: com.vainolo.phd.opm.model,
  org.junit,
  com.vainolo.phd.opm.utilities
+Export-Package: com.vainolo.phd.opm.validation
