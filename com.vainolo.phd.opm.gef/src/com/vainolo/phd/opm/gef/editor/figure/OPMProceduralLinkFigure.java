@@ -5,22 +5,31 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.figure;
 
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.PolylineConnection;
-import org.eclipse.draw2d.PolylineDecoration;
+import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
+import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
-public class OPMProceduralLinkFigure extends PolylineConnection {
+public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNamedElementFigure {
   private static final PolylineDecoration arrow = new PolylineDecoration();
   private OPMProceduralLinkKind kind;
+  private SmartLabelFigure centerDecorationLabel;
 
   public OPMProceduralLinkFigure(OPMProceduralLinkKind kind) {
     this.kind = kind;
+
+    setLineWidth(OPMFigureConstants.CONNECTION_LINE_WIDTH);
+    centerDecorationLabel = new SmartLabelFigure(-1);
+    ConnectionLocator locator = new ConnectionLocator(this, ConnectionLocator.MIDDLE);
+    add(centerDecorationLabel, locator);
+    setConnectionRouter(new BendpointConnectionRouter());
+  }
+
+  public SmartLabelFigure getCenterDecorationLabel() {
+    return centerDecorationLabel;
   }
 
   @Override
@@ -43,12 +52,15 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
       g.drawPolyline(arrow.getPoints());
       break;
     case INSTRUMENT:
+    case AGENT:
       int radius = OPMFigureConstants.AGENT_CIRCLE_RATIO;
       g.pushState();
       g.setBackgroundColor(ColorConstants.black);
       g.fillOval(target.x() - radius, target.y() - radius, radius * 2, radius * 2);
-      g.setBackgroundColor(ColorConstants.white);
-      g.fillOval(target.x() - (radius - 2), target.y() - (radius - 2), (radius - 2) * 2, (radius - 2) * 2);
+      if(kind == OPMProceduralLinkKind.INSTRUMENT) {
+        g.setBackgroundColor(ColorConstants.white);
+        g.fillOval(target.x() - (radius - 2), target.y() - (radius - 2), (radius - 2) * 2, (radius - 2) * 2);
+      }
       g.popState();
       break;
     }
@@ -60,27 +72,6 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
       g.drawPolyline(arrow.getPoints());
       break;
     }
-
-    // switch(kind) {
-    // case INSTRUMENT_CONDITION:
-    // case CONSUMPTION_CONDITION:
-    // case EFFECT_CONDITION:
-    // if(pointBeforeTarget.x() < target.x())
-    // g.drawText("c", target.x() - 20, target.y() - 20);
-    // else
-    // g.drawText("c", target.x() + 20, target.y() - 20);
-    // break;
-    // }
-
-    // switch(kind) {
-    // case INSTRUMENT_EVENT:
-    // case CONSUMPTION_EVENT:
-    // case EFFECT_EVENT:
-    // if(pointBeforeTarget.x() < target.x())
-    // g.drawText("e", target.x() - 20, target.y() - 20);
-    // else
-    // g.drawText("e", target.x() + 20, target.y() - 20);
-    // }
   }
 
   @Override
@@ -90,5 +81,10 @@ public class OPMProceduralLinkFigure extends PolylineConnection {
       bounds.expand(30, 30);
     }
     return bounds;
+  }
+
+  @Override
+  public SmartLabelFigure getNameFigure() {
+    return centerDecorationLabel;
   }
 }

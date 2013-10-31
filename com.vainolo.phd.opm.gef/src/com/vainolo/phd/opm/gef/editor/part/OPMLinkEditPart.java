@@ -8,6 +8,9 @@ package com.vainolo.phd.opm.gef.editor.part;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.AbsoluteBendpoint;
 import org.eclipse.draw2d.BendpointConnectionRouter;
 import org.eclipse.draw2d.Connection;
@@ -16,15 +19,22 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.*;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
+import org.eclipse.ui.*;
+import org.eclipse.ui.part.FileEditorInput;
 
+import com.vainolo.draw2d.extras.SmartLabelFigure;
+import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
 import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
+import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
+import com.vainolo.phd.opm.gef.editor.part.delegates.DirectEditDelegate;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkBendpointEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkConnectionEditPolicy;
-import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
+import com.vainolo.phd.opm.model.*;
+import com.vainolo.phd.opm.utilities.OPMFileUtils;
 
 /**
  * {@link EditPart} for the {@link OPMLink} model element.
@@ -46,10 +56,13 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
   /**
    * Installs two edit policies:
    * <ol>
-   * <li>For the {@link EditPolicy#CONNECTION_ENDPOINTS_ROLE} a {@link ConnectionEndpoinEditPolicy}.</li>
-   * <li>For the {@link EditPolicy#CONNECTION_ROLE} a {@link OPMLinkConnectionEditPolicy}.</li>
-   * <li>For the {@link EditPolicy#CONNECTION_BENDPOINTS_ROLE} a {@link OPMLinkBendpointEditPolicy} (for links that use
-   * a {@link BendpointConnectionRouter}).</li>
+   * <li>For the {@link EditPolicy#CONNECTION_ENDPOINTS_ROLE} a
+   * {@link ConnectionEndpoinEditPolicy}.</li>
+   * <li>For the {@link EditPolicy#CONNECTION_ROLE} a
+   * {@link OPMLinkConnectionEditPolicy}.</li>
+   * <li>For the {@link EditPolicy#CONNECTION_BENDPOINTS_ROLE} a
+   * {@link OPMLinkBendpointEditPolicy} (for links that use a
+   * {@link BendpointConnectionRouter}).</li>
    * </ol>
    */
   @Override
@@ -57,11 +70,11 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
     installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
     installEditPolicy(EditPolicy.CONNECTION_ROLE, new OPMLinkConnectionEditPolicy());
     installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OPMLinkBendpointEditPolicy());
-
   }
 
   /**
-   * Create a {@link PolylineConnection} with a {@link BendpointConnectionRouter}
+   * Create a {@link PolylineConnection} with a
+   * {@link BendpointConnectionRouter}
    */
   @Override
   protected PolylineConnection createFigure() {
@@ -100,7 +113,8 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
   }
 
   /**
-   * Observer for changes in an OPMLink. Refreshes the {@link EditPart} visuals on every change to the model.
+   * Observer for changes in an OPMLink. Refreshes the {@link EditPart} visuals
+   * on every change to the model.
    * 
    * @author vainolo
    * 
