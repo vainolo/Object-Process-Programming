@@ -16,6 +16,7 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -30,6 +31,7 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
 
   private final OPMObjectProcessDiagram opd;
   private final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
+  private OPDAnalyzer analyzer;
 
   private final Map<OPMProcess, OPMExecutableInstance> processToInstanceMapping = Maps.newHashMap();
   private final Map<OPMExecutableInstance, OPMProcess> instanceToProcessMapping = Maps.newHashMap();
@@ -42,8 +44,9 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
    * @param opd
    *          the {@link OPMObjectProcessDiagram} for this instance.
    */
-  public OPMSystemOPDExecutableInstance(OPMObjectProcessDiagram opd) {
+  public OPMSystemOPDExecutableInstance(OPMObjectProcessDiagram opd, OPDAnalyzer analyzer) {
     this.opd = opd;
+    this.analyzer = analyzer;
     opdDag = OPDExecutionAnalysis.INSTANCE.createContainerExecutionDAG(opd);
     createArgumentsAndLocalVariables();
   }
@@ -164,7 +167,7 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
       createArgument(parameter);
     }
 
-    Collection<OPMObject> objectVariables = OPDAnalysis.INSTANCE.findVariables(opd);
+    Collection<OPMObject> objectVariables = analyzer.findVariables(opd);
     for(OPMObject objectVariable : objectVariables) {
       createVariable(objectVariable);
 

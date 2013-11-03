@@ -16,6 +16,7 @@ import com.vainolo.phd.opm.interpreter.builtin.OPMPrintHelloWorldProcessInstance
 import com.vainolo.phd.opm.interpreter.builtin.OPMSleepProcessInstance;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 public class OPMExecutableInstanceFactory {
@@ -25,7 +26,7 @@ public class OPMExecutableInstanceFactory {
   public static OPMExecutableInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
     case SYSTEM:
-      return new OPMSystemOPDExecutableInstance(opd);
+      return new OPMSystemOPDExecutableInstance(opd, new OPDAnalyzer());
     case COMPOUND:
       throw new UnsupportedOperationException();
     case UNFOLDED:

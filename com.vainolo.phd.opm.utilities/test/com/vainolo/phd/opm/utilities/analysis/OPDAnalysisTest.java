@@ -5,7 +5,9 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.utilities.analysis;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Collection;
 import java.util.Map;
@@ -86,7 +88,8 @@ public class OPDAnalysisTest {
     try {
       result = fixture.findInZoomedProcess(systemOPD);
       fail("Should not get here.");
-    } catch(RuntimeException e) {}
+    } catch(RuntimeException e) {
+    }
   }
 
   @Test
@@ -180,22 +183,6 @@ public class OPDAnalysisTest {
 
     assertEquals(1, Iterables.size(result));
     assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(11)));
-  }
-
-  @Test
-  public void testFindOPD() {
-    OPMObjectProcessDiagram result = fixture.findOPD(systemObjects.get(2));
-    assertEquals(systemOPD, result);
-
-    result = fixture.findOPD(systemProcesses.get(1));
-    assertEquals(systemOPD, result);
-
-    result = fixture.findOPD(inZoomedObjects.get(10));
-    assertEquals(inZoomedOPD, result);
-
-    result = fixture.findOPD(inZoomedProcesses.get(4));
-    assertEquals(inZoomedOPD, result);
-
   }
 
   @Test

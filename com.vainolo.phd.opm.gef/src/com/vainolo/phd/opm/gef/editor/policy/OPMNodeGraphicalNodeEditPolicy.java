@@ -154,13 +154,13 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
     if(aggregatorFound) {
       // Just create a link from the aggregator to the target.
-      command = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPDAnalysis.INSTANCE.findOPD(agrNode));
+      command = createCreateOPMLlinkCreateCommand(agrNode, tNode, analyzer.findOPD(agrNode));
     } else {
       // Create a compound command consisting of three commands.
       CompoundCommand cCommand = new CompoundCommand();
       cCommand.add(createCreateAggregatorNodeCommand(sNode, tNode, agrNode));
-      cCommand.add(createCreateOPMLlinkCreateCommand(sNode, agrNode, OPDAnalysis.INSTANCE.findOPD(sNode)));
-      cCommand.add(createCreateOPMLlinkCreateCommand(agrNode, tNode, OPDAnalysis.INSTANCE.findOPD(sNode)));
+      cCommand.add(createCreateOPMLlinkCreateCommand(sNode, agrNode, analyzer.findOPD(sNode)));
+      cCommand.add(createCreateOPMLlinkCreateCommand(agrNode, tNode, analyzer.findOPD(sNode)));
 
       command = cCommand;
     }

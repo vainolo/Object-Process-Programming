@@ -32,24 +32,24 @@ public enum OPDAnalysis {
   INSTANCE;
 
   /**
-   * It is assumed that the provided process is the source of the invocation
-   * links.
-   */
-  public Set<OPMProcess> findInvocationProcesses(final OPMProcess process) {
-    Set<OPMProcess> processes = Sets.newHashSet();
-    for(OPMProceduralLink link : Iterables.filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE)) {
-      processes.add((OPMProcess) link.getTarget());
-    }
-    return processes;
-  }
-
-  /**
    * It is assumed that the given object is the source of the event links (even
    * for effect link).
    */
   public Set<OPMProcess> findConnectedEventProcesses(OPMObject object) {
     Set<OPMProcess> processes = Sets.newHashSet();
     for(OPMProceduralLink link : Iterables.filter(findAllProceduralLinks(object), IsOPMEventLink.INSTANCE)) {
+      processes.add((OPMProcess) link.getTarget());
+    }
+    return processes;
+  }
+
+  /**
+   * It is assumed that the provided process is the source of the invocation
+   * links.
+   */
+  public Set<OPMProcess> findInvocationProcesses(final OPMProcess process) {
+    Set<OPMProcess> processes = Sets.newHashSet();
+    for(OPMProceduralLink link : Iterables.filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE)) {
       processes.add((OPMProcess) link.getTarget());
     }
     return processes;
@@ -66,14 +66,6 @@ public enum OPDAnalysis {
       }
     }
     return result;
-  }
-
-  public OPMObjectProcessDiagram findOPD(OPMNode node) {
-    OPMContainer currentContainer = node.getContainer();
-    while(!(currentContainer instanceof OPMObjectProcessDiagram)) {
-      currentContainer = ((OPMNode) currentContainer).getContainer();
-    }
-    return (OPMObjectProcessDiagram) currentContainer;
   }
 
   public Iterable<OPMProceduralLink> findOutgoingInvocationLinks(OPMProcess process) {
@@ -145,10 +137,6 @@ public enum OPDAnalysis {
     return (Collection) Collections2.filter(opd.getNodes(), IsOPMParameter.INSTANCE);
   }
 
-  public Collection<OPMObject> findVariables(OPMObjectProcessDiagram opd) {
-    return (Collection) Collections2.filter(opd.getNodes(), IsOPMVariable.INSTANCE);
-  }
-
   /**
    * Predicate to search for parameters.
    * 
@@ -171,30 +159,9 @@ public enum OPDAnalysis {
   }
 
   /**
-   * Predicate to search for variables.
-   * 
-   * @author t-arib
-   * 
-   */
-  public enum IsOPMVariable implements Predicate<OPMNode> {
-    INSTANCE;
-
-    @Override
-    public boolean apply(final OPMNode node) {
-      if(OPMObject.class.isInstance(node)) {
-        OPMObject o = (OPMObject) node;
-        if(!o.isParameter()) {
-          return true;
-        }
-      }
-      return false;
-    }
-  }
-
-  /**
    * Predicate to search for incoming data links of a process.
    * 
-   * @author t-arib
+   * @author
    * 
    */
   public enum IsOPMProcessIncomingDataLink implements Predicate<OPMLink> {
