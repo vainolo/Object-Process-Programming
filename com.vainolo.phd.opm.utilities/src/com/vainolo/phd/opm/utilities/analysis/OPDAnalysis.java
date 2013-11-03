@@ -132,34 +132,8 @@ public enum OPDAnalysis {
     return Collections2.filter(node.getIncomingLinks(), IsOPMStructuralLink.INSTANCE);
   }
 
-  @SuppressWarnings("rawtypes")
-  public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd) {
-    return (Collection) Collections2.filter(opd.getNodes(), IsOPMParameter.INSTANCE);
-  }
-
   /**
-   * Predicate to search for parameters.
-   * 
-   * @author t-arib
-   * 
-   */
-  public enum IsOPMParameter implements Predicate<OPMNode> {
-    INSTANCE;
-
-    @Override
-    public boolean apply(final OPMNode node) {
-      if(OPMObject.class.isInstance(node)) {
-        OPMObject o = (OPMObject) node;
-        if(o.isParameter()) {
-          return true;
-        }
-      }
-      return false;
-    }
-  }
-
-  /**
-   * Predicate to search for incoming data links of a process.
+   * Predicate that matches {@link OPMProcess} incoming {@link OPMLink}s.
    * 
    * @author
    * 
@@ -185,9 +159,10 @@ public enum OPDAnalysis {
   }
 
   /**
-   * Predicate to search for outgoing data links of a process.
+   * Predicate that matches {@link OPMProcess} outgoing
+   * {@link OPMProceduralLink}s.
    * 
-   * @author Arieh 'Vainolo' Bibliowicz
+   * @author Arieh "Vainolo" Bibliowicz
    */
   public enum IsOPMProcessOutgoingDataLink implements Predicate<OPMProceduralLink> {
     INSTANCE;
@@ -203,6 +178,13 @@ public enum OPDAnalysis {
     }
   }
 
+  /**
+   * Predicate that matches {@link OPMObject} outgoing {@link OPMProceduralLink}
+   * s.
+   * 
+   * @author Arieh "Vainolo" Bibliowicz
+   * 
+   */
   public enum IsOPMObjectOutgoingDataLink implements Predicate<OPMLink> {
     INSTANCE;
 

@@ -163,7 +163,7 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
    * values of variables that have a value.
    */
   private void createArgumentsAndLocalVariables() {
-    for(OPMObject parameter : OPDAnalysis.INSTANCE.findParameters(opd)) {
+    for(OPMObject parameter : analyzer.findParameters(opd)) {
       createArgument(parameter);
     }
 

@@ -368,32 +368,95 @@ public class OPDAnalyzerTest {
 
   @Test
   public void test_findVariables_oneVariable() {
-    OPMObject node1 = OPMFactory.eINSTANCE.createOPMObject();
-    opd.getNodes().add(node1);
+    opd.getNodes().add(createVariable());
     Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
     assertEquals(1, result.size());
   }
 
   @Test
   public void test_findVariables_twoVariables() {
-    OPMObject node1 = OPMFactory.eINSTANCE.createOPMObject();
-    opd.getNodes().add(node1);
-    OPMObject node2 = OPMFactory.eINSTANCE.createOPMObject();
-    opd.getNodes().add(node2);
+    opd.getNodes().add(createVariable());
+    opd.getNodes().add(createVariable());
+    Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
+    assertEquals(2, result.size());
+  }
+
+  @Test
+  public void test_findVariables_twoVariablesAndOneParameter() {
+    opd.getNodes().add(createVariable());
+    opd.getNodes().add(createVariable());
+    opd.getNodes().add(createParameter());
     Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
     assertEquals(2, result.size());
   }
 
   @Test
   public void test_findVariables_twoVariablesAndInnerVariable() {
-    OPMObject node1 = OPMFactory.eINSTANCE.createOPMObject();
-    opd.getNodes().add(node1);
-    OPMObject node2 = OPMFactory.eINSTANCE.createOPMObject();
+    opd.getNodes().add(createVariable());
+    OPMObject node2 = createVariable();
     opd.getNodes().add(node2);
-    OPMObject node3 = OPMFactory.eINSTANCE.createOPMObject();
-    node2.getNodes().add(node3);
+    node2.getNodes().add(createVariable());
     Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
     assertEquals(2, result.size());
+  }
+
+  @Test
+  public void test_findVariables_oneVariableOneParameterOneProcess() {
+    opd.getNodes().add(createVariable());
+    opd.getNodes().add(createProcess());
+    Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
+    assertEquals(1, result.size());
+  }
+
+  @Test
+  public void test_findParameters_noParameters() {
+    Collection<OPMObject> result = opdAnalyzer.findParameters(opd);
+    assertEquals(0, result.size());
+  }
+
+  @Test
+  public void test_findParameters_oneParameter() {
+    opd.getNodes().add(createParameter());
+    Collection<OPMObject> result = opdAnalyzer.findParameters(opd);
+    assertEquals(1, result.size());
+  }
+
+  @Test
+  public void test_findParameters_oneParameterOneVariable() {
+    opd.getNodes().add(createVariable());
+    opd.getNodes().add(createParameter());
+    Collection<OPMObject> result = opdAnalyzer.findParameters(opd);
+    assertEquals(1, result.size());
+  }
+
+  @Test
+  public void test_findParameters_twoParametersOneVariableOneProcess() {
+    opd.getNodes().add(createParameter());
+    opd.getNodes().add(createParameter());
+    opd.getNodes().add(createVariable());
+    opd.getNodes().add(createProcess());
+    Collection<OPMObject> result = opdAnalyzer.findParameters(opd);
+    assertEquals(2, result.size());
+  }
+
+  // No tests for inner parameters since they should not be allowed by the
+  // editor.
+
+  private OPMObject createVariable() {
+    OPMObject o = OPMFactory.eINSTANCE.createOPMObject();
+    o.setParameter(false);
+    return o;
+  }
+
+  private OPMObject createParameter() {
+    OPMObject o = OPMFactory.eINSTANCE.createOPMObject();
+    o.setParameter(true);
+    return o;
+  }
+
+  private OPMProcess createProcess() {
+    OPMProcess p = OPMFactory.eINSTANCE.createOPMProcess();
+    return p;
   }
 
   @Before
@@ -404,7 +467,6 @@ public class OPDAnalyzerTest {
     opd = mock(OPMObjectProcessDiagram.class);
 
     opd = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
-    // opdExecutionAnalyzer = OPDExecutionAnalysis.INSTANCE;
     opdAnalyzer = new OPDAnalyzer();
   }
 

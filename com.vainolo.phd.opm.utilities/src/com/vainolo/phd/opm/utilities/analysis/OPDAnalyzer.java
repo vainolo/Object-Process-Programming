@@ -40,7 +40,41 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Predicate to search for variables.
+   * Find all the parameter {@link OPMObject}s directly below an
+   * {@link OPMObjectProcessDiagram}
+   * 
+   * @param opd
+   *          to search.
+   * @return all parameters directly contained in an OPD.
+   */
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd) {
+    return (Collection) Collections2.filter(opd.getNodes(), IsOPMParameter.INSTANCE);
+  }
+
+  /**
+   * Predicate that matches {@link OPMObject}s which are parameters.
+   * 
+   * @author Arieh "Vainolo" Bibliowicz
+   * 
+   */
+  public enum IsOPMParameter implements Predicate<OPMNode> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(final OPMNode node) {
+      if(OPMObject.class.isInstance(node)) {
+        OPMObject o = (OPMObject) node;
+        if(o.isParameter()) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
+  /**
+   * Predicate that matches all {@link OPMObject}s which are not parameters.
    * 
    * @author Arieh "Vainolo" Bibliowicz
    * 
