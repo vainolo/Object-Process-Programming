@@ -25,7 +25,6 @@ import com.vainolo.phd.opm.utilities.predicates.IsOPMInvocationLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMObjectNode;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProceduralLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessNode;
-import com.vainolo.phd.opm.utilities.predicates.IsOPMStructuralLink;
 
 @SuppressWarnings("unchecked")
 public enum OPDAnalysis {
@@ -124,21 +123,13 @@ public enum OPDAnalysis {
     return (OPMProcess) processNodes.iterator().next();
   }
 
-  public static Collection<OPMLink> findOutgoingStructuralLinks(OPMNode node) {
-    return Collections2.filter(node.getOutgoingLinks(), IsOPMStructuralLink.INSTANCE);
-  }
-
-  public static Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
-    return Collections2.filter(node.getIncomingLinks(), IsOPMStructuralLink.INSTANCE);
-  }
-
   /**
    * Predicate that matches {@link OPMProcess} incoming {@link OPMLink}s.
    * 
    * @author
    * 
    */
-  public enum IsOPMProcessIncomingDataLink implements Predicate<OPMLink> {
+  private enum IsOPMProcessIncomingDataLink implements Predicate<OPMLink> {
     INSTANCE;
     @Override
     public boolean apply(final OPMLink link) {
@@ -164,7 +155,7 @@ public enum OPDAnalysis {
    * 
    * @author Arieh "Vainolo" Bibliowicz
    */
-  public enum IsOPMProcessOutgoingDataLink implements Predicate<OPMProceduralLink> {
+  private enum IsOPMProcessOutgoingDataLink implements Predicate<OPMProceduralLink> {
     INSTANCE;
 
     @Override
@@ -185,7 +176,7 @@ public enum OPDAnalysis {
    * @author Arieh "Vainolo" Bibliowicz
    * 
    */
-  public enum IsOPMObjectOutgoingDataLink implements Predicate<OPMLink> {
+  private enum IsOPMObjectOutgoingDataLink implements Predicate<OPMLink> {
     INSTANCE;
 
     @Override

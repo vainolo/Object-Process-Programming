@@ -17,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.vainolo.phd.opm.model.OPMFactory;
+import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -37,7 +38,7 @@ public class OPDAnalyzerTest {
 
   private final Map<Integer, OPMProcess> processes = new HashMap<Integer, OPMProcess>();
   // private OPDExecutionAnalysis opdExecutionAnalyzer;
-  private OPDAnalyzer opdAnalyzer;
+  private OPDAnalyzer analyzer;
   private OPMNode node;
   private OPMProcess process;
 
@@ -345,10 +346,11 @@ public class OPDAnalyzerTest {
   // assertTrue(initialProcesses.contains(processes.get(2)));
   // }
 
+  // findOPD()
   @Test
   public void test_findOPD_firstLevelNode() {
     when(node.getContainer()).thenReturn(opd);
-    OPMObjectProcessDiagram result = opdAnalyzer.findOPD(node);
+    OPMObjectProcessDiagram result = analyzer.findOPD(node);
     assertEquals(opd, result);
   }
 
@@ -356,20 +358,21 @@ public class OPDAnalyzerTest {
   public void test_findOPD_secondLevelNode() {
     when(node.getContainer()).thenReturn(process);
     when(process.getContainer()).thenReturn(opd);
-    OPMObjectProcessDiagram result = opdAnalyzer.findOPD(node);
+    OPMObjectProcessDiagram result = analyzer.findOPD(node);
     assertEquals(opd, result);
   }
 
+  // findVariables()
   @Test
   public void test_findVariables_noVariables() {
-    Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
+    Collection<OPMObject> result = analyzer.findVariables(opd);
     assertEquals(0, result.size());
   }
 
   @Test
   public void test_findVariables_oneVariable() {
     opd.getNodes().add(createVariable());
-    Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
+    Collection<OPMObject> result = analyzer.findVariables(opd);
     assertEquals(1, result.size());
   }
 
@@ -377,7 +380,7 @@ public class OPDAnalyzerTest {
   public void test_findVariables_twoVariables() {
     opd.getNodes().add(createVariable());
     opd.getNodes().add(createVariable());
-    Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
+    Collection<OPMObject> result = analyzer.findVariables(opd);
     assertEquals(2, result.size());
   }
 
@@ -386,7 +389,7 @@ public class OPDAnalyzerTest {
     opd.getNodes().add(createVariable());
     opd.getNodes().add(createVariable());
     opd.getNodes().add(createParameter());
-    Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
+    Collection<OPMObject> result = analyzer.findVariables(opd);
     assertEquals(2, result.size());
   }
 
@@ -396,7 +399,7 @@ public class OPDAnalyzerTest {
     OPMObject node2 = createVariable();
     opd.getNodes().add(node2);
     node2.getNodes().add(createVariable());
-    Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
+    Collection<OPMObject> result = analyzer.findVariables(opd);
     assertEquals(2, result.size());
   }
 
@@ -404,20 +407,21 @@ public class OPDAnalyzerTest {
   public void test_findVariables_oneVariableOneParameterOneProcess() {
     opd.getNodes().add(createVariable());
     opd.getNodes().add(createProcess());
-    Collection<OPMObject> result = opdAnalyzer.findVariables(opd);
+    Collection<OPMObject> result = analyzer.findVariables(opd);
     assertEquals(1, result.size());
   }
 
+  // findParameters()
   @Test
   public void test_findParameters_noParameters() {
-    Collection<OPMObject> result = opdAnalyzer.findParameters(opd);
+    Collection<OPMObject> result = analyzer.findParameters(opd);
     assertEquals(0, result.size());
   }
 
   @Test
   public void test_findParameters_oneParameter() {
     opd.getNodes().add(createParameter());
-    Collection<OPMObject> result = opdAnalyzer.findParameters(opd);
+    Collection<OPMObject> result = analyzer.findParameters(opd);
     assertEquals(1, result.size());
   }
 
@@ -425,7 +429,7 @@ public class OPDAnalyzerTest {
   public void test_findParameters_oneParameterOneVariable() {
     opd.getNodes().add(createVariable());
     opd.getNodes().add(createParameter());
-    Collection<OPMObject> result = opdAnalyzer.findParameters(opd);
+    Collection<OPMObject> result = analyzer.findParameters(opd);
     assertEquals(1, result.size());
   }
 
@@ -435,12 +439,131 @@ public class OPDAnalyzerTest {
     opd.getNodes().add(createParameter());
     opd.getNodes().add(createVariable());
     opd.getNodes().add(createProcess());
-    Collection<OPMObject> result = opdAnalyzer.findParameters(opd);
+    Collection<OPMObject> result = analyzer.findParameters(opd);
     assertEquals(2, result.size());
   }
 
   // No tests for inner parameters since they should not be allowed by the
   // editor.
+
+  // findIncomingStructuralLinks()
+  @Test
+  public void test_findIncomingStructuralLinks_noLinks() {
+    Collection<OPMLink> result = analyzer.findIncomingStructuralLinks(createProcess());
+    assertEquals(0, result.size());
+  }
+
+  @Test
+  public void test_findIncomingStructuralLinks_oneIncomingStructuralLink() {
+    OPMObject object = createObject();
+    addIncomingStructuralLink(object);
+    Collection<OPMLink> result = analyzer.findIncomingStructuralLinks(object);
+    assertEquals(1, result.size());
+  }
+
+  @Test
+  public void test_findIncomingStructuralLinks_twoIncomingStructuralLinks() {
+    OPMObject object = createObject();
+    addIncomingStructuralLink(object);
+    addIncomingStructuralLink(object);
+    Collection<OPMLink> result = analyzer.findIncomingStructuralLinks(object);
+    assertEquals(2, result.size());
+  }
+
+  @Test
+  public void test_findIncomingStructuralLinks_twoIncomingStructuralLinksOneProceduralLink() {
+    OPMObject object = createObject();
+    addIncomingStructuralLink(object);
+    addIncomingStructuralLink(object);
+    addIncomingProceduralLink(object);
+    Collection<OPMLink> result = analyzer.findIncomingStructuralLinks(object);
+    assertEquals(2, result.size());
+
+  }
+
+  @Test
+  public void test_findIncomingStructuralLinks_twoIncomingOneOutgoingStructuralLink() {
+    OPMObject object = createObject();
+    addIncomingStructuralLink(object);
+    addIncomingStructuralLink(object);
+    addOutgoingStructuralLink(object);
+    Collection<OPMLink> result = analyzer.findIncomingStructuralLinks(object);
+    assertEquals(2, result.size());
+  }
+
+  // findOutgoingStructuralLinks()
+  @Test
+  public void test_findOutgoingStructuralLinks_noLinks() {
+    Collection<OPMLink> result = analyzer.findOutgoingStructuralLinks(createProcess());
+    assertEquals(0, result.size());
+  }
+
+  @Test
+  public void test_findOutgoingStructuralLinks_oneOutgoingStructuralLink() {
+    OPMObject object = createObject();
+    addOutgoingStructuralLink(object);
+    Collection<OPMLink> result = analyzer.findOutgoingStructuralLinks(object);
+    assertEquals(1, result.size());
+  }
+
+  @Test
+  public void test_findOutgoingStructuralLinks_twoOutgoingStructuralLinks() {
+    OPMObject object = createObject();
+    addOutgoingStructuralLink(object);
+    addOutgoingStructuralLink(object);
+    Collection<OPMLink> result = analyzer.findOutgoingStructuralLinks(object);
+    assertEquals(2, result.size());
+  }
+
+  @Test
+  public void test_findOutgoingStructuralLinks_twoOutgoingStructuralLinksOneProceduralLink() {
+    OPMObject object = createObject();
+    addOutgoingStructuralLink(object);
+    addOutgoingStructuralLink(object);
+    addOutgoingProceduralLink(object);
+    Collection<OPMLink> result = analyzer.findOutgoingStructuralLinks(object);
+    assertEquals(2, result.size());
+
+  }
+
+  @Test
+  public void test_findIncomingStructuralLinks_twoOutgoingOneIncomingStructuralLink() {
+    OPMObject object = createObject();
+    addIncomingStructuralLink(object);
+    addOutgoingStructuralLink(object);
+    addOutgoingStructuralLink(object);
+    Collection<OPMLink> result = analyzer.findOutgoingStructuralLinks(object);
+    assertEquals(2, result.size());
+  }
+
+  // Test helper methods
+  private void addOutgoingProceduralLink(OPMNode node) {
+    OPMLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
+    link.setSource(node);
+  }
+
+  private void addIncomingProceduralLink(OPMNode node) {
+    OPMLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
+    link.setTarget(node);
+  }
+
+  private void addOutgoingStructuralLink(OPMNode node) {
+    OPMNode aggregator = OPMFactory.eINSTANCE.createOPMStructuralLinkAggregator();
+    OPMLink link = OPMFactory.eINSTANCE.createOPMLink();
+    link.setSource(node);
+    link.setTarget(aggregator);
+  }
+
+  private void addIncomingStructuralLink(OPMNode node) {
+    OPMNode aggregator = OPMFactory.eINSTANCE.createOPMStructuralLinkAggregator();
+    OPMLink link = OPMFactory.eINSTANCE.createOPMLink();
+    link.setSource(aggregator);
+    link.setTarget(node);
+  }
+
+  private OPMObject createObject() {
+    return OPMFactory.eINSTANCE.createOPMObject();
+  }
 
   private OPMObject createVariable() {
     OPMObject o = OPMFactory.eINSTANCE.createOPMObject();
@@ -467,7 +590,7 @@ public class OPDAnalyzerTest {
     opd = mock(OPMObjectProcessDiagram.class);
 
     opd = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
-    opdAnalyzer = new OPDAnalyzer();
+    analyzer = new OPDAnalyzer();
   }
 
 }

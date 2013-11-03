@@ -144,7 +144,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     // Search for an outgoing structural link aggregator matching the
     // requested kind.
     boolean aggregatorFound = false;
-    for(OPMLink structuralLink : OPDAnalysis.findOutgoingStructuralLinks(sNode)) {
+    for(OPMLink structuralLink : analyzer.findOutgoingStructuralLinks(sNode)) {
       OPMStructuralLinkAggregator existingAggregator = (OPMStructuralLinkAggregator) structuralLink.getTarget();
       if(existingAggregator.getKind() == agrNode.getKind()) {
         aggregatorFound = true;

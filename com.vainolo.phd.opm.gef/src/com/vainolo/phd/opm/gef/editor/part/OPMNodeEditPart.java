@@ -72,7 +72,7 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
    */
   @Override
   protected void createEditPolicies() {
-    installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMNodeComponentEditPolicy());
+    installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMNodeComponentEditPolicy(new OPDAnalyzer()));
     installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMNodeGraphicalNodeEditPolicy(new OPMLinkValidator(),
         new OPDAnalyzer()));
   }
