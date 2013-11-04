@@ -5,13 +5,7 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
-import static junit.framework.Assert.assertEquals;
-
-import org.junit.Test;
-
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
-import com.vainolo.phd.opm.model.OPMFactory;
-import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
  * 
@@ -20,18 +14,18 @@ import com.vainolo.phd.opm.model.OPMProcess;
  */
 public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
-  @Test
-  public void testAdd() {
-    final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
-    final OPMAddProcessInstance instance = new OPMAddProcessInstance();
-
-    instance.setArgument("a", 1);
-    instance.setArgument("b", 2);
-
-    // instance.execute();
-
-    final int value = (Integer) instance.getArgument("c");
-    assertEquals(3, value);
-
-  }
+//  @Test
+//  public void testAdd() {
+//    final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
+//    final OPMAddProcessInstance instance = new OPMAddProcessInstance();
+//
+//    instance.setArgument("a", 1);
+//    instance.setArgument("b", 2);
+//
+//    // instance.execute();
+//
+//    final int value = (Integer) instance.getArgument("c");
+//    assertEquals(3, value);
+//
+//  }
 }

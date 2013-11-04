@@ -55,5 +55,6 @@
 		<module>../com.vainolo.phd.opm.validation</module>
 		<module>../com.vainolo.phd.opm.feature</module>
 		<module>../com.vainolo.phd.opm.interpreter</module>
+		<module>../com.vainolo.phd.opm.interpreter.tests</module>
 	</modules>
 </project>

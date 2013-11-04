@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: OPM Interpreter Unit Tests
+Bundle-SymbolicName: com.vainolo.phd.opm.interpreter.tests
+Bundle-Version: 0.0.1.qualifier
+Bundle-Vendor: Arieh "Vainolo" Bibliowicz
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: com.vainolo.phd.opm.interpreter
+Require-Bundle: com.vainolo.phd.opm.model,
+ org.junit;bundle-version="4.11.0",
+ com.vainolo.phd.opm.interpreter
