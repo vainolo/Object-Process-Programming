@@ -6,6 +6,6 @@
   	<groupId>com.vainolo.phd.opm</groupId>
   	<artifactId>com.vainolo.phd.opm.releng</artifactId>
   	<version>0.0.1-SNAPSHOT</version>
-  	<relativePath>../com.vainolo.phd.opm.releng</relativePath>
+	<relativePath>../com.vainolo.phd.opm.releng</relativePath>
   </parent>
 </project>

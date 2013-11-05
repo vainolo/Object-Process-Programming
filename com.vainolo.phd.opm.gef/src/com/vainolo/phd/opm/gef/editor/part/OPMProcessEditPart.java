@@ -11,7 +11,7 @@ import org.eclipse.gef.GraphicalEditPart;
 
 import com.vainolo.phd.opm.gef.editor.figure.OPMProcessFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
-import com.vainolo.phd.opm.model.OPMThing;
+import com.vainolo.phd.opm.model.OPMProcess;
 
 public class OPMProcessEditPart extends OPMThingEditPart {
 
@@ -22,16 +22,27 @@ public class OPMProcessEditPart extends OPMThingEditPart {
 
   @Override
   protected void refreshVisuals() {
-    final OPMThingFigure figure = (OPMThingFigure) getFigure();
-    final OPMThing model = (OPMThing) getModel();
+    final OPMProcessFigure figure = getFigure();
+    final OPMProcess model = getModel();
     final GraphicalEditPart parent = (GraphicalEditPart) getParent();
     figure.getNameFigure().setText(model.getName());
     figure.setTooltipText(model.getDescription());
     parent.setLayoutConstraint(this, figure, model.getConstraints());
+    figure.setMultiple(model.isMultiplicity());
   }
 
   @Override
   public IFigure getContentPane() {
     return ((OPMThingFigure) getFigure()).getContentPane();
+  }
+
+  @Override
+  public OPMProcessFigure getFigure() {
+    return OPMProcessFigure.class.cast(super.getFigure());
+  }
+
+  @Override
+  public OPMProcess getModel() {
+    return OPMProcess.class.cast(super.getModel());
   }
 }

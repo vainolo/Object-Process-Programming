@@ -21,16 +21,16 @@ import com.vainolo.jdraw2d.HorizontalAlignment;
 
 public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementFigure {
   private final Ellipse ellipse;
+  private final Ellipse shade1;
+  private final Ellipse shade2;
   private final IFigure contentPane;
   private ConnectionAnchor connectionAnchor;
   private final SmartLabelFigure smartLabel;
+  private boolean isMultiple = false;
 
   public OPMProcessFigure() {
-    ellipse = new Ellipse();
-    ellipse.setAntialias(SWT.ON);
+    ellipse = createEllipseFigure();
     ellipse.setLayoutManager(new XYLayout());
-    ellipse.setForegroundColor(OPMFigureConstants.PROCESS_COLOR);
-    ellipse.setLineWidth(OPMFigureConstants.ENTITY_BORDER_WIDTH);
     smartLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
     smartLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
     smartLabel.setHorizontalAlignment(HorizontalAlignment.CENTER);
@@ -40,7 +40,19 @@ public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementF
     contentPane.setLayoutManager(new XYLayout());
     ellipse.add(contentPane);
 
+    shade2 = createEllipseFigure();
+    add(shade2);
+    shade1 = createEllipseFigure();
+    add(shade1);
     add(ellipse);
+  }
+
+  private Ellipse createEllipseFigure() {
+    Ellipse e = new Ellipse();
+    e.setAntialias(SWT.ON);
+    e.setForegroundColor(OPMFigureConstants.PROCESS_COLOR);
+    e.setLineWidth(OPMFigureConstants.ENTITY_BORDER_WIDTH);
+    return e;
   }
 
   @Override
@@ -48,13 +60,30 @@ public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementF
     return contentPane;
   }
 
+  private void paintSimpleProcess(Rectangle r) {
+    setConstraint(ellipse, new Rectangle(0, 0, r.width(), r.height()));
+    setConstraint(shade1, new Rectangle(0, 0, r.width(), r.height()));
+    setConstraint(shade2, new Rectangle(0, 0, r.width(), r.height()));
+    ellipse.setConstraint(smartLabel, calculateInnerRectangle(r.width(), r.height()));
+    ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width(), r.height()));
+  }
+
+  private void paintMultipleProcess(Rectangle r) {
+    setConstraint(ellipse, new Rectangle(0, 0, r.width() - 8, r.height() - 8));
+    setConstraint(shade1, new Rectangle(4, 4, r.width() - 8, r.height() - 8));
+    setConstraint(shade2, new Rectangle(8, 8, r.width() - 8, r.height() - 8));
+    ellipse.setConstraint(smartLabel, calculateInnerRectangle(r.width() - 8, r.height() - 8));
+    ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width() - 8, r.height() - 8));
+  }
+
   @Override
   protected void paintFigure(Graphics graphics) {
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
-    setConstraint(ellipse, new Rectangle(0, 0, r.width(), r.height()));
-    ellipse.setConstraint(smartLabel, calculateInnerRectangle(r.width(), r.height()));
-    ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width(), r.height()));
+    if(isMultiple)
+      paintMultipleProcess(r);
+    else
+      paintSimpleProcess(r);
   }
 
   private Rectangle calculateInnerRectangle(int width, int heigth) {
@@ -108,5 +137,9 @@ public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementF
   @Override
   public SmartLabelFigure getNameFigure() {
     return smartLabel;
+  }
+
+  public void setMultiple(boolean multiple) {
+    this.isMultiple = multiple;
   }
 }
