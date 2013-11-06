@@ -1082,13 +1082,22 @@ int OPM_PROCEDURAL_LINK__SOURCE_DECORATION = OPM_LINK__SOURCE_DECORATION;
 int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Sub Kinds</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_PROCEDURAL_LINK__SUB_KINDS = OPM_LINK_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Procedural Link</em>' class.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-	int OPM_PROCEDURAL_LINK_FEATURE_COUNT = OPM_LINK_FEATURE_COUNT + 1;
+	int OPM_PROCEDURAL_LINK_FEATURE_COUNT = OPM_LINK_FEATURE_COUNT + 2;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.LabelImpl <em>Label</em>}' class.
@@ -1650,6 +1659,17 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 	EAttribute getOPMProceduralLink_Kind();
 
 	/**
+   * Returns the meta object for the attribute list '{@link com.vainolo.phd.opm.model.OPMProceduralLink#getSubKinds <em>Sub Kinds</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Sub Kinds</em>'.
+   * @see com.vainolo.phd.opm.model.OPMProceduralLink#getSubKinds()
+   * @see #getOPMProceduralLink()
+   * @generated
+   */
+  EAttribute getOPMProceduralLink_SubKinds();
+
+  /**
    * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMNamedElement <em>Named Element</em>}'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2116,6 +2136,14 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 		EAttribute OPM_PROCEDURAL_LINK__KIND = eINSTANCE.getOPMProceduralLink_Kind();
 
 		/**
+     * The meta object literal for the '<em><b>Sub Kinds</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPM_PROCEDURAL_LINK__SUB_KINDS = eINSTANCE.getOPMProceduralLink_SubKinds();
+
+    /**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMNamedElementImpl <em>Named Element</em>}' class.
      * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->

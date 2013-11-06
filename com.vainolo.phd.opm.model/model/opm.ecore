@@ -69,6 +69,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMProceduralLink" eSuperTypes="#//OPMLink">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMProceduralLinkKind"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="subKinds" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMStructuralLinkAggregatorKind">

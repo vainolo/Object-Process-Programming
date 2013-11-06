@@ -61,6 +61,13 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
   protected void refreshVisuals() {
     OPMProceduralLink model = (OPMProceduralLink) getModel();
     getFigure().getCenterDecorationLabel().setText(model.getCenterDecoration());
+    if(model.getSubKinds().size() != 0) {
+      String subKindLabel = model.getSubKinds().toString();
+      subKindLabel = subKindLabel.substring(1, subKindLabel.length() - 1);
+      subKindLabel = subKindLabel.replace(" ", "");
+      getFigure().getSubkindLabel().setText(subKindLabel);
+    } else
+      getFigure().getSubkindLabel().setText("");
     super.refreshVisuals();
   }
 

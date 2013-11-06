@@ -589,6 +589,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getOPMProceduralLink_SubKinds() {
+    return (EAttribute)opmProceduralLinkEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOPMNamedElement() {
     return opmNamedElementEClass;
   }
@@ -779,6 +788,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     opmProceduralLinkEClass = createEClass(OPM_PROCEDURAL_LINK);
     createEAttribute(opmProceduralLinkEClass, OPM_PROCEDURAL_LINK__KIND);
+    createEAttribute(opmProceduralLinkEClass, OPM_PROCEDURAL_LINK__SUB_KINDS);
 
     labelEClass = createEClass(LABEL);
 
@@ -892,6 +902,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     initEClass(opmProceduralLinkEClass, OPMProceduralLink.class, "OPMProceduralLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMProceduralLink_Kind(), this.getOPMProceduralLinkKind(), "kind", null, 0, 1, OPMProceduralLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPMProceduralLink_SubKinds(), ecorePackage.getEString(), "subKinds", null, 0, -1, OPMProceduralLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(labelEClass, Label.class, "Label", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

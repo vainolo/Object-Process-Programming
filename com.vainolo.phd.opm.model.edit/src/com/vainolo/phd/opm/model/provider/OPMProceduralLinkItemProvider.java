@@ -64,6 +64,7 @@ public class OPMProceduralLinkItemProvider
       super.getPropertyDescriptors(object);
 
       addKindPropertyDescriptor(object);
+      addSubKindsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -91,6 +92,28 @@ public class OPMProceduralLinkItemProvider
   }
 
 	/**
+   * This adds a property descriptor for the Sub Kinds feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addSubKindsPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPMProceduralLink_subKinds_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPMProceduralLink_subKinds_feature", "_UI_OPMProceduralLink_type"),
+         OPMPackage.Literals.OPM_PROCEDURAL_LINK__SUB_KINDS,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns OPMProceduralLink.gif.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -126,6 +149,7 @@ public class OPMProceduralLinkItemProvider
 
     switch (notification.getFeatureID(OPMProceduralLink.class)) {
       case OPMPackage.OPM_PROCEDURAL_LINK__KIND:
+      case OPMPackage.OPM_PROCEDURAL_LINK__SUB_KINDS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

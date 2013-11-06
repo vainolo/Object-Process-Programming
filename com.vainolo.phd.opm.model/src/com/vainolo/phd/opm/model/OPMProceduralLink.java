@@ -6,6 +6,8 @@
  */
 package com.vainolo.phd.opm.model;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -16,6 +18,7 @@ package com.vainolo.phd.opm.model;
  * The following features are supported:
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.OPMProceduralLink#getKind <em>Kind</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMProceduralLink#getSubKinds <em>Sub Kinds</em>}</li>
  * </ul>
  * </p>
  *
@@ -52,5 +55,21 @@ public interface OPMProceduralLink extends OPMLink {
    * @generated
    */
 	void setKind(OPMProceduralLinkKind value);
+
+  /**
+   * Returns the value of the '<em><b>Sub Kinds</b></em>' attribute list.
+   * The list contents are of type {@link java.lang.String}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Sub Kinds</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Sub Kinds</em>' attribute list.
+   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMProceduralLink_SubKinds()
+   * @model
+   * @generated
+   */
+  EList<String> getSubKinds();
 
 } // OPMProceduralLink

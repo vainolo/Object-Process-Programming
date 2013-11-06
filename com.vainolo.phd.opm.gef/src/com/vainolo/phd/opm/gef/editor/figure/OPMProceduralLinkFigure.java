@@ -16,7 +16,8 @@ import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNamedElementFigure {
   private static final PolylineDecoration arrow = new PolylineDecoration();
   private OPMProceduralLinkKind kind;
-  private SmartLabelFigure centerDecorationLabel;
+  private final SmartLabelFigure centerDecorationLabel;
+  private final Label subKinds;
 
   public OPMProceduralLinkFigure(OPMProceduralLinkKind kind) {
     this.kind = kind;
@@ -26,6 +27,8 @@ public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNa
     ConnectionLocator locator = new ConnectionLocator(this, ConnectionLocator.MIDDLE);
     add(centerDecorationLabel, locator);
     setConnectionRouter(new BendpointConnectionRouter());
+    subKinds = new Label("");
+    add(subKinds, new OPMProceduralLinkSubKindLocator(this, 15, 15));
   }
 
   public SmartLabelFigure getCenterDecorationLabel() {
@@ -86,5 +89,9 @@ public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNa
   @Override
   public SmartLabelFigure getNameFigure() {
     return centerDecorationLabel;
+  }
+
+  public Label getSubkindLabel() {
+    return subKinds;
   }
 }
