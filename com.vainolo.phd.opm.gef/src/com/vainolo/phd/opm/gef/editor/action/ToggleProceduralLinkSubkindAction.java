@@ -9,7 +9,6 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
 import com.vainolo.phd.opm.gef.editor.part.OPMProceduralLinkEditPart;
-import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.utilities.OPMConstants;
 
 public class ToggleProceduralLinkSubkindAction extends SelectionAction {
@@ -22,6 +21,7 @@ public class ToggleProceduralLinkSubkindAction extends SelectionAction {
 
   private final Request request;
 
+  @SuppressWarnings("unchecked")
   public ToggleProceduralLinkSubkindAction(IWorkbenchPart part, String subkindId) {
     super(part);
     request = new Request(TOGGLE_PROCEDURAL_LINK_SUBKIND_REQUEST);

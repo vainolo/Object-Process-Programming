@@ -38,7 +38,7 @@ import org.eclipse.swt.graphics.Font;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IKeyBindingService;
+//import org.eclipse.ui.IKeyBindingService;
 import org.eclipse.ui.views.properties.IPropertyDescriptor;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
@@ -102,8 +102,10 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     IAction zoomOut = new ZoomOutAction(root.getZoomManager());
     getActionRegistry().registerAction(zoomIn);
     getActionRegistry().registerAction(zoomOut);
-    ((IKeyBindingService) getSite().getService(IKeyBindingService.class)).registerAction(zoomIn);
-    ((IKeyBindingService) getSite().getService(IKeyBindingService.class)).registerAction(zoomOut);
+    // ((IKeyBindingService)
+    // getSite().getService(IKeyBindingService.class)).registerAction(zoomIn);
+    // ((IKeyBindingService)
+    // getSite().getService(IKeyBindingService.class)).registerAction(zoomOut);
     // end zoom.
 
     getGraphicalViewer().setRootEditPart(root);

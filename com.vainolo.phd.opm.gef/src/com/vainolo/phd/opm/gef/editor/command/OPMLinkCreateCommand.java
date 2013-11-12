@@ -7,7 +7,6 @@ package com.vainolo.phd.opm.gef.editor.command;
 
 import org.eclipse.gef.commands.Command;
 
-import com.google.common.annotations.VisibleForTesting;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;

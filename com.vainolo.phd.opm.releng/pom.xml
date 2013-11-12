@@ -47,6 +47,7 @@
 
 	<modules>
 		<module>../com.vainolo.phd.opm.gef</module>
+		<module>../com.vainolo.phd.opm.gef.tests</module>		
 		<module>../com.vainolo.phd.opm.model</module>
 		<module>../com.vainolo.phd.opm.model.edit</module>
 		<module>../com.vainolo.phd.opm.model.editor</module>

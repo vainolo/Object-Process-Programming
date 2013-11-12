@@ -62,7 +62,8 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
       final IEditorPart editorPart = ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart();
       final IFileEditorInput input = (IFileEditorInput) editorPart.getEditorInput();
       final IFile newFile = input.getFile().getParent().getFile(new Path(thingName + ".opm"));
-      final String directory = input.getFile().getParent().getLocationURI().toString();
+      // final String directory =
+      // input.getFile().getParent().getLocationURI().toString();
       try {
         if(!newFile.exists()) {
           OPMFileUtils.INSTANCE.createOPDFile2(newFile, thingName, OPMObjectProcessDiagramKind.COMPOUND,
@@ -87,7 +88,7 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
    * editor is in snapping mode (either to grid or to shapes).
    */
   @Override
-  public Object getAdapter(final Class key) {
+  public Object getAdapter(@SuppressWarnings("rawtypes") final Class key) {
     if(key == SnapToHelper.class) {
       final List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
       if(Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED)))

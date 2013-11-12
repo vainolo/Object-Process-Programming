@@ -5,7 +5,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.policy;
 
-import org.eclipse.core.runtime.Assert;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
@@ -16,16 +15,11 @@ import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 
-import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeChangeConstraintCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
-import com.vainolo.phd.opm.model.Label;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMNode;
-import com.vainolo.phd.opm.model.OPMObject;
-import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.validation.OPMNodeValidator;
 
 /**

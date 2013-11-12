@@ -74,6 +74,8 @@ public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNa
       arrow.setReferencePoint(pointAfterSource);
       g.drawPolyline(arrow.getPoints());
       break;
+    default:
+      break;
     }
   }
 

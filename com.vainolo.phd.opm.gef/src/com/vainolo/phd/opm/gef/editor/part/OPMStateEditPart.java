@@ -66,7 +66,7 @@ public class OPMStateEditPart extends OPMNodeEditPart {
    * editor is in snapping mode (either to grid or to shapes).
    */
   @Override
-  public Object getAdapter(Class key) {
+  public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
     if(key == SnapToHelper.class) {
       List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
       if(Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED))) {

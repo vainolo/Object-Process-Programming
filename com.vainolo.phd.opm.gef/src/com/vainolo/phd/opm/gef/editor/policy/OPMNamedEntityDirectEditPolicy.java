@@ -5,16 +5,11 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.policy;
 
-import org.eclipse.core.runtime.Status;
-
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.requests.DirectEditRequest;
-
-import com.vainolo.phd.opm.gef.Activator;
 import com.vainolo.phd.opm.gef.editor.command.OPMNamedElementRenameCommand;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
-import com.vainolo.phd.opm.gef.editor.figure.OPMProceduralLinkFigure;
 import com.vainolo.phd.opm.model.OPMNamedElement;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 

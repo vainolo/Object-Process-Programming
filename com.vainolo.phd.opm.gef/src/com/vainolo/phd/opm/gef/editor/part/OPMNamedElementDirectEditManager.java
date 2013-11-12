@@ -16,6 +16,7 @@ public class OPMNamedElementDirectEditManager extends DirectEditManager {
 
   SmartLabelFigure textFigure;
 
+  @SuppressWarnings("rawtypes")
   public OPMNamedElementDirectEditManager(GraphicalEditPart source, Class editorType, CellEditorLocator locator,
       SmartLabelFigure label) {
     super(source, editorType, locator);

@@ -17,7 +17,6 @@ import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
-import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 /**

@@ -22,7 +22,6 @@ import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opm.model.*;
-import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.phd.opm.validation.OPMLinkValidator;
 

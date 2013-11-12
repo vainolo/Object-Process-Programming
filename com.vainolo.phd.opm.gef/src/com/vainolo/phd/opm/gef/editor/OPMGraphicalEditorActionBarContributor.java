@@ -24,6 +24,7 @@ import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
 import com.vainolo.phd.opm.gef.editor.action.InterpretAction;
 import com.vainolo.phd.opm.gef.editor.action.StopInterpreterAction;
 
+@SuppressWarnings("restriction")
 public class OPMGraphicalEditorActionBarContributor extends ActionBarContributor {
 
   @Override

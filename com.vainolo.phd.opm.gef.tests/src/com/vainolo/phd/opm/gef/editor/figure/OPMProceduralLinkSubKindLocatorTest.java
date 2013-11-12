@@ -1,15 +1,14 @@
 package com.vainolo.phd.opm.gef.editor.figure;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
 import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
-
-import static org.mockito.Mockito.*;
 
 public class OPMProceduralLinkSubKindLocatorTest {
   OPMProceduralLinkSubKindLocator locator;
@@ -28,7 +27,6 @@ public class OPMProceduralLinkSubKindLocatorTest {
 
     assertEquals(expectedX, location.x);
     assertEquals(expectedY, location.y);
-
   }
 
   @Test
@@ -41,9 +39,9 @@ public class OPMProceduralLinkSubKindLocatorTest {
 
   @Test
   public void test_GetLocation_InvertedAngle() {
-    performTest(200, 200, 100, 100, 5, 5, 105, 95);
-    performTest(200, 200, 100, 100, 10, 5, 110, 95);
-    performTest(200, 200, 100, 100, 5, 10, 105, 90);
+    performTest(200, 200, 100, 100, 5, 5, 105, 105);
+    performTest(200, 200, 100, 100, 10, 5, 110, 105);
+    performTest(200, 200, 100, 100, 5, 10, 105, 110);
   }
 
   @Test
@@ -76,15 +74,15 @@ public class OPMProceduralLinkSubKindLocatorTest {
 
   @Test
   public void test_GetLocation_UpRight() {
-    performTest(100, 200, 200, 150, 5, 5, 195, 145);
-    performTest(100, 200, 200, 150, 10, 5, 190, 145);
-    performTest(100, 200, 200, 150, 5, 10, 195, 140);
+    performTest(100, 200, 200, 150, 5, 5, 195, 155);
+    performTest(100, 200, 200, 150, 10, 5, 190, 155);
+    performTest(100, 200, 200, 150, 5, 10, 195, 160);
   }
 
   @Test
   public void test_GetLocation_UpLeft() {
-    performTest(200, 200, 100, 150, 5, 5, 105, 145);
-    performTest(200, 200, 100, 150, 10, 5, 110, 145);
-    performTest(200, 200, 100, 150, 5, 10, 105, 140);
+    performTest(200, 200, 100, 150, 5, 5, 105, 155);
+    performTest(200, 200, 100, 150, 10, 5, 110, 155);
+    performTest(200, 200, 100, 150, 5, 10, 105, 160);
   }
 }

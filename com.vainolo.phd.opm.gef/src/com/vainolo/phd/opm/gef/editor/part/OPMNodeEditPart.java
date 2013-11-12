@@ -78,13 +78,13 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
   }
 
   @Override
-  protected List getModelChildren() {
+  protected List<OPMNode> getModelChildren() {
     OPMNode model = (OPMNode) getModel();
     if(model instanceof OPMContainer) {
       OPMContainer container = (OPMContainer) model;
       return Collections.unmodifiableList(container.getNodes());
     } else {
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
     }
   }
 

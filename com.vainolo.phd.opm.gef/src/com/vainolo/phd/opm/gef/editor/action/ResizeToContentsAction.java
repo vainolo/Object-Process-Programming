@@ -31,6 +31,7 @@ public class ResizeToContentsAction extends SelectionAction {
   @Override
   public void run() {
     // selected objects must be nodes because the action is enabled.
+    @SuppressWarnings("unchecked")
     List<OPMNodeEditPart> editParts = getSelectedObjects();
     CompoundCommand compoundCommand = new CompoundCommand();
     for(OPMNodeEditPart nodeEditPart : editParts) {

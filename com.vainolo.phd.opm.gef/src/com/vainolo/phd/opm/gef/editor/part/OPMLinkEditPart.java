@@ -8,9 +8,6 @@ package com.vainolo.phd.opm.gef.editor.part;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.draw2d.AbsoluteBendpoint;
 import org.eclipse.draw2d.BendpointConnectionRouter;
 import org.eclipse.draw2d.Connection;
@@ -22,19 +19,11 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.gef.*;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
-import org.eclipse.ui.*;
-import org.eclipse.ui.part.FileEditorInput;
 
-import com.vainolo.draw2d.extras.SmartLabelFigure;
-import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
 import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
-import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
-import com.vainolo.phd.opm.gef.editor.part.delegates.DirectEditDelegate;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkBendpointEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkConnectionEditPolicy;
-import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 import com.vainolo.phd.opm.model.*;
-import com.vainolo.phd.opm.utilities.OPMFileUtils;
 
 /**
  * {@link EditPart} for the {@link OPMLink} model element.

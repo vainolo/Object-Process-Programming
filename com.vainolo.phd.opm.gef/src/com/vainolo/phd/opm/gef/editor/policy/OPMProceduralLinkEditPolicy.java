@@ -3,16 +3,12 @@ package com.vainolo.phd.opm.gef.editor.policy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
-import org.eclipse.gef.editpolicies.ConnectionEditPolicy;
-import org.eclipse.gef.requests.GroupRequest;
 
-import com.vainolo.phd.opm.gef.editor.ToggleProceduralLinkSubkindActionTest;
 import com.vainolo.phd.opm.gef.editor.action.ToggleProceduralLinkSubkindAction;
 import com.vainolo.phd.opm.gef.editor.command.OPMProceduralLinkAddSubkindCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMProceduralLinkRemoveSubkindCommand;
 import com.vainolo.phd.opm.gef.editor.part.OPMProceduralLinkEditPart;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
-import com.vainolo.phd.opm.utilities.OPMConstants;
 import com.vainolo.phd.opm.validation.OPMProceduralLinkValidator;
 
 /**
