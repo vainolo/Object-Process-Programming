@@ -13,36 +13,44 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
-import com.vainolo.phd.opm.gef.action.ResizeToContentsAction;
+import com.vainolo.phd.opm.gef.editor.action.ResizeToContentsAction;
+import com.vainolo.phd.opm.gef.editor.action.ToggleProceduralLinkSubkindAction;
 
 public class OPMGraphicalEditorContextMenuProvider extends ContextMenuProvider {
 
-    private ActionRegistry actionRegistry;
+  private ActionRegistry actionRegistry;
 
-    public OPMGraphicalEditorContextMenuProvider(EditPartViewer viewer, final ActionRegistry actionRegistry) {
-        super(viewer);
-        setActionRegistry(actionRegistry);
-    }
+  public OPMGraphicalEditorContextMenuProvider(EditPartViewer viewer, final ActionRegistry actionRegistry) {
+    super(viewer);
+    setActionRegistry(actionRegistry);
+  }
 
-    @Override
-    public void buildContextMenu(IMenuManager menu) {
-        GEFActionConstants.addStandardActionGroups(menu);
+  @Override
+  public void buildContextMenu(IMenuManager menu) {
+    GEFActionConstants.addStandardActionGroups(menu);
 
-        IAction action;
+    IAction action;
 
-        action = getActionRegistry().getAction(ActionFactory.UNDO.getId());
-        menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
-        action = getActionRegistry().getAction(ActionFactory.REDO.getId());
-        menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
-        action = getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID);
-        menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-    }
+    action = getActionRegistry().getAction(ActionFactory.UNDO.getId());
+    menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+    action = getActionRegistry().getAction(ActionFactory.REDO.getId());
+    menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
+    action = getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(ToggleProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(ToggleProceduralLinkSubkindAction.EVENT_SUBKIND_ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(ToggleProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 
-    private ActionRegistry getActionRegistry() {
-        return actionRegistry;
-    }
+  }
 
-    private void setActionRegistry(final ActionRegistry actionRegistry) {
-        this.actionRegistry = actionRegistry;
-    }
+  private ActionRegistry getActionRegistry() {
+    return actionRegistry;
+  }
+
+  private void setActionRegistry(final ActionRegistry actionRegistry) {
+    this.actionRegistry = actionRegistry;
+  }
 }

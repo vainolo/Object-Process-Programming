@@ -3,7 +3,7 @@
  * You can use this code for educational purposes. For any other uses
  * please contact me: vainolo@gmail.com
  *******************************************************************************/
-package com.vainolo.phd.opm.gef.action;
+package com.vainolo.phd.opm.gef.editor.action;
 
 import java.util.List;
 
@@ -42,7 +42,8 @@ public class ResizeToContentsAction extends SelectionAction {
   /**
    * {@inheritDoc}
    * <p>
-   * The action is enabled if all the selected entities on the editor are {@link OPMNodeEditPart} instances
+   * The action is enabled if all the selected entities on the editor are
+   * {@link OPMNodeEditPart} instances
    * </p>
    */
   @Override

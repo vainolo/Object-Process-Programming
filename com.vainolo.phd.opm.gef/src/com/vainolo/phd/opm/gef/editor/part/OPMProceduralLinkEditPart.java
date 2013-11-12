@@ -16,7 +16,9 @@ import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMProceduralLinkFigure;
 import com.vainolo.phd.opm.gef.editor.part.delegates.DirectEditDelegate;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
+import com.vainolo.phd.opm.gef.editor.policy.OPMProceduralLinkEditPolicy;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
+import com.vainolo.phd.opm.validation.OPMProceduralLinkValidator;
 
 /**
  * An extension of a {@link OPMLinkEditPart} used for {@link OPMProceduralLink}
@@ -75,6 +77,8 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
   protected void createEditPolicies() {
     super.createEditPolicies();
     installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMNamedEntityDirectEditPolicy());
+    installEditPolicy(OPMProceduralLinkEditPolicy.PROCEDURAL_LINK_EDIT_ROLE, new OPMProceduralLinkEditPolicy(
+        new OPMProceduralLinkValidator()));
   }
 
   @Override

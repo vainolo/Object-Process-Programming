@@ -77,6 +77,8 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
         OPMGEFEditorPlugin.INSTANCE.log("There was a problem creating or openning the OPM file.");
         OPMGEFEditorPlugin.INSTANCE.log(e);
       }
+    } else {
+      super.performRequest(req);
     }
   }
 

@@ -21,8 +21,8 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.RetargetAction;
 
 import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
-import com.vainolo.phd.opm.gef.action.InterpretAction;
-import com.vainolo.phd.opm.gef.action.StopInterpreterAction;
+import com.vainolo.phd.opm.gef.editor.action.InterpretAction;
+import com.vainolo.phd.opm.gef.editor.action.StopInterpreterAction;
 
 public class OPMGraphicalEditorActionBarContributor extends ActionBarContributor {
 

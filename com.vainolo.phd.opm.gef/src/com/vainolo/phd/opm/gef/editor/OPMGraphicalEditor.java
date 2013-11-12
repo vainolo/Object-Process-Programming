@@ -45,7 +45,8 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
-import com.vainolo.phd.opm.gef.action.ResizeToContentsAction;
+import com.vainolo.phd.opm.gef.editor.action.ResizeToContentsAction;
+import com.vainolo.phd.opm.gef.editor.action.ToggleProceduralLinkSubkindAction;
 import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
 import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -177,6 +178,18 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getSelectionActions().add(action.getId());
 
     action = new DirectEditAction(this);
+    getActionRegistry().registerAction(action);
+    getSelectionActions().add(action.getId());
+
+    action = new ToggleProceduralLinkSubkindAction(this, ToggleProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
+    getActionRegistry().registerAction(action);
+    getSelectionActions().add(action.getId());
+
+    action = new ToggleProceduralLinkSubkindAction(this, ToggleProceduralLinkSubkindAction.EVENT_SUBKIND_ID);
+    getActionRegistry().registerAction(action);
+    getSelectionActions().add(action.getId());
+
+    action = new ToggleProceduralLinkSubkindAction(this, ToggleProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
   }

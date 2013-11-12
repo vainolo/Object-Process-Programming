@@ -22,7 +22,7 @@ public class OPMProceduralLinkSubKindLocator extends ConnectionLocator {
 
     Point newLocation = new Point();
     newLocation.x = (targetLocation.x >= referencePoint.x ? targetLocation.x - xOffset : targetLocation.x + xOffset);
-    newLocation.y = targetLocation.y - yOffset;
+    newLocation.y = (targetLocation.y >= referencePoint.y ? targetLocation.y - yOffset : targetLocation.y + yOffset);
 
     return newLocation;
   }
