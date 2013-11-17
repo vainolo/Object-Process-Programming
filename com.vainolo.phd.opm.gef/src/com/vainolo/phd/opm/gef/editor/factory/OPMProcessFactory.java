@@ -10,12 +10,14 @@ import org.eclipse.gef.requests.CreationFactory;
 
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMProcessKind;
 
 public class OPMProcessFactory implements CreationFactory {
 
   @Override
   public Object getNewObject() {
     OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
+    process.setKind(OPMProcessKind.BUILT_IN);
     process.setId(OPMIdManager.getNextId());
     return process;
   }
