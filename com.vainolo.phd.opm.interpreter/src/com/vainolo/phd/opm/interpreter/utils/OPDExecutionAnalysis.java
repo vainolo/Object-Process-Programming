@@ -3,7 +3,7 @@
  * You can use this code for educational purposes. For any other uses
  * please contact me: vainolo@gmail.com
  *******************************************************************************/
-package com.vainolo.phd.opm.interpreter;
+package com.vainolo.phd.opm.interpreter.utils;
 
 import java.util.Set;
 
@@ -15,15 +15,9 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.utils.Parameter;
 import com.vainolo.phd.opm.model.OPMContainer;
-import com.vainolo.phd.opm.model.OPMLink;
-import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
-import com.vainolo.phd.opm.model.OPMPackage;
-import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 
 /**
@@ -276,33 +270,39 @@ public enum OPDExecutionAnalysis {
     }
   }
 
-  /**
-   * Calculate all the parameters that are connected to a process.
-   * 
-   * @param process
-   *          to analyze.
-   * @return A set containing all the parameters.
-   */
-  public Set<Parameter> calculateAllParameters(final OPMProcess process) {
-    final Set<Parameter> parameters = Sets.newHashSet();
-
-    for(OPMLink theLink : OPDAnalysis.INSTANCE.findIncomingDataLinks(process)) {
-      OPMProceduralLink link = OPMProceduralLink.class.cast(theLink);
-      if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getSource())) {
-        parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource().getContainer(), link,
-            (OPMState) link.getSource()));
-      } else {
-        parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getSource(), link));
-      }
-    }
-    for(OPMProceduralLink link : OPDAnalysis.INSTANCE.findOutgoingDataLinks(process)) {
-      if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getTarget())) {
-        parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget().getContainer(), link,
-            (OPMState) link.getTarget()));
-      } else {
-        parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject) link.getTarget(), link));
-      }
-    }
-    return parameters;
-  }
+  // /**
+  // * Calculate all the parameters that are connected to a process.
+  // *
+  // * @param process
+  // * to analyze.
+  // * @return A set containing all the parameters.
+  // */
+  // public Set<Parameter> calculateAllParameters(final OPMProcess process) {
+  // final Set<Parameter> parameters = Sets.newHashSet();
+  //
+  // for(OPMLink theLink : OPDAnalysis.INSTANCE.findIncomingDataLinks(process))
+  // {
+  // OPMProceduralLink link = OPMProceduralLink.class.cast(theLink);
+  // if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getSource())) {
+  // parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject)
+  // link.getSource().getContainer(), link,
+  // (OPMState) link.getSource()));
+  // } else {
+  // parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject)
+  // link.getSource(), link));
+  // }
+  // }
+  // for(OPMProceduralLink link :
+  // OPDAnalysis.INSTANCE.findOutgoingDataLinks(process)) {
+  // if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getTarget())) {
+  // parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject)
+  // link.getTarget().getContainer(), link,
+  // (OPMState) link.getTarget()));
+  // } else {
+  // parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject)
+  // link.getTarget(), link));
+  // }
+  // }
+  // return parameters;
+  // }
 }

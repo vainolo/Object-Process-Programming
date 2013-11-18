@@ -123,7 +123,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
       // logger.info("Could not load class " + className + " for process " +
       // getProcess().getName()
       // + ". Check that the class is in the classpath.");
-      throw new RuntimeException(e);
+      // throw new RuntimeException(e);
     } catch(NoSuchMethodException e) {
       logger.info("Could not find methdod " + methodName + " in class " + className
           + ". Please check that you have given the correct parameters and try again.");
@@ -158,5 +158,10 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
       throw new UnsupportedOperationException("Array parameters are not supported yet.");
 
     return Class.forName(name);
+  }
+
+  @Override
+  public boolean isReady() {
+    return true;
   }
 }

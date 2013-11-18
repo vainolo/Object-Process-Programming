@@ -26,7 +26,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * @created 3 Jul 2012
  * 
  */
-public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMCompoundProcessInstance extends OPMAbstractCompoundProcessInstance implements OPMExecutableInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMCompoundProcessInstance.class.getName());
 
   private OPMObjectProcessDiagram opd;
@@ -234,5 +234,11 @@ public class OPMCompoundProcessInstance extends OPMAbstractProcessInstance imple
   @Override
   public String getName() {
     return opd.getName();
+  }
+
+  @Override
+  public boolean isReady() {
+    // TODO Auto-generated method stub
+    return false;
   }
 }

@@ -5,12 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
-import java.math.BigDecimal;
-
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
-import com.vainolo.phd.opm.model.OPMFactory;
-import com.vainolo.phd.opm.model.OPMObject;
 
 /**
  * Process that adds two integer values.
@@ -20,23 +16,11 @@ import com.vainolo.phd.opm.model.OPMObject;
  * 
  */
 public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
-  public OPMAddProcessInstance() {
-    OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
-    object.setName("a");
-    createArgument(object);
-    object = OPMFactory.eINSTANCE.createOPMObject();
-    object.setName("b");
-    createArgument(object);
-    object = OPMFactory.eINSTANCE.createOPMObject();
-    object.setName("c");
-    createArgument(object);
-  }
-
   @Override
   public void executing() {
-    final BigDecimal a = new BigDecimal(getArgument("a").toString());
-    final BigDecimal b = new BigDecimal(getArgument("b").toString());
-    final BigDecimal c = a.add(b);
+    final double a = (double) getArgument("a");
+    final double b = (double) getArgument("b");
+    final double c = a + b;
     setArgument("c", c);
   }
 
@@ -45,4 +29,8 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
     return "Add";
   }
 
+  @Override
+  public boolean isReady() {
+    return (getArgument("a") != null) && (getArgument("b") != null);
+  }
 }

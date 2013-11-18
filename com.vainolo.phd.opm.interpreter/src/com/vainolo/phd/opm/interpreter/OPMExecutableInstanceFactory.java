@@ -68,7 +68,7 @@ public class OPMExecutableInstanceFactory {
     } else if(process.getName().equals("Sleep")) {
       processInstance = new OPMSleepProcessInstance();
     } else if(process.getName().equals("Assign") || process.getName().equals("=")) {
-      processInstance = new OPMAssignProcessInstance(process);
+      processInstance = new OPMAssignProcessInstance();
     } else if(process.getName().equals("Hello World")) {
       processInstance = new OPMPrintHelloWorldProcessInstance();
     } else {

@@ -33,4 +33,9 @@ public class OPMPrintHelloWorldProcessInstance extends OPMAbstractProcessInstanc
     return "Hello World";
   }
 
+  @Override
+  public boolean isReady() {
+    return true;
+  }
+
 }

@@ -21,24 +21,25 @@ import com.vainolo.utils.SimpleLoggerFactory;
 public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMSleepProcessInstance.class.getName());
 
-  public OPMSleepProcessInstance() {
-    // createArgument("time");
-  }
-
   @Override
   protected void executing() {
-    // final int time = Integer.parseInt(getVariable("time").toString());
-    // logger.info("Sleeping for " + time + " seconds.");
-    // try {
-    // Thread.sleep(time * 1000);
-    // } catch(InterruptedException e) {
-    // logger.finest("Sleep process interrupted. Returning.");
-    // return;
-    // }
+    double time = (double) getArgument("time");
+    logger.info("Sleeping for " + time + " seconds.");
+    try {
+      Thread.sleep((int) time * 1000);
+    } catch(InterruptedException e) {
+      logger.finest("Sleep process interrupted. Returning.");
+      return;
+    }
   }
 
   @Override
   public String getName() {
     return "Sleep";
+  }
+
+  @Override
+  public boolean isReady() {
+    return getArgument("time") != null;
   }
 }

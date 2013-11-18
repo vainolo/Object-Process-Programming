@@ -91,32 +91,4 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
     Preconditions.checkArgument(arguments.containsKey(name), "%s is not an valid parameter of %s", name, getName());
     return variables.get(arguments.get(name));
   }
-
-  /**
-   * Set the value in an {@link OPMObject}
-   * 
-   * @param object
-   *          where a value can be stored
-   * @param value
-   *          the value to store
-   */
-  protected void setVariable(OPMObject object, Object value) {
-    Preconditions.checkArgument(variables.containsKey(object), "%s is not a valid variable of %s", object.getName(),
-        getName());
-    variables.put(object, value);
-  }
-
-  /**
-   * Return the value stored in the {@link OPMObject}.
-   * 
-   * @param object
-   *          where a value can be stored
-   * @return the value of the {@link OPMObject}, or <code>null</code> if no
-   *         value has been assigned.
-   */
-  protected Object getVariable(OPMObject object) {
-    Preconditions.checkArgument(variables.containsKey(object), "%s is not a valid variable of %s", object.getName(),
-        getName());
-    return variables.get(object);
-  }
 }

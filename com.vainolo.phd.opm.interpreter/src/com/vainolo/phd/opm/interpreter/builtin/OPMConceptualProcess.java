@@ -38,4 +38,9 @@ public class OPMConceptualProcess extends OPMAbstractProcessInstance implements 
   public String getName() {
     return process.getName();
   }
+
+  @Override
+  public boolean isReady() {
+    return true;
+  }
 }

@@ -44,4 +44,9 @@ public class OPMOutputProcessInstance extends OPMAbstractProcessInstance impleme
     return "Console";
   }
 
+  @Override
+  public boolean isReady() {
+    return getArgument("text") != null;
+  }
+
 }

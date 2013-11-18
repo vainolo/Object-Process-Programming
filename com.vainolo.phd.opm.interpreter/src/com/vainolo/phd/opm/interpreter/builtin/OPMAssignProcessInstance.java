@@ -19,12 +19,6 @@ import com.vainolo.phd.opm.model.OPMProcess;
 public class OPMAssignProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   private OPMProcess process;
 
-  public OPMAssignProcessInstance(final OPMProcess process) {
-    // this.process = process;
-    // createArgument("a");
-    // createArgument("b");
-  }
-
   @Override
   public void executing() {
     setArgument("b", getArgument("a"));
@@ -32,6 +26,11 @@ public class OPMAssignProcessInstance extends OPMAbstractProcessInstance impleme
 
   @Override
   public String getName() {
-    return process.getName();
+    return "Assign";
+  }
+
+  @Override
+  public boolean isReady() {
+    return getArgument("a") != null;
   }
 }

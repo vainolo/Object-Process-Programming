@@ -21,10 +21,6 @@ import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
  */
 public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
 
-  public OPMInputProcessInstance() {
-    // createArgument("text");
-  }
-
   @Override
   protected void executing() {
     final String retVal = showInputDialog();
@@ -41,6 +37,11 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
   @Override
   public String getName() {
     return "Input";
+  }
+
+  @Override
+  public boolean isReady() {
+    return true;
   }
 
 }

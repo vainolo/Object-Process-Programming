@@ -11,6 +11,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalysis;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -25,7 +26,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * @author Arieh "Vainolo" Bibliowicz
  * 
  */
-public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMSystemOPDExecutableInstance extends OPMAbstractCompoundProcessInstance implements OPMExecutableInstance {
 
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMSystemOPDExecutableInstance.class.getName());
 
@@ -183,5 +184,10 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractProcessInstance i
       }
       setVariable(objectVariable, objectValue);
     }
+  }
+
+  @Override
+  public boolean isReady() {
+    return true;
   }
 }

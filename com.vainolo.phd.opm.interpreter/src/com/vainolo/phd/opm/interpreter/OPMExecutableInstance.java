@@ -46,4 +46,12 @@ public interface OPMExecutableInstance {
    * Execute this instance.
    */
   void execute();
+
+  /**
+   * Check if the instance is ready for execution
+   * 
+   * @return <code>true</code> if all required parameters are available,
+   *         <code>false</code> otherwise.
+   */
+  boolean isReady();
 }
