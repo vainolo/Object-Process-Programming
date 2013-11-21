@@ -1,18 +1,48 @@
 package com.vainolo.phd.opm.utilities.analysis;
 
 import java.util.Collection;
+import java.util.Set;
 
+import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
+import org.jgrapht.graph.DefaultEdge;
+
+import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
+import com.vainolo.phd.opm.model.OPMProceduralLink;
+import com.vainolo.phd.opm.model.OPMProcess;
 
 public class OPDAnalyzer {
   private OPDAnalysis analyzer = OPDAnalysis.INSTANCE;
+
+  /**
+   * Calculate the processes that should be executed when the OPD is invoked.
+   * These are the processes that have no predecessors in the OPD DAG.
+   * 
+   * @param opdDag
+   *          the OPD DAG that is analyzed.
+   * @return the processes that should be executed when the OPD is invoked.
+   */
+  public Set<OPMProcess> calculateInitialProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
+    Preconditions.checkArgument(opdDag != null, "OPD DAG cannot be null.");
+
+    final Set<OPMProcess> retVal = Sets.newHashSet();
+
+    for(final OPMProcess process : opdDag.vertexSet()) {
+      if(opdDag.inDegreeOf(process) == 0) {
+        retVal.add(process);
+      }
+    }
+
+    return retVal;
+  }
 
   /**
    * Recursively find the OPD that contains the node.
@@ -77,6 +107,39 @@ public class OPDAnalyzer {
   }
 
   /**
+   * Find all the incoming data links of the process.
+   * 
+   * @param process
+   *          to search.
+   * @return all incoming data links.
+   */
+  public Collection<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
+    return (Collection) Collections2.filter(process.getIncomingLinks(), new IsOPMProcessIncomingDataLink());
+  }
+
+  /**
+   * Find all outgoing data links of a process.
+   * 
+   * @param process
+   *          to search.
+   * @return all outgoing data links
+   */
+  public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMProcess process) {
+    return (Collection) Collections2.filter(process.getOutgoingLinks(), IsOPMProcessOutgoingDataLink.INSTANCE);
+  }
+
+  /**
+   * Find all outgoing data links of an object.
+   * 
+   * @param object
+   *          to search.
+   * @return all outgoing data links
+   */
+  public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMObject object) {
+    return (Collection) Collections2.filter(object.getOutgoingLinks(), new IsOPMObjectOutgoingDataLink());
+  }
+
+  /**
    * Predicate that matches {@link OPMLink}s which are structural.
    * 
    * @author Arieh "Vainolo" Bibliowicz
@@ -134,6 +197,60 @@ public class OPDAnalyzer {
         }
       }
       return false;
+    }
+  }
+
+  /**
+   * Predicate that matches {@link OPMProcess} incoming {@link OPMLink}s.
+   * 
+   * @author
+   * 
+   */
+  private static class IsOPMDataLink implements Predicate<OPMLink> {
+    @Override
+    public boolean apply(final OPMLink link) {
+      if(!OPMProceduralLink.class.isInstance(link))
+        return false;
+      else {
+        OPMProceduralLink localLink = OPMProceduralLink.class.cast(link);
+        switch(localLink.getKind()) {
+        case AGENT:
+        case CONSUMPTION:
+        case INSTRUMENT:
+          return true;
+        default:
+          return false;
+        }
+      }
+    }
+  }
+
+  private static class IsOPMProcessIncomingDataLink extends IsOPMDataLink {
+  }
+
+  private static class IsOPMObjectOutgoingDataLink extends IsOPMDataLink {
+  }
+
+  /**
+   * Predicate that matches {@link OPMProcess} outgoing
+   * {@link OPMProceduralLink}s.
+   */
+  private enum IsOPMProcessOutgoingDataLink implements Predicate<OPMLink> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(final OPMLink link) {
+      if(!OPMProceduralLink.class.isInstance(link))
+        return false;
+      else {
+        OPMProceduralLink localLink = OPMProceduralLink.class.cast(link);
+        switch(localLink.getKind()) {
+        case RESULT:
+          return true;
+        default:
+          return false;
+        }
+      }
     }
   }
 }

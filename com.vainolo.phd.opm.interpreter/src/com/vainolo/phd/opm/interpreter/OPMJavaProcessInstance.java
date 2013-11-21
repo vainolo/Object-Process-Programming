@@ -48,7 +48,6 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
     for(String parameter : parameters) {
       OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
       object.setName(parameter);
-      createArgument(object);
     }
 
     arguments = new Object[parameters.length];

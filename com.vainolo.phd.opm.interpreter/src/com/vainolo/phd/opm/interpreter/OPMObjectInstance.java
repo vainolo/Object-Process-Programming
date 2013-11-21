@@ -5,7 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import static com.google.common.base.Preconditions.*;
+import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.checkState;
 
 import java.util.Set;
 

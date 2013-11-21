@@ -83,28 +83,6 @@ public enum OPDExecutionAnalysis {
   }
 
   /**
-   * Calculate the processes that should be executed when the OPD is invoked.
-   * These are the processes that have no predecessors in the OPD DAG.
-   * 
-   * @param opdDag
-   *          the OPD DAG that is analyzed.
-   * @return the processes that should be executed when the OPD is invoked.
-   */
-  public Set<OPMProcess> calculateInitialProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
-    Preconditions.checkArgument(opdDag != null, "OPD DAG cannot be null.");
-
-    final Set<OPMProcess> retVal = Sets.newHashSet();
-
-    for(final OPMProcess process : opdDag.vertexSet()) {
-      if(opdDag.inDegreeOf(process) == 0) {
-        retVal.add(process);
-      }
-    }
-
-    return retVal;
-  }
-
-  /**
    * <p>
    * Create a DAG based on the process execution order of an
    * {@link OPMContainer}.

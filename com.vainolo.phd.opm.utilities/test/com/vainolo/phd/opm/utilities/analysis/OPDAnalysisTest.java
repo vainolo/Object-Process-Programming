@@ -138,29 +138,6 @@ public class OPDAnalysisTest {
   }
 
   @Test
-  public void testFindIncomingDataLinks_Process() {
-    Collection<OPMLink> result = fixture.findIncomingDataLinks(inZoomedProcesses.get(2));
-
-    assertEquals(10, Iterables.size(result));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(1)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(2)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(3)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(4)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(5)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(6)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(7)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(8)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(9)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(10)));
-
-    result = fixture.findIncomingDataLinks(inZoomedProcesses.get(5));
-    assertEquals(2, Iterables.size(result));
-    for(OPMLink link : result) {
-      assertTrue(inZoomedStates.values().contains(link.getSource()));
-    }
-  }
-
-  @Test
   public void testFindOutgoingInvocationLinks() {
     Iterable<OPMProceduralLink> result = fixture.findOutgoingInvocationLinks(inZoomedProcesses.get(2));
 

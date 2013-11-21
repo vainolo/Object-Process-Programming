@@ -71,18 +71,6 @@ public enum OPDAnalysis {
     return Iterables.filter(findAllProceduralLinks(process), IsOPMInvocationLink.INSTANCE);
   }
 
-  /**
-   * Find all the incoming data links of the process.
-   * 
-   * @param process
-   *          to search.
-   * @return all incoming data links.
-   */
-  public Collection<OPMLink> findIncomingDataLinks(OPMProcess process) {
-    return Collections2.filter(process.getIncomingLinks(), IsOPMProcessIncomingDataLink.INSTANCE);
-
-  }
-
   public Iterable<OPMProceduralLink> findOutgoingDataLinks(OPMProcess process) {
     return Iterables.filter(findAllProceduralLinks(process), IsOPMProcessOutgoingDataLink.INSTANCE);
   }
@@ -121,32 +109,6 @@ public enum OPDAnalysis {
       throw new RuntimeException("A compound OPD can containt only one process directly.");
     }
     return (OPMProcess) processNodes.iterator().next();
-  }
-
-  /**
-   * Predicate that matches {@link OPMProcess} incoming {@link OPMLink}s.
-   * 
-   * @author
-   * 
-   */
-  private enum IsOPMProcessIncomingDataLink implements Predicate<OPMLink> {
-    INSTANCE;
-    @Override
-    public boolean apply(final OPMLink link) {
-      if(!OPMProceduralLink.class.isInstance(link))
-        return false;
-      else {
-        OPMProceduralLink localLink = OPMProceduralLink.class.cast(link);
-        switch(localLink.getKind()) {
-        case AGENT:
-        case CONSUMPTION:
-        case INSTRUMENT:
-          return true;
-        default:
-          return false;
-        }
-      }
-    }
   }
 
   /**

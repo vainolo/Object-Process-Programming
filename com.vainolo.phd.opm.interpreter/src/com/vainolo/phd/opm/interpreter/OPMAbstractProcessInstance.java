@@ -23,7 +23,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
 public abstract class OPMAbstractProcessInstance implements OPMExecutableInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
-  protected final Map<String, OPMObject> arguments = Maps.newHashMap();
+  protected final Map<String, Object> arguments = Maps.newHashMap();
   protected final Map<OPMObject, Object> variables = Maps.newHashMap();
 
   /**
@@ -60,35 +60,13 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
     logger.info("Finished executing process " + getName());
   }
 
-  /**
-   * Create a variable for the given object.
-   * 
-   * @param object
-   *          the object variable.
-   */
-  protected void createVariable(OPMObject object) {
-    variables.put(object, null);
-  }
-
-  /**
-   * Create a variable and an argument mapping for the given object.
-   * 
-   * @param object
-   *          the parameter object.
-   */
-  protected void createArgument(OPMObject object) {
-    createVariable(object);
-    arguments.put(object.getName(), object);
-  }
-
   @Override
   public void setArgument(String name, Object value) {
-    variables.put(arguments.get(name), value);
+    arguments.put(name, value);
   }
 
   @Override
   public Object getArgument(String name) {
-    Preconditions.checkArgument(arguments.containsKey(name), "%s is not an valid parameter of %s", name, getName());
-    return variables.get(arguments.get(name));
+    return arguments.get(name);
   }
 }

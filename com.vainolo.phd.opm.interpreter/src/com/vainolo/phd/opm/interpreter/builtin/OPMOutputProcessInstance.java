@@ -23,30 +23,19 @@ import com.vainolo.phd.opm.model.OPMObject;
  */
 public class OPMOutputProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
 
-  public OPMOutputProcessInstance() {
-    OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
-    object.setName("text");
-    createArgument(object);
-  }
-
   @Override
   protected void executing() {
-    final String text = getArgument("text").toString();
-    System.out.println(text);
-  }
-
-  public void showMessageDialog(final String text) {
+    Object text = getArgument("text");
     JOptionPane.showMessageDialog(null, text);
   }
 
   @Override
   public String getName() {
-    return "Console";
+    return "Output";
   }
 
   @Override
   public boolean isReady() {
     return getArgument("text") != null;
   }
-
 }
