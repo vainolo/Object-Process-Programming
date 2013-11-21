@@ -26,8 +26,8 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * @created 3 Jul 2012
  * 
  */
-public class OPMCompoundProcessInstance extends OPMAbstractCompoundProcessInstance implements OPMExecutableInstance {
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMCompoundProcessInstance.class.getName());
+public class OPMInZoomedProcessInstance extends OPMAbstractCompoundProcessInstance implements OPMExecutableInstance {
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMInZoomedProcessInstance.class.getName());
 
   private OPMObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
@@ -37,7 +37,7 @@ public class OPMCompoundProcessInstance extends OPMAbstractCompoundProcessInstan
 
   private OPMProcess process;
 
-  public OPMCompoundProcessInstance(final OPMProcess process) {
+  public OPMInZoomedProcessInstance(final OPMProcess process) {
     this.process = process;
     execState = new OPMProcessInstanceExecutionState();
   }

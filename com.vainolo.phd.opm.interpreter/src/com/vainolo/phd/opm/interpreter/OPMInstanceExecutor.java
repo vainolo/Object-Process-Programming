@@ -20,11 +20,11 @@ public abstract class OPMInstanceExecutor {
 
   private final OPMExecutableInstance instance;
   // private final Set<Parameter> parameters;
-  private final OPMCompoundProcessInstance caller;
+  private final OPMInZoomedProcessInstance caller;
 
   // private ExecutionStatus executionStatus = ExecutionStatus.NOT_EXECUTED;
 
-  public OPMInstanceExecutor(OPMExecutableInstance instance, OPMCompoundProcessInstance caller) {
+  public OPMInstanceExecutor(OPMExecutableInstance instance, OPMInZoomedProcessInstance caller) {
     this.instance = instance;
     this.caller = caller;
     // this.parameters =

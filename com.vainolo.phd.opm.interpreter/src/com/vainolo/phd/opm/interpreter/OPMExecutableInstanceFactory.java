@@ -43,7 +43,7 @@ public class OPMExecutableInstanceFactory {
       processInstance = createBuildInProcess(process);
       break;
     case COMPOUND:
-      processInstance = new OPMCompoundProcessInstance(process);
+      processInstance = new OPMInZoomedProcessInstance(process);
       break;
     case CONCEPTUAL:
       processInstance = new OPMConceptualProcess(process);
