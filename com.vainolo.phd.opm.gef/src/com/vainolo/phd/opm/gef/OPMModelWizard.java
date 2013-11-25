@@ -182,8 +182,8 @@ public class OPMModelWizard extends Wizard implements INewWizard {
       data.grabExcessHorizontalSpace = true;
       opdKind.setLayoutData(data);
 
-      for(String objectName : new String[] { OPMObjectProcessDiagramKind.SYSTEM.getLiteral(),
-          OPMObjectProcessDiagramKind.COMPOUND.getLiteral(), OPMObjectProcessDiagramKind.UNFOLDED.getLiteral() }) {
+      for(String objectName : new String[] { OPMObjectProcessDiagramKind.COMPOUND.getLiteral(),
+          OPMObjectProcessDiagramKind.UNFOLDED.getLiteral() }) {
         opdKind.add(objectName);
       }
 

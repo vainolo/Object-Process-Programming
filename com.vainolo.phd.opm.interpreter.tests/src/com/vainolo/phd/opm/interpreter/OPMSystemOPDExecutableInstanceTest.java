@@ -45,7 +45,7 @@ public class OPMSystemOPDExecutableInstanceTest {
   public void setUp() {
     opd = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
     opd.setName("Hello");
-    opd.setKind(OPMObjectProcessDiagramKind.SYSTEM);
+    opd.setKind(OPMObjectProcessDiagramKind.COMPOUND);
     theProcess = OPMFactory.eINSTANCE.createOPMProcess();
     process1 = OPMFactory.eINSTANCE.createOPMProcess();
     process2 = OPMFactory.eINSTANCE.createOPMProcess();

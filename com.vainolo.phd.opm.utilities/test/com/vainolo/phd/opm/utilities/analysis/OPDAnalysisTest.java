@@ -170,7 +170,7 @@ public class OPDAnalysisTest {
 
   public void initSystemOPD() {
     systemOPD = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
-    systemOPD.setKind(OPMObjectProcessDiagramKind.SYSTEM);
+    systemOPD.setKind(OPMObjectProcessDiagramKind.COMPOUND);
 
     createProcesses(systemOPD, systemProcesses, SYSTEM_PROCESSES, 0);
     createObjects(systemOPD, systemObjects, SYSTEM_OBJETCS, 0);

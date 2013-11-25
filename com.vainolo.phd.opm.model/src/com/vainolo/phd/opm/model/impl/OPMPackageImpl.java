@@ -932,7 +932,6 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     initEEnum(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.class, "OPMObjectProcessDiagramKind");
     addEEnumLiteral(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.COMPOUND);
-    addEEnumLiteral(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.SYSTEM);
     addEEnumLiteral(opmObjectProcessDiagramKindEEnum, OPMObjectProcessDiagramKind.UNFOLDED);
 
     initEEnum(verticalAlignmentEEnum, VerticalAlignment.class, "VerticalAlignment");

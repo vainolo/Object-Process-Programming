@@ -31,14 +31,6 @@ public enum OPMObjectProcessDiagramKind implements Enumerator {
    * @ordered
    */
   COMPOUND(1, "COMPOUND", "Compound"), /**
-   * The '<em><b>SYSTEM</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #SYSTEM_VALUE
-   * @generated
-   * @ordered
-   */
-  SYSTEM(0, "SYSTEM", "System"), /**
    * The '<em><b>UNFOLDED</b></em>' literal object.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -64,21 +56,6 @@ public enum OPMObjectProcessDiagramKind implements Enumerator {
   public static final int COMPOUND_VALUE = 1;
 
   /**
-   * The '<em><b>SYSTEM</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>SYSTEM</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #SYSTEM
-   * @model literal="System"
-   * @generated
-   * @ordered
-   */
-  public static final int SYSTEM_VALUE = 0;
-
-  /**
    * The '<em><b>UNFOLDED</b></em>' literal value.
    * <!-- begin-user-doc -->
 	 * <p>
@@ -102,7 +79,6 @@ public enum OPMObjectProcessDiagramKind implements Enumerator {
   private static final OPMObjectProcessDiagramKind[] VALUES_ARRAY =
     new OPMObjectProcessDiagramKind[] {
       COMPOUND,
-      SYSTEM,
       UNFOLDED,
     };
 
@@ -155,7 +131,6 @@ public enum OPMObjectProcessDiagramKind implements Enumerator {
   public static OPMObjectProcessDiagramKind get(int value) {
     switch (value) {
       case COMPOUND_VALUE: return COMPOUND;
-      case SYSTEM_VALUE: return SYSTEM;
       case UNFOLDED_VALUE: return UNFOLDED;
     }
     return null;

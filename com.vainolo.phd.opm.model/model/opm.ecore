@@ -100,7 +100,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMObjectProcessDiagramKind">
     <eLiterals name="COMPOUND" value="1" literal="Compound"/>
-    <eLiterals name="SYSTEM" literal="System"/>
     <eLiterals name="UNFOLDED" value="2" literal="Unfolded"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="VerticalAlignment">
