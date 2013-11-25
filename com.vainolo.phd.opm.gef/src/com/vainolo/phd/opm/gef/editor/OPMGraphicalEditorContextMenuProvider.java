@@ -14,6 +14,7 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
 import com.vainolo.phd.opm.gef.editor.action.ResizeToContentsAction;
+import com.vainolo.phd.opm.gef.editor.action.ThingInZoomAction;
 import com.vainolo.phd.opm.gef.editor.action.ToggleProceduralLinkSubkindAction;
 
 public class OPMGraphicalEditorContextMenuProvider extends ContextMenuProvider {
@@ -43,7 +44,8 @@ public class OPMGraphicalEditorContextMenuProvider extends ContextMenuProvider {
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
     action = getActionRegistry().getAction(ToggleProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-
+    action = getActionRegistry().getAction(ThingInZoomAction.THING_IN_ZOOM_ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
   }
 
   private ActionRegistry getActionRegistry() {

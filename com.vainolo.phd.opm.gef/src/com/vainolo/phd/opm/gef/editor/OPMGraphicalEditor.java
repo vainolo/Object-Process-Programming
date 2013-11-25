@@ -22,12 +22,7 @@ import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
 import org.eclipse.gef.editparts.ScalableFreeformRootEditPart;
 import org.eclipse.gef.editparts.ZoomManager;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.ui.actions.DirectEditAction;
-import org.eclipse.gef.ui.actions.GEFActionConstants;
-import org.eclipse.gef.ui.actions.ToggleGridAction;
-import org.eclipse.gef.ui.actions.ToggleSnapToGeometryAction;
-import org.eclipse.gef.ui.actions.ZoomInAction;
-import org.eclipse.gef.ui.actions.ZoomOutAction;
+import org.eclipse.gef.ui.actions.*;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.parts.GraphicalViewerKeyHandler;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
@@ -46,6 +41,7 @@ import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import com.vainolo.phd.opm.gef.editor.action.ResizeToContentsAction;
+import com.vainolo.phd.opm.gef.editor.action.ThingInZoomAction;
 import com.vainolo.phd.opm.gef.editor.action.ToggleProceduralLinkSubkindAction;
 import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
 import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
@@ -194,6 +190,18 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     action = new ToggleProceduralLinkSubkindAction(this, ToggleProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
+
+    action = new ThingInZoomAction(this);
+    getActionRegistry().registerAction(action);
+    getSelectionActions().add(action.getId());
+
+    action = new CopyTemplateAction(this);
+    getActionRegistry().registerAction(action);
+
+    action = new PasteTemplateAction(this);
+    getActionRegistry().registerAction(action);
+    getSelectionActions().add(action.getId());
+
   }
 
   /**
