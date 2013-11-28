@@ -60,15 +60,15 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Find all the variables directly contained in an OPD.
+   * Find all the variables directly contained in an {@link OPMContainer}.
    * 
-   * @param opd
+   * @param container
    *          to search.
-   * @return all variables directly contained in the OPD.
+   * @return all variables directly contained in the {@link OPMContainer}.
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPMObject> findVariables(OPMObjectProcessDiagram opd) {
-    return (Collection) Collections2.filter(opd.getNodes(), IsOPMVariable.INSTANCE);
+  public Collection<OPMObject> findObjects(OPMContainer container) {
+    return (Collection) Collections2.filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
   }
 
   /**
@@ -137,6 +137,35 @@ public class OPDAnalyzer {
    */
   public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMObject object) {
     return (Collection) Collections2.filter(object.getOutgoingLinks(), new IsOPMObjectOutgoingDataLink());
+  }
+
+  /**
+   * Find the main {@link OPMProcess} in an in-zoomed process
+   * {@link OPMObjectProcessDiagram}.
+   * 
+   * @param opd
+   *          an in-zoomed {@link OPMProcess} {@link OPMObjectProcessDiagram}.
+   * @return
+   * @throws IllegalStateException
+   *           if there is no main {@link OPMProcess} or there is more than one
+   *           {@link OPMProcess} directly below the
+   *           {@link OPMObjectProcessDiagram}
+   */
+  public OPMProcess getInZoomedProcess(OPMObjectProcessDiagram opd) {
+    OPMProcess inZoomedProcess = null;
+    for(OPMNode node : opd.getNodes()) {
+      if(OPMProcess.class.isInstance(node)) {
+        if(inZoomedProcess != null) {
+          throw new IllegalStateException("More than one process found in an in-zoomed OPD");
+        } else {
+          inZoomedProcess = (OPMProcess) node;
+        }
+      }
+    }
+    if(inZoomedProcess == null) {
+      throw new IllegalStateException("No process found in an in-zoomed OPD");
+    }
+    return inZoomedProcess;
   }
 
   /**
@@ -253,4 +282,21 @@ public class OPDAnalyzer {
       }
     }
   }
+
+  /**
+   * Predicate that matches {@link OPMNode} instances that are also
+   * {@link OPMObject} instances.
+   * 
+   */
+  public enum IsOPMObjectNode implements Predicate<OPMNode> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(final OPMNode node) {
+      if(OPMPackage.eINSTANCE.getOPMObject().isInstance(node))
+        return true;
+      return false;
+    }
+  }
+
 }

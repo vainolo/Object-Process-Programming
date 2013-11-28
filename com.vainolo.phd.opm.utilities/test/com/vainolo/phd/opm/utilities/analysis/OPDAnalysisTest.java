@@ -76,36 +76,6 @@ public class OPDAnalysisTest {
   }
 
   @Test
-  public void testFindContainedObjects_SystemOPD() {
-    Collection<OPMObject> result = fixture.findFirstLevelContainedObjects(systemOPD);
-    assertEquals(SYSTEM_OBJETCS, result.size());
-    for(int i = 0; i < SYSTEM_OBJETCS; i++) {
-      assertTrue(result.contains(systemObjects.get(i)));
-    }
-  }
-
-  @Test
-  public void testFindContainedObjects_InZoomedOPD() {
-    Collection<OPMObject> result = fixture.findFirstLevelContainedObjects(inZoomedOPD);
-    assertEquals(IN_ZOOMED_OBJECTS + IN_ZOOMED_OBJECTS_WITH_STATES, result.size());
-    for(int i = 0; i < IN_ZOOMED_OBJECTS; i++) {
-      assertTrue(result.contains(inZoomedObjects.get(i)));
-    }
-    for(int i = 0; i < IN_ZOOMED_OBJECTS_WITH_STATES; i++) {
-      assertTrue(result.contains(inZoomedObjectsWithStates.get(i)));
-    }
-  }
-
-  @Test
-  public void testFindContainedObjects_InsideInZoomedProcess() {
-    Collection<OPMObject> result = fixture.findFirstLevelContainedObjects(inZoomedProcesses.get(0));
-    assertEquals(IN_ZOOMED_INSIDE_OBJECTS, result.size());
-    for(int i = IN_ZOOMED_OBJECTS; i < IN_ZOOMED_OBJECTS + IN_ZOOMED_INSIDE_OBJECTS; i++) {
-      assertTrue(result.contains(inZoomedObjects.get(i)));
-    }
-  }
-
-  @Test
   public void testFindExecutableProcesses_SystemOPD() {
     Collection<OPMProcess> result = fixture.findFirstLevelContainedProcesses(systemOPD);
 

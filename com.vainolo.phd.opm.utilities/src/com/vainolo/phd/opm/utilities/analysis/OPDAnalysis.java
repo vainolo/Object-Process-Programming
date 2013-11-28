@@ -22,7 +22,6 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMEventLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMInvocationLink;
-import com.vainolo.phd.opm.utilities.predicates.IsOPMObjectNode;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProceduralLink;
 import com.vainolo.phd.opm.utilities.predicates.IsOPMProcessNode;
 
@@ -89,18 +88,6 @@ public enum OPDAnalysis {
   @SuppressWarnings("rawtypes")
   public Collection<OPMProcess> findFirstLevelContainedProcesses(OPMContainer container) {
     return (Collection) Collections2.filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
-  }
-
-  /**
-   * Find all the objects directly inside this container (non recursive).
-   * 
-   * @param container
-   *          The container to be searched.
-   * @return All objects directly contained in this container.
-   */
-  @SuppressWarnings("rawtypes")
-  public Collection<OPMObject> findFirstLevelContainedObjects(OPMContainer container) {
-    return (Collection) Collections2.filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
   }
 
   public static OPMProcess findInZoomedProcess(OPMObjectProcessDiagram opd) {

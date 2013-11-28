@@ -26,7 +26,7 @@ public class OPMExecutableInstanceFactory {
   public static OPMExecutableInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
     case COMPOUND:
-      return new OPMSystemOPDExecutableInstance(opd, new OPDAnalyzer());
+      return new OPMInZoomedProcessExecutableInstance(opd, new OPDAnalyzer());
     case UNFOLDED:
       logger.info("Unfolded OPDs cannot be executed.");
       throw new IllegalArgumentException("Unfolded OPDs cannot be executed");

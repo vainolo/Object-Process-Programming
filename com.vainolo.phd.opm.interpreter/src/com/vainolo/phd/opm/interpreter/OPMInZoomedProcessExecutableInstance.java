@@ -1,8 +1,6 @@
 package com.vainolo.phd.opm.interpreter;
 
 import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -10,7 +8,6 @@ import java.util.logging.Logger;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalysis;
@@ -19,33 +16,26 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
- * Executable instance used for a System OPD.
+ * Executable instance used for a {@link OPMObjectProcessDiagram} containing an
+ * in-zoomed process.
  * 
  * @author Arieh "Vainolo" Bibliowicz
  * 
  */
-public class OPMSystemOPDExecutableInstance extends OPMAbstractCompoundProcessInstance implements OPMExecutableInstance {
+public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
 
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMSystemOPDExecutableInstance.class.getName());
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMInZoomedProcessExecutableInstance.class
+      .getName());
 
   private final OPMObjectProcessDiagram opd;
-  private final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
+  private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
   private OPDAnalyzer analyzer;
   private OPDExecutionFollower follower = new OPDExecutionFollower();
-
-  // private final Map<OPMProcess, OPMExecutableInstance>
-  // processToInstanceMapping = Maps.newHashMap();
-  // private final Map<OPMExecutableInstance, OPMProcess>
-  // instanceToProcessMapping = Maps.newHashMap();
-  // private final Set<OPMExecutableInstance> readyInstances =
-  // Sets.newHashSet();
-  // private final Set<OPMExecutableInstance> waitingInstances =
-  // Sets.newHashSet();
+  private OPMProcess inZoomedProcess;
 
   /**
    * Create a new instance.
@@ -53,11 +43,51 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractCompoundProcessIn
    * @param opd
    *          the {@link OPMObjectProcessDiagram} for this instance.
    */
-  public OPMSystemOPDExecutableInstance(OPMObjectProcessDiagram opd, OPDAnalyzer analyzer) {
+  public OPMInZoomedProcessExecutableInstance(OPMObjectProcessDiagram opd, OPDAnalyzer analyzer) {
     this.opd = opd;
     this.analyzer = analyzer;
-    opdDag = OPDExecutionAnalysis.INSTANCE.createContainerExecutionDAG(opd);
-    createArgumentsAndLocalVariables();
+  }
+
+  protected final Map<OPMObject, Object> variables = Maps.newHashMap();
+
+  @Override
+  protected void preExecution() {
+    super.preExecution();
+    // get in-zoomed process and create DAG
+    inZoomedProcess = analyzer.getInZoomedProcess(opd);
+    opdDag = OPDExecutionAnalysis.INSTANCE.createContainerExecutionDAG(inZoomedProcess);
+    initializeVariablesWithArgumentValues();
+    initializeVariablesWithConstantValue();
+  }
+
+  @Override
+  protected void postExecution() {
+    super.postExecution();
+    exportVariableValuesToArguments();
+  }
+
+  /**
+   * Set the value in an {@link OPMObject}
+   * 
+   * @param object
+   *          where a value can be stored
+   * @param value
+   *          the value to store
+   */
+  protected void setVariable(OPMObject object, Object value) {
+    variables.put(object, value);
+  }
+
+  /**
+   * Return the value stored in the {@link OPMObject}.
+   * 
+   * @param object
+   *          where a value can be stored
+   * @return the value of the {@link OPMObject}, or <code>null</code> if no
+   *         value has been assigned.
+   */
+  protected Object getVariable(OPMObject object) {
+    return variables.get(object);
   }
 
   @Override
@@ -164,20 +194,38 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractCompoundProcessIn
     return true;
   }
 
-  /**
-   * Initialize local parameters and variable placeholder. Also calculates
-   * values of variables that have a value.
-   */
-  private void createArgumentsAndLocalVariables() {
-    // for(OPMObject parameter : analyzer.findParameters(opd)) {
-    // createArgument(parameter);
-    // }
+  private void initializeVariablesWithArgumentValues() {
+    Collection<OPMObject> objectArguments = analyzer.findObjects(opd);
+    for(OPMObject object : objectArguments) {
+      if(getArgument(object.getName()) != null) {
+        setVariable(object, getArgument(object.getName()));
+      } else {
 
-    Collection<OPMObject> objectVariables = analyzer.findVariables(opd);
-    for(OPMObject objectVariable : objectVariables) {
+        String objectName = object.getName();
+        if(objectName.length() == 0)
+          return;
+
+        Object objectValue = null;
+        if(objectName.startsWith("\"") || objectName.startsWith("'")) {
+          objectValue = objectName.substring(1, objectName.length() - 1);
+        } else if(Character.isDigit(objectName.charAt(0))) {
+          objectValue = Double.parseDouble(objectName);
+        }
+        setVariable(object, objectValue);
+      }
+    }
+  }
+
+  /**
+   * Initialize local variables initialized to constants.
+   */
+  private void initializeVariablesWithConstantValue() {
+
+    Collection<OPMObject> objectVariables = analyzer.findObjects(inZoomedProcess);
+    for(OPMObject object : objectVariables) {
       // createVariable(objectVariable);
 
-      String objectName = objectVariable.getName();
+      String objectName = object.getName();
       if(objectName.length() == 0)
         return;
 
@@ -187,13 +235,23 @@ public class OPMSystemOPDExecutableInstance extends OPMAbstractCompoundProcessIn
       } else if(Character.isDigit(objectName.charAt(0))) {
         objectValue = Double.parseDouble(objectName);
       }
-      setVariable(objectVariable, objectValue);
+      setVariable(object, objectValue);
     }
   }
 
   @Override
   public boolean isReady() {
     return true;
+  }
+
+  private void exportVariableValuesToArguments() {
+    Collection<OPMObject> objectArguments = analyzer.findObjects(opd);
+    for(OPMObject object : objectArguments) {
+      if(getVariable(object) != null) {
+        setArgument(object.getName(), getVariable(object));
+      }
+    }
+
   }
 
   /**

@@ -5,6 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
+import java.math.BigDecimal;
+
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
 

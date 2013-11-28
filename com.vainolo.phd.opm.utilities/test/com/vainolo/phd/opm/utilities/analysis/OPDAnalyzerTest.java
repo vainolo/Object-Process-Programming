@@ -362,55 +362,6 @@ public class OPDAnalyzerTest {
     assertEquals(opd, result);
   }
 
-  // findVariables()
-  @Test
-  public void test_findVariables_noVariables() {
-    Collection<OPMObject> result = analyzer.findVariables(opd);
-    assertEquals(0, result.size());
-  }
-
-  @Test
-  public void test_findVariables_oneVariable() {
-    opd.getNodes().add(createVariable());
-    Collection<OPMObject> result = analyzer.findVariables(opd);
-    assertEquals(1, result.size());
-  }
-
-  @Test
-  public void test_findVariables_twoVariables() {
-    opd.getNodes().add(createVariable());
-    opd.getNodes().add(createVariable());
-    Collection<OPMObject> result = analyzer.findVariables(opd);
-    assertEquals(2, result.size());
-  }
-
-  @Test
-  public void test_findVariables_twoVariablesAndOneParameter() {
-    opd.getNodes().add(createVariable());
-    opd.getNodes().add(createVariable());
-    opd.getNodes().add(createParameter());
-    Collection<OPMObject> result = analyzer.findVariables(opd);
-    assertEquals(2, result.size());
-  }
-
-  @Test
-  public void test_findVariables_twoVariablesAndInnerVariable() {
-    opd.getNodes().add(createVariable());
-    OPMObject node2 = createVariable();
-    opd.getNodes().add(node2);
-    node2.getNodes().add(createVariable());
-    Collection<OPMObject> result = analyzer.findVariables(opd);
-    assertEquals(2, result.size());
-  }
-
-  @Test
-  public void test_findVariables_oneVariableOneParameterOneProcess() {
-    opd.getNodes().add(createVariable());
-    opd.getNodes().add(createProcess());
-    Collection<OPMObject> result = analyzer.findVariables(opd);
-    assertEquals(1, result.size());
-  }
-
   // findParameters()
   @Test
   public void test_findParameters_noParameters() {
