@@ -26,10 +26,11 @@ public class OPMObjectEditPart extends OPMThingEditPart {
 
   @Override
   protected void refreshVisuals() {
-    ((OPMObjectFigure) getFigure()).setObjectKind(((OPMObject) getModel()).getKind());
     OPMObjectFigure figure = (OPMObjectFigure) getFigure();
-    OPMThing model = (OPMThing) getModel();
+    OPMObject model = (OPMObject) getModel();
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
+
+    figure.setObjectKind(model.getKind());
     figure.getNameFigure().setText(model.getName());
     figure.setTooltipText(model.getDescription());
 

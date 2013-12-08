@@ -12,6 +12,7 @@ import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
+import com.vainolo.phd.opm.model.OPMState;
 
 /**
  * Unit tests for the {@link OPMLinkValidator} class.
@@ -25,6 +26,7 @@ public class OPMLinkValidatorTest {
   OPMNode process;
   OPMNode target;
   OPMLink link;
+  private OPMState state;
 
   private OPMLink createProceduralLink(OPMProceduralLinkKind kind) {
     OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
@@ -200,10 +202,32 @@ public class OPMLinkValidatorTest {
     assertTrue(result);
   }
 
+  @Test
+  public void testValudateSource_AgentLink_StateSource() {
+    link = createProceduralLink(OPMProceduralLinkKind.AGENT);
+    boolean result = validator.validateAddSource(state, link);
+    assertTrue(result);
+  }
+
+  @Test
+  public void testValudateSource_InstrumentLink_StateSource() {
+    link = createProceduralLink(OPMProceduralLinkKind.INSTRUMENT);
+    boolean result = validator.validateAddSource(state, link);
+    assertTrue(result);
+  }
+
+  @Test
+  public void testValudateSource_ConsumptionLink_StateSource() {
+    link = createProceduralLink(OPMProceduralLinkKind.CONSUMPTION);
+    boolean result = validator.validateAddSource(state, link);
+    assertTrue(result);
+  }
+
   @Before
   public void setUp() {
     validator = new OPMLinkValidator();
     object = OPMFactory.eINSTANCE.createOPMObject();
     process = OPMFactory.eINSTANCE.createOPMProcess();
+    state = OPMFactory.eINSTANCE.createOPMState();
   }
 }

@@ -16,11 +16,11 @@ import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMThing;
 import com.vainolo.phd.opm.utilities.OPMFileUtils;
 
-public class ThingInZoomCommand extends Command {
+public class OPMThingInZoomCommand extends Command {
 
   private OPMThingEditPart part;
 
-  public ThingInZoomCommand(OPMThingEditPart part) {
+  public OPMThingInZoomCommand(OPMThingEditPart part) {
     this.part = part;
   }
 

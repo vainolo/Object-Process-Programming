@@ -42,6 +42,7 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import com.vainolo.phd.opm.gef.editor.action.ResizeToContentsAction;
 import com.vainolo.phd.opm.gef.editor.action.ThingInZoomAction;
+import com.vainolo.phd.opm.gef.editor.action.ToggleThingMultiplicityAction;
 import com.vainolo.phd.opm.gef.editor.action.ToggleProceduralLinkSubkindAction;
 import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
 import com.vainolo.phd.opm.gef.editor.part.OPMEditPartFactory;
@@ -109,7 +110,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
   private void configureKeyboardShortcuts() {
     GraphicalViewerKeyHandler keyHandler = new GraphicalViewerKeyHandler(getGraphicalViewer());
-    keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.DIRECT_EDIT));
+    keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.OPEN_EXT));
     keyHandler.put(KeyStroke.getPressed(SWT.F3, 0),
         getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
     getGraphicalViewer().setKeyHandler(keyHandler);
@@ -188,6 +189,10 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getSelectionActions().add(action.getId());
 
     action = new ToggleProceduralLinkSubkindAction(this, ToggleProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
+    getActionRegistry().registerAction(action);
+    getSelectionActions().add(action.getId());
+
+    action = new ToggleThingMultiplicityAction(this);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
