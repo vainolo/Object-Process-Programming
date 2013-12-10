@@ -5,16 +5,25 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.figure;
 
-import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 public class OPMObjectProcessDiagramFigure extends Figure {
 
+  private Label opdNameLabel;
+
   public OPMObjectProcessDiagramFigure() {
-	  setLayoutManager(new XYLayout());
+    setLayoutManager(new XYLayout());
+    opdNameLabel = new Label();
+    add(opdNameLabel);
+  }
+
+  @Override
+  protected void paintFigure(Graphics graphics) {
+    super.paintFigure(graphics);
+    Rectangle r = getParent().getBounds();
+    setConstraint(opdNameLabel, new Rectangle(0, 0, r.width, 30));
   }
 
   @Override
@@ -24,11 +33,15 @@ public class OPMObjectProcessDiagramFigure extends Figure {
   }
 
   public IFigure getContentPane() {
-	  return this;
+    return this;
   }
 
   @Override
   public boolean isCoordinateSystem() {
     return true;
+  }
+
+  public void setOPDName(String name) {
+    opdNameLabel.setText(name);
   }
 }

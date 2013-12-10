@@ -14,7 +14,6 @@ import org.eclipse.gef.GraphicalEditPart;
 import com.vainolo.phd.opm.gef.editor.figure.OPMObjectFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMThingFigure;
 import com.vainolo.phd.opm.model.OPMObject;
-import com.vainolo.phd.opm.model.OPMThing;
 
 public class OPMObjectEditPart extends OPMThingEditPart {
 

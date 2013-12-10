@@ -69,11 +69,11 @@ public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementF
   }
 
   private void paintMultipleProcess(Rectangle r) {
-    setConstraint(ellipse, new Rectangle(0, 0, r.width() - 8, r.height() - 8));
-    setConstraint(shade1, new Rectangle(4, 4, r.width() - 8, r.height() - 8));
-    setConstraint(shade2, new Rectangle(8, 8, r.width() - 8, r.height() - 8));
-    ellipse.setConstraint(smartLabel, calculateInnerRectangle(r.width() - 8, r.height() - 8));
-    ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width() - 8, r.height() - 8));
+    setConstraint(ellipse, new Rectangle(0, 0, r.width() - 10, r.height() - 10));
+    setConstraint(shade1, new Rectangle(5, 5, r.width() - 10, r.height() - 10));
+    setConstraint(shade2, new Rectangle(10, 10, r.width() - 10, r.height() - 10));
+    ellipse.setConstraint(smartLabel, calculateInnerRectangle(r.width() - 10, r.height() - 10));
+    ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width() - 10, r.height() - 10));
   }
 
   @Override
@@ -97,8 +97,8 @@ public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementF
 
   private Dimension calculateEllipseDimensionBasedOnLabelSize(Dimension labelDim) {
     Dimension dim = new Dimension();
-    dim.setWidth((int) (2 * labelDim.width() / Math.sqrt(2)));
-    dim.setHeight((int) (2 * labelDim.height() / Math.sqrt(2)));
+    dim.setWidth((int) (2 * labelDim.width() / Math.sqrt(2)) + 10);
+    dim.setHeight((int) (2 * labelDim.height() / Math.sqrt(2)) + 10);
     return dim;
   }
 

@@ -10,14 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.gef.CompoundSnapToHelper;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.SnapToGeometry;
-import org.eclipse.gef.SnapToGrid;
-import org.eclipse.gef.SnapToHelper;
+import org.eclipse.gef.*;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 
@@ -43,6 +40,14 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
     // f.setBorder(new LineBorder(1));
     // return f;
     return new OPMObjectProcessDiagramFigure();
+  }
+
+  @Override
+  protected void refreshVisuals() {
+    OPMObjectProcessDiagramFigure figure = (OPMObjectProcessDiagramFigure) getFigure();
+    OPMObjectProcessDiagram model = (OPMObjectProcessDiagram) getModel();
+    figure.setOPDName(model.getName());
+    figure.repaint();
   }
 
   @Override
@@ -106,7 +111,8 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
     @Override
     public void notifyChanged(Notification notification) {
-      refreshChildren();
+      refresh();
+      // refreshChildren();
     }
 
     @Override

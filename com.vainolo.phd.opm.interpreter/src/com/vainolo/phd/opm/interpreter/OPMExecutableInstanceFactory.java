@@ -59,7 +59,7 @@ public class OPMExecutableInstanceFactory {
 
     if(process.getName().equals("Input")) {
       processInstance = new OPMInputProcessInstance();
-    } else if(process.getName().equals("Output")) {
+    } else if(process.getName().equals("Output") || process.getName().equals("Dialog")) {
       processInstance = new OPMOutputProcessInstance();
     } else if(process.getName().equals("Add") || process.getName().equals("+")) {
       processInstance = new OPMAddProcessInstance();
