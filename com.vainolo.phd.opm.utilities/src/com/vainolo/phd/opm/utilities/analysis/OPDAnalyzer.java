@@ -1,15 +1,9 @@
 package com.vainolo.phd.opm.utilities.analysis;
 
 import java.util.Collection;
-import java.util.Set;
 
-import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
-import org.jgrapht.graph.DefaultEdge;
-
-import com.google.common.base.Preconditions;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
-import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
@@ -17,31 +11,51 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
+import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 public class OPDAnalyzer {
   private OPDAnalysis analyzer = OPDAnalysis.INSTANCE;
 
   /**
-   * Calculate the processes that should be executed when the OPD is invoked.
-   * These are the processes that have no predecessors in the OPD DAG.
+   * Return the {@link OPMObject} connected to an {@link OPMProceduralLink},
+   * when there is no ambiguity.
    * 
-   * @param opdDag
-   *          the OPD DAG that is analyzed.
-   * @return the processes that should be executed when the OPD is invoked.
+   * @param link
+   *          connected to an {@link OPMObject}
+   * @return the source or target {@link OPMObject} of the
+   *         {@link OPMProceduralLink}, if there is no ambiguity, or
+   *         <code>null</code> if there is ambiguity.
    */
-  public Set<OPMProcess> calculateInitialProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
-    Preconditions.checkArgument(opdDag != null, "OPD DAG cannot be null.");
+  public OPMObject getObject(OPMLink link) {
+    OPMNode source = link.getSource();
+    OPMNode target = link.getTarget();
+    if(OPMObject.class.isInstance(source) && !OPMObject.class.isInstance(target))
+      return OPMObject.class.cast(source);
+    else if(!OPMObject.class.isInstance(source) && OPMObject.class.isInstance(target))
+      return OPMObject.class.cast(target);
+    else
+      return null;
+  }
 
-    final Set<OPMProcess> retVal = Sets.newHashSet();
-
-    for(final OPMProcess process : opdDag.vertexSet()) {
-      if(opdDag.inDegreeOf(process) == 0) {
-        retVal.add(process);
-      }
-    }
-
-    return retVal;
+  /**
+   * Return the {@link OPMProcess} connected to an {@link OPMLink}, when there
+   * is no ambiguity.
+   * 
+   * @param link
+   *          connected to an {@link OPMProcess}
+   * @return the source or target {@link OPMProcess} of the {@link OPMLink}, if
+   *         there is no ambiguity, or <code>null</code> if there is ambiguity.
+   */
+  public OPMProcess getProcess(OPMLink link) {
+    OPMNode source = link.getSource();
+    OPMNode target = link.getTarget();
+    if(OPMProcess.class.isInstance(source) && !OPMProcess.class.isInstance(target))
+      return OPMProcess.class.cast(source);
+    else if(!OPMProcess.class.isInstance(source) && OPMProcess.class.isInstance(target))
+      return OPMProcess.class.cast(target);
+    else
+      return null;
   }
 
   /**
@@ -60,11 +74,26 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Find all the variables directly contained in an {@link OPMContainer}.
+   * Find all the parameters of the OPD. The definition of a parameter is based
+   * on how the process is being modeled. Currently, parameters are all the
+   * objects directly below the OPD, which are not inside the main process.
+   * 
+   * @param opd
+   *          to search.
+   * @return the parameters of the OPD.
+   */
+  public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd) {
+    return findObjects(opd);
+  }
+
+  /**
+   * Find all the {@link OPMObject} instances directly contained in an
+   * {@link OPMContainer}.
    * 
    * @param container
    *          to search.
-   * @return all variables directly contained in the {@link OPMContainer}.
+   * @return all {@link OPMObject} instances directly contained in the
+   *         {@link OPMContainer}.
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMObject> findObjects(OPMContainer container) {
@@ -72,16 +101,17 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Find all the parameter {@link OPMObject}s directly below an
-   * {@link OPMObjectProcessDiagram}
+   * Find all the {@link OPMProcess} instances directly contained in an
+   * {@link OPMContainer}.
    * 
-   * @param opd
+   * @param container
    *          to search.
-   * @return all parameters directly contained in an OPD.
+   * @return all {@link OPMProcess} insatnces directly contained in the
+   *         {@link OPMContainer}.
    */
-  @SuppressWarnings({ "rawtypes", "unchecked" })
-  public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd) {
-    return (Collection) Collections2.filter(opd.getNodes(), IsOPMParameter.INSTANCE);
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPMProcess> findProcesses(OPMContainer container) {
+    return (Collection) Collections2.filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
   }
 
   /**
@@ -113,8 +143,48 @@ public class OPDAnalyzer {
    *          to search.
    * @return all incoming data links.
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
     return (Collection) Collections2.filter(process.getIncomingLinks(), new IsOPMProcessIncomingDataLink());
+  }
+
+  /**
+   * Find all agent links in a {@link Collection} of {@link OPMProceduralLink}
+   * instances.
+   * 
+   * @param links
+   *          to search
+   * @return all agent links in collection
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPMProceduralLink> findAgentLinks(Collection<OPMProceduralLink> links) {
+    return (Collection) Collections2.filter(links, IsOPMAgentLink.INSTANCE);
+  }
+
+  /**
+   * Find all instrument links in a {@link Collection} of
+   * {@link OPMProceduralLink} instances.
+   * 
+   * @param links
+   *          to search
+   * @return all instrument links in collection
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPMProceduralLink> findInstrumentLinks(Collection<OPMProceduralLink> links) {
+    return (Collection) Collections2.filter(links, IsOPMInstrumentLink.INSTANCE);
+  }
+
+  /**
+   * Find all consumption links in a {@link Collection} of
+   * {@link OPMProceduralLink} instances.
+   * 
+   * @param links
+   *          to search
+   * @return all consumption links in collection
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPMProceduralLink> findConsumptionLinks(Collection<OPMProceduralLink> links) {
+    return (Collection) Collections2.filter(links, IsOPMConsumptionLink.INSTANCE);
   }
 
   /**
@@ -124,8 +194,9 @@ public class OPDAnalyzer {
    *          to search.
    * @return all outgoing data links
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMProcess process) {
-    return (Collection) Collections2.filter(process.getOutgoingLinks(), IsOPMProcessOutgoingDataLink.INSTANCE);
+    return ((Collection) Collections2.filter(process.getOutgoingLinks(), IsOPMProcessOutgoingDataLink.INSTANCE));
   }
 
   /**
@@ -135,6 +206,7 @@ public class OPDAnalyzer {
    *          to search.
    * @return all outgoing data links
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMObject object) {
     return (Collection) Collections2.filter(object.getOutgoingLinks(), new IsOPMObjectOutgoingDataLink());
   }
@@ -235,13 +307,13 @@ public class OPDAnalyzer {
    * @author
    * 
    */
-  private static class IsOPMDataLink implements Predicate<OPMLink> {
+  public static class IsOPMDataLink implements Predicate<OPMLink> {
     @Override
     public boolean apply(final OPMLink link) {
       if(!OPMProceduralLink.class.isInstance(link))
         return false;
       else {
-        OPMProceduralLink localLink = OPMProceduralLink.class.cast(link);
+        OPMProceduralLink localLink = (OPMProceduralLink) link;
         switch(localLink.getKind()) {
         case AGENT:
         case CONSUMPTION:
@@ -254,17 +326,17 @@ public class OPDAnalyzer {
     }
   }
 
-  private static class IsOPMProcessIncomingDataLink extends IsOPMDataLink {
+  public static class IsOPMProcessIncomingDataLink extends IsOPMDataLink {
   }
 
-  private static class IsOPMObjectOutgoingDataLink extends IsOPMDataLink {
+  public static class IsOPMObjectOutgoingDataLink extends IsOPMDataLink {
   }
 
   /**
    * Predicate that matches {@link OPMProcess} outgoing
    * {@link OPMProceduralLink}s.
    */
-  private enum IsOPMProcessOutgoingDataLink implements Predicate<OPMLink> {
+  public enum IsOPMProcessOutgoingDataLink implements Predicate<OPMLink> {
     INSTANCE;
 
     @Override
@@ -293,10 +365,67 @@ public class OPDAnalyzer {
 
     @Override
     public boolean apply(final OPMNode node) {
-      if(OPMPackage.eINSTANCE.getOPMObject().isInstance(node))
+      if(OPMObject.class.isInstance(node))
         return true;
       return false;
     }
   }
 
+  /**
+   * Predicate that matches {@link OPMNode} instances that are also
+   * {@link OPMProcess} instances.
+   * 
+   */
+  public enum IsOPMProcessNode implements Predicate<OPMNode> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(final OPMNode node) {
+      if(OPMProcess.class.isInstance(node))
+        return true;
+      return false;
+    }
+  }
+
+  /**
+   * Predicate that matches {@link OPMProceduralLink} insances of
+   * {@link OPMProceduralLinkKind#AGENT} kind.
+   * 
+   */
+  public enum IsOPMAgentLink implements Predicate<OPMProceduralLink> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(OPMProceduralLink input) {
+      return OPMProceduralLinkKind.AGENT.equals(input.getKind());
+    }
+  }
+
+  /**
+   * Predicate that matches {@link OPMProceduralLink} insances of
+   * {@link OPMProceduralLinkKind#INSTRUMENT} kind.
+   * 
+   */
+  public enum IsOPMInstrumentLink implements Predicate<OPMProceduralLink> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(OPMProceduralLink input) {
+      return OPMProceduralLinkKind.INSTRUMENT.equals(input.getKind());
+    }
+  }
+
+  /**
+   * Predicate that matches {@link OPMProceduralLink} insances of
+   * {@link OPMProceduralLinkKind#CONSUMPTION} kind.
+   * 
+   */
+  public enum IsOPMConsumptionLink implements Predicate<OPMProceduralLink> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(OPMProceduralLink input) {
+      return OPMProceduralLinkKind.CONSUMPTION.equals(input.getKind());
+    }
+  }
 }

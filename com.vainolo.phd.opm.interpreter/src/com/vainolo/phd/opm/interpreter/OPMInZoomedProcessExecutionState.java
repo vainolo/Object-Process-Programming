@@ -9,7 +9,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.vainolo.phd.opm.model.OPMProcess;
 
-class OPDExecutionFollower {
+class OPMInZoomedProcessExecutionState {
   private Map<OPMProcess, OPMExecutableInstance> processToInstanceMapping = Maps.newHashMap();
   private Map<OPMExecutableInstance, OPMProcess> instanceToProcessMapping = Maps.newHashMap();
   private List<OPMExecutableInstance> readyInstances = Lists.newArrayList();

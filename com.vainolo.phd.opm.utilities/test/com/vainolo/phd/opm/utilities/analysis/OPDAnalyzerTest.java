@@ -362,41 +362,6 @@ public class OPDAnalyzerTest {
     assertEquals(opd, result);
   }
 
-  // findParameters()
-  @Test
-  public void test_findParameters_noParameters() {
-    Collection<OPMObject> result = analyzer.findParameters(opd);
-    assertEquals(0, result.size());
-  }
-
-  @Test
-  public void test_findParameters_oneParameter() {
-    opd.getNodes().add(createParameter());
-    Collection<OPMObject> result = analyzer.findParameters(opd);
-    assertEquals(1, result.size());
-  }
-
-  @Test
-  public void test_findParameters_oneParameterOneVariable() {
-    opd.getNodes().add(createVariable());
-    opd.getNodes().add(createParameter());
-    Collection<OPMObject> result = analyzer.findParameters(opd);
-    assertEquals(1, result.size());
-  }
-
-  @Test
-  public void test_findParameters_twoParametersOneVariableOneProcess() {
-    opd.getNodes().add(createParameter());
-    opd.getNodes().add(createParameter());
-    opd.getNodes().add(createVariable());
-    opd.getNodes().add(createProcess());
-    Collection<OPMObject> result = analyzer.findParameters(opd);
-    assertEquals(2, result.size());
-  }
-
-  // No tests for inner parameters since they should not be allowed by the
-  // editor.
-
   // findIncomingStructuralLinks()
   @Test
   public void test_findIncomingStructuralLinks_noLinks() {

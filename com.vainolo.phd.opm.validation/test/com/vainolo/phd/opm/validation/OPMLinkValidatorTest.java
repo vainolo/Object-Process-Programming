@@ -122,14 +122,14 @@ public class OPMLinkValidatorTest {
   public void testValidateTarget_ConsumptionLink_ObjectTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.CONSUMPTION);
     boolean result = validator.validateAddTarget(link, object);
-    assertFalse(result);
+    assertTrue(result);
   }
 
   @Test
   public void testValidateTarget_InstrumentLink_ObjectTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.INSTRUMENT);
     boolean result = validator.validateAddTarget(link, object);
-    assertFalse(result);
+    assertTrue(result);
   }
 
   @Test

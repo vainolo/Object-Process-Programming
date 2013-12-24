@@ -26,8 +26,29 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
  * @author vainolo
  * 
  */
-public enum OPDExecutionAnalysis {
-  INSTANCE;
+public class OPDExecutionAnalyzer {
+
+  /**
+   * Find the processes that should be executed when the OPD is invoked. These
+   * are the processes that have no predecessors in the OPD DAG.
+   * 
+   * @param opdDag
+   *          the OPD DAG that is analyzed.
+   * @return the processes that should be executed when the OPD is invoked.
+   */
+  public Set<OPMProcess> findInitialProcesses(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag) {
+    Preconditions.checkArgument(opdDag != null, "OPD DAG cannot be null.");
+
+    final Set<OPMProcess> retVal = Sets.newHashSet();
+
+    for(final OPMProcess process : opdDag.vertexSet()) {
+      if(opdDag.inDegreeOf(process) == 0) {
+        retVal.add(process);
+      }
+    }
+
+    return retVal;
+  }
 
   /**
    * <p>
@@ -109,7 +130,7 @@ public enum OPDExecutionAnalysis {
    * @return a Directed Acyclic Graph (DAG) that represents the execution order
    *         of the container.
    */
-  public DirectedAcyclicGraph<OPMProcess, DefaultEdge> createContainerExecutionDAG(final OPMContainer opd) {
+  public DirectedAcyclicGraph<OPMProcess, DefaultEdge> createExecutionDAG(final OPMContainer opd) {
     final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag = new DirectedAcyclicGraph<OPMProcess, DefaultEdge>(
         DefaultEdge.class);
 
@@ -170,7 +191,7 @@ public enum OPDExecutionAnalysis {
   /**
    * <p>
    * Remove duplicate edges in the DAG. The edge creation algorithm (see
-   * {@link OPDExecutionAnalysis#createExecutionOrderEdges(DirectedAcyclicGraph, OPMObjectProcessDiagram)}
+   * {@link OPDExecutionAnalyzer#createExecutionOrderEdges(DirectedAcyclicGraph, OPMObjectProcessDiagram)}
    * ) creates one edge for each process execution relation. But because process
    * execution order is transitive, there are edges that are redundant and can
    * be removed.
@@ -247,40 +268,4 @@ public enum OPDExecutionAnalysis {
       dag.addVertex(process);
     }
   }
-
-  // /**
-  // * Calculate all the parameters that are connected to a process.
-  // *
-  // * @param process
-  // * to analyze.
-  // * @return A set containing all the parameters.
-  // */
-  // public Set<Parameter> calculateAllParameters(final OPMProcess process) {
-  // final Set<Parameter> parameters = Sets.newHashSet();
-  //
-  // for(OPMLink theLink : OPDAnalysis.INSTANCE.findIncomingDataLinks(process))
-  // {
-  // OPMProceduralLink link = OPMProceduralLink.class.cast(theLink);
-  // if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getSource())) {
-  // parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject)
-  // link.getSource().getContainer(), link,
-  // (OPMState) link.getSource()));
-  // } else {
-  // parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject)
-  // link.getSource(), link));
-  // }
-  // }
-  // for(OPMProceduralLink link :
-  // OPDAnalysis.INSTANCE.findOutgoingDataLinks(process)) {
-  // if(OPMPackage.eINSTANCE.getOPMState().isInstance(link.getTarget())) {
-  // parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject)
-  // link.getTarget().getContainer(), link,
-  // (OPMState) link.getTarget()));
-  // } else {
-  // parameters.add(new Parameter(link.getCenterDecoration(), (OPMObject)
-  // link.getTarget(), link));
-  // }
-  // }
-  // return parameters;
-  // }
 }

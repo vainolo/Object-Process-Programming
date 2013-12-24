@@ -71,6 +71,8 @@ public class OPMLinkValidator {
       OPMProceduralLink proceduralLink = OPMProceduralLink.class.cast(link);
       if(OPMObject.class.isInstance(target)) {
         switch(proceduralLink.getKind()) {
+        case INSTRUMENT:
+        case CONSUMPTION:
         case RESULT:
         case EFFECT:
           return true;

@@ -10,7 +10,7 @@ import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalysis;
+import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalyzer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -34,8 +34,9 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private final OPMObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
   private OPDAnalyzer analyzer;
-  private OPDExecutionFollower follower = new OPDExecutionFollower();
+  private OPMInZoomedProcessExecutionState follower = new OPMInZoomedProcessExecutionState();
   private OPMProcess inZoomedProcess;
+  private OPDExecutionAnalyzer executionAnalyzer;
 
   /**
    * Create a new instance.
@@ -46,6 +47,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   public OPMInZoomedProcessExecutableInstance(OPMObjectProcessDiagram opd, OPDAnalyzer analyzer) {
     this.opd = opd;
     this.analyzer = analyzer;
+    this.executionAnalyzer = new OPDExecutionAnalyzer();
   }
 
   protected final Map<OPMObject, Object> variables = Maps.newHashMap();
@@ -55,7 +57,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     super.preExecution();
     // get in-zoomed process and create DAG
     inZoomedProcess = analyzer.getInZoomedProcess(opd);
-    opdDag = OPDExecutionAnalysis.INSTANCE.createContainerExecutionDAG(inZoomedProcess);
+    opdDag = executionAnalyzer.createExecutionDAG(inZoomedProcess);
     initializeVariablesWithArgumentValues();
     initializeVariablesWithConstantValue();
   }
@@ -98,7 +100,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   @Override
   protected void executing() {
     // Initialize first set of processes that can be executed.
-    Set<OPMProcess> initialProcesses = analyzer.calculateInitialProcesses(opdDag);
+    Set<OPMProcess> initialProcesses = executionAnalyzer.findInitialProcesses(opdDag);
     for(OPMProcess process : initialProcesses) {
       OPMExecutableInstance instance = OPMExecutableInstanceFactory.createExecutableInstance(process);
       follower.addWaitingInstance(process, instance);
@@ -183,19 +185,11 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   /**
-   * Check if an instance is ready for execution. Placeholder function that
-   * currently returns true.
-   * 
-   * @param instance
-   *          the {@link OPMExecutableInstance} to check for readiness
-   * @return always <code>true</code>
+   * Create a variable for all of the arguments that were passed to the process,
+   * or for arguments that contain literal values.
    */
-  private boolean isReady(OPMExecutableInstance instance) {
-    return true;
-  }
-
   private void initializeVariablesWithArgumentValues() {
-    Collection<OPMObject> objectArguments = analyzer.findObjects(opd);
+    Collection<OPMObject> objectArguments = analyzer.findParameters(opd);
     for(OPMObject object : objectArguments) {
       if(getArgument(object.getName()) != null) {
         setVariable(object, getArgument(object.getName()));
