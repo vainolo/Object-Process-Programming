@@ -73,7 +73,6 @@ public class OPMLinkValidator {
         switch(proceduralLink.getKind()) {
         case INSTRUMENT:
         case CONSUMPTION:
-        case RESULT:
         case EFFECT:
           return true;
         }

@@ -137,7 +137,7 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Find all the incoming data links of the process.
+   * Find all the incoming data links of an {@link OPMProcess}.
    * 
    * @param process
    *          to search.
@@ -146,6 +146,18 @@ public class OPDAnalyzer {
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
     return (Collection) Collections2.filter(process.getIncomingLinks(), new IsOPMProcessIncomingDataLink());
+  }
+
+  /**
+   * Find all the incoming data links of an {@link OPMObject}.
+   * 
+   * @param process
+   *          to search.
+   * @return all incoming data links.
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPMProceduralLink> findIncomingInstrumentLinks(OPMObject object) {
+    return (Collection) Collections2.filter(object.getIncomingLinks(), IsOPMInstrumentLink.INSTANCE);
   }
 
   /**
@@ -402,16 +414,22 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Predicate that matches {@link OPMProceduralLink} insances of
-   * {@link OPMProceduralLinkKind#INSTRUMENT} kind.
+   * Predicate that matches {@link OPMLink} instances which are
+   * {@link OPMProceduralLink}s of {@link OPMProceduralLinkKind#INSTRUMENT}
+   * kind.
    * 
    */
-  public enum IsOPMInstrumentLink implements Predicate<OPMProceduralLink> {
+  public enum IsOPMInstrumentLink implements Predicate<OPMLink> {
     INSTANCE;
 
     @Override
-    public boolean apply(OPMProceduralLink input) {
-      return OPMProceduralLinkKind.INSTRUMENT.equals(input.getKind());
+    public boolean apply(OPMLink input) {
+      if(OPMProceduralLink.class.isInstance(input)) {
+        OPMProceduralLink link = OPMProceduralLink.class.cast(input);
+        return OPMProceduralLinkKind.INSTRUMENT.equals(link.getKind());
+      } else {
+        return false;
+      }
     }
   }
 
