@@ -124,13 +124,15 @@ public class OPLViewPart extends ViewPart {
     oplBuilder.append(buildParametersOPL(opd));
     oplBuilder.append(buildProcessListOPL(opd));
     oplBuilder.append(buildExecutionOrderOPL(opd));
+    oplBuilder.append(buildResultsOPL(opd));
     oplBuilder.append("</body>\n" + "</html>");
     browser.setText(oplBuilder.toString());
   }
 
   private String buildParametersOPL(OPMObjectProcessDiagram opd) {
-    Collection<OPMObject> parameters = analyzer.findParameters(opd);
     StringBuilder builder = new StringBuilder();
+
+    Collection<OPMObject> parameters = analyzer.findParameters(opd);
     if(parameters.size() == 0) {
       return "";
     }
@@ -203,26 +205,43 @@ public class OPLViewPart extends ViewPart {
     }
 
     List<OPMProcess> initialProcesses = Lists.newArrayList();
-    StringBuilder processDetails = new StringBuilder();
+    StringBuilder initialProcessDetails = new StringBuilder();
+    StringBuilder noninitialProcessDetails = new StringBuilder();
     while(bfIterator.hasNext()) {
       OPMProcess p = bfIterator.next();
       if(opdDag.inDegreeOf(p) == 0) {
         initialProcesses.add(p);
-        processDetails.append("<div class='indent'>" + getProcessDetailsOPL(p) + "</div>");
+        initialProcessDetails.append("<div class='indent'>" + buildProcessDetailsOPL(p) + "</div>");
       } else {
-        // TODO: print process with predecessors
+        noninitialProcessDetails.append("<p>" + format(p) + " is executed after ");
+        OPMProcess[] requiredProcesses = executionAnalyzer.findRequiredProcesses(opdDag, p).toArray(new OPMProcess[0]);
+        noninitialProcessDetails.append(buildCommaSeparatedNamedElementSentence(requiredProcesses));
+        if(requiredProcesses.length == 1)
+          noninitialProcessDetails.append(" terminates</p>");
+        else
+          noninitialProcessDetails.append(" terminate</p>");
+        noninitialProcessDetails.append("<div class='indent'>" + buildProcessDetailsOPL(p) + "</div>");
       }
     }
 
     builder.append("<p>The execution of " + format(opd) + " starts with "
         + buildCommaSeparatedNamedElementSentence(initialProcesses.toArray(new OPMProcess[0])) + "</p>");
-    builder.append(processDetails);
+    builder.append(initialProcessDetails);
     builder.append("<div class='indent'>" + buildObjectDependenciesOPL(opd) + "</div>");
-
+    builder.append(noninitialProcessDetails);
     return builder.toString();
   }
 
-  private String getProcessDetailsOPL(OPMProcess process) {
+  private String buildResultsOPL(OPMObjectProcessDiagram opd) {
+    StringBuilder builder = new StringBuilder();
+    Collection<OPMObject> parameters = analyzer.findParameters(opd);
+    for(OPMObject parameter : parameters) {
+      builder.append(buildObjectDependencyOPL(parameter));
+    }
+    return builder.toString();
+  }
+
+  private String buildProcessDetailsOPL(OPMProcess process) {
     StringBuilder processDetailsOPLBuilder = new StringBuilder();
     processDetailsOPLBuilder.append("<p>" + format(process));
     Collection<OPMProceduralLink> incomingDataLinks = analyzer.findIncomingDataLinks(process);
@@ -230,15 +249,15 @@ public class OPLViewPart extends ViewPart {
     if(incomingDataLinks.size() == 0) {
       processDetailsOPLBuilder.append(" has no arguments.</p>");
     } else {
-      String agentsOPL = getProcessAgentsOPL(incomingDataLinks);
+      String agentsOPL = buildProcessAgentsOPL(incomingDataLinks);
       if(!"".equals(agentsOPL)) {
         processDetails.add(agentsOPL);
       }
-      String instrumentsOPL = getProcessInstrumentsOPL(incomingDataLinks);
+      String instrumentsOPL = buildProcessInstrumentsOPL(incomingDataLinks);
       if(!"".equals(instrumentsOPL)) {
         processDetails.add(instrumentsOPL);
       }
-      String consumeesOPL = getProcessConsumeesOPL(incomingDataLinks);
+      String consumeesOPL = buildProcessConsumeesOPL(incomingDataLinks);
       if(!"".equals(consumeesOPL)) {
         processDetails.add(consumeesOPL);
       }
@@ -246,7 +265,7 @@ public class OPLViewPart extends ViewPart {
 
     Collection<OPMProceduralLink> outgoingDataLinks = analyzer.findOutgoingDataLinks(process);
     if(outgoingDataLinks.size() != 0) {
-      String resultsOPL = getProcessResultsOPL(outgoingDataLinks);
+      String resultsOPL = buildProcessResultsOPL(outgoingDataLinks);
       if(!"".equals(resultsOPL)) {
         processDetails.add(resultsOPL);
       }
@@ -257,7 +276,7 @@ public class OPLViewPart extends ViewPart {
     return processDetailsOPLBuilder.toString();
   }
 
-  private String getProcessResultsOPL(Collection<OPMProceduralLink> outgoingDataLinks) {
+  private String buildProcessResultsOPL(Collection<OPMProceduralLink> outgoingDataLinks) {
     StringBuilder builder = new StringBuilder();
     if(outgoingDataLinks.size() == 0) {
       return "";
@@ -268,7 +287,7 @@ public class OPLViewPart extends ViewPart {
     return builder.toString();
   }
 
-  private String getProcessAgentsOPL(Collection<OPMProceduralLink> incomingDataLinks) {
+  private String buildProcessAgentsOPL(Collection<OPMProceduralLink> incomingDataLinks) {
     StringBuilder builder = new StringBuilder();
     Collection<OPMProceduralLink> agentLinks = analyzer.findAgentLinks(incomingDataLinks);
     if(agentLinks.size() == 0) {
@@ -280,7 +299,7 @@ public class OPLViewPart extends ViewPart {
     return builder.toString();
   }
 
-  private String getProcessInstrumentsOPL(Collection<OPMProceduralLink> incomingDataLinks) {
+  private String buildProcessInstrumentsOPL(Collection<OPMProceduralLink> incomingDataLinks) {
     StringBuilder builder = new StringBuilder();
     Collection<OPMProceduralLink> instrumentLinks = analyzer.findInstrumentLinks(incomingDataLinks);
     if(instrumentLinks.size() == 0) {
@@ -292,7 +311,7 @@ public class OPLViewPart extends ViewPart {
     return builder.toString();
   }
 
-  private String getProcessConsumeesOPL(Collection<OPMProceduralLink> incomingDataLinks) {
+  private String buildProcessConsumeesOPL(Collection<OPMProceduralLink> incomingDataLinks) {
     StringBuilder builder = new StringBuilder();
     Collection<OPMProceduralLink> consumptionLinks = analyzer.findConsumptionLinks(incomingDataLinks);
     if(consumptionLinks.size() == 0) {

@@ -24,10 +24,14 @@ public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNa
 
     setLineWidth(OPMFigureConstants.CONNECTION_LINE_WIDTH);
     centerDecorationLabel = new SmartLabelFigure(-1);
+    centerDecorationLabel.setBackgroundColor(ColorConstants.white);
+    centerDecorationLabel.setOpaque(true);
     ConnectionLocator locator = new ConnectionLocator(this, ConnectionLocator.MIDDLE);
     add(centerDecorationLabel, locator);
     setConnectionRouter(new BendpointConnectionRouter());
     subKinds = new Label("");
+    subKinds.setBackgroundColor(ColorConstants.white);
+    subKinds.setOpaque(true);
     add(subKinds, new OPMProceduralLinkSubKindLocator(this, 15, 15));
   }
 
