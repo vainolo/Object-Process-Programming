@@ -416,7 +416,9 @@ public class OPLViewPart extends ViewPart {
   }
 
   public String formatState(OPMState state) {
-    return "<span class='state'>" + state.getName() + "</span>";
+    OPMObject o = (OPMObject) state.getContainer();
+    return "<span class='object'>" + o.getName() + "</span> in state " + "<span class='state'>" + state.getName()
+        + "</span>";
   }
 
   public String formatOPD(OPMObjectProcessDiagram opd) {
