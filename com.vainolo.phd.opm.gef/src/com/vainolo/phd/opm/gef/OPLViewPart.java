@@ -8,7 +8,6 @@ package com.vainolo.phd.opm.gef;
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.util.EContentAdapter;
 import org.eclipse.swt.SWT;
