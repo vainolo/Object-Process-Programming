@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+<provider id="org.eclipse.egit.core.GitProvider">
+<project reference="1.0,https://github.com/vainolo/draw2d-extras.git,master,com.vainolo.draw2d.extras"/>
+<project reference="1.0,https://github.com/vainolo/draw2d-extras.git,master,com.vainolo.draw2d.extras.feature"/>
+<project reference="1.0,https://github.com/vainolo/draw2d-extras.git,master,com.vainolo.draw2d.extras.releng"/>
+<project reference="1.0,https://github.com/vainolo/draw2d-extras.git,master,com.vainolo.draw2d.extras.releng.p2"/>
+<project reference="1.0,https://github.com/vainolo/jdraw2d.git,master,com.vainolo.jdraw2d.eclipse"/>
+<project reference="1.0,https://github.com/vainolo/jdraw2d.git,master,com.vainolo.jdraw2d.eclipse.feature"/>
+<project reference="1.0,https://github.com/vainolo/jdraw2d.git,master,com.vainolo.jdraw2d.java"/>
+<project reference="1.0,https://github.com/vainolo/jdraw2d.git,master,com.vainolo.jdraw2d.releng"/>
+<project reference="1.0,https://github.com/vainolo/jdraw2d.git,master,com.vainolo.jdraw2d.releng.p2"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.feature"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.gef"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.gef.tests"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.interpreter"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.interpreter.tests"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.model"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.model.edit"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.model.editor"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.model.tests"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.releng"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.releng.p2"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.updatesite"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.utilities"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,com.vainolo.phd.opm.validation"/>
+<project reference="1.0,https://github.com/vainolo/vainolibraries.git,master,com.vainolo.vainolibraries.feature"/>
+<project reference="1.0,https://github.com/vainolo/vainolibraries.git,master,com.vainolo.vainolibraries.java"/>
+<project reference="1.0,https://github.com/vainolo/vainolibraries.git,master,com.vainolo.vainolibraries.java.eclipse"/>
+<project reference="1.0,https://github.com/vainolo/vainolibraries.git,master,com.vainolo.vainolibraries.releng"/>
+<project reference="1.0,https://github.com/vainolo/vainolibraries.git,master,com.vainolo.vainolibraries.releng.p2"/>
+<project reference="1.0,https://github.com/vainolo/Object-Process-Programming.git,master,sandbox/tests"/>
+</provider>
+</psf>
