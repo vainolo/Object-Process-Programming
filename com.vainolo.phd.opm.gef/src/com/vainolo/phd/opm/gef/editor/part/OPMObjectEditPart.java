@@ -20,7 +20,7 @@ public class OPMObjectEditPart extends OPMThingEditPart {
   @Override
   protected IFigure createFigure() {
     OPMObject model = (OPMObject) getModel();
-    return new OPMObjectFigure(model.getKind());
+    return new OPMObjectFigure(model.isCollection());
   }
 
   @Override
@@ -29,7 +29,7 @@ public class OPMObjectEditPart extends OPMThingEditPart {
     OPMObject model = (OPMObject) getModel();
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
-    figure.setObjectKind(model.getKind());
+    figure.setObjectKind(model.isCollection());
     figure.getNameFigure().setText(model.getName());
     figure.setTooltipText(model.getDescription());
 

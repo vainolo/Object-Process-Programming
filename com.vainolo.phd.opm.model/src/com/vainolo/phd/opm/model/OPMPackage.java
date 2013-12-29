@@ -461,13 +461,22 @@ int OPM_THING__NAME = OPM_NODE_FEATURE_COUNT + 1;
     int OPM_THING__DESCRIPTION = OPM_NODE_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Collection</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_THING__COLLECTION = OPM_NODE_FEATURE_COUNT + 4;
+
+  /**
    * The number of structural features of the '<em>Thing</em>' class.
    * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 4;
+int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -623,13 +632,13 @@ int OPM_OBJECT__NAME = OPM_THING__NAME;
     int OPM_OBJECT__DESCRIPTION = OPM_THING__DESCRIPTION;
 
   /**
-   * The feature id for the '<em><b>Kind</b></em>' attribute.
+   * The feature id for the '<em><b>Collection</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPM_OBJECT__KIND = OPM_THING_FEATURE_COUNT + 0;
+  int OPM_OBJECT__COLLECTION = OPM_THING__COLLECTION;
 
   /**
    * The feature id for the '<em><b>Parameter</b></em>' attribute.
@@ -638,7 +647,7 @@ int OPM_OBJECT__NAME = OPM_THING__NAME;
    * @generated
    * @ordered
    */
-	int OPM_OBJECT__PARAMETER = OPM_THING_FEATURE_COUNT + 1;
+	int OPM_OBJECT__PARAMETER = OPM_THING_FEATURE_COUNT + 0;
 
 		/**
    * The number of structural features of the '<em>Object</em>' class.
@@ -647,7 +656,7 @@ int OPM_OBJECT__NAME = OPM_THING__NAME;
    * @generated
    * @ordered
    */
-int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 2;
+int OPM_OBJECT_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -731,6 +740,15 @@ int OPM_PROCESS__NAME = OPM_THING__NAME;
     int OPM_PROCESS__DESCRIPTION = OPM_THING__DESCRIPTION;
 
   /**
+   * The feature id for the '<em><b>Collection</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_PROCESS__COLLECTION = OPM_THING__COLLECTION;
+
+  /**
    * The feature id for the '<em><b>Kind</b></em>' attribute.
    * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
@@ -748,15 +766,6 @@ int OPM_PROCESS__KIND = OPM_THING_FEATURE_COUNT + 0;
    */
   int OPM_PROCESS__ORDER = OPM_THING_FEATURE_COUNT + 1;
 
-  /**
-   * The feature id for the '<em><b>Multiplicity</b></em>' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCESS__MULTIPLICITY = OPM_THING_FEATURE_COUNT + 2;
-
 		/**
    * The number of structural features of the '<em>Process</em>' class.
    * <!-- begin-user-doc -->
@@ -764,7 +773,7 @@ int OPM_PROCESS__KIND = OPM_THING_FEATURE_COUNT + 0;
    * @generated
    * @ordered
    */
-int OPM_PROCESS_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 3;
+int OPM_PROCESS_FEATURE_COUNT = OPM_THING_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1369,17 +1378,6 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 	EClass getOPMObject();
 
 	/**
-   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObject#getKind <em>Kind</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Kind</em>'.
-   * @see com.vainolo.phd.opm.model.OPMObject#getKind()
-   * @see #getOPMObject()
-   * @generated
-   */
-  EAttribute getOPMObject_Kind();
-
-  /**
    * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObject#isParameter <em>Parameter</em>}'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1423,17 +1421,6 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
   EAttribute getOPMProcess_Order();
 
   /**
-   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMProcess#isMultiplicity <em>Multiplicity</em>}'.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Multiplicity</em>'.
-   * @see com.vainolo.phd.opm.model.OPMProcess#isMultiplicity()
-   * @see #getOPMProcess()
-   * @generated
-   */
-	EAttribute getOPMProcess_Multiplicity();
-
-		/**
    * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMLink <em>Link</em>}'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1551,6 +1538,17 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @generated
    */
     EAttribute getOPMThing_Description();
+
+    /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMThing#isCollection <em>Collection</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Collection</em>'.
+   * @see com.vainolo.phd.opm.model.OPMThing#isCollection()
+   * @see #getOPMThing()
+   * @generated
+   */
+  EAttribute getOPMThing_Collection();
 
     /**
    * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMState <em>State</em>}'.
@@ -1906,14 +1904,6 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 		EClass OPM_OBJECT = eINSTANCE.getOPMObject();
 
 		/**
-     * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute OPM_OBJECT__KIND = eINSTANCE.getOPMObject_Kind();
-
-    /**
      * The meta object literal for the '<em><b>Parameter</b></em>' attribute feature.
      * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1948,14 +1938,6 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
     EAttribute OPM_PROCESS__ORDER = eINSTANCE.getOPMProcess_Order();
 
     /**
-     * The meta object literal for the '<em><b>Multiplicity</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-     * @generated
-     */
-		EAttribute OPM_PROCESS__MULTIPLICITY = eINSTANCE.getOPMProcess_Multiplicity();
-
-				/**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMLinkImpl <em>Link</em>}' class.
      * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2046,6 +2028,14 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
      * @generated
      */
         EAttribute OPM_THING__DESCRIPTION = eINSTANCE.getOPMThing_Description();
+
+        /**
+     * The meta object literal for the '<em><b>Collection</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPM_THING__COLLECTION = eINSTANCE.getOPMThing_Collection();
 
         /**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMStateImpl <em>State</em>}' class.

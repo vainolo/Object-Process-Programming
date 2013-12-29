@@ -14,7 +14,6 @@ package com.vainolo.phd.opm.model;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.OPMProcess#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMProcess#getOrder <em>Order</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.OPMProcess#isMultiplicity <em>Multiplicity</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,32 +78,5 @@ public interface OPMProcess extends OPMThing {
    * @generated
    */
   void setOrder(int value);
-
-		/**
-   * Returns the value of the '<em><b>Multiplicity</b></em>' attribute.
-   * The default value is <code>"false"</code>.
-   * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Multiplicity</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-   * @return the value of the '<em>Multiplicity</em>' attribute.
-   * @see #setMultiplicity(boolean)
-   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMProcess_Multiplicity()
-   * @model default="false" required="true"
-   * @generated
-   */
-	boolean isMultiplicity();
-
-		/**
-   * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMProcess#isMultiplicity <em>Multiplicity</em>}' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Multiplicity</em>' attribute.
-   * @see #isMultiplicity()
-   * @generated
-   */
-	void setMultiplicity(boolean value);
 
 } // OPMProcess

@@ -23,7 +23,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl#getOrder <em>Order</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.impl.OPMProcessImpl#isMultiplicity <em>Multiplicity</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,25 +68,6 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
   protected int order = ORDER_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isMultiplicity() <em>Multiplicity</em>}' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @see #isMultiplicity()
-   * @generated
-   * @ordered
-   */
-	protected static final boolean MULTIPLICITY_EDEFAULT = false;
-		/**
-   * The cached value of the '{@link #isMultiplicity() <em>Multiplicity</em>}' attribute.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @see #isMultiplicity()
-   * @generated
-   * @ordered
-   */
-	protected boolean multiplicity = MULTIPLICITY_EDEFAULT;
-
-		/**
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
@@ -153,27 +133,6 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
 	 * <!-- end-user-doc -->
    * @generated
    */
-	public boolean isMultiplicity() {
-    return multiplicity;
-  }
-
-		/**
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
-	public void setMultiplicity(boolean newMultiplicity) {
-    boolean oldMultiplicity = multiplicity;
-    multiplicity = newMultiplicity;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_PROCESS__MULTIPLICITY, oldMultiplicity, multiplicity));
-  }
-
-		/**
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
@@ -181,8 +140,6 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
         return getKind();
       case OPMPackage.OPM_PROCESS__ORDER:
         return getOrder();
-      case OPMPackage.OPM_PROCESS__MULTIPLICITY:
-        return isMultiplicity();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -200,9 +157,6 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
         return;
       case OPMPackage.OPM_PROCESS__ORDER:
         setOrder((Integer)newValue);
-        return;
-      case OPMPackage.OPM_PROCESS__MULTIPLICITY:
-        setMultiplicity((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -222,9 +176,6 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
       case OPMPackage.OPM_PROCESS__ORDER:
         setOrder(ORDER_EDEFAULT);
         return;
-      case OPMPackage.OPM_PROCESS__MULTIPLICITY:
-        setMultiplicity(MULTIPLICITY_EDEFAULT);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -241,8 +192,6 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
         return kind != KIND_EDEFAULT;
       case OPMPackage.OPM_PROCESS__ORDER:
         return order != ORDER_EDEFAULT;
-      case OPMPackage.OPM_PROCESS__MULTIPLICITY:
-        return multiplicity != MULTIPLICITY_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -261,8 +210,6 @@ public class OPMProcessImpl extends OPMThingImpl implements OPMProcess {
     result.append(kind);
     result.append(", order: ");
     result.append(order);
-    result.append(", multiplicity: ");
-    result.append(multiplicity);
     result.append(')');
     return result.toString();
   }

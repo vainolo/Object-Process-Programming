@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.OPMThing#getDescription <em>Description</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.OPMThing#isCollection <em>Collection</em>}</li>
  * </ul>
  * </p>
  *
@@ -53,5 +54,32 @@ public interface OPMThing extends OPMNode, OPMContainer, OPMNamedElement {
    * @generated
    */
     void setDescription(String value);
+
+    /**
+   * Returns the value of the '<em><b>Collection</b></em>' attribute.
+   * The default value is <code>"false"</code>.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Collection</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Collection</em>' attribute.
+   * @see #setCollection(boolean)
+   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMThing_Collection()
+   * @model default="false" required="true"
+   * @generated
+   */
+  boolean isCollection();
+
+    /**
+   * Sets the value of the '{@link com.vainolo.phd.opm.model.OPMThing#isCollection <em>Collection</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Collection</em>' attribute.
+   * @see #isCollection()
+   * @generated
+   */
+  void setCollection(boolean value);
 
 } // OPMThing

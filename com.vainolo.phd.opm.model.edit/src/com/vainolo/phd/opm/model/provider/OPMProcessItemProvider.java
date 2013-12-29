@@ -63,7 +63,6 @@ public class OPMProcessItemProvider
 
       addKindPropertyDescriptor(object);
       addOrderPropertyDescriptor(object);
-      addMultiplicityPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -113,28 +112,6 @@ public class OPMProcessItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Multiplicity feature.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
-	protected void addMultiplicityPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_OPMProcess_multiplicity_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_OPMProcess_multiplicity_feature", "_UI_OPMProcess_type"),
-         OPMPackage.Literals.OPM_PROCESS__MULTIPLICITY,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-         null,
-         null));
-  }
-
-		/**
    * This returns OPMProcess.gif.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -173,7 +150,6 @@ public class OPMProcessItemProvider
     switch (notification.getFeatureID(OPMProcess.class)) {
       case OPMPackage.OPM_PROCESS__KIND:
       case OPMPackage.OPM_PROCESS__ORDER:
-      case OPMPackage.OPM_PROCESS__MULTIPLICITY:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

@@ -34,11 +34,11 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMThing" abstract="true" eSuperTypes="#//OPMNode #//OPMContainer #//OPMNamedElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="collection" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMState" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPMObject" eSuperTypes="#//OPMThing">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//OPMObjectKind"
-        defaultValueLiteral="Simple"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="parameter" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
@@ -46,8 +46,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" lowerBound="1" eType="#//OPMProcessKind"
         defaultValueLiteral="Compound"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="order" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="multiplicity" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLinkAggregator" eSuperTypes="#//OPMNode">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMStructuralLinkAggregatorKind"/>

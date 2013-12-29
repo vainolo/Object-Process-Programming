@@ -26,7 +26,7 @@ public class OPMProcessEditPart extends OPMThingEditPart {
     final OPMProcess model = getModel();
     final GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
-    figure.setMultiple(model.isMultiplicity());
+    figure.setMultiple(model.isCollection());
     figure.getNameFigure().setText(model.getName());
     figure.setTooltipText(model.getDescription());
     figure.invalidateTree();

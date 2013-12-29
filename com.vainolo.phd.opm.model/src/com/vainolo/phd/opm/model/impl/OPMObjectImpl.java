@@ -21,7 +21,6 @@ import com.vainolo.phd.opm.model.OPMPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectImpl#isParameter <em>Parameter</em>}</li>
  * </ul>
  * </p>
@@ -29,25 +28,6 @@ import com.vainolo.phd.opm.model.OPMPackage;
  * @generated
  */
 public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
-  /**
-   * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getKind()
-   * @generated
-   * @ordered
-   */
-  protected static final OPMObjectKind KIND_EDEFAULT = OPMObjectKind.SIMPLE;
-  /**
-   * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getKind()
-   * @generated
-   * @ordered
-   */
-  protected OPMObjectKind kind = KIND_EDEFAULT;
-
   /**
    * The default value of the '{@link #isParameter() <em>Parameter</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -88,27 +68,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
 
   /**
    * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public OPMObjectKind getKind() {
-    return kind;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setKind(OPMObjectKind newKind) {
-    OPMObjectKind oldKind = kind;
-    kind = newKind == null ? KIND_EDEFAULT : newKind;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT__KIND, oldKind, kind));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
@@ -136,8 +95,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
-      case OPMPackage.OPM_OBJECT__KIND:
-        return getKind();
       case OPMPackage.OPM_OBJECT__PARAMETER:
         return isParameter();
     }
@@ -152,9 +109,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   @Override
   public void eSet(int featureID, Object newValue) {
     switch (featureID) {
-      case OPMPackage.OPM_OBJECT__KIND:
-        setKind((OPMObjectKind)newValue);
-        return;
       case OPMPackage.OPM_OBJECT__PARAMETER:
         setParameter((Boolean)newValue);
         return;
@@ -170,9 +124,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   @Override
   public void eUnset(int featureID) {
     switch (featureID) {
-      case OPMPackage.OPM_OBJECT__KIND:
-        setKind(KIND_EDEFAULT);
-        return;
       case OPMPackage.OPM_OBJECT__PARAMETER:
         setParameter(PARAMETER_EDEFAULT);
         return;
@@ -188,8 +139,6 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
   @Override
   public boolean eIsSet(int featureID) {
     switch (featureID) {
-      case OPMPackage.OPM_OBJECT__KIND:
-        return kind != KIND_EDEFAULT;
       case OPMPackage.OPM_OBJECT__PARAMETER:
         return parameter != PARAMETER_EDEFAULT;
     }
@@ -206,9 +155,7 @@ public class OPMObjectImpl extends OPMThingImpl implements OPMObject {
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (kind: ");
-    result.append(kind);
-    result.append(", parameter: ");
+    result.append(" (parameter: ");
     result.append(parameter);
     result.append(')');
     return result.toString();

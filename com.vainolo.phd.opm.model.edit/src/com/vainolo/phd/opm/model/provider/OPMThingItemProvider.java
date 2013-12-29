@@ -69,6 +69,7 @@ public class OPMThingItemProvider
       addNamePropertyDescriptor(object);
       addAlignmentPropertyDescriptor(object);
       addDescriptionPropertyDescriptor(object);
+      addCollectionPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -135,6 +136,28 @@ public class OPMThingItemProvider
          false,
          false,
          ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+    /**
+   * This adds a property descriptor for the Collection feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addCollectionPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPMThing_collection_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPMThing_collection_feature", "_UI_OPMThing_type"),
+         OPMPackage.Literals.OPM_THING__COLLECTION,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
          null,
          null));
   }
@@ -209,6 +232,7 @@ public class OPMThingItemProvider
       case OPMPackage.OPM_THING__NAME:
       case OPMPackage.OPM_THING__ALIGNMENT:
       case OPMPackage.OPM_THING__DESCRIPTION:
+      case OPMPackage.OPM_THING__COLLECTION:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case OPMPackage.OPM_THING__NODES:

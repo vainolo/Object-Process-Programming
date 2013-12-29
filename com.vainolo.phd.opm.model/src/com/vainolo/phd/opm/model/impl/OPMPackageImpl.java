@@ -343,20 +343,11 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
   /**
    * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getOPMObject_Kind() {
-    return (EAttribute)opmObjectEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
 	public EAttribute getOPMObject_Parameter() {
-    return (EAttribute)opmObjectEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)opmObjectEClass.getEStructuralFeatures().get(0);
   }
 
 		/**
@@ -387,15 +378,6 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
   }
 
   /**
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
-	public EAttribute getOPMProcess_Multiplicity() {
-    return (EAttribute)opmProcessEClass.getEStructuralFeatures().get(2);
-  }
-
-		/**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -492,6 +474,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    */
   public EAttribute getOPMThing_Description() {
     return (EAttribute)opmThingEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getOPMThing_Collection() {
+    return (EAttribute)opmThingEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -761,17 +752,16 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     opmThingEClass = createEClass(OPM_THING);
     createEAttribute(opmThingEClass, OPM_THING__DESCRIPTION);
+    createEAttribute(opmThingEClass, OPM_THING__COLLECTION);
 
     opmStateEClass = createEClass(OPM_STATE);
 
     opmObjectEClass = createEClass(OPM_OBJECT);
-    createEAttribute(opmObjectEClass, OPM_OBJECT__KIND);
     createEAttribute(opmObjectEClass, OPM_OBJECT__PARAMETER);
 
     opmProcessEClass = createEClass(OPM_PROCESS);
     createEAttribute(opmProcessEClass, OPM_PROCESS__KIND);
     createEAttribute(opmProcessEClass, OPM_PROCESS__ORDER);
-    createEAttribute(opmProcessEClass, OPM_PROCESS__MULTIPLICITY);
 
     opmStructuralLinkAggregatorEClass = createEClass(OPM_STRUCTURAL_LINK_AGGREGATOR);
     createEAttribute(opmStructuralLinkAggregatorEClass, OPM_STRUCTURAL_LINK_AGGREGATOR__KIND);
@@ -875,17 +865,16 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     initEClass(opmThingEClass, OPMThing.class, "OPMThing", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMThing_Description(), ecorePackage.getEString(), "description", null, 0, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPMThing_Collection(), ecorePackage.getEBoolean(), "collection", "false", 1, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmStateEClass, OPMState.class, "OPMState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getOPMObject_Kind(), this.getOPMObjectKind(), "kind", "Simple", 1, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPMObject_Parameter(), ecorePackage.getEBoolean(), "parameter", "false", 1, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmProcessEClass, OPMProcess.class, "OPMProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMProcess_Kind(), this.getOPMProcessKind(), "kind", "Compound", 1, 1, OPMProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPMProcess_Order(), ecorePackage.getEInt(), "order", null, 0, 1, OPMProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getOPMProcess_Multiplicity(), ecorePackage.getEBoolean(), "multiplicity", "false", 1, 1, OPMProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmStructuralLinkAggregatorEClass, OPMStructuralLinkAggregator.class, "OPMStructuralLinkAggregator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMStructuralLinkAggregator_Kind(), this.getOPMStructuralLinkAggregatorKind(), "kind", null, 0, 1, OPMStructuralLinkAggregator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

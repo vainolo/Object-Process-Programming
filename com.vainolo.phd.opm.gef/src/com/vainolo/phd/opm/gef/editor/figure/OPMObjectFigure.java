@@ -34,7 +34,7 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
 
   private final ContentPane contentPane;
   private ConnectionAnchor connectionAnchor;
-  private OPMObjectKind kind;
+  private boolean collection;
   private final SmartLabelFigure smartLabel;
 
   private RectangleFigure createRectangleFigure() {
@@ -45,10 +45,10 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     return figure;
   }
 
-  public OPMObjectFigure(OPMObjectKind kind) {
+  public OPMObjectFigure(boolean collection) {
     setLayoutManager(new XYLayout());
 
-    this.kind = kind;
+    this.collection = collection;
 
     topRectangle = createRectangleFigure();
     topRectangle.setLayoutManager(new XYLayout());
@@ -72,15 +72,15 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     add(topRectangle);
   }
 
-  public void setObjectKind(OPMObjectKind newKind) {
-    if(kind.equals(OPMObjectKind.COLLECTION) && newKind.equals(OPMObjectKind.SIMPLE)) {
+  public void setObjectKind(boolean newCollection) {
+    if(collection && !newCollection) {
       shade1.setVisible(false);
       shade2.setVisible(false);
-    } else if(kind.equals(OPMObjectKind.SIMPLE) && newKind.equals(OPMObjectKind.COLLECTION)) {
+    } else if(!collection && newCollection) {
       shade1.setVisible(true);
       shade2.setVisible(true);
     }
-    this.kind = newKind;
+    this.collection = newCollection;
   }
 
   @Override
@@ -94,8 +94,8 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     setConstraint(shade2, new Rectangle(0, 0, r.width(), r.height()));
 
     Dimension contentPaneDimensions = contentPane.getPreferredSize();
-    topRectangle.setConstraint(
-        smartLabel, new Rectangle(5, 5, r.width() - 10, r.height() - contentPaneDimensions.height()));
+    topRectangle.setConstraint(smartLabel,
+        new Rectangle(5, 5, r.width() - 10, r.height() - contentPaneDimensions.height()));
     topRectangle.setConstraint(contentPane, new Rectangle(0, r.height() - contentPaneDimensions.height() - 5,
         r.width(), contentPaneDimensions.height()));
   }
@@ -105,20 +105,19 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     setConstraint(shade1, new Rectangle(5, 5, r.width() - 10, r.height() - 10));
     setConstraint(shade2, new Rectangle(10, 10, r.width() - 10, r.height() - 10));
     Dimension contentPaneDimensions = contentPane.getPreferredSize();
-    topRectangle.setConstraint(
-        smartLabel, new Rectangle(5, 5, r.width() - 20, r.height() - contentPaneDimensions.height() - 10));
-    topRectangle.setConstraint(
-        contentPane, new Rectangle(0, r.height() - contentPaneDimensions.height() - 15, r.width(),
-            contentPaneDimensions.height()));
+    topRectangle.setConstraint(smartLabel,
+        new Rectangle(5, 5, r.width() - 20, r.height() - contentPaneDimensions.height() - 10));
+    topRectangle.setConstraint(contentPane,
+        new Rectangle(0, r.height() - contentPaneDimensions.height() - 15, r.width(), contentPaneDimensions.height()));
   }
 
   @Override
   protected void paintFigure(Graphics graphics) {
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
-    if(kind.equals(OPMObjectKind.SIMPLE)) {
+    if(!collection) {
       paintSimpleObject(r);
-    } else if(kind.equals(OPMObjectKind.COLLECTION)) {
+    } else {
       paintCollectionObject(r);
     }
   }
@@ -156,7 +155,7 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     prefSize.width = max(smartLabelSize.width(), contentPaneSize.width());
     prefSize.height = smartLabelSize.height() + contentPaneSize.height();
 
-    if(kind.equals(OPMObjectKind.SIMPLE))
+    if(!collection)
       return prefSize.expand(10, 10);
     else
       return prefSize.expand(20, 20);

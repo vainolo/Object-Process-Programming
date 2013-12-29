@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMThingImpl#isCollection <em>Collection</em>}</li>
  * </ul>
  * </p>
  *
@@ -121,6 +122,26 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
    * @ordered
    */
     protected String description = DESCRIPTION_EDEFAULT;
+
+    /**
+   * The default value of the '{@link #isCollection() <em>Collection</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCollection()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean COLLECTION_EDEFAULT = false;
+
+    /**
+   * The cached value of the '{@link #isCollection() <em>Collection</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isCollection()
+   * @generated
+   * @ordered
+   */
+  protected boolean collection = COLLECTION_EDEFAULT;
 
     /**
    * <!-- begin-user-doc -->
@@ -218,6 +239,27 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
 
     /**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isCollection() {
+    return collection;
+  }
+
+    /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setCollection(boolean newCollection) {
+    boolean oldCollection = collection;
+    collection = newCollection;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_THING__COLLECTION, oldCollection, collection));
+  }
+
+    /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
    * @generated
    */
@@ -261,6 +303,8 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
         return getAlignment();
       case OPMPackage.OPM_THING__DESCRIPTION:
         return getDescription();
+      case OPMPackage.OPM_THING__COLLECTION:
+        return isCollection();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -287,6 +331,9 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
       case OPMPackage.OPM_THING__DESCRIPTION:
         setDescription((String)newValue);
         return;
+      case OPMPackage.OPM_THING__COLLECTION:
+        setCollection((Boolean)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -311,6 +358,9 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
       case OPMPackage.OPM_THING__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
+      case OPMPackage.OPM_THING__COLLECTION:
+        setCollection(COLLECTION_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -331,6 +381,8 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
         return alignment != ALIGNMENT_EDEFAULT;
       case OPMPackage.OPM_THING__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+      case OPMPackage.OPM_THING__COLLECTION:
+        return collection != COLLECTION_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -397,6 +449,8 @@ public abstract class OPMThingImpl extends OPMNodeImpl implements OPMThing {
     result.append(alignment);
     result.append(", description: ");
     result.append(description);
+    result.append(", collection: ");
+    result.append(collection);
     result.append(')');
     return result.toString();
   }
