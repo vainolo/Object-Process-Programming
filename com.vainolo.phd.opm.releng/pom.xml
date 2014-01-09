@@ -52,7 +52,9 @@
 		<module>../com.vainolo.phd.opm.model.edit</module>
 		<module>../com.vainolo.phd.opm.model.editor</module>
 		<module>../com.vainolo.phd.opm.utilities</module>
+		<module>../com.vainolo.phd.opm.utilities.tests</module>		
 		<module>../com.vainolo.phd.opm.validation</module>
+		<module>../com.vainolo.phd.opm.validation.tests</module>		
 		<module>../com.vainolo.phd.opm.feature</module>
 		<module>../com.vainolo.phd.opm.interpreter</module>
 		<module>../com.vainolo.phd.opm.interpreter.tests</module>

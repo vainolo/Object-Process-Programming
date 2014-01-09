@@ -85,42 +85,11 @@ public class OPDAnalysisTest {
   }
 
   @Test
-  public void testFindExecutableProcesses_InZoomedOPD() {
-    Collection<OPMProcess> result = fixture.findFirstLevelContainedProcesses(inZoomedOPD);
-
-    assertEquals(IN_ZOOMED_INSIDE_PROCESS, result.size());
-    for(int i = IN_ZOOMED_PROCESSES; i < IN_ZOOMED_PROCESSES + IN_ZOOMED_INSIDE_PROCESS; i++)
-      assertTrue(result.contains(inZoomedProcesses.get(i)));
-  }
-
-  @Test
-  public void testFindOutgoingDataLinks_Process() {
-    Iterable<OPMProceduralLink> result = fixture.findOutgoingDataLinks(inZoomedProcesses.get(2));
-
-    assertEquals(4, Iterables.size(result));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(5)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(6)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(7)));
-    assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(12)));
-
-    result = fixture.findOutgoingDataLinks(inZoomedProcesses.get(6));
-    assertEquals(1, Iterables.size(result));
-  }
-
-  @Test
   public void testFindOutgoingInvocationLinks() {
     Iterable<OPMProceduralLink> result = fixture.findOutgoingInvocationLinks(inZoomedProcesses.get(2));
 
     assertEquals(1, Iterables.size(result));
     assertTrue(Iterables.contains(result, inZoomedProceduralLinks.get(11)));
-  }
-
-  @Test
-  public void testfindConnectedEventProcesses() {
-    Collection<OPMProcess> result = fixture.findConnectedEventProcesses(inZoomedObjects.get(6));
-    assertEquals(2, result.size());
-    assertTrue(result.contains(inZoomedProcesses.get(2)));
-    assertTrue(result.contains(inZoomedProcesses.get(4)));
   }
 
   @Test
