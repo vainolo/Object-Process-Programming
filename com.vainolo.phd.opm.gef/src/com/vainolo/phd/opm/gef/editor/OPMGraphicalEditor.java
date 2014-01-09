@@ -57,6 +57,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
   private IFile opdFile;
   private OPMObjectProcessDiagram opd;
+  private OPMIdManager idManager;
 
   private PropertySheetPage propertyPage;
   private PaletteRoot palette;
@@ -65,7 +66,12 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
    * Initialize the {@link EditDomain} of the editor.
    */
   public OPMGraphicalEditor() {
+    idManager = new OPMIdManager();
     setEditDomain(new DefaultEditDomain(this));
+  }
+
+  public OPMIdManager getIdManager() {
+    return idManager;
   }
 
   @Override
@@ -120,7 +126,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   @Override
   protected PaletteRoot getPaletteRoot() {
     if(palette == null)
-      palette = new OPMGraphicalEditorPalette();
+      palette = new OPMGraphicalEditorPalette(idManager);
     return palette;
   }
 
@@ -131,7 +137,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   @Override
   public void doSave(IProgressMonitor monitor) {
     try {
-      opd.setNextId(OPMIdManager.getNextId());
+      opd.setLastKnownUsedId(idManager.getNextId());
       opd.eResource().save(null);
       opdFile.touch(null);
       getCommandStack().markSaveLocation();
@@ -159,11 +165,12 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
       if(opd == null) {
         throw new RuntimeException("Could not load OPD file " + opdFile.getLocationURI().toString());
       }
-      if(opd.getId() == 0) {
-        opd.setId(1);
-        opd.setNextId(2);
-      }
-      OPMIdManager.setId(opd.getNextId());
+      idManager.setInitialId(opd.getLastKnownUsedId());
+      // if(opd.getId() == 0) {
+      // opd.setId(1);
+      // opd.setLastKnownUsedId(2);
+      // }
+      // OPMIdManager.setInitialId(opd.getNextId());
     }
   }
 

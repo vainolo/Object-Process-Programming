@@ -12,10 +12,16 @@ import com.vainolo.phd.opm.model.OPMFactory;
 
 public class LabelFactory implements CreationFactory {
 
+  private OPMIdManager idManager;
+
+  public LabelFactory(OPMIdManager idManager) {
+    this.idManager = idManager;
+  }
+
   @Override
   public Object getNewObject() {
     Label label = OPMFactory.eINSTANCE.createLabel();
-    label.setId(OPMIdManager.getNextId());
+    label.setId(idManager.getNextId());
     return label;
   }
 

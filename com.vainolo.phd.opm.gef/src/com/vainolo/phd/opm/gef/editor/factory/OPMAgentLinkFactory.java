@@ -13,18 +13,25 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 /**
- * Factory used by palette tools to create {@link OPMProceduralLink} of {@link OPMProceduralLinkKind#AGENT} kind.
+ * Factory used by palette tools to create {@link OPMProceduralLink} of
+ * {@link OPMProceduralLinkKind#AGENT} kind.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * 
  */
 public class OPMAgentLinkFactory implements CreationFactory {
 
+  private OPMIdManager idManager;
+
+  public OPMAgentLinkFactory(OPMIdManager idManager) {
+    this.idManager = idManager;
+  }
+
   @Override
   public Object getNewObject() {
     OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
     link.setKind(OPMProceduralLinkKind.AGENT);
-    link.setId(OPMIdManager.getNextId());
+    link.setId(idManager.getNextId());
     return link;
   }
 

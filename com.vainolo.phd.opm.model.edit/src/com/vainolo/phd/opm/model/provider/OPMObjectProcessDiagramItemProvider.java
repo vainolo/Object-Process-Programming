@@ -69,7 +69,7 @@ public class OPMObjectProcessDiagramItemProvider
 
       addNamePropertyDescriptor(object);
       addAlignmentPropertyDescriptor(object);
-      addNextIdPropertyDescriptor(object);
+      addLastKnownUsedIdPropertyDescriptor(object);
       addKindPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
@@ -120,19 +120,19 @@ public class OPMObjectProcessDiagramItemProvider
   }
 
   /**
-   * This adds a property descriptor for the Next Id feature.
+   * This adds a property descriptor for the Last Known Used Id feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected void addNextIdPropertyDescriptor(Object object) {
+  protected void addLastKnownUsedIdPropertyDescriptor(Object object) {
     itemPropertyDescriptors.add
       (createItemPropertyDescriptor
         (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
          getResourceLocator(),
-         getString("_UI_OPMObjectProcessDiagram_nextId_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_OPMObjectProcessDiagram_nextId_feature", "_UI_OPMObjectProcessDiagram_type"),
-         OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID,
+         getString("_UI_OPMObjectProcessDiagram_lastKnownUsedId_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPMObjectProcessDiagram_lastKnownUsedId_feature", "_UI_OPMObjectProcessDiagram_type"),
+         OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID,
          true,
          false,
          false,
@@ -232,7 +232,7 @@ public class OPMObjectProcessDiagramItemProvider
     switch (notification.getFeatureID(OPMObjectProcessDiagram.class)) {
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NAME:
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__ALIGNMENT:
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID:
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;

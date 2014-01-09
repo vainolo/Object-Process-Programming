@@ -353,13 +353,13 @@ int OPM_OBJECT_PROCESS_DIAGRAM__NAME = OPM_CONTAINER_FEATURE_COUNT + 0;
 int OPM_OBJECT_PROCESS_DIAGRAM__LINKS = OPM_CONTAINER_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Next Id</b></em>' attribute.
+   * The feature id for the '<em><b>Last Known Used Id</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID = OPM_CONTAINER_FEATURE_COUNT + 3;
+  int OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID = OPM_CONTAINER_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -1346,15 +1346,15 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 	EReference getOPMObjectProcessDiagram_Links();
 
 	/**
-   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNextId <em>Next Id</em>}'.
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLastKnownUsedId <em>Last Known Used Id</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Next Id</em>'.
-   * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getNextId()
+   * @return the meta object for the attribute '<em>Last Known Used Id</em>'.
+   * @see com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getLastKnownUsedId()
    * @see #getOPMObjectProcessDiagram()
    * @generated
    */
-  EAttribute getOPMObjectProcessDiagram_NextId();
+  EAttribute getOPMObjectProcessDiagram_LastKnownUsedId();
 
   /**
    * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagram#getKind <em>Kind</em>}'.
@@ -1878,12 +1878,12 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 		EReference OPM_OBJECT_PROCESS_DIAGRAM__LINKS = eINSTANCE.getOPMObjectProcessDiagram_Links();
 
 		/**
-     * The meta object literal for the '<em><b>Next Id</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Last Known Used Id</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID = eINSTANCE.getOPMObjectProcessDiagram_NextId();
+    EAttribute OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID = eINSTANCE.getOPMObjectProcessDiagram_LastKnownUsedId();
 
     /**
      * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.

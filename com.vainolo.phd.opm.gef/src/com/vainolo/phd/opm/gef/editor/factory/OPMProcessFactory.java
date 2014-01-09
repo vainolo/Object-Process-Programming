@@ -14,11 +14,17 @@ import com.vainolo.phd.opm.model.OPMProcessKind;
 
 public class OPMProcessFactory implements CreationFactory {
 
+  private OPMIdManager idManager;
+
+  public OPMProcessFactory(OPMIdManager idManager) {
+    this.idManager = idManager;
+  }
+
   @Override
   public Object getNewObject() {
     OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
     process.setKind(OPMProcessKind.BUILT_IN);
-    process.setId(OPMIdManager.getNextId());
+    process.setId(idManager.getNextId());
     return process;
   }
 

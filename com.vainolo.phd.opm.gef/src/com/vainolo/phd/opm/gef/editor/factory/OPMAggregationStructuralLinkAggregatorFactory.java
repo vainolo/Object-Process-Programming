@@ -13,19 +13,25 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 
 /**
- * Factory used by palette tools to create {@link OPMStructuralLinkAggregator} of
- * {@link OPMStructuralLinkAggregatorKind#AGGREGATION} kind.
+ * Factory used by palette tools to create {@link OPMStructuralLinkAggregator}
+ * of {@link OPMStructuralLinkAggregatorKind#AGGREGATION} kind.
  * 
  * @author vainolo
  * 
  */
 public class OPMAggregationStructuralLinkAggregatorFactory implements CreationFactory {
 
+  private OPMIdManager idManager;
+
+  public OPMAggregationStructuralLinkAggregatorFactory(OPMIdManager idManager) {
+    this.idManager = idManager;
+  }
+
   @Override
   public Object getNewObject() {
     OPMStructuralLinkAggregator aggregator = OPMFactory.eINSTANCE.createOPMStructuralLinkAggregator();
     aggregator.setKind(OPMStructuralLinkAggregatorKind.AGGREGATION);
-    aggregator.setId(OPMIdManager.getNextId());
+    aggregator.setId(idManager.getNextId());
     return aggregator;
   }
 

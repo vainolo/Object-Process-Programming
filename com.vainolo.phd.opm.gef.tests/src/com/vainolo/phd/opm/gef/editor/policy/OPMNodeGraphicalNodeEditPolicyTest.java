@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateCommand;
+import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
 import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opm.model.OPMLink;
@@ -17,7 +18,6 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.phd.opm.validation.OPMLinkValidator;
 
 import static org.mockito.Mockito.*;
-
 import static org.junit.Assert.*;
 
 public class OPMNodeGraphicalNodeEditPolicyTest {
@@ -35,7 +35,7 @@ public class OPMNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_StartingAtStructuralLinkAggregator_ReturnNull() {
-    policy = new OPMNodeGraphicalNodeEditPolicy(validatorMock, opdAnalyzerMock);
+    policy = new OPMNodeGraphicalNodeEditPolicy(validatorMock, opdAnalyzerMock, new OPMIdManager());
     policy.setHost(nodeEditPartMock);
 
     command = policy.getConnectionCreateCommand(requestMock);
@@ -45,7 +45,7 @@ public class OPMNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_InvalidSource_ReturnNull() {
-    policy = new OPMNodeGraphicalNodeEditPolicy(validatorMock, opdAnalyzerMock);
+    policy = new OPMNodeGraphicalNodeEditPolicy(validatorMock, opdAnalyzerMock, new OPMIdManager());
     policy.setHost(nodeEditPartMock);
     when(nodeEditPartMock.getModel()).thenReturn(nodeMock);
     when(requestMock.getNewObject()).thenReturn(linkMock);
@@ -58,7 +58,7 @@ public class OPMNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_ValidSource_ValidCommand() {
-    policy = new OPMNodeGraphicalNodeEditPolicy(validatorMock, opdAnalyzerMock);
+    policy = new OPMNodeGraphicalNodeEditPolicy(validatorMock, opdAnalyzerMock, new OPMIdManager());
     policy.setHost(nodeEditPartMock);
     when(nodeEditPartMock.getModel()).thenReturn(nodeMock);
     when(requestMock.getNewObject()).thenReturn(linkMock);

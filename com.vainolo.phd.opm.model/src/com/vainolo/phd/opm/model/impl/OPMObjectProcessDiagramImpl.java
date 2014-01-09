@@ -33,7 +33,7 @@ import com.vainolo.phd.opm.model.VerticalAlignment;
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getLinks <em>Links</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getNextId <em>Next Id</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getLastKnownUsedId <em>Last Known Used Id</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMObjectProcessDiagramImpl#getKind <em>Kind</em>}</li>
  * </ul>
  * </p>
@@ -88,24 +88,23 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
   protected EList<OPMLink> links;
 
   /**
-   * The default value of the '{@link #getNextId() <em>Next Id</em>}' attribute.
+   * The default value of the '{@link #getLastKnownUsedId() <em>Last Known Used Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNextId()
+   * @see #getLastKnownUsedId()
    * @generated
    * @ordered
    */
-  protected static final long NEXT_ID_EDEFAULT = 0L;
+  protected static final long LAST_KNOWN_USED_ID_EDEFAULT = 0L;
   /**
-   * The cached value of the '{@link #getNextId() <em>Next Id</em>}' attribute.
+   * The cached value of the '{@link #getLastKnownUsedId() <em>Last Known Used Id</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNextId()
+   * @see #getLastKnownUsedId()
    * @generated
    * @ordered
    */
-  protected long nextId = NEXT_ID_EDEFAULT;
-
+  protected long lastKnownUsedId = LAST_KNOWN_USED_ID_EDEFAULT;
   /**
    * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
    * <!-- begin-user-doc -->
@@ -200,8 +199,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
    * <!-- end-user-doc -->
    * @generated
    */
-  public long getNextId() {
-    return nextId;
+  public long getLastKnownUsedId() {
+    return lastKnownUsedId;
   }
 
   /**
@@ -209,11 +208,11 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setNextId(long newNextId) {
-    long oldNextId = nextId;
-    nextId = newNextId;
+  public void setLastKnownUsedId(long newLastKnownUsedId) {
+    long oldLastKnownUsedId = lastKnownUsedId;
+    lastKnownUsedId = newLastKnownUsedId;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID, oldNextId, nextId));
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID, oldLastKnownUsedId, lastKnownUsedId));
   }
 
   /**
@@ -277,8 +276,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
         return getAlignment();
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
         return getLinks();
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
-        return getNextId();
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID:
+        return getLastKnownUsedId();
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
         return getKind();
     }
@@ -303,8 +302,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
         getLinks().clear();
         getLinks().addAll((Collection<? extends OPMLink>)newValue);
         return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
-        setNextId((Long)newValue);
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID:
+        setLastKnownUsedId((Long)newValue);
         return;
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
         setKind((OPMObjectProcessDiagramKind)newValue);
@@ -329,8 +328,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
         getLinks().clear();
         return;
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
-        setNextId(NEXT_ID_EDEFAULT);
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID:
+        setLastKnownUsedId(LAST_KNOWN_USED_ID_EDEFAULT);
         return;
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
         setKind(KIND_EDEFAULT);
@@ -352,8 +351,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
         return alignment != ALIGNMENT_EDEFAULT;
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LINKS:
         return links != null && !links.isEmpty();
-      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID:
-        return nextId != NEXT_ID_EDEFAULT;
+      case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID:
+        return lastKnownUsedId != LAST_KNOWN_USED_ID_EDEFAULT;
       case OPMPackage.OPM_OBJECT_PROCESS_DIAGRAM__KIND:
         return kind != KIND_EDEFAULT;
     }
@@ -408,8 +407,8 @@ public class OPMObjectProcessDiagramImpl extends OPMContainerImpl implements OPM
     result.append(name);
     result.append(", alignment: ");
     result.append(alignment);
-    result.append(", nextId: ");
-    result.append(nextId);
+    result.append(", lastKnownUsedId: ");
+    result.append(lastKnownUsedId);
     result.append(", kind: ");
     result.append(kind);
     result.append(')');

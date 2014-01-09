@@ -19,18 +19,7 @@ import org.eclipse.gef.palette.ToolEntry;
 import org.eclipse.gef.tools.MarqueeSelectionTool;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import com.vainolo.phd.opm.gef.editor.factory.LabelFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMAgentLinkFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMAggregationStructuralLinkAggregatorFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMConsumptionLinkFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMEffectLinkFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMExhibitionStructuralLinkAggregatorFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMGeneralizationStructuralLinkAggregatorFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMInstrumentLinkFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMObjectFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMProcessFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMResultLinkFactory;
-import com.vainolo.phd.opm.gef.editor.factory.OPMStateFactory;
+import com.vainolo.phd.opm.gef.editor.factory.*;
 import com.vainolo.phd.opm.gef.editor.tool.CreationAndDirectEditTool;
 
 /**
@@ -40,11 +29,11 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
 
   PaletteGroup group;
 
-  public OPMGraphicalEditorPalette() {
+  public OPMGraphicalEditorPalette(OPMIdManager idManager) {
     add(createGeneralPaletteTools());
-    add(createNodeTools());
-    add(createProceduralLinkTools());
-    add(createStructuralLinkTools());
+    add(createNodeTools(idManager));
+    add(createProceduralLinkTools(idManager));
+    add(createStructuralLinkTools(idManager));
 
   }
 
@@ -92,28 +81,30 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
     marqueeStack.setUserModificationPermission(PaletteEntry.PERMISSION_NO_MODIFICATION);
     drawer.add(marqueeStack);
 
-    drawer.add(new CreationToolEntry("Label", "Create new Label", new LabelFactory(), ImageDescriptor.createFromFile(
-        this.getClass(), "icons/label.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/label.ico")));
+    // drawer.add(new CreationToolEntry("Label", "Create new Label", new
+    // LabelFactory(), ImageDescriptor.createFromFile(
+    // this.getClass(), "icons/label.ico"),
+    // ImageDescriptor.createFromFile(this.getClass(), "icons/label.ico")));
 
     return drawer;
   }
 
-  private PaletteDrawer createNodeTools() {
+  private PaletteDrawer createNodeTools(OPMIdManager idManager) {
     PaletteDrawer drawer = new PaletteDrawer("Nodes");
 
-    ToolEntry entry = new CombinedTemplateCreationEntry("OPMObject", "Create a new Object", new OPMObjectFactory(),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/object.ico"), ImageDescriptor.createFromFile(
-            this.getClass(), "icons/object.ico"));
+    ToolEntry entry = new CombinedTemplateCreationEntry("OPMObject", "Create a new Object", new OPMObjectFactory(
+        idManager), ImageDescriptor.createFromFile(this.getClass(), "icons/object.ico"),
+        ImageDescriptor.createFromFile(this.getClass(), "icons/object.ico"));
     entry.setToolClass(CreationAndDirectEditTool.class);
     drawer.add(entry);
 
-    entry = new CreationToolEntry("OPMProcess", "Create a new Process", new OPMProcessFactory(),
+    entry = new CreationToolEntry("OPMProcess", "Create a new Process", new OPMProcessFactory(idManager),
         ImageDescriptor.createFromFile(this.getClass(), "icons/process.ico"), ImageDescriptor.createFromFile(
             this.getClass(), "icons/process.ico"));
     entry.setToolClass(CreationAndDirectEditTool.class);
     drawer.add(entry);
 
-    entry = new CreationToolEntry("OPMState", "Create a new State", new OPMStateFactory(),
+    entry = new CreationToolEntry("OPMState", "Create a new State", new OPMStateFactory(idManager),
         ImageDescriptor.createFromFile(this.getClass(), "icons/state.ico"), ImageDescriptor.createFromFile(
             this.getClass(), "icons/state.ico"));
     entry.setToolClass(CreationAndDirectEditTool.class);
@@ -122,45 +113,47 @@ public class OPMGraphicalEditorPalette extends PaletteRoot {
     return drawer;
   }
 
-  private PaletteEntry createProceduralLinkTools() {
+  private PaletteEntry createProceduralLinkTools(OPMIdManager idManager) {
     PaletteDrawer drawer = new PaletteDrawer("Procedural Links");
 
-    drawer.add(new ConnectionCreationToolEntry("Agent", "Create a new Agent link", new OPMAgentLinkFactory(),
+    drawer.add(new ConnectionCreationToolEntry("Agent", "Create a new Agent link", new OPMAgentLinkFactory(idManager),
         ImageDescriptor.createFromFile(this.getClass(), "icons/agent.ico"), ImageDescriptor.createFromFile(
             this.getClass(), "icons/agent.ico")));
 
     drawer.add(new ConnectionCreationToolEntry("Instrument", "Create a new Instrument link",
-        new OPMInstrumentLinkFactory(), ImageDescriptor.createFromFile(this.getClass(), "icons/instrument.ico"),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/instrument.ico")));
+        new OPMInstrumentLinkFactory(idManager),
+        ImageDescriptor.createFromFile(this.getClass(), "icons/instrument.ico"), ImageDescriptor.createFromFile(
+            this.getClass(), "icons/instrument.ico")));
 
-    drawer.add(new ConnectionCreationToolEntry("Effect", "Create a new Effect link", new OPMEffectLinkFactory(),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/effect.ico"), ImageDescriptor.createFromFile(
-            this.getClass(), "icons/effect.ico")));
+    drawer.add(new ConnectionCreationToolEntry("Effect", "Create a new Effect link",
+        new OPMEffectLinkFactory(idManager), ImageDescriptor.createFromFile(this.getClass(), "icons/effect.ico"),
+        ImageDescriptor.createFromFile(this.getClass(), "icons/effect.ico")));
 
     drawer.add(new ConnectionCreationToolEntry("Consumption", "Create a new Consumption link",
-        new OPMConsumptionLinkFactory(), ImageDescriptor.createFromFile(this.getClass(), "icons/consumption.ico"),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/consumption.ico")));
+        new OPMConsumptionLinkFactory(idManager), ImageDescriptor.createFromFile(this.getClass(),
+            "icons/consumption.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/consumption.ico")));
 
-    drawer.add(new ConnectionCreationToolEntry("Result", "Create a new Result link", new OPMResultLinkFactory(),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/result.ico"), ImageDescriptor.createFromFile(
-            this.getClass(), "icons/result.ico")));
+    drawer.add(new ConnectionCreationToolEntry("Result", "Create a new Result link",
+        new OPMResultLinkFactory(idManager), ImageDescriptor.createFromFile(this.getClass(), "icons/result.ico"),
+        ImageDescriptor.createFromFile(this.getClass(), "icons/result.ico")));
 
     return drawer;
   }
 
-  private PaletteEntry createStructuralLinkTools() {
+  private PaletteEntry createStructuralLinkTools(OPMIdManager idManager) {
     PaletteDrawer drawer = new PaletteDrawer("Structural Links");
     drawer.add(new ConnectionCreationToolEntry("Aggregation", "Create a new Aggregation link",
-        new OPMAggregationStructuralLinkAggregatorFactory(), ImageDescriptor.createFromFile(this.getClass(),
+        new OPMAggregationStructuralLinkAggregatorFactory(idManager), ImageDescriptor.createFromFile(this.getClass(),
             "icons/aggregation.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/aggregation.ico")));
 
     drawer.add(new ConnectionCreationToolEntry("Exhibition", "Create a new Exhibition link",
-        new OPMExhibitionStructuralLinkAggregatorFactory(), ImageDescriptor.createFromFile(this.getClass(),
+        new OPMExhibitionStructuralLinkAggregatorFactory(idManager), ImageDescriptor.createFromFile(this.getClass(),
             "icons/exhibition.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/exhibition.ico")));
 
     drawer.add(new ConnectionCreationToolEntry("Generalization", "Create a new Generalization link",
-        new OPMGeneralizationStructuralLinkAggregatorFactory(), ImageDescriptor.createFromFile(this.getClass(),
-            "icons/generalization.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/generalization.ico")));
+        new OPMGeneralizationStructuralLinkAggregatorFactory(idManager), ImageDescriptor.createFromFile(
+            this.getClass(), "icons/generalization.ico"), ImageDescriptor.createFromFile(this.getClass(),
+            "icons/generalization.ico")));
 
     return drawer;
   }

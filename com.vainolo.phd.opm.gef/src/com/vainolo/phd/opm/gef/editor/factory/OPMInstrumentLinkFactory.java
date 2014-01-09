@@ -13,15 +13,22 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 /**
- * Factory used by palette tools to create {@link OPMProceduralLink} of {@link OPMProceduralLinkKind#INSTRUMENT} kind.
+ * Factory used by palette tools to create {@link OPMProceduralLink} of
+ * {@link OPMProceduralLinkKind#INSTRUMENT} kind.
  */
 public class OPMInstrumentLinkFactory implements CreationFactory {
+
+  private OPMIdManager idManager;
+
+  public OPMInstrumentLinkFactory(OPMIdManager idManager) {
+    this.idManager = idManager;
+  }
 
   @Override
   public Object getNewObject() {
     OPMProceduralLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
     link.setKind(OPMProceduralLinkKind.INSTRUMENT);
-    link.setId(OPMIdManager.getNextId());
+    link.setId(idManager.getNextId());
     return link;
   }
 

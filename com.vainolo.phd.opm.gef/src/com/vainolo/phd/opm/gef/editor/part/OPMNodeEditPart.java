@@ -13,12 +13,11 @@ import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.gef.ConnectionEditPart;
-import org.eclipse.gef.EditPolicy;
-import org.eclipse.gef.NodeEditPart;
-import org.eclipse.gef.Request;
+import org.eclipse.gef.*;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
+import com.vainolo.phd.opm.gef.editor.OPMGraphicalEditor;
+import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeComponentEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNodeGraphicalNodeEditPolicy;
@@ -72,9 +71,11 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
    */
   @Override
   protected void createEditPolicies() {
+    OPMIdManager idManager = ((OPMGraphicalEditor) ((DefaultEditDomain) (getViewer().getEditDomain())).getEditorPart())
+        .getIdManager();
     installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMNodeComponentEditPolicy(new OPDAnalyzer()));
     installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMNodeGraphicalNodeEditPolicy(new OPMLinkValidator(),
-        new OPDAnalyzer()));
+        new OPDAnalyzer(), idManager));
   }
 
   @Override

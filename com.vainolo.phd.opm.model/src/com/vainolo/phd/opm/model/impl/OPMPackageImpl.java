@@ -319,7 +319,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getOPMObjectProcessDiagram_NextId() {
+  public EAttribute getOPMObjectProcessDiagram_LastKnownUsedId() {
     return (EAttribute)opmObjectProcessDiagramEClass.getEStructuralFeatures().get(1);
   }
 
@@ -747,7 +747,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     opmObjectProcessDiagramEClass = createEClass(OPM_OBJECT_PROCESS_DIAGRAM);
     createEReference(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__LINKS);
-    createEAttribute(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__NEXT_ID);
+    createEAttribute(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__LAST_KNOWN_USED_ID);
     createEAttribute(opmObjectProcessDiagramEClass, OPM_OBJECT_PROCESS_DIAGRAM__KIND);
 
     opmThingEClass = createEClass(OPM_THING);
@@ -860,7 +860,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
 
     initEClass(opmObjectProcessDiagramEClass, OPMObjectProcessDiagram.class, "OPMObjectProcessDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getOPMObjectProcessDiagram_Links(), this.getOPMLink(), this.getOPMLink_Opd(), "links", null, 0, -1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getOPMObjectProcessDiagram_NextId(), ecorePackage.getELong(), "nextId", null, 0, 1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPMObjectProcessDiagram_LastKnownUsedId(), ecorePackage.getELong(), "lastKnownUsedId", "0", 0, 1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPMObjectProcessDiagram_Kind(), this.getOPMObjectProcessDiagramKind(), "kind", "Compound", 1, 1, OPMObjectProcessDiagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmThingEClass, OPMThing.class, "OPMThing", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

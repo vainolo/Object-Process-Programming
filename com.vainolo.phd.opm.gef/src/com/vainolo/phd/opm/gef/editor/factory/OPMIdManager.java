@@ -11,15 +11,15 @@ package com.vainolo.phd.opm.gef.editor.factory;
  * 
  */
 public class OPMIdManager {
-  private static long id = 0;
+  private static long _id = 0;
 
-  public static synchronized long getNextId() {
-    long idToReturn = id;
-    id++;
+  public synchronized long getNextId() {
+    long idToReturn = _id;
+    _id++;
     return idToReturn;
   }
 
-  public static synchronized void setId(long _id) {
-    id = _id;
+  public synchronized void setInitialId(long id) {
+    _id = id;
   }
 }

@@ -40,7 +40,7 @@ public enum OPMFileUtils {
       opd = (OPMObjectProcessDiagram) opdResource.getContents().get(0);
     } catch(final IOException e) {
       logger.warning("OPD File " + uri + " could not be loaded. Please check the path.");
-      logger.fine("Exception thrown: " + e);
+      logger.warning("Exception thrown: " + e);
       opd = null;
     }
 
@@ -58,6 +58,7 @@ public enum OPMFileUtils {
     final ResourceSet resourceSet = new ResourceSetImpl();
     final Resource resource = resourceSet.createResource(URI.createURI(opdFile.getLocationURI().toString()));
     OPMObjectProcessDiagram opd = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
+    opd.setId(0);
     opd.setName(name);
     opd.setKind(kind);
     resource.getContents().add(opd);
@@ -104,6 +105,6 @@ public enum OPMFileUtils {
     ((OPMNamedElement) node).setName(name);
     node.setConstraints(constraints);
     opd.getNodes().add(node);
-    opd.setNextId(2);
+    opd.setLastKnownUsedId(2);
   }
 }

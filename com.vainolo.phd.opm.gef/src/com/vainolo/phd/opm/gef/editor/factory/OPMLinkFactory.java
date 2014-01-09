@@ -15,13 +15,18 @@ import com.vainolo.phd.opm.model.OPMLink;
  * @author Arieh 'Vainolo' Bibliowicz
  * 
  */
-public enum OPMLinkFactory implements CreationFactory {
-  INSTANCE;
+public class OPMLinkFactory implements CreationFactory {
+
+  private OPMIdManager idManager;
+
+  public OPMLinkFactory(OPMIdManager idManager) {
+    this.idManager = idManager;
+  }
 
   @Override
   public OPMLink getNewObject() {
     OPMLink link = OPMFactory.eINSTANCE.createOPMLink();
-    link.setId(OPMIdManager.getNextId());
+    link.setId(idManager.getNextId());
     return link;
   }
 

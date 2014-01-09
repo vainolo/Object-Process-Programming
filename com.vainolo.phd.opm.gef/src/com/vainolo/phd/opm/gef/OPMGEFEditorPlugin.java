@@ -1,6 +1,10 @@
 package com.vainolo.phd.opm.gef;
 
+import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
+
 public class OPMGEFEditorPlugin {
+
+  private OPMIdManager idManager;
 
   private OPMGEFEditorPlugin() {
   };
@@ -14,5 +18,4 @@ public class OPMGEFEditorPlugin {
   public void log(Exception exception) {
     System.out.println(exception.getLocalizedMessage());
   }
-
 }

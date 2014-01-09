@@ -19,6 +19,7 @@ import org.eclipse.gef.requests.ReconnectRequest;
 import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
+import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
 import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opm.model.*;
@@ -37,10 +38,13 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
   OPMLinkValidator validator;
   OPDAnalyzer analyzer;
 
-  public OPMNodeGraphicalNodeEditPolicy(OPMLinkValidator validator, OPDAnalyzer analyzer) {
+  OPMLinkFactory linkFactory;
+
+  public OPMNodeGraphicalNodeEditPolicy(OPMLinkValidator validator, OPDAnalyzer analyzer, OPMIdManager idManager) {
     Preconditions.checkNotNull(validator);
     this.validator = validator;
     this.analyzer = analyzer;
+    this.linkFactory = new OPMLinkFactory(idManager);
   }
 
   /**
@@ -183,7 +187,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     command.setSource(source);
     command.setTarget(target);
     command.setOPD(opd);
-    OPMLink link = OPMLinkFactory.INSTANCE.getNewObject();
+    OPMLink link = linkFactory.getNewObject();
     link.setRouterKind(OPMLinkRouterKind.MANHATTAN);
     command.setLink(link);
     return command;
