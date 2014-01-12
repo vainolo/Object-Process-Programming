@@ -67,7 +67,6 @@ public class OPMLinkItemProvider
 
       addSourcePropertyDescriptor(object);
       addTargetPropertyDescriptor(object);
-      addBendpointsPropertyDescriptor(object);
       addRouterKindPropertyDescriptor(object);
       addSourceDecorationPropertyDescriptor(object);
       addTargetDecorationPropertyDescriptor(object);
@@ -116,28 +115,6 @@ public class OPMLinkItemProvider
          false,
          true,
          null,
-         null,
-         null));
-  }
-
-	/**
-   * This adds a property descriptor for the Bendpoints feature.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   */
-	protected void addBendpointsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_OPMLink_bendpoints_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_OPMLink_bendpoints_feature", "_UI_OPMLink_type"),
-         OPMPackage.Literals.OPM_LINK__BENDPOINTS,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
          null,
          null));
   }
@@ -265,7 +242,6 @@ public class OPMLinkItemProvider
     updateChildren(notification);
 
     switch (notification.getFeatureID(OPMLink.class)) {
-      case OPMPackage.OPM_LINK__BENDPOINTS:
       case OPMPackage.OPM_LINK__ROUTER_KIND:
       case OPMPackage.OPM_LINK__SOURCE_DECORATION:
       case OPMPackage.OPM_LINK__TARGET_DECORATION:

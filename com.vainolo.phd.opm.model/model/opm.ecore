@@ -58,8 +58,6 @@
         eOpposite="#//OPMNode/outgoingLinks"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//OPMNode"
         eOpposite="#//OPMNode/incomingLinks"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bendpoints" upperBound="-1"
-        eType="#//Point"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="routerKind" eType="#//OPMLinkRouterKind"
         defaultValueLiteral="Bendpoint"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -70,7 +68,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPMProceduralLinkKind"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="subKinds" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bendpoints" upperBound="-1"
+        eType="#//Point"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPMStructuralLink" eSuperTypes="#//OPMLink"/>
   <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMStructuralLinkAggregatorKind">
     <eLiterals name="AGGREGATION" literal="Aggregation"/>

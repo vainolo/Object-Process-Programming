@@ -11,6 +11,7 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 import java.util.Collection;
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.common.util.EList;
@@ -28,6 +29,7 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl#getSubKinds <em>Sub Kinds</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMProceduralLinkImpl#getBendpoints <em>Bendpoints</em>}</li>
  * </ul>
  * </p>
  *
@@ -63,6 +65,16 @@ public class OPMProceduralLinkImpl extends OPMLinkImpl implements OPMProceduralL
    * @ordered
    */
   protected EList<String> subKinds;
+
+  /**
+   * The cached value of the '{@link #getBendpoints() <em>Bendpoints</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBendpoints()
+   * @generated
+   * @ordered
+   */
+  protected EList<Point> bendpoints;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,6 +130,18 @@ public class OPMProceduralLinkImpl extends OPMLinkImpl implements OPMProceduralL
 
   /**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<Point> getBendpoints() {
+    if (bendpoints == null) {
+      bendpoints = new EDataTypeUniqueEList<Point>(Point.class, this, OPMPackage.OPM_PROCEDURAL_LINK__BENDPOINTS);
+    }
+    return bendpoints;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    */
@@ -128,6 +152,8 @@ public class OPMProceduralLinkImpl extends OPMLinkImpl implements OPMProceduralL
         return getKind();
       case OPMPackage.OPM_PROCEDURAL_LINK__SUB_KINDS:
         return getSubKinds();
+      case OPMPackage.OPM_PROCEDURAL_LINK__BENDPOINTS:
+        return getBendpoints();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -148,6 +174,10 @@ public class OPMProceduralLinkImpl extends OPMLinkImpl implements OPMProceduralL
         getSubKinds().clear();
         getSubKinds().addAll((Collection<? extends String>)newValue);
         return;
+      case OPMPackage.OPM_PROCEDURAL_LINK__BENDPOINTS:
+        getBendpoints().clear();
+        getBendpoints().addAll((Collection<? extends Point>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -166,6 +196,9 @@ public class OPMProceduralLinkImpl extends OPMLinkImpl implements OPMProceduralL
       case OPMPackage.OPM_PROCEDURAL_LINK__SUB_KINDS:
         getSubKinds().clear();
         return;
+      case OPMPackage.OPM_PROCEDURAL_LINK__BENDPOINTS:
+        getBendpoints().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -182,6 +215,8 @@ public class OPMProceduralLinkImpl extends OPMLinkImpl implements OPMProceduralL
         return kind != KIND_EDEFAULT;
       case OPMPackage.OPM_PROCEDURAL_LINK__SUB_KINDS:
         return subKinds != null && !subKinds.isEmpty();
+      case OPMPackage.OPM_PROCEDURAL_LINK__BENDPOINTS:
+        return bendpoints != null && !bendpoints.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -200,6 +235,8 @@ public class OPMProceduralLinkImpl extends OPMLinkImpl implements OPMProceduralL
     result.append(kind);
     result.append(", subKinds: ");
     result.append(subKinds);
+    result.append(", bendpoints: ");
+    result.append(bendpoints);
     result.append(')');
     return result.toString();
   }

@@ -42,47 +42,9 @@ public class OPMLinkEditPart extends AbstractConnectionEditPart {
     adapter = new OPMLinkAdapter();
   }
 
-  /**
-   * Installs two edit policies:
-   * <ol>
-   * <li>For the {@link EditPolicy#CONNECTION_ENDPOINTS_ROLE} a
-   * {@link ConnectionEndpoinEditPolicy}.</li>
-   * <li>For the {@link EditPolicy#CONNECTION_ROLE} a
-   * {@link OPMLinkConnectionEditPolicy}.</li>
-   * <li>For the {@link EditPolicy#CONNECTION_BENDPOINTS_ROLE} a
-   * {@link OPMLinkBendpointEditPolicy} (for links that use a
-   * {@link BendpointConnectionRouter}).</li>
-   * </ol>
-   */
   @Override
   protected void createEditPolicies() {
     installEditPolicy(EditPolicy.CONNECTION_ENDPOINTS_ROLE, new ConnectionEndpointEditPolicy());
-    installEditPolicy(EditPolicy.CONNECTION_ROLE, new OPMLinkConnectionEditPolicy());
-    installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OPMLinkBendpointEditPolicy());
-  }
-
-  /**
-   * Create a {@link PolylineConnection} with a
-   * {@link BendpointConnectionRouter}
-   */
-  @Override
-  protected PolylineConnection createFigure() {
-    PolylineConnection conn = new PolylineConnection();
-    conn.setConnectionRouter(new BendpointConnectionRouter());
-    conn.setLineWidth(OPMFigureConstants.CONNECTION_LINE_WIDTH);
-    return conn;
-  }
-
-  @Override
-  protected void refreshVisuals() {
-    Connection connection = getConnectionFigure();
-    List<Point> modelConstraint = ((OPMLink) getModel()).getBendpoints();
-    List<AbsoluteBendpoint> figureConstraint = new ArrayList<AbsoluteBendpoint>();
-    for(Point p : modelConstraint) {
-      figureConstraint.add(new AbsoluteBendpoint(p));
-    }
-    connection.setRoutingConstraint(figureConstraint);
-
   }
 
   @Override

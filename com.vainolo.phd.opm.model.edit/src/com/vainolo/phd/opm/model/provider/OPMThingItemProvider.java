@@ -286,6 +286,11 @@ public class OPMThingItemProvider
     newChildDescriptors.add
       (createChildParameter
         (OPMPackage.Literals.OPM_CONTAINER__NODES,
+         OPMFactory.eINSTANCE.createOPMStructuralLink()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (OPMPackage.Literals.OPM_CONTAINER__NODES,
          OPMFactory.eINSTANCE.createLabel()));
   }
 

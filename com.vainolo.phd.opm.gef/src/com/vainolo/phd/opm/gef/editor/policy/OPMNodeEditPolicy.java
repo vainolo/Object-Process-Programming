@@ -31,11 +31,11 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
  * 
  * @author vainolo
  */
-public class OPMNodeComponentEditPolicy extends ComponentEditPolicy {
+public class OPMNodeEditPolicy extends ComponentEditPolicy {
 
   private OPDAnalyzer analyzer;
 
-  public OPMNodeComponentEditPolicy(OPDAnalyzer analyzer) {
+  public OPMNodeEditPolicy(OPDAnalyzer analyzer) {
     super();
     this.analyzer = analyzer;
 

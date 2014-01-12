@@ -263,6 +263,11 @@ public class OPMObjectProcessDiagramItemProvider
       (createChildParameter
         (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
          OPMFactory.eINSTANCE.createOPMProceduralLink()));
+
+    newChildDescriptors.add
+      (createChildParameter
+        (OPMPackage.Literals.OPM_OBJECT_PROCESS_DIAGRAM__LINKS,
+         OPMFactory.eINSTANCE.createOPMStructuralLink()));
   }
 
   /**

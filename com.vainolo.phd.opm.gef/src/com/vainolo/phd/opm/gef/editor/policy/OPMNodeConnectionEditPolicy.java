@@ -21,6 +21,7 @@ import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
 import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMStructuralLinkFactory;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opm.model.*;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
@@ -32,19 +33,19 @@ import com.vainolo.phd.opm.validation.OPMLinkValidator;
  * 
  * @author vainolo
  */
-public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
+public class OPMNodeConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
   private static final Dimension DEFAULT_AGGREGATOR_DIMENSION = new Dimension(15, 15);
   OPMLinkValidator validator;
   OPDAnalyzer analyzer;
 
-  OPMLinkFactory linkFactory;
+  OPMStructuralLinkFactory linkFactory;
 
-  public OPMNodeGraphicalNodeEditPolicy(OPMLinkValidator validator, OPDAnalyzer analyzer, OPMIdManager idManager) {
+  public OPMNodeConnectionEditPolicy(OPMLinkValidator validator, OPDAnalyzer analyzer, OPMIdManager idManager) {
     Preconditions.checkNotNull(validator);
     this.validator = validator;
     this.analyzer = analyzer;
-    this.linkFactory = new OPMLinkFactory(idManager);
+    this.linkFactory = new OPMStructuralLinkFactory(idManager);
   }
 
   /**
@@ -84,7 +85,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
 
   /**
    * Retrieves the command created by
-   * {@link OPMNodeGraphicalNodeEditPolicy#getConnectionCreateCommand(CreateConnectionRequest)
+   * {@link OPMNodeConnectionEditPolicy#getConnectionCreateCommand(CreateConnectionRequest)
    * getConnectionCreateCommand}, and adds it information so that the command
    * can be executed. {@link OPMStructuralLinkAggregatorEditPart} nodes cannot
    * be source nodes, therefore in this case a {@link UnexecutableCommand} is
@@ -187,8 +188,7 @@ public class OPMNodeGraphicalNodeEditPolicy extends GraphicalNodeEditPolicy {
     command.setSource(source);
     command.setTarget(target);
     command.setOPD(opd);
-    OPMLink link = linkFactory.getNewObject();
-    link.setRouterKind(OPMLinkRouterKind.MANHATTAN);
+    OPMStructuralLink link = linkFactory.getNewObject();
     command.setLink(link);
     return command;
   }

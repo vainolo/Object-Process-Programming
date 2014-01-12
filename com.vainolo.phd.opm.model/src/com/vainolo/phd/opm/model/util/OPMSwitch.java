@@ -173,6 +173,15 @@ public class OPMSwitch<T> extends Switch<T> {
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case OPMPackage.OPM_STRUCTURAL_LINK: {
+        OPMStructuralLink opmStructuralLink = (OPMStructuralLink)theEObject;
+        T result = caseOPMStructuralLink(opmStructuralLink);
+        if (result == null) result = caseOPMLink(opmStructuralLink);
+        if (result == null) result = caseOPMNode(opmStructuralLink);
+        if (result == null) result = caseOPMElementWithID(opmStructuralLink);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case OPMPackage.LABEL: {
         Label label = (Label)theEObject;
         T result = caseLabel(label);
@@ -352,6 +361,21 @@ public class OPMSwitch<T> extends Switch<T> {
   }
 
 	/**
+   * Returns the result of interpreting the object as an instance of '<em>Structural Link</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Structural Link</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseOPMStructuralLink(OPMStructuralLink object) {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
    * <!-- begin-user-doc -->
      * This implementation returns null;

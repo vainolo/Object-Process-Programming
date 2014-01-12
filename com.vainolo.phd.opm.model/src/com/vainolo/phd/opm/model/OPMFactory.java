@@ -89,6 +89,15 @@ public interface OPMFactory extends EFactory {
 	OPMProceduralLink createOPMProceduralLink();
 
 	/**
+   * Returns a new object of class '<em>Structural Link</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Structural Link</em>'.
+   * @generated
+   */
+  OPMStructuralLink createOPMStructuralLink();
+
+  /**
    * Returns a new object of class '<em>Label</em>'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

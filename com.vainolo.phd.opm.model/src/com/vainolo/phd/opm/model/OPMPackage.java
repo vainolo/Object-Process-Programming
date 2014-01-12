@@ -911,22 +911,13 @@ int OPM_LINK__SOURCE = OPM_NODE_FEATURE_COUNT + 1;
 int OPM_LINK__TARGET = OPM_NODE_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
-   * <!-- begin-user-doc -->
- * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-int OPM_LINK__BENDPOINTS = OPM_NODE_FEATURE_COUNT + 3;
-
-  /**
    * The feature id for the '<em><b>Router Kind</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPM_LINK__ROUTER_KIND = OPM_NODE_FEATURE_COUNT + 4;
+  int OPM_LINK__ROUTER_KIND = OPM_NODE_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Source Decoration</b></em>' attribute.
@@ -935,7 +926,7 @@ int OPM_LINK__BENDPOINTS = OPM_NODE_FEATURE_COUNT + 3;
    * @generated
    * @ordered
    */
-int OPM_LINK__SOURCE_DECORATION = OPM_NODE_FEATURE_COUNT + 5;
+int OPM_LINK__SOURCE_DECORATION = OPM_NODE_FEATURE_COUNT + 4;
 
   /**
    * The feature id for the '<em><b>Target Decoration</b></em>' attribute.
@@ -944,7 +935,7 @@ int OPM_LINK__SOURCE_DECORATION = OPM_NODE_FEATURE_COUNT + 5;
    * @generated
    * @ordered
    */
-int OPM_LINK__TARGET_DECORATION = OPM_NODE_FEATURE_COUNT + 6;
+int OPM_LINK__TARGET_DECORATION = OPM_NODE_FEATURE_COUNT + 5;
 
   /**
    * The feature id for the '<em><b>Center Decoration</b></em>' attribute.
@@ -953,7 +944,7 @@ int OPM_LINK__TARGET_DECORATION = OPM_NODE_FEATURE_COUNT + 6;
    * @generated
    * @ordered
    */
-int OPM_LINK__CENTER_DECORATION = OPM_NODE_FEATURE_COUNT + 7;
+int OPM_LINK__CENTER_DECORATION = OPM_NODE_FEATURE_COUNT + 6;
 
   /**
    * The number of structural features of the '<em>Link</em>' class.
@@ -962,7 +953,7 @@ int OPM_LINK__CENTER_DECORATION = OPM_NODE_FEATURE_COUNT + 7;
    * @generated
    * @ordered
    */
-int OPM_LINK_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 8;
+int OPM_LINK_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1037,15 +1028,6 @@ int OPM_LINK_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 8;
 	int OPM_PROCEDURAL_LINK__TARGET = OPM_LINK__TARGET;
 
   /**
-   * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-	int OPM_PROCEDURAL_LINK__BENDPOINTS = OPM_LINK__BENDPOINTS;
-
-  /**
    * The feature id for the '<em><b>Router Kind</b></em>' attribute.
    * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1100,15 +1082,151 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
   int OPM_PROCEDURAL_LINK__SUB_KINDS = OPM_LINK_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Bendpoints</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+	int OPM_PROCEDURAL_LINK__BENDPOINTS = OPM_LINK_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>Procedural Link</em>' class.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-	int OPM_PROCEDURAL_LINK_FEATURE_COUNT = OPM_LINK_FEATURE_COUNT + 2;
+	int OPM_PROCEDURAL_LINK_FEATURE_COUNT = OPM_LINK_FEATURE_COUNT + 3;
 
 	/**
+   * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.OPMStructuralLinkImpl <em>Structural Link</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see com.vainolo.phd.opm.model.impl.OPMStructuralLinkImpl
+   * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLink()
+   * @generated
+   */
+  int OPM_STRUCTURAL_LINK = 12;
+
+  /**
+   * The feature id for the '<em><b>Id</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__ID = OPM_LINK__ID;
+
+  /**
+   * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__INCOMING_LINKS = OPM_LINK__INCOMING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__OUTGOING_LINKS = OPM_LINK__OUTGOING_LINKS;
+
+  /**
+   * The feature id for the '<em><b>Container</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__CONTAINER = OPM_LINK__CONTAINER;
+
+  /**
+   * The feature id for the '<em><b>Constraints</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__CONSTRAINTS = OPM_LINK__CONSTRAINTS;
+
+  /**
+   * The feature id for the '<em><b>Opd</b></em>' container reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__OPD = OPM_LINK__OPD;
+
+  /**
+   * The feature id for the '<em><b>Source</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__SOURCE = OPM_LINK__SOURCE;
+
+  /**
+   * The feature id for the '<em><b>Target</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__TARGET = OPM_LINK__TARGET;
+
+  /**
+   * The feature id for the '<em><b>Router Kind</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__ROUTER_KIND = OPM_LINK__ROUTER_KIND;
+
+  /**
+   * The feature id for the '<em><b>Source Decoration</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__SOURCE_DECORATION = OPM_LINK__SOURCE_DECORATION;
+
+  /**
+   * The feature id for the '<em><b>Target Decoration</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__TARGET_DECORATION = OPM_LINK__TARGET_DECORATION;
+
+  /**
+   * The feature id for the '<em><b>Center Decoration</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK__CENTER_DECORATION = OPM_LINK__CENTER_DECORATION;
+
+  /**
+   * The number of structural features of the '<em>Structural Link</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STRUCTURAL_LINK_FEATURE_COUNT = OPM_LINK_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.impl.LabelImpl <em>Label</em>}' class.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1116,7 +1234,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getLabel()
    * @generated
    */
-	int LABEL = 12;
+	int LABEL = 13;
 
 	/**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1198,7 +1316,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLinkAggregatorKind()
    * @generated
    */
-	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 13;
+	int OPM_STRUCTURAL_LINK_AGGREGATOR_KIND = 14;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
@@ -1208,7 +1326,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProceduralLinkKind()
    * @generated
    */
-	int OPM_PROCEDURAL_LINK_KIND = 14;
+	int OPM_PROCEDURAL_LINK_KIND = 15;
 
 	/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMLinkRouterKind <em>Link Router Kind</em>}' enum.
@@ -1218,7 +1336,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMLinkRouterKind()
    * @generated
    */
-    int OPM_LINK_ROUTER_KIND = 15;
+    int OPM_LINK_ROUTER_KIND = 16;
 
     /**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMProcessKind <em>Process Kind</em>}' enum.
@@ -1228,7 +1346,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMProcessKind()
    * @generated
    */
-	int OPM_PROCESS_KIND = 16;
+	int OPM_PROCESS_KIND = 17;
 
 				/**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind <em>Object Process Diagram Kind</em>}' enum.
@@ -1238,7 +1356,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObjectProcessDiagramKind()
    * @generated
    */
-  int OPM_OBJECT_PROCESS_DIAGRAM_KIND = 17;
+  int OPM_OBJECT_PROCESS_DIAGRAM_KIND = 18;
 
         /**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.VerticalAlignment <em>Vertical Alignment</em>}' enum.
@@ -1248,7 +1366,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getVerticalAlignment()
    * @generated
    */
-  int VERTICAL_ALIGNMENT = 18;
+  int VERTICAL_ALIGNMENT = 19;
 
         /**
    * The meta object id for the '{@link com.vainolo.phd.opm.model.OPMObjectKind <em>Object Kind</em>}' enum.
@@ -1258,7 +1376,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMObjectKind()
    * @generated
    */
-  int OPM_OBJECT_KIND = 19;
+  int OPM_OBJECT_KIND = 20;
 
         /**
    * The meta object id for the '<em>Rectangle</em>' data type.
@@ -1268,7 +1386,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getRectangle()
    * @generated
    */
-	int RECTANGLE = 21;
+	int RECTANGLE = 22;
 
 
 	/**
@@ -1321,7 +1439,7 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getPoint()
    * @generated
    */
-	int POINT = 20;
+	int POINT = 21;
 
 
 	/**
@@ -1462,17 +1580,6 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @generated
    */
 	EReference getOPMLink_Target();
-
-	/**
-   * Returns the meta object for the attribute list '{@link com.vainolo.phd.opm.model.OPMLink#getBendpoints <em>Bendpoints</em>}'.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Bendpoints</em>'.
-   * @see com.vainolo.phd.opm.model.OPMLink#getBendpoints()
-   * @see #getOPMLink()
-   * @generated
-   */
-	EAttribute getOPMLink_Bendpoints();
 
 	/**
    * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMLink#getRouterKind <em>Router Kind</em>}'.
@@ -1666,6 +1773,27 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
    * @generated
    */
   EAttribute getOPMProceduralLink_SubKinds();
+
+  /**
+   * Returns the meta object for the attribute list '{@link com.vainolo.phd.opm.model.OPMProceduralLink#getBendpoints <em>Bendpoints</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Bendpoints</em>'.
+   * @see com.vainolo.phd.opm.model.OPMProceduralLink#getBendpoints()
+   * @see #getOPMProceduralLink()
+   * @generated
+   */
+  EAttribute getOPMProceduralLink_Bendpoints();
+
+  /**
+   * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMStructuralLink <em>Structural Link</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Structural Link</em>'.
+   * @see com.vainolo.phd.opm.model.OPMStructuralLink
+   * @generated
+   */
+  EClass getOPMStructuralLink();
 
   /**
    * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMNamedElement <em>Named Element</em>}'.
@@ -1972,14 +2100,6 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
 		EReference OPM_LINK__TARGET = eINSTANCE.getOPMLink_Target();
 
 		/**
-     * The meta object literal for the '<em><b>Bendpoints</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-     * @generated
-     */
-		EAttribute OPM_LINK__BENDPOINTS = eINSTANCE.getOPMLink_Bendpoints();
-
-		/**
      * The meta object literal for the '<em><b>Router Kind</b></em>' attribute feature.
      * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2132,6 +2252,24 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
      * @generated
      */
     EAttribute OPM_PROCEDURAL_LINK__SUB_KINDS = eINSTANCE.getOPMProceduralLink_SubKinds();
+
+    /**
+     * The meta object literal for the '<em><b>Bendpoints</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPM_PROCEDURAL_LINK__BENDPOINTS = eINSTANCE.getOPMProceduralLink_Bendpoints();
+
+    /**
+     * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMStructuralLinkImpl <em>Structural Link</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see com.vainolo.phd.opm.model.impl.OPMStructuralLinkImpl
+     * @see com.vainolo.phd.opm.model.impl.OPMPackageImpl#getOPMStructuralLink()
+     * @generated
+     */
+    EClass OPM_STRUCTURAL_LINK = eINSTANCE.getOPMStructuralLink();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMNamedElementImpl <em>Named Element</em>}' class.

@@ -22,7 +22,7 @@ import static org.junit.Assert.*;
 
 public class OPMNodeGraphicalNodeEditPolicyTest {
 
-  private OPMNodeGraphicalNodeEditPolicy policy;
+  private OPMNodeConnectionEditPolicy policy;
   private OPMLinkValidator validatorMock;
   private CreateConnectionRequest requestMock;
   private Command command;
@@ -35,7 +35,7 @@ public class OPMNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_StartingAtStructuralLinkAggregator_ReturnNull() {
-    policy = new OPMNodeGraphicalNodeEditPolicy(validatorMock, opdAnalyzerMock, new OPMIdManager());
+    policy = new OPMNodeConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPMIdManager());
     policy.setHost(nodeEditPartMock);
 
     command = policy.getConnectionCreateCommand(requestMock);
@@ -45,7 +45,7 @@ public class OPMNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_InvalidSource_ReturnNull() {
-    policy = new OPMNodeGraphicalNodeEditPolicy(validatorMock, opdAnalyzerMock, new OPMIdManager());
+    policy = new OPMNodeConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPMIdManager());
     policy.setHost(nodeEditPartMock);
     when(nodeEditPartMock.getModel()).thenReturn(nodeMock);
     when(requestMock.getNewObject()).thenReturn(linkMock);
@@ -58,7 +58,7 @@ public class OPMNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_ValidSource_ValidCommand() {
-    policy = new OPMNodeGraphicalNodeEditPolicy(validatorMock, opdAnalyzerMock, new OPMIdManager());
+    policy = new OPMNodeConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPMIdManager());
     policy.setHost(nodeEditPartMock);
     when(nodeEditPartMock.getModel()).thenReturn(nodeMock);
     when(requestMock.getNewObject()).thenReturn(linkMock);

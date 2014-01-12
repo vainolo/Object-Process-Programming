@@ -19,8 +19,8 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import com.vainolo.phd.opm.gef.editor.OPMGraphicalEditor;
 import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
-import com.vainolo.phd.opm.gef.editor.policy.OPMNodeComponentEditPolicy;
-import com.vainolo.phd.opm.gef.editor.policy.OPMNodeGraphicalNodeEditPolicy;
+import com.vainolo.phd.opm.gef.editor.policy.OPMNodeEditPolicy;
+import com.vainolo.phd.opm.gef.editor.policy.OPMNodeConnectionEditPolicy;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
@@ -73,8 +73,8 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
   protected void createEditPolicies() {
     OPMIdManager idManager = ((OPMGraphicalEditor) ((DefaultEditDomain) (getViewer().getEditDomain())).getEditorPart())
         .getIdManager();
-    installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMNodeComponentEditPolicy(new OPDAnalyzer()));
-    installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMNodeGraphicalNodeEditPolicy(new OPMLinkValidator(),
+    installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPMNodeEditPolicy(new OPDAnalyzer()));
+    installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPMNodeConnectionEditPolicy(new OPMLinkValidator(),
         new OPDAnalyzer(), idManager));
   }
 

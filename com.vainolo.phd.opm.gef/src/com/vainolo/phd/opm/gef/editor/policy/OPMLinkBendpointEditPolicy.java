@@ -15,6 +15,7 @@ import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateBendpointCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMLinkDeleteBendpointCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMLinkMoveBendpointCommand;
 import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
  * Policy used by the {@link OPMLink} to manage link bendpoints.
@@ -24,47 +25,47 @@ import com.vainolo.phd.opm.model.OPMLink;
  */
 public class OPMLinkBendpointEditPolicy extends BendpointEditPolicy {
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected Command getCreateBendpointCommand(final BendpointRequest request) {
-		OPMLinkCreateBendpointCommand command = new OPMLinkCreateBendpointCommand();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected Command getCreateBendpointCommand(final BendpointRequest request) {
+    OPMLinkCreateBendpointCommand command = new OPMLinkCreateBendpointCommand();
 
-		Point p = request.getLocation();
+    Point p = request.getLocation();
 
-		command.setOPMLink((OPMLink) request.getSource().getModel());
-		command.setLocation(p);
-		command.setIndex(request.getIndex());
+    command.setOPMLink(OPMProceduralLink.class.cast(request.getSource().getModel()));
+    command.setLocation(p);
+    command.setIndex(request.getIndex());
 
-		return command;
-	}
+    return command;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected Command getMoveBendpointCommand(final BendpointRequest request) {
-		OPMLinkMoveBendpointCommand command = new OPMLinkMoveBendpointCommand();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected Command getMoveBendpointCommand(final BendpointRequest request) {
+    OPMLinkMoveBendpointCommand command = new OPMLinkMoveBendpointCommand();
 
-		Point p = request.getLocation();
+    Point p = request.getLocation();
 
-		command.setOPMLink((OPMLink) request.getSource().getModel());
-		command.setLocation(p);
-		command.setIndex(request.getIndex());
+    command.setOPMLink(OPMProceduralLink.class.cast(request.getSource().getModel()));
+    command.setLocation(p);
+    command.setIndex(request.getIndex());
 
-		return command;
-	}
+    return command;
+  }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected Command getDeleteBendpointCommand(final BendpointRequest request) {
-		OPMLinkDeleteBendpointCommand command = new OPMLinkDeleteBendpointCommand();
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  protected Command getDeleteBendpointCommand(final BendpointRequest request) {
+    OPMLinkDeleteBendpointCommand command = new OPMLinkDeleteBendpointCommand();
 
-		command.setOPMLink((OPMLink) request.getSource().getModel());
-		command.setIndex(request.getIndex());
-		return command;
-	}
+    command.setOPMLink(OPMProceduralLink.class.cast(request.getSource().getModel()));
+    command.setIndex(request.getIndex());
+    return command;
+  }
 }

@@ -237,6 +237,29 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
   }
 
 	/**
+   * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.OPMStructuralLink} instances.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected OPMStructuralLinkItemProvider opmStructuralLinkItemProvider;
+
+  /**
+   * This creates an adapter for a {@link com.vainolo.phd.opm.model.OPMStructuralLink}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Adapter createOPMStructuralLinkAdapter() {
+    if (opmStructuralLinkItemProvider == null) {
+      opmStructuralLinkItemProvider = new OPMStructuralLinkItemProvider(this);
+    }
+
+    return opmStructuralLinkItemProvider;
+  }
+
+  /**
    * This keeps track of the one adapter used for all {@link com.vainolo.phd.opm.model.Label} instances.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -365,6 +388,7 @@ public class OPMItemProviderAdapterFactory extends OPMAdapterFactory implements 
     if (opmStructuralLinkAggregatorItemProvider != null) opmStructuralLinkAggregatorItemProvider.dispose();
     if (opmLinkItemProvider != null) opmLinkItemProvider.dispose();
     if (opmProceduralLinkItemProvider != null) opmProceduralLinkItemProvider.dispose();
+    if (opmStructuralLinkItemProvider != null) opmStructuralLinkItemProvider.dispose();
     if (labelItemProvider != null) labelItemProvider.dispose();
   }
 

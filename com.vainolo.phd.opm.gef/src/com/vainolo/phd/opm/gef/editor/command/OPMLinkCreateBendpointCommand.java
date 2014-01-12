@@ -9,6 +9,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
 import com.vainolo.phd.opm.model.OPMLink;
+import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**
  * Command used to create a new bendpoint in a {@linkplain OPMLink}. This class
@@ -24,7 +25,7 @@ public final class OPMLinkCreateBendpointCommand extends Command {
   /** Location of new bendpoint. */
   private Point location;
   /** Link to which the bendpoint is added. */
-  private OPMLink link;
+  private OPMProceduralLink link;
 
   @Override
   public void execute() {
@@ -62,7 +63,7 @@ public final class OPMLinkCreateBendpointCommand extends Command {
    * @param link
    *          link on which the bendpoint is added.
    */
-  public void setOPMLink(final OPMLink link) {
+  public void setOPMLink(final OPMProceduralLink link) {
     this.link = link;
   }
 }

@@ -21,7 +21,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getOpd <em>Opd</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getSource <em>Source</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getTarget <em>Target</em>}</li>
- *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getBendpoints <em>Bendpoints</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getRouterKind <em>Router Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getSourceDecoration <em>Source Decoration</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.OPMLink#getTargetDecoration <em>Target Decoration</em>}</li>
@@ -119,22 +118,6 @@ public interface OPMLink extends OPMNode {
 	void setTarget(OPMNode value);
 
 	/**
-   * Returns the value of the '<em><b>Bendpoints</b></em>' attribute list.
-   * The list contents are of type {@link org.eclipse.draw2d.geometry.Point}.
-   * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Bendpoints</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-   * @return the value of the '<em>Bendpoints</em>' attribute list.
-   * @see com.vainolo.phd.opm.model.OPMPackage#getOPMLink_Bendpoints()
-   * @model dataType="com.vainolo.phd.opm.model.Point"
-   * @generated
-   */
-	EList<Point> getBendpoints();
-
-    /**
    * Returns the value of the '<em><b>Router Kind</b></em>' attribute.
    * The default value is <code>"Bendpoint"</code>.
    * The literals are from the enumeration {@link com.vainolo.phd.opm.model.OPMLinkRouterKind}.

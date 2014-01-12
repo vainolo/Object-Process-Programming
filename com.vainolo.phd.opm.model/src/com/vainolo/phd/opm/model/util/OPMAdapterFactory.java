@@ -120,6 +120,10 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
         return createOPMProceduralLinkAdapter();
       }
       @Override
+      public Adapter caseOPMStructuralLink(OPMStructuralLink object) {
+        return createOPMStructuralLinkAdapter();
+      }
+      @Override
       public Adapter caseLabel(Label object) {
         return createLabelAdapter();
       }
@@ -298,6 +302,20 @@ public class OPMAdapterFactory extends AdapterFactoryImpl {
   }
 
 	/**
+   * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMStructuralLink <em>Structural Link</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see com.vainolo.phd.opm.model.OPMStructuralLink
+   * @generated
+   */
+  public Adapter createOPMStructuralLinkAdapter() {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link com.vainolo.phd.opm.model.OPMNamedElement <em>Named Element</em>}'.
    * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
