@@ -498,6 +498,15 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getOPMState_Value() {
+    return (EAttribute)opmStateEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOPMNode() {
     return opmNodeEClass;
   }
@@ -772,6 +781,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     createEAttribute(opmThingEClass, OPM_THING__COLLECTION);
 
     opmStateEClass = createEClass(OPM_STATE);
+    createEAttribute(opmStateEClass, OPM_STATE__VALUE);
 
     opmObjectEClass = createEClass(OPM_OBJECT);
     createEAttribute(opmObjectEClass, OPM_OBJECT__PARAMETER);
@@ -888,6 +898,7 @@ public class OPMPackageImpl extends EPackageImpl implements OPMPackage {
     initEAttribute(getOPMThing_Collection(), ecorePackage.getEBoolean(), "collection", "false", 1, 1, OPMThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmStateEClass, OPMState.class, "OPMState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getOPMState_Value(), ecorePackage.getEBoolean(), "value", "false", 1, 1, OPMState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(opmObjectEClass, OPMObject.class, "OPMObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPMObject_Parameter(), ecorePackage.getEBoolean(), "parameter", "false", 1, 1, OPMObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

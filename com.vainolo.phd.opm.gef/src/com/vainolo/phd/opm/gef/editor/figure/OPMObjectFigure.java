@@ -25,7 +25,6 @@ import org.eclipse.swt.SWT;
 import com.google.common.collect.Lists;
 import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.jdraw2d.HorizontalAlignment;
-import com.vainolo.phd.opm.model.OPMObjectKind;
 
 public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFigure {
   private final RectangleFigure topRectangle;

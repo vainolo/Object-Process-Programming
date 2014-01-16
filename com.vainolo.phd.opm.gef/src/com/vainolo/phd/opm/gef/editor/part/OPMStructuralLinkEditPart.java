@@ -1,9 +1,6 @@
 package com.vainolo.phd.opm.gef.editor.part;
 
-import org.eclipse.draw2d.ManhattanConnectionRouter;
 import org.eclipse.draw2d.PolylineConnection;
-
-import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
 import com.vainolo.phd.opm.gef.editor.figure.OPMStructuralLinkFigure;
 
 public class OPMStructuralLinkEditPart extends OPMLinkEditPart {

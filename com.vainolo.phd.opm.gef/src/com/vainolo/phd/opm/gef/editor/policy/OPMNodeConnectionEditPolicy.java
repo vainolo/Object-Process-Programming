@@ -20,7 +20,6 @@ import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
-import com.vainolo.phd.opm.gef.editor.factory.OPMLinkFactory;
 import com.vainolo.phd.opm.gef.editor.factory.OPMStructuralLinkFactory;
 import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opm.model.*;

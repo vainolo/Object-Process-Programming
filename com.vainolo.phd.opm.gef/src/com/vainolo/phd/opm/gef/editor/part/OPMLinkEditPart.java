@@ -5,24 +5,12 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.part;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.draw2d.AbsoluteBendpoint;
-import org.eclipse.draw2d.BendpointConnectionRouter;
-import org.eclipse.draw2d.Connection;
-import org.eclipse.draw2d.PolylineConnection;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.gef.*;
 import org.eclipse.gef.editparts.AbstractConnectionEditPart;
 import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
-
-import com.vainolo.phd.opm.gef.editor.figure.OPMFigureConstants;
-import com.vainolo.phd.opm.gef.editor.policy.OPMLinkBendpointEditPolicy;
-import com.vainolo.phd.opm.gef.editor.policy.OPMLinkConnectionEditPolicy;
 import com.vainolo.phd.opm.model.*;
 
 /**

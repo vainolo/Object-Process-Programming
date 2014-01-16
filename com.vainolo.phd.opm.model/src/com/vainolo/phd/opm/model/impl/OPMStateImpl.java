@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMStateImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.vainolo.phd.opm.model.impl.OPMStateImpl#getAlignment <em>Alignment</em>}</li>
+ *   <li>{@link com.vainolo.phd.opm.model.impl.OPMStateImpl#isValue <em>Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,6 +72,26 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
    * @ordered
    */
   protected VerticalAlignment alignment = ALIGNMENT_EDEFAULT;
+
+    /**
+   * The default value of the '{@link #isValue() <em>Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isValue()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean VALUE_EDEFAULT = false;
+
+    /**
+   * The cached value of the '{@link #isValue() <em>Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isValue()
+   * @generated
+   * @ordered
+   */
+  protected boolean value = VALUE_EDEFAULT;
 
     /**
    * <!-- begin-user-doc -->
@@ -135,6 +156,27 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
 
     /**
    * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isValue() {
+    return value;
+  }
+
+    /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setValue(boolean newValue) {
+    boolean oldValue = value;
+    value = newValue;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPMPackage.OPM_STATE__VALUE, oldValue, value));
+  }
+
+    /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
    * @generated
    */
@@ -145,6 +187,8 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
         return getName();
       case OPMPackage.OPM_STATE__ALIGNMENT:
         return getAlignment();
+      case OPMPackage.OPM_STATE__VALUE:
+        return isValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -162,6 +206,9 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
         return;
       case OPMPackage.OPM_STATE__ALIGNMENT:
         setAlignment((VerticalAlignment)newValue);
+        return;
+      case OPMPackage.OPM_STATE__VALUE:
+        setValue((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -181,6 +228,9 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
       case OPMPackage.OPM_STATE__ALIGNMENT:
         setAlignment(ALIGNMENT_EDEFAULT);
         return;
+      case OPMPackage.OPM_STATE__VALUE:
+        setValue(VALUE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -197,6 +247,8 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case OPMPackage.OPM_STATE__ALIGNMENT:
         return alignment != ALIGNMENT_EDEFAULT;
+      case OPMPackage.OPM_STATE__VALUE:
+        return value != VALUE_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -249,6 +301,8 @@ public class OPMStateImpl extends OPMNodeImpl implements OPMState {
     result.append(name);
     result.append(", alignment: ");
     result.append(alignment);
+    result.append(", value: ");
+    result.append(value);
     result.append(')');
     return result.toString();
   }

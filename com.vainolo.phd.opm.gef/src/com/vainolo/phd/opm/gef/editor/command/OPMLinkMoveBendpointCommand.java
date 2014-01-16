@@ -8,7 +8,6 @@ package com.vainolo.phd.opm.gef.editor.command;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 
-import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 
 /**

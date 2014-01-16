@@ -8,7 +8,6 @@ package com.vainolo.phd.opm.gef.editor.factory;
 import org.eclipse.gef.requests.CreationFactory;
 
 import com.vainolo.phd.opm.model.OPMFactory;
-import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMStructuralLink;
 
 /**

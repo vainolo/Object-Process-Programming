@@ -14,7 +14,6 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
-import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 
 import com.vainolo.phd.opm.gef.editor.figure.CircleDecoration;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
@@ -24,7 +23,6 @@ import com.vainolo.phd.opm.gef.editor.policy.OPMLinkBendpointEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMLinkConnectionEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
 import com.vainolo.phd.opm.gef.editor.policy.OPMProceduralLinkEditPolicy;
-import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.validation.OPMProceduralLinkValidator;
 

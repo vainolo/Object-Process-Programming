@@ -542,13 +542,22 @@ int OPM_THING_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 5;
   int OPM_STATE__ALIGNMENT = OPM_NODE_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPM_STATE__VALUE = OPM_NODE_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>State</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPM_STATE_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 2;
+  int OPM_STATE_FEATURE_COUNT = OPM_NODE_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1668,6 +1677,17 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
     EClass getOPMState();
 
     /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opm.model.OPMState#isValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see com.vainolo.phd.opm.model.OPMState#isValue()
+   * @see #getOPMState()
+   * @generated
+   */
+  EAttribute getOPMState_Value();
+
+    /**
    * Returns the meta object for class '{@link com.vainolo.phd.opm.model.OPMNode <em>Node</em>}'.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2166,6 +2186,14 @@ int OPM_PROCEDURAL_LINK__KIND = OPM_LINK_FEATURE_COUNT + 0;
      * @generated
      */
         EClass OPM_STATE = eINSTANCE.getOPMState();
+
+        /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPM_STATE__VALUE = eINSTANCE.getOPMState_Value();
 
         /**
      * The meta object literal for the '{@link com.vainolo.phd.opm.model.impl.OPMNodeImpl <em>Node</em>}' class.
