@@ -38,16 +38,6 @@ public enum OPMInterpreter {
     return containter;
   }
 
-  // public void interpret(final String processName, final IContainer container)
-  // {
-  // executorService = Executors.newCachedThreadPool();
-  // final OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
-  // this.containter = container;
-  // process.setName(processName);
-  // instance = createProcessInstance(process, OPMProcessKind.COMPOUND);
-  // instance.execute();
-  // }
-
   /**
    * Execute an Object Process Diagram (OPD). An OPD can be of two kinds,
    * {@link OPMObjectProcessDiagramKind#SYSTEM} and

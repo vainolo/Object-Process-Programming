@@ -23,7 +23,7 @@ public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implemen
 
   @Override
   protected void executing() {
-    double time = (double) getArgument("time");
+    double time = (double) getArgument("time").getValue();
     logger.info("Sleeping for " + time + " seconds.");
     try {
       Thread.sleep((int) time * 1000);

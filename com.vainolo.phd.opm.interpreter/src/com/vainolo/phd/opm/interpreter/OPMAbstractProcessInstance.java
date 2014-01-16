@@ -23,8 +23,8 @@ import com.vainolo.utils.SimpleLoggerFactory;
 public abstract class OPMAbstractProcessInstance implements OPMExecutableInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
-  protected final Map<String, Object> arguments = Maps.newHashMap();
-  protected final Map<OPMObject, Object> variables = Maps.newHashMap();
+  protected final Map<String, OPMObjectInstance> arguments = Maps.newHashMap();
+  protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
 
   /**
    * Actual instance execution, must be implemented by subclasses.
@@ -61,12 +61,12 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
   }
 
   @Override
-  public void setArgument(String name, Object value) {
+  public void setArgument(String name, OPMObjectInstance value) {
     arguments.put(name, value);
   }
 
   @Override
-  public Object getArgument(String name) {
+  public OPMObjectInstance getArgument(String name) {
     return arguments.get(name);
   }
 }

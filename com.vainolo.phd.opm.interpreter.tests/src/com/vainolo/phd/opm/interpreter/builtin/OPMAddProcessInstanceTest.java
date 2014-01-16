@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 
 /**
  * 
@@ -22,8 +23,8 @@ public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
   public void test_execute() {
     final OPMAddProcessInstance instance = new OPMAddProcessInstance();
 
-    instance.setArgument("a", 1);
-    instance.setArgument("b", 2);
+    instance.setArgument("a", OPMObjectInstance.create(1));
+    instance.setArgument("b", OPMObjectInstance.create(2));
 
 //    instance.execute();
 

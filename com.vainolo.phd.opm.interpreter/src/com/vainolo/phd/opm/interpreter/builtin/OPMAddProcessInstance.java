@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 
 /**
  * Process that adds two integer values.
@@ -20,10 +21,11 @@ import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
 public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   @Override
   public void executing() {
-    final double a = (double) getArgument("a");
-    final double b = (double) getArgument("b");
+    final double a = (double) getArgument("a").getValue();
+    final double b = (double) getArgument("b").getValue();
     final double c = a + b;
-    setArgument("c", c);
+    OPMObjectInstance instance = OPMObjectInstance.create(c);
+    setArgument("c", instance);
   }
 
   @Override

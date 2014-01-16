@@ -96,15 +96,16 @@ public class OPMInZoomedProcessExecutableInstanceTest {
     opd.getLinks().add(link);
     
     OPMExecutableInstance instance = OPMExecutableInstanceFactory.createExecutableInstance(opd);
-    instance.setArgument("a", 1.0);
-    instance.setArgument("b", 2.0);
-    instance.execute();
-    assertEquals(3.0, instance.getArgument("c"));
     
-    instance.setArgument("a", 5.0);
-    instance.setArgument("b", 15.4);
+    instance.setArgument("a", OPMObjectInstance.create(1.0));
+    instance.setArgument("b", OPMObjectInstance.create(2.0));
     instance.execute();
-    assertEquals(20.4, instance.getArgument("c"));
+    assertEquals(3.0, instance.getArgument("c").getValue());
+    
+    instance.setArgument("a", OPMObjectInstance.create(5.0));
+    instance.setArgument("b", OPMObjectInstance.create(15.4));
+    instance.execute();
+    assertEquals(20.4, instance.getArgument("c").getValue());
   }
   
   @Before

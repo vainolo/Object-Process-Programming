@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 
 /**
  * Arguments:
@@ -24,7 +25,8 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
   @Override
   protected void executing() {
     final String retVal = showInputDialog();
-    setArgument("text", retVal);
+    OPMObjectInstance instance = OPMObjectInstance.create(retVal);
+    setArgument("text", instance);
   }
 
   /**

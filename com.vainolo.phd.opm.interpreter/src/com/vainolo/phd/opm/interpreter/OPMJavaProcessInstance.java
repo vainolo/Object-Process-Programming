@@ -59,9 +59,9 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
       target = getArgument("this");
 
     final Object result = callMethod(method);
-
+    OPMObjectInstance instance = OPMObjectInstance.create(result);
     if(!method.getReturnType().equals(Void.TYPE)) {
-      setArgument("result", result);
+      setArgument("result", instance);
     }
   }
 

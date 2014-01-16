@@ -21,7 +21,7 @@ public interface OPMExecutableInstance {
    * @param value
    *          of the argument.
    */
-  void setArgument(String name, Object value);
+  void setArgument(String name, OPMObjectInstance value);
 
   /**
    * Get the value of an argument.
@@ -33,7 +33,7 @@ public interface OPMExecutableInstance {
    *           if the argument has no value (only occurs for outgoing
    *           arguments).
    */
-  Object getArgument(String name);
+  OPMObjectInstance getArgument(String name);
 
   /**
    * Get the name of the OPD/Process

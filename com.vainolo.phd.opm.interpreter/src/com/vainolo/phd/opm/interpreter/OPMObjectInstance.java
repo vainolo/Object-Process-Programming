@@ -19,15 +19,17 @@ import com.google.common.collect.Sets;
  * 
  */
 public class OPMObjectInstance {
-  public static final String UNKNOWN_STATE = "unknown";
 
-  private Object value;
+  private Object value = null;
   private boolean valueSet = false;
 
-  private final Set<String> states = Sets.newHashSet();
-  private String currentState = UNKNOWN_STATE;
+  private OPMObjectInstance() {
+  }
 
-  public OPMObjectInstance() {
+  public static OPMObjectInstance create(Object o) {
+    OPMObjectInstance instance = new OPMObjectInstance();
+    instance.setValue(o);
+    return instance;
   }
 
   public void setValue(Object value) {
@@ -50,29 +52,12 @@ public class OPMObjectInstance {
     return value;
   }
 
-  public void addState(String stateName) {
-    checkNotNull(stateName, "State name cannot be null");
-    checkState(!states.contains(stateName), "State %s is already defined in instance.", stateName);
-    states.add(stateName);
-  }
-
-  public void setState(String stateName) {
-    checkNotNull(stateName, "State name cannot be null");
-    if(!states.contains(stateName))
-      states.add(stateName);
-    currentState = stateName;
-  }
-
-  public String getState() {
-    return currentState;
-  }
-
   @Override
   public String toString() {
     if(isValueSet())
       return getValue().toString();
     else
-      return currentState;
+      return "Nothing";
   }
 
 }

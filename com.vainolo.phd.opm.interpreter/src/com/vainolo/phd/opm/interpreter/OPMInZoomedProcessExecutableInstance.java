@@ -50,7 +50,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     this.executionAnalyzer = new OPDExecutionAnalyzer();
   }
 
-  protected final Map<OPMObject, Object> variables = Maps.newHashMap();
+  protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
 
   @Override
   protected void preExecution() {
@@ -76,7 +76,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
    * @param value
    *          the value to store
    */
-  protected void setVariable(OPMObject object, Object value) {
+  protected void setVariable(OPMObject object, OPMObjectInstance value) {
     variables.put(object, value);
   }
 
@@ -88,7 +88,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
    * @return the value of the {@link OPMObject}, or <code>null</code> if no
    *         value has been assigned.
    */
-  protected Object getVariable(OPMObject object) {
+  protected OPMObjectInstance getVariable(OPMObject object) {
     return variables.get(object);
   }
 
@@ -150,7 +150,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       // to existing target waiting instances.
       for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(follower.getProcess(instance))) {
         OPMObject object = OPMObject.class.cast(instanceOutgoingDataLink.getTarget());
-        Object value = instance.getArgument(instanceOutgoingDataLink.getCenterDecoration());
+        OPMObjectInstance value = instance.getArgument(instanceOutgoingDataLink.getCenterDecoration());
         setVariable(object, value);
 
         for(OPMProceduralLink objectOutgoingDataLink : analyzer.findOutgoingDataLinks(object)) {
@@ -205,7 +205,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
         } else if(Character.isDigit(objectName.charAt(0))) {
           objectValue = Double.parseDouble(objectName);
         }
-        setVariable(object, objectValue);
+        if(objectValue != null)
+          setVariable(object, OPMObjectInstance.create(objectValue));
       }
     }
   }
@@ -229,7 +230,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       } else if(Character.isDigit(objectName.charAt(0))) {
         objectValue = Double.parseDouble(objectName);
       }
-      setVariable(object, objectValue);
+      OPMObjectInstance instance = OPMObjectInstance.create(objectValue);
+      setVariable(object, instance);
     }
   }
 
