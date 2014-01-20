@@ -13,10 +13,7 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.actions.ActionFactory;
 
-import com.vainolo.phd.opm.gef.editor.action.ResizeToContentsAction;
-import com.vainolo.phd.opm.gef.editor.action.ThingInZoomAction;
-import com.vainolo.phd.opm.gef.editor.action.ToggleThingMultiplicityAction;
-import com.vainolo.phd.opm.gef.editor.action.ToggleProceduralLinkSubkindAction;
+import com.vainolo.phd.opm.gef.editor.action.*;
 
 public class OPMGraphicalEditorContextMenuProvider extends ContextMenuProvider {
 
@@ -39,15 +36,17 @@ public class OPMGraphicalEditorContextMenuProvider extends ContextMenuProvider {
     menu.appendToGroup(GEFActionConstants.GROUP_UNDO, action);
     action = getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID);
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-    action = getActionRegistry().getAction(ToggleProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
+    action = getActionRegistry().getAction(ToggledProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-    action = getActionRegistry().getAction(ToggleProceduralLinkSubkindAction.EVENT_SUBKIND_ID);
+    action = getActionRegistry().getAction(ToggledProceduralLinkSubkindAction.EVENT_SUBKIND_ID);
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-    action = getActionRegistry().getAction(ToggleProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
+    action = getActionRegistry().getAction(ToggledProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
     action = getActionRegistry().getAction(ThingInZoomAction.THING_IN_ZOOM_ID);
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
     action = getActionRegistry().getAction(ToggleThingMultiplicityAction.TOGGLE_MULTIPLICITY_ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(ToggleStateValueAction.TOGGLE_VALUE_STATE_ID);
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
   }
 

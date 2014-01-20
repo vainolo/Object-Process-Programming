@@ -31,7 +31,6 @@ public class ToggleThingMultiplicityAction extends SelectionAction {
   @SuppressWarnings("unchecked")
   @Override
   public void run() {
-    // Action is active so only procedural links are selected.
     List<OPMThingEditPart> editParts = getSelectedObjects();
     CompoundCommand compoundCommand = new CompoundCommand();
     for(OPMThingEditPart thingEditPart : editParts) {

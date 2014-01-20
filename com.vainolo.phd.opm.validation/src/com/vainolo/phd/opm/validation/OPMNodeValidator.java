@@ -1,11 +1,9 @@
 package com.vainolo.phd.opm.validation;
 
-import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.model.OPMState;
 
 /**
  * Validate node operations.
@@ -14,6 +12,7 @@ import com.vainolo.phd.opm.model.OPMState;
  * 
  */
 public class OPMNodeValidator {
+  private OPMObjectValidator objectValidator = new OPMObjectValidator();
 
   /**
    * Validate if a node can be added to a container.
@@ -26,14 +25,19 @@ public class OPMNodeValidator {
    *         <code>false</code> otherwise.
    */
   public boolean validateAddNode(Object container, Object node) {
+    if(OPMNode.class.isInstance(node))
+      return validateAddNode(container, OPMNode.class.cast(node));
+    else
+      return false;
+  }
+
+  private boolean validateAddNode(Object container, OPMNode node) {
     if(OPMObjectProcessDiagram.class.isInstance(container)) {
       if(OPMObject.class.isInstance(node) || OPMProcess.class.isInstance(node)) {
         return true;
       }
     } else if(OPMObject.class.isInstance(container)) {
-      if(OPMState.class.isInstance(node)) {
-        return true;
-      }
+      return objectValidator.validateAddNode(OPMObject.class.cast(container), node);
     } else if(OPMProcess.class.isInstance(container)) {
       if(OPMObject.class.isInstance(node) || OPMProcess.class.isInstance(node)) {
         return true;
@@ -41,5 +45,4 @@ public class OPMNodeValidator {
     }
     return false;
   }
-
 }
