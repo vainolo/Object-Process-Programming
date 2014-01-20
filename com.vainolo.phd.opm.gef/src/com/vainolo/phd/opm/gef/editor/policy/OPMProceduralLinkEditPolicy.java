@@ -4,7 +4,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 
-import com.vainolo.phd.opm.gef.editor.action.ToggleProceduralLinkSubkindAction;
+import com.vainolo.phd.opm.gef.editor.action.ToggledProceduralLinkSubkindAction;
 import com.vainolo.phd.opm.gef.editor.command.OPMProceduralLinkAddSubkindCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMProceduralLinkRemoveSubkindCommand;
 import com.vainolo.phd.opm.gef.editor.part.OPMProceduralLinkEditPart;
@@ -29,7 +29,7 @@ public class OPMProceduralLinkEditPolicy extends AbstractEditPolicy {
   @Override
   public Command getCommand(Request request) {
     Command command = null;
-    if(request.getType().equals(ToggleProceduralLinkSubkindAction.TOGGLE_PROCEDURAL_LINK_SUBKIND_REQUEST)) {
+    if(request.getType().equals(ToggledProceduralLinkSubkindAction.TOGGLE_PROCEDURAL_LINK_SUBKIND_REQUEST)) {
       String subkind = (String) request.getExtendedData().get("subkind");
       OPMProceduralLink link = (OPMProceduralLink) getHost().getModel();
 

@@ -34,8 +34,8 @@ public class OPMObjectEditPart extends OPMThingEditPart {
     figure.setTooltipText(model.getDescription());
 
     Rectangle constraints = model.getConstraints().getCopy();
-    Dimension size = figure.getPreferredSize();
-    constraints.setSize(size);
+    // Dimension size = figure.getPreferredSize();
+    // constraints.setSize(size);
     parent.setLayoutConstraint(this, figure, constraints);
   }
 

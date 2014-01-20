@@ -13,8 +13,10 @@ import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMState;
 
 public class OPDAnalyzer {
+
   private OPDAnalysis analyzer = OPDAnalysis.INSTANCE;
 
   /**
@@ -221,6 +223,18 @@ public class OPDAnalyzer {
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMObject object) {
     return (Collection) Collections2.filter(object.getOutgoingLinks(), new IsOPMObjectOutgoingDataLink());
+  }
+
+  /**
+   * Find all states contained in an {@link OPMObject}.
+   * 
+   * @param object
+   *          to search
+   * @return all states contained in the {@link OPMObject}.
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPMState> findStates(OPMObject object) {
+    return (Collection) Collections2.filter(object.getNodes(), new IsOPMState());
   }
 
   /**
@@ -446,4 +460,14 @@ public class OPDAnalyzer {
       return OPMProceduralLinkKind.CONSUMPTION.equals(input.getKind());
     }
   }
+
+  public class IsOPMState implements Predicate<OPMNode> {
+
+    @Override
+    public boolean apply(OPMNode node) {
+      return OPMState.class.isInstance(node);
+    }
+
+  }
+
 }

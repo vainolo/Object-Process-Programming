@@ -15,11 +15,13 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.LineAttributes;
 
 import com.vainolo.draw2d.extras.SmartLabelFigure;
 
 /**
- * A figure representing an OPM State. A state is represented by a rountangle (rounded rectangle).
+ * A figure representing an OPM State. A state is represented by a rountangle
+ * (rounded rectangle).
  * 
  * @author vainolo
  * 
@@ -28,6 +30,7 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
   private final RoundedRectangle rectangle;
   private ConnectionAnchor connectionAnchor;
   private final SmartLabelFigure smartLabel;
+  private boolean valueState = false;
 
   public OPMStateFigure() {
     super();
@@ -41,7 +44,12 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
     rectangle.setFill(false);
     rectangle.setForegroundColor(OPMFigureConstants.STATE_COLOR);
     rectangle.setLineWidth(OPMFigureConstants.ENTITY_BORDER_WIDTH);
+
     add(rectangle);
+  }
+
+  public void setValueState(boolean valueState) {
+    this.valueState = valueState;
   }
 
   /**
@@ -74,6 +82,11 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
   @Override
   protected void paintFigure(Graphics graphics) {
     Rectangle r = getBounds().getCopy();
+    if(valueState) {
+      rectangle.setLineStyle(SWT.LINE_DASH);
+    } else {
+      rectangle.setLineStyle(SWT.LINE_SOLID);
+    }
     setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
     setConstraint(smartLabel, new Rectangle(5, 5, r.width - 10, r.height - 5));
   }

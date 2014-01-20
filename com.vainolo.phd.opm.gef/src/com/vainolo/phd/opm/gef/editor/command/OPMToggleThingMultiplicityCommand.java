@@ -20,11 +20,6 @@ public class OPMToggleThingMultiplicityCommand extends Command {
   }
 
   @Override
-  public boolean canUndo() {
-    return true;
-  }
-
-  @Override
   public void undo() {
     execute();
   }

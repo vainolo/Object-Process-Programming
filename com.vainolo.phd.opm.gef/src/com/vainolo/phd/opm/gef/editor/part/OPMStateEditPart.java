@@ -24,6 +24,7 @@ import com.vainolo.phd.opm.gef.editor.figure.OPMNamedElementFigure;
 import com.vainolo.phd.opm.gef.editor.figure.OPMStateFigure;
 import com.vainolo.phd.opm.gef.editor.part.delegates.DirectEditDelegate;
 import com.vainolo.phd.opm.gef.editor.policy.OPMNamedEntityDirectEditPolicy;
+import com.vainolo.phd.opm.gef.editor.policy.OPMStateEditPolicy;
 import com.vainolo.phd.opm.model.OPMState;
 
 public class OPMStateEditPart extends OPMNodeEditPart {
@@ -42,11 +43,12 @@ public class OPMStateEditPart extends OPMNodeEditPart {
     super.createEditPolicies();
     installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPMNamedEntityDirectEditPolicy());
     installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
+    installEditPolicy(OPMStateEditPolicy.STATE_EDIT_ROLE, new OPMStateEditPolicy());
   }
 
   @Override
   public void performRequest(Request req) {
-    if(req.getType() == RequestConstants.REQ_DIRECT_EDIT) {
+    if(req.getType() == RequestConstants.REQ_OPEN) {
       DirectEditDelegate.performDirectEditing(this, ((OPMNamedElementFigure) getFigure()).getNameFigure());
     }
   }
@@ -58,6 +60,7 @@ public class OPMStateEditPart extends OPMNodeEditPart {
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
     figure.getNameFigure().setText(model.getName());
+    figure.setValueState(model.isValue());
     parent.setLayoutConstraint(this, figure, model.getConstraints());
   }
 
