@@ -43,34 +43,6 @@ public abstract class OPMThingEditPart extends OPMNodeEditPart {
   public void performRequest(final Request req) {
     if(req.getType() == RequestConstants.REQ_OPEN) {
       DirectEditDelegate.performDirectEditing(this, ((OPMNamedElementFigure) getFigure()).getNameFigure());
-      // if(req.getType() == RequestConstants.REQ_OPEN) {
-      // final String thingName = ((OPMThing) getModel()).getName();
-      // final IEditorPart editorPart = ((DefaultEditDomain)
-      // getViewer().getEditDomain()).getEditorPart();
-      // final IFileEditorInput input = (IFileEditorInput)
-      // editorPart.getEditorInput();
-      // final IFile newFile = input.getFile().getParent().getFile(new
-      // Path(thingName + ".opm"));
-      // // final String directory =
-      // // input.getFile().getParent().getLocationURI().toString();
-      // try {
-      // if(!newFile.exists()) {
-      // OPMFileUtils.INSTANCE.createOPDFile2(newFile, thingName,
-      // OPMObjectProcessDiagramKind.COMPOUND,
-      // OPMObject.class.isInstance(getModel()),
-      // OPMProcess.class.isInstance(getModel()));
-      // }
-      // input.getFile().getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE,
-      // null);
-      // final IEditorDescriptor editor =
-      // PlatformUI.getWorkbench().getEditorRegistry()
-      // .getDefaultEditor(newFile.getName());
-      // final IWorkbenchPage page = editorPart.getSite().getPage();
-      // page.openEditor(new FileEditorInput(newFile), editor.getId());
-      // } catch(Exception e) {
-      // OPMGEFEditorPlugin.INSTANCE.log("There was a problem creating or openning the OPM file.");
-      // OPMGEFEditorPlugin.INSTANCE.log(e);
-      // }
     } else {
       super.performRequest(req);
     }

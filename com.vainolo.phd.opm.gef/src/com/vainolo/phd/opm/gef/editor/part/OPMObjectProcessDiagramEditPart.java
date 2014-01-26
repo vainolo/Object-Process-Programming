@@ -34,10 +34,6 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
   @Override
   protected IFigure createFigure() {
-    // FreeformLayer f = new FreeformLayer();
-    // f.setLayoutManager(new FreeformLayout());
-    // f.setBorder(new LineBorder(1));
-    // return f;
     return new OPMObjectProcessDiagramFigure();
   }
 
@@ -111,7 +107,6 @@ public class OPMObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
     @Override
     public void notifyChanged(Notification notification) {
       refresh();
-      // refreshChildren();
     }
 
     @Override

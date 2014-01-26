@@ -28,7 +28,14 @@ public class OPMNodeChangeConstraintCommand extends Command {
    */
   @Override
   public boolean canExecute() {
-    return node != null && newConstraint != null;
+    if(node == null || newConstraint == null)
+      return false;
+    if(newConstraint != null) {
+      if(newConstraint.x < 0 || newConstraint.y < 0 || newConstraint.width < 0 || newConstraint.height < 0) {
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -40,7 +47,8 @@ public class OPMNodeChangeConstraintCommand extends Command {
   }
 
   /**
-   * Save the old constraints and set new new constraints for the {@link OPMNode}.
+   * Save the old constraints and set new new constraints for the
+   * {@link OPMNode}.
    */
   @Override
   public void execute() {

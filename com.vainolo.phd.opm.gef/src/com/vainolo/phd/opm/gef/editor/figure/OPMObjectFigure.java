@@ -27,14 +27,14 @@ import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.jdraw2d.HorizontalAlignment;
 
 public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFigure {
-  private final RectangleFigure topRectangle;
-  private final RectangleFigure shade1;
-  private final RectangleFigure shade2;
+  private final RectangleFigure borderFigure;
+  private final RectangleFigure shade1Figure;
+  private final RectangleFigure shade2Figure;
 
   private final ContentPane contentPane;
   private ConnectionAnchor connectionAnchor;
   private boolean collection;
-  private final SmartLabelFigure smartLabel;
+  private final SmartLabelFigure nameLabel;
 
   private RectangleFigure createRectangleFigure() {
     RectangleFigure figure = new RectangleFigure();
@@ -49,35 +49,35 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
 
     this.collection = collection;
 
-    topRectangle = createRectangleFigure();
-    topRectangle.setLayoutManager(new XYLayout());
+    borderFigure = createRectangleFigure();
+    borderFigure.setLayoutManager(new XYLayout());
 
-    smartLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
-    smartLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
-    smartLabel.setHorizontalAlignment(HorizontalAlignment.CENTER);
-    topRectangle.add(smartLabel);
+    nameLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
+    nameLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
+    nameLabel.setHorizontalAlignment(HorizontalAlignment.CENTER);
+    borderFigure.add(nameLabel);
 
     contentPane = new ContentPane();
-    topRectangle.add(contentPane);
+    borderFigure.add(contentPane);
 
-    shade2 = createRectangleFigure();
-    shade2.setLayoutManager(new XYLayout());
-    add(shade2);
+    shade2Figure = createRectangleFigure();
+    shade2Figure.setLayoutManager(new XYLayout());
+    add(shade2Figure);
 
-    shade1 = createRectangleFigure();
-    shade1.setLayoutManager(new XYLayout());
-    add(shade1);
+    shade1Figure = createRectangleFigure();
+    shade1Figure.setLayoutManager(new XYLayout());
+    add(shade1Figure);
 
-    add(topRectangle);
+    add(borderFigure);
   }
 
   public void setObjectKind(boolean newCollection) {
     if(collection && !newCollection) {
-      shade1.setVisible(false);
-      shade2.setVisible(false);
+      shade1Figure.setVisible(false);
+      shade2Figure.setVisible(false);
     } else if(!collection && newCollection) {
-      shade1.setVisible(true);
-      shade2.setVisible(true);
+      shade1Figure.setVisible(true);
+      shade2Figure.setVisible(true);
     }
     this.collection = newCollection;
   }
@@ -87,27 +87,19 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     return contentPane;
   }
 
-  private void paintSimpleObject(Rectangle r) {
-    setConstraint(topRectangle, new Rectangle(0, 0, r.width(), r.height()));
-    setConstraint(shade1, new Rectangle(0, 0, r.width(), r.height()));
-    setConstraint(shade2, new Rectangle(0, 0, r.width(), r.height()));
-
-    Dimension contentPaneDimensions = contentPane.getPreferredSize();
-    topRectangle.setConstraint(smartLabel,
-        new Rectangle(5, 5, r.width() - 10, r.height() - contentPaneDimensions.height()));
-    topRectangle.setConstraint(contentPane, new Rectangle(0, r.height() - contentPaneDimensions.height() - 5,
-        r.width(), contentPaneDimensions.height()));
+  private void paintBorders(Rectangle r, int offset) {
+    setConstraint(borderFigure, new Rectangle(0, 0, r.width() - 2 * offset, r.height() - 2 * offset));
+    setConstraint(shade1Figure, new Rectangle(offset, offset, r.width() - 2 * offset, r.height() - 2 * offset));
+    setConstraint(shade2Figure, new Rectangle(2 * offset, 2 * offset, r.width() - 2 * offset, r.height() - 2 * offset));
   }
 
-  private void paintCollectionObject(Rectangle r) {
-    setConstraint(topRectangle, new Rectangle(0, 0, r.width() - 10, r.height() - 10));
-    setConstraint(shade1, new Rectangle(5, 5, r.width() - 10, r.height() - 10));
-    setConstraint(shade2, new Rectangle(10, 10, r.width() - 10, r.height() - 10));
-    Dimension contentPaneDimensions = contentPane.getPreferredSize();
-    topRectangle.setConstraint(smartLabel,
-        new Rectangle(5, 5, r.width() - 20, r.height() - contentPaneDimensions.height() - 10));
-    topRectangle.setConstraint(contentPane,
-        new Rectangle(0, r.height() - contentPaneDimensions.height() - 15, r.width(), contentPaneDimensions.height()));
+  private void paintNameAndContainer(Rectangle r, int offset) {
+    Dimension nameDimensions = nameLabel.getPreferredSize();
+    if(nameDimensions.width > r.width - 2 * offset) {
+      nameDimensions = nameLabel.getPreferredSize(r.width - 2 * offset, -1);
+    }
+    borderFigure.setConstraint(nameLabel, new Rectangle(0, 5, r.width, nameDimensions.height));
+    borderFigure.setConstraint(contentPane, new Rectangle(0, 0, r.width - 2 * offset, r.height - 2 * offset));
   }
 
   @Override
@@ -115,9 +107,11 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
     if(!collection) {
-      paintSimpleObject(r);
+      paintBorders(r, 0);
+      paintNameAndContainer(r, 0);
     } else {
-      paintCollectionObject(r);
+      paintBorders(r, 5);
+      paintNameAndContainer(r, 5);
     }
   }
 
@@ -140,29 +134,30 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
 
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
-    Dimension smartLabelSize = smartLabel.calculateSize();
+    Dimension smartLabelSize = nameLabel.calculateSize().expand(0, 5);
     Dimension contentPaneSize = contentPane.getPreferredSize();
 
     // If contentPane size is wider than smart label size, we must re-calculate
     // the height of the smart label using the width of the content pane.
     if(smartLabelSize.width() < contentPaneSize.width()) {
-      smartLabel.invalidate();
-      smartLabelSize = smartLabel.getPreferredSize(contentPaneSize.width(), -1);
+      nameLabel.invalidate();
+      smartLabelSize = nameLabel.getPreferredSize(contentPaneSize.width(), -1);
     }
 
     Dimension prefSize = new Dimension();
     prefSize.width = max(smartLabelSize.width(), contentPaneSize.width());
-    prefSize.height = smartLabelSize.height() + contentPaneSize.height();
+    prefSize.height = max(smartLabelSize.height(), contentPaneSize.height());
 
-    if(!collection)
-      return prefSize.expand(10, 10);
-    else
-      return prefSize.expand(20, 20);
+    if(collection)
+      prefSize = prefSize.expand(10, 10);
+
+    return prefSize.expand(5, 5);
+
   }
 
   @Override
   public SmartLabelFigure getNameFigure() {
-    return smartLabel;
+    return nameLabel;
   }
 
   static final Comparator<OPMStateFigure> stateComparator = new Comparator<OPMStateFigure>() {
@@ -182,17 +177,9 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
       super.paintFigure(graphics);
       @SuppressWarnings("unchecked")
       List<OPMStateFigure> stateFigures = Lists.newArrayList(getChildren());
-      Collections.sort(stateFigures, stateComparator);
-      Rectangle r = getBounds();
-      Dimension d = getPreferredSize();
-      int currentX = 5;
-      if(r.width() > d.width()) {
-        currentX += (r.width() - d.width()) / 2;
-      }
       for(OPMStateFigure child : stateFigures) {
-        Dimension prefSize = child.getPreferredSize();
-        setConstraint(child, new Rectangle(currentX, 5, prefSize.width(), prefSize.height()));
-        currentX += prefSize.width() + 5;
+        setConstraint(child,
+            new Rectangle(child.getBounds().x, child.getBounds().y, child.getBounds().width, child.getBounds().height));
       }
     }
 
@@ -200,19 +187,15 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     public Dimension getPreferredSize(int wHint, int hHint) {
       @SuppressWarnings("unchecked")
       List<OPMStateFigure> stateFigures = Lists.newArrayList(getChildren());
-      if(stateFigures.size() == 0)
-        return new Dimension();
-
-      int totalWidth = 5; // left margin
-      int maxHeight = 0;
+      int width = 0;
+      int height = 0;
       for(OPMStateFigure stateFigure : stateFigures) {
-        Dimension prefSize = stateFigure.getPreferredSize();
-        totalWidth += prefSize.width() + 5; // right margin included here
-        maxHeight = (maxHeight > prefSize.height() ? maxHeight : prefSize.height);
+        Rectangle stateBounds = stateFigure.getBounds();
+        width = (width > stateBounds.x + stateBounds.width) ? width : stateBounds.x + stateBounds.width;
+        height = (height > stateBounds.y + stateBounds.height) ? height : stateBounds.y + stateBounds.height;
       }
-      maxHeight += 10; // top and bottom margin
 
-      return new Dimension(totalWidth, maxHeight);
+      return new Dimension(width, height);
     }
   }
 }

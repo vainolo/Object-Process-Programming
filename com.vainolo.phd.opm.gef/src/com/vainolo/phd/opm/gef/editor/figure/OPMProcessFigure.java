@@ -5,13 +5,7 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.figure;
 
-import org.eclipse.draw2d.ConnectionAnchor;
-import org.eclipse.draw2d.Ellipse;
-import org.eclipse.draw2d.EllipseAnchor;
-import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
@@ -142,4 +136,18 @@ public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementF
   public void setMultiple(boolean multiple) {
     this.isMultiple = multiple;
   }
+
+  @Override
+  public boolean containsPoint(int x, int y) {
+    Rectangle r = getBounds();
+    long ux = x - r.x - r.width / 2;
+    long uy = y - r.y - r.height / 2;
+    return ((ux * ux) << 10) / (r.width * r.width) + ((uy * uy) << 10) / (r.height * r.height) <= 256;
+  }
+
+  @Override
+  public void setBounds(Rectangle rect) {
+    super.setBounds(rect);
+  }
+
 }
