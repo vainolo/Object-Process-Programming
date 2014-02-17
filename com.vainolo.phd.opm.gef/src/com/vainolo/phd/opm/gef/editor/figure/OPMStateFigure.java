@@ -89,6 +89,11 @@ public class OPMStateFigure extends Figure implements OPMNodeFigure, OPMNamedEle
   @Override
   protected void paintFigure(Graphics graphics) {
     Rectangle r = getBounds().getCopy();
+    if(valueState) {
+      rectangle.setLineStyle(SWT.LINE_DASH);
+    } else {
+      rectangle.setLineStyle(SWT.LINE_SOLID);
+    }
     setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
     setConstraint(innerRectangle, new Rectangle(3, 3, r.width - 6, r.height - 6));
     if(valueState) {

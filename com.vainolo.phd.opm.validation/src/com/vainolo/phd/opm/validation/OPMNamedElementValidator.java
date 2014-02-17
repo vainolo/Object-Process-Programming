@@ -13,8 +13,9 @@ public class OPMNamedElementValidator {
       OPMState state = OPMState.class.cast(element);
       OPMObject object = OPMObject.class.cast(state.getContainer());
       return (new OPMObjectValidator()).validateRenameState(object, newName);
-    } else {
-      return true;
     }
+    
+    return false;
+    
   }
 }
