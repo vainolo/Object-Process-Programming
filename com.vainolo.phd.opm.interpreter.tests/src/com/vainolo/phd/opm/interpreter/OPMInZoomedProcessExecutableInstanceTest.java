@@ -8,6 +8,7 @@ package com.vainolo.phd.opm.interpreter;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -97,15 +98,15 @@ public class OPMInZoomedProcessExecutableInstanceTest {
     
     OPMExecutableInstance instance = OPMExecutableInstanceFactory.createExecutableInstance(opd);
     
-    instance.setArgument("a", OPMObjectInstance.create(1.0));
-    instance.setArgument("b", OPMObjectInstance.create(2.0));
+    instance.setArgument("a", OPMObjectInstance.createFromValue(new BigDecimal(1.0)));
+    instance.setArgument("b", OPMObjectInstance.createFromValue(new BigDecimal(2.0)));
     instance.execute();
-    assertEquals(3.0, instance.getArgument("c").getValue());
+    assertEquals(3.0, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
     
-    instance.setArgument("a", OPMObjectInstance.create(5.0));
-    instance.setArgument("b", OPMObjectInstance.create(15.4));
+    instance.setArgument("a", OPMObjectInstance.createFromValue(new BigDecimal(5.0)));
+    instance.setArgument("b", OPMObjectInstance.createFromValue(new BigDecimal(15.4)));
     instance.execute();
-    assertEquals(20.4, instance.getArgument("c").getValue());
+    assertEquals(20.4, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
   }
   
   @Before

@@ -63,7 +63,7 @@ class OPMInZoomedProcessExecutionState {
   }
 
   public boolean areThereWaitingOrReadyInstances() {
-    return waitingInstances.size() > 0 || readyInstances.size() > 0;
+    return areThereWaitingInstances() || areThereReadyInstances();
   }
 
   public boolean areThereReadyInstances() {

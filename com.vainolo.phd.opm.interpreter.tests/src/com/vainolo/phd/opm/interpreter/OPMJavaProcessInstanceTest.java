@@ -19,7 +19,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
 public class OPMJavaProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
   private OPMProcess process;
-  private OPMJavaProcessInstance instance;
+  private OPMJavaProcessExecutableInstance instance;
 
 //  @Test(expected = RuntimeException.class)
 //  public void testExecuting_NonexistentClass_Exception() {

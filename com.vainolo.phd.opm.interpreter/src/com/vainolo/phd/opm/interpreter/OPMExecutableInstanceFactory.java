@@ -7,6 +7,8 @@ package com.vainolo.phd.opm.interpreter;
 
 import java.util.logging.Logger;
 
+import org.eclipse.core.runtime.Path;
+
 import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMAssignProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMConceptualProcess;
@@ -16,6 +18,7 @@ import com.vainolo.phd.opm.interpreter.builtin.OPMPrintHelloWorldProcessInstance
 import com.vainolo.phd.opm.interpreter.builtin.OPMSleepProcessInstance;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.utilities.OPMFileUtils;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -23,7 +26,7 @@ public class OPMExecutableInstanceFactory {
 
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMExecutableInstanceFactory.class.getName());
 
-  public static OPMExecutableInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
+  static OPMExecutableInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
     case COMPOUND:
       return new OPMInZoomedProcessExecutableInstance(opd, new OPDAnalyzer());
@@ -34,24 +37,31 @@ public class OPMExecutableInstanceFactory {
     return null;
   }
 
-  public static OPMExecutableInstance createExecutableInstance(final OPMProcess process) {
-    OPMExecutableInstance processInstance = null;
+  public static OPMExecutableInstance createExecutableInstance(String opdName) {
+    OPMObjectProcessDiagram opd = OPMFileUtils.INSTANCE.loadOPDFile(OPMInterpreter.container
+        .getFile(new Path(opdName + ".opm")).getFullPath().toString());
+    return createExecutableInstance(opd);
+
+  }
+
+  public static OPMExecutableInstance createExecutableInstance(OPMProcess process) {
+    OPMExecutableInstance executableInstance = null;
     switch(process.getKind()) {
     case BUILT_IN:
-      processInstance = createBuildInProcess(process);
+      executableInstance = createBuildInProcess(process);
       break;
     case COMPOUND:
-      processInstance = new OPMInZoomedProcessInstance(process);
+      executableInstance = createExecutableInstance(process.getName());
       break;
     case CONCEPTUAL:
-      processInstance = new OPMConceptualProcess(process);
+      executableInstance = new OPMConceptualProcess(process);
       break;
     case JAVA:
-      processInstance = new OPMJavaProcessInstance(process);
+      executableInstance = new OPMJavaProcessExecutableInstance(process);
       break;
     }
 
-    return processInstance;
+    return executableInstance;
   }
 
   private static OPMExecutableInstance createBuildInProcess(final OPMProcess process) {

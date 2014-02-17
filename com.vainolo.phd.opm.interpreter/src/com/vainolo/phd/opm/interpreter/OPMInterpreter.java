@@ -9,11 +9,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IContainer;
-import org.eclipse.core.runtime.Path;
 
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
-import com.vainolo.phd.opm.utilities.OPMFileUtils;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -26,16 +23,11 @@ public enum OPMInterpreter {
   INSTANCE;
 
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMInterpreter.class.getName());
+  public static IContainer container = null;
 
-  private IContainer containter;
   private ExecutorService executorService;
-  private OPMExecutableInstance instance;
 
   private OPMInterpreter() {
-  }
-
-  public IContainer getContainer() {
-    return containter;
   }
 
   /**
@@ -47,13 +39,13 @@ public enum OPMInterpreter {
    * @param opdName
    * @param container
    */
-  public void interpret(String opdName, final IContainer container) {
-    this.containter = container;
-    OPMObjectProcessDiagram opd = OPMFileUtils.INSTANCE.loadOPDFile(container.getFile(new Path(opdName + ".opm"))
-        .getFullPath().toString());
-    OPMExecutableInstance instance = OPMExecutableInstanceFactory.createExecutableInstance(opd);
-    instance.execute();
+  public void interpret(String opdName, final IContainer _container) {
+    container = _container;
+    logger.info("Interpreting OPD" + opdName);
+    OPMExecutableInstance instance = OPMExecutableInstanceFactory.createExecutableInstance(opdName);
 
+    instance.execute();
+    logger.info("Finished interpreting " + opdName);
   }
 
   public ExecutorService getExecutorService() {

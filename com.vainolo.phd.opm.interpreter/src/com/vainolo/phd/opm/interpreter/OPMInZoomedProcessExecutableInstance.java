@@ -1,5 +1,6 @@
 package com.vainolo.phd.opm.interpreter;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +17,9 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMState;
+import com.vainolo.phd.opm.model.impl.OPMProcessImpl;
+import com.vainolo.phd.opm.utilities.OPMConstants;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -34,7 +38,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private final OPMObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
   private OPDAnalyzer analyzer;
-  private OPMInZoomedProcessExecutionState follower = new OPMInZoomedProcessExecutionState();
+  private OPMInZoomedProcessExecutionState executionState = new OPMInZoomedProcessExecutionState();
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
 
@@ -55,11 +59,9 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   @Override
   protected void preExecution() {
     super.preExecution();
-    // get in-zoomed process and create DAG
-    inZoomedProcess = analyzer.getInZoomedProcess(opd);
-    opdDag = executionAnalyzer.createExecutionDAG(inZoomedProcess);
-    initializeVariablesWithArgumentValues();
-    initializeVariablesWithConstantValue();
+    inZoomedProcess = analyzer.getInZoomedProcess(getOpd());
+    opdDag = executionAnalyzer.createExecutionDAG(getInZoomedProcess());
+    initializeVariables();
   }
 
   @Override
@@ -94,160 +96,26 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
 
   @Override
   public String getName() {
-    return opd.getName();
+    return getOpd().getName();
   }
 
-  @Override
-  protected void executing() {
-    // Initialize first set of processes that can be executed.
+  private void createInitialSetOfExecutableInstances() {
     Set<OPMProcess> initialProcesses = executionAnalyzer.findInitialProcesses(opdDag);
     for(OPMProcess process : initialProcesses) {
       OPMExecutableInstance instance = OPMExecutableInstanceFactory.createExecutableInstance(process);
-      follower.addWaitingInstance(process, instance);
+      executionState.addWaitingInstance(process, instance);
     }
-    if(!follower.areThereWaitingInstances()) {
-      logger.info("Nothing to execute in " + getName());
-      return;
-    }
+  }
 
-    // Assign existing variables to all waiting instances
-    for(OPMExecutableInstance instance : follower.getWaitingInstances()) {
-      for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(follower.getProcess(instance))) {
-        OPMObject argument = OPMObject.class.cast(incomingDataLink.getSource());
+  private void assignArgumentsToWaitingInstances() {
+    for(OPMExecutableInstance instance : executionState.getWaitingInstances()) {
+      for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
+        OPMObject argument = analyzer.getObject(incomingDataLink);
         if(getVariable(argument) != null) {
           instance.setArgument(incomingDataLink.getCenterDecoration(), getVariable(argument));
         }
       }
     }
-
-    // Loop until no instances can be executed of the system is stuck
-    while(follower.areThereWaitingInstances() || follower.areThereReadyInstances()) {
-      // If there are no ready instances, find if there are some that can become
-      // ready.
-      if(!follower.areThereReadyInstances()) {
-        Set<OPMExecutableInstance> newReadyInstances = Sets.newHashSet();
-        for(OPMExecutableInstance waitingInstance : follower.getWaitingInstances()) {
-          if(waitingInstance.isReady())
-            newReadyInstances.add(waitingInstance);
-        }
-        for(OPMExecutableInstance newReadyInstance : newReadyInstances) {
-          follower.makeWaitingInstanceReady(newReadyInstance);
-        }
-      }
-
-      if(!follower.areThereReadyInstances()) {
-        logger.info("Finished execution with waiting processes. Exiting.");
-        return;
-      }
-
-      // Get first ready instance and execute it.
-      OPMExecutableInstance instance = follower.getReadyInstances().iterator().next();
-      instance.execute();
-      follower.removeReadyInstance(instance);
-
-      // Take results of the instance execution, assign them to the target
-      // object variables and
-      // to existing target waiting instances.
-      for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(follower.getProcess(instance))) {
-        OPMObject object = OPMObject.class.cast(instanceOutgoingDataLink.getTarget());
-        OPMObjectInstance value = instance.getArgument(instanceOutgoingDataLink.getCenterDecoration());
-        setVariable(object, value);
-
-        for(OPMProceduralLink objectOutgoingDataLink : analyzer.findOutgoingDataLinks(object)) {
-          OPMProcess targetProcess = (OPMProcess) objectOutgoingDataLink.getTarget();
-          if(follower.isProcessWaitingOrReady(targetProcess)) {
-            OPMExecutableInstance existingInstance = follower.getInstance(targetProcess);
-            existingInstance.setArgument(objectOutgoingDataLink.getCenterDecoration(), getVariable(object));
-          }
-        }
-      }
-
-      // Find new processes that should be added to the waiting queue.
-      Set<OPMProcess> followingProcesses = calculateFollowingProcesses(follower.getProcess(instance));
-      for(OPMProcess followingProcess : followingProcesses) {
-        OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(followingProcess);
-        Collection<OPMProceduralLink> incomingDataLinks = analyzer.findIncomingDataLinks(followingProcess);
-        for(OPMProceduralLink incomingDataLink : incomingDataLinks) {
-          OPMObject object = (OPMObject) incomingDataLink.getSource();
-          newInstance.setArgument(incomingDataLink.getCenterDecoration(), getVariable(object));
-        }
-
-        if(newInstance.isReady()) {
-          follower.addReadyInstance(followingProcess, newInstance);
-        } else {
-          follower.addWaitingInstance(followingProcess, newInstance);
-        }
-      }
-    }
-
-    logger.info("finished executing " + getName());
-
-  }
-
-  /**
-   * Create a variable for all of the arguments that were passed to the process,
-   * or for arguments that contain literal values.
-   */
-  private void initializeVariablesWithArgumentValues() {
-    Collection<OPMObject> objectArguments = analyzer.findParameters(opd);
-    for(OPMObject object : objectArguments) {
-      if(getArgument(object.getName()) != null) {
-        setVariable(object, getArgument(object.getName()));
-      } else {
-
-        String objectName = object.getName();
-        if(objectName.length() == 0)
-          return;
-
-        Object objectValue = null;
-        if(objectName.startsWith("\"") || objectName.startsWith("'")) {
-          objectValue = objectName.substring(1, objectName.length() - 1);
-        } else if(Character.isDigit(objectName.charAt(0))) {
-          objectValue = Double.parseDouble(objectName);
-        }
-        if(objectValue != null)
-          setVariable(object, OPMObjectInstance.create(objectValue));
-      }
-    }
-  }
-
-  /**
-   * Initialize local variables initialized to constants.
-   */
-  private void initializeVariablesWithConstantValue() {
-
-    Collection<OPMObject> objectVariables = analyzer.findObjects(inZoomedProcess);
-    for(OPMObject object : objectVariables) {
-      // createVariable(objectVariable);
-
-      String objectName = object.getName();
-      if(objectName.length() == 0)
-        return;
-
-      Object objectValue = null;
-      if(objectName.startsWith("\"") || objectName.startsWith("'")) {
-        objectValue = objectName.substring(1, objectName.length() - 1);
-      } else if(Character.isDigit(objectName.charAt(0))) {
-        objectValue = Double.parseDouble(objectName);
-      }
-      OPMObjectInstance instance = OPMObjectInstance.create(objectValue);
-      setVariable(object, instance);
-    }
-  }
-
-  @Override
-  public boolean isReady() {
-    return true;
-  }
-
-  private void exportVariableValuesToArguments() {
-    Collection<OPMObject> objectArguments = analyzer.findObjects(opd);
-    for(OPMObject object : objectArguments) {
-      if(getVariable(object) != null) {
-        setArgument(object.getName(), getVariable(object));
-      }
-    }
-
   }
 
   /**
@@ -261,7 +129,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
    *          to the waiting or ready queue.
    */
   public Set<OPMProcess> calculateFollowingProcesses(OPMProcess process) {
-
     Set<OPMProcess> newWaitingProcesses = Sets.newHashSet();
     Set<DefaultEdge> outgoingEdges = opdDag.outgoingEdgesOf(process);
     for(DefaultEdge outgoingEdge : outgoingEdges) {
@@ -269,8 +136,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       Set<DefaultEdge> incomingEdges = opdDag.incomingEdgesOf(candidate);
       boolean hasDependencies = false;
       for(DefaultEdge incomingEdge : incomingEdges) {
-        if(follower.getWaitingProcesses().contains(opdDag.getEdgeSource(incomingEdge))
-            || follower.getReadyProcesses().contains(opdDag.getEdgeSource(incomingEdge))) {
+        if(executionState.getWaitingProcesses().contains(opdDag.getEdgeSource(incomingEdge))
+            || executionState.getReadyProcesses().contains(opdDag.getEdgeSource(incomingEdge))) {
           hasDependencies = true;
           break;
         }
@@ -278,7 +145,225 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       if(!hasDependencies)
         newWaitingProcesses.add(candidate);
     }
-
     return newWaitingProcesses;
+  }
+
+  public Set<OPMExecutableInstance> findWaitingInstanceThatCanBeMadeReady() {
+    Set<OPMExecutableInstance> newReadyInstances = Sets.newHashSet();
+    for(OPMExecutableInstance waitingInstance : executionState.getWaitingInstances()) {
+      loadInstanceArguments(waitingInstance);
+      if(waitingInstance.isReady())
+        newReadyInstances.add(waitingInstance);
+    }
+    return newReadyInstances;
+  }
+
+  public void makeWaitingInstancesReady(Set<OPMExecutableInstance> instances) {
+    for(OPMExecutableInstance newReadyInstance : instances) {
+      executionState.makeWaitingInstanceReady(newReadyInstance);
+    }
+  }
+
+  private void loadInstanceArguments(OPMExecutableInstance instance) {
+    for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
+      OPMObject argument = analyzer.getObject(incomingDataLink);
+      instance.setArgument(incomingDataLink.getCenterDecoration(), getVariable(argument));
+    }
+  }
+
+  @Override
+  protected void executing() {
+    createInitialSetOfExecutableInstances();
+    if(!executionState.areThereWaitingInstances()) {
+      logger.info("Nothing to execute in " + getName());
+      return;
+    }
+    // assignArgumentsToWaitingInstances();
+    while(executionState.areThereWaitingOrReadyInstances()) {
+      if(!executionState.areThereReadyInstances()) {
+        Set<OPMExecutableInstance> readyInstances = findWaitingInstanceThatCanBeMadeReady();
+        makeWaitingInstancesReady(readyInstances);
+      }
+      if(!executionState.areThereReadyInstances()) {
+        logger.info("Finished execution with waiting processes. Exiting.");
+        return;
+      }
+
+      OPMExecutableInstance instance = executionState.getReadyInstances().iterator().next();
+      if(!instanceMustBeSkipped(instance)) {
+        instance.execute();
+        extractResultsToVariables(instance);
+      } else {
+        logger.info("Skipping " + instance.getName());
+      }
+      executionState.removeReadyInstance(instance);
+      createNewWaitingInstances(instance);
+    }
+
+    logger.info("finished executing " + getName());
+  }
+
+  private void extractResultsToVariables(OPMExecutableInstance instance) {
+    for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
+      OPMObject object = OPMObject.class.cast(instanceOutgoingDataLink.getTarget());
+      OPMObjectInstance value = instance.getArgument(instanceOutgoingDataLink.getCenterDecoration());
+      setVariable(object, value);
+    }
+  }
+
+  private void createNewWaitingInstances(OPMExecutableInstance instance) {
+    Set<OPMProcess> followingProcesses = calculateFollowingProcesses(executionState.getProcess(instance));
+    for(OPMProcess followingProcess : followingProcesses) {
+      OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(followingProcess);
+      executionState.addWaitingInstance(followingProcess, newInstance);
+    }
+  }
+
+  private boolean instanceMustBeSkipped(OPMExecutableInstance instance) {
+    for(OPMProceduralLink link : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
+      if(link.getSubKinds().contains(OPMConstants.OPM_CONDITIONAL_LINK_SUBKIND)) {
+        OPMObjectInstance variable = getVariable(analyzer.getObject(link));
+        if(variable == null) {
+          logger.info("Skipping instance of " + instance.getName() + " because conditional parameter "
+              + analyzer.getObject(link).getName() + " is empty");
+          return true;
+        }
+        if(OPMState.class.isInstance(link.getSource())) {
+          if(!isObjectInstanceInState(variable, OPMState.class.cast(link.getSource()))) {
+            logger.info("Skipping instance of " + instance.getName() + " because conditional parameter "
+                + analyzer.getObject(link).getName() + " is not in state "
+                + OPMState.class.cast(link.getSource()).getName());
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
+  private boolean isObjectInstanceInState(OPMObjectInstance objectInstance, OPMState state) {
+    if(objectInstance == null) {
+      return false;
+    }
+    if(objectInstance.isState()) {
+      return state.getName().equals(objectInstance.getState());
+    } else {
+      OPMValueAnalyzer valueAnalyzer = new OPMValueAnalyzer();
+      if(valueAnalyzer.isStringValue(state.getName())) {
+        return valueAnalyzer.parseStringValue(state.getName()).equals(objectInstance.getValue());
+      } else if(valueAnalyzer.isNumericalValue(state.getName())) {
+        return valueAnalyzer.parseNumericalValue(state.getName()).equals(objectInstance.getValue());
+      } else {
+        return false;
+      }
+    }
+  }
+
+  private void initializeVariables() {
+    initializeVariablesWithArgumentValues();
+    initializeVariablesWithConstantValues();
+  }
+
+  /**
+   * Create a variable for all of the arguments that were passed to the process,
+   * or for arguments that contain literal values.
+   */
+  private void initializeVariablesWithArgumentValues() {
+    Collection<OPMObject> objectArguments = analyzer.findParameters(getOpd());
+    for(OPMObject object : objectArguments) {
+      if(getArgument(object.getName()) != null) {
+        setVariable(object, getArgument(object.getName()));
+      } else {
+        calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
+      }
+    }
+  }
+
+  /**
+   * Initialize local variables initialized to constants.
+   */
+  private void initializeVariablesWithConstantValues() {
+    Collection<OPMObject> objectVariables = analyzer.findObjects(getInZoomedProcess());
+    for(OPMObject object : objectVariables) {
+      calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
+    }
+  }
+
+  private void calculateOPMObjectValueAndSetVariableIfValueIfExists(OPMObject object) {
+    OPMObjectInstance objectValue = calculateOPMObjectValue(object);
+    if(objectValue != null)
+      setVariable(object, objectValue);
+  }
+
+  /**
+   * Calculate the value of an {@link OPMObjectInstance} based on the
+   * {@link OPMObject} that represents it. The value can be either a number, a
+   * string or a state.
+   * 
+   * @param object
+   *          that has a constant value
+   * @return the value of the {@link OPMObjectInstance}
+   */
+  private OPMObjectInstance calculateOPMObjectValue(OPMObject object) {
+    OPMValueAnalyzer valueAnalyzer = new OPMValueAnalyzer();
+    OPMObjectInstance objectInstance = null;
+
+    String objectName = object.getName();
+    if(objectName != null && !objectName.equals("")) {
+      if(valueAnalyzer.isStringValue(objectName)) {
+        objectInstance = OPMObjectInstance.createFromValue(valueAnalyzer.parseStringValue(objectName));
+      } else if(valueAnalyzer.isNumericalValue(objectName)) {
+        objectInstance = OPMObjectInstance.createFromValue(valueAnalyzer.parseNumericalValue(objectName));
+      }
+    } else {
+      Collection<OPMState> states = analyzer.findStates(object);
+      for(OPMState state : states) {
+        if(state.isValue()) {
+          objectInstance = OPMObjectInstance.createFromState(state.getName());
+        }
+      }
+    }
+    return objectInstance;
+  }
+
+  @Override
+  public boolean isReady() {
+    Collection<OPMObject> parameters = analyzer.findParameters(getOpd());
+    for(OPMObject object : parameters) {
+      if(getArgument(object.getName()) == null) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private void exportVariableValuesToArguments() {
+    Collection<OPMObject> objectArguments = analyzer.findObjects(getOpd());
+    for(OPMObject object : objectArguments) {
+      if(getVariable(object) != null) {
+        setArgument(object.getName(), getVariable(object));
+      }
+    }
+
+  }
+
+  /**
+   * Get the main in-zoomed {@link OPMProcess} of the
+   * {@link OPMObjectProcessDiagram}
+   * 
+   * @return the main {@link OPMProcess} of this {@link OPMObjectProcessDiagram}
+   */
+  private OPMProcess getInZoomedProcess() {
+    return inZoomedProcess;
+  }
+
+  /**
+   * Get the {@link OPMObjectProcessDiagram} that this class interprets
+   * 
+   * @return the {@link OPMObjectProcessDiagram} interpreted by this class
+   */
+  private OPMObjectProcessDiagram getOpd() {
+    return opd;
   }
 }

@@ -21,10 +21,10 @@ import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   @Override
   public void executing() {
-    final double a = (double) getArgument("a").getValue();
-    final double b = (double) getArgument("b").getValue();
-    final double c = a + b;
-    OPMObjectInstance instance = OPMObjectInstance.create(c);
+    BigDecimal a = getArgument("a").getNumericalValue();
+    BigDecimal b = getArgument("b").getNumericalValue();
+    BigDecimal c = a.add(b);
+    OPMObjectInstance instance = OPMObjectInstance.createFromValue(c);
     setArgument("c", instance);
   }
 

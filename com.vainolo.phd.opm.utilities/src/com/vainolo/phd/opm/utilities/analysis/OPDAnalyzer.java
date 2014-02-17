@@ -36,6 +36,8 @@ public class OPDAnalyzer {
       return OPMObject.class.cast(source);
     else if(!OPMObject.class.isInstance(source) && OPMObject.class.isInstance(target))
       return OPMObject.class.cast(target);
+    else if(OPMState.class.isInstance(source))
+      return OPMObject.class.cast(source.getContainer());
     else
       return null;
   }

@@ -7,6 +7,8 @@ package com.vainolo.phd.opm.interpreter.builtin;
 
 import static org.junit.Assert.*;
 
+import java.math.BigDecimal;
+
 import org.junit.Test;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
@@ -23,13 +25,13 @@ public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
   public void test_execute() {
     final OPMAddProcessInstance instance = new OPMAddProcessInstance();
 
-    instance.setArgument("a", OPMObjectInstance.create(1));
-    instance.setArgument("b", OPMObjectInstance.create(2));
+    instance.setArgument("a", OPMObjectInstance.createFromValue(new BigDecimal(1)));
+    instance.setArgument("b", OPMObjectInstance.createFromValue(new BigDecimal(2)));
 
-//    instance.execute();
+    instance.execute();
 
-//    final int value = (Integer) instance.getArgument("c");
-//    assertEquals(3, value);
+    BigDecimal value = BigDecimal.class.cast(instance.getArgument("c"));
+    assertEquals(3, value.intValue());
 
   }
 }

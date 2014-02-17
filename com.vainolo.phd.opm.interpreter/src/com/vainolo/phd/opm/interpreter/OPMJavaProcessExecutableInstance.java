@@ -8,6 +8,7 @@ package com.vainolo.phd.opm.interpreter;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.google.common.base.Preconditions;
@@ -16,24 +17,22 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
-public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMJavaProcessInstance.class.getName());
+public class OPMJavaProcessExecutableInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMJavaProcessExecutableInstance.class
+      .getName());
 
   private final Pattern classAndMethodAndParametersPattern = Pattern.compile("(.*)\\.([^\\.]*)\\((.*)\\)");
 
   private String className = null;
   private String methodName = null;
-  private String[] parameters = new String[0]; // to avoid null checking and
-                                               // instead use iteration on zero
-                                               // length array
-
+  private String[] parameters = new String[0];
   private Method method;
   private Object[] arguments;
   private Object target = null;
 
   private OPMProcess process;
 
-  public OPMJavaProcessInstance(OPMProcess process) {
+  public OPMJavaProcessExecutableInstance(OPMProcess process) {
     this.process = process;
   }
 
@@ -59,7 +58,7 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
       target = getArgument("this");
 
     final Object result = callMethod(method);
-    OPMObjectInstance instance = OPMObjectInstance.create(result);
+    OPMObjectInstance instance = OPMObjectInstance.createFromValue(result);
     if(!method.getReturnType().equals(Void.TYPE)) {
       setArgument("result", instance);
     }
@@ -79,29 +78,24 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
   }
 
   private Method loadMethod() {
-    // In the description we store the class name and the full signature of the
-    // method -
-    // fullClassName.methodName(className1,className2...)
-    // final Matcher classAndMethodAndParametersMatcher =
-    // classAndMethodAndParametersPattern.matcher(getProcess().getDescription());
-    //
-    // if(!classAndMethodAndParametersMatcher.find()) {
-    // logger.info("Could not parse method definition " +
-    // getProcess().getDescription() + " for process " +
-    // getProcess().getName());
-    // throw new RuntimeException("Could not parse method definition " +
-    // getProcess().getDescription() +
-    // " for process " + getProcess().getName());
-    // }
+    final Matcher classAndMethodAndParametersMatcher = classAndMethodAndParametersPattern.matcher(process
+        .getDescription());
 
-    // className = classAndMethodAndParametersMatcher.group(1);
-    // methodName = classAndMethodAndParametersMatcher.group(2);
-    // String methodParameters = classAndMethodAndParametersMatcher.group(3);
+    if(!classAndMethodAndParametersMatcher.find()) {
+      logger
+          .info("Could not parse method definition " + process.getDescription() + " for process " + process.getName());
+      throw new RuntimeException("Could not parse method definition " + process.getDescription() + " for process "
+          + process.getName());
+    }
 
-    // if(!methodParameters.isEmpty()) {
-    // methodParameters = methodParameters.replaceAll("\\s*", "");
-    // parameters = methodParameters.split(",");
-    // }
+    className = classAndMethodAndParametersMatcher.group(1);
+    methodName = classAndMethodAndParametersMatcher.group(2);
+    String methodParameters = classAndMethodAndParametersMatcher.group(3);
+
+    if(!methodParameters.isEmpty()) {
+      methodParameters = methodParameters.replaceAll("\\s*", "");
+      parameters = methodParameters.split(",");
+    }
 
     Method method = null;
     try {
@@ -119,10 +113,9 @@ public class OPMJavaProcessInstance extends OPMAbstractProcessInstance implement
       method = cls.getMethod(methodName, parameterClasses);
 
     } catch(ClassNotFoundException e) {
-      // logger.info("Could not load class " + className + " for process " +
-      // getProcess().getName()
-      // + ". Check that the class is in the classpath.");
-      // throw new RuntimeException(e);
+      logger.info("Could not load class " + className + " for process " + process.getName()
+          + ". Check that the class is in the classpath.");
+      throw new RuntimeException(e);
     } catch(NoSuchMethodException e) {
       logger.info("Could not find methdod " + methodName + " in class " + className
           + ". Please check that you have given the correct parameters and try again.");
