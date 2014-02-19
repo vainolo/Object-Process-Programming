@@ -3,6 +3,7 @@ package com.vainolo.phd.opm.interpreter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
@@ -41,6 +42,12 @@ class OPMInZoomedProcessExecutionState {
   public void makeWaitingInstanceReady(OPMExecutableInstance instance) {
     waitingInstances.remove(instance);
     readyInstances.add(instance);
+  }
+
+  public void makeWaitingInstancesReady(Set<OPMExecutableInstance> instances) {
+    for(OPMExecutableInstance instance : instances) {
+      makeWaitingInstanceReady(instance);
+    }
   }
 
   public OPMProcess getProcess(OPMExecutableInstance instance) {

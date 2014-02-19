@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
@@ -14,6 +15,7 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMState;
+import com.vainolo.phd.opm.utilities.OPMConstants;
 
 public class OPDAnalyzer {
 
@@ -216,7 +218,20 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Find all outgoing data links of an object.
+   * Findl all outgoing data links of an {@link OPMState}.
+   * 
+   * @param state
+   *          to search.
+   * @return all outgoing data links
+   */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMState state) {
+    return ((Collection) Collections2.filter(state.getOutgoingLinks(), new IsOPMObjectOutgoingDataLink()));
+  }
+
+  /**
+   * Find all outgoing data links of an {@link OPMObject}, including links that
+   * start at an inner {@link OPMState}.
    * 
    * @param object
    *          to search.
@@ -224,7 +239,24 @@ public class OPDAnalyzer {
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMObject object) {
-    return (Collection) Collections2.filter(object.getOutgoingLinks(), new IsOPMObjectOutgoingDataLink());
+    Collection result = Lists.newArrayList();
+    result.addAll(Collections2.filter(object.getOutgoingLinks(), new IsOPMObjectOutgoingDataLink()));
+    for(OPMState state : findStates(object)) {
+      result.addAll(findOutgoingDataLinks(state));
+    }
+    return result;
+  }
+
+  /**
+   * Find all outgoing data links of an object that are event links.
+   * 
+   * @param object
+   *          to search
+   * @return all outgoing event links
+   */
+  public Collection<OPMProceduralLink> findOutgoingEventLinks(OPMObject object) {
+    Collection<OPMProceduralLink> outgoingDataLinks = findOutgoingDataLinks(object);
+    return Collections2.filter(outgoingDataLinks, IsOPMEventLink.INSTANCE);
   }
 
   /**
@@ -358,6 +390,21 @@ public class OPDAnalyzer {
   }
 
   public static class IsOPMObjectOutgoingDataLink extends IsOPMDataLink {
+  }
+
+  /**
+   * Match all {@link OPMProceduralLink}s which are event links - i.e. have an
+   * event subkind.
+   * 
+   */
+  public enum IsOPMEventLink implements Predicate<OPMProceduralLink> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(OPMProceduralLink link) {
+      return link.getSubKinds().contains(OPMConstants.OPM_EVENT_LINK_SUBKIND);
+    }
+
   }
 
   /**

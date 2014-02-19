@@ -39,6 +39,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
   private OPDAnalyzer analyzer;
   private OPMInZoomedProcessExecutionState executionState = new OPMInZoomedProcessExecutionState();
+  private OPMInZoomedProcessExecutionHelper executionHelper = new OPMInZoomedProcessExecutionHelper();
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
 
@@ -107,47 +108,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     }
   }
 
-  private void assignArgumentsToWaitingInstances() {
-    for(OPMExecutableInstance instance : executionState.getWaitingInstances()) {
-      for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
-        OPMObject argument = analyzer.getObject(incomingDataLink);
-        if(getVariable(argument) != null) {
-          instance.setArgument(incomingDataLink.getCenterDecoration(), getVariable(argument));
-        }
-      }
-    }
-  }
-
-  /**
-   * Calculate the set of processes that can be made waiting or ready. This is
-   * done by fetchin all processes that follow the given one, and then checking
-   * that none of their dependent processes are waiting or ready (and may be
-   * executing)
-   * 
-   * @param process
-   *          that finished executing. d * @return processes that can be added
-   *          to the waiting or ready queue.
-   */
-  public Set<OPMProcess> calculateFollowingProcesses(OPMProcess process) {
-    Set<OPMProcess> newWaitingProcesses = Sets.newHashSet();
-    Set<DefaultEdge> outgoingEdges = opdDag.outgoingEdgesOf(process);
-    for(DefaultEdge outgoingEdge : outgoingEdges) {
-      OPMProcess candidate = opdDag.getEdgeTarget(outgoingEdge);
-      Set<DefaultEdge> incomingEdges = opdDag.incomingEdgesOf(candidate);
-      boolean hasDependencies = false;
-      for(DefaultEdge incomingEdge : incomingEdges) {
-        if(executionState.getWaitingProcesses().contains(opdDag.getEdgeSource(incomingEdge))
-            || executionState.getReadyProcesses().contains(opdDag.getEdgeSource(incomingEdge))) {
-          hasDependencies = true;
-          break;
-        }
-      }
-      if(!hasDependencies)
-        newWaitingProcesses.add(candidate);
-    }
-    return newWaitingProcesses;
-  }
-
   public Set<OPMExecutableInstance> findWaitingInstanceThatCanBeMadeReady() {
     Set<OPMExecutableInstance> newReadyInstances = Sets.newHashSet();
     for(OPMExecutableInstance waitingInstance : executionState.getWaitingInstances()) {
@@ -156,12 +116,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
         newReadyInstances.add(waitingInstance);
     }
     return newReadyInstances;
-  }
-
-  public void makeWaitingInstancesReady(Set<OPMExecutableInstance> instances) {
-    for(OPMExecutableInstance newReadyInstance : instances) {
-      executionState.makeWaitingInstanceReady(newReadyInstance);
-    }
   }
 
   private void loadInstanceArguments(OPMExecutableInstance instance) {
@@ -181,8 +135,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     // assignArgumentsToWaitingInstances();
     while(executionState.areThereWaitingOrReadyInstances()) {
       if(!executionState.areThereReadyInstances()) {
-        Set<OPMExecutableInstance> readyInstances = findWaitingInstanceThatCanBeMadeReady();
-        makeWaitingInstancesReady(readyInstances);
+        executionState.makeWaitingInstancesReady(findWaitingInstanceThatCanBeMadeReady());
       }
       if(!executionState.areThereReadyInstances()) {
         logger.info("Finished execution with waiting processes. Exiting.");
@@ -191,6 +144,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
 
       OPMExecutableInstance instance = executionState.getReadyInstances().iterator().next();
       if(!instanceMustBeSkipped(instance)) {
+        // WE MUST RELOAD PARAMETERS AGAIN AND CHECK IF THE INSTANCE IS STILL
+        // READY!!!
         instance.execute();
         extractResultsToVariables(instance);
       } else {
@@ -212,11 +167,45 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   private void createNewWaitingInstances(OPMExecutableInstance instance) {
-    Set<OPMProcess> followingProcesses = calculateFollowingProcesses(executionState.getProcess(instance));
+    createNewWaitingInstancesFromFollowingProcesses(instance);
+    createNewWaitinginstancesFromEventLinks(instance);
+  }
+
+  private void createNewWaitinginstancesFromEventLinks(OPMExecutableInstance instance) {
+    Collection<OPMProceduralLink> outgoingLinks = analyzer.findOutgoingDataLinks(executionState.getProcess(instance));
+    for(OPMProceduralLink link : outgoingLinks) {
+      OPMObject object = analyzer.getObject(link);
+      if(getVariable(object) != null) {
+        Collection<OPMProceduralLink> outgoingEventLinks = analyzer.findOutgoingEventLinks(object);
+        for(OPMProceduralLink eventLink : outgoingEventLinks) {
+          if(eventLink.getSource().equals(object)) {
+            OPMProcess process = analyzer.getProcess(eventLink);
+            OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(process);
+            executionState.addWaitingInstance(process, newInstance);
+          } else if(OPMState.class.isInstance(eventLink.getSource())) {
+            OPMState state = OPMState.class.cast(eventLink.getSource());
+            OPMObjectInstance objectInstance = getVariable(object);
+            if(executionHelper.isObjectInstanceInState(objectInstance, state)) {
+              OPMProcess process = analyzer.getProcess(eventLink);
+              OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(process);
+              executionState.addWaitingInstance(process, newInstance);
+            }
+          } else {
+            throw new IllegalStateException("An event link is connected to a source that is not an object or a state.");
+          }
+        }
+      }
+    }
+  }
+
+  private void createNewWaitingInstancesFromFollowingProcesses(OPMExecutableInstance instance) {
+    Set<OPMProcess> followingProcesses = executionHelper.calculateFollowingProcesses(
+        executionState.getProcess(instance), opdDag, executionState);
     for(OPMProcess followingProcess : followingProcesses) {
       OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(followingProcess);
       executionState.addWaitingInstance(followingProcess, newInstance);
     }
+
   }
 
   private boolean instanceMustBeSkipped(OPMExecutableInstance instance) {
@@ -229,7 +218,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
           return true;
         }
         if(OPMState.class.isInstance(link.getSource())) {
-          if(!isObjectInstanceInState(variable, OPMState.class.cast(link.getSource()))) {
+          if(!executionHelper.isObjectInstanceInState(variable, OPMState.class.cast(link.getSource()))) {
             logger.info("Skipping instance of " + instance.getName() + " because conditional parameter "
                 + analyzer.getObject(link).getName() + " is not in state "
                 + OPMState.class.cast(link.getSource()).getName());
@@ -240,24 +229,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     }
 
     return false;
-  }
-
-  private boolean isObjectInstanceInState(OPMObjectInstance objectInstance, OPMState state) {
-    if(objectInstance == null) {
-      return false;
-    }
-    if(objectInstance.isState()) {
-      return state.getName().equals(objectInstance.getState());
-    } else {
-      OPMValueAnalyzer valueAnalyzer = new OPMValueAnalyzer();
-      if(valueAnalyzer.isStringValue(state.getName())) {
-        return valueAnalyzer.parseStringValue(state.getName()).equals(objectInstance.getValue());
-      } else if(valueAnalyzer.isNumericalValue(state.getName())) {
-        return valueAnalyzer.parseNumericalValue(state.getName()).equals(objectInstance.getValue());
-      } else {
-        return false;
-      }
-    }
   }
 
   private void initializeVariables() {
@@ -291,40 +262,9 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   private void calculateOPMObjectValueAndSetVariableIfValueIfExists(OPMObject object) {
-    OPMObjectInstance objectValue = calculateOPMObjectValue(object);
+    OPMObjectInstance objectValue = executionHelper.calculateOPMObjectValue(object, analyzer);
     if(objectValue != null)
       setVariable(object, objectValue);
-  }
-
-  /**
-   * Calculate the value of an {@link OPMObjectInstance} based on the
-   * {@link OPMObject} that represents it. The value can be either a number, a
-   * string or a state.
-   * 
-   * @param object
-   *          that has a constant value
-   * @return the value of the {@link OPMObjectInstance}
-   */
-  private OPMObjectInstance calculateOPMObjectValue(OPMObject object) {
-    OPMValueAnalyzer valueAnalyzer = new OPMValueAnalyzer();
-    OPMObjectInstance objectInstance = null;
-
-    String objectName = object.getName();
-    if(objectName != null && !objectName.equals("")) {
-      if(valueAnalyzer.isStringValue(objectName)) {
-        objectInstance = OPMObjectInstance.createFromValue(valueAnalyzer.parseStringValue(objectName));
-      } else if(valueAnalyzer.isNumericalValue(objectName)) {
-        objectInstance = OPMObjectInstance.createFromValue(valueAnalyzer.parseNumericalValue(objectName));
-      }
-    } else {
-      Collection<OPMState> states = analyzer.findStates(object);
-      for(OPMState state : states) {
-        if(state.isValue()) {
-          objectInstance = OPMObjectInstance.createFromState(state.getName());
-        }
-      }
-    }
-    return objectInstance;
   }
 
   @Override
