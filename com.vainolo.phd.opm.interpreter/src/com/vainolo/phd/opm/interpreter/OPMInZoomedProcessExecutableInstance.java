@@ -192,22 +192,29 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   private void createFollowingWaitingInstances(OPMProcess process, OPMExecutableInstance instance, boolean skipped) {
-    createFollowingWaitingInstancesFromFollowingProcesses(process, instance);
+    boolean createdInstancesFromEventLinks = false;
     if(!skipped)
-      createFollowingWaitinginstancesFromEventLinks(process, instance);
+      createdInstancesFromEventLinks = createFollowingWaitinginstancesFromEventLinks(process, instance);
+    if(!createdInstancesFromEventLinks) {
+      createFollowingWaitingInstancesFromFollowingProcesses(process, instance);
+    }
   }
 
-  private void createFollowingWaitinginstancesFromEventLinks(OPMProcess process, OPMExecutableInstance instance) {
+  private boolean createFollowingWaitinginstancesFromEventLinks(OPMProcess process, OPMExecutableInstance instance) {
     Set<OPMProcess> newProcesses = findFollowingProcessesFromEventLinks(process);
+    boolean created = false;
     for(OPMProcess newProcess : newProcesses) {
       logger.info("Creating new instance of " + process.getName() + " from event link.");
       OPMExecutableInstance newInstance = createNewWaitingInstance(newProcess);
+      created = true;
       loadInstanceArguments(newInstance);
       if(!newInstance.isReady()) {
         logger.info("Removing created instance of " + process.getName() + " because it is not ready.");
         executionState.removeWaitingInstance(newInstance);
+        created = false;
       }
     }
+    return created;
   }
 
   private Set<OPMProcess> findFollowingProcessesFromEventLinks(OPMProcess process) {
