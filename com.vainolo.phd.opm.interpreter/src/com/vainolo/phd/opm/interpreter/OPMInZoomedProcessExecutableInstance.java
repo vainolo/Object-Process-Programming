@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalyzer;
@@ -129,7 +130,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   protected void executing() {
     createInitialSetOfExecutableInstances();
     if(!executionState.areThereWaitingInstances()) {
-      logger.info("Nothing to execute in " + getName());
+      logger.info("Nothing t  o execute in " + getName());
       return;
     }
     // assignArgumentsToWaitingInstances();
@@ -143,64 +144,116 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       }
 
       OPMExecutableInstance instance = executionState.getReadyInstances().iterator().next();
+      if(instanceIsNotReadyAnymore(instance)) {
+        executionState.makeReadyInstanceWaiting(instance);
+        continue;
+      }
+      boolean skipped = false;
       if(!instanceMustBeSkipped(instance)) {
-        // WE MUST RELOAD PARAMETERS AGAIN AND CHECK IF THE INSTANCE IS STILL
-        // READY!!!
         instance.execute();
         extractResultsToVariables(instance);
+        transferDataFromModifiedObject(instance);
       } else {
-        logger.info("Skipping " + instance.getName());
+        skipped = true;
+        logger.info("Skipping " + executionState.getProcess(instance).getName());
       }
+      OPMProcess process = executionState.getProcess(instance);
       executionState.removeReadyInstance(instance);
-      createNewWaitingInstances(instance);
+      createFollowingWaitingInstances(process, instance, skipped);
     }
 
     logger.info("finished executing " + getName());
   }
 
+  private boolean instanceIsNotReadyAnymore(OPMExecutableInstance instance) {
+    loadInstanceArguments(instance);
+    return !instance.isReady();
+  }
+
   private void extractResultsToVariables(OPMExecutableInstance instance) {
     for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
-      OPMObject object = OPMObject.class.cast(instanceOutgoingDataLink.getTarget());
+      OPMObject object = analyzer.getObject(instanceOutgoingDataLink);
       OPMObjectInstance value = instance.getArgument(instanceOutgoingDataLink.getCenterDecoration());
       setVariable(object, value);
     }
   }
 
-  private void createNewWaitingInstances(OPMExecutableInstance instance) {
-    createNewWaitingInstancesFromFollowingProcesses(instance);
-    createNewWaitinginstancesFromEventLinks(instance);
-  }
-
-  private void createNewWaitinginstancesFromEventLinks(OPMExecutableInstance instance) {
-    Collection<OPMProceduralLink> outgoingLinks = analyzer.findOutgoingDataLinks(executionState.getProcess(instance));
-    for(OPMProceduralLink link : outgoingLinks) {
-      OPMObject object = analyzer.getObject(link);
-      if(getVariable(object) != null) {
-        Collection<OPMProceduralLink> outgoingEventLinks = analyzer.findOutgoingEventLinks(object);
-        for(OPMProceduralLink eventLink : outgoingEventLinks) {
-          if(eventLink.getSource().equals(object)) {
-            OPMProcess process = analyzer.getProcess(eventLink);
-            OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(process);
-            executionState.addWaitingInstance(process, newInstance);
-          } else if(OPMState.class.isInstance(eventLink.getSource())) {
-            OPMState state = OPMState.class.cast(eventLink.getSource());
-            OPMObjectInstance objectInstance = getVariable(object);
-            if(executionHelper.isObjectInstanceInState(objectInstance, state)) {
-              OPMProcess process = analyzer.getProcess(eventLink);
-              OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(process);
-              executionState.addWaitingInstance(process, newInstance);
-            }
-          } else {
-            throw new IllegalStateException("An event link is connected to a source that is not an object or a state.");
-          }
+  private void transferDataFromModifiedObject(OPMExecutableInstance instance) {
+    for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
+      OPMObject object = analyzer.getObject(instanceOutgoingDataLink);
+      Collection<OPMProceduralLink> dataLinks = analyzer.findOutgoingDataLinks(object);
+      for(OPMProceduralLink link : dataLinks) {
+        if(OPMObject.class.isInstance(link.getTarget())) {
+          OPMObject target = OPMObject.class.cast(link.getTarget());
+          setVariable(target, getVariable(object));
         }
       }
     }
   }
 
-  private void createNewWaitingInstancesFromFollowingProcesses(OPMExecutableInstance instance) {
-    Set<OPMProcess> followingProcesses = executionHelper.calculateFollowingProcesses(
-        executionState.getProcess(instance), opdDag, executionState);
+  private void createFollowingWaitingInstances(OPMProcess process, OPMExecutableInstance instance, boolean skipped) {
+    createFollowingWaitingInstancesFromFollowingProcesses(process, instance);
+    if(!skipped)
+      createFollowingWaitinginstancesFromEventLinks(process, instance);
+  }
+
+  private void createFollowingWaitinginstancesFromEventLinks(OPMProcess process, OPMExecutableInstance instance) {
+    Set<OPMProcess> newProcesses = findFollowingProcessesFromEventLinks(process);
+    for(OPMProcess newProcess : newProcesses) {
+      logger.info("Creating new instance of " + process.getName() + " from event link.");
+      OPMExecutableInstance newInstance = createNewWaitingInstance(newProcess);
+      loadInstanceArguments(newInstance);
+      if(!newInstance.isReady()) {
+        logger.info("Removing created instance of " + process.getName() + " because it is not ready.");
+        executionState.removeWaitingInstance(newInstance);
+      }
+    }
+  }
+
+  private Set<OPMProcess> findFollowingProcessesFromEventLinks(OPMProcess process) {
+    Set<OPMProcess> ret = Sets.newHashSet();
+    Collection<OPMProceduralLink> outgoingProceduralLinks = analyzer.findOutgoingDataLinks(process);
+    for(OPMProceduralLink link : outgoingProceduralLinks) {
+      OPMObject object = analyzer.getObject(link);
+      if(getVariable(object) != null) {
+        ret.addAll(findProcessesToInvokeAfterObjectHasChanged(object, getVariable(object)));
+      }
+    }
+    return ret;
+  }
+
+  private Set<OPMProcess> findProcessesToInvokeAfterObjectHasChanged(OPMObject object, OPMObjectInstance objectInstance) {
+    Preconditions.checkNotNull(objectInstance, "Object instance cannot be null.");
+    Set<OPMProcess> ret = Sets.newHashSet();
+    Collection<OPMProceduralLink> outgoingEventLinks = analyzer.findOutgoingEventLinks(object);
+    for(OPMProceduralLink eventLink : outgoingEventLinks) {
+      if(eventLinkInvokesProcess(eventLink, objectInstance)) {
+        ret.add(analyzer.getProcess(eventLink));
+      }
+    }
+    return ret;
+  }
+
+  private boolean eventLinkInvokesProcess(OPMProceduralLink link, OPMObjectInstance objectInstance) {
+    if(OPMObject.class.isInstance(link.getSource())) {
+      return true;
+    } else if(OPMState.class.isInstance(link.getSource())) {
+      OPMState state = OPMState.class.cast(link.getSource());
+      if(executionHelper.isObjectInstanceInState(objectInstance, state)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private OPMExecutableInstance createNewWaitingInstance(OPMProcess process) {
+    OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(process);
+    executionState.addWaitingInstance(process, newInstance);
+    return newInstance;
+  }
+
+  private void createFollowingWaitingInstancesFromFollowingProcesses(OPMProcess process, OPMExecutableInstance instance) {
+    Set<OPMProcess> followingProcesses = executionHelper.calculateFollowingProcesses(process, opdDag, executionState);
     for(OPMProcess followingProcess : followingProcesses) {
       OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(followingProcess);
       executionState.addWaitingInstance(followingProcess, newInstance);
@@ -213,14 +266,14 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       if(link.getSubKinds().contains(OPMConstants.OPM_CONDITIONAL_LINK_SUBKIND)) {
         OPMObjectInstance variable = getVariable(analyzer.getObject(link));
         if(variable == null) {
-          logger.info("Skipping instance of " + instance.getName() + " because conditional parameter "
-              + analyzer.getObject(link).getName() + " is empty");
+          logger.info("Skipping instance of " + executionState.getProcess(instance).getName()
+              + " because conditional parameter " + analyzer.getObject(link).getName() + " is empty");
           return true;
         }
         if(OPMState.class.isInstance(link.getSource())) {
           if(!executionHelper.isObjectInstanceInState(variable, OPMState.class.cast(link.getSource()))) {
-            logger.info("Skipping instance of " + instance.getName() + " because conditional parameter "
-                + analyzer.getObject(link).getName() + " is not in state "
+            logger.info("Skipping instance of " + executionState.getProcess(instance).getName()
+                + " because conditional parameter " + analyzer.getObject(link).getName() + " is not in state "
                 + OPMState.class.cast(link.getSource()).getName());
             return true;
           }
@@ -269,7 +322,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
 
   @Override
   public boolean isReady() {
-    Collection<OPMObject> parameters = analyzer.findParameters(getOpd());
+    Collection<OPMObject> parameters = analyzer.findIncomingParameters(getOpd());
     for(OPMObject object : parameters) {
       if(getArgument(object.getName()) == null) {
         return false;

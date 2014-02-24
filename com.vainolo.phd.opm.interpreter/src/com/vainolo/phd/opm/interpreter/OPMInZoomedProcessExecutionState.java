@@ -11,13 +11,14 @@ import com.google.common.collect.Maps;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 class OPMInZoomedProcessExecutionState {
-  private Map<OPMProcess, OPMExecutableInstance> processToInstanceMapping = Maps.newHashMap();
+  // private Map<OPMProcess, OPMExecutableInstance> processToInstanceMapping =
+  // Maps.newHashMap();
   private Map<OPMExecutableInstance, OPMProcess> instanceToProcessMapping = Maps.newHashMap();
   private List<OPMExecutableInstance> readyInstances = Lists.newArrayList();
   private List<OPMExecutableInstance> waitingInstances = Lists.newArrayList();
 
   private void addProcessToInstanceMapping(OPMProcess process, OPMExecutableInstance instance) {
-    processToInstanceMapping.put(process, instance);
+    // processToInstanceMapping.put(process, instance);
     instanceToProcessMapping.put(instance, process);
   }
 
@@ -50,24 +51,32 @@ class OPMInZoomedProcessExecutionState {
     }
   }
 
+  public void makeReadyInstanceWaiting(OPMExecutableInstance instance) {
+    readyInstances.remove(instance);
+    waitingInstances.add(instance);
+  }
+
   public OPMProcess getProcess(OPMExecutableInstance instance) {
     return instanceToProcessMapping.get(instance);
   }
 
-  public OPMExecutableInstance getInstance(OPMProcess process) {
-    return processToInstanceMapping.get(process);
-  }
-
   public void removeReadyInstance(OPMExecutableInstance instance) {
     OPMProcess process = instanceToProcessMapping.get(instance);
-    processToInstanceMapping.remove(process);
-    instanceToProcessMapping.remove(process);
+    // processToInstanceMapping.remove(process);
+    instanceToProcessMapping.remove(instance);
     readyInstances.remove(instance);
   }
 
-  public boolean isProcessWaitingOrReady(OPMProcess process) {
-    return processToInstanceMapping.containsKey(process);
+  public void removeWaitingInstance(OPMExecutableInstance instance) {
+    OPMProcess process = instanceToProcessMapping.get(instance);
+    // processToInstanceMapping.remove(process);
+    instanceToProcessMapping.remove(instance);
+    waitingInstances.remove(instance);
   }
+
+  // public boolean isProcessWaitingOrReady(OPMProcess process) {
+  // return processToInstanceMapping.containsKey(process);
+  // }
 
   public boolean areThereWaitingOrReadyInstances() {
     return areThereWaitingInstances() || areThereReadyInstances();
@@ -82,11 +91,13 @@ class OPMInZoomedProcessExecutionState {
   }
 
   public List<OPMProcess> getWaitingProcesses() {
-    return Lists.transform(getWaitingInstances(), new TransformInstanceToProcess());
+    List<OPMProcess> ret = Lists.transform(getWaitingInstances(), new TransformInstanceToProcess());
+    return ret;
   }
 
   public List<OPMProcess> getReadyProcesses() {
-    return Lists.transform(getReadyInstances(), new TransformInstanceToProcess());
+    List<OPMProcess> ret = Lists.transform(getReadyInstances(), new TransformInstanceToProcess());
+    return ret;
   }
 
   private class TransformInstanceToProcess implements Function<OPMExecutableInstance, OPMProcess> {
@@ -95,4 +106,5 @@ class OPMInZoomedProcessExecutionState {
       return getProcess(input);
     }
   }
+
 }

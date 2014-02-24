@@ -92,6 +92,20 @@ public class OPDAnalyzer {
     return findObjects(opd);
   }
 
+  public Collection<OPMObject> findIncomingParameters(OPMObjectProcessDiagram opd) {
+    Collection<OPMObject> ret = Lists.newArrayList();
+    for(OPMObject parameter : findParameters(opd)) {
+      if(hasOutgoingDataLinks(parameter)) {
+        ret.add(parameter);
+      }
+    }
+    return ret;
+  }
+
+  public boolean hasOutgoingDataLinks(OPMObject object) {
+    return findOutgoingDataLinks(object).size() > 0;
+  }
+
   /**
    * Find all the {@link OPMObject} instances directly contained in an
    * {@link OPMContainer}.
@@ -362,7 +376,7 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Predicate that matches {@link OPMProcess} incoming {@link OPMLink}s.
+   * Predicate that matches {@link OPMProcess} incoming data {@link OPMLink}s.
    * 
    * @author
    * 
