@@ -5,13 +5,15 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static com.google.common.base.Preconditions.*;
 
 import java.math.BigDecimal;
-
-import javax.naming.OperationNotSupportedException;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
 
 /**
  * 
@@ -21,14 +23,18 @@ import com.google.common.base.Preconditions;
 public class OPMObjectInstance {
 
   private Object value = null;
-  private boolean valueSet = false;
   private String state = null;
+  private Map<String, OPMObjectInstance> parts = Maps.newHashMap();
 
   private OPMObjectInstance() {
   }
 
   public static OPMObjectInstance createFromValue(Object o) {
     throw new UnsupportedOperationException();
+  }
+
+  public static OPMObjectInstance createCompositeInstance() {
+    return new OPMObjectInstance();
   }
 
   public static OPMObjectInstance createFromValue(BigDecimal o) {
@@ -57,11 +63,10 @@ public class OPMObjectInstance {
   private void setValue(Object value) {
     checkNotNull(value, "Cannot set null value to variable.");
     this.value = value;
-    valueSet = true;
   }
 
   public Object getValue() {
-    Preconditions.checkState(value != null, "Value of variable is not set.");
+    checkState(value != null, "Value of variable is not set.");
     return value;
   }
 
@@ -89,7 +94,7 @@ public class OPMObjectInstance {
   }
 
   public String getState() {
-    Preconditions.checkState(state != null, "State of variable is not set.");
+    checkState(state != null, "State of variable is not set.");
     return state;
   }
 
@@ -101,12 +106,43 @@ public class OPMObjectInstance {
     return value != null;
   }
 
+  public boolean isComposite() {
+    return (value == null) && (state == null);
+  }
+
   @Override
   public String toString() {
     if(state != null)
       return state;
-    else
+    else if(value != null)
       return value.toString();
+    else if(parts.size() > 0) {
+      StringBuilder ret = new StringBuilder("{");
+      for(String partName : parts.keySet()) {
+        ret.append(partName + ":" + parts.get(partName) + ",");
+      }
+      ret.replace(ret.length() - 1, ret.length(), "}");
+      return ret.toString();
+    } else {
+      throw new IllegalStateException();
+    }
+  }
+
+  public void setPart(String name, OPMObjectInstance part) {
+    checkNotNull(name);
+    checkNotNull(part);
+    checkState(isComposite());
+    parts.put(name, part);
+  }
+
+  public OPMObjectInstance getPart(String name) {
+    checkState(isComposite());
+    return parts.get(name);
+  }
+
+  public Set<Entry<String, OPMObjectInstance>> getParts() {
+    checkState(isComposite());
+    return parts.entrySet();
   }
 
 }
