@@ -5,6 +5,7 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import java.lang.annotation.Inherited;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -24,17 +25,29 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
 
   protected final Map<String, OPMObjectInstance> arguments = Maps.newHashMap();
   protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
+  private String name;
 
   /**
-   * Actual instance execution, must be implemented by subclasses.
+   * Get the name of this instance;
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Set the name of this instance.
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * {@inheritDoc}
    */
   abstract protected void executing();
 
   /**
-   * Execution of an OPD is done in three steps: pre-execution, execution, and
-   * post-execution. All of these steps can be overriden by subclasses to
-   * implement the execution functionality. All subclasses must implement at the
-   * minimum the <code>executing</code> function.
+   * {@inheritDoc}
    */
   @Override
   public final void execute() {
@@ -44,16 +57,14 @@ public abstract class OPMAbstractProcessInstance implements OPMExecutableInstanc
   }
 
   /**
-   * First step in the execution of an OPD (see {@link #execute()}). Default
-   * implementation, prints to log.
+   * {@inheritDoc}
    */
   protected void preExecution() {
     logger.info("Started executing process " + getName());
   }
 
   /**
-   * Last step in the execution of an OPD (see {@link #execute()}). Default
-   * implementation, prints to the log.
+   * {@inheritDoc}
    */
   protected void postExecution() {
     logger.info("Finished executing process " + getName());

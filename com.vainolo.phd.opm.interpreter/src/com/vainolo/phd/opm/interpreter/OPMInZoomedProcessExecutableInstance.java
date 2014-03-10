@@ -101,10 +101,19 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     return getOpd().getName();
   }
 
+  /**
+   * @deprecated This function should not be stopeed for this kind of instance.
+   *             It will throw an exception.
+   */
+  @Override
+  public void setName(String name) {
+    throw new UnsupportedOperationException();
+  }
+
   private void createInitialSetOfExecutableInstances() {
     Set<OPMProcess> initialProcesses = executionAnalyzer.findInitialProcesses(opdDag);
     for(OPMProcess process : initialProcesses) {
-      OPMExecutableInstance instance = OPMExecutableInstanceFactory.createExecutableInstance(process);
+      OPMExecutableInstance instance = OPMProcessInstanceFactory.createExecutableInstance(process);
       executionState.addWaitingInstance(process, instance);
     }
   }
@@ -254,7 +263,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   private OPMExecutableInstance createNewWaitingInstance(OPMProcess process) {
-    OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(process);
+    OPMExecutableInstance newInstance = OPMProcessInstanceFactory.createExecutableInstance(process);
     executionState.addWaitingInstance(process, newInstance);
     return newInstance;
   }
@@ -262,7 +271,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private void createFollowingWaitingInstancesFromFollowingProcesses(OPMProcess process, OPMExecutableInstance instance) {
     Set<OPMProcess> followingProcesses = executionHelper.calculateFollowingProcesses(process, opdDag, executionState);
     for(OPMProcess followingProcess : followingProcesses) {
-      OPMExecutableInstance newInstance = OPMExecutableInstanceFactory.createExecutableInstance(followingProcess);
+      OPMExecutableInstance newInstance = OPMProcessInstanceFactory.createExecutableInstance(followingProcess);
       executionState.addWaitingInstance(followingProcess, newInstance);
     }
 

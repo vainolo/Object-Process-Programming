@@ -43,6 +43,11 @@ public interface OPMExecutableInstance {
   String getName();
 
   /**
+   * Set the name of the Process.
+   */
+  void setName(String name);
+
+  /**
    * Execute this instance.
    */
   void execute();

@@ -18,20 +18,14 @@ import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
  * @created 9 Jul 2012
  * 
  */
-public class OPMCreateComplexObjectProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMSubstractProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
   @Override
   public void executing() {
-
     BigDecimal a = getArgument("a").getNumericalValue();
     BigDecimal b = getArgument("b").getNumericalValue();
-    BigDecimal c = a.add(b);
+    BigDecimal c = a.subtract(b);
     OPMObjectInstance instance = OPMObjectInstance.createFromValue(c);
     setArgument("c", instance);
-  }
-
-  @Override
-  public String getName() {
-    return "Add";
   }
 
   @Override
