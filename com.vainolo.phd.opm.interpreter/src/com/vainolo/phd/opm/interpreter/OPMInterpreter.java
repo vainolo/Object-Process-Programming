@@ -42,7 +42,7 @@ public enum OPMInterpreter {
   public void interpret(String opdName, final IContainer _container) {
     container = _container;
     logger.info("Interpreting OPD" + opdName);
-    OPMExecutableInstance instance = OPMProcessInstanceFactory.createExecutableInstance(opdName);
+    OPMProcessInstance instance = OPMProcessInstanceFactory.createExecutableInstance(opdName);
 
     instance.execute();
     logger.info("Finished interpreting " + opdName);

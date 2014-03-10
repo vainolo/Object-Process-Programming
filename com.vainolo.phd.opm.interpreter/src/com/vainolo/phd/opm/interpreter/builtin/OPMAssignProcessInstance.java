@@ -6,7 +6,7 @@
 package com.vainolo.phd.opm.interpreter.builtin;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
-import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 
 /**
  * Process that assigns one variable's value to another variables.
@@ -15,7 +15,7 @@ import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
  * @created 9 Jul 2012
  * 
  */
-public class OPMAssignProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMAssignProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 
   @Override
   public void executing() {

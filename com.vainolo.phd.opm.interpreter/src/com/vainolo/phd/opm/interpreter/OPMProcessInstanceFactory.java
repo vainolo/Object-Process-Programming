@@ -29,7 +29,7 @@ public class OPMProcessInstanceFactory {
 
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMProcessInstanceFactory.class.getName());
 
-  static OPMExecutableInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
+  static OPMProcessInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
     case COMPOUND:
       return new OPMInZoomedProcessExecutableInstance(opd, new OPDAnalyzer());
@@ -40,15 +40,15 @@ public class OPMProcessInstanceFactory {
     return null;
   }
 
-  public static OPMExecutableInstance createExecutableInstance(String opdName) {
+  public static OPMProcessInstance createExecutableInstance(String opdName) {
     OPMObjectProcessDiagram opd = OPMFileUtils.INSTANCE.loadOPDFile(OPMInterpreter.container
         .getFile(new Path(opdName + ".opm")).getFullPath().toString());
     return createExecutableInstance(opd);
 
   }
 
-  public static OPMExecutableInstance createExecutableInstance(OPMProcess process) {
-    OPMExecutableInstance executableInstance = null;
+  public static OPMProcessInstance createExecutableInstance(OPMProcess process) {
+    OPMProcessInstance executableInstance = null;
     switch(process.getKind()) {
     case BUILT_IN:
       executableInstance = createBuildInProcess(process);
@@ -67,8 +67,8 @@ public class OPMProcessInstanceFactory {
     return executableInstance;
   }
 
-  private static OPMExecutableInstance createBuildInProcess(final OPMProcess process) {
-    OPMExecutableInstance processInstance;
+  private static OPMProcessInstance createBuildInProcess(final OPMProcess process) {
+    OPMProcessInstance processInstance;
 
     if(process.getName().equals("Input")) {
       processInstance = new OPMInputProcessInstance();

@@ -17,7 +17,7 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.utils.SimpleLoggerFactory;
 
-public class OPMJavaProcessExecutableInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMJavaProcessExecutableInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMJavaProcessExecutableInstance.class
       .getName());
 

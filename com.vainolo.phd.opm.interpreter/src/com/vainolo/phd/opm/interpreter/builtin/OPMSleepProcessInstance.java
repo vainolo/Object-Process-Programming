@@ -8,7 +8,7 @@ package com.vainolo.phd.opm.interpreter.builtin;
 import java.util.logging.Logger;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
-import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -18,7 +18,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * @created 9 Jul 2012
  * 
  */
-public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMSleepProcessInstance.class.getName());
 
   @Override

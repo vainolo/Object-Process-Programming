@@ -11,7 +11,7 @@ package com.vainolo.phd.opm.interpreter;
  * @created 2 Jul 2012
  * 
  */
-public interface OPMExecutableInstance {
+public interface OPMProcessInstance {
 
   /**
    * Set the value of an argument.

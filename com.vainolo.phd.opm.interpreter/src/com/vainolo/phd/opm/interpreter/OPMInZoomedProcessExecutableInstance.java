@@ -31,7 +31,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * @author Arieh "Vainolo" Bibliowicz
  * 
  */
-public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMInZoomedProcessExecutableInstance.class
       .getName());
@@ -113,14 +113,14 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private void createInitialSetOfExecutableInstances() {
     Set<OPMProcess> initialProcesses = executionAnalyzer.findInitialProcesses(opdDag);
     for(OPMProcess process : initialProcesses) {
-      OPMExecutableInstance instance = OPMProcessInstanceFactory.createExecutableInstance(process);
+      OPMProcessInstance instance = OPMProcessInstanceFactory.createExecutableInstance(process);
       executionState.addWaitingInstance(process, instance);
     }
   }
 
-  public Set<OPMExecutableInstance> findWaitingInstanceThatCanBeMadeReady() {
-    Set<OPMExecutableInstance> newReadyInstances = Sets.newHashSet();
-    for(OPMExecutableInstance waitingInstance : executionState.getWaitingInstances()) {
+  public Set<OPMProcessInstance> findWaitingInstanceThatCanBeMadeReady() {
+    Set<OPMProcessInstance> newReadyInstances = Sets.newHashSet();
+    for(OPMProcessInstance waitingInstance : executionState.getWaitingInstances()) {
       loadInstanceArguments(waitingInstance);
       if(waitingInstance.isReady())
         newReadyInstances.add(waitingInstance);
@@ -128,7 +128,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     return newReadyInstances;
   }
 
-  private void loadInstanceArguments(OPMExecutableInstance instance) {
+  private void loadInstanceArguments(OPMProcessInstance instance) {
     for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
       OPMObject argument = analyzer.getObject(incomingDataLink);
       instance.setArgument(incomingDataLink.getCenterDecoration(), getVariable(argument));
@@ -152,7 +152,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
         return;
       }
 
-      OPMExecutableInstance instance = executionState.getReadyInstances().iterator().next();
+      OPMProcessInstance instance = executionState.getReadyInstances().iterator().next();
       if(instanceIsNotReadyAnymore(instance)) {
         executionState.makeReadyInstanceWaiting(instance);
         continue;
@@ -174,12 +174,12 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     logger.info("finished executing " + getName());
   }
 
-  private boolean instanceIsNotReadyAnymore(OPMExecutableInstance instance) {
+  private boolean instanceIsNotReadyAnymore(OPMProcessInstance instance) {
     loadInstanceArguments(instance);
     return !instance.isReady();
   }
 
-  private void extractResultsToVariables(OPMExecutableInstance instance) {
+  private void extractResultsToVariables(OPMProcessInstance instance) {
     for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
       OPMObject object = analyzer.getObject(instanceOutgoingDataLink);
       OPMObjectInstance value = instance.getArgument(instanceOutgoingDataLink.getCenterDecoration());
@@ -187,7 +187,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     }
   }
 
-  private void transferDataFromModifiedObject(OPMExecutableInstance instance) {
+  private void transferDataFromModifiedObject(OPMProcessInstance instance) {
     for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
       OPMObject object = analyzer.getObject(instanceOutgoingDataLink);
       Collection<OPMProceduralLink> dataLinks = analyzer.findOutgoingDataLinks(object);
@@ -200,7 +200,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     }
   }
 
-  private void createFollowingWaitingInstances(OPMProcess process, OPMExecutableInstance instance, boolean skipped) {
+  private void createFollowingWaitingInstances(OPMProcess process, OPMProcessInstance instance, boolean skipped) {
     boolean createdInstancesFromEventLinks = false;
     if(!skipped)
       createdInstancesFromEventLinks = createFollowingWaitinginstancesFromEventLinks(process, instance);
@@ -209,12 +209,12 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     }
   }
 
-  private boolean createFollowingWaitinginstancesFromEventLinks(OPMProcess process, OPMExecutableInstance instance) {
+  private boolean createFollowingWaitinginstancesFromEventLinks(OPMProcess process, OPMProcessInstance instance) {
     Set<OPMProcess> newProcesses = findFollowingProcessesFromEventLinks(process);
     boolean created = false;
     for(OPMProcess newProcess : newProcesses) {
       logger.info("Creating new instance of " + process.getName() + " from event link.");
-      OPMExecutableInstance newInstance = createNewWaitingInstance(newProcess);
+      OPMProcessInstance newInstance = createNewWaitingInstance(newProcess);
       created = true;
       loadInstanceArguments(newInstance);
       if(!newInstance.isReady()) {
@@ -262,22 +262,22 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     return false;
   }
 
-  private OPMExecutableInstance createNewWaitingInstance(OPMProcess process) {
-    OPMExecutableInstance newInstance = OPMProcessInstanceFactory.createExecutableInstance(process);
+  private OPMProcessInstance createNewWaitingInstance(OPMProcess process) {
+    OPMProcessInstance newInstance = OPMProcessInstanceFactory.createExecutableInstance(process);
     executionState.addWaitingInstance(process, newInstance);
     return newInstance;
   }
 
-  private void createFollowingWaitingInstancesFromFollowingProcesses(OPMProcess process, OPMExecutableInstance instance) {
+  private void createFollowingWaitingInstancesFromFollowingProcesses(OPMProcess process, OPMProcessInstance instance) {
     Set<OPMProcess> followingProcesses = executionHelper.calculateFollowingProcesses(process, opdDag, executionState);
     for(OPMProcess followingProcess : followingProcesses) {
-      OPMExecutableInstance newInstance = OPMProcessInstanceFactory.createExecutableInstance(followingProcess);
+      OPMProcessInstance newInstance = OPMProcessInstanceFactory.createExecutableInstance(followingProcess);
       executionState.addWaitingInstance(followingProcess, newInstance);
     }
 
   }
 
-  private boolean instanceMustBeSkipped(OPMExecutableInstance instance) {
+  private boolean instanceMustBeSkipped(OPMProcessInstance instance) {
     for(OPMProceduralLink link : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
       if(link.getSubKinds().contains(OPMConstants.OPM_CONDITIONAL_LINK_SUBKIND)) {
         OPMObjectInstance variable = getVariable(analyzer.getObject(link));

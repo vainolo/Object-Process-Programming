@@ -96,7 +96,7 @@ public class OPMInZoomedProcessExecutableInstanceTest {
     link = createProceduralLink("c", OPMProceduralLinkKind.RESULT, innerProcess, object);
     opd.getLinks().add(link);
     
-    OPMExecutableInstance instance = OPMProcessInstanceFactory.createExecutableInstance(opd);
+    OPMProcessInstance instance = OPMProcessInstanceFactory.createExecutableInstance(opd);
     
     instance.setArgument("a", OPMObjectInstance.createFromValue(new BigDecimal(1.0)));
     instance.setArgument("b", OPMObjectInstance.createFromValue(new BigDecimal(2.0)));

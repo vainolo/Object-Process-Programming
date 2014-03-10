@@ -6,10 +6,10 @@
 package com.vainolo.phd.opm.interpreter.builtin;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
-import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 
-public class OPMCreateCompositeObjectProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMCreateCompositeObjectProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
   @Override
   public void executing() {
     setArgument("new", OPMObjectInstance.createCompositeInstance());

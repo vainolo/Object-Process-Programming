@@ -14,13 +14,13 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
- * Default implementation of {@link OPMExecutableInstance} interface to be used
+ * Default implementation of {@link OPMProcessInstance} interface to be used
  * by subclasses.
  * 
  * @author Arieh "Vainolo" Bibliowicz
  * 
  */
-public abstract class OPMAbstractProcessInstance implements OPMExecutableInstance {
+public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
   protected final Map<String, OPMObjectInstance> arguments = Maps.newHashMap();

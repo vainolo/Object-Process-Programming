@@ -13,61 +13,61 @@ import com.vainolo.phd.opm.model.OPMProcess;
 class OPMInZoomedProcessExecutionState {
   // private Map<OPMProcess, OPMExecutableInstance> processToInstanceMapping =
   // Maps.newHashMap();
-  private Map<OPMExecutableInstance, OPMProcess> instanceToProcessMapping = Maps.newHashMap();
-  private List<OPMExecutableInstance> readyInstances = Lists.newArrayList();
-  private List<OPMExecutableInstance> waitingInstances = Lists.newArrayList();
+  private Map<OPMProcessInstance, OPMProcess> instanceToProcessMapping = Maps.newHashMap();
+  private List<OPMProcessInstance> readyInstances = Lists.newArrayList();
+  private List<OPMProcessInstance> waitingInstances = Lists.newArrayList();
 
-  private void addProcessToInstanceMapping(OPMProcess process, OPMExecutableInstance instance) {
+  private void addProcessToInstanceMapping(OPMProcess process, OPMProcessInstance instance) {
     // processToInstanceMapping.put(process, instance);
     instanceToProcessMapping.put(instance, process);
   }
 
-  public void addWaitingInstance(OPMProcess process, OPMExecutableInstance instance) {
+  public void addWaitingInstance(OPMProcess process, OPMProcessInstance instance) {
     waitingInstances.add(instance);
     addProcessToInstanceMapping(process, instance);
   }
 
-  public void addReadyInstance(OPMProcess process, OPMExecutableInstance instance) {
+  public void addReadyInstance(OPMProcess process, OPMProcessInstance instance) {
     readyInstances.add(instance);
     addProcessToInstanceMapping(process, instance);
   }
 
-  public List<OPMExecutableInstance> getWaitingInstances() {
+  public List<OPMProcessInstance> getWaitingInstances() {
     return Collections.unmodifiableList(waitingInstances);
   }
 
-  public List<OPMExecutableInstance> getReadyInstances() {
+  public List<OPMProcessInstance> getReadyInstances() {
     return Collections.unmodifiableList(readyInstances);
   }
 
-  public void makeWaitingInstanceReady(OPMExecutableInstance instance) {
+  public void makeWaitingInstanceReady(OPMProcessInstance instance) {
     waitingInstances.remove(instance);
     readyInstances.add(instance);
   }
 
-  public void makeWaitingInstancesReady(Set<OPMExecutableInstance> instances) {
-    for(OPMExecutableInstance instance : instances) {
+  public void makeWaitingInstancesReady(Set<OPMProcessInstance> instances) {
+    for(OPMProcessInstance instance : instances) {
       makeWaitingInstanceReady(instance);
     }
   }
 
-  public void makeReadyInstanceWaiting(OPMExecutableInstance instance) {
+  public void makeReadyInstanceWaiting(OPMProcessInstance instance) {
     readyInstances.remove(instance);
     waitingInstances.add(instance);
   }
 
-  public OPMProcess getProcess(OPMExecutableInstance instance) {
+  public OPMProcess getProcess(OPMProcessInstance instance) {
     return instanceToProcessMapping.get(instance);
   }
 
-  public void removeReadyInstance(OPMExecutableInstance instance) {
+  public void removeReadyInstance(OPMProcessInstance instance) {
     OPMProcess process = instanceToProcessMapping.get(instance);
     // processToInstanceMapping.remove(process);
     instanceToProcessMapping.remove(instance);
     readyInstances.remove(instance);
   }
 
-  public void removeWaitingInstance(OPMExecutableInstance instance) {
+  public void removeWaitingInstance(OPMProcessInstance instance) {
     OPMProcess process = instanceToProcessMapping.get(instance);
     // processToInstanceMapping.remove(process);
     instanceToProcessMapping.remove(instance);
@@ -100,9 +100,9 @@ class OPMInZoomedProcessExecutionState {
     return ret;
   }
 
-  private class TransformInstanceToProcess implements Function<OPMExecutableInstance, OPMProcess> {
+  private class TransformInstanceToProcess implements Function<OPMProcessInstance, OPMProcess> {
     @Override
-    public OPMProcess apply(OPMExecutableInstance input) {
+    public OPMProcess apply(OPMProcessInstance input) {
       return getProcess(input);
     }
   }

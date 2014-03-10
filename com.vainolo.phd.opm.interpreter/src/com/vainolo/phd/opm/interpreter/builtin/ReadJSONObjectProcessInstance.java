@@ -14,10 +14,10 @@ import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonObject.Member;
 import com.eclipsesource.json.JsonValue;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
-import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.utils.SimpleLoggerFactory;
 
-public class ReadJSONObjectProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class ReadJSONObjectProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
   @Override

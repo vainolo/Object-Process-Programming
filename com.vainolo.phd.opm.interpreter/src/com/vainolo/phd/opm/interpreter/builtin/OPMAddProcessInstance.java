@@ -8,7 +8,7 @@ package com.vainolo.phd.opm.interpreter.builtin;
 import java.math.BigDecimal;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
-import com.vainolo.phd.opm.interpreter.OPMExecutableInstance;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 
 /**
@@ -18,7 +18,7 @@ import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
  * @created 9 Jul 2012
  * 
  */
-public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements OPMExecutableInstance {
+public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
   @Override
   public void executing() {
     BigDecimal a = getArgument("a").getNumericalValue();
