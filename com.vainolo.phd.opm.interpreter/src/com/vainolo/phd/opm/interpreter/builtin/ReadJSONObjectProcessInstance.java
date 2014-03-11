@@ -31,7 +31,7 @@ public class ReadJSONObjectProcessInstance extends OPMAbstractProcessInstance im
         Member m = it.next();
         String name = m.getName();
         JsonValue value = m.getValue();
-
+        logger.info("Read member " + name + " with value " + value.toString());
       }
 
     } catch(Exception e) {

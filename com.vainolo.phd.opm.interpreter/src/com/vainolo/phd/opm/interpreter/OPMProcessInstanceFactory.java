@@ -8,8 +8,6 @@ package com.vainolo.phd.opm.interpreter;
 import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.Path;
-
-import com.vainolo.phd.opm.interpreter.builtin.OPMAddPartToCompositeObjectProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMAssignProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMConceptualProcess;
@@ -91,8 +89,6 @@ public class OPMProcessInstanceFactory {
       processInstance = new OPMPrintHelloWorldProcessInstance();
     } else if(process.getName().equals("Create")) {
       processInstance = new OPMCreateCompositeObjectProcessInstance();
-    } else if(process.getName().equals("Add Part")) {
-      processInstance = new OPMAddPartToCompositeObjectProcessInstance();
     } else {
       throw new IllegalStateException("Tried to create unexistent build-in process " + process.getName());
     }

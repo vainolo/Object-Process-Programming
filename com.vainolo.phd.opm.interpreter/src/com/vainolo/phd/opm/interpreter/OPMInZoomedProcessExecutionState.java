@@ -11,14 +11,11 @@ import com.google.common.collect.Maps;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 class OPMInZoomedProcessExecutionState {
-  // private Map<OPMProcess, OPMExecutableInstance> processToInstanceMapping =
-  // Maps.newHashMap();
   private Map<OPMProcessInstance, OPMProcess> instanceToProcessMapping = Maps.newHashMap();
   private List<OPMProcessInstance> readyInstances = Lists.newArrayList();
   private List<OPMProcessInstance> waitingInstances = Lists.newArrayList();
 
   private void addProcessToInstanceMapping(OPMProcess process, OPMProcessInstance instance) {
-    // processToInstanceMapping.put(process, instance);
     instanceToProcessMapping.put(instance, process);
   }
 
@@ -61,22 +58,14 @@ class OPMInZoomedProcessExecutionState {
   }
 
   public void removeReadyInstance(OPMProcessInstance instance) {
-    OPMProcess process = instanceToProcessMapping.get(instance);
-    // processToInstanceMapping.remove(process);
     instanceToProcessMapping.remove(instance);
     readyInstances.remove(instance);
   }
 
   public void removeWaitingInstance(OPMProcessInstance instance) {
-    OPMProcess process = instanceToProcessMapping.get(instance);
-    // processToInstanceMapping.remove(process);
     instanceToProcessMapping.remove(instance);
     waitingInstances.remove(instance);
   }
-
-  // public boolean isProcessWaitingOrReady(OPMProcess process) {
-  // return processToInstanceMapping.containsKey(process);
-  // }
 
   public boolean areThereWaitingOrReadyInstances() {
     return areThereWaitingInstances() || areThereReadyInstances();

@@ -5,7 +5,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import java.lang.annotation.Inherited;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -14,8 +13,8 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
- * Default implementation of {@link OPMProcessInstance} interface to be used
- * by subclasses.
+ * Default implementation of {@link OPMProcessInstance} interface to be used by
+ * subclasses.
  * 
  * @author Arieh "Vainolo" Bibliowicz
  * 

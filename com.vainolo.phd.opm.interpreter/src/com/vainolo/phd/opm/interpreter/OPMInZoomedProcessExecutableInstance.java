@@ -1,6 +1,5 @@
 package com.vainolo.phd.opm.interpreter;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
@@ -19,7 +18,6 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMState;
-import com.vainolo.phd.opm.model.impl.OPMProcessImpl;
 import com.vainolo.phd.opm.utilities.OPMConstants;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.utils.SimpleLoggerFactory;
