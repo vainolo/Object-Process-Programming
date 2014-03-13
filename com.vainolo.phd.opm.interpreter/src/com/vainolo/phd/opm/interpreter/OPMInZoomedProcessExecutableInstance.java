@@ -140,7 +140,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       logger.info("Nothing t  o execute in " + getName());
       return;
     }
-    // assignArgumentsToWaitingInstances();
     while(executionState.areThereWaitingOrReadyInstances()) {
       if(!executionState.areThereReadyInstances()) {
         executionState.makeWaitingInstancesReady(findWaitingInstanceThatCanBeMadeReady());
@@ -159,7 +158,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       if(!instanceMustBeSkipped(instance)) {
         instance.execute();
         extractResultsToVariables(instance);
-        transferDataFromModifiedObject(instance);
+        transferDataFromModifiedObjects(instance);
       } else {
         skipped = true;
         logger.info("Skipping " + executionState.getProcess(instance).getName());
@@ -185,15 +184,20 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     }
   }
 
-  private void transferDataFromModifiedObject(OPMProcessInstance instance) {
+  private void transferDataFromModifiedObjects(OPMProcessInstance instance) {
     for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
       OPMObject object = analyzer.getObject(instanceOutgoingDataLink);
-      Collection<OPMProceduralLink> dataLinks = analyzer.findOutgoingDataLinks(object);
-      for(OPMProceduralLink link : dataLinks) {
-        if(OPMObject.class.isInstance(link.getTarget())) {
-          OPMObject target = OPMObject.class.cast(link.getTarget());
-          setVariable(target, getVariable(object));
-        }
+      transferDataFromObject(object);
+    }
+  }
+
+  private void transferDataFromObject(OPMObject object) {
+    Collection<OPMProceduralLink> dataLinks = analyzer.findOutgoingDataLinks(object);
+    for(OPMProceduralLink link : dataLinks) {
+      if(OPMObject.class.isInstance(link.getTarget())) {
+        OPMObject target = OPMObject.class.cast(link.getTarget());
+        setVariable(target, getVariable(object));
+        transferDataFromObject(target);
       }
     }
   }
@@ -315,6 +319,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       } else {
         calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
       }
+
+      transferDataFromObject(object);
     }
   }
 
@@ -325,6 +331,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     Collection<OPMObject> objectVariables = analyzer.findObjects(getInZoomedProcess());
     for(OPMObject object : objectVariables) {
       calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
+      transferDataFromObject(object);
     }
   }
 
