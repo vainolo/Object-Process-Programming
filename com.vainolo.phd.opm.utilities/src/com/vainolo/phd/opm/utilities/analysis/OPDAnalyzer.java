@@ -15,11 +15,11 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMState;
+import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
+import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 import com.vainolo.phd.opm.utilities.OPMConstants;
 
 public class OPDAnalyzer {
-
-  private OPDAnalysis analyzer = OPDAnalysis.INSTANCE;
 
   /**
    * Return the {@link OPMObject} connected to an {@link OPMProceduralLink},
@@ -533,4 +533,28 @@ public class OPDAnalyzer {
 
   }
 
+  public boolean isObjectPartOfAnotherObject(OPMObject object) {
+    return findParent(object) != null;
+  }
+
+  /**
+   * Find the aggregate parent of this {@link OPMObject}, or <code>null</code>
+   * if the {@link OPMObject} has no parent.
+   * 
+   * @param object
+   *          being searched.
+   * @return the parent of this {@link OPMObject} if it has one,
+   *         <code>null</code> otherwise.
+   */
+  public OPMObject findParent(OPMObject object) {
+    Collection<OPMLink> incomingStructuralLinks = findIncomingStructuralLinks(object);
+    for(OPMLink link : incomingStructuralLinks) {
+      OPMStructuralLinkAggregator source = OPMStructuralLinkAggregator.class.cast(link.getSource());
+      if(source.getKind().equals(OPMStructuralLinkAggregatorKind.AGGREGATION)) {
+        OPMLink aggregatorIncomingLink = source.getIncomingLinks().iterator().next();
+        return OPMObject.class.cast(aggregatorIncomingLink.getSource());
+      }
+    }
+    return null;
+  }
 }

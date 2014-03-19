@@ -43,8 +43,8 @@ public class OPMObjectInstanceTest {
 		instance1 = OPMObjectInstance.createCompositeInstance();
 		instance2 = OPMObjectInstance.createFromState(state1);
 		instance3 = OPMObjectInstance.createFromValue(string1);
-		instance1.setPart("part1", instance2);
-		instance1.setPart("part2", instance3);
+		instance1.addPart("part1", instance2);
+		instance1.addPart("part2", instance3);
 		
 		assertTrue(instance1.isComposite());
 		assertEquals(instance1.getParts().size(), 2);
@@ -74,14 +74,14 @@ public class OPMObjectInstanceTest {
 	public void test_AddPartToValueInstance_ExpectException() {
 		instance1 = OPMObjectInstance.createFromValue(number1);
 		instance2 = OPMObjectInstance.createFromValue(number1);
-		instance1.setPart("name", instance2);
+		instance1.addPart("name", instance2);
 	}
 	
 	@Test(expected=IllegalStateException.class) 
 	public void test_AddPartToStateInstance_ExpectException() {
 		instance1 = OPMObjectInstance.createFromState(state1);
 		instance2 = OPMObjectInstance.createFromValue(number1);
-		instance1.setPart("name", instance2);
+		instance1.addPart("name", instance2);
 	}
 
 	@Test
@@ -100,7 +100,7 @@ public class OPMObjectInstanceTest {
 	public void tes_CompoundInstanceToString() {
 		instance1 = OPMObjectInstance.createCompositeInstance();
 		instance2 = OPMObjectInstance.createFromValue(number1);
-		instance1.setPart("part1", instance2);
+		instance1.addPart("part1", instance2);
 		assertEquals("{part1:"+instance2.toString()+"}", instance1.toString());
 		
 	}

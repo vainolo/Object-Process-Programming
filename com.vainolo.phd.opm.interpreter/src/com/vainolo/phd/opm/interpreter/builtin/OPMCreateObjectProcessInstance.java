@@ -7,28 +7,21 @@ package com.vainolo.phd.opm.interpreter.builtin;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 
-/**
- * Process that assigns one variable's value to another variables.
- * 
- * @author Arieh 'Vainolo' Bibliowicz
- * @created 9 Jul 2012
- * 
- */
-public class OPMAssignProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
-
+public class OPMCreateObjectProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
   @Override
   public void executing() {
-    setArgument("b", getArgument("a"));
+    setArgument("object", OPMObjectInstance.createCompositeInstance());
   }
 
   @Override
   public String getName() {
-    return "Assign";
+    return "Create";
   }
 
   @Override
   public boolean isReady() {
-    return getArgument("a") != null;
+    return true;
   }
 }

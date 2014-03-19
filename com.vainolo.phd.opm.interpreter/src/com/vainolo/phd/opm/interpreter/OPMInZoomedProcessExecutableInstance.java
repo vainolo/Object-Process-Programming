@@ -71,7 +71,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   /**
-   * Set the value in an {@link OPMObject}
+   * Set the value in an {@link OPMObject}. If the {@link OPMObject} is a part
+   * of another {@link OPMObject}, the parent {@link OPMObject}.
    * 
    * @param object
    *          where a value can be stored
@@ -79,11 +80,23 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
    *          the value to store
    */
   protected void setVariable(OPMObject object, OPMObjectInstance value) {
-    variables.put(object, value);
+    if(analyzer.isObjectPartOfAnotherObject(object)) {
+      OPMObject parentObject = analyzer.findParent(object);
+      OPMObjectInstance parentInstance = getVariable(parentObject);
+      if(parentInstance == null) {
+        parentInstance = OPMObjectInstance.createCompositeInstance();
+        setVariable(parentObject, parentInstance);
+      }
+      parentInstance.addPart(object.getName(), value);
+    } else {
+      variables.put(object, value);
+    }
   }
 
   /**
-   * Return the value stored in the {@link OPMObject}.
+   * Return the value stored in the {@link OPMObject}. If the {@link OPMObject}
+   * is part of another {@link OPMObject}, the value if fetched from the parent
+   * {@link OPMObject}.
    * 
    * @param object
    *          where a value can be stored
@@ -91,7 +104,16 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
    *         value has been assigned.
    */
   protected OPMObjectInstance getVariable(OPMObject object) {
-    return variables.get(object);
+    if(analyzer.isObjectPartOfAnotherObject(object)) {
+      OPMObjectInstance parent = getVariable(analyzer.findParent(object));
+      if(parent == null) {
+        return null;
+      } else {
+        return parent.getPart(object.getName());
+      }
+    } else {
+      return variables.get(object);
+    }
   }
 
   @Override
@@ -137,7 +159,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   protected void executing() {
     createInitialSetOfExecutableInstances();
     if(!executionState.areThereWaitingInstances()) {
-      logger.info("Nothing t  o execute in " + getName());
+      logger.info("Nothing to execute in " + getName());
       return;
     }
     while(executionState.areThereWaitingOrReadyInstances()) {

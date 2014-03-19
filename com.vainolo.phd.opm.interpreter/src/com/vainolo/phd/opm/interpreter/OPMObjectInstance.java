@@ -8,6 +8,7 @@ package com.vainolo.phd.opm.interpreter;
 import static com.google.common.base.Preconditions.*;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -127,7 +128,7 @@ public class OPMObjectInstance {
     }
   }
 
-  public void setPart(String name, OPMObjectInstance part) {
+  public void addPart(String name, OPMObjectInstance part) {
     checkNotNull(name);
     checkNotNull(part);
     checkState(isComposite());
@@ -141,7 +142,7 @@ public class OPMObjectInstance {
 
   public Set<Entry<String, OPMObjectInstance>> getParts() {
     checkState(isComposite());
-    return parts.entrySet();
+    return Collections.unmodifiableSet(parts.entrySet());
   }
 
 }

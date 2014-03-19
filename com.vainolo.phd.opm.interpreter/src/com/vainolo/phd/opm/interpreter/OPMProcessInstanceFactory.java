@@ -9,9 +9,8 @@ import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.Path;
 import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
-import com.vainolo.phd.opm.interpreter.builtin.OPMAssignProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMConceptualProcess;
-import com.vainolo.phd.opm.interpreter.builtin.OPMCreateCompositeObjectProcessInstance;
+import com.vainolo.phd.opm.interpreter.builtin.OPMCreateObjectProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMInputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMOutputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMPrintHelloWorldProcessInstance;
@@ -83,12 +82,10 @@ public class OPMProcessInstanceFactory {
     } else if(process.getName().equals("Sleep")) {
       processInstance = new OPMSleepProcessInstance();
       processInstance.setName(process.getName());
-    } else if(process.getName().equals("Assign") || process.getName().equals("=")) {
-      processInstance = new OPMAssignProcessInstance();
     } else if(process.getName().equals("Hello World")) {
       processInstance = new OPMPrintHelloWorldProcessInstance();
-    } else if(process.getName().equals("Create")) {
-      processInstance = new OPMCreateCompositeObjectProcessInstance();
+    } else if(process.getName().equals("Create") || process.getName().equals("New")) {
+      processInstance = new OPMCreateObjectProcessInstance();
     } else {
       throw new IllegalStateException("Tried to create unexistent build-in process " + process.getName());
     }

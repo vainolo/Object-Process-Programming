@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,6 +23,8 @@ import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
+import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 
 /**
  * The class <code>OPDAnalyzerTest</code> contains tests for the class
@@ -451,7 +454,15 @@ public class OPDAnalyzerTest {
     Collection<OPMLink> result = analyzer.findOutgoingStructuralLinks(object);
     assertEquals(2, result.size());
   }
-
+  
+  @Test
+  public void test_findParent_hasParent_returnTrue() {
+	  OPMObject whole = createObject();
+	  OPMObject part = createObject();
+	  addPart(whole, part);
+	  
+  }
+  
   // Test helper methods
   private void addOutgoingProceduralLink(OPMNode node) {
     OPMLink link = OPMFactory.eINSTANCE.createOPMProceduralLink();
@@ -475,6 +486,17 @@ public class OPDAnalyzerTest {
     OPMLink link = OPMFactory.eINSTANCE.createOPMLink();
     link.setSource(aggregator);
     link.setTarget(node);
+  }
+  
+  private void addPart(OPMObject whole, OPMObject part) {
+	  OPMStructuralLinkAggregator aggregator = OPMFactory.eINSTANCE.createOPMStructuralLinkAggregator();
+	  aggregator.setKind(OPMStructuralLinkAggregatorKind.AGGREGATION);
+	  OPMLink link = OPMFactory.eINSTANCE.createOPMLink();
+	  link.setSource(whole);
+	  link.setTarget(aggregator);
+	  link = OPMFactory.eINSTANCE.createOPMLink();
+	  link.setSource(aggregator);
+	  link.setTarget(part);
   }
 
   private OPMObject createObject() {
