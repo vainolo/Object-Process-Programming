@@ -82,14 +82,16 @@ public class OPDAnalyzer {
   /**
    * Find all the parameters of the OPD. The definition of a parameter is based
    * on how the process is being modeled. Currently, parameters are all the
-   * objects directly below the OPD, which are not inside the main process.
+   * objects directly below the OPD, which are not inside the main process, and
+   * are not part of a compound object.
    * 
    * @param opd
    *          to search.
    * @return the parameters of the OPD.
    */
   public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd) {
-    return findObjects(opd);
+    Collection<OPMObject> firstLevelObjects = findObjects(opd);
+    return Collections2.filter(firstLevelObjects, IsOPMObjectNotPartOfAnotherObject.INSTANCE);
   }
 
   public Collection<OPMObject> findIncomingParameters(OPMObjectProcessDiagram opd) {
@@ -522,6 +524,18 @@ public class OPDAnalyzer {
     public boolean apply(OPMProceduralLink input) {
       return OPMProceduralLinkKind.CONSUMPTION.equals(input.getKind());
     }
+  }
+
+  public enum IsOPMObjectNotPartOfAnotherObject implements Predicate<OPMObject> {
+    INSTANCE;
+
+    private OPDAnalyzer analyzer = new OPDAnalyzer();
+
+    @Override
+    public boolean apply(OPMObject object) {
+      return !analyzer.isObjectPartOfAnotherObject(object);
+    }
+
   }
 
   public class IsOPMState implements Predicate<OPMNode> {

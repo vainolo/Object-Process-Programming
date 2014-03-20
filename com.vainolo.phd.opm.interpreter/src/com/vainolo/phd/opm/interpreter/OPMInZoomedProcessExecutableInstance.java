@@ -148,10 +148,30 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     return newReadyInstances;
   }
 
+  public Set<OPMProcessInstance> findWaitingInstancesThatMustBeSkipped() {
+    Set<OPMProcessInstance> instancesThatMustBeSkipped = Sets.newHashSet();
+    for(OPMProcessInstance waitingInstance : executionState.getWaitingInstances()) {
+      loadInstanceArguments(waitingInstance);
+      if(instanceMustBeSkipped(waitingInstance)) {
+        instancesThatMustBeSkipped.add(waitingInstance);
+      }
+    }
+    return instancesThatMustBeSkipped;
+
+  }
+
   private void loadInstanceArguments(OPMProcessInstance instance) {
     for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
       OPMObject argument = analyzer.getObject(incomingDataLink);
       instance.setArgument(incomingDataLink.getCenterDecoration(), getVariable(argument));
+    }
+  }
+
+  private void skipInstancesAndCreateNewWaitingInstances(Set<OPMProcessInstance> waitingInstancesThatCanBeSkipped) {
+    for(OPMProcessInstance instance : waitingInstancesThatCanBeSkipped) {
+      OPMProcess process = executionState.getProcess(instance);
+      executionState.removeWaitingInstance(instance);
+      createFollowingWaitingInstances(process, instance, true);
     }
   }
 
@@ -162,9 +182,16 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       logger.info("Nothing to execute in " + getName());
       return;
     }
+
     while(executionState.areThereWaitingOrReadyInstances()) {
       if(!executionState.areThereReadyInstances()) {
-        executionState.makeWaitingInstancesReady(findWaitingInstanceThatCanBeMadeReady());
+        Set<OPMProcessInstance> waitingInstancesThatMustBeSkipped = findWaitingInstancesThatMustBeSkipped();
+        while(waitingInstancesThatMustBeSkipped.size() > 0) {
+          skipInstancesAndCreateNewWaitingInstances(waitingInstancesThatMustBeSkipped);
+          waitingInstancesThatMustBeSkipped = findWaitingInstancesThatMustBeSkipped();
+        }
+        Set<OPMProcessInstance> waitingInstancesThatCanBeMadeReady = findWaitingInstanceThatCanBeMadeReady();
+        executionState.makeWaitingInstancesReady(waitingInstancesThatCanBeMadeReady);
       }
       if(!executionState.areThereReadyInstances()) {
         logger.info("Finished execution with waiting processes. Exiting.");
@@ -375,7 +402,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   private void exportVariableValuesToArguments() {
-    Collection<OPMObject> objectArguments = analyzer.findObjects(getOpd());
+    Collection<OPMObject> objectArguments = analyzer.findParameters(getOpd());// analyzer.findObjects(getOpd());
     for(OPMObject object : objectArguments) {
       if(getVariable(object) != null) {
         setArgument(object.getName(), getVariable(object));

@@ -30,7 +30,7 @@ public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
     instance.execute();
 
-    BigDecimal value = BigDecimal.class.cast(instance.getArgument("c"));
+    BigDecimal value = instance.getArgument("c").getNumericalValue();
     assertEquals(3, value.intValue());
 
   }
