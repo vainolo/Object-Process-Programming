@@ -1,4 +1,5 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!--  run mvn install -P uploadRepo to deploy -->
   <modelVersion>4.0.0</modelVersion>
   <artifactId>com.vainolo.phd.opm.releng.p2</artifactId>
   <packaging>eclipse-repository</packaging>
@@ -8,4 +9,53 @@
     <version>0.0.1-SNAPSHOT</version>
     <relativePath>../com.vainolo.phd.opm.releng</relativePath>
   </parent>
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ftp</artifactId>
+				<version>1.0-beta-6</version>
+			</extension>
+		</extensions>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>uploadRepo</id>
+			<properties>
+				<ftp.url>ftp://waws-prod-am2-003.ftp.azurewebsites.windows.net</ftp.url>
+				<ftp.toDir>/site/wwwroot/opp-repository</ftp.toDir>
+				<repo.path>${project.build.directory}/repository/</repo.path>
+			</properties>
+
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>wagon-maven-plugin</artifactId>
+						<version>1.0-beta-4</version>
+						<executions>
+							<execution>
+								<id>upload-repo</id>
+								<phase>install</phase>
+								<goals>
+									<goal>upload</goal>
+								</goals>
+								<configuration>
+									<fromDir>${repo.path}</fromDir>
+									<includes>**</includes>
+									<toDir>${ftp.toDir}</toDir>
+									<url>${ftp.url}</url>
+									<serverId>vainorepository</serverId>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
+  
+  
 </project>
