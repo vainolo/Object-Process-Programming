@@ -5,18 +5,12 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.logging.Logger;
 
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonObject.Member;
-import com.eclipsesource.json.JsonValue;
-import com.google.common.annotations.VisibleForTesting;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
@@ -31,7 +25,7 @@ public class OPMReadJSONObjectProcessInstance extends OPMAbstractProcessInstance
     try {
       JsonObject jsonObject = JsonObject.readFrom(getArgument("json").getStringValue());
       populateOPMObjectInstanceFromJSONObject(opmObjectInstance, jsonObject);
-      setArgument("result", opmObjectInstance);
+      setArgument("object", opmObjectInstance);
     } catch(Exception e) {
       e.printStackTrace();
       logger.severe(e.getLocalizedMessage());
@@ -82,12 +76,12 @@ public class OPMReadJSONObjectProcessInstance extends OPMAbstractProcessInstance
 
   @Override
   public String getName() {
-    return "Input";
+    return "Read JSON";
   }
 
   @Override
   public boolean isReady() {
-    return getArgument("file") != null;
+    return getArgument("json") != null;
   }
 
 }

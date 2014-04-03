@@ -7,14 +7,8 @@ package com.vainolo.phd.opm.interpreter.builtin;
 
 import static org.junit.Assert.*;
 
-import java.io.FileNotFoundException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.math.BigDecimal;
-
 import org.junit.Test;
 
-import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstanceTest;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 
 /**
@@ -28,7 +22,7 @@ public class OPMReadJSONObjectProcessInstanceTest {
 		OPMReadJSONObjectProcessInstance instance = new OPMReadJSONObjectProcessInstance();
 		instance.setArgument("json", OPMObjectInstance.createFromValue(json));
 		instance.execute();
-		return instance.getArgument("result");
+		return instance.getArgument("object");
 	}
 	
   @Test

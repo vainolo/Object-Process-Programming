@@ -106,6 +106,24 @@ public class OPMObjectInstance {
     return value != null;
   }
 
+  public boolean isNumericalValue() {
+    if(isValue()) {
+      if(BigDecimal.class.isInstance(value)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public boolean isStringValue() {
+    if(isValue()) {
+      if(String.class.isInstance(value)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public boolean isComposite() {
     return (value == null) && (state == null);
   }
