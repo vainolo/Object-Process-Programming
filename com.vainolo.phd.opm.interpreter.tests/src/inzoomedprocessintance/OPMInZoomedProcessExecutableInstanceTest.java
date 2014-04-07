@@ -3,21 +3,20 @@
  * You can use this code for educational purposes. For any other uses
  * please contact me: vainolo@gmail.com
  *******************************************************************************/
-package com.vainolo.phd.opm.interpreter;
+package inzoomedprocessintance;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
-import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
-import org.jgrapht.graph.DefaultEdge;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Sets;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
+import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessExecutableInstance;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -27,7 +26,6 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMProcessKind;
-import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 /**
  * 

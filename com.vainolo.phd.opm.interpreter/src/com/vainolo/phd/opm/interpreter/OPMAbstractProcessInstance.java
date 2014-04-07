@@ -5,11 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import java.util.Map;
 import java.util.logging.Logger;
 
-import com.google.common.collect.Maps;
-import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -22,8 +19,7 @@ import com.vainolo.utils.SimpleLoggerFactory;
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
-  protected final Map<String, OPMObjectInstance> arguments = Maps.newHashMap();
-  protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
+  protected final OPMProcessInstanceHeap heap = new OPMProcessInstanceHeap();
   private String name;
 
   /**
@@ -71,11 +67,11 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 
   @Override
   public void setArgument(String name, OPMObjectInstance value) {
-    arguments.put(name, value);
+    heap.addArgument(name, value);
   }
 
   @Override
   public OPMObjectInstance getArgument(String name) {
-    return arguments.get(name);
+    return heap.getArgument(name);
   }
 }

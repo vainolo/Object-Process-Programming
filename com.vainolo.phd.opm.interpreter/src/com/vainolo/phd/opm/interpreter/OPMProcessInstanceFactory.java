@@ -28,7 +28,7 @@ public class OPMProcessInstanceFactory {
 
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMProcessInstanceFactory.class.getName());
 
-  static OPMProcessInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
+  public static OPMProcessInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
     case COMPOUND:
       return new OPMInZoomedProcessExecutableInstance(opd, new OPDAnalyzer());
