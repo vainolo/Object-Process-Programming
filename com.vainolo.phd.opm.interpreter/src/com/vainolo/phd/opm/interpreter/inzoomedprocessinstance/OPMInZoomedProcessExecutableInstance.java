@@ -1,4 +1,4 @@
-package com.vainolo.phd.opm.interpreter;
+package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import java.util.Collection;
 import java.util.Map;
@@ -11,6 +11,11 @@ import org.jgrapht.graph.DefaultEdge;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalyzer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -39,6 +44,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private OPDAnalyzer analyzer;
   private OPMInZoomedProcessExecutionState executionState = new OPMInZoomedProcessExecutionState();
   private OPMInZoomedProcessExecutionHelper executionHelper = new OPMInZoomedProcessExecutionHelper();
+  private OPMObjectInstanceValueAnalyzer valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
 
@@ -184,15 +190,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     }
 
     while(executionState.areThereWaitingOrReadyInstances()) {
-      if(!executionState.areThereReadyInstances()) {
-        Set<OPMProcessInstance> waitingInstancesThatMustBeSkipped = findWaitingInstancesThatMustBeSkipped();
-        while(waitingInstancesThatMustBeSkipped.size() > 0) {
-          skipInstancesAndCreateNewWaitingInstances(waitingInstancesThatMustBeSkipped);
-          waitingInstancesThatMustBeSkipped = findWaitingInstancesThatMustBeSkipped();
-        }
-        Set<OPMProcessInstance> waitingInstancesThatCanBeMadeReady = findWaitingInstanceThatCanBeMadeReady();
-        executionState.makeWaitingInstancesReady(waitingInstancesThatCanBeMadeReady);
-      }
+      calculateReadyInstances();
       if(!executionState.areThereReadyInstances()) {
         logger.info("Finished execution with waiting processes. Exiting.");
         return;
@@ -203,21 +201,41 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
         executionState.makeReadyInstanceWaiting(instance);
         continue;
       }
-      boolean skipped = false;
-      if(!instanceMustBeSkipped(instance)) {
-        instance.execute();
-        extractResultsToVariables(instance);
-        transferDataFromModifiedObjects(instance);
-      } else {
-        skipped = true;
-        logger.info("Skipping " + executionState.getProcess(instance).getName());
-      }
-      OPMProcess process = executionState.getProcess(instance);
-      executionState.removeReadyInstance(instance);
-      createFollowingWaitingInstances(process, instance, skipped);
+      boolean skipped = executeSingleInstance(instance);
+      handlePostExecutionOfSingleInstance(instance, skipped);
     }
 
     logger.info("finished executing " + getName());
+  }
+
+  private boolean executeSingleInstance(OPMProcessInstance instance) {
+    if(!instanceMustBeSkipped(instance)) {
+      instance.execute();
+      extractResultsToVariables(instance);
+      transferDataFromModifiedObjects(instance);
+      return false;
+    } else {
+      logger.info("Skipping " + executionState.getProcess(instance).getName());
+      return true;
+    }
+  }
+
+  private void handlePostExecutionOfSingleInstance(OPMProcessInstance instance, boolean skipped) {
+    OPMProcess process = executionState.getProcess(instance);
+    executionState.removeReadyInstance(instance);
+    createFollowingWaitingInstances(process, instance, skipped);
+  }
+
+  private void calculateReadyInstances() {
+    if(!executionState.areThereReadyInstances()) {
+      Set<OPMProcessInstance> waitingInstancesThatMustBeSkipped = findWaitingInstancesThatMustBeSkipped();
+      while(waitingInstancesThatMustBeSkipped.size() > 0) {
+        skipInstancesAndCreateNewWaitingInstances(waitingInstancesThatMustBeSkipped);
+        waitingInstancesThatMustBeSkipped = findWaitingInstancesThatMustBeSkipped();
+      }
+      Set<OPMProcessInstance> waitingInstancesThatCanBeMadeReady = findWaitingInstanceThatCanBeMadeReady();
+      executionState.makeWaitingInstancesReady(waitingInstancesThatCanBeMadeReady);
+    }
   }
 
   private boolean instanceIsNotReadyAnymore(OPMProcessInstance instance) {
@@ -306,7 +324,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       return true;
     } else if(OPMState.class.isInstance(link.getSource())) {
       OPMState state = OPMState.class.cast(link.getSource());
-      if(executionHelper.isObjectInstanceInState(objectInstance, state)) {
+      if(valueAnalyzer.isObjectInstanceInState(objectInstance, state)) {
         return true;
       }
     }
@@ -338,7 +356,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
           return true;
         }
         if(OPMState.class.isInstance(link.getSource())) {
-          if(!executionHelper.isObjectInstanceInState(variable, OPMState.class.cast(link.getSource()))) {
+          if(!valueAnalyzer.isObjectInstanceInState(variable, OPMState.class.cast(link.getSource()))) {
             logger.info("Skipping instance of " + executionState.getProcess(instance).getName()
                 + " because conditional parameter " + analyzer.getObject(link).getName() + " is not in state "
                 + OPMState.class.cast(link.getSource()).getName());
@@ -385,7 +403,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   private void calculateOPMObjectValueAndSetVariableIfValueIfExists(OPMObject object) {
-    OPMObjectInstance objectValue = executionHelper.calculateOPMObjectValue(object, analyzer);
+    OPMObjectInstance objectValue = valueAnalyzer.calculateOPMObjectValue(object, analyzer);
     if(objectValue != null)
       setVariable(object, objectValue);
   }

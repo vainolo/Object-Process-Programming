@@ -8,6 +8,7 @@ package com.vainolo.phd.opm.interpreter;
 import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.Path;
+
 import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMConceptualProcess;
 import com.vainolo.phd.opm.interpreter.builtin.OPMCreateObjectProcessInstance;
@@ -16,6 +17,7 @@ import com.vainolo.phd.opm.interpreter.builtin.OPMOutputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMPrintHelloWorldProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMSleepProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMSubstractProcessInstance;
+import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessExecutableInstance;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.OPMFileUtils;

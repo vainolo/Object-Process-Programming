@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
-import com.vainolo.phd.opm.interpreter.OPMValueAnalyzer;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 
 /**
  * Arguments:
@@ -26,7 +26,7 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
   @Override
   protected void executing() {
     final String input = showInputDialog();
-    OPMValueAnalyzer va = new OPMValueAnalyzer();
+    OPMObjectInstanceValueAnalyzer va = new OPMObjectInstanceValueAnalyzer();
     OPMObjectInstance instance = null;
     if(va.isNumericalValue(input)) {
       instance = OPMObjectInstance.createFromValue(va.parseNumericalValue(input));

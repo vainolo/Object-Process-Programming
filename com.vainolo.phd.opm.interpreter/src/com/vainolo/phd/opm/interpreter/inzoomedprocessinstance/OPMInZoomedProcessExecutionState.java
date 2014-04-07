@@ -1,4 +1,4 @@
-package com.vainolo.phd.opm.interpreter;
+package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,8 +8,15 @@ import java.util.Set;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
 
+/**
+ * State of a {@link OPMInZoomedProcessExecutableInstance}
+ * 
+ * @author Arieh "Vainolo" Bibliowicz
+ * 
+ */
 class OPMInZoomedProcessExecutionState {
   private Map<OPMProcessInstance, OPMProcess> instanceToProcessMapping = Maps.newHashMap();
   private List<OPMProcessInstance> readyInstances = Lists.newArrayList();

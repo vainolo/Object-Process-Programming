@@ -67,6 +67,7 @@ public class Main {
         d.sleep();
       }
     }
+
   }
 
   public static class MouseManager implements MouseMotionListener, MouseListener {
@@ -77,7 +78,8 @@ public class Main {
     public void mousePressed(MouseEvent me) {
       System.out.println("mouse pressed");
       selection = (Figure) me.getSource();
-      // layout.setConstraint(f2, new Rectangle(me.getLocation().x, me.getLocation().y, -1, -1));
+      // layout.setConstraint(f2, new Rectangle(me.getLocation().x,
+      // me.getLocation().y, -1, -1));
       // contents.revalidate();
     }
 
@@ -96,7 +98,8 @@ public class Main {
         int newX = selection.getLocation().x + offsetX;
         int newY = selection.getLocation().y + offsetY;
         System.out.println(String.format("NewX: %d, NewY: %d", newX, newY));
-        // selection.setBounds(selection.getBounds().getTranslated(offsetX, offsetY)); <-- this does not work
+        // selection.setBounds(selection.getBounds().getTranslated(offsetX,
+        // offsetY)); <-- this does not work
         selection.getParent().getLayoutManager()
             .setConstraint(selection, selection.getBounds().getTranslated(offsetX, offsetY));
         selection.getParent().revalidate();
