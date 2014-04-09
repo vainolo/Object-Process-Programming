@@ -11,11 +11,11 @@ public class OPMProcessInstanceHeap {
   protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
 
   public void addArgument(String name, OPMObjectInstance value) {
-    arguments.put(name, value);
+    arguments.put(name.toLowerCase(), value);
   }
 
   public OPMObjectInstance getArgument(String name) {
-    return arguments.get(name);
+    return arguments.get(name.toLowerCase());
   }
 
   public void setVariable(OPMObject object, OPMObjectInstance value) {

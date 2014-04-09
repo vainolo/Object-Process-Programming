@@ -73,11 +73,15 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 
   @Override
   public void setArgument(String name, OPMObjectInstance value) {
-    getHeap().addArgument(name, value);
+    if(name == null)
+      name = "";
+    getHeap().addArgument(name.toLowerCase(), value);
   }
 
   @Override
   public OPMObjectInstance getArgument(String name) {
-    return getHeap().getArgument(name);
+    if(name == null)
+      name = "";
+    return getHeap().getArgument(name.toLowerCase());
   }
 }
