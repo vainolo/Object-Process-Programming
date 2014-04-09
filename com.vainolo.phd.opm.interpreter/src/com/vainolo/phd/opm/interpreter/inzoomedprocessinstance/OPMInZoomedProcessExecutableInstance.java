@@ -1,7 +1,6 @@
 package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import java.util.Collection;
-import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -9,13 +8,13 @@ import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
+import com.vainolo.phd.opm.interpreter.OPMProcessInstanceHeap;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalyzer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -44,7 +43,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private OPDAnalyzer analyzer;
   private OPMInZoomedProcessExecutionState executionState = new OPMInZoomedProcessExecutionState();
   private OPMInZoomedProcessExecutionHelper executionHelper = new OPMInZoomedProcessExecutionHelper();
-  private OPMInZoomedProcessExecutionHeapManager heapManager = new OPMInZoomedProcessExecutionHeapManager(heap);
+  private OPMInZoomedProcessInstanceHeap heap = new OPMInZoomedProcessInstanceHeap();
   private OPMObjectInstanceValueAnalyzer valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
@@ -61,20 +60,18 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     this.executionAnalyzer = new OPDExecutionAnalyzer();
   }
 
-  protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
-
   @Override
   protected void preExecution() {
     super.preExecution();
     inZoomedProcess = analyzer.getInZoomedProcess(getOpd());
     opdDag = executionAnalyzer.createExecutionDAG(getInZoomedProcess());
-    initializeVariables();
+    heap.initializeVariables(getOpd());
   }
 
   @Override
   protected void postExecution() {
     super.postExecution();
-    exportVariableValuesToArguments();
+    heap.exportVariableValuesToArguments(getOpd());
   }
 
   @Override
@@ -89,6 +86,11 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   @Override
   public void setName(String name) {
     throw new UnsupportedOperationException();
+  }
+
+  @Override
+  protected OPMProcessInstanceHeap getHeap() {
+    return heap;
   }
 
   private void createInitialSetOfExecutableInstances() {
@@ -118,13 +120,12 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       }
     }
     return instancesThatMustBeSkipped;
-
   }
 
   private void loadInstanceArguments(OPMProcessInstance instance) {
     for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
       OPMObject argument = analyzer.getObject(incomingDataLink);
-      instance.setArgument(incomingDataLink.getCenterDecoration(), heapManager.getVariable(argument));
+      instance.setArgument(incomingDataLink.getCenterDecoration(), heap.getVariable(argument));
     }
   }
 
@@ -167,7 +168,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     if(!instanceMustBeSkipped(instance)) {
       instance.execute();
       extractResultsToVariables(instance);
-      transferDataFromModifiedObjects(instance);
       return false;
     } else {
       logger.info("Skipping " + executionState.getProcess(instance).getName());
@@ -202,25 +202,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
       OPMObject object = analyzer.getObject(instanceOutgoingDataLink);
       OPMObjectInstance value = instance.getArgument(instanceOutgoingDataLink.getCenterDecoration());
-      heapManager.setVariable(object, value);
-    }
-  }
-
-  private void transferDataFromModifiedObjects(OPMProcessInstance instance) {
-    for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
-      OPMObject object = analyzer.getObject(instanceOutgoingDataLink);
-      transferDataFromObject(object);
-    }
-  }
-
-  private void transferDataFromObject(OPMObject object) {
-    Collection<OPMProceduralLink> dataLinks = analyzer.findOutgoingDataLinks(object);
-    for(OPMProceduralLink link : dataLinks) {
-      if(OPMObject.class.isInstance(link.getTarget())) {
-        OPMObject target = OPMObject.class.cast(link.getTarget());
-        heapManager.setVariable(target, heapManager.getVariable(object));
-        transferDataFromObject(target);
-      }
+      heap.setVariable(object, value);
     }
   }
 
@@ -252,11 +234,15 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
 
   private Set<OPMProcess> findFollowingProcessesFromEventLinks(OPMProcess process) {
     Set<OPMProcess> ret = Sets.newHashSet();
+    // TODO: there is a bug here, since a change in a variable can cause change
+    // in unrelated variables, and this only checks the variables that are
+    // output by the process.
+
     Collection<OPMProceduralLink> outgoingProceduralLinks = analyzer.findOutgoingDataLinks(process);
     for(OPMProceduralLink link : outgoingProceduralLinks) {
       OPMObject object = analyzer.getObject(link);
-      if(heapManager.getVariable(object) != null) {
-        ret.addAll(findProcessesToInvokeAfterObjectHasChanged(object, heapManager.getVariable(object)));
+      if(heap.getVariable(object) != null) {
+        ret.addAll(findProcessesToInvokeAfterObjectHasChanged(object, heap.getVariable(object)));
       }
     }
     return ret;
@@ -304,7 +290,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private boolean instanceMustBeSkipped(OPMProcessInstance instance) {
     for(OPMProceduralLink link : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
       if(link.getSubKinds().contains(OPMConstants.OPM_CONDITIONAL_LINK_SUBKIND)) {
-        OPMObjectInstance variable = heapManager.getVariable(analyzer.getObject(link));
+        OPMObjectInstance variable = heap.getVariable(analyzer.getObject(link));
         if(variable == null) {
           logger.info("Skipping instance of " + executionState.getProcess(instance).getName()
               + " because conditional parameter " + analyzer.getObject(link).getName() + " is empty");
@@ -324,45 +310,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     return false;
   }
 
-  private void initializeVariables() {
-    initializeVariablesWithArgumentValues();
-    initializeVariablesWithConstantValues();
-  }
-
-  /**
-   * Create a variable for all of the arguments that were passed to the process,
-   * or for arguments that contain literal values.
-   */
-  private void initializeVariablesWithArgumentValues() {
-    Collection<OPMObject> objectArguments = analyzer.findParameters(getOpd());
-    for(OPMObject object : objectArguments) {
-      if(getArgument(object.getName()) != null) {
-        heapManager.setVariable(object, getArgument(object.getName()));
-      } else {
-        calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
-      }
-
-      transferDataFromObject(object);
-    }
-  }
-
-  /**
-   * Initialize local variables initialized to constants.
-   */
-  private void initializeVariablesWithConstantValues() {
-    Collection<OPMObject> objectVariables = analyzer.findObjects(getInZoomedProcess());
-    for(OPMObject object : objectVariables) {
-      calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
-      transferDataFromObject(object);
-    }
-  }
-
-  private void calculateOPMObjectValueAndSetVariableIfValueIfExists(OPMObject object) {
-    OPMObjectInstance objectValue = valueAnalyzer.calculateOPMObjectValue(object, analyzer);
-    if(objectValue != null)
-      heapManager.setVariable(object, objectValue);
-  }
-
   @Override
   public boolean isReady() {
     Collection<OPMObject> parameters = analyzer.findIncomingParameters(getOpd());
@@ -372,16 +319,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       }
     }
     return true;
-  }
-
-  private void exportVariableValuesToArguments() {
-    Collection<OPMObject> objectArguments = analyzer.findParameters(getOpd());// analyzer.findObjects(getOpd());
-    for(OPMObject object : objectArguments) {
-      if(heapManager.getVariable(object) != null) {
-        setArgument(object.getName(), heapManager.getVariable(object));
-      }
-    }
-
   }
 
   /**

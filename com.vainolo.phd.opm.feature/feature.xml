@@ -84,4 +84,63 @@
          version="0.0.1.qualifier"
          unpack="false"/>
 
+   <plugin
+         id="com.vainolo.draw2d.extras"
+         download-size="0"
+         install-size="0"
+         version="0.0.1.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.jdraw2d.eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.1.qualifier"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.gef.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.1.qualifier"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.interpreter.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.1.qualifier"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.model.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.1.qualifier"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.utilities.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.1.qualifier"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.phd.opm.validation.tests"
+         download-size="0"
+         install-size="0"
+         version="0.0.1.qualifier"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.vainolo.vainolibraries.java.eclipse"
+         download-size="0"
+         install-size="0"
+         version="0.0.1.qualifier"
+         unpack="false"/>
+
 </feature>

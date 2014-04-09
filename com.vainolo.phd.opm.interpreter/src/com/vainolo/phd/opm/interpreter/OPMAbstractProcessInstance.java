@@ -22,9 +22,14 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   protected final OPMProcessInstanceHeap heap = new OPMProcessInstanceHeap();
   private String name;
 
+  protected OPMProcessInstanceHeap getHeap() {
+    return heap;
+  }
+
   /**
    * Get the name of this instance;
    */
+  @Override
   public String getName() {
     return name;
   }
@@ -32,6 +37,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   /**
    * Set the name of this instance.
    */
+  @Override
   public void setName(String name) {
     this.name = name;
   }
@@ -67,11 +73,11 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 
   @Override
   public void setArgument(String name, OPMObjectInstance value) {
-    heap.addArgument(name, value);
+    getHeap().addArgument(name, value);
   }
 
   @Override
   public OPMObjectInstance getArgument(String name) {
-    return heap.getArgument(name);
+    return getHeap().getArgument(name);
   }
 }
