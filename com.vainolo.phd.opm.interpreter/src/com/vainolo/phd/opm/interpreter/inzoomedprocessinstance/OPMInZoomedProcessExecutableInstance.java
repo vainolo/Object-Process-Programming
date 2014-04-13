@@ -125,7 +125,11 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private void loadInstanceArguments(OPMProcessInstance instance) {
     for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
       OPMObject argument = analyzer.getObject(incomingDataLink);
-      instance.setArgument(incomingDataLink.getCenterDecoration(), heap.getVariable(argument));
+      if(incomingDataLink.getCenterDecoration() == null || "".equals(incomingDataLink.getCenterDecoration())) {
+        instance.setArgument(argument.getName(), heap.getVariable(argument));
+      } else {
+        instance.setArgument(incomingDataLink.getCenterDecoration(), heap.getVariable(argument));
+      }
     }
   }
 
@@ -199,9 +203,14 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   private void extractResultsToVariables(OPMProcessInstance instance) {
-    for(OPMLink instanceOutgoingDataLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
-      OPMObject object = analyzer.getObject(instanceOutgoingDataLink);
-      OPMObjectInstance value = instance.getArgument(instanceOutgoingDataLink.getCenterDecoration());
+    for(OPMLink resultLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
+      OPMObject object = analyzer.getObject(resultLink);
+      OPMObjectInstance value;
+      if(resultLink.getCenterDecoration() == null || "".equals(resultLink.getCenterDecoration())) {
+        value = instance.getArgument(object.getName());
+      } else {
+        value = instance.getArgument(resultLink.getCenterDecoration());
+      }
       heap.setVariable(object, value);
     }
   }

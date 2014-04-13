@@ -52,9 +52,13 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
    */
   @Override
   public final void execute() {
-    preExecution();
-    executing();
-    postExecution();
+    try {
+      preExecution();
+      executing();
+      postExecution();
+    } catch(Exception e) {
+      throw new OPMRuntimeException(e);
+    }
   }
 
   /**
