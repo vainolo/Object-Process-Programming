@@ -5,6 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import java.util.List;
+
 /**
  * 
  * @author Arieh 'Vainolo' Bibliowicz
@@ -34,6 +36,22 @@ public interface OPMProcessInstance {
    *           arguments).
    */
   OPMObjectInstance getArgument(String name);
+
+  /**
+   * Get a list of the names of all the incoming parameters of this
+   * {@link OPMProcessInstance}.
+   * 
+   * @return a list of the incoming parameter names.
+   */
+  List<String> getIncomingParameterNames();
+
+  /**
+   * Get a list of the names of all the outgoing parameters of this
+   * {@link OPMProcessInstance}.
+   * 
+   * @return a list of the outgoing parameter names.
+   */
+  List<String> getOutgoingParameterNames();
 
   /**
    * Get the name of the OPD/Process

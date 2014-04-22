@@ -6,7 +6,9 @@
 package com.vainolo.phd.opm.interpreter.builtin;
 
 import java.math.BigDecimal;
+import java.util.List;
 
+import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
@@ -36,5 +38,15 @@ public class OPMAddProcessInstance extends OPMAbstractProcessInstance implements
   @Override
   public boolean isReady() {
     return (getArgument("a") != null) && (getArgument("b") != null);
+  }
+
+  @Override
+  public List<String> getIncomingParameterNames() {
+    return Lists.newArrayList("a", "b");
+  }
+
+  @Override
+  public List<String> getOutgoingParameterNames() {
+    return Lists.newArrayList("c");
   }
 }

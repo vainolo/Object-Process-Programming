@@ -1,6 +1,7 @@
 package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -8,6 +9,7 @@ import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
@@ -348,4 +350,25 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private OPMObjectProcessDiagram getOpd() {
     return opd;
   }
+
+  @Override
+  public List<String> getIncomingParameterNames() {
+    List<String> incomingParameterNames = Lists.newArrayList();
+    Collection<OPMObject> parameters = analyzer.findIncomingParameters(getOpd());
+    for(OPMObject object : parameters) {
+      incomingParameterNames.add(object.getName());
+    }
+    return incomingParameterNames;
+  }
+
+  @Override
+  public List<String> getOutgoingParameterNames() {
+    List<String> incomingParameterNames = Lists.newArrayList();
+    Collection<OPMObject> parameters = analyzer.findOutgoingParameters(getOpd());
+    for(OPMObject object : parameters) {
+      incomingParameterNames.add(object.getName());
+    }
+    return incomingParameterNames;
+  }
+
 }

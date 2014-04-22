@@ -5,14 +5,16 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
- * Process that sleeps a given amount of time.
+ * Sleep a given amount of time.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * @created 9 Jul 2012
@@ -42,4 +44,10 @@ public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implemen
   public boolean isReady() {
     return getArgument("time") != null;
   }
+
+  @Override
+  public List<String> getIncomingParameterNames() {
+    return Lists.newArrayList("time");
+  }
+
 }

@@ -7,10 +7,12 @@ package com.vainolo.phd.opm.interpreter.builtin;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonObject.Member;
+import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
@@ -82,6 +84,16 @@ public class OPMReadJSONObjectProcessInstance extends OPMAbstractProcessInstance
   @Override
   public boolean isReady() {
     return getArgument("json") != null;
+  }
+
+  @Override
+  public List<String> getIncomingParameterNames() {
+    return Lists.newArrayList("json");
+  }
+
+  @Override
+  public List<String> getOutgoingParameterNames() {
+    return Lists.newArrayList("object");
   }
 
 }

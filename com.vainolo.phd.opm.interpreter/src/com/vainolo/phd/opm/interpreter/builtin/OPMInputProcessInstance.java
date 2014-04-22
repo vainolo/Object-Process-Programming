@@ -5,20 +5,20 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
+import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 
 /**
- * Arguments:
- * <ul>
- * <li>text:String, result</li>
- * </ul>
+ * Take input from the user.
  * 
- * @author vainolo
+ * @author Arieh "Vainolo" Bibliowicz"
  * 
  */
 public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
@@ -51,6 +51,11 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
   @Override
   public boolean isReady() {
     return true;
+  }
+
+  @Override
+  public List<String> getOutgoingParameterNames() {
+    return Lists.newArrayList("text");
   }
 
 }

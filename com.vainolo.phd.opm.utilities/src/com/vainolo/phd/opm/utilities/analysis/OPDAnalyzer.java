@@ -95,13 +95,35 @@ public class OPDAnalyzer {
   }
 
   public Collection<OPMObject> findIncomingParameters(OPMObjectProcessDiagram opd) {
-    Collection<OPMObject> ret = Lists.newArrayList();
+    Collection<OPMObject> incomingParameters = Lists.newArrayList();
     for(OPMObject parameter : findParameters(opd)) {
       if(hasOutgoingDataLinks(parameter)) {
-        ret.add(parameter);
+        incomingParameters.add(parameter);
       }
     }
-    return ret;
+    return incomingParameters;
+  }
+
+  public Collection<OPMObject> findOutgoingParameters(OPMObjectProcessDiagram opd) {
+    Collection<OPMObject> outgoingParameters = Lists.newArrayList();
+    for(OPMObject parameter : findParameters(opd)) {
+      if(hasIncomingResultLink(parameter)) {
+        outgoingParameters.add(parameter);
+      }
+    }
+    return outgoingParameters;
+  }
+
+  private boolean hasIncomingResultLink(OPMObject parameter) {
+    for(OPMLink link : parameter.getIncomingLinks()) {
+      if(OPMProceduralLink.class.isInstance(link)) {
+        if(IsOPMResultLink.INSTANCE.apply(OPMProceduralLink.class.cast(link))) {
+          return true;
+        }
+      }
+    }
+    // TODO: add support for links that end at states.
+    return false;
   }
 
   public boolean hasOutgoingDataLinks(OPMObject object) {
@@ -513,7 +535,7 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Predicate that matches {@link OPMProceduralLink} insances of
+   * Matches {@link OPMProceduralLink} instances of
    * {@link OPMProceduralLinkKind#CONSUMPTION} kind.
    * 
    */
@@ -523,6 +545,20 @@ public class OPDAnalyzer {
     @Override
     public boolean apply(OPMProceduralLink input) {
       return OPMProceduralLinkKind.CONSUMPTION.equals(input.getKind());
+    }
+  }
+
+  /**
+   * Matches {@link OPMProceduralLink} insances of
+   * {@link OPMProceduralLinkKind#RESULT} kind.
+   * 
+   */
+  public enum IsOPMResultLink implements Predicate<OPMProceduralLink> {
+    INSTANCE;
+
+    @Override
+    public boolean apply(OPMProceduralLink input) {
+      return OPMProceduralLinkKind.RESULT.equals(input.getKind());
     }
   }
 
@@ -571,4 +607,5 @@ public class OPDAnalyzer {
     }
     return null;
   }
+
 }

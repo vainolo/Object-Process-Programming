@@ -12,10 +12,9 @@ import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
- * Process that adds two integer values.
+ * Show a dialog with the text "Hello World".
  * 
- * @author Arieh 'Vainolo' Bibliowicz
- * @created 9 Jul 2012
+ * @author Arieh "Vainolo" Bibliowicz
  * 
  */
 public class OPMPrintHelloWorldProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {

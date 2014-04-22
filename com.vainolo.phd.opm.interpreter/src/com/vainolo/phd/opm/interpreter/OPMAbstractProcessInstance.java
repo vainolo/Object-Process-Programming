@@ -5,8 +5,10 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.common.collect.Lists;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -87,5 +89,15 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
     if(name == null)
       name = "";
     return getHeap().getArgument(name.toLowerCase());
+  }
+
+  @Override
+  public List<String> getIncomingParameterNames() {
+    return Lists.newArrayList();
+  }
+
+  @Override
+  public List<String> getOutgoingParameterNames() {
+    return Lists.newArrayList();
   }
 }

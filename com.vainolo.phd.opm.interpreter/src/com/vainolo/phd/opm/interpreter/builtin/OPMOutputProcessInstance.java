@@ -5,20 +5,14 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
+import java.util.List;
+
 import javax.swing.JOptionPane;
 
+import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 
-/**
- * Arguments:
- * <ul>
- * <li>text:String, instrument.</li>
- * </ul>
- * 
- * @author vainolo
- * 
- */
 public class OPMOutputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 
   @Override
@@ -35,5 +29,10 @@ public class OPMOutputProcessInstance extends OPMAbstractProcessInstance impleme
   @Override
   public boolean isReady() {
     return getArgument("text") != null;
+  }
+
+  @Override
+  public List<String> getIncomingParameterNames() {
+    return Lists.newArrayList("text");
   }
 }
