@@ -18,7 +18,7 @@ import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 /**
  * Various utilities used to execute an OPD.
@@ -27,6 +27,8 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalysis;
  * 
  */
 public class OPDExecutionAnalyzer {
+
+  private OPDAnalyzer analyzer = new OPDAnalyzer();
 
   /**
    * Find the processes that should be executed when the OPD is invoked. These
@@ -225,8 +227,8 @@ public class OPDExecutionAnalyzer {
    */
   private void createExecutionOrderEdges(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag,
       final OPMContainer container) {
-    for(final OPMProcess process1 : OPDAnalysis.INSTANCE.findFirstLevelContainedProcesses(container)) {
-      for(final OPMProcess process2 : OPDAnalysis.INSTANCE.findFirstLevelContainedProcesses(container)) {
+    for(final OPMProcess process1 : analyzer.findFirstLevelContainedProcesses(container)) {
+      for(final OPMProcess process2 : analyzer.findFirstLevelContainedProcesses(container)) {
         createEdgeIfRequired(dag, process1, process2);
       }
     }
@@ -264,7 +266,7 @@ public class OPDExecutionAnalyzer {
    *          the OPD from which the processes are read.
    */
   private void createNodes(final DirectedAcyclicGraph<OPMProcess, DefaultEdge> dag, final OPMContainer opd) {
-    for(final OPMProcess process : OPDAnalysis.INSTANCE.findFirstLevelContainedProcesses(opd)) {
+    for(final OPMProcess process : analyzer.findFirstLevelContainedProcesses(opd)) {
       dag.addVertex(process);
     }
   }

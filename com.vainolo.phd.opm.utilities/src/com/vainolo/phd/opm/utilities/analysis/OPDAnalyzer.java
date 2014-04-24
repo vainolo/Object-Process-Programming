@@ -21,6 +21,11 @@ import com.vainolo.phd.opm.utilities.OPMConstants;
 
 public class OPDAnalyzer {
 
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public Collection<OPMProcess> findFirstLevelContainedProcesses(OPMContainer container) {
+    return (Collection) Collections2.filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
+  }
+
   /**
    * Return the {@link OPMObject} connected to an {@link OPMProceduralLink},
    * when there is no ambiguity.
