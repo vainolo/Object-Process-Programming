@@ -47,6 +47,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private OPMInZoomedProcessExecutionHelper executionHelper = new OPMInZoomedProcessExecutionHelper();
   private OPMInZoomedProcessInstanceHeap heap = new OPMInZoomedProcessInstanceHeap();
   private OPMObjectInstanceValueAnalyzer valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
+  private OPMInZoomedProcessArgumentLoader loader = new OPMInZoomedProcessArgumentLoader();
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
 
@@ -106,7 +107,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   public Set<OPMProcessInstance> findWaitingInstanceThatCanBeMadeReady() {
     Set<OPMProcessInstance> newReadyInstances = Sets.newHashSet();
     for(OPMProcessInstance waitingInstance : executionState.getWaitingInstances()) {
-      loadInstanceArguments(waitingInstance);
+      loader.loadInstanceArguments(waitingInstance, executionState, heap);
       if(waitingInstance.isReady())
         newReadyInstances.add(waitingInstance);
     }
@@ -116,23 +117,12 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   public Set<OPMProcessInstance> findWaitingInstancesThatMustBeSkipped() {
     Set<OPMProcessInstance> instancesThatMustBeSkipped = Sets.newHashSet();
     for(OPMProcessInstance waitingInstance : executionState.getWaitingInstances()) {
-      loadInstanceArguments(waitingInstance);
+      loader.loadInstanceArguments(waitingInstance, executionState, heap);
       if(instanceMustBeSkipped(waitingInstance)) {
         instancesThatMustBeSkipped.add(waitingInstance);
       }
     }
     return instancesThatMustBeSkipped;
-  }
-
-  private void loadInstanceArguments(OPMProcessInstance instance) {
-    for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
-      OPMObject argument = analyzer.getObject(incomingDataLink);
-      if(incomingDataLink.getCenterDecoration() == null || "".equals(incomingDataLink.getCenterDecoration())) {
-        instance.setArgument(argument.getName(), heap.getVariable(argument));
-      } else {
-        instance.setArgument(incomingDataLink.getCenterDecoration(), heap.getVariable(argument));
-      }
-    }
   }
 
   private void skipInstancesAndCreateNewWaitingInstances(Set<OPMProcessInstance> waitingInstancesThatCanBeSkipped) {
@@ -200,7 +190,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   private boolean instanceIsNotReadyAnymore(OPMProcessInstance instance) {
-    loadInstanceArguments(instance);
+    loader.loadInstanceArguments(instance, executionState, heap);
     return !instance.isReady();
   }
 
@@ -233,7 +223,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       logger.info("Creating new instance of " + process.getName() + " from event link.");
       OPMProcessInstance newInstance = createNewWaitingInstance(newProcess);
       created = true;
-      loadInstanceArguments(newInstance);
+      loader.loadInstanceArguments(newInstance, executionState, heap);
       if(!newInstance.isReady()) {
         logger.info("Removing created instance of " + process.getName() + " because it is not ready.");
         executionState.removeWaitingInstance(newInstance);
