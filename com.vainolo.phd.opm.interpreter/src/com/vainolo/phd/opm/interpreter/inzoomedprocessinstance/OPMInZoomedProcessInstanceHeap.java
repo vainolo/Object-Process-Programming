@@ -147,7 +147,7 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
   }
 
   public void exportVariableValuesToArguments(OPMObjectProcessDiagram opd) {
-    Collection<OPMObject> objectArguments = analyzer.findParameters(opd);// analyzer.findObjects(getOpd());
+    Collection<OPMObject> objectArguments = analyzer.findParameters(opd);
     for(OPMObject object : objectArguments) {
       if(getVariable(object) != null) {
         addArgument(object.getName(), getVariable(object));

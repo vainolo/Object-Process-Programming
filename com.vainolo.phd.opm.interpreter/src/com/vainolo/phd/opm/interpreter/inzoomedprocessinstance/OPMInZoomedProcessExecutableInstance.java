@@ -48,6 +48,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private OPMInZoomedProcessInstanceHeap heap;
   private OPMObjectInstanceValueAnalyzer valueAnalyzer;
   private OPMInZoomedProcessArgumentLoader loader;
+  private OPMInZoomedProcessResultStorer storer;
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
 
@@ -66,6 +67,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     this.heap = new OPMInZoomedProcessInstanceHeap();
     this.valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
     this.loader = OPMInZoomedProcessArgumentLoader.createArgumentLoader(analyzer, executionState, heap);
+    this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer, executionState, heap);
   }
 
   @Override
@@ -168,7 +170,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private boolean executeSingleInstance(OPMProcessInstance instance) {
     if(!instanceMustBeSkipped(instance)) {
       instance.execute();
-      extractResultsToVariables(instance);
+      storer.extractResultsToVariables(instance);
       return false;
     } else {
       logger.info("Skipping " + executionState.getProcess(instance).getName());
@@ -197,19 +199,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private boolean instanceIsNotReadyAnymore(OPMProcessInstance instance) {
     loader.loadInstanceArguments(instance);
     return !instance.isReady();
-  }
-
-  private void extractResultsToVariables(OPMProcessInstance instance) {
-    for(OPMLink resultLink : analyzer.findOutgoingDataLinks(executionState.getProcess(instance))) {
-      OPMObject object = analyzer.getObject(resultLink);
-      OPMObjectInstance value;
-      if(resultLink.getCenterDecoration() == null || "".equals(resultLink.getCenterDecoration())) {
-        value = instance.getArgument(object.getName());
-      } else {
-        value = instance.getArgument(resultLink.getCenterDecoration());
-      }
-      heap.setVariable(object, value);
-    }
   }
 
   private void createFollowingWaitingInstances(OPMProcess process, OPMProcessInstance instance, boolean skipped) {
@@ -358,12 +347,12 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
 
   @Override
   public List<String> getOutgoingParameterNames() {
-    List<String> incomingParameterNames = Lists.newArrayList();
+    List<String> outgoingParameterNames = Lists.newArrayList();
     Collection<OPMObject> parameters = analyzer.findOutgoingParameters(getOpd());
     for(OPMObject object : parameters) {
-      incomingParameterNames.add(object.getName());
+      outgoingParameterNames.add(object.getName());
     }
-    return incomingParameterNames;
+    return outgoingParameterNames;
   }
 
 }

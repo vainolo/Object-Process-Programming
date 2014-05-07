@@ -122,7 +122,8 @@ public class OPDAnalyzer {
   private boolean hasIncomingResultLink(OPMObject parameter) {
     for(OPMLink link : parameter.getIncomingLinks()) {
       if(OPMProceduralLink.class.isInstance(link)) {
-        if(IsOPMResultLink.INSTANCE.apply(OPMProceduralLink.class.cast(link))) {
+        if(IsOPMResultLink.INSTANCE.apply(OPMProceduralLink.class.cast(link))
+            || IsOPMConsumptionLink.INSTANCE.apply(OPMProceduralLink.class.cast(link))) {
           return true;
         }
       }
