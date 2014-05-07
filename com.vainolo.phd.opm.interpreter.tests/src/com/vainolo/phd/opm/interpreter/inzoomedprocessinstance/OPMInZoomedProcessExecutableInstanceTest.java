@@ -3,9 +3,8 @@
  * You can use this code for educational purposes. For any other uses
  * please contact me: vainolo@gmail.com
  *******************************************************************************/
-package inzoomedprocessintance;
+package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
-import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
@@ -16,7 +15,6 @@ import org.junit.Test;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
-import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessExecutableInstance;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -33,8 +31,6 @@ import com.vainolo.phd.opm.model.OPMProcessKind;
  * 
  */
 public class OPMInZoomedProcessExecutableInstanceTest {
-
-  private OPMInZoomedProcessExecutableInstance instance;
 
   private OPMObjectProcessDiagram createInZoomedOPD(String name) {
     OPMObjectProcessDiagram opd = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();

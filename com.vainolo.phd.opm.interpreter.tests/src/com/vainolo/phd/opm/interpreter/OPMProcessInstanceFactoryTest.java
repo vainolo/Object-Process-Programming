@@ -14,8 +14,6 @@ import org.junit.Before;
  */
 public class OPMProcessInstanceFactoryTest {
 
-  private OPMProcessInstanceFactory fixture;
-
   /**
    * Perform pre-test initialization.
    * 
