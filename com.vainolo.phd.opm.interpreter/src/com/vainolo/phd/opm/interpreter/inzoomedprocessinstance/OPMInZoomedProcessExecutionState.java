@@ -17,7 +17,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
  * @author Arieh "Vainolo" Bibliowicz
  * 
  */
-class OPMInZoomedProcessExecutionState {
+public class OPMInZoomedProcessExecutionState {
   private Map<OPMProcessInstance, OPMProcess> instanceToProcessMapping = Maps.newHashMap();
   private List<OPMProcessInstance> readyInstances = Lists.newArrayList();
   private List<OPMProcessInstance> waitingInstances = Lists.newArrayList();
