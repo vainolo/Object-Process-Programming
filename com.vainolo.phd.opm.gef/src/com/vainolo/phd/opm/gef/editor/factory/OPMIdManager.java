@@ -5,17 +5,21 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.factory;
 
+import java.util.logging.Logger;
+
 /**
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * 
  */
 public class OPMIdManager {
-  private static long _id = 0;
+  Logger logger = Logger.getLogger(OPMIdManager.class.getName());
+  private long _id = 0;
 
   public synchronized long getNextId() {
     long idToReturn = _id;
     _id++;
+    logger.info("Next id is " + _id);
     return idToReturn;
   }
 
