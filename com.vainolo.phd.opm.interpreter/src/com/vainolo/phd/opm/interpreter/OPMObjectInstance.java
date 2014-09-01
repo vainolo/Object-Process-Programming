@@ -16,6 +16,10 @@ import java.util.Set;
 import com.google.common.collect.Maps;
 
 /**
+ * And instance of an OPM Object. An OPM object can have two primary constructs:
+ * it either has a value or is composite. Values can be {@link String},
+ * {@link BigDecimal}, or a state, which is treated pretty similarly to a
+ * string.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * 
@@ -27,10 +31,6 @@ public class OPMObjectInstance {
   private Map<String, OPMObjectInstance> parts = Maps.newHashMap();
 
   private OPMObjectInstance() {
-  }
-
-  public static OPMObjectInstance createFromValue(Object o) {
-    throw new UnsupportedOperationException();
   }
 
   public static OPMObjectInstance createCompositeInstance() {
@@ -53,6 +53,27 @@ public class OPMObjectInstance {
     OPMObjectInstance instance = new OPMObjectInstance();
     instance.setState(state);
     return instance;
+  }
+
+  public static OPMObjectInstance createFromExistingInstance(OPMObjectInstance existingInstance) {
+    OPMObjectInstance newInstance = null;
+    if(existingInstance.isValue()) {
+      if(existingInstance.isNumericalValue()) {
+        newInstance = createFromValue(existingInstance.getNumericalValue());
+      } else if(existingInstance.isStringValue()) {
+        newInstance = createFromValue(existingInstance.getStringValue());
+      }
+    } else if(existingInstance.isState()) {
+      newInstance = createFromState(existingInstance.getState());
+    } else if(existingInstance.isComposite()) {
+      newInstance = createCompositeInstance();
+      for(Entry<String, OPMObjectInstance> part : existingInstance.getParts()) {
+        newInstance.addPart(part.getKey(), createFromExistingInstance(part.getValue()));
+      }
+    } else {
+      throw new IllegalStateException("Unexpected type of object.");
+    }
+    return newInstance;
   }
 
   private void setState(String state) {

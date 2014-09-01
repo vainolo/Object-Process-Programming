@@ -114,7 +114,8 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     Collection<OPMObject> objectVariables = analyzer.findObjects(mainProcess);
     for(OPMObject object : objectVariables) {
       calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
-      transferDataFromObject(object);
+      if(getVariable(object) != null)
+        transferDataFromObject(object);
     }
   }
 

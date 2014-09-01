@@ -11,7 +11,9 @@ public class OPMProcessInstanceHeap {
   protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
 
   public void addArgument(String name, OPMObjectInstance value) {
-    arguments.put(name.toLowerCase(), value);
+    if(value == null)
+      return;
+    arguments.put(name.toLowerCase(), OPMObjectInstance.createFromExistingInstance(value));
   }
 
   public OPMObjectInstance getArgument(String name) {
@@ -19,7 +21,9 @@ public class OPMProcessInstanceHeap {
   }
 
   public void setVariable(OPMObject object, OPMObjectInstance value) {
-    variables.put(object, value);
+    if(value == null)
+      return;
+    variables.put(object, OPMObjectInstance.createFromExistingInstance(value));
   }
 
   public OPMObjectInstance getVariable(OPMObject object) {
