@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import org.eclipse.core.runtime.Path;
 
 import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
+import com.vainolo.phd.opm.interpreter.builtin.OPMCompareProcessInstance;
+import com.vainolo.phd.opm.interpreter.builtin.OPMCompareProcessInstance.ComparisonType;
 import com.vainolo.phd.opm.interpreter.builtin.OPMConceptualProcess;
 import com.vainolo.phd.opm.interpreter.builtin.OPMCreateObjectProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMInputProcessInstance;
@@ -88,6 +90,16 @@ public class OPMProcessInstanceFactory {
       processInstance = new OPMPrintHelloWorldProcessInstance();
     } else if(process.getName().equals("Create") || process.getName().equals("New")) {
       processInstance = new OPMCreateObjectProcessInstance();
+    } else if(process.getName().equals("<=")) {
+      processInstance = new OPMCompareProcessInstance(ComparisonType.LESS_THAN_OR_EQUAL);
+    } else if(process.getName().equals(">=")) {
+      processInstance = new OPMCompareProcessInstance(ComparisonType.GREATER_THAN_OR_EQUAL);
+    } else if(process.getName().equals(">")) {
+      processInstance = new OPMCompareProcessInstance(ComparisonType.GREATER_THAN);
+    } else if(process.getName().equals("<")) {
+      processInstance = new OPMCompareProcessInstance(ComparisonType.LESS_THAN);
+    } else if(process.getName().equals("==")) {
+      processInstance = new OPMCompareProcessInstance(ComparisonType.EQUAL);
     } else {
       throw new IllegalStateException("Tried to create unexistent build-in process " + process.getName());
     }
