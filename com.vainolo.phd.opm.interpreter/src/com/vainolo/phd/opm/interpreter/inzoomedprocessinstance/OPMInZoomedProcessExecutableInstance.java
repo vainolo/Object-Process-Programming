@@ -283,7 +283,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   private boolean instanceMustBeSkipped(OPMProcessInstance instance) {
-    for(OPMProceduralLink link : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
+    for(OPMProceduralLink link : analyzer.findIncomingProceduralLinks(executionState.getProcess(instance))) {
       if(link.getSubKinds().contains(OPMConstants.OPM_CONDITIONAL_LINK_SUBKIND)) {
         OPMObjectInstance variable = heap.getVariable(analyzer.getObject(link));
         if(variable == null) {

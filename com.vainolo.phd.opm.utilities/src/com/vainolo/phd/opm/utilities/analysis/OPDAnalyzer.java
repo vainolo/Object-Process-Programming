@@ -1,10 +1,12 @@
 package com.vainolo.phd.opm.utilities.analysis;
 
 import java.util.Collection;
+import java.util.Set;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
@@ -187,6 +189,19 @@ public class OPDAnalyzer {
   }
 
   /**
+   * Find all incoming procedural links of an {@link OPMProcess}
+   * 
+   * @param process
+   *          to search.
+   * @result all incoming procedural links.
+   */
+  public Collection<OPMProceduralLink> findIncomingProceduralLinks(OPMProcess process) {
+    Set<OPMProceduralLink> dataLinks = Sets.newHashSet(findIncomingDataLinks(process));
+    Set<OPMProceduralLink> driverLinks = Sets.newHashSet(findIncomingDriverLinks(process));
+    return Sets.union(dataLinks, driverLinks);
+  }
+
+  /**
    * Find all the incoming data links of an {@link OPMProcess}.
    * 
    * @param process
@@ -196,6 +211,17 @@ public class OPDAnalyzer {
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
     return (Collection) Collections2.filter(process.getIncomingLinks(), new IsOPMProcessIncomingDataLink());
+  }
+
+  /**
+   * Find all the incoming driver links of an {@link OPMProcess}.
+   * 
+   * @param process
+   *          to search.
+   * @return all incoming driver links.
+   */
+  public Collection<OPMProceduralLink> findIncomingDriverLinks(OPMProcess process) {
+    return (Collection) Collections2.filter(process.getIncomingLinks(), IsOPMAgentLink.INSTANCE);
   }
 
   /**
@@ -419,9 +445,9 @@ public class OPDAnalyzer {
       else {
         OPMProceduralLink localLink = (OPMProceduralLink) link;
         switch(localLink.getKind()) {
-        case AGENT:
+        // case AGENT:
         case CONSUMPTION:
-        case INSTRUMENT:
+          // case INSTRUMENT:
           return true;
         default:
           return false;
@@ -507,16 +533,21 @@ public class OPDAnalyzer {
   }
 
   /**
-   * Predicate that matches {@link OPMProceduralLink} insances of
-   * {@link OPMProceduralLinkKind#AGENT} kind.
+   * Predicate that matches {@link OPMLink} instances which are
+   * {@link OPMProceduralLink}s of {@link OPMProceduralLinkKind#AGENT} kind.
    * 
    */
-  public enum IsOPMAgentLink implements Predicate<OPMProceduralLink> {
+  public enum IsOPMAgentLink implements Predicate<OPMLink> {
     INSTANCE;
 
     @Override
-    public boolean apply(OPMProceduralLink input) {
-      return OPMProceduralLinkKind.AGENT.equals(input.getKind());
+    public boolean apply(OPMLink input) {
+      if(OPMProceduralLink.class.isInstance(input)) {
+        OPMProceduralLink link = OPMProceduralLink.class.cast(input);
+        return OPMProceduralLinkKind.AGENT.equals(link.getKind());
+      } else {
+        return false;
+      }
     }
   }
 
