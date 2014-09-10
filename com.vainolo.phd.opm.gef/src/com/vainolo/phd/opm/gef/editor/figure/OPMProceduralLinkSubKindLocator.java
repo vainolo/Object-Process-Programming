@@ -9,6 +9,18 @@ public class OPMProceduralLinkSubKindLocator extends ConnectionLocator {
   private final int xOffset;
   private final int yOffset;
 
+  /**
+   * Create a new {@link OPMProceduralLinkSubKindLocator} for the given
+   * connection, located at <code>xOffset, yOffset</code> from the target of the
+   * link.
+   * 
+   * @param connection
+   *          the connection in which the decorator is based.
+   * @param xOffset
+   *          offset of the located figure in the x axis.
+   * @param yOffset
+   *          offset of the located figure in the y axis.
+   */
   public OPMProceduralLinkSubKindLocator(Connection connection, int xOffset, int yOffset) {
     super(connection, ConnectionLocator.TARGET);
     this.xOffset = xOffset;

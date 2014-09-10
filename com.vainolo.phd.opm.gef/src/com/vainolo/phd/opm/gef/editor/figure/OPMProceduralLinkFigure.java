@@ -9,34 +9,52 @@ import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 
 import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNamedElementFigure {
   private static final PolylineDecoration arrow = new PolylineDecoration();
-  private OPMProceduralLinkKind kind;
+  private final OPMProceduralLinkKind kind;
   private final SmartLabelFigure centerDecorationLabel;
   private final Label subKinds;
+  private final OPMProceduralLinkDecorator decorator;
 
   public OPMProceduralLinkFigure(OPMProceduralLinkKind kind) {
     this.kind = kind;
 
+    setAntialias(SWT.ON);
     setLineWidth(OPMFigureConstants.CONNECTION_LINE_WIDTH);
     centerDecorationLabel = new SmartLabelFigure(-1);
     centerDecorationLabel.setBackgroundColor(ColorConstants.white);
     centerDecorationLabel.setOpaque(true);
     ConnectionLocator locator = new ConnectionLocator(this, ConnectionLocator.MIDDLE);
     add(centerDecorationLabel, locator);
+
     setConnectionRouter(new BendpointConnectionRouter());
     subKinds = new Label("");
     subKinds.setBackgroundColor(ColorConstants.white);
     subKinds.setOpaque(true);
-    add(subKinds, new OPMProceduralLinkSubKindLocator(this, 15, 15));
+    add(subKinds, new OPMProceduralLinkSubKindLocator(this, 8, 10));
+
+    decorator = new OPMProceduralLinkDecorator();
+    decorator.setText("a");
+    // add(decorator, new OPMProceduralLinkSubKindLocator(this, 10, 10));
   }
 
   public SmartLabelFigure getCenterDecorationLabel() {
     return centerDecorationLabel;
+  }
+
+  public void setSubKindLabelText(String text) {
+    subKinds.setText(text);
+    if(text == null || "".equals(text)) {
+      decorator.setVisible(false);
+    } else {
+      decorator.setVisible(true);
+      decorator.setText(text);
+    }
   }
 
   @Override
@@ -99,5 +117,25 @@ public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNa
 
   public Label getSubkindLabel() {
     return subKinds;
+  }
+
+  public class OPMProceduralLinkDecorator extends Figure {
+    Label subKind;
+
+    public OPMProceduralLinkDecorator() {
+      super();
+      setLayoutManager(new StackLayout());
+      setAntialias(SWT.ON);
+
+      Ellipse e = new Ellipse();
+      e.setSize(15, 15);
+      add(e);
+      subKind = new Label();
+      add(subKind);
+    }
+
+    public void setText(String text) {
+      subKind.setText(text);
+    }
   }
 }

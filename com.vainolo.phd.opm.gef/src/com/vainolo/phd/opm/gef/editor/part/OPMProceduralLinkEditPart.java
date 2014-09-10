@@ -80,9 +80,10 @@ public class OPMProceduralLinkEditPart extends OPMLinkEditPart {
       String subKindLabel = model.getSubKinds().toString();
       subKindLabel = subKindLabel.substring(1, subKindLabel.length() - 1);
       subKindLabel = subKindLabel.replace(" ", "");
-      getFigure().getSubkindLabel().setText(subKindLabel);
+      getFigure().setSubKindLabelText(subKindLabel);
+      // getFigure().getSubkindLabel().setText(subKindLabel);
     } else {
-      getFigure().getSubkindLabel().setText("");
+      getFigure().setSubKindLabelText("");
     }
 
     Connection connection = getConnectionFigure();
