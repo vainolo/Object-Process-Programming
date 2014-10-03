@@ -71,10 +71,10 @@ public class OPMInZoomedProcessExecutableInstanceTest {
     inZoomedProcess.getNodes().add(innerProcess);
     OPMObject object = createObject("a");
     opd.getNodes().add(object);
-    opd.getLinks().add(createProceduralLink("a", OPMProceduralLinkKind.INSTRUMENT, object, innerProcess));
+    opd.getLinks().add(createProceduralLink("a", OPMProceduralLinkKind.CONSUMPTION, object, innerProcess));
     object = createObject("b");
     opd.getNodes().add(object);
-    opd.getLinks().add(createProceduralLink("b", OPMProceduralLinkKind.INSTRUMENT, object, innerProcess));
+    opd.getLinks().add(createProceduralLink("b", OPMProceduralLinkKind.CONSUMPTION, object, innerProcess));
     object = createObject("c");
     opd.getNodes().add(object);
     opd.getLinks().add(createProceduralLink("c", OPMProceduralLinkKind.RESULT, innerProcess, object));
@@ -113,8 +113,8 @@ public class OPMInZoomedProcessExecutableInstanceTest {
 
     opd.getLinks().add(createProceduralLink(null, OPMProceduralLinkKind.CONSUMPTION, one, a));
     opd.getLinks().add(createProceduralLink(null, OPMProceduralLinkKind.CONSUMPTION, two, b));
-    opd.getLinks().add(createProceduralLink(null, OPMProceduralLinkKind.INSTRUMENT, a, addProcess));
-    opd.getLinks().add(createProceduralLink(null, OPMProceduralLinkKind.INSTRUMENT, b, addProcess));
+    opd.getLinks().add(createProceduralLink(null, OPMProceduralLinkKind.CONSUMPTION, a, addProcess));
+    opd.getLinks().add(createProceduralLink(null, OPMProceduralLinkKind.CONSUMPTION, b, addProcess));
     opd.getLinks().add(createProceduralLink(null, OPMProceduralLinkKind.RESULT, addProcess, c));
 
     OPMProcessInstance instance = OPMProcessInstanceFactory.createExecutableInstance(opd);
