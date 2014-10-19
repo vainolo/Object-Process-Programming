@@ -11,7 +11,6 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
-import com.vainolo.draw2d.extras.SmartLabelFigure;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 
 public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNamedElementFigure {

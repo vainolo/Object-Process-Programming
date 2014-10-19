@@ -16,8 +16,6 @@ Require-Bundle: org.eclipse.ui,
  com.vainolo.phd.opm.model.edit,
  com.vainolo.phd.opm.interpreter,
  com.vainolo.phd.opm.utilities,
- com.vainolo.draw2d.extras,
- com.vainolo.jdraw2d.eclipse,
  com.vainolo.vainolibraries.java.eclipse,
  org.junit,
  com.vainolo.phd.opm.validation

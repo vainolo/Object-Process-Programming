@@ -17,8 +17,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.LineAttributes;
 
-import com.vainolo.draw2d.extras.SmartLabelFigure;
-
 /**
  * A figure representing an OPM State. A state is represented by a rountangle
  * (rounded rectangle).

@@ -11,20 +11,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.eclipse.draw2d.ChopboxAnchor;
-import org.eclipse.draw2d.ConnectionAnchor;
-import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.RectangleFigure;
-import org.eclipse.draw2d.XYLayout;
+import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 import com.google.common.collect.Lists;
-import com.vainolo.draw2d.extras.SmartLabelFigure;
-import com.vainolo.jdraw2d.HorizontalAlignment;
 
 public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFigure {
   private final RectangleFigure borderFigure;
@@ -54,7 +46,7 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
 
     nameLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
     nameLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
-    nameLabel.setHorizontalAlignment(HorizontalAlignment.CENTER);
+    nameLabel.setHorizontalAlignment(PositionConstants.CENTER);
     borderFigure.add(nameLabel);
 
     contentPane = new ContentPane();

@@ -5,8 +5,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef.editor.figure;
 
-import com.vainolo.draw2d.extras.SmartLabelFigure;
-
 public interface OPMNamedElementFigure {
   public SmartLabelFigure getNameFigure();
 }

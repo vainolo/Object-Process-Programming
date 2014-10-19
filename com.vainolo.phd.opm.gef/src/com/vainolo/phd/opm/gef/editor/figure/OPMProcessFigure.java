@@ -10,9 +10,6 @@ import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
-import com.vainolo.draw2d.extras.SmartLabelFigure;
-import com.vainolo.jdraw2d.HorizontalAlignment;
-
 public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementFigure {
   private final Ellipse ellipse;
   private final Ellipse shade1;
@@ -27,7 +24,7 @@ public class OPMProcessFigure extends OPMThingFigure implements OPMNamedElementF
     ellipse.setLayoutManager(new XYLayout());
     smartLabel = new SmartLabelFigure(OPMFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
     smartLabel.setForegroundColor(OPMFigureConstants.LABEL_COLOR);
-    smartLabel.setHorizontalAlignment(HorizontalAlignment.CENTER);
+    smartLabel.setHorizontalAlignment(PositionConstants.CENTER);
     ellipse.add(smartLabel);
 
     contentPane = new Figure();

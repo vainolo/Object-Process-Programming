@@ -10,7 +10,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.CellEditorLocator;
 import org.eclipse.gef.tools.DirectEditManager;
 
-import com.vainolo.draw2d.extras.SmartLabelFigure;
+import com.vainolo.phd.opm.gef.editor.figure.SmartLabelFigure;
 
 public class OPMNamedElementDirectEditManager extends DirectEditManager {
 

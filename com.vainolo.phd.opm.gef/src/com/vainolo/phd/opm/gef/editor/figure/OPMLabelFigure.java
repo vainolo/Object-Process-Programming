@@ -10,8 +10,6 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import com.vainolo.draw2d.extras.SmartLabelFigure;
-
 public class OPMLabelFigure extends Figure implements OPMNamedElementFigure {
 
   private final SmartLabelFigure smartLabel;
