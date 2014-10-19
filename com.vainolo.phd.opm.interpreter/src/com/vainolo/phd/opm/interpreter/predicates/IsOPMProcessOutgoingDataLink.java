@@ -21,7 +21,6 @@ public enum IsOPMProcessOutgoingDataLink implements Predicate<OPMProceduralLink>
   @Override
   public boolean apply(final OPMProceduralLink link) {
     switch(link.getKind()) {
-    case EFFECT:
     case RESULT:
       return true;
     default:

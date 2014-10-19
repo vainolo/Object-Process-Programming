@@ -24,7 +24,6 @@ public enum IsOPMProcessIncomingDataLink implements Predicate<OPMProceduralLink>
     case AGENT:
     case CONSUMPTION:
     case INSTRUMENT:
-    case EFFECT:
       return true;
     default:
       return false;

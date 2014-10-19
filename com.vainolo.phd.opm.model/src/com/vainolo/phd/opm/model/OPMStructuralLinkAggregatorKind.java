@@ -33,16 +33,6 @@ public enum OPMStructuralLinkAggregatorKind implements Enumerator {
 	AGGREGATION(0, "AGGREGATION", "Aggregation"),
 
 	/**
-   * The '<em><b>EXHIBITION</b></em>' literal object.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @see #EXHIBITION_VALUE
-   * @generated
-   * @ordered
-   */
-	EXHIBITION(1, "EXHIBITION", "Exhibition"),
-
-	/**
    * The '<em><b>GENERALIZATION</b></em>' literal object.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,21 +58,6 @@ public enum OPMStructuralLinkAggregatorKind implements Enumerator {
 	public static final int AGGREGATION_VALUE = 0;
 
 	/**
-   * The '<em><b>EXHIBITION</b></em>' literal value.
-   * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>EXHIBITION</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-   * @see #EXHIBITION
-   * @model literal="Exhibition"
-   * @generated
-   * @ordered
-   */
-	public static final int EXHIBITION_VALUE = 1;
-
-	/**
    * The '<em><b>GENERALIZATION</b></em>' literal value.
    * <!-- begin-user-doc -->
 	 * <p>
@@ -106,7 +81,6 @@ public enum OPMStructuralLinkAggregatorKind implements Enumerator {
 	private static final OPMStructuralLinkAggregatorKind[] VALUES_ARRAY =
 		new OPMStructuralLinkAggregatorKind[] {
       AGGREGATION,
-      EXHIBITION,
       GENERALIZATION,
     };
 
@@ -159,7 +133,6 @@ public enum OPMStructuralLinkAggregatorKind implements Enumerator {
 	public static OPMStructuralLinkAggregatorKind get(int value) {
     switch (value) {
       case AGGREGATION_VALUE: return AGGREGATION;
-      case EXHIBITION_VALUE: return EXHIBITION;
       case GENERALIZATION_VALUE: return GENERALIZATION;
     }
     return null;

@@ -34,15 +34,12 @@ public class OPMLinkValidator {
         case CONSUMPTION:
         case INSTRUMENT:
         case AGENT:
-        case EFFECT:
           return true;
         default:
           return false;
         }
       } else if(OPMProcess.class.isInstance(source)) {
         switch(proceduralLink.getKind()) {
-        case INVOCATION:
-        case EFFECT:
         case RESULT:
           return true;
         default:
@@ -79,7 +76,6 @@ public class OPMLinkValidator {
         switch(proceduralLink.getKind()) {
         case INSTRUMENT:
         case RESULT:
-        case EFFECT:
         case CONSUMPTION:
           return true;
         default:
@@ -90,8 +86,6 @@ public class OPMLinkValidator {
         case CONSUMPTION:
         case INSTRUMENT:
         case AGENT:
-        case EFFECT:
-        case INVOCATION:
           return true;
         default:
           return false;

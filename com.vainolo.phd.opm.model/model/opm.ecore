@@ -78,14 +78,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="Label" eSuperTypes="#//OPMNode #//OPMNamedElement"/>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMStructuralLinkAggregatorKind">
     <eLiterals name="AGGREGATION" literal="Aggregation"/>
-    <eLiterals name="EXHIBITION" value="1" literal="Exhibition"/>
     <eLiterals name="GENERALIZATION" value="2" literal="Generalization"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OPMProceduralLinkKind">
     <eLiterals name="AGENT" literal="Agent"/>
-    <eLiterals name="EFFECT" value="3" literal="Effect"/>
     <eLiterals name="RESULT" value="4" literal="Result"/>
-    <eLiterals name="INVOCATION" value="5" literal="Invocation"/>
     <eLiterals name="INSTRUMENT" value="1" literal="Instrument"/>
     <eLiterals name="CONSUMPTION" value="2" literal="Consumption"/>
   </eClassifiers>
