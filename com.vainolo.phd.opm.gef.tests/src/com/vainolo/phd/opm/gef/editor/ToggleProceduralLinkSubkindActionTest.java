@@ -1,6 +1,6 @@
 package com.vainolo.phd.opm.gef.editor;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 
 import org.eclipse.gef.Request;
@@ -9,7 +9,6 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.ui.IWorkbenchPart;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import com.vainolo.phd.opm.gef.editor.action.ToggledProceduralLinkSubkindAction;
 import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
@@ -18,7 +17,6 @@ import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.utilities.OPMConstants;
 
 import static org.junit.Assert.*;
-
 import static org.mockito.Mockito.*;
 
 /**
@@ -143,6 +141,7 @@ public class ToggleProceduralLinkSubkindActionTest extends ToggledProceduralLink
   /**
    * Private function to set the mock objects currently selected.
    */
+  @SuppressWarnings("rawtypes")
   private void setSelectedObjects(List objects) {
     selectedObjects = objects;
   }
@@ -150,6 +149,7 @@ public class ToggleProceduralLinkSubkindActionTest extends ToggledProceduralLink
   /**
    * Override for tests.
    */
+  @SuppressWarnings("rawtypes")
   @Override
   protected List getSelectedObjects() {
     return selectedObjects;

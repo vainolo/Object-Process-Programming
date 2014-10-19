@@ -220,6 +220,7 @@ public class OPDAnalyzer {
    *          to search.
    * @return all incoming driver links.
    */
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findIncomingDriverLinks(OPMProcess process) {
     return (Collection) Collections2.filter(process.getIncomingLinks(), IsOPMAgentLink.INSTANCE);
   }

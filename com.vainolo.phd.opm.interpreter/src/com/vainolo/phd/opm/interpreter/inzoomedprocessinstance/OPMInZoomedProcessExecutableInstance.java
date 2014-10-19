@@ -18,7 +18,6 @@ import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceHeap;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalyzer;
-import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;

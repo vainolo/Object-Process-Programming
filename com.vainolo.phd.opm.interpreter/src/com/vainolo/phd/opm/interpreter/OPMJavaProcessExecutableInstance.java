@@ -6,12 +6,10 @@
 package com.vainolo.phd.opm.interpreter;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProcess;
@@ -28,7 +26,7 @@ public class OPMJavaProcessExecutableInstance extends OPMAbstractProcessInstance
   private String[] parameters = new String[0];
   private Method method;
   private Object[] arguments;
-  private Object target = null;
+  // private Object target = null;
 
   private OPMProcess process;
 
@@ -54,28 +52,29 @@ public class OPMJavaProcessExecutableInstance extends OPMAbstractProcessInstance
       arguments[i] = getArgument("arg" + i);
     }
 
-    if(!Modifier.isStatic(method.getModifiers()))
-      target = getArgument("this");
+    // if(!Modifier.isStatic(method.getModifiers()))
+    // target = getArgument("this");
 
-    final Object result = callMethod(method);
+    // final Object result = callMethod(method);
     OPMObjectInstance instance = null; // OPMObjectInstance.createFromValue(result);
     if(!method.getReturnType().equals(Void.TYPE)) {
       setArgument("result", instance);
     }
   }
 
-  private Object callMethod(Method method) {
-    Preconditions.checkNotNull(method);
-
-    Object result = null;
-    try {
-      result = method.invoke(target, arguments);
-    } catch(ReflectiveOperationException e) {
-      logger.info("Method " + methodName + " could not be called. See log for details.");
-      throw new RuntimeException(e);
-    }
-    return result;
-  }
+  // private Object callMethod(Method method) {
+  // Preconditions.checkNotNull(method);
+  //
+  // Object result = null;
+  // try {
+  // result = method.invoke(target, arguments);
+  // } catch(ReflectiveOperationException e) {
+  // logger.info("Method " + methodName +
+  // " could not be called. See log for details.");
+  // throw new RuntimeException(e);
+  // }
+  // return result;
+  // }
 
   private Method loadMethod() {
     final Matcher classAndMethodAndParametersMatcher = classAndMethodAndParametersPattern.matcher(process

@@ -10,10 +10,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,9 +34,9 @@ import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
 public class OPDAnalyzerTest {
   private OPMObjectProcessDiagram opd;
   // private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
-  private static final int SPACING = 50;
+//  private static final int SPACING = 50;
 
-  private final Map<Integer, OPMProcess> processes = new HashMap<Integer, OPMProcess>();
+//  private final Map<Integer, OPMProcess> processes = new HashMap<Integer, OPMProcess>();
   // private OPDExecutionAnalysis opdExecutionAnalyzer;
   private OPDAnalyzer analyzer;
   private OPMNode node;
@@ -503,17 +500,17 @@ public class OPDAnalyzerTest {
     return OPMFactory.eINSTANCE.createOPMObject();
   }
 
-  private OPMObject createVariable() {
-    OPMObject o = OPMFactory.eINSTANCE.createOPMObject();
-    o.setParameter(false);
-    return o;
-  }
-
-  private OPMObject createParameter() {
-    OPMObject o = OPMFactory.eINSTANCE.createOPMObject();
-    o.setParameter(true);
-    return o;
-  }
+//  private OPMObject createVariable() {
+//    OPMObject o = OPMFactory.eINSTANCE.createOPMObject();
+//    o.setParameter(false);
+//    return o;
+//  }
+//
+//  private OPMObject createParameter() {
+//    OPMObject o = OPMFactory.eINSTANCE.createOPMObject();
+//    o.setParameter(true);
+//    return o;
+//  }
 
   private OPMProcess createProcess() {
     OPMProcess p = OPMFactory.eINSTANCE.createOPMProcess();

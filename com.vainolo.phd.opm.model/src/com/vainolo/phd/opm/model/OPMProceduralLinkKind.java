@@ -33,14 +33,6 @@ public enum OPMProceduralLinkKind implements Enumerator {
 	AGENT(0, "AGENT", "Agent"),
 
 	/**
-   * The '<em><b>EFFECT</b></em>' literal object.
-   * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-   * @see #EFFECT_VALUE
-   * @generated
-   * @ordered
-   */
-	EFFECT(3, "EFFECT", "Effect"), /**
    * The '<em><b>RESULT</b></em>' literal object.
    * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -49,14 +41,6 @@ public enum OPMProceduralLinkKind implements Enumerator {
    * @ordered
    */
 	RESULT(4, "RESULT", "Result"), /**
-   * The '<em><b>INVOCATION</b></em>' literal object.
-   * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-   * @see #INVOCATION_VALUE
-   * @generated
-   * @ordered
-   */
-    INVOCATION(5, "INVOCATION", "Invocation"), /**
    * The '<em><b>INSTRUMENT</b></em>' literal object.
    * <!-- begin-user-doc -->
  * <!-- end-user-doc -->
@@ -90,21 +74,6 @@ INSTRUMENT(1, "INSTRUMENT", "Instrument"), /**
 	public static final int AGENT_VALUE = 0;
 
 	/**
-   * The '<em><b>EFFECT</b></em>' literal value.
-   * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>EFFECT</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-   * @see #EFFECT
-   * @model literal="Effect"
-   * @generated
-   * @ordered
-   */
-	public static final int EFFECT_VALUE = 3;
-
-	/**
    * The '<em><b>RESULT</b></em>' literal value.
    * <!-- begin-user-doc -->
          * <p>
@@ -118,21 +87,6 @@ INSTRUMENT(1, "INSTRUMENT", "Instrument"), /**
    * @ordered
    */
         public static final int RESULT_VALUE = 4;
-
-        /**
-   * The '<em><b>INVOCATION</b></em>' literal value.
-   * <!-- begin-user-doc -->
-           * <p>
-           * If the meaning of '<em><b>INVOCATION</b></em>' literal object isn't clear,
-           * there really should be more of a description here...
-           * </p>
-           * <!-- end-user-doc -->
-   * @see #INVOCATION
-   * @model literal="Invocation"
-   * @generated
-   * @ordered
-   */
-          public static final int INVOCATION_VALUE = 5;
 
         /**
    * The '<em><b>INSTRUMENT</b></em>' literal value.
@@ -173,9 +127,7 @@ INSTRUMENT(1, "INSTRUMENT", "Instrument"), /**
 	private static final OPMProceduralLinkKind[] VALUES_ARRAY =
 		new OPMProceduralLinkKind[] {
       AGENT,
-      EFFECT,
       RESULT,
-      INVOCATION,
       INSTRUMENT,
       CONSUMPTION,
     };
@@ -229,9 +181,7 @@ INSTRUMENT(1, "INSTRUMENT", "Instrument"), /**
 	public static OPMProceduralLinkKind get(int value) {
     switch (value) {
       case AGENT_VALUE: return AGENT;
-      case EFFECT_VALUE: return EFFECT;
       case RESULT_VALUE: return RESULT;
-      case INVOCATION_VALUE: return INVOCATION;
       case INSTRUMENT_VALUE: return INSTRUMENT;
       case CONSUMPTION_VALUE: return CONSUMPTION;
     }

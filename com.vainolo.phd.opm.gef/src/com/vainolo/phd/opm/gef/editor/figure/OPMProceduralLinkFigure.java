@@ -61,16 +61,12 @@ public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNa
     g.drawPolyline(getPoints());
     PointList points = getPoints();
 
-    Point source = points.getFirstPoint();
-    Point pointAfterSource = points.getPoint(1);
     Point target = points.getLastPoint();
     Point pointBeforeTarget = points.getPoint(points.size() - 2);
 
     switch(kind) {
     case CONSUMPTION:
     case RESULT:
-    case EFFECT:
-    case INVOCATION:
       arrow.setLocation(target);
       arrow.setReferencePoint(pointBeforeTarget);
       g.drawPolyline(arrow.getPoints());
@@ -86,16 +82,6 @@ public class OPMProceduralLinkFigure extends PolylineConnection implements OPMNa
         g.fillOval(target.x() - (radius - 2), target.y() - (radius - 2), (radius - 2) * 2, (radius - 2) * 2);
       }
       g.popState();
-      break;
-    }
-
-    switch(kind) {
-    case EFFECT:
-      arrow.setLocation(source);
-      arrow.setReferencePoint(pointAfterSource);
-      g.drawPolyline(arrow.getPoints());
-      break;
-    default:
       break;
     }
   }

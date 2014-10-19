@@ -1,10 +1,8 @@
 package com.vainolo.phd.opm.gef.editor.policy;
 
-import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.LayoutManager;
+import org.eclipse.draw2d.Figure; 
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.PrecisionPoint;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.requests.CreateRequest;
@@ -19,8 +17,6 @@ import com.vainolo.phd.opm.gef.editor.command.OPMNodeCreateCommand;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.validation.OPMNodeValidator;
-
-import static org.junit.Assert.*;
 
 public class OPMContainerXYLayoutPolicyTest {
 

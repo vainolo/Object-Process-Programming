@@ -15,7 +15,6 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.LineAttributes;
 
 /**
  * A figure representing an OPM State. A state is represented by a rountangle

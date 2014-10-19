@@ -7,7 +7,6 @@ package com.vainolo.phd.opm.gef.editor.figure;
 
 import static java.lang.Math.max;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 

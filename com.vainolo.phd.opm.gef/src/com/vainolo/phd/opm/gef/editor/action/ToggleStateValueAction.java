@@ -1,15 +1,11 @@
 package com.vainolo.phd.opm.gef.editor.action;
 
-import java.util.List;
-
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
-import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.ui.actions.SelectionAction;
 import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opm.gef.editor.part.OPMStateEditPart;
-import com.vainolo.phd.opm.gef.editor.part.OPMThingEditPart;
 
 public class ToggleStateValueAction extends SelectionAction {
 

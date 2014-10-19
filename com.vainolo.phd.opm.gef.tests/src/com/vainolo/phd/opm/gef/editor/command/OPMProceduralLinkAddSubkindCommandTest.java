@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
-import com.vainolo.phd.opm.utilities.OPMConstants;
 import com.vainolo.phd.opm.validation.OPMProceduralLinkValidator;
 
 import static org.junit.Assert.*;

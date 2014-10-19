@@ -4,12 +4,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
-import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMState;
@@ -63,20 +61,6 @@ public class OPMLinkValidatorTest {
   }
 
   @Test
-  public void testValidateSource_ObjectSource_EffectLink() {
-    link = createProceduralLink(OPMProceduralLinkKind.EFFECT);
-    boolean result = validator.validateAddSource(object, link);
-    assertTrue(result);
-  }
-
-  @Test
-  public void testValidateSource_ObjectSource_InvocationLink() {
-    link = createProceduralLink(OPMProceduralLinkKind.INVOCATION);
-    boolean result = validator.validateAddSource(object, link);
-    assertFalse(result);
-  }
-
-  @Test
   public void testValidateSource_ProcessSource_ConsumptionLink() {
     link = createProceduralLink(OPMProceduralLinkKind.CONSUMPTION);
     boolean result = validator.validateAddSource(process, link);
@@ -100,20 +84,6 @@ public class OPMLinkValidatorTest {
   @Test
   public void testValidateSource_ProcessSource_ResultLink() {
     link = createProceduralLink(OPMProceduralLinkKind.RESULT);
-    boolean result = validator.validateAddSource(process, link);
-    assertTrue(result);
-  }
-
-  @Test
-  public void testValidateSource_ProcessSource_EffectLink() {
-    link = createProceduralLink(OPMProceduralLinkKind.EFFECT);
-    boolean result = validator.validateAddSource(process, link);
-    assertTrue(result);
-  }
-
-  @Test
-  public void testValidateSource_ProcessSource_InvocationLink() {
-    link = createProceduralLink(OPMProceduralLinkKind.INVOCATION);
     boolean result = validator.validateAddSource(process, link);
     assertTrue(result);
   }
@@ -147,20 +117,6 @@ public class OPMLinkValidatorTest {
   }
 
   @Test
-  public void testValidateTarget_EffectLink_ObjectTarget() {
-    link = createProceduralLink(OPMProceduralLinkKind.EFFECT);
-    boolean result = validator.validateAddTarget(link, object);
-    assertTrue(result);
-  }
-
-  @Test
-  public void testValidateTarget_InvocationLink_ObjectTarget() {
-    link = createProceduralLink(OPMProceduralLinkKind.INVOCATION);
-    boolean result = validator.validateAddTarget(link, object);
-    assertFalse(result);
-  }
-
-  @Test
   public void testValidateTarget_ConsumptionLink_ProcessTarget() {
     link = createProceduralLink(OPMProceduralLinkKind.CONSUMPTION);
     boolean result = validator.validateAddTarget(link, process);
@@ -186,20 +142,6 @@ public class OPMLinkValidatorTest {
     link = createProceduralLink(OPMProceduralLinkKind.RESULT);
     boolean result = validator.validateAddTarget(link, process);
     assertFalse(result);
-  }
-
-  @Test
-  public void testValidateTarget_EffectLink_ProcessTarget() {
-    link = createProceduralLink(OPMProceduralLinkKind.EFFECT);
-    boolean result = validator.validateAddTarget(link, process);
-    assertTrue(result);
-  }
-
-  @Test
-  public void testValidateTarget_InvocationLink_ProcessTarget() {
-    link = createProceduralLink(OPMProceduralLinkKind.INVOCATION);
-    boolean result = validator.validateAddTarget(link, process);
-    assertTrue(result);
   }
 
   @Test

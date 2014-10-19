@@ -1,11 +1,9 @@
 package com.vainolo.phd.opm.gef.editor.policy;
 
-import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.Command; 
 import org.eclipse.gef.requests.CreateConnectionRequest;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import com.vainolo.phd.opm.gef.editor.command.OPMLinkCreateCommand;
 import com.vainolo.phd.opm.gef.editor.factory.OPMIdManager;
@@ -26,7 +24,6 @@ public class OPMNodeGraphicalNodeEditPolicyTest {
   private OPMLinkValidator validatorMock;
   private CreateConnectionRequest requestMock;
   private Command command;
-  private OPMStructuralLinkAggregatorEditPart structuralLinkAggregatorEditPartMock;
   private OPMNodeEditPart nodeEditPartMock;
   private OPMNode nodeMock;
   private OPMLink linkMock;
@@ -77,7 +74,7 @@ public class OPMNodeGraphicalNodeEditPolicyTest {
   public void setUp() {
     validatorMock = mock(OPMLinkValidator.class);
     requestMock = mock(CreateConnectionRequest.class);
-    structuralLinkAggregatorEditPartMock = mock(OPMStructuralLinkAggregatorEditPart.class);
+    mock(OPMStructuralLinkAggregatorEditPart.class);
     nodeEditPartMock = mock(OPMNodeEditPart.class);
     nodeMock = mock(OPMNode.class);
     linkMock = mock(OPMLink.class);
