@@ -8,6 +8,7 @@
             contributorClass="com.vainolo.phd.opm.gef.editor.OPMGraphicalEditorActionBarContributor"
             default="true"
             extensions="opm"
+            icon="src/com/vainolo/phd/opm/gef/icons/opp16x16.ico"
             id="com.vainolo.phd.opm.gef.editorID"
             name="OPM GEF Editor">
       </editor>
@@ -26,8 +27,9 @@
       <wizard
             category="com.vainolo.phd.opm.gef.Wizard.ID"
             class="com.vainolo.phd.opm.gef.OPMModelWizard"
+            icon="src/com/vainolo/phd/opm/gef/icons/opp16x16.ico"
             id="com.vainolo.phd.opm.gef.NewOPMModelWizardID"
-            name="OPM Model">
+            name="OPP Diagram">
       </wizard>
       <category
             id="com.vainolo.phd.opm.gef.Wizard.ID"
