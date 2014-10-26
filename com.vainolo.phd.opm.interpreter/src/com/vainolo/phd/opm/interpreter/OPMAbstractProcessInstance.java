@@ -52,20 +52,6 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   /**
    * {@inheritDoc}
    */
-  @Override
-  public final void execute() {
-    try {
-      preExecution();
-      executing();
-      postExecution();
-    } catch(Exception e) {
-      throw new OPMRuntimeException(e);
-    }
-  }
-
-  /**
-   * {@inheritDoc}
-   */
   protected void preExecution() {
     logger.info("Started executing process " + getName());
   }
@@ -100,4 +86,17 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   public List<String> getOutgoingParameterNames() {
     return Lists.newArrayList();
   }
+
+  @Override
+  public ProcessExecutionResult call() throws Exception {
+    try {
+      preExecution();
+      executing();
+      postExecution();
+    } catch(Exception e) {
+      throw new OPMRuntimeException(e);
+    }
+    return ProcessExecutionResult.FINISHED;
+  }
+
 }

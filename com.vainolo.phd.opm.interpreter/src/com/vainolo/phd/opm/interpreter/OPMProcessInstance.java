@@ -6,6 +6,7 @@
 package com.vainolo.phd.opm.interpreter;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 /**
  * 
@@ -13,7 +14,7 @@ import java.util.List;
  * @created 2 Jul 2012
  * 
  */
-public interface OPMProcessInstance {
+public interface OPMProcessInstance extends Callable<ProcessExecutionResult> {
 
   /**
    * Set the value of an argument.
@@ -64,11 +65,6 @@ public interface OPMProcessInstance {
    * Set the name of the Process.
    */
   void setName(String name);
-
-  /**
-   * Execute this instance.
-   */
-  void execute();
 
   /**
    * Check if the instance is ready for execution

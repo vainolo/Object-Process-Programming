@@ -63,7 +63,7 @@ public class OPMInZoomedProcessExecutableInstanceTest {
   }
 
   @Test
-  public void test_execute_addTwoNumbers() {
+  public void test_execute_addTwoNumbers() throws Exception {
     OPMObjectProcessDiagram opd = createInZoomedOPD("Adding Two Numbers");
     OPMProcess inZoomedProcess = createProcess("Adding Two Numbers", OPMProcessKind.COMPOUND);
     opd.getNodes().add(inZoomedProcess);
@@ -83,17 +83,17 @@ public class OPMInZoomedProcessExecutableInstanceTest {
 
     instance.setArgument("a", OPMObjectInstance.createFromValue(new BigDecimal(1.0)));
     instance.setArgument("b", OPMObjectInstance.createFromValue(new BigDecimal(2.0)));
-    instance.execute();
+    instance.call();
     assertEquals(3.0, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
 
     instance.setArgument("a", OPMObjectInstance.createFromValue(new BigDecimal(5.0)));
     instance.setArgument("b", OPMObjectInstance.createFromValue(new BigDecimal(15.4)));
-    instance.execute();
+    instance.call();
     assertEquals(20.4, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
   }
 
   @Test
-  public void test_execute_AddTwoNumber_ArgumentInference() {
+  public void test_execute_AddTwoNumber_ArgumentInference() throws Exception {
     OPMObjectProcessDiagram opd = createInZoomedOPD("Adding Two Numbers with Arugment Inference");
     OPMProcess inZoomedProcess = createProcess("Adding Two Numbers with Argument Inference", OPMProcessKind.COMPOUND);
     opd.getNodes().add(inZoomedProcess);
@@ -118,15 +118,15 @@ public class OPMInZoomedProcessExecutableInstanceTest {
     opd.getLinks().add(createProceduralLink(null, OPMProceduralLinkKind.RESULT, addProcess, c));
 
     OPMProcessInstance instance = OPMProcessInstanceFactory.createExecutableInstance(opd);
-    instance.execute();
+    instance.call();
     assertEquals(3.0, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
 
     c.setName("C");
-    instance.execute();
+    instance.call();
     assertEquals(3.0, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
 
     a.setName("A");
-    instance.execute();
+    instance.call();
     assertEquals(3.0, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
 
   }

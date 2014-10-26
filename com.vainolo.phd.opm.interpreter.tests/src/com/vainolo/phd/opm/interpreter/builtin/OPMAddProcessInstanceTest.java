@@ -23,53 +23,52 @@ import com.vainolo.phd.opm.interpreter.OPMRuntimeException;
 public class OPMAddProcessInstanceTest extends OPMAbstractProcessInstanceTest {
 
   @Test
-  public void test_execute_lowerCaseArguments() {
+  public void test_execute_lowerCaseArguments() throws Exception {
     final OPMAddProcessInstance instance = new OPMAddProcessInstance();
 
     instance.setArgument("a", OPMObjectInstance.createFromValue(new BigDecimal(1)));
     instance.setArgument("b", OPMObjectInstance.createFromValue(new BigDecimal(2)));
 
-    instance.execute();
+    instance.call();
 
     BigDecimal value = instance.getArgument("c").getNumericalValue();
     assertEquals(3, value.intValue());
   }
-  
+
   @Test
-  public void test_execute_upercaseCaseArguments() {
+  public void test_execute_upercaseCaseArguments() throws Exception {
     final OPMAddProcessInstance instance = new OPMAddProcessInstance();
 
     instance.setArgument("A", OPMObjectInstance.createFromValue(new BigDecimal(1)));
     instance.setArgument("B", OPMObjectInstance.createFromValue(new BigDecimal(2)));
 
-    instance.execute();
+    instance.call();
 
     BigDecimal value = instance.getArgument("C").getNumericalValue();
     assertEquals(3, value.intValue());
   }
 
   @Test
-  public void test_execute_mixedCaseArguments() {
+  public void test_execute_mixedCaseArguments() throws Exception {
     final OPMAddProcessInstance instance = new OPMAddProcessInstance();
 
     instance.setArgument("A", OPMObjectInstance.createFromValue(new BigDecimal(1)));
     instance.setArgument("b", OPMObjectInstance.createFromValue(new BigDecimal(2)));
 
-    instance.execute();
+    instance.call();
 
     BigDecimal value = instance.getArgument("C").getNumericalValue();
     assertEquals(3, value.intValue());
   }
-  
-  @Test(expected=OPMRuntimeException.class)
-  public void test_execute_illegalArguments() {
+
+  @Test(expected = OPMRuntimeException.class)
+  public void test_execute_illegalArguments() throws Exception {
     final OPMAddProcessInstance instance = new OPMAddProcessInstance();
 
     instance.setArgument("X", OPMObjectInstance.createFromValue(new BigDecimal(1)));
     instance.setArgument("Y", OPMObjectInstance.createFromValue(new BigDecimal(2)));
 
-    instance.execute();
+    instance.call();
   }
-  
 
 }

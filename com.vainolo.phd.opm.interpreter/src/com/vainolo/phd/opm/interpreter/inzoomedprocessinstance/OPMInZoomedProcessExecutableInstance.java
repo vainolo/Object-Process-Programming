@@ -17,6 +17,7 @@ import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceHeap;
+import com.vainolo.phd.opm.interpreter.ProcessExecutionResult;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalyzer;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -168,7 +169,12 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
 
   private boolean executeSingleInstance(OPMProcessInstance instance) {
     if(!instanceMustBeSkipped(instance)) {
-      instance.execute();
+      try {
+        instance.call();
+      } catch(Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
       storer.extractResultsToVariables(instance);
       return false;
     } else {
@@ -353,5 +359,4 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     }
     return outgoingParameterNames;
   }
-
 }
