@@ -9,10 +9,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-import javax.annotation.processing.Completions;
-
 import org.eclipse.core.resources.IContainer;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -28,10 +28,12 @@ public enum OPMInterpreter {
   private static final Logger logger = SimpleLoggerFactory.createLogger(OPMInterpreter.class.getName());
   public static IContainer container = null;
 
-  private ExecutorService executorService = Executors.newCachedThreadPool();
+  public final ExecutorService executorService;
+  public final Injector injector;
 
   private OPMInterpreter() {
-
+    executorService = Executors.newCachedThreadPool();
+    injector = Guice.createInjector(new InterpreterModule());
   }
 
   /**
@@ -55,10 +57,6 @@ public enum OPMInterpreter {
       e.printStackTrace();
     }
     logger.info("Finished interpreting " + opdName);
-  }
-
-  public ExecutorService getExecutorService() {
-    return executorService;
   }
 
   public void stopExecution() {

@@ -7,15 +7,7 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
-/**
- * Helper class to analyze {@link OPMObject} and {@link OPMState} values. All of
- * the methods in this class assume that the passed value is neither
- * <code>null</code> nor empty.
- * 
- * @author Arieh "Vainolo" Bibliowicz
- * 
- */
-public class OPMObjectInstanceValueAnalyzer {
+public interface OPMObjectInstanceValueAnalyzer {
   /**
    * Check if the value is a string literal. This is done by checking if the
    * initial character in the value is either a " or a '.
@@ -25,12 +17,7 @@ public class OPMObjectInstanceValueAnalyzer {
    * @return <code>true</code> if the value is a string literal,
    *         <code>false</code> otherwise.
    */
-  public boolean isStringValue(String value) {
-    if(value.startsWith("\"") || value.startsWith("'"))
-      return true;
-    else
-      return false;
-  }
+  public boolean isStringValue(String value);
 
   /**
    * Parse a string literal, removing starting and ending "/'.
@@ -39,9 +26,7 @@ public class OPMObjectInstanceValueAnalyzer {
    *          to parse. Must not be <code>null</code> or empty.
    * @return the string represented in this string literal.
    */
-  public String parseStringValue(String value) {
-    return value.substring(1, value.length() - 1);
-  }
+  public String parseStringValue(String value);
 
   /**
    * Check if the value is a number. This is done by checking if the first
@@ -51,9 +36,7 @@ public class OPMObjectInstanceValueAnalyzer {
    *          to check. Must not be <code>null</code> or empty.
    * @return <code>true</code> if the value is a number, false otherwise.
    */
-  public boolean isNumericalValue(String value) {
-    return value.matches("-?\\d+(\\.\\d+)?");
-  }
+  public boolean isNumericalValue(String value);
 
   /**
    * Parse a number literal.
@@ -62,9 +45,7 @@ public class OPMObjectInstanceValueAnalyzer {
    *          to parse. Must not be <code>null</code> or empty.
    * @return the value that the literal represents.
    */
-  public BigDecimal parseNumericalValue(String value) {
-    return new BigDecimal(value);
-  }
+  public BigDecimal parseNumericalValue(String value);
 
   /**
    * Calculate the value of an {@link OPMObjectInstance} based on the
@@ -76,27 +57,7 @@ public class OPMObjectInstanceValueAnalyzer {
    * @param analyzer
    * @return the value of the {@link OPMObjectInstance}
    */
-  public OPMObjectInstance calculateOPMObjectValue(OPMObject object, OPDAnalyzer analyzer) {
-    OPMObjectInstanceValueAnalyzer valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
-    OPMObjectInstance objectInstance = null;
-  
-    String objectName = object.getName();
-    if(objectName != null && !objectName.equals("")) {
-      if(valueAnalyzer.isStringValue(objectName)) {
-        objectInstance = OPMObjectInstance.createFromValue(valueAnalyzer.parseStringValue(objectName));
-      } else if(valueAnalyzer.isNumericalValue(objectName)) {
-        objectInstance = OPMObjectInstance.createFromValue(valueAnalyzer.parseNumericalValue(objectName));
-      }
-    } else {
-      Collection<OPMState> states = analyzer.findStates(object);
-      for(OPMState state : states) {
-        if(state.isValue()) {
-          objectInstance = OPMObjectInstance.createFromState(state.getName());
-        }
-      }
-    }
-    return objectInstance;
-  }
+  public OPMObjectInstance calculateOPMObjectValue(OPMObject object, OPDAnalyzer analyzer);
 
   /**
    * Calculate if the value of an object is in a given state.
@@ -108,29 +69,7 @@ public class OPMObjectInstanceValueAnalyzer {
    * @return <code>true</code> if the value of the object instance matches the
    *         state, <code>false</code> otherwise.
    */
-  public boolean isObjectValueInState(String stateName, BigDecimal value) {
-    if(isNumericalValue(stateName)) {
-      return parseNumericalValue(stateName).equals(value);
-    } else {
-      // state name is a numerical logical expression
-      // supported expressions are: x < NUM, x <= NUM, x > NUM, x >= NUM. Spaces
-      // are MANDATORY
-      String[] split = stateName.split(" ");
-      BigDecimal number = new BigDecimal(split[2]);
-      switch(split[1]) {
-      case "<":
-        return value.compareTo(number) == -1;
-      case "<=":
-        return value.compareTo(number) == -1 || value.compareTo(number) == 0;
-      case ">":
-        return value.compareTo(number) == 1;
-      case ">=":
-        return value.compareTo(number) == 1 || value.compareTo(number) == 0;
-      }
-  
-    }
-    return false;
-  }
+  public boolean isObjectValueInState(String stateName, BigDecimal value);
 
   /**
    * Calculate if an object instance is in a state. There are three ways for
@@ -154,18 +93,6 @@ public class OPMObjectInstanceValueAnalyzer {
    * @return <code>true</code> if the instance is in the specific state, <code>
    *         false</code> otherwise.
    */
-  public boolean isObjectInstanceInState(OPMObjectInstance instance, OPMState state) {
-    if(instance == null) {
-      return false;
-    }
-    if(instance.isState()) {
-      return state.getName().equals(instance.getState());
-    } else {
-      if(isStringValue(state.getName())) {
-        return parseStringValue(state.getName()).equals(instance.getValue());
-      } else {
-        return isObjectValueInState(state.getName(), BigDecimal.class.cast(instance.getValue()));
-      }
-    }
-  }
+  public boolean isObjectInstanceInState(OPMObjectInstance instance, OPMState state);
+
 }

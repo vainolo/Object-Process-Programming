@@ -135,7 +135,7 @@ public class OPDAnalyzer {
   }
 
   public boolean hasOutgoingDataLinks(OPMObject object) {
-    return findOutgoingDataLinks(object).size() > 0;
+    return findOutgoingDataTrasferLinks(object).size() > 0;
   }
 
   /**
@@ -210,7 +210,7 @@ public class OPDAnalyzer {
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findIncomingDataLinks(OPMProcess process) {
-    return (Collection) Collections2.filter(process.getIncomingLinks(), new IsOPMProcessIncomingDataLink());
+    return (Collection) Collections2.filter(process.getIncomingLinks(), new IsOPMProcessIncomingDataTransferLink());
   }
 
   /**
@@ -297,7 +297,7 @@ public class OPDAnalyzer {
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMState state) {
-    return ((Collection) Collections2.filter(state.getOutgoingLinks(), new IsOPMObjectOutgoingDataLink()));
+    return ((Collection) Collections2.filter(state.getOutgoingLinks(), new IsOPMObjectOutgoingDataTransferLink()));
   }
 
   /**
@@ -309,13 +309,17 @@ public class OPDAnalyzer {
    * @return all outgoing data links
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMObject object) {
+  public Collection<OPMProceduralLink> findOutgoingDataTrasferLinks(OPMObject object) {
     Collection result = Lists.newArrayList();
-    result.addAll(Collections2.filter(object.getOutgoingLinks(), new IsOPMObjectOutgoingDataLink()));
+    result.addAll(Collections2.filter(object.getOutgoingLinks(), new IsOPMObjectOutgoingDataTransferLink()));
     for(OPMState state : findStates(object)) {
       result.addAll(findOutgoingDataLinks(state));
     }
     return result;
+  }
+
+  public boolean isLinkTargetAnObject(OPMProceduralLink link) {
+    return OPMObject.class.isInstance(link.getTarget());
   }
 
   /**
@@ -326,7 +330,7 @@ public class OPDAnalyzer {
    * @return all outgoing event links
    */
   public Collection<OPMProceduralLink> findOutgoingEventLinks(OPMObject object) {
-    Collection<OPMProceduralLink> outgoingDataLinks = findOutgoingDataLinks(object);
+    Collection<OPMProceduralLink> outgoingDataLinks = findOutgoingDataTrasferLinks(object);
     return Collections2.filter(outgoingDataLinks, IsOPMEventLink.INSTANCE);
   }
 
@@ -457,10 +461,10 @@ public class OPDAnalyzer {
     }
   }
 
-  public static class IsOPMProcessIncomingDataLink extends IsOPMDataLink {
+  public static class IsOPMProcessIncomingDataTransferLink extends IsOPMDataLink {
   }
 
-  public static class IsOPMObjectOutgoingDataLink extends IsOPMDataLink {
+  public static class IsOPMObjectOutgoingDataTransferLink extends IsOPMDataLink {
   }
 
   /**

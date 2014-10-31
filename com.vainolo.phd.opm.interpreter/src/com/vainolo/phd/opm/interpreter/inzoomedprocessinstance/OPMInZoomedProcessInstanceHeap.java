@@ -2,6 +2,7 @@ package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import java.util.Collection;
 
+import com.vainolo.phd.opm.interpreter.OPMInterpreter;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceHeap;
@@ -14,7 +15,10 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
 
   private OPDAnalyzer analyzer = new OPDAnalyzer();
-  private OPMObjectInstanceValueAnalyzer valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
+  private OPMObjectInstanceValueAnalyzer valueAnalyzer = OPMInterpreter.INSTANCE.injector
+      .getInstance(OPMObjectInstanceValueAnalyzer.class);
+
+  // new OPMObjectInstanceValueAnalyzerImpl();
 
   /**
    * <p>
@@ -41,12 +45,12 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
   public void setVariable(OPMObject object, OPMObjectInstance value) {
     if(analyzer.isObjectPartOfAnotherObject(object)) {
       OPMObject parentObject = analyzer.findParent(object);
-      OPMObjectInstance parentInstance = super.getVariable(parentObject);
+      OPMObjectInstance parentInstance = getVariable(parentObject);
       if(parentInstance == null) {
         parentInstance = OPMObjectInstance.createCompositeInstance();
         setVariable(parentObject, parentInstance);
       }
-      parentInstance.addPart(object.getName(), value);
+      parentInstance.addPart(object.getName(), OPMObjectInstance.createFromExistingInstance(value));
     } else {
       super.setVariable(object, value);
     }
@@ -84,9 +88,9 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
    * @param object
    */
   private void transferDataFromObject(OPMObject object) {
-    Collection<OPMProceduralLink> dataLinks = analyzer.findOutgoingDataLinks(object);
-    for(OPMProceduralLink link : dataLinks) {
-      if(OPMObject.class.isInstance(link.getTarget())) {
+    Collection<OPMProceduralLink> dataTransferLinks = analyzer.findOutgoingDataTrasferLinks(object);
+    for(OPMProceduralLink link : dataTransferLinks) {
+      if(analyzer.isLinkTargetAnObject(link)) {
         OPMObject target = OPMObject.class.cast(link.getTarget());
         setVariable(target, getVariable(object));
         transferDataFromObject(target);
