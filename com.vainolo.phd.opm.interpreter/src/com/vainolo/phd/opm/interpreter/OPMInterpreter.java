@@ -33,7 +33,7 @@ public enum OPMInterpreter {
 
   private OPMInterpreter() {
     executorService = Executors.newCachedThreadPool();
-    injector = Guice.createInjector(new InterpreterModule());
+    injector = Guice.createInjector(new OPMInterpreterModule());
   }
 
   /**
