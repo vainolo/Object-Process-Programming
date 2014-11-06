@@ -1,7 +1,10 @@
 package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import java.util.Collection;
+import java.util.Map;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
 import com.vainolo.phd.opm.interpreter.OPMInterpreter;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
@@ -15,10 +18,9 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
 
   private OPDAnalyzer analyzer = new OPDAnalyzer();
+  protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
   private OPMObjectInstanceValueAnalyzer valueAnalyzer = OPMInterpreter.INSTANCE.injector
       .getInstance(OPMObjectInstanceValueAnalyzer.class);
-
-  // new OPMObjectInstanceValueAnalyzerImpl();
 
   /**
    * <p>
@@ -41,8 +43,8 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
    * @param value
    *          the value to store
    */
-  @Override
   public void setVariable(OPMObject object, OPMObjectInstance value) {
+    Preconditions.checkArgument(value != null, "Value cannot be null");
     if(analyzer.isObjectPartOfAnotherObject(object)) {
       OPMObject parentObject = analyzer.findParent(object);
       OPMObjectInstance parentInstance = getVariable(parentObject);
@@ -52,7 +54,8 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
       }
       parentInstance.addPart(object.getName(), OPMObjectInstance.createFromExistingInstance(value));
     } else {
-      super.setVariable(object, value);
+      if(value != null)
+        variables.put(object, OPMObjectInstance.createFromExistingInstance(value));
     }
     transferDataFromObject(object);
   }
@@ -67,7 +70,6 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
    * @return the value of the {@link OPMObject}, or <code>null</code> if no
    *         value has been assigned.
    */
-  @Override
   public OPMObjectInstance getVariable(OPMObject object) {
     if(analyzer.isObjectPartOfAnotherObject(object)) {
       OPMObjectInstance parent = getVariable(analyzer.findParent(object));
@@ -77,7 +79,7 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
         return parent.getPart(object.getName());
       }
     } else {
-      return super.getVariable(object);
+      return variables.get(object);
     }
   }
 
