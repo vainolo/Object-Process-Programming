@@ -11,8 +11,6 @@ import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IContainer;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -29,11 +27,9 @@ public enum OPMInterpreter {
   public static IContainer container = null;
 
   public final ExecutorService executorService;
-  public final Injector injector;
 
   private OPMInterpreter() {
     executorService = Executors.newCachedThreadPool();
-    injector = Guice.createInjector(new OPMInterpreterModule());
   }
 
   /**

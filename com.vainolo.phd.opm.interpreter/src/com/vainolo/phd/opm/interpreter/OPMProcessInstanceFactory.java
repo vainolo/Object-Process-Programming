@@ -9,16 +9,16 @@ import java.util.logging.Logger;
 
 import org.eclipse.core.runtime.Path;
 
-import com.vainolo.phd.opm.interpreter.builtin.OPMAddProcessInstance;
+import com.vainolo.phd.opm.interpreter.builtin.OPMBinaryMathOpProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMCompareProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMCompareProcessInstance.ComparisonType;
+import com.vainolo.phd.opm.interpreter.builtin.BinaryMathOpType;
 import com.vainolo.phd.opm.interpreter.builtin.OPMConceptualProcess;
 import com.vainolo.phd.opm.interpreter.builtin.OPMCreateObjectProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMInputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMOutputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMPrintHelloWorldProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMSleepProcessInstance;
-import com.vainolo.phd.opm.interpreter.builtin.OPMSubstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessExecutableInstance;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
@@ -52,7 +52,7 @@ public class OPMProcessInstanceFactory {
     OPMProcessInstance executableInstance = null;
     switch(process.getKind()) {
     case BUILT_IN:
-      executableInstance = createBuildInProcess(process);
+      executableInstance = createBuiltInProcess(process);
       break;
     case COMPOUND:
       executableInstance = createExecutableInstance(process.getName());
@@ -68,21 +68,25 @@ public class OPMProcessInstanceFactory {
     return executableInstance;
   }
 
-  private static OPMProcessInstance createBuildInProcess(final OPMProcess process) {
+  private static OPMProcessInstance createBuiltInProcess(final OPMProcess process) {
     OPMProcessInstance processInstance;
 
     if(process.getName().equals("Input")) {
-      processInstance = new OPMInputProcessInstance();
+      processInstance = OPMInterpreterInjector.INSTANCE.getInstance(OPMInputProcessInstance.class);
     } else if(process.getName().equals("Output") || process.getName().equals("Dialog")
         || process.getName().equals("Print")) {
       processInstance = new OPMOutputProcessInstance();
       processInstance.setName(process.getName());
-    } else if(process.getName().equals("Add") || process.getName().equals("+")) {
-      processInstance = new OPMAddProcessInstance();
-      processInstance.setName(process.getName());
-    } else if(process.getName().equals("Substract") || process.getName().equals("-")) {
-      processInstance = new OPMSubstractProcessInstance();
-      processInstance.setName(process.getName());
+    } else if(process.getName().equals("+")) {
+      processInstance = new OPMBinaryMathOpProcessInstance(BinaryMathOpType.ADD);// OPMAddProcessInstance();
+    } else if(process.getName().equals("-")) {
+      processInstance = new OPMBinaryMathOpProcessInstance(BinaryMathOpType.SUBS);// OPMSubstractProcessInstance();
+    } else if(process.getName().equals("*")) {
+      processInstance = new OPMBinaryMathOpProcessInstance(BinaryMathOpType.MULT);
+    } else if(process.getName().equals("/")) {
+      processInstance = new OPMBinaryMathOpProcessInstance(BinaryMathOpType.DIV);
+    } else if(process.getName().equals("^")) {
+      processInstance = new OPMBinaryMathOpProcessInstance(BinaryMathOpType.POW);
     } else if(process.getName().equals("Sleep")) {
       processInstance = new OPMSleepProcessInstance();
       processInstance.setName(process.getName());

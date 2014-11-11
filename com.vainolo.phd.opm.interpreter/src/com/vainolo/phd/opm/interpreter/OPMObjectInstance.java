@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 
 /**
@@ -37,25 +38,29 @@ public class OPMObjectInstance {
     return new OPMObjectInstance();
   }
 
-  public static OPMObjectInstance createFromValue(BigDecimal o) {
+  public static OPMObjectInstance createFromValue(BigDecimal decimalValue) {
+    Preconditions.checkNotNull(decimalValue, "Value cannot be null.");
     OPMObjectInstance instance = new OPMObjectInstance();
-    instance.setValue(o);
+    instance.setValue(decimalValue);
     return instance;
   }
 
-  public static OPMObjectInstance createFromValue(String o) {
+  public static OPMObjectInstance createFromValue(String stringValue) {
+    Preconditions.checkNotNull(stringValue, "Value cannot be null.");
     OPMObjectInstance instance = new OPMObjectInstance();
-    instance.setValue(o);
+    instance.setValue(stringValue);
     return instance;
   }
 
   public static OPMObjectInstance createFromState(String state) {
+    Preconditions.checkNotNull(state, "State cannot be null.");
     OPMObjectInstance instance = new OPMObjectInstance();
     instance.setState(state);
     return instance;
   }
 
   public static OPMObjectInstance createFromExistingInstance(OPMObjectInstance existingInstance) {
+    Preconditions.checkNotNull(existingInstance, "Existing instance cannot be null.");
     OPMObjectInstance newInstance = null;
     if(existingInstance.isValue()) {
       if(existingInstance.isNumericalValue()) {

@@ -12,6 +12,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMInterpreterInjector;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzerImpl;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
@@ -63,7 +64,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     this.executionAnalyzer = new OPDExecutionAnalyzer();
     this.executionHelper = new OPMInZoomedProcessExecutionHelper();
     this.executionState = new OPMInZoomedProcessExecutionState();
-    this.heap = new OPMInZoomedProcessInstanceHeap();
+    this.heap = OPMInterpreterInjector.INSTANCE.getInstance(OPMInZoomedProcessInstanceHeap.class);
     this.valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
     this.loader = OPMInZoomedProcessArgumentLoader.createArgumentLoader(analyzer, executionState, heap);
     this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer, executionState, heap);

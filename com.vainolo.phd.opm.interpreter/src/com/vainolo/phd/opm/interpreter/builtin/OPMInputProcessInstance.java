@@ -10,8 +10,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
-import com.vainolo.phd.opm.interpreter.OPMInterpreter;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
@@ -24,14 +24,19 @@ import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
  */
 public class OPMInputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 
+  private OPMObjectInstanceValueAnalyzer valueAnalyzer;
+
+  @Inject
+  public OPMInputProcessInstance(OPMObjectInstanceValueAnalyzer valueAnalyzer) {
+    this.valueAnalyzer = valueAnalyzer;
+  }
+
   @Override
   protected void executing() {
     final String input = showInputDialog();
-    OPMObjectInstanceValueAnalyzer va = OPMInterpreter.INSTANCE.injector
-        .getInstance(OPMObjectInstanceValueAnalyzer.class);
     OPMObjectInstance instance = null;
-    if(va.isNumericalValue(input)) {
-      instance = OPMObjectInstance.createFromValue(va.parseNumericalValue(input));
+    if(valueAnalyzer.isNumericalValue(input)) {
+      instance = OPMObjectInstance.createFromValue(valueAnalyzer.parseNumericalValue(input));
     } else {
       instance = OPMObjectInstance.createFromValue(input);
     }

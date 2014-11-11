@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
-import com.vainolo.phd.opm.interpreter.OPMInterpreter;
+import com.google.inject.Inject;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceHeap;
@@ -19,8 +19,13 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
 
   private OPDAnalyzer analyzer = new OPDAnalyzer();
   protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
-  private OPMObjectInstanceValueAnalyzer valueAnalyzer = OPMInterpreter.INSTANCE.injector
-      .getInstance(OPMObjectInstanceValueAnalyzer.class);
+  private OPMObjectInstanceValueAnalyzer valueAnalyzer; // =
+                                                        // OPMInterpreter.INSTANCE.injector.getInstance(OPMObjectInstanceValueAnalyzer.class);
+
+  @Inject
+  OPMInZoomedProcessInstanceHeap(OPMObjectInstanceValueAnalyzer valueAnalyzer) {
+    this.valueAnalyzer = valueAnalyzer;
+  }
 
   /**
    * <p>
