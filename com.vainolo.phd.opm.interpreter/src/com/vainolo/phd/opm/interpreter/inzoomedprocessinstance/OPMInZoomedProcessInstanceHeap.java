@@ -2,6 +2,10 @@ package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
+
+import org.apache.commons.lang3.tuple.ImmutablePair;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
@@ -17,14 +21,17 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
 
-  private OPDAnalyzer analyzer = new OPDAnalyzer();
-  protected final Map<OPMObject, OPMObjectInstance> variables = Maps.newHashMap();
-  private OPMObjectInstanceValueAnalyzer valueAnalyzer; // =
-                                                        // OPMInterpreter.INSTANCE.injector.getInstance(OPMObjectInstanceValueAnalyzer.class);
+  private OPDAnalyzer analyzer;
+  private final Map<OPMObject, OPMObjectInstance> variables;
+  private OPMObjectInstanceValueAnalyzer valueAnalyzer;
+  private Observable observable;
 
   @Inject
-  OPMInZoomedProcessInstanceHeap(OPMObjectInstanceValueAnalyzer valueAnalyzer) {
+  OPMInZoomedProcessInstanceHeap(OPMObjectInstanceValueAnalyzer valueAnalyzer, OPDAnalyzer analyzer) {
     this.valueAnalyzer = valueAnalyzer;
+    this.analyzer = analyzer;
+    this.variables = Maps.newHashMap();
+    this.observable = new OPMProcessInstanceHeapObservable();
   }
 
   /**
@@ -59,8 +66,11 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
       }
       parentInstance.addPart(object.getName(), OPMObjectInstance.createFromExistingInstance(value));
     } else {
-      if(value != null)
-        variables.put(object, OPMObjectInstance.createFromExistingInstance(value));
+      if(value != null) {
+        OPMObjectInstance objectValue = OPMObjectInstance.createFromExistingInstance(value);
+        variables.put(object, objectValue);
+        observable.notifyObservers(new ImmutablePair<OPMObject, OPMObjectInstance>(object, objectValue));
+      }
     }
     transferDataFromObject(object);
   }
@@ -158,12 +168,32 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     initializeVariablesWithLiterals(analyzer.getInZoomedProcess(opd));
   }
 
+  /**
+   * Copy the value stored in variables matching process arguments to the
+   * external arguments.
+   * 
+   * @param opd
+   *          The Object Process Diagram that contains the variables and the
+   *          arguments.
+   */
   public void exportVariableValuesToArguments(OPMObjectProcessDiagram opd) {
     Collection<OPMObject> objectArguments = analyzer.findParameters(opd);
     for(OPMObject object : objectArguments) {
       if(getVariable(object) != null) {
         addArgument(object.getName(), getVariable(object));
       }
+    }
+  }
+
+  public void addObserver(Observer observer) {
+    observable.addObserver(observer);
+  }
+
+  class OPMProcessInstanceHeapObservable extends Observable {
+    @Override
+    public void notifyObservers(Object arg) {
+      setChanged();
+      super.notifyObservers(arg);
     }
   }
 }

@@ -8,6 +8,9 @@ public class OPMProcessInstanceHeap {
 
   protected final Map<String, OPMObjectInstance> arguments = Maps.newHashMap();
 
+  public OPMProcessInstanceHeap() {
+  }
+
   public void addArgument(String name, OPMObjectInstance value) {
     if(value == null)
       return;
@@ -17,4 +20,5 @@ public class OPMProcessInstanceHeap {
   public OPMObjectInstance getArgument(String name) {
     return arguments.get(name.toLowerCase());
   }
+
 }

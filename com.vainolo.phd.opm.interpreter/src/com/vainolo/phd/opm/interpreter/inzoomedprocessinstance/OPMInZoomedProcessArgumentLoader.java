@@ -10,10 +10,11 @@ import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 public class OPMInZoomedProcessArgumentLoader {
-  private OPDAnalyzer analyzer = new OPDAnalyzer();
+  private OPDAnalyzer analyzer = new OPDAnalyzerImpl();
   private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessInstanceHeap heap;
 

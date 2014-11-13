@@ -17,6 +17,7 @@ import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 /**
@@ -39,7 +40,7 @@ public final class OPMNodeDeleteCommand extends Command {
   /** Targets for the links that start or end at this node. */
   private Map<OPMLink, OPMNode> linkTargets;
 
-  private OPDAnalyzer analyzer = new OPDAnalyzer();
+  private OPDAnalyzer analyzer = new OPDAnalyzerImpl();
 
   @Override
   public void execute() {

@@ -525,7 +525,7 @@ public class OPDAnalyzerTest {
     opd = mock(OPMObjectProcessDiagram.class);
 
     opd = OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
-    analyzer = new OPDAnalyzer();
+    analyzer = new OPDAnalyzerImpl();
   }
 
 }

@@ -16,6 +16,7 @@ import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
 import com.vainolo.phd.opm.model.OPMProcess;
+import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 public class OPMInZoomedProcessArgumentLoaderTest {
@@ -170,7 +171,7 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     objectInstanceMock2 = mock(OPMObjectInstance.class);
     objectInstanceMock3 = mock(OPMObjectInstance.class);
     instance = mock(OPMInZoomedProcessExecutableInstance.class);
-    analyzer = mock(OPDAnalyzer.class);
+    analyzer = mock(OPDAnalyzerImpl.class);
     executionState = mock(OPMInZoomedProcessExecutionState.class);
     heap = mock(OPMInZoomedProcessInstanceHeap.class);
     loader = OPMInZoomedProcessArgumentLoader.createArgumentLoader(analyzer, executionState, heap);
