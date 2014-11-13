@@ -5,8 +5,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
@@ -69,7 +67,7 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
       if(value != null) {
         OPMObjectInstance objectValue = OPMObjectInstance.createFromExistingInstance(value);
         variables.put(object, objectValue);
-        observable.notifyObservers(new ImmutablePair<OPMObject, OPMObjectInstance>(object, objectValue));
+        observable.notifyObservers(new HeapChange(object, objectValue));
       }
     }
     transferDataFromObject(object);
@@ -194,6 +192,16 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     public void notifyObservers(Object arg) {
       setChanged();
       super.notifyObservers(arg);
+    }
+  }
+
+  class HeapChange {
+    public OPMObject object;
+    public OPMObjectInstance instance;
+
+    public HeapChange(OPMObject object, OPMObjectInstance instance) {
+      this.object = object;
+      this.instance = instance;
     }
   }
 }
