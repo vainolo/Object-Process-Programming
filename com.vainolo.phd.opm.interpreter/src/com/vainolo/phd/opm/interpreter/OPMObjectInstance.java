@@ -180,6 +180,8 @@ public class OPMObjectInstance {
   }
 
   public OPMObjectInstance getPart(String name) {
+    checkNotNull(name, "Part name cannot be null");
+    checkArgument(!"".equals(name), "Part name cannot be empty");
     checkState(isComposite());
     return parts.get(name);
   }

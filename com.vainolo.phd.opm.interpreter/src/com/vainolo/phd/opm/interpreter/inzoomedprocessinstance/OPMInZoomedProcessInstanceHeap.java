@@ -59,8 +59,8 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
       OPMObject parentObject = analyzer.findParent(object);
       OPMObjectInstance parentInstance = getVariable(parentObject);
       if(parentInstance == null) {
-        parentInstance = OPMObjectInstance.createCompositeInstance();
-        setVariable(parentObject, parentInstance);
+        setVariable(parentObject, OPMObjectInstance.createCompositeInstance());
+        parentInstance = getVariable(parentObject);
       }
       parentInstance.addPart(object.getName(), OPMObjectInstance.createFromExistingInstance(value));
     } else {

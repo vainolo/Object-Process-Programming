@@ -71,8 +71,11 @@ public class OPMInZoomedProcessInstanceHeapTest {
     observer = new MyObserver();
 
     obj1 = OPMFactory.eINSTANCE.createOPMObject();
+    obj1.setName("Obj1");
     obj2 = OPMFactory.eINSTANCE.createOPMObject();
+    obj2.setName("Obj2");
     obj3 = OPMFactory.eINSTANCE.createOPMObject();
+    obj3.setName("Obj3");
     objPart1 = OPMFactory.eINSTANCE.createOPMObject();
     objPart1.setName("Part1");
     objPart2 = OPMFactory.eINSTANCE.createOPMObject();
