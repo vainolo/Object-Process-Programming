@@ -39,6 +39,10 @@ public class OPMObjectInstance {
     return new OPMObjectInstance(InstanceType.COMPOSITE);
   }
 
+  public static OPMObjectInstance createCollectionInstace() {
+    return new OPMObjectInstance(InstanceType.COLLECTION);
+  }
+
   public static OPMObjectInstance createFromValue(BigDecimal decimalValue) {
     Preconditions.checkNotNull(decimalValue, "Value cannot be null.");
     OPMObjectInstance instance = new OPMObjectInstance(InstanceType.NUMERICAL);
@@ -124,9 +128,9 @@ public class OPMObjectInstance {
   }
 
   public void addPart(String name, OPMObjectInstance part) {
+    checkState(type == InstanceType.COMPOSITE);
     checkNotNull(name);
     checkNotNull(part);
-    checkState(type == InstanceType.COMPOSITE);
     parts.put(name, part);
   }
 
