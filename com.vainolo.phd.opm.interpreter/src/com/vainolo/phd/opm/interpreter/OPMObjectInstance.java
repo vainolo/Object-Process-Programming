@@ -28,47 +28,41 @@ import com.google.common.collect.Maps;
 public class OPMObjectInstance {
 
   private Object value = null;
-  private String state = null;
   private Map<String, OPMObjectInstance> parts = Maps.newHashMap();
+  public final InstanceType type;
 
-  private OPMObjectInstance() {
+  private OPMObjectInstance(InstanceType type) {
+    this.type = type;
   }
 
   public static OPMObjectInstance createCompositeInstance() {
-    return new OPMObjectInstance();
+    return new OPMObjectInstance(InstanceType.COMPOSITE);
   }
 
   public static OPMObjectInstance createFromValue(BigDecimal decimalValue) {
     Preconditions.checkNotNull(decimalValue, "Value cannot be null.");
-    OPMObjectInstance instance = new OPMObjectInstance();
+    OPMObjectInstance instance = new OPMObjectInstance(InstanceType.NUMERICAL);
     instance.setValue(decimalValue);
     return instance;
   }
 
   public static OPMObjectInstance createFromValue(String stringValue) {
     Preconditions.checkNotNull(stringValue, "Value cannot be null.");
-    OPMObjectInstance instance = new OPMObjectInstance();
+    OPMObjectInstance instance = new OPMObjectInstance(InstanceType.STRING);
     instance.setValue(stringValue);
     return instance;
   }
-
-  // public static OPMObjectInstance createFromState(String state) {
-  // Preconditions.checkNotNull(state, "State cannot be null.");
-  // OPMObjectInstance instance = new OPMObjectInstance();
-  // instance.setState(state);
-  // return instance;
-  // }
 
   public static OPMObjectInstance createFromExistingInstance(OPMObjectInstance existingInstance) {
     Preconditions.checkNotNull(existingInstance, "Existing instance cannot be null.");
     OPMObjectInstance newInstance = null;
     if(existingInstance.isValue()) {
-      if(existingInstance.isNumericalValue()) {
+      if(existingInstance.type == InstanceType.NUMERICAL) {
         newInstance = createFromValue(existingInstance.getNumericalValue());
-      } else if(existingInstance.isStringValue()) {
+      } else if(existingInstance.type == InstanceType.STRING) {
         newInstance = createFromValue(existingInstance.getStringValue());
       }
-    } else if(existingInstance.isComposite()) {
+    } else if(existingInstance.type == InstanceType.COMPOSITE) {
       newInstance = createCompositeInstance();
       for(Entry<String, OPMObjectInstance> part : existingInstance.getParts()) {
         newInstance.addPart(part.getKey(), createFromExistingInstance(part.getValue()));
@@ -90,70 +84,34 @@ public class OPMObjectInstance {
   }
 
   public String getStringValue() {
-    Object value = getValue();
-    if(String.class.isInstance(value)) {
-      return String.class.cast(value);
-    } else if(BigDecimal.class.isInstance(value)) {
-      return BigDecimal.class.cast(value).toString();
+    if(type == InstanceType.STRING) {
+      return String.class.cast(getValue());
+    } else if(type == InstanceType.NUMERICAL) {
+      return BigDecimal.class.cast(getValue()).toString();
     } else {
-      return null;
+      throw new IllegalStateException("Cannot fetch value of an instance that is not a value");
     }
   }
 
   public BigDecimal getNumericalValue() {
-    Object value = getValue();
-    if(String.class.isInstance(value)) {
-      return new BigDecimal(String.class.cast(value));
-    } else if(BigDecimal.class.isInstance(value)) {
-      return BigDecimal.class.cast(value);
+    if(type == InstanceType.STRING) {
+      return new BigDecimal(String.class.cast(getValue()));
+    } else if(type == InstanceType.NUMERICAL) {
+      return BigDecimal.class.cast(getValue());
     } else {
-      return null;
-
+      throw new IllegalStateException("Cannot fetch value of an instance that is not a value");
     }
   }
-
-  // public String getState() {
-  // checkState(state != null, "State of variable is not set.");
-  // return state;
-  // }
-
-  // public boolean isState() {
-  // return state != null;
-  // }
 
   public boolean isValue() {
     return value != null;
   }
 
-  public boolean isNumericalValue() {
-    if(isValue()) {
-      if(BigDecimal.class.isInstance(value)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public boolean isStringValue() {
-    if(isValue()) {
-      if(String.class.isInstance(value)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public boolean isComposite() {
-    return (value == null) && (state == null);
-  }
-
   @Override
   public String toString() {
-    if(state != null)
-      return state;
-    else if(value != null)
+    if(type == InstanceType.STRING || type == InstanceType.NUMERICAL)
       return value.toString();
-    else if(parts.size() > 0) {
+    else if(type == InstanceType.COMPOSITE) {
       StringBuilder ret = new StringBuilder("{");
       for(String partName : parts.keySet()) {
         ret.append(partName + ":" + parts.get(partName) + ",");
@@ -161,30 +119,30 @@ public class OPMObjectInstance {
       ret.replace(ret.length() - 1, ret.length(), "}");
       return ret.toString();
     } else {
-      throw new IllegalStateException();
+      return "";
     }
   }
 
   public void addPart(String name, OPMObjectInstance part) {
     checkNotNull(name);
     checkNotNull(part);
-    checkState(isComposite());
+    checkState(type == InstanceType.COMPOSITE);
     parts.put(name, part);
   }
 
   public OPMObjectInstance getPart(String name) {
+    checkState(type == InstanceType.COMPOSITE);
     checkNotNull(name, "Part name cannot be null");
     checkArgument(!"".equals(name), "Part name cannot be empty");
-    checkState(isComposite());
     return parts.get(name);
   }
 
   public Set<Entry<String, OPMObjectInstance>> getParts() {
-    checkState(isComposite());
+    checkState(type == InstanceType.COMPOSITE);
     return Collections.unmodifiableSet(parts.entrySet());
   }
 
-  private enum InstanceType {
+  public enum InstanceType {
     NUMERICAL, STRING, COMPOSITE, COLLECTION;
   }
 }

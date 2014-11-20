@@ -5,12 +5,16 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.eclipse.swt.internal.win32.COMPOSITIONFORM;
+
 import static com.google.common.base.Preconditions.*;
+
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceHeap;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance.InstanceType;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
@@ -56,9 +60,11 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
   public void setVariable(OPMObject object, OPMObjectInstance value) {
     checkArgument(value != null, "Value cannot be null");
     if(analyzer.isObjectComposite(object))
-      checkArgument(value.isComposite(), "The value of a composite object must be a composite instance.");
+      checkArgument(value.type == InstanceType.COMPOSITE,
+          "The value of a composite object must be a composite instance.");
     else
-      checkArgument(!value.isComposite(), "The value of a simple object cannot be a composite instance.");
+      checkArgument(value.type != InstanceType.COMPOSITE,
+          "The value of a simple object cannot be a composite instance.");
     if(analyzer.isObjectPartOfAnotherObject(object)) {
       OPMObject parentObject = analyzer.findParent(object);
       OPMObjectInstance parentValue = getVariable(parentObject);

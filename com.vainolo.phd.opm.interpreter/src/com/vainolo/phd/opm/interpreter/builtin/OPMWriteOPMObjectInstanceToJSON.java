@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance.InstanceType;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 public class OPMWriteOPMObjectInstanceToJSON extends OPMAbstractProcessInstance implements OPMProcessInstance {
@@ -33,7 +34,7 @@ public class OPMWriteOPMObjectInstanceToJSON extends OPMAbstractProcessInstance 
   }
 
   private JsonObject populateJSONFromOPMObjectInstance(OPMObjectInstance opmObjectInstance) {
-    Preconditions.checkState(opmObjectInstance.isComposite());
+    Preconditions.checkState(opmObjectInstance.type == InstanceType.COMPOSITE);
     JsonObject jsonObject = new JsonObject();
     for(Entry<String, OPMObjectInstance> part : opmObjectInstance.getParts()) {
       String name = part.getKey();
@@ -44,14 +45,11 @@ public class OPMWriteOPMObjectInstanceToJSON extends OPMAbstractProcessInstance 
   }
 
   private void addJSONElement(JsonObject jsonObject, String name, OPMObjectInstance opmObject) {
-    // if(opmObject.isState()) {
-    // jsonObject.add(name, opmObject.getState());
-    // } else
-    if(opmObject.isStringValue()) {
+    if(opmObject.type == InstanceType.STRING) {
       jsonObject.add(name, opmObject.getStringValue());
-    } else if(opmObject.isNumericalValue()) {
+    } else if(opmObject.type == InstanceType.NUMERICAL) {
       jsonObject.add(name, opmObject.getNumericalValue().doubleValue());
-    } else if(opmObject.isComposite()) {
+    } else if(opmObject.type == InstanceType.COMPOSITE) {
       jsonObject.add(name, populateJSONFromOPMObjectInstance(opmObject));
     } else {
       throw new IllegalStateException();

@@ -6,6 +6,8 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance.InstanceType;
+
 import static org.junit.Assert.*;
 
 public class OPMObjectInstanceTest {
@@ -46,7 +48,7 @@ public class OPMObjectInstanceTest {
     instance1.addPart("part1", instance2);
     instance1.addPart("part2", instance3);
 
-    assertTrue(instance1.isComposite());
+    assertEquals(InstanceType.COMPOSITE, instance1.type);
     assertEquals(instance1.getParts().size(), 2);
     assertEquals(instance1.getPart("part1"), instance2);
     assertEquals(instance1.getPart("part2"), instance3);

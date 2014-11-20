@@ -13,6 +13,7 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMInterpreterInjector;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstance.InstanceType;
 import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessInstanceHeap.HeapChange;
 import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessInstanceHeap.HeapChangeType;
 import com.vainolo.phd.opm.model.OPMFactory;
@@ -78,7 +79,7 @@ public class OPMInZoomedProcessInstanceHeapTest {
     assertEquals(part1, observer.changes.get(0).child);
     assertEquals(inst1.getNumericalValue(), observer.changes.get(0).childInstance.getNumericalValue());
     assertEquals(HeapChangeType.VARIABLE_SET, observer.changes.get(1).changeType);
-    assertTrue(observer.changes.get(1).objectInstance.isComposite());
+    assertTrue(observer.changes.get(1).objectInstance.type == InstanceType.COMPOSITE);
     assertEquals(inst1.getNumericalValue(), observer.changes.get(0).objectInstance.getPart(part1.getName())
         .getNumericalValue());
   }
