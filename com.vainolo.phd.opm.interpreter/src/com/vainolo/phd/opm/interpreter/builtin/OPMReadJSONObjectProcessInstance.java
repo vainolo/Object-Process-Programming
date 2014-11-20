@@ -72,7 +72,7 @@ public class OPMReadJSONObjectProcessInstance extends OPMAbstractProcessInstance
   }
 
   private void addBooleanPart(OPMObjectInstance whole, String name, boolean value) {
-    OPMObjectInstance bool = OPMObjectInstance.createFromState(Boolean.toString(value));
+    OPMObjectInstance bool = OPMObjectInstance.createFromValue(Boolean.toString(value));
     whole.addPart(name, bool);
   }
 

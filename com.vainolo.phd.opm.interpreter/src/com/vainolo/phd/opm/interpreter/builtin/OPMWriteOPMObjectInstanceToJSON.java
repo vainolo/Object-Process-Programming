@@ -44,9 +44,10 @@ public class OPMWriteOPMObjectInstanceToJSON extends OPMAbstractProcessInstance 
   }
 
   private void addJSONElement(JsonObject jsonObject, String name, OPMObjectInstance opmObject) {
-    if(opmObject.isState()) {
-      jsonObject.add(name, opmObject.getState());
-    } else if(opmObject.isStringValue()) {
+    // if(opmObject.isState()) {
+    // jsonObject.add(name, opmObject.getState());
+    // } else
+    if(opmObject.isStringValue()) {
       jsonObject.add(name, opmObject.getStringValue());
     } else if(opmObject.isNumericalValue()) {
       jsonObject.add(name, opmObject.getNumericalValue().doubleValue());

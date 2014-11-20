@@ -246,4 +246,12 @@ public interface OPDAnalyzer {
    */
   public abstract OPMObject findParent(OPMObject object);
 
+  /**
+   * Check if the given object is parent of other objects
+   * 
+   * @param object
+   * @return
+   */
+  public abstract boolean isObjectComposite(OPMObject object);
+
 }

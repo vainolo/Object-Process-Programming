@@ -96,7 +96,7 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
       Collection<OPMState> states = analyzer.findStates(object);
       for(OPMState state : states) {
         if(state.isValue()) {
-          objectInstance = OPMObjectInstance.createFromState(state.getName());
+          objectInstance = OPMObjectInstance.createFromValue(state.getName());
         }
       }
     }
@@ -165,14 +165,13 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
     if(instance == null) {
       return false;
     }
-    if(instance.isState()) {
-      return state.getName().equals(instance.getState());
+    // if(instance.isState()) {
+    // return state.getName().equals(instance.getState());
+    // } else {
+    if(isStringValue(state.getName())) {
+      return parseStringValue(state.getName()).equals(instance.getValue());
     } else {
-      if(isStringValue(state.getName())) {
-        return parseStringValue(state.getName()).equals(instance.getValue());
-      } else {
-        return isObjectValueInState(state.getName(), BigDecimal.class.cast(instance.getValue()));
-      }
+      return isObjectValueInState(state.getName(), BigDecimal.class.cast(instance.getValue()));
     }
   }
 }

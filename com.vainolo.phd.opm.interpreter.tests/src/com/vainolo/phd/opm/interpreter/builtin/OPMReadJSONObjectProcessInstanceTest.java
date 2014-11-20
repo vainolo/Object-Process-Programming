@@ -46,25 +46,25 @@ public class OPMReadJSONObjectProcessInstanceTest {
   @Test
   public void test_execute_booleanElement() throws Exception {
     OPMObjectInstance instance = readJson("{\"a\":false}");
-    assertEquals("false", instance.getPart("a").getState());
+    assertEquals("false", instance.getPart("a").getStringValue());
   }
 
   @Test
   public void text_execute_multipleElements() throws Exception {
     OPMObjectInstance instance = readJson("{\"a\":false,\"b\":2}");
-    assertEquals("false", instance.getPart("a").getState());
+    assertEquals("false", instance.getPart("a").getStringValue());
     assertEquals(2, instance.getPart("b").getNumericalValue().intValue());
   }
 
   @Test
   public void test_execute_complexInstance() throws Exception {
     OPMObjectInstance instance = readJson("{\"a\":{\"b\":true}}");
-    assertEquals("true", instance.getPart("a").getPart("b").getState());
+    assertEquals("true", instance.getPart("a").getPart("b").getStringValue());
 
     instance = readJson("{\"a\":{\"b\":true, \"c\":3,\"d\":\"hello\"}, \"b\":false}");
-    assertEquals("true", instance.getPart("a").getPart("b").getState());
-    assertEquals("false", instance.getPart("b").getState());
-    assertEquals("true", instance.getPart("a").getPart("b").getState());
+    assertEquals("true", instance.getPart("a").getPart("b").getStringValue());
+    assertEquals("false", instance.getPart("b").getStringValue());
+    assertEquals("true", instance.getPart("a").getPart("b").getStringValue());
     assertEquals(3, instance.getPart("a").getPart("c").getNumericalValue().intValue());
     assertEquals("hello", instance.getPart("a").getPart("d").getStringValue());
   }

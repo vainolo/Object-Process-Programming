@@ -23,8 +23,11 @@ import com.vainolo.phd.opm.utilities.OPMConstants;
 
 public class OPDAnalyzerImpl implements OPDAnalyzer {
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findFirstLevelContainedProcesses(com.vainolo.phd.opm.model.OPMContainer)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#
+   * findFirstLevelContainedProcesses(com.vainolo.phd.opm.model.OPMContainer)
    */
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -32,8 +35,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#getObject(com.vainolo.phd.opm.model.OPMLink)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#getObject(com.vainolo
+   * .phd.opm.model.OPMLink)
    */
   @Override
   public OPMObject getObject(OPMLink link) {
@@ -49,8 +56,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
       return null;
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#getProcess(com.vainolo.phd.opm.model.OPMLink)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#getProcess(com.vainolo
+   * .phd.opm.model.OPMLink)
    */
   @Override
   public OPMProcess getProcess(OPMLink link) {
@@ -64,8 +75,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
       return null;
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOPD(com.vainolo.phd.opm.model.OPMNode)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOPD(com.vainolo.
+   * phd.opm.model.OPMNode)
    */
   @Override
   public OPMObjectProcessDiagram findOPD(OPMNode node) {
@@ -76,8 +91,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (OPMObjectProcessDiagram) currentContainer;
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findParameters(com.vainolo.phd.opm.model.OPMObjectProcessDiagram)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findParameters(com.vainolo
+   * .phd.opm.model.OPMObjectProcessDiagram)
    */
   @Override
   public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd) {
@@ -85,8 +104,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return Collections2.filter(firstLevelObjects, IsOPMObjectNotPartOfAnotherObject.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingParameters(com.vainolo.phd.opm.model.OPMObjectProcessDiagram)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingParameters
+   * (com.vainolo.phd.opm.model.OPMObjectProcessDiagram)
    */
   @Override
   public Collection<OPMObject> findIncomingParameters(OPMObjectProcessDiagram opd) {
@@ -99,8 +122,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return incomingParameters;
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingParameters(com.vainolo.phd.opm.model.OPMObjectProcessDiagram)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingParameters
+   * (com.vainolo.phd.opm.model.OPMObjectProcessDiagram)
    */
   @Override
   public Collection<OPMObject> findOutgoingParameters(OPMObjectProcessDiagram opd) {
@@ -126,16 +153,24 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return false;
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#hasOutgoingDataLinks(com.vainolo.phd.opm.model.OPMObject)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#hasOutgoingDataLinks
+   * (com.vainolo.phd.opm.model.OPMObject)
    */
   @Override
   public boolean hasOutgoingDataLinks(OPMObject object) {
     return findOutgoingDataTrasferLinks(object).size() > 0;
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findObjects(com.vainolo.phd.opm.model.OPMContainer)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findObjects(com.vainolo
+   * .phd.opm.model.OPMContainer)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -143,8 +178,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(container.getNodes(), IsOPMObjectNode.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findProcesses(com.vainolo.phd.opm.model.OPMContainer)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findProcesses(com.vainolo
+   * .phd.opm.model.OPMContainer)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -152,24 +191,36 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(container.getNodes(), IsOPMProcessNode.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingStructuralLinks(com.vainolo.phd.opm.model.OPMNode)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingStructuralLinks
+   * (com.vainolo.phd.opm.model.OPMNode)
    */
   @Override
   public Collection<OPMLink> findIncomingStructuralLinks(OPMNode node) {
     return Collections2.filter(node.getIncomingLinks(), IsOPMStructuralLink.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingStructuralLinks(com.vainolo.phd.opm.model.OPMNode)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingStructuralLinks
+   * (com.vainolo.phd.opm.model.OPMNode)
    */
   @Override
   public Collection<OPMLink> findOutgoingStructuralLinks(OPMNode node) {
     return Collections2.filter(node.getOutgoingLinks(), IsOPMStructuralLink.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingProceduralLinks(com.vainolo.phd.opm.model.OPMProcess)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingProceduralLinks
+   * (com.vainolo.phd.opm.model.OPMProcess)
    */
   @Override
   public Collection<OPMProceduralLink> findIncomingProceduralLinks(OPMProcess process) {
@@ -178,8 +229,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return Sets.union(dataLinks, driverLinks);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingDataLinks(com.vainolo.phd.opm.model.OPMProcess)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingDataLinks
+   * (com.vainolo.phd.opm.model.OPMProcess)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -187,8 +242,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(process.getIncomingLinks(), new IsOPMProcessIncomingDataTransferLink());
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingDriverLinks(com.vainolo.phd.opm.model.OPMProcess)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingDriverLinks
+   * (com.vainolo.phd.opm.model.OPMProcess)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -196,8 +255,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(process.getIncomingLinks(), IsOPMAgentLink.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingInstrumentLinks(com.vainolo.phd.opm.model.OPMObject)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findIncomingInstrumentLinks
+   * (com.vainolo.phd.opm.model.OPMObject)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -205,8 +268,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(object.getIncomingLinks(), IsOPMInstrumentLink.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findAgentLinks(java.util.Collection)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findAgentLinks(java.
+   * util.Collection)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -214,8 +281,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(links, IsOPMAgentLink.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findInstrumentLinks(java.util.Collection)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findInstrumentLinks(
+   * java.util.Collection)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -223,8 +294,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(links, IsOPMInstrumentLink.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findConsumptionLinks(java.util.Collection)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findConsumptionLinks
+   * (java.util.Collection)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -232,8 +307,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(links, IsOPMConsumptionLink.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingDataLinks(com.vainolo.phd.opm.model.OPMProcess)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingDataLinks
+   * (com.vainolo.phd.opm.model.OPMProcess)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -241,8 +320,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return ((Collection) Collections2.filter(process.getOutgoingLinks(), IsOPMProcessOutgoingDataLink.INSTANCE));
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingDataLinks(com.vainolo.phd.opm.model.OPMState)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingDataLinks
+   * (com.vainolo.phd.opm.model.OPMState)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -250,8 +333,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return ((Collection) Collections2.filter(state.getOutgoingLinks(), new IsOPMObjectOutgoingDataTransferLink()));
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingDataTrasferLinks(com.vainolo.phd.opm.model.OPMObject)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingDataTrasferLinks
+   * (com.vainolo.phd.opm.model.OPMObject)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -264,16 +351,24 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return result;
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#isLinkTargetAnObject(com.vainolo.phd.opm.model.OPMProceduralLink)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#isLinkTargetAnObject
+   * (com.vainolo.phd.opm.model.OPMProceduralLink)
    */
   @Override
   public boolean isLinkTargetAnObject(OPMProceduralLink link) {
     return OPMObject.class.isInstance(link.getTarget());
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingEventLinks(com.vainolo.phd.opm.model.OPMObject)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findOutgoingEventLinks
+   * (com.vainolo.phd.opm.model.OPMObject)
    */
   @Override
   public Collection<OPMProceduralLink> findOutgoingEventLinks(OPMObject object) {
@@ -281,8 +376,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return Collections2.filter(outgoingDataLinks, IsOPMEventLink.INSTANCE);
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findStates(com.vainolo.phd.opm.model.OPMObject)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findStates(com.vainolo
+   * .phd.opm.model.OPMObject)
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -290,8 +389,12 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return (Collection) Collections2.filter(object.getNodes(), new IsOPMState());
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#getInZoomedProcess(com.vainolo.phd.opm.model.OPMObjectProcessDiagram)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#getInZoomedProcess(com
+   * .vainolo.phd.opm.model.OPMObjectProcessDiagram)
    */
   @Override
   public OPMProcess getInZoomedProcess(OPMObjectProcessDiagram opd) {
@@ -561,16 +664,36 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
 
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#isObjectPartOfAnotherObject(com.vainolo.phd.opm.model.OPMObject)
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#isObjectPartOfAnotherObject
+   * (com.vainolo.phd.opm.model.OPMObject)
    */
   @Override
   public boolean isObjectPartOfAnotherObject(OPMObject object) {
     return findParent(object) != null;
   }
 
-  /* (non-Javadoc)
-   * @see com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findParent(com.vainolo.phd.opm.model.OPMObject)
+  @Override
+  public boolean isObjectComposite(OPMObject object) {
+    Collection<OPMLink> outgoingStructuralLinks = findOutgoingStructuralLinks(object);
+    for(OPMLink link : outgoingStructuralLinks) {
+      OPMStructuralLinkAggregator target = OPMStructuralLinkAggregator.class.cast(link.getTarget());
+      if(target.getKind().equals(OPMStructuralLinkAggregatorKind.AGGREGATION)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
+   * @see
+   * com.vainolo.phd.opm.utilities.analysis.OPDAnalyzre#findParent(com.vainolo
+   * .phd.opm.model.OPMObject)
    */
   @Override
   public OPMObject findParent(OPMObject object) {
@@ -584,4 +707,5 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     }
     return null;
   }
+
 }

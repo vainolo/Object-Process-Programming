@@ -59,9 +59,9 @@ public class OPMCompareProcessInstance extends OPMAbstractProcessInstance implem
     }
 
     if(result) {
-      c = OPMObjectInstance.createFromState("true");
+      c = OPMObjectInstance.createFromValue("true");
     } else {
-      c = OPMObjectInstance.createFromState("false");
+      c = OPMObjectInstance.createFromValue("false");
     }
     setArgument("c", c);
   }

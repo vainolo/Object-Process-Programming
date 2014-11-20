@@ -58,7 +58,7 @@ public class OPMWriteOPMObjectInstanceToJSONProcessInstanceTest {
   @Test
   public void test_execute_stateElement() throws Exception {
     OPMObjectInstance opmObject = OPMObjectInstance.createCompositeInstance();
-    opmObject.addPart("bool", OPMObjectInstance.createFromState("true"));
+    opmObject.addPart("bool", OPMObjectInstance.createFromValue("true"));
     OPMObjectInstance result = writeJson(opmObject);
     JsonObject jsonObject = JsonObject.readFrom(result.getStringValue());
     assertEquals("true", jsonObject.get("bool").asString());
@@ -72,7 +72,7 @@ public class OPMWriteOPMObjectInstanceToJSONProcessInstanceTest {
     part.addPart("b1", OPMObjectInstance.createFromValue("hello"));
     part.addPart("b2", OPMObjectInstance.createFromValue(new BigDecimal(5.43)));
     opmObject.addPart("b", part);
-    opmObject.addPart("c", OPMObjectInstance.createFromState("one"));
+    opmObject.addPart("c", OPMObjectInstance.createFromValue("one"));
     OPMObjectInstance result = writeJson(opmObject);
     JsonObject json = JsonObject.readFrom(result.getStringValue());
     assertEquals(5, json.get("a").asInt());

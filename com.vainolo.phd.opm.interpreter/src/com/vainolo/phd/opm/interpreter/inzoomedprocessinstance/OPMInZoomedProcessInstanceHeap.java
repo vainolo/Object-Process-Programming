@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.google.common.base.Preconditions;
+import static com.google.common.base.Preconditions.*;
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
@@ -54,21 +54,25 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
    *          the value to store
    */
   public void setVariable(OPMObject object, OPMObjectInstance value) {
-    Preconditions.checkArgument(value != null, "Value cannot be null");
+    checkArgument(value != null, "Value cannot be null");
+    if(analyzer.isObjectComposite(object))
+      checkArgument(value.isComposite(), "The value of a composite object must be a composite instance.");
+    else
+      checkArgument(!value.isComposite(), "The value of a simple object cannot be a composite instance.");
     if(analyzer.isObjectPartOfAnotherObject(object)) {
       OPMObject parentObject = analyzer.findParent(object);
-      OPMObjectInstance parentInstance = getVariable(parentObject);
-      if(parentInstance == null) {
-        setVariable(parentObject, OPMObjectInstance.createCompositeInstance());
-        parentInstance = getVariable(parentObject);
+      OPMObjectInstance parentValue = getVariable(parentObject);
+      if(parentValue == null) {
+        parentValue = OPMObjectInstance.createCompositeInstance();
       }
-      parentInstance.addPart(object.getName(), OPMObjectInstance.createFromExistingInstance(value));
+      setVariable(parentObject, parentValue);
+      parentValue = getVariable(parentObject);
+      parentValue.addPart(object.getName(), OPMObjectInstance.createFromExistingInstance(value));
+      observable.notifyObservers(new HeapChange(parentObject, parentValue, object, getVariable(object)));
     } else {
-      if(value != null) {
-        OPMObjectInstance objectValue = OPMObjectInstance.createFromExistingInstance(value);
-        variables.put(object, objectValue);
-        observable.notifyObservers(new HeapChange(object, objectValue));
-      }
+      OPMObjectInstance objectValue = OPMObjectInstance.createFromExistingInstance(value);
+      variables.put(object, objectValue);
+      observable.notifyObservers(new HeapChange(object, objectValue));
     }
     transferDataFromObject(object);
   }
@@ -195,13 +199,30 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     }
   }
 
+  enum HeapChangeType {
+    VARIABLE_SET, PART_ADDED
+  }
+
   class HeapChange {
+    public HeapChangeType changeType;
     public OPMObject object;
-    public OPMObjectInstance instance;
+    public OPMObjectInstance objectInstance;
+    public OPMObject child;
+    public OPMObjectInstance childInstance;
 
     public HeapChange(OPMObject object, OPMObjectInstance instance) {
+      this.changeType = HeapChangeType.VARIABLE_SET;
       this.object = object;
-      this.instance = instance;
+      this.objectInstance = instance;
+    }
+
+    public HeapChange(OPMObject parent, OPMObjectInstance parentInstance, OPMObject child,
+        OPMObjectInstance childInstance) {
+      this.changeType = HeapChangeType.PART_ADDED;
+      this.object = parent;
+      this.objectInstance = parentInstance;
+      this.child = child;
+      this.childInstance = childInstance;
     }
   }
 }

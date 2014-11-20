@@ -52,12 +52,12 @@ public class OPMObjectInstance {
     return instance;
   }
 
-  public static OPMObjectInstance createFromState(String state) {
-    Preconditions.checkNotNull(state, "State cannot be null.");
-    OPMObjectInstance instance = new OPMObjectInstance();
-    instance.setState(state);
-    return instance;
-  }
+  // public static OPMObjectInstance createFromState(String state) {
+  // Preconditions.checkNotNull(state, "State cannot be null.");
+  // OPMObjectInstance instance = new OPMObjectInstance();
+  // instance.setState(state);
+  // return instance;
+  // }
 
   public static OPMObjectInstance createFromExistingInstance(OPMObjectInstance existingInstance) {
     Preconditions.checkNotNull(existingInstance, "Existing instance cannot be null.");
@@ -68,8 +68,6 @@ public class OPMObjectInstance {
       } else if(existingInstance.isStringValue()) {
         newInstance = createFromValue(existingInstance.getStringValue());
       }
-    } else if(existingInstance.isState()) {
-      newInstance = createFromState(existingInstance.getState());
     } else if(existingInstance.isComposite()) {
       newInstance = createCompositeInstance();
       for(Entry<String, OPMObjectInstance> part : existingInstance.getParts()) {
@@ -79,11 +77,6 @@ public class OPMObjectInstance {
       throw new IllegalStateException("Unexpected type of object.");
     }
     return newInstance;
-  }
-
-  private void setState(String state) {
-    checkNotNull(state, "Cannot set null state to variable.");
-    this.state = state;
   }
 
   private void setValue(Object value) {
@@ -119,14 +112,14 @@ public class OPMObjectInstance {
     }
   }
 
-  public String getState() {
-    checkState(state != null, "State of variable is not set.");
-    return state;
-  }
+  // public String getState() {
+  // checkState(state != null, "State of variable is not set.");
+  // return state;
+  // }
 
-  public boolean isState() {
-    return state != null;
-  }
+  // public boolean isState() {
+  // return state != null;
+  // }
 
   public boolean isValue() {
     return value != null;
@@ -191,4 +184,7 @@ public class OPMObjectInstance {
     return Collections.unmodifiableSet(parts.entrySet());
   }
 
+  private enum InstanceType {
+    NUMERICAL, STRING, COMPOSITE, COLLECTION;
+  }
 }
