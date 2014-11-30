@@ -8,44 +8,17 @@ import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 public interface OPMObjectInstanceValueAnalyzer {
-  /**
-   * Check if the value is a string literal. This is done by checking if the
-   * initial character in the value is either a " or a '.
-   * 
-   * @param value
-   *          to check. Must not be <code>null</code> or empty.
-   * @return <code>true</code> if the value is a string literal,
-   *         <code>false</code> otherwise.
-   */
-  public boolean isStringValue(String value);
 
   /**
-   * Parse a string literal, removing starting and ending "/'.
+   * Calculate the value of an {@link OPMObjectInstance} based on a string.
    * 
    * @param value
-   *          to parse. Must not be <code>null</code> or empty.
-   * @return the string represented in this string literal.
+   *          a string that represents a possible OPM{@link OPMObjectInstance}
+   *          value, which can be a string, a number or a collection
+   *          initializer.
+   * @return the value of the {@link OPMObjectInstance}
    */
-  public String parseStringValue(String value);
-
-  /**
-   * Check if the value is a number. This is done by checking if the first
-   * character of the value is a number.
-   * 
-   * @param value
-   *          to check. Must not be <code>null</code> or empty.
-   * @return <code>true</code> if the value is a number, false otherwise.
-   */
-  public boolean isNumericalValue(String value);
-
-  /**
-   * Parse a number literal.
-   * 
-   * @param value
-   *          to parse. Must not be <code>null</code> or empty.
-   * @return the value that the literal represents.
-   */
-  public BigDecimal parseNumericalValue(String value);
+  public OPMObjectInstance calculateOPMObjectValue(String value);
 
   /**
    * Calculate the value of an {@link OPMObjectInstance} based on the
@@ -69,7 +42,7 @@ public interface OPMObjectInstanceValueAnalyzer {
    * @return <code>true</code> if the value of the object instance matches the
    *         state, <code>false</code> otherwise.
    */
-  public boolean isObjectValueInState(String stateName, BigDecimal value);
+  public boolean isObjectNumericalValueInState(String stateName, BigDecimal value);
 
   /**
    * Calculate if an object instance is in a state. There are three ways for

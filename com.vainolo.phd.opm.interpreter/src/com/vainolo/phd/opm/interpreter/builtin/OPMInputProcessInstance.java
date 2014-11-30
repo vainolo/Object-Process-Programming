@@ -34,12 +34,7 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
   @Override
   protected void executing() {
     final String input = showInputDialog();
-    OPMObjectInstance instance = null;
-    if(valueAnalyzer.isNumericalValue(input)) {
-      instance = OPMObjectInstance.createFromValue(valueAnalyzer.parseNumericalValue(input));
-    } else {
-      instance = OPMObjectInstance.createFromValue(input);
-    }
+    OPMObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
     setArgument("text", instance);
   }
 

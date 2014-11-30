@@ -1,11 +1,10 @@
 package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import java.util.Collection;
+
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-
-import org.eclipse.swt.internal.win32.COMPOSITIONFORM;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -117,7 +116,13 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     for(OPMProceduralLink link : dataTransferLinks) {
       if(analyzer.isLinkTargetAnObject(link)) {
         OPMObject target = OPMObject.class.cast(link.getTarget());
-        setVariable(target, getVariable(object));
+        OPMObjectInstance value = null;
+        if((null != link.getCenterDecoration()) && (!"".equals(link.getCenterDecoration()))) {
+          value = getVariable(object).getCollectionElement(link.getCenterDecoration());
+        } else {
+          value = getVariable(object);
+        }
+        setVariable(target, value);
         transferDataFromObject(target);
       }
     }

@@ -2,10 +2,14 @@ package com.vainolo.phd.opm.interpreter;
 
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.List;
 
+import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
+
+import static com.google.common.base.Preconditions.*;
 
 /**
  * Helper class to analyze {@link OPMObject} and {@link OPMState} values. All of
@@ -25,8 +29,7 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
    * @return <code>true</code> if the value is a string literal,
    *         <code>false</code> otherwise.
    */
-  @Override
-  public boolean isStringValue(String value) {
+  private boolean isStringLiteral(String value) {
     if(value.startsWith("\"") || value.startsWith("'"))
       return true;
     else
@@ -40,21 +43,19 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
    *          to parse. Must not be <code>null</code> or empty.
    * @return the string represented in this string literal.
    */
-  @Override
-  public String parseStringValue(String value) {
+  private String parseStringLiteral(String value) {
     return value.substring(1, value.length() - 1);
   }
 
   /**
-   * Check if the value is a number. This is done by checking if the first
+   * Check if the literal is a number. This is done by checking if the first
    * character of the value is a number.
    * 
    * @param value
    *          to check. Must not be <code>null</code> or empty.
    * @return <code>true</code> if the value is a number, false otherwise.
    */
-  @Override
-  public boolean isNumericalValue(String value) {
+  private boolean isNumericalLiteral(String value) {
     return value.matches("-?\\d+(\\.\\d+)?");
   }
 
@@ -65,15 +66,37 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
    *          to parse. Must not be <code>null</code> or empty.
    * @return the value that the literal represents.
    */
-  @Override
-  public BigDecimal parseNumericalValue(String value) {
+  private BigDecimal parseNumericalLiteral(String value) {
     return new BigDecimal(value);
+  }
+
+  /**
+   * Check if the literal is a collections. Collections can be initialized with
+   * a set of integer values that are specified in the initializer. The first
+   * value of the collection must be less than or equal than the final value of
+   * the collection. For example [1..5], [1..1], [5..19]
+   */
+  public boolean isCollectionLiteral(String value) {
+    return value.startsWith("[");
+  }
+
+  /**
+   * Check if the value is a collections. Collections can be initialized with a
+   * set of integer values that are specified in the initializer. The first
+   * value of the collection must be less than or equal than the final value of
+   * the collection. For example [1..5], [1..1], [5..19]
+   */
+  public List<BigDecimal> parseCollectionLiteral(String literal) {
+    List<BigDecimal> collection = Lists.newArrayList();
+    literal = literal.substring(1, literal.length() - 2);
+    literal.split("\\.\\.");
+    return collection;
   }
 
   /**
    * Calculate the value of an {@link OPMObjectInstance} based on the
    * {@link OPMObject} that represents it. The value can be either a number, a
-   * string or a state.
+   * string a state or a collection initializer.
    * 
    * @param object
    *          that has a constant value
@@ -82,15 +105,21 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
    */
   @Override
   public OPMObjectInstance calculateOPMObjectValue(OPMObject object, OPDAnalyzer analyzer) {
-    OPMObjectInstanceValueAnalyzerImpl valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
+    // OPMObjectInstanceValueAnalyzerImpl valueAnalyzer = new
+    // OPMObjectInstanceValueAnalyzerImpl();
     OPMObjectInstance objectInstance = null;
 
     String objectName = object.getName();
     if(objectName != null && !objectName.equals("")) {
-      if(valueAnalyzer.isStringValue(objectName)) {
-        objectInstance = OPMObjectInstance.createFromValue(valueAnalyzer.parseStringValue(objectName));
-      } else if(valueAnalyzer.isNumericalValue(objectName)) {
-        objectInstance = OPMObjectInstance.createFromValue(valueAnalyzer.parseNumericalValue(objectName));
+      if(isStringLiteral(objectName)) {
+        objectInstance = OPMObjectInstance.createFromValue(parseStringLiteral(objectName));
+      } else if(isNumericalLiteral(objectName)) {
+        objectInstance = OPMObjectInstance.createFromValue(parseNumericalLiteral(objectName));
+      } else if(isCollectionLiteral(objectName)) {
+        objectInstance = OPMObjectInstance.createCollectionInstace();
+        for(BigDecimal value : parseCollectionLiteral(objectName)) {
+          objectInstance.appendCollectionElement(OPMObjectInstance.createFromValue(value));
+        }
       }
     } else {
       Collection<OPMState> states = analyzer.findStates(object);
@@ -98,6 +127,23 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
         if(state.isValue()) {
           objectInstance = OPMObjectInstance.createFromValue(state.getName());
         }
+      }
+    }
+    return objectInstance;
+  }
+
+  @Override
+  public OPMObjectInstance calculateOPMObjectValue(String value) {
+    checkArgument((value != null) && (!"".equals(value)), "Value cannot be null or empty.");
+    OPMObjectInstance objectInstance = null;
+    if(isStringLiteral(value)) {
+      objectInstance = OPMObjectInstance.createFromValue(parseStringLiteral(value));
+    } else if(isNumericalLiteral(value)) {
+      objectInstance = OPMObjectInstance.createFromValue(parseNumericalLiteral(value));
+    } else if(isCollectionLiteral(value)) {
+      objectInstance = OPMObjectInstance.createCollectionInstace();
+      for(BigDecimal v : parseCollectionLiteral(value)) {
+        objectInstance.appendCollectionElement(OPMObjectInstance.createFromValue(v));
       }
     }
     return objectInstance;
@@ -114,9 +160,9 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
    *         state, <code>false</code> otherwise.
    */
   @Override
-  public boolean isObjectValueInState(String stateName, BigDecimal value) {
-    if(isNumericalValue(stateName)) {
-      return parseNumericalValue(stateName).equals(value);
+  public boolean isObjectNumericalValueInState(String stateName, BigDecimal value) {
+    if(isNumericalLiteral(stateName)) {
+      return parseNumericalLiteral(stateName).equals(value);
     } else {
       // state name is a numerical logical expression
       // supported expressions are: x < NUM, x <= NUM, x > NUM, x >= NUM. Spaces
@@ -165,13 +211,10 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
     if(instance == null) {
       return false;
     }
-    // if(instance.isState()) {
-    // return state.getName().equals(instance.getState());
-    // } else {
-    if(isStringValue(state.getName())) {
-      return parseStringValue(state.getName()).equals(instance.getValue());
+    if(isStringLiteral(state.getName())) {
+      return parseStringLiteral(state.getName()).equals(instance.getValue());
     } else {
-      return isObjectValueInState(state.getName(), BigDecimal.class.cast(instance.getValue()));
+      return isObjectNumericalValueInState(state.getName(), BigDecimal.class.cast(instance.getValue()));
     }
   }
 }
