@@ -60,7 +60,7 @@ public class OPMInZoomedProcessInstanceHeapTest {
 
     OPMObjectInstance instance1 = heap.getVariable(obj1);
     assertNotNull(instance1);
-    OPMObjectInstance instance2 = instance1.getPart(part1.getName());
+    OPMObjectInstance instance2 = instance1.getCompositePart(part1.getName());
     assertNotNull(instance2);
     assertEquals(inst1.getNumericalValue(), instance2.getNumericalValue());
   }
@@ -80,7 +80,7 @@ public class OPMInZoomedProcessInstanceHeapTest {
     assertEquals(inst1.getNumericalValue(), observer.changes.get(0).childInstance.getNumericalValue());
     assertEquals(HeapChangeType.VARIABLE_SET, observer.changes.get(1).changeType);
     assertTrue(observer.changes.get(1).objectInstance.type == InstanceType.COMPOSITE);
-    assertEquals(inst1.getNumericalValue(), observer.changes.get(0).objectInstance.getPart(part1.getName())
+    assertEquals(inst1.getNumericalValue(), observer.changes.get(0).objectInstance.getCompositePart(part1.getName())
         .getNumericalValue());
   }
 
@@ -93,27 +93,27 @@ public class OPMInZoomedProcessInstanceHeapTest {
     heap.setVariable(obj1, compInst1);
 
     assertNotNull(heap.getVariable(obj1));
-    assertEquals(heap.getVariable(obj1).getParts().size(), 0);
+    assertEquals(heap.getVariable(obj1).getCompositeParts().size(), 0);
 
     heap.setVariable(part1, inst1);
 
     assertNotNull(heap.getVariable(part1));
-    assertNotNull(heap.getVariable(obj1).getPart(part1.getName()));
-    assertEquals(1, heap.getVariable(obj1).getParts().size());
+    assertNotNull(heap.getVariable(obj1).getCompositePart(part1.getName()));
+    assertEquals(1, heap.getVariable(obj1).getCompositeParts().size());
 
     heap.setVariable(part2, compInst2);
 
     assertNotNull(heap.getVariable(part2));
-    assertNotNull(heap.getVariable(obj1).getPart(part2.getName()));
-    assertNotNull(heap.getVariable(obj1).getPart(part1.getName()));
-    assertEquals(2, heap.getVariable(obj1).getParts().size());
+    assertNotNull(heap.getVariable(obj1).getCompositePart(part2.getName()));
+    assertNotNull(heap.getVariable(obj1).getCompositePart(part1.getName()));
+    assertEquals(2, heap.getVariable(obj1).getCompositeParts().size());
 
     heap.setVariable(part11, inst3);
 
     assertNotNull(heap.getVariable(part11));
-    assertNotNull(heap.getVariable(obj1).getPart(part2.getName()).getPart(part11.getName()));
-    assertEquals(2, heap.getVariable(obj1).getParts().size());
-    assertEquals(1, heap.getVariable(part2).getParts().size());
+    assertNotNull(heap.getVariable(obj1).getCompositePart(part2.getName()).getCompositePart(part11.getName()));
+    assertEquals(2, heap.getVariable(obj1).getCompositeParts().size());
+    assertEquals(1, heap.getVariable(part2).getCompositeParts().size());
   }
 
   @Test(expected = IllegalArgumentException.class)

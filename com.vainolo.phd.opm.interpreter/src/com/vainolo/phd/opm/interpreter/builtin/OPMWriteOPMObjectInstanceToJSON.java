@@ -36,7 +36,7 @@ public class OPMWriteOPMObjectInstanceToJSON extends OPMAbstractProcessInstance 
   private JsonObject populateJSONFromOPMObjectInstance(OPMObjectInstance opmObjectInstance) {
     Preconditions.checkState(opmObjectInstance.type == InstanceType.COMPOSITE);
     JsonObject jsonObject = new JsonObject();
-    for(Entry<String, OPMObjectInstance> part : opmObjectInstance.getParts()) {
+    for(Entry<String, OPMObjectInstance> part : opmObjectInstance.getCompositeParts()) {
       String name = part.getKey();
       OPMObjectInstance value = part.getValue();
       addJSONElement(jsonObject, name, value);

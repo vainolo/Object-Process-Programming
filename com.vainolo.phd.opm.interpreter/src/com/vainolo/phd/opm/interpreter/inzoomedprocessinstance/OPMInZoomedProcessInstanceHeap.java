@@ -73,7 +73,7 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
       }
       setVariable(parentObject, parentValue);
       parentValue = getVariable(parentObject);
-      parentValue.addPart(object.getName(), OPMObjectInstance.createFromExistingInstance(value));
+      parentValue.addCompositePart(object.getName(), OPMObjectInstance.createFromExistingInstance(value));
       observable.notifyObservers(new HeapChange(parentObject, parentValue, object, getVariable(object)));
     } else {
       OPMObjectInstance objectValue = OPMObjectInstance.createFromExistingInstance(value);
@@ -99,7 +99,7 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
       if(parent == null) {
         return null;
       } else {
-        return parent.getPart(object.getName());
+        return parent.getCompositePart(object.getName());
       }
     } else {
       return variables.get(object);

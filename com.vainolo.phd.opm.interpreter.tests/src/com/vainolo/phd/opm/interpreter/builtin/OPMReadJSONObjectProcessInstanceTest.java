@@ -28,44 +28,44 @@ public class OPMReadJSONObjectProcessInstanceTest {
   @Test
   public void test_execute_intElement() throws Exception {
     OPMObjectInstance instance = readJson("{\"a\":0}");
-    assertEquals(0, instance.getPart("a").getNumericalValue().intValue());
+    assertEquals(0, instance.getCompositePart("a").getNumericalValue().intValue());
   }
 
   @Test
   public void test_execute_doubleElement() throws Exception {
     OPMObjectInstance instance = readJson("{\"a\":5.43}");
-    assertEquals(5.43, instance.getPart("a").getNumericalValue().doubleValue(), 0.0001);
+    assertEquals(5.43, instance.getCompositePart("a").getNumericalValue().doubleValue(), 0.0001);
   }
 
   @Test
   public void test_execute_stringElement() throws Exception {
     OPMObjectInstance instance = readJson("{\"a\":\"hello\"}");
-    assertEquals("hello", instance.getPart("a").getStringValue());
+    assertEquals("hello", instance.getCompositePart("a").getStringValue());
   }
 
   @Test
   public void test_execute_booleanElement() throws Exception {
     OPMObjectInstance instance = readJson("{\"a\":false}");
-    assertEquals("false", instance.getPart("a").getStringValue());
+    assertEquals("false", instance.getCompositePart("a").getStringValue());
   }
 
   @Test
   public void text_execute_multipleElements() throws Exception {
     OPMObjectInstance instance = readJson("{\"a\":false,\"b\":2}");
-    assertEquals("false", instance.getPart("a").getStringValue());
-    assertEquals(2, instance.getPart("b").getNumericalValue().intValue());
+    assertEquals("false", instance.getCompositePart("a").getStringValue());
+    assertEquals(2, instance.getCompositePart("b").getNumericalValue().intValue());
   }
 
   @Test
   public void test_execute_complexInstance() throws Exception {
     OPMObjectInstance instance = readJson("{\"a\":{\"b\":true}}");
-    assertEquals("true", instance.getPart("a").getPart("b").getStringValue());
+    assertEquals("true", instance.getCompositePart("a").getCompositePart("b").getStringValue());
 
     instance = readJson("{\"a\":{\"b\":true, \"c\":3,\"d\":\"hello\"}, \"b\":false}");
-    assertEquals("true", instance.getPart("a").getPart("b").getStringValue());
-    assertEquals("false", instance.getPart("b").getStringValue());
-    assertEquals("true", instance.getPart("a").getPart("b").getStringValue());
-    assertEquals(3, instance.getPart("a").getPart("c").getNumericalValue().intValue());
-    assertEquals("hello", instance.getPart("a").getPart("d").getStringValue());
+    assertEquals("true", instance.getCompositePart("a").getCompositePart("b").getStringValue());
+    assertEquals("false", instance.getCompositePart("b").getStringValue());
+    assertEquals("true", instance.getCompositePart("a").getCompositePart("b").getStringValue());
+    assertEquals(3, instance.getCompositePart("a").getCompositePart("c").getNumericalValue().intValue());
+    assertEquals("hello", instance.getCompositePart("a").getCompositePart("d").getStringValue());
   }
 }

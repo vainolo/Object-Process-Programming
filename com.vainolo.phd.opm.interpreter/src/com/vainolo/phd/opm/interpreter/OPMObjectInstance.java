@@ -9,11 +9,14 @@ import static com.google.common.base.Preconditions.*;
 
 import java.math.BigDecimal;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.UUID;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 /**
@@ -29,12 +32,15 @@ public class OPMObjectInstance {
 
   private Object value = null;
   private Map<String, OPMObjectInstance> parts = Maps.newHashMap();
+  private List<OPMObjectInstance> collectionValues = Lists.newArrayList();
+  private Map<String, Integer> collectionNameToIndexMapping = Maps.newHashMap();
   public final InstanceType type;
 
   private OPMObjectInstance(InstanceType type) {
     this.type = type;
   }
 
+  // Creation
   public static OPMObjectInstance createCompositeInstance() {
     return new OPMObjectInstance(InstanceType.COMPOSITE);
   }
@@ -60,37 +66,47 @@ public class OPMObjectInstance {
   public static OPMObjectInstance createFromExistingInstance(OPMObjectInstance existingInstance) {
     Preconditions.checkNotNull(existingInstance, "Existing instance cannot be null.");
     OPMObjectInstance newInstance = null;
-    if(existingInstance.isValue()) {
-      if(existingInstance.type == InstanceType.NUMERICAL) {
-        newInstance = createFromValue(existingInstance.getNumericalValue());
-      } else if(existingInstance.type == InstanceType.STRING) {
-        newInstance = createFromValue(existingInstance.getStringValue());
-      }
-    } else if(existingInstance.type == InstanceType.COMPOSITE) {
+    switch(existingInstance.type) {
+    case NUMERICAL:
+      newInstance = createFromValue(existingInstance.getNumericalValue());
+      break;
+    case STRING:
+      newInstance = createFromValue(existingInstance.getStringValue());
+      break;
+    case COMPOSITE:
       newInstance = createCompositeInstance();
-      for(Entry<String, OPMObjectInstance> part : existingInstance.getParts()) {
-        newInstance.addPart(part.getKey(), createFromExistingInstance(part.getValue()));
+      for(Entry<String, OPMObjectInstance> part : existingInstance.getCompositeParts()) {
+        newInstance.addCompositePart(part.getKey(), createFromExistingInstance(part.getValue()));
       }
-    } else {
-      throw new IllegalStateException("Unexpected type of object.");
+      break;
+    case COLLECTION:
+      newInstance = createCollectionInstace();
+      for(String name : existingInstance.getAllCollectionIndexes()) {
+        newInstance.insertCollectionElement(name, existingInstance.getCollectionElement(name));
+      }
     }
+
     return newInstance;
   }
 
+  // Values
   private void setValue(Object value) {
     checkNotNull(value, "Cannot set null value to variable.");
+    checkTypeForValueOnlyOperations();
     this.value = value;
   }
 
   public Object getValue() {
     checkState(value != null, "Value of variable is not set.");
+    checkTypeForValueOnlyOperations();
     return value;
   }
 
   public String getStringValue() {
-    if(type == InstanceType.STRING) {
+    checkTypeForValueOnlyOperations();
+    if(InstanceType.STRING.equals(type)) {
       return String.class.cast(getValue());
-    } else if(type == InstanceType.NUMERICAL) {
+    } else if(InstanceType.NUMERICAL.equals(type)) {
       return BigDecimal.class.cast(getValue()).toString();
     } else {
       throw new IllegalStateException("Cannot fetch value of an instance that is not a value");
@@ -98,9 +114,10 @@ public class OPMObjectInstance {
   }
 
   public BigDecimal getNumericalValue() {
-    if(type == InstanceType.STRING) {
+    checkTypeForValueOnlyOperations();
+    if(InstanceType.STRING.equals(type)) {
       return new BigDecimal(String.class.cast(getValue()));
-    } else if(type == InstanceType.NUMERICAL) {
+    } else if(InstanceType.NUMERICAL.equals(type)) {
       return BigDecimal.class.cast(getValue());
     } else {
       throw new IllegalStateException("Cannot fetch value of an instance that is not a value");
@@ -111,11 +128,73 @@ public class OPMObjectInstance {
     return value != null;
   }
 
+  // Composite
+  public void addCompositePart(String name, OPMObjectInstance part) {
+    checkTypeForCompositeOnlyOperations();
+    checkNotNull(name);
+    checkNotNull(part);
+    parts.put(name, part);
+  }
+
+  public OPMObjectInstance getCompositePart(String name) {
+    checkTypeForCompositeOnlyOperations();
+    checkNotNull(name, "Part name cannot be null");
+    checkArgument(!"".equals(name), "Part name cannot be empty");
+    return parts.get(name);
+  }
+
+  public Set<Entry<String, OPMObjectInstance>> getCompositeParts() {
+    checkTypeForCompositeOnlyOperations();
+    return Collections.unmodifiableSet(parts.entrySet());
+  }
+
+  // Collection
+  public void appendCollectionElement(OPMObjectInstance element) {
+    checkTypeForCollectionOnlyOperations();
+    checkNotNull(element, "Cannot append a null element to a collection.");
+    collectionValues.add(element);
+    collectionNameToIndexMapping.put(UUID.randomUUID().toString(), collectionValues.size());
+  }
+
+  public void insertCollectionElement(String name, OPMObjectInstance element) {
+    checkTypeForCollectionOnlyOperations();
+    checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
+    checkNotNull(element, "Cannot insert a null element to a collection.");
+    collectionValues.add(element);
+    collectionNameToIndexMapping.put(name, collectionValues.size());
+  }
+
+  public OPMObjectInstance getCollectionElement(String name) {
+    checkTypeForCollectionOnlyOperations();
+    checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
+    return collectionValues.get(collectionNameToIndexMapping.get(name));
+  }
+
+  public OPMObjectInstance getFirstCollectionElement() {
+    checkTypeForCollectionOnlyOperations();
+    return collectionValues.get(0);
+  }
+
+  public OPMObjectInstance getLastCollectionElement() {
+    checkTypeForCollectionOnlyOperations();
+    return collectionValues.get(collectionValues.size() - 1);
+  }
+
+  public List<OPMObjectInstance> getAllCollectionElements() {
+    checkTypeForCollectionOnlyOperations();
+    return Collections.unmodifiableList(collectionValues);
+  }
+
+  public Set<String> getAllCollectionIndexes() {
+    checkTypeForCollectionOnlyOperations();
+    return Collections.unmodifiableSet(collectionNameToIndexMapping.keySet());
+  }
+
   @Override
   public String toString() {
-    if(type == InstanceType.STRING || type == InstanceType.NUMERICAL)
+    if(InstanceType.STRING.equals(type) || InstanceType.NUMERICAL.equals(type))
       return value.toString();
-    else if(type == InstanceType.COMPOSITE) {
+    else if(InstanceType.COMPOSITE.equals(type)) {
       StringBuilder ret = new StringBuilder("{");
       for(String partName : parts.keySet()) {
         ret.append(partName + ":" + parts.get(partName) + ",");
@@ -127,23 +206,20 @@ public class OPMObjectInstance {
     }
   }
 
-  public void addPart(String name, OPMObjectInstance part) {
-    checkState(type == InstanceType.COMPOSITE);
-    checkNotNull(name);
-    checkNotNull(part);
-    parts.put(name, part);
+  private void checkTypeForValueOnlyOperations() {
+    checkState(!InstanceType.COLLECTION.equals(type),
+        "Instance is a collection but operation is only valid for value instances.");
+    checkState(!InstanceType.COMPOSITE.equals(type),
+        "Instance is a collection but operation is only valid for value instances.");
   }
 
-  public OPMObjectInstance getPart(String name) {
-    checkState(type == InstanceType.COMPOSITE);
-    checkNotNull(name, "Part name cannot be null");
-    checkArgument(!"".equals(name), "Part name cannot be empty");
-    return parts.get(name);
+  private void checkTypeForCompositeOnlyOperations() {
+    checkState(InstanceType.COMPOSITE.equals(type), "Composite operations can only be applied to composite instances.");
   }
 
-  public Set<Entry<String, OPMObjectInstance>> getParts() {
-    checkState(type == InstanceType.COMPOSITE);
-    return Collections.unmodifiableSet(parts.entrySet());
+  private void checkTypeForCollectionOnlyOperations() {
+    checkState(InstanceType.COLLECTION.equals(type),
+        "Collection operations can only be applied to collection instances.");
   }
 
   public enum InstanceType {

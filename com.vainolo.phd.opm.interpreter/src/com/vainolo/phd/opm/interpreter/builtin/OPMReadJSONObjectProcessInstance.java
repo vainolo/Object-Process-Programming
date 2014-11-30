@@ -60,20 +60,20 @@ public class OPMReadJSONObjectProcessInstance extends OPMAbstractProcessInstance
   private void addObjectPart(OPMObjectInstance whole, String name, JsonObject value) {
     OPMObjectInstance part = OPMObjectInstance.createCompositeInstance();
     populateOPMObjectInstanceFromJSONObject(part, value);
-    whole.addPart(name, part);
+    whole.addCompositePart(name, part);
   }
 
   private void addStringPart(OPMObjectInstance whole, String name, String value) {
-    whole.addPart(name, OPMObjectInstance.createFromValue(value));
+    whole.addCompositePart(name, OPMObjectInstance.createFromValue(value));
   }
 
   private void addNumberPart(OPMObjectInstance instance, String whole, double value) {
-    instance.addPart(whole, OPMObjectInstance.createFromValue(new BigDecimal(value)));
+    instance.addCompositePart(whole, OPMObjectInstance.createFromValue(new BigDecimal(value)));
   }
 
   private void addBooleanPart(OPMObjectInstance whole, String name, boolean value) {
     OPMObjectInstance bool = OPMObjectInstance.createFromValue(Boolean.toString(value));
-    whole.addPart(name, bool);
+    whole.addCompositePart(name, bool);
   }
 
   @Override
