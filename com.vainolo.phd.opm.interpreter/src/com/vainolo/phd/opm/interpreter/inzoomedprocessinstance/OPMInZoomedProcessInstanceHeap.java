@@ -117,7 +117,13 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     for(OPMProceduralLink link : dataTransferLinks) {
       if(analyzer.isLinkTargetAnObject(link)) {
         OPMObject target = OPMObject.class.cast(link.getTarget());
-        setVariable(target, getVariable(object));
+        OPMObjectInstance value = null;
+        if((null != link.getCenterDecoration()) && (!"".equals(link.getCenterDecoration()))) {
+          value = getVariable(object).getCollectionElement(link.getCenterDecoration());
+        } else {
+          value = getVariable(object);
+        }
+        setVariable(target, value);
         transferDataFromObject(target);
       }
     }
