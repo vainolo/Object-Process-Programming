@@ -88,8 +88,19 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
    */
   public List<BigDecimal> parseCollectionLiteral(String literal) {
     List<BigDecimal> collection = Lists.newArrayList();
-    literal = literal.substring(1, literal.length() - 2);
-    literal.split("\\.\\.");
+    literal = literal.substring(1, literal.length() - 1);
+    String[] indices = literal.split("\\.\\.");
+    int start = Integer.parseInt(indices[0]);
+    int end = Integer.parseInt(indices[1]);
+    if(start <= end) {
+      for(int i = start; i <= end; i++) {
+        collection.add(new BigDecimal(i));
+      }
+    } else {
+      for(int i = start; i >= end; i--) {
+        collection.add(new BigDecimal(i));
+      }
+    }
     return collection;
   }
 

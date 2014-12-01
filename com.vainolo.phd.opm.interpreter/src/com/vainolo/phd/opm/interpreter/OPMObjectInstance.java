@@ -81,7 +81,7 @@ public class OPMObjectInstance {
       break;
     case COLLECTION:
       newInstance = createCollectionInstace();
-      for(String name : existingInstance.getAllCollectionIndexes()) {
+      for(String name : existingInstance.getCollectionAllIndexes()) {
         newInstance.insertCollectionElement(name, existingInstance.getCollectionElement(name));
       }
     }
@@ -180,12 +180,12 @@ public class OPMObjectInstance {
     return collectionValues.get(collectionValues.size() - 1);
   }
 
-  public List<OPMObjectInstance> getAllCollectionElements() {
+  public List<OPMObjectInstance> getCollectionAllElements() {
     checkTypeForCollectionOnlyOperations();
     return Collections.unmodifiableList(collectionValues);
   }
 
-  public Set<String> getAllCollectionIndexes() {
+  public Set<String> getCollectionAllIndexes() {
     checkTypeForCollectionOnlyOperations();
     return Collections.unmodifiableSet(collectionNameToIndexMapping.keySet());
   }
