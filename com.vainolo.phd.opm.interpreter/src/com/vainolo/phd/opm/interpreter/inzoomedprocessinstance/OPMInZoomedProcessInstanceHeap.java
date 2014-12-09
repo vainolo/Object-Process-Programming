@@ -1,19 +1,18 @@
 package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import java.util.Collection;
-
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
 import static com.google.common.base.Preconditions.*;
+import static com.vainolo.phd.opm.interpreter.utils.OPMInterpreterPreconditions.*;
 
 import com.google.common.collect.Maps;
 import com.google.inject.Inject;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceHeap;
-import com.vainolo.phd.opm.interpreter.OPMObjectInstance.InstanceType;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
@@ -58,12 +57,18 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
    */
   public void setVariable(OPMObject object, OPMObjectInstance value) {
     checkArgument(value != null, "Value cannot be null");
-    if(analyzer.isObjectComposite(object))
-      checkArgument(value.type == InstanceType.COMPOSITE,
-          "The value of a composite object must be a composite instance.");
-    else
-      checkArgument(value.type != InstanceType.COMPOSITE,
-          "The value of a simple object cannot be a composite instance.");
+    if(analyzer.isObjectComposite(object)) {
+      checkInstanceIsComposite(value, "The value of a composite object must be a composite instance.");
+    } else {
+      checkInstanceIsNotComposite(value, "The value of a simple object cannot be a composite instance.");
+    }
+
+    if(analyzer.isObjectCollection(object)) {
+      checkInstanceIsCollection(value, "The value of a collection object must be a collection instance.");
+    } else {
+      checkInstanceIsNotCollection(value, "The value of a simple object cannot be a collection instance.");
+    }
+
     if(analyzer.isObjectPartOfAnotherObject(object)) {
       OPMObject parentObject = analyzer.findParent(object);
       OPMObjectInstance parentValue = getVariable(parentObject);

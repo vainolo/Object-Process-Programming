@@ -250,8 +250,20 @@ public interface OPDAnalyzer {
    * Check if the given object is parent of other objects
    * 
    * @param object
-   * @return
+   *          and {@link OPMObject}
+   * @return <code>true</code> if the object is composite, <code>false</code>
+   *         otherwise.
    */
   public abstract boolean isObjectComposite(OPMObject object);
+
+  /**
+   * Check if the given object is a collection.
+   * 
+   * @param object
+   *          an {@link OPMObject}
+   * @return <code>true</code> if the object is a collection, <code>false</code>
+   *         otherwise.
+   */
+  public abstract boolean isObjectCollection(OPMObject object);
 
 }
