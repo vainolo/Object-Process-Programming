@@ -116,12 +116,10 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
    */
   @Override
   public OPMObjectInstance calculateOPMObjectValue(OPMObject object, OPDAnalyzer analyzer) {
-    // OPMObjectInstanceValueAnalyzerImpl valueAnalyzer = new
-    // OPMObjectInstanceValueAnalyzerImpl();
     OPMObjectInstance objectInstance = null;
 
     String objectName = object.getName();
-    if(objectName != null && !objectName.equals("")) {
+    if(objectName != null && !"".equals(objectName)) {
       if(isStringLiteral(objectName)) {
         objectInstance = OPMObjectInstance.createFromValue(parseStringLiteral(objectName));
       } else if(isNumericalLiteral(objectName)) {

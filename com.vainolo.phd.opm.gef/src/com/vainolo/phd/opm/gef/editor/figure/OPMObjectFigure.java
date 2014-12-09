@@ -89,7 +89,11 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     if(nameDimensions.width > r.width - 2 * offset) {
       nameDimensions = nameLabel.getPreferredSize(r.width - 2 * offset, -1);
     }
-    borderFigure.setConstraint(nameLabel, new Rectangle(0, 5, r.width, nameDimensions.height));
+    if(!collection)
+      borderFigure.setConstraint(nameLabel, new Rectangle(0, 5, r.width, nameDimensions.height));
+    else
+      borderFigure.setConstraint(nameLabel, new Rectangle(0, 5, r.width - 2 * offset, nameDimensions.height));
+
     borderFigure.setConstraint(contentPane, new Rectangle(0, 0, r.width - 2 * offset, r.height - 2 * offset));
   }
 
@@ -140,7 +144,7 @@ public class OPMObjectFigure extends OPMThingFigure implements OPMNamedElementFi
     prefSize.height = max(smartLabelSize.height(), contentPaneSize.height());
 
     if(collection)
-      prefSize = prefSize.expand(10, 10);
+      prefSize = prefSize.expand(20, 10);
 
     return prefSize.expand(5, 5);
 
