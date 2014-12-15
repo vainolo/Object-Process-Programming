@@ -220,8 +220,9 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
     if(instance == null) {
       return false;
     }
-    if(isStringLiteral(state.getName())) {
-      return parseStringLiteral(state.getName()).equals(instance.getValue());
+    if(isStringLiteral(state.getName()) || state.getName().matches("[a-zA-Z]+")) {
+      return (parseStringLiteral(state.getName()).equals(instance.getValue()) || state.getName().equals(
+          instance.getValue()));
     } else {
       return isObjectNumericalValueInState(state.getName(), BigDecimal.class.cast(instance.getValue()));
     }
