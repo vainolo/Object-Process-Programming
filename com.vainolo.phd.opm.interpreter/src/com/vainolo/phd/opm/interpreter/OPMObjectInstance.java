@@ -153,7 +153,7 @@ public class OPMObjectInstance {
     checkTypeForCollectionOnlyOperations();
     checkNotNull(element, "Cannot append a null element to a collection.");
     collectionValues.add(element);
-    collectionNameToIndexMapping.put(UUID.randomUUID().toString(), collectionValues.size());
+    collectionNameToIndexMapping.put(UUID.randomUUID().toString(), collectionValues.size() - 1);
   }
 
   public void insertCollectionElement(String name, OPMObjectInstance element) {
