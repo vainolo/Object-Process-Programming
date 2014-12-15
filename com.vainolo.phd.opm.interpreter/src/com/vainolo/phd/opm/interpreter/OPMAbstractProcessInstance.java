@@ -23,6 +23,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 
   protected final OPMProcessInstanceHeap heap = new OPMProcessInstanceHeap();
   private String name;
+  private OPMProcessExecutionResult result = OPMProcessExecutionResult.FINISHED;
 
   protected OPMProcessInstanceHeap getHeap() {
     return heap;
@@ -88,7 +89,8 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   }
 
   @Override
-  public ProcessExecutionResult call() throws Exception {
+  public OPMProcessExecutionResult call() throws Exception {
+    result.instance = this;
     try {
       preExecution();
       executing();
@@ -96,7 +98,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
     } catch(Exception e) {
       throw new OPMRuntimeException(e);
     }
-    return ProcessExecutionResult.FINISHED;
+    return result;
   }
 
 }

@@ -14,7 +14,7 @@ import java.util.concurrent.Callable;
  * @created 2 Jul 2012
  * 
  */
-public interface OPMProcessInstance extends Callable<ProcessExecutionResult> {
+public interface OPMProcessInstance extends Callable<OPMProcessExecutionResult> {
 
   /**
    * Set the value of an argument.

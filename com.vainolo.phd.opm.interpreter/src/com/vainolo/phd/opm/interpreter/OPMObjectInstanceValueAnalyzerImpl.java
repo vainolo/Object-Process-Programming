@@ -154,6 +154,8 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
       for(BigDecimal v : parseCollectionLiteral(value)) {
         objectInstance.appendCollectionElement(OPMObjectInstance.createFromValue(v));
       }
+    } else {
+      throw new IllegalStateException("String value: " + value + " is not parseable.");
     }
     return objectInstance;
   }
