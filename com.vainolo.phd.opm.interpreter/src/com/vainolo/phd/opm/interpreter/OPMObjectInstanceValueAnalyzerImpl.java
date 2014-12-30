@@ -145,6 +145,7 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
 
   @Override
   public OPMObjectInstance calculateOPMObjectValue(String value) {
+    logFinest("Calculating value of {0}.", value);
     checkArgument((value != null) && (!"".equals(value)), "Value cannot be null or empty.");
     OPMObjectInstance objectInstance = null;
     if(isStringLiteral(value)) {
@@ -159,6 +160,7 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
     } else {
       throw new IllegalStateException("String value: " + value + " is not parseable.");
     }
+    logFinest("Value of {0} is {1}.", value, objectInstance);
     return objectInstance;
   }
 
@@ -174,6 +176,7 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
    */
   @Override
   public boolean isObjectNumericalValueInState(String stateName, BigDecimal value) {
+    logFinest("Checking numerical state {0} against value {1}.", stateName, value);
     if(isNumericalLiteral(stateName)) {
       return parseNumericalLiteral(stateName).equals(value);
     } else {

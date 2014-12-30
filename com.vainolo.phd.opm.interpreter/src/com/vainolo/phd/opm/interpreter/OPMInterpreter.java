@@ -5,14 +5,12 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.logging.Logger;
-
 import org.eclipse.core.resources.IContainer;
-
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
  * 
@@ -23,7 +21,6 @@ import com.vainolo.utils.SimpleLoggerFactory;
 public enum OPMInterpreter {
   INSTANCE;
 
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMInterpreter.class.getName());
   public static IContainer container = null;
 
   public final ExecutorService executorService;
@@ -43,7 +40,7 @@ public enum OPMInterpreter {
    */
   public void interpret(String opdName, final IContainer _container) {
     container = _container;
-    logger.info("Interpreting OPD" + opdName);
+    logInfo("Interpreting OPD {0}.", opdName);
     OPMProcessInstance instance = OPMProcessInstanceFactory.createExecutableInstance(opdName);
 
     try {
@@ -52,7 +49,7 @@ public enum OPMInterpreter {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    logger.info("Finished interpreting " + opdName);
+    logInfo("Finished interpreting {0}.", opdName);
   }
 
   public void stopExecution() {

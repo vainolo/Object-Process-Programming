@@ -30,7 +30,6 @@ public class OPMInZoomedProcessInstanceHeapTest {
   private MyObserver observer;
   private OPMObjectInstance compInst1;
   private OPMObjectInstance compInst2;
-  private OPMObjectInstance compInst3;
 
   @Test
   public void createVariable() {
@@ -153,7 +152,6 @@ public class OPMInZoomedProcessInstanceHeapTest {
     inst3 = OPMObjectInstance.createFromValue(new BigDecimal(3));
     compInst1 = OPMObjectInstance.createCompositeInstance();
     compInst2 = OPMObjectInstance.createCompositeInstance();
-    compInst3 = OPMObjectInstance.createCompositeInstance();
 
   }
 

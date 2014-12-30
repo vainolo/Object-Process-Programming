@@ -63,7 +63,6 @@ public class OPMObjectInstanceValueAnalyzerImplTests {
 
   @Before
   public void setup() {
-    Random r = new Random();
     valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
   }
 }

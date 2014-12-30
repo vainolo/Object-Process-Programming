@@ -8,11 +8,9 @@ package com.vainolo.phd.opm.interpreter;
 import static com.vainolo.phd.opm.utilities.OPMLogger.*;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMProcessExecutionResult.OPMProcessExecutionResultType;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
  * Default implementation of {@link OPMProcessInstance} interface to be used by

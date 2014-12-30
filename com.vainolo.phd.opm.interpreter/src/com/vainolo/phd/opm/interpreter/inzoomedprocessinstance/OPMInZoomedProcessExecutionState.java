@@ -9,16 +9,13 @@ import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Function;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
 
 /**
- * State of a {@link OPMInZoomedProcessExecutableInstance}
+ * State of a {@link OPMInZoomedProcessExecutableInstance_Old}
  * 
  * @author Arieh "Vainolo" Bibliowicz
  * 
