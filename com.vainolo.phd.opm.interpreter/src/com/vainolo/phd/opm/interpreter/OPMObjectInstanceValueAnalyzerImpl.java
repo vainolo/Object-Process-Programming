@@ -1,5 +1,7 @@
 package com.vainolo.phd.opm.interpreter;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
+
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;

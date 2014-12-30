@@ -13,19 +13,38 @@ import com.vainolo.phd.opm.model.OPMState;
 
 public interface OPDAnalyzer {
 
-  public abstract Collection<OPMProcess> findFirstLevelContainedProcesses(OPMContainer container);
+  public boolean isSourceObject(OPMLink link);
+
+  public boolean isSourceState(OPMLink link);
+
+  public boolean isSourceProcess(OPMLink link);
+
+  public Collection<OPMProcess> findFirstLevelContainedProcesses(OPMContainer container);
 
   /**
-   * Return the {@link OPMObject} connected to an {@link OPMProceduralLink},
-   * when there is no ambiguity.
+   * Return the {@link OPMObject} connected to an {@link OPMLink}, when there is
+   * no ambiguity.
    * 
    * @param link
    *          connected to an {@link OPMObject}
-   * @return the source or target {@link OPMObject} of the
-   *         {@link OPMProceduralLink}, if there is no ambiguity, or
-   *         <code>null</code> if there is ambiguity.
+   * @return the source or target {@link OPMObject} of the {@link OPMLink}, if
+   *         there is no ambiguity, or <code>null</code> if there is ambiguity.
    */
-  public abstract OPMObject getObject(OPMLink link);
+  public OPMObject getObject(OPMLink link);
+
+  /**
+   * Return the {@link OPMObject} source of an {@link OPMLink} that starts in an
+   * {@link OPMObject} or an {@link OPMState}.
+   * 
+   * @param link
+   *          from where the {@link OPMObject} is fetched.
+   * @return the source {@link OPMObject} of the {@link OPMLink} or
+   *         <code>null</code> if the source is not an {@link OPMObject} of
+   *         {@link OPMState}.
+   */
+  public OPMObject getSourceObject(OPMLink link);
+
+  public OPMState getSourceState(OPMProceduralLink link);
 
   /**
    * Return the {@link OPMProcess} connected to an {@link OPMLink}, when there
@@ -57,13 +76,15 @@ public interface OPDAnalyzer {
    *          to search.
    * @return the parameters of the OPD.
    */
-  public abstract Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd);
+  public Collection<OPMObject> findParameters(OPMObjectProcessDiagram opd);
 
-  public abstract Collection<OPMObject> findIncomingParameters(OPMObjectProcessDiagram opd);
+  public Collection<OPMObject> findIncomingParameters(OPMObjectProcessDiagram opd);
 
-  public abstract Collection<OPMObject> findOutgoingParameters(OPMObjectProcessDiagram opd);
+  public Collection<OPMObject> findOutgoingParameters(OPMObjectProcessDiagram opd);
 
-  public abstract boolean hasOutgoingDataLinks(OPMObject object);
+  public boolean hasOutgoingDataLinks(OPMObject object);
+
+  public Collection<OPMProceduralLink> findOutgoingAgentLinks(OPMObject object);
 
   /**
    * Find all the {@link OPMObject} instances directly contained in an
@@ -197,7 +218,7 @@ public interface OPDAnalyzer {
    *          to search.
    * @return all outgoing data links
    */
-  public abstract Collection<OPMProceduralLink> findOutgoingDataTrasferLinks(OPMObject object);
+  public abstract Collection<OPMProceduralLink> findOutgoingDataLinks(OPMObject object);
 
   public abstract boolean isLinkTargetAnObject(OPMProceduralLink link);
 
@@ -265,5 +286,7 @@ public interface OPDAnalyzer {
    *         otherwise.
    */
   public abstract boolean isObjectCollection(OPMObject object);
+
+  public OPMObject getObject(OPMState state);
 
 }

@@ -80,10 +80,11 @@ public class OPDExecutionAnalyzer {
 
   /**
    * <p>
-   * Calculate which processes can be executed when the provided process ends.
+   * Calculate the successors process of a process as defined in the OPD DAG.
    * The returned processes may execute if they have no other predecessor
-   * processes. Otherwise they must wait for all other predecessor processes to
-   * end for them to execute.
+   * processes, must wait for all other predecessor processes to end for them to
+   * execute, or may be skipped, depending on the current state of the executed
+   * OPD.
    * </p>
    * 
    * @param opdDag

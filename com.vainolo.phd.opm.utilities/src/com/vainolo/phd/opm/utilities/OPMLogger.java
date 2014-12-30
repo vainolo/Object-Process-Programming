@@ -15,8 +15,6 @@ public class OPMLogger {
   static {
     logger = Logger.getLogger("OPM");
     logger.setUseParentHandlers(false);
-    System.out.println("Handlers: " + logger.getHandlers().length);
-    System.out.println("Parent handlers: " + logger.getParent().getHandlers().length);
     ConsoleHandler handler = new ConsoleHandler();
     Formatter formatter = new Formatter() {
       String format = "[%1$tF %1$tT] %2$s %3$s %5$s\n";
@@ -48,49 +46,79 @@ public class OPMLogger {
     };
     handler.setFormatter(formatter);
     handler.setLevel(Level.FINEST);
+    logger.setLevel(Level.FINEST);
     logger.addHandler(handler);
   }
 
-  public static String[] getClassNameAndMethodName(StackTraceElement[] stack) {
-    return new String[] { stack[3].getClassName(), stack[3].getMethodName() };
+  private static String[] getClassNameAndMethodName(StackTraceElement[] stack) {
+    String[] fullClassName = stack[3].getClassName().split("\\.");
+    String className = fullClassName[fullClassName.length - 1];
+
+    return new String[] { className, stack[3].getMethodName() };
   }
 
-  private static void log(Level level, String msg) {
+  private static void log(Level level, String msg, Object[] params) {
     String[] classAndMethod = getClassNameAndMethodName(Thread.currentThread().getStackTrace());
-    logger.logp(level, classAndMethod[0], classAndMethod[1], msg);
-  }
-
-  public static void info(String msg) {
-    log(Level.INFO, msg);
-  }
-
-  public static void warning(String msg) {
-    log(Level.WARNING, msg);
-  }
-
-  public static void severe(String msg) {
-    log(Level.SEVERE, msg);
-  }
-
-  public static void fine(String msg) {
-    log(Level.FINE, msg);
-  }
-
-  public static void finer(String msg) {
-    log(Level.FINER, msg);
-  }
-
-  public static void finest(String msg) {
-    log(Level.FINEST, msg);
+    logger.logp(level, classAndMethod[0], classAndMethod[1], msg, params);
   }
 
   public static void setLevel(Level level) {
     logger.setLevel(level);
   }
 
+  public static void logInfo(String msg) {
+    logInfo(msg, (Object) null);
+  }
+
+  public static void logInfo(String msg, Object... params) {
+    log(Level.INFO, msg, params);
+  }
+
+  public static void logWarning(String msg) {
+    logWarning(msg, (Object) null);
+  }
+
+  public static void logWarning(String msg, Object... params) {
+    log(Level.WARNING, msg, params);
+  }
+
+  public static void logSevere(String msg) {
+    logSevere(msg, (Object) null);
+  }
+
+  public static void logSevere(String msg, Object... params) {
+    log(Level.SEVERE, msg, params);
+  }
+
+  public static void logFine(String msg) {
+    logFine(msg, (Object) null);
+  }
+
+  public static void logFine(String msg, Object... params) {
+    log(Level.FINE, msg, params);
+  }
+
+  public static void logFiner(String msg) {
+    logFiner(msg, (Object) null);
+  }
+
+  public static void logFiner(String msg, Object... params) {
+    log(Level.FINER, msg, params);
+  }
+
+  public static void logFinest(String msg) {
+    logFinest(msg, (Object) null);
+  }
+
+  public static void logFinest(String msg, Object... params) {
+    log(Level.FINEST, msg, params);
+  }
+
   public static void main(String args[]) {
-    OPMLogger.info("Hello");
+    OPMLogger.logInfo("Hello");
     logger.setLevel(Level.FINEST);
-    OPMLogger.finest("World");
+    OPMLogger.logFinest("World");
+
+    OPMLogger.logInfo("Hello {0}", "hello");
   }
 }

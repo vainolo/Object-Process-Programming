@@ -1,6 +1,7 @@
 package com.vainolo.phd.opm.utilities.analysis;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import com.google.common.base.Predicate;
@@ -37,6 +38,17 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
       return OPMObject.class.cast(source);
     else if(!OPMObject.class.isInstance(source) && OPMObject.class.isInstance(target))
       return OPMObject.class.cast(target);
+    else if(OPMState.class.isInstance(source))
+      return OPMObject.class.cast(source.getContainer());
+    else
+      return null;
+  }
+
+  @Override
+  public OPMObject getSourceObject(OPMLink link) {
+    OPMNode source = link.getSource();
+    if(OPMObject.class.isInstance(source))
+      return OPMObject.class.cast(source);
     else if(OPMState.class.isInstance(source))
       return OPMObject.class.cast(source.getContainer());
     else
@@ -107,7 +119,7 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
 
   @Override
   public boolean hasOutgoingDataLinks(OPMObject object) {
-    return findOutgoingDataTrasferLinks(object).size() > 0;
+    return findOutgoingDataLinks(object).size() > 0;
   }
 
   /*
@@ -273,11 +285,26 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
    */
   @Override
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPMProceduralLink> findOutgoingDataTrasferLinks(OPMObject object) {
+  public Collection<OPMProceduralLink> findOutgoingDataLinks(OPMObject object) {
     Collection result = Lists.newArrayList();
     result.addAll(Collections2.filter(object.getOutgoingLinks(), new IsOPMObjectOutgoingDataTransferLink()));
     for(OPMState state : findStates(object)) {
       result.addAll(findOutgoingDataLinks(state));
+    }
+    return result;
+  }
+
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPMProceduralLink> findOutgoingAgentLinks(OPMState state) {
+    return (Collection) Collections2.filter(state.getOutgoingLinks(), IsOPMAgentLink.INSTANCE);
+  }
+
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPMProceduralLink> findOutgoingAgentLinks(OPMObject object) {
+    Collection result = Lists.newArrayList();
+    result.addAll(Collections2.filter(object.getOutgoingLinks(), IsOPMAgentLink.INSTANCE));
+    for(OPMState state : findStates(object)) {
+      result.addAll(findOutgoingAgentLinks(state));
     }
     return result;
   }
@@ -303,8 +330,10 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
    */
   @Override
   public Collection<OPMProceduralLink> findOutgoingEventLinks(OPMObject object) {
-    Collection<OPMProceduralLink> outgoingDataLinks = findOutgoingDataTrasferLinks(object);
-    return Collections2.filter(outgoingDataLinks, IsOPMEventLink.INSTANCE);
+    List<OPMProceduralLink> outgoingProceduralLinks = Lists.newArrayList();
+    outgoingProceduralLinks.addAll(findOutgoingDataLinks(object));
+    outgoingProceduralLinks.addAll(findOutgoingAgentLinks(object));
+    return Collections2.filter(outgoingProceduralLinks, IsOPMEventLink.INSTANCE);
   }
 
   /*
@@ -420,9 +449,7 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
       else {
         OPMProceduralLink localLink = (OPMProceduralLink) link;
         switch(localLink.getKind()) {
-        // case AGENT:
         case CONSUMPTION:
-          // case INSTRUMENT:
           return true;
         default:
           return false;
@@ -644,4 +671,28 @@ public class OPDAnalyzerImpl implements OPDAnalyzer {
     return object.isCollection();
   }
 
+  @Override
+  public boolean isSourceObject(OPMLink link) {
+    return OPMObject.class.isInstance(link.getSource());
+  }
+
+  @Override
+  public boolean isSourceState(OPMLink link) {
+    return OPMState.class.isInstance(link.getSource());
+  }
+
+  @Override
+  public boolean isSourceProcess(OPMLink link) {
+    return OPMProcess.class.isInstance(link.getSource());
+  }
+
+  @Override
+  public OPMState getSourceState(OPMProceduralLink link) {
+    return OPMState.class.cast(link.getSource());
+  }
+
+  @Override
+  public OPMObject getObject(OPMState state) {
+    return OPMObject.class.cast(state.getContainer());
+  }
 }

@@ -5,10 +5,13 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
+
 import java.util.List;
 import java.util.logging.Logger;
 
 import com.google.common.collect.Lists;
+import com.vainolo.phd.opm.interpreter.OPMProcessExecutionResult.OPMProcessExecutionResultType;
 import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
@@ -19,11 +22,10 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * 
  */
 public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
   protected final OPMProcessInstanceHeap heap = new OPMProcessInstanceHeap();
   private String name;
-  private OPMProcessExecutionResult result = OPMProcessExecutionResult.FINISHED;
+  private OPMProcessExecutionResult result;
 
   protected OPMProcessInstanceHeap getHeap() {
     return heap;
@@ -47,21 +49,23 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 
   /**
    * {@inheritDoc}
+   * 
+   * @throws Exception
    */
-  abstract protected void executing();
+  abstract protected void executing() throws Exception;
 
   /**
    * {@inheritDoc}
    */
   protected void preExecution() {
-    logger.info("Started executing process " + getName());
+    logInfo("Started executing process " + getName());
   }
 
   /**
    * {@inheritDoc}
    */
   protected void postExecution() {
-    logger.info("Finished executing process " + getName());
+    logInfo("Finished executing process " + getName());
   }
 
   @Override
@@ -90,7 +94,7 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
 
   @Override
   public OPMProcessExecutionResult call() throws Exception {
-    result.instance = this;
+    result = new OPMProcessExecutionResult(this, OPMProcessExecutionResultType.FINISHED);
     try {
       preExecution();
       executing();
@@ -101,4 +105,8 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
     return result;
   }
 
+  @Override
+  public String toString() {
+    return getName() + "@" + Integer.toHexString(hashCode());
+  }
 }

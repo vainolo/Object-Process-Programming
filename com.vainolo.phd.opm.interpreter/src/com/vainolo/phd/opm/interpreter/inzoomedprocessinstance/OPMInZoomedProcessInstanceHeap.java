@@ -1,14 +1,22 @@
 package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
+
+import java.nio.channels.IllegalSelectorException;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.*;
 import static com.vainolo.phd.opm.interpreter.utils.OPMInterpreterPreconditions.*;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.google.inject.Inject;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
@@ -31,7 +39,7 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     this.valueAnalyzer = valueAnalyzer;
     this.analyzer = analyzer;
     this.variables = Maps.newHashMap();
-    this.observable = new OPMProcessInstanceHeapObservable();
+    this.observable = new OPMHeapObservable();
   }
 
   /**
@@ -56,17 +64,18 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
    *          the value to store
    */
   public void setVariable(OPMObject object, OPMObjectInstance value) {
+    logFiner("Setting value of object {0} with value {1}.", object.getName(), value);
     checkArgument(value != null, "Value cannot be null");
     if(analyzer.isObjectComposite(object)) {
-      checkInstanceIsComposite(value, "The value of a composite object must be a composite instance.");
+      checkInstanceArgumentIsComposite(value, "The value of a composite object must be a composite instance.");
     } else {
-      checkInstanceIsNotComposite(value, "The value of a simple object cannot be a composite instance.");
+      checkInstanceArgumentIsNotComposite(value, "The value of a simple object cannot be a composite instance.");
     }
 
     if(analyzer.isObjectCollection(object)) {
-      checkInstanceIsCollection(value, "The value of a collection object must be a collection instance.");
+      checkInstanceArgumentIsCollection(value, "The value of a collection object must be a collection instance.");
     } else {
-      checkInstanceIsNotCollection(value, "The value of a simple object cannot be a collection instance.");
+      checkInstanceArgumentIsNotCollection(value, "The value of a simple object cannot be a collection instance.");
     }
 
     if(analyzer.isObjectPartOfAnotherObject(object)) {
@@ -78,11 +87,11 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
       setVariable(parentObject, parentValue);
       parentValue = getVariable(parentObject);
       parentValue.addCompositePart(object.getName(), OPMObjectInstance.createFromExistingInstance(value));
-      observable.notifyObservers(new HeapChange(parentObject, parentValue, object, getVariable(object)));
+      observable.notifyObservers(new OPMHeapChange(parentObject, parentValue, object, getVariable(object)));
     } else {
       OPMObjectInstance objectValue = OPMObjectInstance.createFromExistingInstance(value);
       variables.put(object, objectValue);
-      observable.notifyObservers(new HeapChange(object, objectValue));
+      observable.notifyObservers(new OPMHeapChange(object, objectValue));
     }
     transferDataFromObject(object);
   }
@@ -101,11 +110,16 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     if(analyzer.isObjectPartOfAnotherObject(object)) {
       OPMObjectInstance parent = getVariable(analyzer.findParent(object));
       if(parent == null) {
-        return null;
+        logSevere("Tried to get the value of {0} which is part of another object, but parent object doesn't exist.",
+            object.getName());
+        throw new IllegalStateException(
+            "Getting value of an object which is part of another object, but parent doesn't exist.");
       } else {
+        logFinest("Getting value of {0} which is {1}.", object.getName(), parent.getCompositePart(object.getName()));
         return parent.getCompositePart(object.getName());
       }
     } else {
+      logFinest("Getting value of {0} which is {1}.", object.getName(), variables.get(object));
       return variables.get(object);
     }
   }
@@ -117,7 +131,7 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
    * @param object
    */
   private void transferDataFromObject(OPMObject object) {
-    Collection<OPMProceduralLink> dataTransferLinks = analyzer.findOutgoingDataTrasferLinks(object);
+    Collection<OPMProceduralLink> dataTransferLinks = analyzer.findOutgoingDataLinks(object);
     for(OPMProceduralLink link : dataTransferLinks) {
       if(analyzer.isLinkTargetAnObject(link)) {
         OPMObject target = OPMObject.class.cast(link.getTarget());
@@ -203,11 +217,17 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     }
   }
 
+  /**
+   * Add an observer to changes in the {@link OPMInZoomedProcessInstanceHeap}
+   * 
+   * @param observer
+   *          a new observer for this {@link OPMInZoomedProcessInstanceHeap}
+   */
   public void addObserver(Observer observer) {
     observable.addObserver(observer);
   }
 
-  class OPMProcessInstanceHeapObservable extends Observable {
+  class OPMHeapObservable extends Observable {
     @Override
     public void notifyObservers(Object arg) {
       setChanged();
@@ -215,26 +235,53 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
     }
   }
 
-  enum HeapChangeType {
+  static class OPMHeapObserver implements Observer {
+    private List<OPMHeapChange> changes = Lists.newArrayList();
+
+    @Override
+    public void update(Observable o, Object arg) {
+      changes.add(0, OPMHeapChange.class.cast(arg));
+    }
+
+    public void clear() {
+      changes.clear();
+    }
+
+    public List<OPMHeapChange> getChanges() {
+      return Collections.unmodifiableList(changes);
+    }
+
+    public Set<OPMObject> getObjectsWithNewValue() {
+      Set<OPMObject> objects = Sets.newHashSet();
+      for(OPMHeapChange change : changes) {
+        if(change.changeType.equals(OPMHeapChangeType.VARIABLE_SET)) {
+          objects.add(change.object);
+        }
+      }
+      return objects;
+    }
+  }
+
+  enum OPMHeapChangeType {
     VARIABLE_SET, PART_ADDED
   }
 
-  class HeapChange {
-    public HeapChangeType changeType;
+  class OPMHeapChange {
+    public OPMHeapChangeType changeType;
     public OPMObject object;
     public OPMObjectInstance objectInstance;
     public OPMObject child;
     public OPMObjectInstance childInstance;
 
-    public HeapChange(OPMObject object, OPMObjectInstance instance) {
-      this.changeType = HeapChangeType.VARIABLE_SET;
+    public OPMHeapChange(OPMObject object, OPMObjectInstance instance) {
+      this.changeType = OPMHeapChangeType.VARIABLE_SET;
       this.object = object;
       this.objectInstance = instance;
     }
 
-    public HeapChange(OPMObject parent, OPMObjectInstance parentInstance, OPMObject child,
+    public OPMHeapChange(OPMObject parent, OPMObjectInstance parentInstance, OPMObject child,
         OPMObjectInstance childInstance) {
-      this.changeType = HeapChangeType.PART_ADDED;
+      this.changeType = OPMHeapChangeType.PART_ADDED;
       this.object = parent;
       this.objectInstance = parentInstance;
       this.child = child;

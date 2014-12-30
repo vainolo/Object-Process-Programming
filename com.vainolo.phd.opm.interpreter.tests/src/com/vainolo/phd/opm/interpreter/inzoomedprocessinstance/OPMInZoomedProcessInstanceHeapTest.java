@@ -14,8 +14,8 @@ import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMInterpreterInjector;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance.InstanceType;
-import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessInstanceHeap.HeapChange;
-import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessInstanceHeap.HeapChangeType;
+import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessInstanceHeap.OPMHeapChange;
+import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessInstanceHeap.OPMHeapChangeType;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMStructuralLink;
@@ -74,11 +74,11 @@ public class OPMInZoomedProcessInstanceHeapTest {
     heap.setVariable(part1, inst1);
 
     assertEquals(2, observer.changes.size());
-    assertEquals(HeapChangeType.PART_ADDED, observer.changes.get(0).changeType);
+    assertEquals(OPMHeapChangeType.PART_ADDED, observer.changes.get(0).changeType);
     assertEquals(obj1, observer.changes.get(0).object);
     assertEquals(part1, observer.changes.get(0).child);
     assertEquals(inst1.getNumericalValue(), observer.changes.get(0).childInstance.getNumericalValue());
-    assertEquals(HeapChangeType.VARIABLE_SET, observer.changes.get(1).changeType);
+    assertEquals(OPMHeapChangeType.VARIABLE_SET, observer.changes.get(1).changeType);
     assertTrue(observer.changes.get(1).objectInstance.type == InstanceType.COMPOSITE);
     assertEquals(inst1.getNumericalValue(), observer.changes.get(0).objectInstance.getCompositePart(part1.getName())
         .getNumericalValue());
@@ -169,11 +169,11 @@ public class OPMInZoomedProcessInstanceHeapTest {
   }
 
   class MyObserver implements Observer {
-    public List<HeapChange> changes = Lists.newArrayList();
+    public List<OPMHeapChange> changes = Lists.newArrayList();
 
     @Override
     public void update(Observable o, Object arg) {
-      changes.add(0, HeapChange.class.cast(arg));
+      changes.add(0, OPMHeapChange.class.cast(arg));
     }
   }
 }

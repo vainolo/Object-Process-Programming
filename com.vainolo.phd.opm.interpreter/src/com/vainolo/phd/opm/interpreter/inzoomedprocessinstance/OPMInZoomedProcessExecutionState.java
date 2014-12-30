@@ -1,13 +1,19 @@
 package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
+import static com.google.common.base.Preconditions.*;
+
 import java.util.Collections;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import com.google.common.base.Function;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
 
@@ -65,11 +71,13 @@ public class OPMInZoomedProcessExecutionState {
   }
 
   public void removeReadyInstance(OPMProcessInstance instance) {
+    checkState(readyInstances.contains(instance), "Instance " + instance.getName() + " is not ready.");
     instanceToProcessMapping.remove(instance);
     readyInstances.remove(instance);
   }
 
   public void removeWaitingInstance(OPMProcessInstance instance) {
+    checkState(waitingInstances.contains(instance), "Instance " + instance.getName() + " is not waiting.");
     instanceToProcessMapping.remove(instance);
     waitingInstances.remove(instance);
   }

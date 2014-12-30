@@ -1,5 +1,7 @@
 package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +20,9 @@ import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzerImpl;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceHeap;
+import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessInstanceHeap.OPMHeapChange;
+import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessInstanceHeap.OPMHeapChangeType;
+import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessInstanceHeap.OPMHeapObserver;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalyzer;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
@@ -25,6 +30,7 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.utilities.OPMConstants;
+import com.vainolo.phd.opm.utilities.OPMStrings;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -52,6 +58,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
 
+  private OPMHeapObserver heapObserver;
+
   /**
    * Create a new instance.
    * 
@@ -68,6 +76,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     this.valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
     this.loader = OPMInZoomedProcessArgumentLoader.createArgumentLoader(analyzer, executionState, heap);
     this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer, executionState, heap);
+    this.heapObserver = new OPMHeapObserver();
+    this.heap.addObserver(heapObserver);
   }
 
   @Override
@@ -75,7 +85,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     super.preExecution();
     inZoomedProcess = analyzer.getInZoomedProcess(getOpd());
     opdDag = executionAnalyzer.createExecutionDAG(getInZoomedProcess());
-    heap.initializeVariables(getOpd());
+    heap.initializeVariablesWithArgumentValues(getOpd());
   }
 
   @Override
@@ -84,26 +94,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     heap.exportVariableValuesToArguments(getOpd());
   }
 
-  @Override
-  public String getName() {
-    return getOpd().getName();
-  }
-
-  /**
-   * @deprecated This function should not be stopeed for this kind of instance.
-   *             It will throw an exception.
-   */
-  @Override
-  public void setName(String name) {
-    throw new UnsupportedOperationException();
-  }
-
-  @Override
-  protected OPMProcessInstanceHeap getHeap() {
-    return heap;
-  }
-
-  private void createInitialSetOfExecutableInstances() {
+  private void createInitialSetOfWaitingInstances() {
     Set<OPMProcess> initialProcesses = executionAnalyzer.findInitialProcesses(opdDag);
     for(OPMProcess process : initialProcesses) {
       OPMProcessInstance instance = OPMProcessInstanceFactory.createExecutableInstance(process);
@@ -114,8 +105,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   public Set<OPMProcessInstance> findWaitingInstanceThatCanBeMadeReady() {
     Set<OPMProcessInstance> newReadyInstances = Sets.newHashSet();
     for(OPMProcessInstance waitingInstance : executionState.getWaitingInstances()) {
-      loader.loadInstanceArguments(waitingInstance);
-      if(waitingInstance.isReady())
+      // loader.loadInstanceArguments(waitingInstance);
+      if(!isInstanceReady(waitingInstance))
         newReadyInstances.add(waitingInstance);
     }
     return newReadyInstances;
@@ -124,7 +115,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   public Set<OPMProcessInstance> findWaitingInstancesThatMustBeSkipped() {
     Set<OPMProcessInstance> instancesThatMustBeSkipped = Sets.newHashSet();
     for(OPMProcessInstance waitingInstance : executionState.getWaitingInstances()) {
-      loader.loadInstanceArguments(waitingInstance);
+      // loader.loadInstanceArguments(waitingInstance);
       if(instanceMustBeSkipped(waitingInstance)) {
         instancesThatMustBeSkipped.add(waitingInstance);
       }
@@ -142,7 +133,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
 
   @Override
   protected void executing() {
-    createInitialSetOfExecutableInstances();
+    createInitialSetOfWaitingInstances();
     if(!executionState.areThereWaitingInstances()) {
       logger.info("Nothing to execute in " + getName());
       return;
@@ -306,8 +297,37 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
         }
       }
     }
-
     return false;
+  }
+
+  private boolean isInstanceReady(OPMProcessInstance instance) {
+    for(OPMProceduralLink link : analyzer.findIncomingProceduralLinks(executionState.getProcess(instance))) {
+      OPMObjectInstance variable = heap.getVariable(analyzer.getObject(link));
+      if(variable == null) {
+        logInfo(OPMStrings.INSTANCE_NOT_READY_PARAMETER, executionState.getProcess(instance).getName(),
+            analyzer.getObject(link).getName());
+        // logger.info("Instance of " +
+        // executionState.getProcess(instance).getName() +
+        // " is not ready because parameter "
+        // + analyzer.getObject(link).getName() + " is empty.");
+        return false;
+      } else {
+        if(OPMState.class.isInstance(link.getSource())) {
+          if(!valueAnalyzer.isObjectInstanceInState(variable, OPMState.class.cast(link.getSource()))) {
+            logInfo(OPMStrings.INSTANCE_NOT_READY_PARAMETER_STATE, executionState.getProcess(instance)
+                .getName(), analyzer.getObject(link).getName(), OPMState.class.cast(link.getSource()).getName());
+            // logger.info("Instance of " +
+            // executionState.getProcess(instance).getName()
+            // + " is not ready because conditional parameter " +
+            // analyzer.getObject(link).getName()
+            // + " is not in state " +
+            // OPMState.class.cast(link.getSource()).getName() + ".");
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   }
 
   @Override
@@ -359,4 +379,24 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     }
     return outgoingParameterNames;
   }
+
+  @Override
+  public String getName() {
+    return getOpd().getName();
+  }
+
+  /**
+   * @deprecated This function should not be called for this kind of instance.
+   *             Calling it will throw an exception
+   */
+  @Override
+  public void setName(String name) {
+    throw new UnsupportedOperationException();
+  }
+
+  @Override
+  protected OPMProcessInstanceHeap getHeap() {
+    return heap;
+  }
+
 }

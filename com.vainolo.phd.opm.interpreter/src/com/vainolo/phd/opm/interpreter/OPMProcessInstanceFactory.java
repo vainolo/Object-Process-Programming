@@ -20,6 +20,7 @@ import com.vainolo.phd.opm.interpreter.builtin.OPMOutputProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMPrintHelloWorldProcessInstance;
 import com.vainolo.phd.opm.interpreter.builtin.OPMSleepProcessInstance;
 import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessExecutableInstance;
+import com.vainolo.phd.opm.interpreter.inzoomedprocessinstance.OPMInZoomedProcessExecutableInstance2;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.OPMFileUtils;
@@ -33,7 +34,7 @@ public class OPMProcessInstanceFactory {
   public static OPMProcessInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
     case COMPOUND:
-      return new OPMInZoomedProcessExecutableInstance(opd, new OPDAnalyzerImpl());
+      return new OPMInZoomedProcessExecutableInstance2(opd, new OPDAnalyzerImpl());
     case UNFOLDED:
       logger.info("Unfolded OPDs cannot be executed.");
       throw new IllegalArgumentException("Unfolded OPDs cannot be executed");

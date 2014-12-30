@@ -10,6 +10,7 @@ import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
+import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
@@ -30,11 +31,11 @@ public class OPMInZoomedProcessArgumentLoader {
     return loader;
   }
 
-  public void loadInstanceArguments(OPMProcessInstance instance) {
+  public void loadInstanceArguments(OPMProcess process, OPMProcessInstance instance) {
     Map<String, OPMObject> namedArguments = Maps.newHashMap();
     List<OPMObject> anonymousArguments = Lists.newArrayList();
 
-    for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(executionState.getProcess(instance))) {
+    for(OPMLink incomingDataLink : analyzer.findIncomingDataLinks(process)) {
       if(incomingDataLink.getCenterDecoration() == null || "".equals(incomingDataLink.getCenterDecoration())) {
         anonymousArguments.add(analyzer.getObject(incomingDataLink));
       } else {
@@ -47,6 +48,10 @@ public class OPMInZoomedProcessArgumentLoader {
     availableParameters.removeAll(namedArguments.keySet());
 
     loadAnonymousArguments(instance, anonymousArguments, availableParameters);
+  }
+
+  public void loadInstanceArguments(OPMProcessInstance instance) {
+    loadInstanceArguments(executionState.getProcess(instance), instance);
   }
 
   private void loadNamedArguments(OPMProcessInstance instance, Map<String, OPMObject> namedArguments) {
