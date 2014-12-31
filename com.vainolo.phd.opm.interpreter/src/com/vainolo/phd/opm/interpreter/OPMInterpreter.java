@@ -9,8 +9,12 @@ import static com.vainolo.phd.opm.utilities.OPMLogger.*;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+
 import org.eclipse.core.resources.IContainer;
+
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
+import com.vainolo.phd.opm.utilities.OPMLogger;
 
 /**
  * 
@@ -39,6 +43,7 @@ public enum OPMInterpreter {
    * @param container
    */
   public void interpret(String opdName, final IContainer _container) {
+    OPMLogger.setLevel(Level.FINER);
     container = _container;
     logInfo("Interpreting OPD {0}.", opdName);
     OPMProcessInstance instance = OPMProcessInstanceFactory.createExecutableInstance(opdName);

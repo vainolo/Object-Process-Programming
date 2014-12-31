@@ -22,53 +22,27 @@ import static com.google.common.base.Preconditions.*;
  * 
  */
 public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValueAnalyzer {
-  /**
-   * Check if the value is a string literal. This is done by checking if the
-   * initial character in the value is either a " or a '.
-   * 
-   * @param value
-   *          to check. Must not be <code>null</code> or empty.
-   * @return <code>true</code> if the value is a string literal,
-   *         <code>false</code> otherwise.
-   */
-  private boolean isStringLiteral(String value) {
+
+  @Override
+  public boolean isStringLiteral(String value) {
     if(value.startsWith("\"") || value.startsWith("'"))
       return true;
     else
       return false;
   }
 
-  /**
-   * Parse a string literal, removing starting and ending "/'.
-   * 
-   * @param value
-   *          to parse. Must not be <code>null</code> or empty.
-   * @return the string represented in this string literal.
-   */
-  private String parseStringLiteral(String value) {
+  @Override
+  public String parseStringLiteral(String value) {
     return value.substring(1, value.length() - 1);
   }
 
-  /**
-   * Check if the literal is a number. This is done by checking if the first
-   * character of the value is a number.
-   * 
-   * @param value
-   *          to check. Must not be <code>null</code> or empty.
-   * @return <code>true</code> if the value is a number, false otherwise.
-   */
-  private boolean isNumericalLiteral(String value) {
+  @Override
+  public boolean isNumericalLiteral(String value) {
     return value.matches("-?\\d+(\\.\\d+)?");
   }
 
-  /**
-   * Parse a number literal.
-   * 
-   * @param value
-   *          to parse. Must not be <code>null</code> or empty.
-   * @return the value that the literal represents.
-   */
-  private BigDecimal parseNumericalLiteral(String value) {
+  @Override
+  public BigDecimal parseNumericalLiteral(String value) {
     return new BigDecimal(value);
   }
 

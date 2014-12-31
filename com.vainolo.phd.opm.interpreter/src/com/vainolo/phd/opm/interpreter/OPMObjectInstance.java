@@ -161,13 +161,19 @@ public class OPMObjectInstance {
     checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
     checkNotNull(element, "Cannot insert a null element to a collection.");
     collectionValues.add(element);
-    collectionNameToIndexMapping.put(name, collectionValues.size());
+    collectionNameToIndexMapping.put(name, collectionValues.size() - 1);
   }
 
   public OPMObjectInstance getCollectionElement(String name) {
     checkTypeForCollectionOnlyOperations();
     checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
+    checkState(collectionNameToIndexMapping.containsKey(name), "Collection does not an index %s.", name);
     return collectionValues.get(collectionNameToIndexMapping.get(name));
+  }
+
+  public OPMObjectInstance getCollectionElementAtIndex(int index) {
+    checkTypeForCollectionOnlyOperations();
+    return collectionValues.get(index - 1);
   }
 
   public OPMObjectInstance getFirstCollectionElement() {
@@ -201,8 +207,16 @@ public class OPMObjectInstance {
       }
       ret.replace(ret.length() - 1, ret.length(), "}");
       return ret.toString();
+    } else if(InstanceType.COLLECTION.equals(type)) {
+      StringBuilder ret = new StringBuilder("[");
+      for(OPMObjectInstance element : collectionValues) {
+        ret.append(element.toString() + ",");
+      }
+      if(ret.length() > 2)
+        ret.replace(ret.length() - 1, ret.length(), "]");
+      return ret.toString();
     } else {
-      return "";
+      return super.toString();
     }
   }
 
@@ -225,4 +239,5 @@ public class OPMObjectInstance {
   public enum InstanceType {
     NUMERICAL, STRING, COMPOSITE, COLLECTION;
   }
+
 }

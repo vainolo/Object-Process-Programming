@@ -7,6 +7,44 @@ import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 public interface OPMObjectInstanceValueAnalyzer {
+  /**
+   * Check if the value is a string literal. This is done by checking if the
+   * initial character in the value is either a " or a '.
+   * 
+   * @param value
+   *          to check. Must not be <code>null</code> or empty.
+   * @return <code>true</code> if the value is a string literal,
+   *         <code>false</code> otherwise.
+   */
+  boolean isStringLiteral(String value);
+
+  /**
+   * Parse a string literal, removing starting and ending "/'.
+   * 
+   * @param value
+   *          to parse. Must not be <code>null</code> or empty.
+   * @return the string represented in this string literal.
+   */
+  String parseStringLiteral(String value);
+
+  /**
+   * Check if the literal is a number. This is done by checking if the first
+   * character of the value is a number.
+   * 
+   * @param value
+   *          to check. Must not be <code>null</code> or empty.
+   * @return <code>true</code> if the value is a number, false otherwise.
+   */
+  boolean isNumericalLiteral(String value);
+
+  /**
+   * Parse a number literal.
+   * 
+   * @param value
+   *          to parse. Must not be <code>null</code> or empty.
+   * @return the value that the literal represents.
+   */
+  public BigDecimal parseNumericalLiteral(String value);
 
   /**
    * Calculate the value of an {@link OPMObjectInstance} based on a string.

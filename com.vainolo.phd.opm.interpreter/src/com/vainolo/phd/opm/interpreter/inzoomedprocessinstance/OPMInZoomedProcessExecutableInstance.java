@@ -91,7 +91,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     this.mustSkipPred = new mustSkipProcess();
     this.notReadyAndNotSkipPred = Predicates.and(Predicates.not(isReadyPred), Predicates.not(mustSkipPred));
     this.isReadyAndNotSkipPred = Predicates.and(isReadyPred, Predicates.not(mustSkipPred));
-    this.completionService = new ExecutorCompletionService<>(Executors.newWorkStealingPool());
+    this.completionService = new ExecutorCompletionService<>(Executors.newCachedThreadPool());
   }
 
   @Override
@@ -110,7 +110,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
 
   @Override
   protected void executing() throws Exception {
-    OPMLogger.setLevel(Level.FINER);
     logInfo(OPMStrings.STARTING_EXECUTION, getName());
     final Map<OPMProcessInstance, OPMProcess> mapping = Maps.newHashMap();
     heap.initializeVariablesWithLiterals(analyzer.getInZoomedProcess(getOpd()));

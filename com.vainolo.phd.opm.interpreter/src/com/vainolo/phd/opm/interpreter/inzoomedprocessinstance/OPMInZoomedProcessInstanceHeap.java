@@ -63,7 +63,7 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
    *          the value to store
    */
   public void setVariable(OPMObject object, OPMObjectInstance value) {
-    logFiner("Setting value of object {0} with value {1}.", object.getName(), value);
+    logFiner("Setting value of object {0} with value {1}.", object.getName(), value.toString());
     checkArgument(value != null, "Value cannot be null");
     if(analyzer.isObjectComposite(object)) {
       checkInstanceArgumentIsComposite(value, "The value of a composite object must be a composite instance.");
