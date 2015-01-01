@@ -6,9 +6,9 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
-public class OPMObjectInstanceValueAnalyzerImplTests {
+public class OPMObjectInstanceValueAnalyzerTests {
 
-  private OPMObjectInstanceValueAnalyzerImpl valueAnalyzer;
+  private OPMObjectInstanceValueAnalyzer valueAnalyzer;
   private OPMObjectInstance instance;
   private double DELTA = 0.000000001;
 
@@ -63,6 +63,6 @@ public class OPMObjectInstanceValueAnalyzerImplTests {
 
   @Before
   public void setup() {
-    valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
+    valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
   }
 }

@@ -8,7 +8,6 @@ public class OPMInterpreterModule extends AbstractModule {
 
   @Override
   protected void configure() {
-    bind(OPMObjectInstanceValueAnalyzer.class).to(OPMObjectInstanceValueAnalyzerImpl.class);
     bind(OPDAnalyzer.class).to(OPDAnalyzerImpl.class);
   }
 }

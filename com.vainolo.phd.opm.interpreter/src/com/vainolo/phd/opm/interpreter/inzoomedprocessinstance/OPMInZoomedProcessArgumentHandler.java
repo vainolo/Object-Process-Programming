@@ -11,7 +11,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
-import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzerImpl;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -34,7 +33,7 @@ public class OPMInZoomedProcessArgumentHandler {
     loader.analyzer = analyzer;
     loader.executionState = executionState;
     loader.heap = heap;
-    loader.valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
+    loader.valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
     return loader;
   }
 

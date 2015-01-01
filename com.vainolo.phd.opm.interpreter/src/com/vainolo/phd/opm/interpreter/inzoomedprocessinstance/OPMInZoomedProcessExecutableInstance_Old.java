@@ -16,7 +16,7 @@ import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMInterpreterInjector;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
-import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzerImpl;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceHeap;
@@ -50,7 +50,7 @@ public class OPMInZoomedProcessExecutableInstance_Old extends OPMAbstractProcess
   private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessExecutionHelper executionHelper;
   private OPMInZoomedProcessInstanceHeap heap;
-  private OPMObjectInstanceValueAnalyzerImpl valueAnalyzer;
+  private OPMObjectInstanceValueAnalyzer valueAnalyzer;
   private OPMInZoomedProcessArgumentHandler loader;
   private OPMInZoomedProcessResultStorer storer;
   private OPMProcess inZoomedProcess;
@@ -71,7 +71,7 @@ public class OPMInZoomedProcessExecutableInstance_Old extends OPMAbstractProcess
     this.executionHelper = new OPMInZoomedProcessExecutionHelper();
     this.executionState = new OPMInZoomedProcessExecutionState();
     this.heap = OPMInterpreterInjector.INSTANCE.getInstance(OPMInZoomedProcessInstanceHeap.class);
-    this.valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
+    this.valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
     this.loader = OPMInZoomedProcessArgumentHandler.createArgumentLoader(analyzer, executionState, heap);
     this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer, executionState, heap);
     this.heapObserver = new OPMHeapObserver();

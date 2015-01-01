@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
 
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -26,7 +25,7 @@ import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMInterpreterInjector;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
-import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzerImpl;
+import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opm.interpreter.OPMProcessExecutionResult;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
@@ -57,7 +56,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private OPDAnalyzer analyzer;
   private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessInstanceHeap heap;
-  private OPMObjectInstanceValueAnalyzerImpl valueAnalyzer;
+  private OPMObjectInstanceValueAnalyzer valueAnalyzer;
   private OPMInZoomedProcessArgumentHandler argumentHandler;
   // private OPMInZoomedProcessResultStorer storer;
   private OPMProcess inZoomedProcess;
@@ -82,7 +81,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     // this.executionHelper = new OPMInZoomedProcessExecutionHelper();
     this.executionState = new OPMInZoomedProcessExecutionState();
     this.heap = OPMInterpreterInjector.INSTANCE.getInstance(OPMInZoomedProcessInstanceHeap.class);
-    this.valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
+    this.valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
     this.argumentHandler = OPMInZoomedProcessArgumentHandler.createArgumentLoader(analyzer, executionState, heap);
     // this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer,
     // executionState, heap);
