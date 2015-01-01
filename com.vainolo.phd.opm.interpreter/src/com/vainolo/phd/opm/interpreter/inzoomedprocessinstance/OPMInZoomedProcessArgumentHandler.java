@@ -1,5 +1,7 @@
 package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.logFine;
+
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
@@ -17,18 +19,18 @@ import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
-public class OPMInZoomedProcessArgumentLoader {
+public class OPMInZoomedProcessArgumentHandler {
   private OPDAnalyzer analyzer = new OPDAnalyzerImpl();
   private OPMObjectInstanceValueAnalyzer valueAnalyzer;
   private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessInstanceHeap heap;
 
-  private OPMInZoomedProcessArgumentLoader() {
+  private OPMInZoomedProcessArgumentHandler() {
   };
 
-  public static OPMInZoomedProcessArgumentLoader createArgumentLoader(OPDAnalyzer analyzer,
+  public static OPMInZoomedProcessArgumentHandler createArgumentLoader(OPDAnalyzer analyzer,
       OPMInZoomedProcessExecutionState executionState, OPMInZoomedProcessInstanceHeap heap) {
-    OPMInZoomedProcessArgumentLoader loader = new OPMInZoomedProcessArgumentLoader();
+    OPMInZoomedProcessArgumentHandler loader = new OPMInZoomedProcessArgumentHandler();
     loader.analyzer = analyzer;
     loader.executionState = executionState;
     loader.heap = heap;
@@ -65,6 +67,8 @@ public class OPMInZoomedProcessArgumentLoader {
         namedArguments.put(incomingDataLink.getCenterDecoration(), argument);
       }
     }
+
+    logFine("Found {0} anonymous arguments and {1} named arguments.", anonymousArguments.size(), namedArguments.size());
 
     List<String> availableParameters = Lists.newArrayList(instance.getIncomingParameterNames());
     loadNamedArguments(instance, namedArguments);
@@ -116,6 +120,94 @@ public class OPMInZoomedProcessArgumentLoader {
     }
   }
 
+  public void extractResultsToVariables(OPMProcessInstance instance) {
+    extractResultsToVariables(executionState.getProcess(instance), instance);
+  }
+
+  public void extractResultsToVariables(OPMProcess process, OPMProcessInstance instance) {
+    Map<String, OPMArgument> namedResults = Maps.newHashMap();
+    List<OPMArgument> anonymousResult = Lists.newArrayList();
+
+    for(OPMLink resultLink : analyzer.findOutgoingDataLinks(process)) {
+      OPMArgument argument = new OPMArgument(analyzer.getObject(resultLink));
+      if(resultLink.getCenterDecoration() == null || "".equals(resultLink.getCenterDecoration())) {
+        anonymousResult.add(argument);
+      } else if(resultLink.getCenterDecoration().contains(",")) {
+        argument.isCollectionElement = true;
+        String argName = resultLink.getCenterDecoration().split(",")[0];
+        String collectionReference = resultLink.getCenterDecoration().split(",")[1];
+        if(valueAnalyzer.isNumericalLiteral(collectionReference)) {
+          argument.collectionElementIndex = valueAnalyzer.parseNumericalLiteral(collectionReference);
+        } else {
+          argument.collectionElementName = valueAnalyzer.parseStringLiteral(collectionReference);
+        }
+        if("".equals(argName)) {
+          anonymousResult.add(argument);
+        } else {
+          namedResults.put(argName, argument);
+        }
+      } else {
+        namedResults.put(resultLink.getCenterDecoration(), argument);
+      }
+    }
+
+    logFine("Found {0} anonymous results and {1} named results.", anonymousResult.size(), namedResults.size());
+
+    // First extract named results
+    List<String> outgoingParameters = instance.getOutgoingParameterNames();
+    for(String namedResult : namedResults.keySet()) {
+      OPMArgument argument = namedResults.get(namedResult);
+      if(argument.object.isCollection()) {
+        setCollectionElementValue(argument, instance.getArgument(namedResult));
+      } else {
+        heap.setVariable(argument.object, instance.getArgument(namedResult));
+      }
+      outgoingParameters.remove(namedResult);
+    }
+
+    // Now extract where the variable in the instance matched the result object
+    Iterator<OPMArgument> anonymousResultsIterator = anonymousResult.iterator();
+    while(anonymousResultsIterator.hasNext()) {
+      OPMArgument argument = anonymousResultsIterator.next();
+      if(instance.getOutgoingParameterNames().contains(argument.object.getName())) {
+        if(instance.getArgument(argument.object.getName()) != null) {
+          if(argument.object.isCollection()) {
+            setCollectionElementValue(argument, instance.getArgument(argument.object.getName()));
+          } else {
+            heap.setVariable(argument.object, instance.getArgument(argument.object.getName()));
+          }
+          anonymousResultsIterator.remove();
+        }
+      }
+    }
+
+    // Now extract all remaining outgoing parameters to the remaining anonymous
+    // result objects
+    int remainingResults = (outgoingParameters.size() < anonymousResult.size()) ? outgoingParameters.size()
+        : anonymousResult.size();
+    for(int i = 0; i < remainingResults; i++) {
+      OPMArgument argument = anonymousResult.get(i);
+      if(argument.object.isCollection()) {
+        setCollectionElementValue(argument, instance.getArgument(outgoingParameters.get(i)));
+      } else {
+        heap.setVariable(argument.object, instance.getArgument(outgoingParameters.get(i)));
+      }
+    }
+  }
+
+  public void setCollectionElementValue(OPMArgument argument, OPMObjectInstance value) {
+    OPMObjectInstance currentValue = heap.getVariable(argument.object);
+    if(currentValue == null) {
+      currentValue = OPMObjectInstance.createCollectionInstace();
+    }
+    if(argument.isCollectionElement) {
+      currentValue.putCollectionElement(argument.collectionElementName, value);
+    } else {
+      currentValue.appendCollectionElement(value);
+    }
+    heap.setVariable(argument.object, currentValue);
+  }
+
   private OPMObjectInstance getValue(OPMArgument argument) {
     if(!argument.isCollectionElement) {
       return heap.getVariable(argument.object);
@@ -140,6 +232,5 @@ public class OPMInZoomedProcessArgumentLoader {
     public OPMArgument(OPMObject object) {
       this.object = object;
     }
-
   }
 }

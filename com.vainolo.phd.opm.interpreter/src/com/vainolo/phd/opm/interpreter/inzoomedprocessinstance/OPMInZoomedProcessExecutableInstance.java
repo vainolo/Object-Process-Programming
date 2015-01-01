@@ -58,8 +58,8 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessInstanceHeap heap;
   private OPMObjectInstanceValueAnalyzerImpl valueAnalyzer;
-  private OPMInZoomedProcessArgumentLoader loader;
-  private OPMInZoomedProcessResultStorer storer;
+  private OPMInZoomedProcessArgumentHandler argumentHandler;
+  // private OPMInZoomedProcessResultStorer storer;
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
   private OPMHeapObserver heapObserver;
@@ -83,8 +83,9 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     this.executionState = new OPMInZoomedProcessExecutionState();
     this.heap = OPMInterpreterInjector.INSTANCE.getInstance(OPMInZoomedProcessInstanceHeap.class);
     this.valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
-    this.loader = OPMInZoomedProcessArgumentLoader.createArgumentLoader(analyzer, executionState, heap);
-    this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer, executionState, heap);
+    this.argumentHandler = OPMInZoomedProcessArgumentHandler.createArgumentLoader(analyzer, executionState, heap);
+    // this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer,
+    // executionState, heap);
     this.heapObserver = new OPMHeapObserver();
     this.heap.addObserver(heapObserver);
     this.isReadyPred = new IsProcessReady();
@@ -131,7 +132,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       heapObserver.clear();
       for(OPMProcess readyProcess : P_ready) {
         OPMProcessInstance readyInstance = OPMProcessInstanceFactory.createExecutableInstance(readyProcess);
-        loader.loadInstanceArguments(readyProcess, readyInstance);
+        argumentHandler.loadInstanceArguments(readyProcess, readyInstance);
         mapping.put(readyInstance, readyProcess);
         completionService.submit(readyInstance);
         P_executing.add(readyInstance);
@@ -140,7 +141,7 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       Future<OPMProcessExecutionResult> executionResult = completionService.take();
       OPMProcessInstance instance = executionResult.get().getInstance();
       P_executing.remove(instance);
-      storer.extractResultsToVariables(mapping.get(instance), instance);
+      argumentHandler.extractResultsToVariables(mapping.get(instance), instance);
 
       Set<OPMProcess> P_executingProcesses = Sets.newHashSet(Collections2.transform(P_executing,
           new Function<OPMProcessInstance, OPMProcess>() {

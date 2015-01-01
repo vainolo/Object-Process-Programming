@@ -132,7 +132,10 @@ public class OPMObjectInstanceValueAnalyzerImpl implements OPMObjectInstanceValu
         objectInstance.appendCollectionElement(OPMObjectInstance.createFromValue(v));
       }
     } else {
-      throw new IllegalStateException("String value: " + value + " is not parseable.");
+      // throw new IllegalStateException("String value: " + value +
+      // " is not parseable.");
+      logInfo("Assume this is a string with no enclosing quotes.");
+      objectInstance = OPMObjectInstance.createFromValue(value);
     }
     logFinest("Value of {0} is {1}.", value, objectInstance);
     return objectInstance;

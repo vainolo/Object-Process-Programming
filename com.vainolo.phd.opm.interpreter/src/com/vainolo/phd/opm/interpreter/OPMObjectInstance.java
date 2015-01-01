@@ -82,7 +82,7 @@ public class OPMObjectInstance {
     case COLLECTION:
       newInstance = createCollectionInstace();
       for(String name : existingInstance.getCollectionAllIndexes()) {
-        newInstance.insertCollectionElement(name, existingInstance.getCollectionElement(name));
+        newInstance.putCollectionElement(name, existingInstance.getCollectionElement(name));
       }
     }
 
@@ -156,7 +156,7 @@ public class OPMObjectInstance {
     collectionNameToIndexMapping.put(UUID.randomUUID().toString(), collectionValues.size() - 1);
   }
 
-  public void insertCollectionElement(String name, OPMObjectInstance element) {
+  public void putCollectionElement(String name, OPMObjectInstance element) {
     checkTypeForCollectionOnlyOperations();
     checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
     checkNotNull(element, "Cannot insert a null element to a collection.");
@@ -167,7 +167,7 @@ public class OPMObjectInstance {
   public OPMObjectInstance getCollectionElement(String name) {
     checkTypeForCollectionOnlyOperations();
     checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
-    checkState(collectionNameToIndexMapping.containsKey(name), "Collection does not an index %s.", name);
+    checkState(collectionNameToIndexMapping.containsKey(name), "Collection does contain a value at index %s.", name);
     return collectionValues.get(collectionNameToIndexMapping.get(name));
   }
 

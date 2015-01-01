@@ -51,7 +51,7 @@ public class OPMInZoomedProcessExecutableInstance_Old extends OPMAbstractProcess
   private OPMInZoomedProcessExecutionHelper executionHelper;
   private OPMInZoomedProcessInstanceHeap heap;
   private OPMObjectInstanceValueAnalyzerImpl valueAnalyzer;
-  private OPMInZoomedProcessArgumentLoader loader;
+  private OPMInZoomedProcessArgumentHandler loader;
   private OPMInZoomedProcessResultStorer storer;
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
@@ -72,7 +72,7 @@ public class OPMInZoomedProcessExecutableInstance_Old extends OPMAbstractProcess
     this.executionState = new OPMInZoomedProcessExecutionState();
     this.heap = OPMInterpreterInjector.INSTANCE.getInstance(OPMInZoomedProcessInstanceHeap.class);
     this.valueAnalyzer = new OPMObjectInstanceValueAnalyzerImpl();
-    this.loader = OPMInZoomedProcessArgumentLoader.createArgumentLoader(analyzer, executionState, heap);
+    this.loader = OPMInZoomedProcessArgumentHandler.createArgumentLoader(analyzer, executionState, heap);
     this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer, executionState, heap);
     this.heapObserver = new OPMHeapObserver();
     this.heap.addObserver(heapObserver);

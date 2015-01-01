@@ -2,6 +2,7 @@ package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import static com.vainolo.phd.opm.utilities.OPMLogger.*;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -136,7 +137,12 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
         OPMObject target = OPMObject.class.cast(link.getTarget());
         OPMObjectInstance value = null;
         if((null != link.getCenterDecoration()) && (!"".equals(link.getCenterDecoration()))) {
-          value = getVariable(object).getCollectionElement(link.getCenterDecoration());
+          if(valueAnalyzer.isNumericalLiteral(link.getCenterDecoration())) {
+            BigDecimal index = valueAnalyzer.parseNumericalLiteral(link.getCenterDecoration());
+            value = getVariable(object).getCollectionElementAtIndex(index.intValue());
+          } else {
+            value = getVariable(object).getCollectionElement(link.getCenterDecoration());
+          }
         } else {
           value = getVariable(object);
         }

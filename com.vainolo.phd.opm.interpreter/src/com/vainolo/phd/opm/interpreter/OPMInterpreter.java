@@ -43,7 +43,7 @@ public enum OPMInterpreter {
    * @param container
    */
   public void interpret(String opdName, final IContainer _container) {
-    OPMLogger.setLevel(Level.FINER);
+    OPMLogger.setLevel(Level.FINEST);
     container = _container;
     logInfo("Interpreting OPD {0}.", opdName);
     OPMProcessInstance instance = OPMProcessInstanceFactory.createExecutableInstance(opdName);

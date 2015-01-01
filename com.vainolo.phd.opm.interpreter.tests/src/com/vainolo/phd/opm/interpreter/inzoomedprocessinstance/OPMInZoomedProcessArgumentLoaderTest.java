@@ -20,7 +20,7 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 public class OPMInZoomedProcessArgumentLoaderTest {
-  private OPMInZoomedProcessArgumentLoader loader;
+  private OPMInZoomedProcessArgumentHandler loader;
   private OPDAnalyzer analyzer;
   private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessInstanceHeap heap;
@@ -174,6 +174,6 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     analyzer = mock(OPDAnalyzerImpl.class);
     executionState = mock(OPMInZoomedProcessExecutionState.class);
     heap = mock(OPMInZoomedProcessInstanceHeap.class);
-    loader = OPMInZoomedProcessArgumentLoader.createArgumentLoader(analyzer, executionState, heap);
+    loader = OPMInZoomedProcessArgumentHandler.createArgumentLoader(analyzer, executionState, heap);
   }
 }
