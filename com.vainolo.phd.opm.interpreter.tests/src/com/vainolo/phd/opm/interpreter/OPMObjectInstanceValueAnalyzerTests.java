@@ -1,10 +1,15 @@
 package com.vainolo.phd.opm.interpreter;
 
 import static org.junit.Assert.*;
+
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Random;
+
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 public class OPMObjectInstanceValueAnalyzerTests {
 
@@ -42,22 +47,25 @@ public class OPMObjectInstanceValueAnalyzerTests {
     array = "[1..5]";
     instance = valueAnalyzer.calculateOPMObjectValue(array);
     assertEquals(5, instance.getCollectionAllElements().size());
+    List<OPMObjectInstance> collectionElements = Lists.newArrayList(instance.getCollectionAllElements());
     for(int i = 1; i <= 5; i++) {
-      assertEquals(i, instance.getCollectionAllElements().get(i - 1).getNumericalValue().intValue());
+      assertEquals(i, collectionElements.get(i - 1).getNumericalValue().intValue());
     }
 
     array = "[25..76]";
     instance = valueAnalyzer.calculateOPMObjectValue(array);
     assertEquals(52, instance.getCollectionAllElements().size());
+    collectionElements = Lists.newArrayList(instance.getCollectionAllElements());
     for(int i = 25; i <= 76; i++) {
-      assertEquals(i, instance.getCollectionAllElements().get(i - 25).getNumericalValue().intValue());
+      assertEquals(i, collectionElements.get(i - 25).getNumericalValue().intValue());
     }
 
     array = "[15..10]";
     instance = valueAnalyzer.calculateOPMObjectValue(array);
     assertEquals(6, instance.getCollectionAllElements().size());
+    collectionElements = Lists.newArrayList(instance.getCollectionAllElements());
     for(int i = 15; i >= 10; i--) {
-      assertEquals(i, instance.getCollectionAllElements().get(15 - i).getNumericalValue().intValue());
+      assertEquals(i, collectionElements.get(15 - i).getNumericalValue().intValue());
     }
   }
 

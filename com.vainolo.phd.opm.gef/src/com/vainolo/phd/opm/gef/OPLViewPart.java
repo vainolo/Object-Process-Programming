@@ -23,7 +23,6 @@ import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.gef.editor.OPMGraphicalEditor;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalyzer;
 import com.vainolo.phd.opm.model.*;
-import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 public class OPLViewPart extends ViewPart {
@@ -34,7 +33,7 @@ public class OPLViewPart extends ViewPart {
   private OPMObjectProcessDiagramAdapter adapter;
 
   public OPLViewPart() {
-    analyzer = new OPDAnalyzerImpl();
+    analyzer = new OPDAnalyzer();
     executionAnalyzer = new OPDExecutionAnalyzer();
     adapter = new OPMObjectProcessDiagramAdapter();
   }

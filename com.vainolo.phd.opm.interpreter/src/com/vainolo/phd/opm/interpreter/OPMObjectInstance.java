@@ -8,15 +8,17 @@ package com.vainolo.phd.opm.interpreter;
 import static com.google.common.base.Preconditions.*;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedMap;
 import java.util.UUID;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
 
 /**
@@ -32,8 +34,9 @@ public class OPMObjectInstance {
 
   private Object value = null;
   private Map<String, OPMObjectInstance> parts = Maps.newHashMap();
-  private List<OPMObjectInstance> collectionValues = Lists.newArrayList();
-  private Map<String, Integer> collectionNameToIndexMapping = Maps.newHashMap();
+  // private List<OPMObjectInstance> collectionValues = Lists.newArrayList();
+  private SortedMap<Integer, OPMObjectInstance> collectionValues = Maps.newTreeMap();
+  private BiMap<String, Integer> collectionNameToIndexMapping = HashBiMap.create();
   public final InstanceType type;
 
   private OPMObjectInstance(InstanceType type) {
@@ -81,8 +84,10 @@ public class OPMObjectInstance {
       break;
     case COLLECTION:
       newInstance = createCollectionInstace();
-      for(String name : existingInstance.getCollectionAllIndexes()) {
-        newInstance.putCollectionElement(name, existingInstance.getCollectionElement(name));
+      for(Integer index : existingInstance.collectionValues.keySet()) {
+        newInstance.collectionValues.put(index, existingInstance.collectionValues.get(index));
+        newInstance.collectionNameToIndexMapping.inverse().put(index,
+            existingInstance.collectionNameToIndexMapping.inverse().get(index));
       }
     }
 
@@ -149,19 +154,42 @@ public class OPMObjectInstance {
   }
 
   // Collection
-  public void appendCollectionElement(OPMObjectInstance element) {
+  public int appendCollectionElement(OPMObjectInstance value) {
     checkTypeForCollectionOnlyOperations();
-    checkNotNull(element, "Cannot append a null element to a collection.");
-    collectionValues.add(element);
-    collectionNameToIndexMapping.put(UUID.randomUUID().toString(), collectionValues.size() - 1);
+    checkNotNull(value, "Cannot append a null element to a collection.");
+    Integer lastKey = 0;
+    if(collectionValues.size() > 0) {
+      lastKey = collectionValues.lastKey();
+    }
+    int newKey = lastKey + 1;
+    collectionValues.put(newKey, value);
+    collectionNameToIndexMapping.put(UUID.randomUUID().toString(), newKey);
+    return newKey;
   }
 
-  public void putCollectionElement(String name, OPMObjectInstance element) {
+  public void putCollectionElement(String name, OPMObjectInstance value) {
     checkTypeForCollectionOnlyOperations();
     checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
-    checkNotNull(element, "Cannot insert a null element to a collection.");
-    collectionValues.add(element);
-    collectionNameToIndexMapping.put(name, collectionValues.size() - 1);
+    checkNotNull(value, "Cannot put a null element to a collection.");
+    if(collectionNameToIndexMapping.containsKey(name)) {
+      collectionValues.remove(collectionNameToIndexMapping.get(name));
+      collectionNameToIndexMapping.remove(name);
+    }
+    int index = appendCollectionElement(value);
+    collectionNameToIndexMapping.inverse().remove(index);
+    collectionNameToIndexMapping.put(name, index);
+  }
+
+  public void putCollectionElementAtIndex(int index, OPMObjectInstance value) {
+    checkTypeForCollectionOnlyOperations();
+    checkNotNull(value, "Cannot insert a null element to a collection.");
+    if(collectionValues.containsKey(index)) {
+      collectionValues.remove(index);
+      collectionNameToIndexMapping.inverse().remove(index);
+    }
+    collectionValues.put(index, value);
+    collectionNameToIndexMapping.put(UUID.randomUUID().toString(), index);
+
   }
 
   public OPMObjectInstance getCollectionElement(String name) {
@@ -173,7 +201,7 @@ public class OPMObjectInstance {
 
   public OPMObjectInstance getCollectionElementAtIndex(int index) {
     checkTypeForCollectionOnlyOperations();
-    return collectionValues.get(index - 1);
+    return collectionValues.get(index);
   }
 
   public OPMObjectInstance getFirstCollectionElement() {
@@ -183,12 +211,12 @@ public class OPMObjectInstance {
 
   public OPMObjectInstance getLastCollectionElement() {
     checkTypeForCollectionOnlyOperations();
-    return collectionValues.get(collectionValues.size() - 1);
+    return collectionValues.get(collectionValues.lastKey());
   }
 
-  public List<OPMObjectInstance> getCollectionAllElements() {
+  public Collection<OPMObjectInstance> getCollectionAllElements() {
     checkTypeForCollectionOnlyOperations();
-    return Collections.unmodifiableList(collectionValues);
+    return Collections.unmodifiableCollection(collectionValues.values());
   }
 
   public Set<String> getCollectionAllIndexes() {
@@ -196,6 +224,7 @@ public class OPMObjectInstance {
     return Collections.unmodifiableSet(collectionNameToIndexMapping.keySet());
   }
 
+  // General
   @Override
   public String toString() {
     if(InstanceType.STRING.equals(type) || InstanceType.NUMERICAL.equals(type))
@@ -209,7 +238,7 @@ public class OPMObjectInstance {
       return ret.toString();
     } else if(InstanceType.COLLECTION.equals(type)) {
       StringBuilder ret = new StringBuilder("[");
-      for(OPMObjectInstance element : collectionValues) {
+      for(OPMObjectInstance element : collectionValues.values()) {
         ret.append(element.toString() + ",");
       }
       if(ret.length() > 2)

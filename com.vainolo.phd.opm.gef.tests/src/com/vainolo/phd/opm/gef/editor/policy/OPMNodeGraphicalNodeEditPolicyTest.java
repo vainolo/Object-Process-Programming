@@ -12,7 +12,6 @@ import com.vainolo.phd.opm.gef.editor.part.OPMStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
-import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 import com.vainolo.phd.opm.validation.OPMLinkValidator;
 
@@ -79,7 +78,7 @@ public class OPMNodeGraphicalNodeEditPolicyTest {
     nodeEditPartMock = mock(OPMNodeEditPart.class);
     nodeMock = mock(OPMNode.class);
     linkMock = mock(OPMLink.class);
-    opdAnalyzerMock = mock(OPDAnalyzerImpl.class);
+    opdAnalyzerMock = mock(OPDAnalyzer.class);
     opdMock = mock(OPMObjectProcessDiagram.class);
   }
 

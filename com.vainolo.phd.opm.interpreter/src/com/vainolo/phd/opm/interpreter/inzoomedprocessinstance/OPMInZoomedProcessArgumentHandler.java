@@ -15,11 +15,10 @@ import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 public class OPMInZoomedProcessArgumentHandler {
-  private OPDAnalyzer analyzer = new OPDAnalyzerImpl();
+  private OPDAnalyzer analyzer = new OPDAnalyzer();
   private OPMObjectInstanceValueAnalyzer valueAnalyzer;
   private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessInstanceHeap heap;
@@ -49,13 +48,10 @@ public class OPMInZoomedProcessArgumentHandler {
         argument.isCollectionElement = true;
         String argName = incomingDataLink.getCenterDecoration().split(",")[0];
         String collectionReference = incomingDataLink.getCenterDecoration().split(",")[1];
-        if(valueAnalyzer.isStringLiteral(collectionReference)) {
-          argument.collectionElementName = valueAnalyzer.parseStringLiteral(collectionReference);
-        } else if(valueAnalyzer.isNumericalLiteral(collectionReference)) {
+        if(valueAnalyzer.isNumericalLiteral(collectionReference)) {
           argument.collectionElementIndex = valueAnalyzer.parseNumericalLiteral(collectionReference);
         } else {
-          throw new IllegalStateException("Collection reference must be either a string or a number. Found "
-              + collectionReference + ".");
+          argument.collectionElementName = collectionReference;
         }
         if("".equals(argName)) {
           anonymousArguments.add(argument);
@@ -89,6 +85,7 @@ public class OPMInZoomedProcessArgumentHandler {
   private void loadAnonymousArguments(OPMProcessInstance instance, List<OPMArgument> arguments,
       List<String> availableParameters) {
 
+    // First arguments who's variable names matches the parameter name
     Iterator<String> availableParametersIterator = availableParameters.iterator();
     while(availableParametersIterator.hasNext()) {
       String parameterName = availableParametersIterator.next();
@@ -138,7 +135,7 @@ public class OPMInZoomedProcessArgumentHandler {
         if(valueAnalyzer.isNumericalLiteral(collectionReference)) {
           argument.collectionElementIndex = valueAnalyzer.parseNumericalLiteral(collectionReference);
         } else {
-          argument.collectionElementName = valueAnalyzer.parseStringLiteral(collectionReference);
+          argument.collectionElementName = collectionReference;
         }
         if("".equals(argName)) {
           anonymousResult.add(argument);
@@ -200,7 +197,11 @@ public class OPMInZoomedProcessArgumentHandler {
       currentValue = OPMObjectInstance.createCollectionInstace();
     }
     if(argument.isCollectionElement) {
-      currentValue.putCollectionElement(argument.collectionElementName, value);
+      if(argument.collectionElementName != null) {
+        currentValue.putCollectionElement(argument.collectionElementName, value);
+      } else if(argument.collectionElementIndex != null) {
+        currentValue.putCollectionElementAtIndex(argument.collectionElementIndex.intValue(), value);
+      }
     } else {
       currentValue.appendCollectionElement(value);
     }

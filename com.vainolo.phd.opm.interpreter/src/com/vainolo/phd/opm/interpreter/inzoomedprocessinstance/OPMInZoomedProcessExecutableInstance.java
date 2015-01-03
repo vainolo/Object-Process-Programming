@@ -38,7 +38,6 @@ import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.utilities.OPMConstants;
-import com.vainolo.phd.opm.utilities.OPMLogger;
 import com.vainolo.phd.opm.utilities.OPMStrings;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 

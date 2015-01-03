@@ -18,7 +18,6 @@ import com.google.common.collect.Sets;
 import com.vainolo.phd.opm.model.OPMContainer;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzerImpl;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 
 /**
@@ -29,7 +28,7 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
  */
 public class OPDExecutionAnalyzer {
 
-  private OPDAnalyzer analyzer = new OPDAnalyzerImpl();
+  private OPDAnalyzer analyzer = new OPDAnalyzer();
 
   /**
    * Find the processes that should be executed when the OPD is invoked. These
