@@ -68,7 +68,7 @@ public class OPDAnalyzer {
     else if(OPMState.class.isInstance(source))
       return OPMObject.class.cast(source.getContainer());
     else
-      return null;
+      throw new IllegalArgumentException("Source must be a state or an object.");
   }
 
   /**
@@ -734,5 +734,19 @@ public class OPDAnalyzer {
 
   public OPMObject getObject(OPMState state) {
     return OPMObject.class.cast(state.getContainer());
+  }
+
+  public OPMObject getTargetObject(OPMProceduralLink link) {
+    OPMNode target = link.getTarget();
+    if(OPMObject.class.isInstance(target))
+      return OPMObject.class.cast(target);
+    else if(OPMState.class.isInstance(target))
+      return OPMObject.class.cast(target.getContainer());
+    else
+      throw new IllegalArgumentException("Target must be an object or a state.");
+  }
+
+  public boolean isTargetProcess(OPMProceduralLink link) {
+    return OPMProcess.class.isInstance(link.getTarget());
   }
 }
