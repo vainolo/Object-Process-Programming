@@ -14,6 +14,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance.InstanceType;
 import com.vainolo.utils.SimpleLoggerFactory;
@@ -67,13 +68,13 @@ public class OPMWriteOPMObjectInstanceToJSON extends OPMAbstractProcessInstance 
   }
 
   @Override
-  public List<String> getIncomingParameterNames() {
-    return Lists.newArrayList("object");
+  public List<OPMParameter> getIncomingParameterNames() {
+    return Lists.newArrayList(new OPMParameter("object", false));
   }
 
   @Override
-  public List<String> getOutgoingParameterNames() {
-    return Lists.newArrayList("json");
+  public List<OPMParameter> getOutgoingParameterNames() {
+    return Lists.newArrayList(new OPMParameter("json", false));
   }
 
 }

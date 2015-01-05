@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 
@@ -29,7 +30,7 @@ public class OPMCreateObjectProcessInstance extends OPMAbstractProcessInstance i
   }
 
   @Override
-  public List<String> getOutgoingParameterNames() {
-    return Lists.newArrayList("object");
+  public List<OPMParameter> getOutgoingParameterNames() {
+    return Lists.newArrayList(new OPMParameter("object", false));
   }
 }

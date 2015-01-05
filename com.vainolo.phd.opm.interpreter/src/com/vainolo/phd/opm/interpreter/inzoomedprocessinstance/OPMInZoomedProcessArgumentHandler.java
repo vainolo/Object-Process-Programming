@@ -7,10 +7,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -65,11 +67,17 @@ public class OPMInZoomedProcessArgumentHandler {
 
     logFine("Found {0} anonymous arguments and {1} named arguments.", anonymousArguments.size(), namedArguments.size());
 
-    List<String> availableParameters = Lists.newArrayList(instance.getIncomingParameterNames());
+    List<String> availableParametersNames = Lists.transform(instance.getIncomingParameterNames(),
+        new Function<OPMParameter, String>() {
+          @Override
+          public String apply(OPMParameter input) {
+            return input.getName();
+          }
+        });
     loadNamedArguments(instance, namedArguments);
-    availableParameters.removeAll(namedArguments.keySet());
+    availableParametersNames.removeAll(namedArguments.keySet());
 
-    loadAnonymousArguments(instance, anonymousArguments, availableParameters);
+    loadAnonymousArguments(instance, anonymousArguments, availableParametersNames);
   }
 
   public void loadInstanceArguments(OPMProcessInstance instance) {
@@ -150,7 +158,13 @@ public class OPMInZoomedProcessArgumentHandler {
     logFine("Found {0} anonymous results and {1} named results.", anonymousResult.size(), namedResults.size());
 
     // First extract named results
-    List<String> outgoingParameters = instance.getOutgoingParameterNames();
+    List<String> outgoingParametersNames = Lists.transform(instance.getOutgoingParameterNames(),
+        new Function<OPMParameter, String>() {
+          @Override
+          public String apply(OPMParameter input) {
+            return input.getName();
+          }
+        });
     for(String namedResult : namedResults.keySet()) {
       OPMArgument argument = namedResults.get(namedResult);
       if(argument.object.isCollection()) {
@@ -158,7 +172,7 @@ public class OPMInZoomedProcessArgumentHandler {
       } else {
         heap.setVariable(argument.object, instance.getArgument(namedResult));
       }
-      outgoingParameters.remove(namedResult);
+      outgoingParametersNames.remove(namedResult);
     }
 
     // Now extract where the variable in the instance matched the result object
@@ -179,14 +193,14 @@ public class OPMInZoomedProcessArgumentHandler {
 
     // Now extract all remaining outgoing parameters to the remaining anonymous
     // result objects
-    int remainingResults = (outgoingParameters.size() < anonymousResult.size()) ? outgoingParameters.size()
+    int remainingResults = (outgoingParametersNames.size() < anonymousResult.size()) ? outgoingParametersNames.size()
         : anonymousResult.size();
     for(int i = 0; i < remainingResults; i++) {
       OPMArgument argument = anonymousResult.get(i);
       if(argument.object.isCollection()) {
-        setCollectionElementValue(argument, instance.getArgument(outgoingParameters.get(i)));
+        setCollectionElementValue(argument, instance.getArgument(outgoingParametersNames.get(i)));
       } else {
-        heap.setVariable(argument.object, instance.getArgument(outgoingParameters.get(i)));
+        heap.setVariable(argument.object, instance.getArgument(outgoingParametersNames.get(i)));
       }
     }
   }

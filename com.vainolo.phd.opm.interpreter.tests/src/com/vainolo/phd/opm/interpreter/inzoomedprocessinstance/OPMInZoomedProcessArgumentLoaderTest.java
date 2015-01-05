@@ -11,6 +11,7 @@ import static org.mockito.Mockito.*;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -62,7 +63,8 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.findIncomingDataLinks(process)).thenReturn(argumentLinks);
     when(analyzer.getObject(link1)).thenReturn(object1);
     when(analyzer.getObject(link2)).thenReturn(object2);
-    when(instance.getIncomingParameterNames()).thenReturn(Lists.newArrayList("a", "b"));
+    when(instance.getIncomingParameterNames()).thenReturn(
+        Lists.newArrayList(new OPMParameter("a", false), new OPMParameter("b", false)));
     loader.loadInstanceArguments(instance);
     verify(instance).setArgument("a", objectInstanceMock1);
     verify(instance).setArgument("b", objectInstanceMock2);
@@ -83,7 +85,8 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.findIncomingDataLinks(process)).thenReturn(argumentLinks);
     when(analyzer.getObject(link1)).thenReturn(object1);
     when(analyzer.getObject(link2)).thenReturn(object2);
-    when(instance.getIncomingParameterNames()).thenReturn(Lists.newArrayList("a", "b"));
+    when(instance.getIncomingParameterNames()).thenReturn(
+        Lists.newArrayList(new OPMParameter("a", false), new OPMParameter("b", false)));
     loader.loadInstanceArguments(instance);
     verify(instance).setArgument("a", objectInstanceMock1);
     verify(instance).setArgument("b", objectInstanceMock2);
@@ -104,7 +107,8 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.findIncomingDataLinks(process)).thenReturn(argumentLinks);
     when(analyzer.getObject(link1)).thenReturn(object1);
     when(analyzer.getObject(link2)).thenReturn(object2);
-    when(instance.getIncomingParameterNames()).thenReturn(Lists.newArrayList("a", "b"));
+    when(instance.getIncomingParameterNames()).thenReturn(
+        Lists.newArrayList(new OPMParameter("a", false), new OPMParameter("b", false)));
     loader.loadInstanceArguments(instance);
     verify(instance).setArgument("a", objectInstanceMock1);
     verify(instance).setArgument("b", objectInstanceMock2);
@@ -130,7 +134,8 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.getObject(link1)).thenReturn(object1);
     when(analyzer.getObject(link2)).thenReturn(object2);
     when(analyzer.getObject(link3)).thenReturn(object3);
-    when(instance.getIncomingParameterNames()).thenReturn(Lists.newArrayList("a", "b", "c"));
+    when(instance.getIncomingParameterNames()).thenReturn(
+        Lists.newArrayList(new OPMParameter("a", false), new OPMParameter("b", false), new OPMParameter("c", false)));
     loader.loadInstanceArguments(instance);
     verify(instance).setArgument("a", objectInstanceMock1);
     verify(instance).setArgument("b", objectInstanceMock2);
@@ -157,7 +162,7 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.getObject(link1)).thenReturn(object1);
     when(analyzer.getObject(link2)).thenReturn(object2);
     when(analyzer.getObject(link3)).thenReturn(object3);
-    when(instance.getIncomingParameterNames()).thenReturn(new ArrayList<String>());
+    when(instance.getIncomingParameterNames()).thenReturn(new ArrayList<OPMParameter>());
     loader.loadInstanceArguments(instance);
     verify(instance).setArgument("arg0", objectInstanceMock1);
     verify(instance).setArgument("arg1", objectInstanceMock2);

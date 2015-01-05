@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 
 public class OPMOutputProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
@@ -32,7 +33,7 @@ public class OPMOutputProcessInstance extends OPMAbstractProcessInstance impleme
   }
 
   @Override
-  public List<String> getIncomingParameterNames() {
-    return Lists.newArrayList("text");
+  public List<OPMParameter> getIncomingParameterNames() {
+    return Lists.newArrayList(new OPMParameter("text", false));
   }
 }

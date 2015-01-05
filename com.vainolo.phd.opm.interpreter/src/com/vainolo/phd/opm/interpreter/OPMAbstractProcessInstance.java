@@ -81,12 +81,12 @@ public abstract class OPMAbstractProcessInstance implements OPMProcessInstance {
   }
 
   @Override
-  public List<String> getIncomingParameterNames() {
+  public List<OPMParameter> getIncomingParameterNames() {
     return Lists.newArrayList();
   }
 
   @Override
-  public List<String> getOutgoingParameterNames() {
+  public List<OPMParameter> getOutgoingParameterNames() {
     return Lists.newArrayList();
   }
 

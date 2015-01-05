@@ -26,6 +26,7 @@ import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMInterpreterInjector;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessExecutionResult;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstanceFactory;
@@ -313,23 +314,23 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   }
 
   @Override
-  public List<String> getIncomingParameterNames() {
-    List<String> incomingParameterNames = Lists.newArrayList();
+  public List<OPMParameter> getIncomingParameterNames() {
+    List<OPMParameter> incomingParameters = Lists.newArrayList();
     Collection<OPMObject> parameters = analyzer.findIncomingParameters(getOpd());
     for(OPMObject object : parameters) {
-      incomingParameterNames.add(object.getName());
+      incomingParameters.add(new OPMParameter(object.getName(), object.isCollection()));
     }
-    return incomingParameterNames;
+    return incomingParameters;
   }
 
   @Override
-  public List<String> getOutgoingParameterNames() {
-    List<String> outgoingParameterNames = Lists.newArrayList();
+  public List<OPMParameter> getOutgoingParameterNames() {
+    List<OPMParameter> outgoingParameters = Lists.newArrayList();
     Collection<OPMObject> parameters = analyzer.findOutgoingParameters(getOpd());
     for(OPMObject object : parameters) {
-      outgoingParameterNames.add(object.getName());
+      outgoingParameters.add(new OPMParameter(object.getName(), object.isCollection()));
     }
-    return outgoingParameterNames;
+    return outgoingParameters;
   }
 
   @Override

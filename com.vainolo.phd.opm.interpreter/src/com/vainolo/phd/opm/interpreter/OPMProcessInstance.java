@@ -44,7 +44,7 @@ public interface OPMProcessInstance extends Callable<OPMProcessExecutionResult> 
    * 
    * @return a list of the incoming parameter names.
    */
-  List<String> getIncomingParameterNames();
+  List<OPMParameter> getIncomingParameterNames();
 
   /**
    * Get a list of the names of all the outgoing parameters of this
@@ -52,7 +52,7 @@ public interface OPMProcessInstance extends Callable<OPMProcessExecutionResult> 
    * 
    * @return a list of the outgoing parameter names.
    */
-  List<String> getOutgoingParameterNames();
+  List<OPMParameter> getOutgoingParameterNames();
 
   /**
    * Get the name of the OPD/Process

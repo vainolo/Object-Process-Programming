@@ -6,8 +6,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMObject;
@@ -48,7 +50,13 @@ public class OPMInZoomedProcessResultStorer {
     logFine("Found {0} anonymous results and {1} named results.", anonymousResultObjects.size(), namedResults.size());
 
     // First extract named results
-    List<String> outgoingParameters = instance.getOutgoingParameterNames();
+    List<String> outgoingParameters = Lists.transform(instance.getOutgoingParameterNames(),
+        new Function<OPMParameter, String>() {
+          @Override
+          public String apply(OPMParameter input) {
+            return input.getName();
+          }
+        });
     for(String namedResult : namedResults.keySet()) {
       heap.setVariable(namedResults.get(namedResult), instance.getArgument(namedResult));
       outgoingParameters.remove(namedResult);

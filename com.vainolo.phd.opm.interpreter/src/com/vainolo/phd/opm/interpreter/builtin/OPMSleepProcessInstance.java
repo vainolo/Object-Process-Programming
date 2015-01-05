@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.utils.SimpleLoggerFactory;
 
@@ -46,8 +47,8 @@ public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implemen
   }
 
   @Override
-  public List<String> getIncomingParameterNames() {
-    return Lists.newArrayList("time");
+  public List<OPMParameter> getIncomingParameterNames() {
+    return Lists.newArrayList(new OPMParameter("time", false));
   }
 
 }

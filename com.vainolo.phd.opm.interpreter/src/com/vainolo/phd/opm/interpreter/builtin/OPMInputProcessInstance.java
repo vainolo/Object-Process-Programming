@@ -13,6 +13,7 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstanceValueAnalyzer;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 
@@ -56,8 +57,7 @@ public class OPMInputProcessInstance extends OPMAbstractProcessInstance implemen
   }
 
   @Override
-  public List<String> getOutgoingParameterNames() {
-    return Lists.newArrayList("text");
+  public List<OPMParameter> getOutgoingParameterNames() {
+    return Lists.newArrayList(new OPMParameter("text", false));
   }
-
 }

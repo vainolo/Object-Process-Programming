@@ -6,6 +6,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
+import com.vainolo.phd.opm.interpreter.OPMParameter;
 
 /**
  * Process instance that handles basic binary math operations
@@ -55,12 +56,12 @@ public class OPMBinaryMathOpProcessInstance extends OPMAbstractProcessInstance {
   }
 
   @Override
-  public List<String> getIncomingParameterNames() {
-    return Lists.newArrayList("a", "b");
+  public List<OPMParameter> getIncomingParameterNames() {
+    return Lists.newArrayList(new OPMParameter("a", false), new OPMParameter("b", false));
   }
 
   @Override
-  public List<String> getOutgoingParameterNames() {
-    return Lists.newArrayList("c");
+  public List<OPMParameter> getOutgoingParameterNames() {
+    return Lists.newArrayList(new OPMParameter("c", false));
   }
 }
