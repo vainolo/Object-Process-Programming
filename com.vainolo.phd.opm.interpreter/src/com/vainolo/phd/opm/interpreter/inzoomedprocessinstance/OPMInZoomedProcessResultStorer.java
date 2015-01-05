@@ -23,10 +23,9 @@ public class OPMInZoomedProcessResultStorer {
   private OPMInZoomedProcessExecutionState executionState;
 
   public static OPMInZoomedProcessResultStorer createResultStorer(OPDAnalyzer analyzer,
-      OPMInZoomedProcessExecutionState executionState, OPMInZoomedProcessInstanceHeap heap) {
+      OPMInZoomedProcessInstanceHeap heap) {
     OPMInZoomedProcessResultStorer storer = new OPMInZoomedProcessResultStorer();
     storer.analyzer = analyzer;
-    storer.executionState = executionState;
     storer.heap = heap;
     return storer;
   }

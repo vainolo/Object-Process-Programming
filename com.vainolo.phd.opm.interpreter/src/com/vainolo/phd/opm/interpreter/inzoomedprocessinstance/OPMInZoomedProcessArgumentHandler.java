@@ -22,20 +22,12 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 public class OPMInZoomedProcessArgumentHandler {
   private OPDAnalyzer analyzer = new OPDAnalyzer();
   private OPMObjectInstanceValueAnalyzer valueAnalyzer;
-  private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessInstanceHeap heap;
 
-  private OPMInZoomedProcessArgumentHandler() {
-  };
-
-  public static OPMInZoomedProcessArgumentHandler createArgumentLoader(OPDAnalyzer analyzer,
-      OPMInZoomedProcessExecutionState executionState, OPMInZoomedProcessInstanceHeap heap) {
-    OPMInZoomedProcessArgumentHandler loader = new OPMInZoomedProcessArgumentHandler();
-    loader.analyzer = analyzer;
-    loader.executionState = executionState;
-    loader.heap = heap;
-    loader.valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
-    return loader;
+  public OPMInZoomedProcessArgumentHandler(OPDAnalyzer analyzer, OPMInZoomedProcessInstanceHeap heap) {
+    this.analyzer = analyzer;
+    this.heap = heap;
+    this.valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
   }
 
   public void loadInstanceArguments(OPMProcess process, OPMProcessInstance instance) {
@@ -80,10 +72,6 @@ public class OPMInZoomedProcessArgumentHandler {
     loadAnonymousArguments(instance, anonymousArguments, availableParametersNames);
   }
 
-  public void loadInstanceArguments(OPMProcessInstance instance) {
-    loadInstanceArguments(executionState.getProcess(instance), instance);
-  }
-
   private void loadNamedArguments(OPMProcessInstance instance, Map<String, OPMArgument> namedArguments) {
     for(String parameterName : namedArguments.keySet()) {
       instance.setArgument(parameterName, getValue(namedArguments.get(parameterName)));
@@ -122,10 +110,6 @@ public class OPMInZoomedProcessArgumentHandler {
         argNumber++;
       }
     }
-  }
-
-  public void extractResultsToVariables(OPMProcessInstance instance) {
-    extractResultsToVariables(executionState.getProcess(instance), instance);
   }
 
   public void extractResultsToVariables(OPMProcess process, OPMProcessInstance instance) {

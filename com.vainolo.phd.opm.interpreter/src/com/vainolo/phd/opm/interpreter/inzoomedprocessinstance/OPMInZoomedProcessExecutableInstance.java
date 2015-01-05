@@ -54,11 +54,9 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
   private final OPMObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPMProcess, DefaultEdge> opdDag;
   private OPDAnalyzer analyzer;
-  private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessInstanceHeap heap;
   private OPMObjectInstanceValueAnalyzer valueAnalyzer;
   private OPMInZoomedProcessArgumentHandler argumentHandler;
-  // private OPMInZoomedProcessResultStorer storer;
   private OPMProcess inZoomedProcess;
   private OPDExecutionAnalyzer executionAnalyzer;
   private OPMHeapObserver heapObserver;
@@ -79,10 +77,10 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     this.analyzer = analyzer;
     this.executionAnalyzer = new OPDExecutionAnalyzer();
     // this.executionHelper = new OPMInZoomedProcessExecutionHelper();
-    this.executionState = new OPMInZoomedProcessExecutionState();
+    // this.executionState = new OPMInZoomedProcessExecutionState();
     this.heap = OPMInterpreterInjector.INSTANCE.getInstance(OPMInZoomedProcessInstanceHeap.class);
     this.valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
-    this.argumentHandler = OPMInZoomedProcessArgumentHandler.createArgumentLoader(analyzer, executionState, heap);
+    this.argumentHandler = new OPMInZoomedProcessArgumentHandler(analyzer, heap);
     // this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer,
     // executionState, heap);
     this.heapObserver = new OPMHeapObserver();
@@ -210,25 +208,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     return ret;
   }
 
-  public Set<OPMProcessInstance> findWaitingInstanceThatCanBeMadeReady() {
-    Set<OPMProcessInstance> newReadyInstances = Sets.newHashSet();
-    for(OPMProcessInstance waitingInstance : executionState.getWaitingInstances()) {
-      if(!isInstanceReady(waitingInstance))
-        newReadyInstances.add(waitingInstance);
-    }
-    return newReadyInstances;
-  }
-
-  public Set<OPMProcessInstance> findWaitingInstancesThatMustBeSkipped() {
-    Set<OPMProcessInstance> instancesThatMustBeSkipped = Sets.newHashSet();
-    for(OPMProcessInstance waitingInstance : executionState.getWaitingInstances()) {
-      if(instanceMustBeSkipped(waitingInstance)) {
-        instancesThatMustBeSkipped.add(waitingInstance);
-      }
-    }
-    return instancesThatMustBeSkipped;
-  }
-
   private boolean objectValueTriggersEvent(OPMProceduralLink link, OPMObjectInstance objectInstance) {
     if(OPMObject.class.isInstance(link.getSource())) {
       return true;
@@ -239,48 +218,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
       }
     }
     return false;
-  }
-
-  private boolean instanceMustBeSkipped(OPMProcessInstance instance) {
-    for(OPMProceduralLink link : analyzer.findIncomingProceduralLinks(executionState.getProcess(instance))) {
-      if(link.getSubKinds().contains(OPMConstants.OPM_CONDITIONAL_LINK_SUBKIND)) {
-        OPMObjectInstance variable = heap.getVariable(analyzer.getObject(link));
-        if(variable == null) {
-          logInfo("Skipping instance of " + executionState.getProcess(instance).getName()
-              + " because conditional parameter " + analyzer.getObject(link).getName() + " is empty");
-          return true;
-        }
-        if(OPMState.class.isInstance(link.getSource())) {
-          if(!valueAnalyzer.isObjectInstanceInState(variable, OPMState.class.cast(link.getSource()))) {
-            logInfo("Skipping instance of " + executionState.getProcess(instance).getName()
-                + " because conditional parameter " + analyzer.getObject(link).getName() + " is not in state "
-                + OPMState.class.cast(link.getSource()).getName());
-            return true;
-          }
-        }
-      }
-    }
-    return false;
-  }
-
-  private boolean isInstanceReady(OPMProcessInstance instance) {
-    for(OPMProceduralLink link : analyzer.findIncomingProceduralLinks(executionState.getProcess(instance))) {
-      OPMObjectInstance variable = heap.getVariable(analyzer.getObject(link));
-      if(variable == null) {
-        logFine(OPMStrings.INSTANCE_NOT_READY_PARAMETER, executionState.getProcess(instance).getName(), analyzer
-            .getObject(link).getName());
-        return false;
-      } else {
-        if(OPMState.class.isInstance(link.getSource())) {
-          if(!valueAnalyzer.isObjectInstanceInState(variable, OPMState.class.cast(link.getSource()))) {
-            logFine(OPMStrings.INSTANCE_NOT_READY_PARAMETER_STATE, executionState.getProcess(instance).getName(),
-                analyzer.getObject(link).getName(), OPMState.class.cast(link.getSource()).getName());
-            return false;
-          }
-        }
-      }
-    }
-    return true;
   }
 
   @Override

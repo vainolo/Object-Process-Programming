@@ -2,7 +2,6 @@ package com.vainolo.phd.opm.interpreter.inzoomedprocessinstance;
 
 import static com.vainolo.phd.opm.utilities.OPMLogger.*;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;

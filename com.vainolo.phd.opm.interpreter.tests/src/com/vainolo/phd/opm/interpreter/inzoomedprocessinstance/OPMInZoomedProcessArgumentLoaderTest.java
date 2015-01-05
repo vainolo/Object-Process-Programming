@@ -23,7 +23,6 @@ import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
 public class OPMInZoomedProcessArgumentLoaderTest {
   private OPMInZoomedProcessArgumentHandler loader;
   private OPDAnalyzer analyzer;
-  private OPMInZoomedProcessExecutionState executionState;
   private OPMInZoomedProcessInstanceHeap heap;
   private OPMInZoomedProcessExecutableInstance instance;
   private OPMProcess process;
@@ -57,7 +56,6 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     object2 = createObject("");
     link2 = createProceduralLink(object2, process, OPMProceduralLinkKind.CONSUMPTION, "b");
     argumentLinks.add(link2);
-    when(executionState.getProcess(instance)).thenReturn(process);
     when(heap.getVariable(object1)).thenReturn(objectInstanceMock1);
     when(heap.getVariable(object2)).thenReturn(objectInstanceMock2);
     when(analyzer.findIncomingDataLinks(process)).thenReturn(argumentLinks);
@@ -65,7 +63,7 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.getObject(link2)).thenReturn(object2);
     when(instance.getIncomingParameterNames()).thenReturn(
         Lists.newArrayList(new OPMParameter("a", false), new OPMParameter("b", false)));
-    loader.loadInstanceArguments(instance);
+    loader.loadInstanceArguments(process, instance);
     verify(instance).setArgument("a", objectInstanceMock1);
     verify(instance).setArgument("b", objectInstanceMock2);
   }
@@ -79,7 +77,6 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     object2 = createObject("b");
     link2 = createProceduralLink(object2, process, OPMProceduralLinkKind.CONSUMPTION, "");
     argumentLinks.add(link2);
-    when(executionState.getProcess(instance)).thenReturn(process);
     when(heap.getVariable(object1)).thenReturn(objectInstanceMock1);
     when(heap.getVariable(object2)).thenReturn(objectInstanceMock2);
     when(analyzer.findIncomingDataLinks(process)).thenReturn(argumentLinks);
@@ -87,7 +84,7 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.getObject(link2)).thenReturn(object2);
     when(instance.getIncomingParameterNames()).thenReturn(
         Lists.newArrayList(new OPMParameter("a", false), new OPMParameter("b", false)));
-    loader.loadInstanceArguments(instance);
+    loader.loadInstanceArguments(process, instance);
     verify(instance).setArgument("a", objectInstanceMock1);
     verify(instance).setArgument("b", objectInstanceMock2);
   }
@@ -101,7 +98,6 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     object2 = createObject("");
     link2 = createProceduralLink(object2, process, OPMProceduralLinkKind.CONSUMPTION, "b");
     argumentLinks.add(link2);
-    when(executionState.getProcess(instance)).thenReturn(process);
     when(heap.getVariable(object1)).thenReturn(objectInstanceMock1);
     when(heap.getVariable(object2)).thenReturn(objectInstanceMock2);
     when(analyzer.findIncomingDataLinks(process)).thenReturn(argumentLinks);
@@ -109,7 +105,7 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.getObject(link2)).thenReturn(object2);
     when(instance.getIncomingParameterNames()).thenReturn(
         Lists.newArrayList(new OPMParameter("a", false), new OPMParameter("b", false)));
-    loader.loadInstanceArguments(instance);
+    loader.loadInstanceArguments(process, instance);
     verify(instance).setArgument("a", objectInstanceMock1);
     verify(instance).setArgument("b", objectInstanceMock2);
   }
@@ -126,7 +122,6 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     object3 = createObject("Q");
     link3 = createProceduralLink(object2, process, OPMProceduralLinkKind.CONSUMPTION, "");
     argumentLinks.add(link3);
-    when(executionState.getProcess(instance)).thenReturn(process);
     when(heap.getVariable(object1)).thenReturn(objectInstanceMock1);
     when(heap.getVariable(object2)).thenReturn(objectInstanceMock2);
     when(heap.getVariable(object3)).thenReturn(objectInstanceMock3);
@@ -136,7 +131,7 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.getObject(link3)).thenReturn(object3);
     when(instance.getIncomingParameterNames()).thenReturn(
         Lists.newArrayList(new OPMParameter("a", false), new OPMParameter("b", false), new OPMParameter("c", false)));
-    loader.loadInstanceArguments(instance);
+    loader.loadInstanceArguments(process, instance);
     verify(instance).setArgument("a", objectInstanceMock1);
     verify(instance).setArgument("b", objectInstanceMock2);
     verify(instance).setArgument("c", objectInstanceMock3);
@@ -154,7 +149,6 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     object3 = createObject("c");
     link3 = createProceduralLink(object2, process, OPMProceduralLinkKind.CONSUMPTION, "");
     argumentLinks.add(link3);
-    when(executionState.getProcess(instance)).thenReturn(process);
     when(heap.getVariable(object1)).thenReturn(objectInstanceMock1);
     when(heap.getVariable(object2)).thenReturn(objectInstanceMock2);
     when(heap.getVariable(object3)).thenReturn(objectInstanceMock3);
@@ -163,7 +157,7 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     when(analyzer.getObject(link2)).thenReturn(object2);
     when(analyzer.getObject(link3)).thenReturn(object3);
     when(instance.getIncomingParameterNames()).thenReturn(new ArrayList<OPMParameter>());
-    loader.loadInstanceArguments(instance);
+    loader.loadInstanceArguments(process, instance);
     verify(instance).setArgument("arg0", objectInstanceMock1);
     verify(instance).setArgument("arg1", objectInstanceMock2);
     verify(instance).setArgument("arg2", objectInstanceMock3);
@@ -177,8 +171,7 @@ public class OPMInZoomedProcessArgumentLoaderTest {
     objectInstanceMock3 = mock(OPMObjectInstance.class);
     instance = mock(OPMInZoomedProcessExecutableInstance.class);
     analyzer = mock(OPDAnalyzer.class);
-    executionState = mock(OPMInZoomedProcessExecutionState.class);
     heap = mock(OPMInZoomedProcessInstanceHeap.class);
-    loader = OPMInZoomedProcessArgumentHandler.createArgumentLoader(analyzer, executionState, heap);
+    loader = new OPMInZoomedProcessArgumentHandler(analyzer, heap);
   }
 }
