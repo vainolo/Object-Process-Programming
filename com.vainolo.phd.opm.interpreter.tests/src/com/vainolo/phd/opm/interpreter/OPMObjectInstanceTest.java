@@ -107,7 +107,7 @@ public class OPMObjectInstanceTest {
     instance1 = OPMObjectInstance.createCollectionInstace();
     instance2 = OPMObjectInstance.createFromValue(number1);
     instance1.appendCollectionElement(instance2);
-    assertEquals(instance2.getValue(), instance1.getFirstCollectionElement().getValue());
+    assertEquals(instance2.getValue(), instance1.getCollectionFirstElement().getValue());
   }
 
   public void test_CreateCollectionAddInstanceAndGetLastElement() {

@@ -135,81 +135,82 @@ public class OPMInZoomedProcessInstanceHeap extends OPMProcessInstanceHeap {
       if(analyzer.isTargetProcess(link))
         continue;
       OPMObject target = analyzer.getTargetObject(link);
-      if(source.isCollection()) {
-        transferDataFromCollectionObject(source, link, target);
-      } else {
-        transferDataFromSimpleObject(source, link, target);
+
+      if((link.getCenterDecoration() == null) || (link.getCenterDecoration().equals(""))) {
+        transferDataWithNoReferences(source, target);
+      } else if(!link.getCenterDecoration().contains(",")) {
+        transferDataWithOneReference(source, link, target);
+      } else { // link.getCenterDecoration().contains(",")
+        transferDataWithTwoReferences(source, link, target);
       }
-      transferDataFromObject(target);
-      // if(analyzer.isLinkTargetAnObject(link)) {
-      // OPMObject target = OPMObject.class.cast(link.getTarget());
-      // OPMObjectInstance value = null;
-      // if((null != link.getCenterDecoration()) &&
-      // (!"".equals(link.getCenterDecoration()))) {
-      // if(valueAnalyzer.isNumericalLiteral(link.getCenterDecoration())) {
-      // BigDecimal index =
-      // valueAnalyzer.parseNumericalLiteral(link.getCenterDecoration());
-      // value =
-      // getVariable(object).getCollectionElementAtIndex(index.intValue());
-      // } else {
-      // value =
-      // getVariable(object).getCollectionElement(link.getCenterDecoration());
-      // }
-      // } else {
-      // value = getVariable(object);
-      // }
-      // setVariable(target, value);
-      // transferDataFromObject(target);
-      // }
     }
   }
 
-  private void transferDataFromSimpleObject(OPMObject source, OPMProceduralLink link, OPMObject target) {
-    if(target.isCollection()) {
-      transferDataToCollectionObject(getVariable(source), link, target);
-    } else {
+  private void transferDataWithNoReferences(OPMObject source, OPMObject target) {
+    if((source.isCollection() && target.isCollection()) || (!source.isCollection() && !target.isCollection())) {
       setVariable(target, getVariable(source));
-    }
-  }
-
-  private void transferDataFromCollectionObject(OPMObject source, OPMProceduralLink link, OPMObject target) {
-    OPMObjectInstance value = getVariable(source);
-    if((link.getCenterDecoration() == null) || ("".equals(link.getCenterDecoration()))) {
-      setVariable(target, value);
-    } else {
-      String sourceReference = link.getCenterDecoration().split(",")[0];
-      if(!sourceReference.isEmpty()) {
-        if(valueAnalyzer.isNumericalLiteral(sourceReference)) {
-          value = value.getCollectionElementAtIndex(valueAnalyzer.parseNumericalLiteral(sourceReference).intValue());
-        } else {
-          value = value.getCollectionElement(sourceReference);
-        }
-      }
-      if(target.isCollection()) {
-        transferDataToCollectionObject(value, link, target);
-      } else {
-        setVariable(target, value);
-      }
-    }
-  }
-
-  private void transferDataToCollectionObject(OPMObjectInstance value, OPMProceduralLink link, OPMObject target) {
-    String targetReference = link.getCenterDecoration().split(",")[1];
-    if(targetReference.isEmpty()) {
-      setVariable(target, value);
-    } else {
+    } else if(source.isCollection() && !target.isCollection()) {
+      setVariable(target, getVariable(source).getCollectionFirstElement());
+    } else { // !source.isCollection() && target.isCollection()
       OPMObjectInstance targetValue = getVariable(target);
       if(targetValue == null) {
         targetValue = OPMObjectInstance.createCollectionInstace();
       }
-      if(valueAnalyzer.isNumericalLiteral(targetReference)) {
-        targetValue.putCollectionElementAtIndex(valueAnalyzer.parseNumericalLiteral(targetReference).intValue(), value);
-        setVariable(target, targetValue);
-      } else {
-        targetValue.putCollectionElement(targetReference, value);
-        setVariable(target, targetValue);
-      }
+      targetValue.appendCollectionElement(getVariable(source));
+      setVariable(target, targetValue);
     }
+  }
+
+  private void transferDataWithOneReference(OPMObject source, OPMProceduralLink link, OPMObject target) {
+    if(source.isCollection() && !target.isCollection()) {
+      setVariable(target, getCollectionValueUsingReference(source, link.getCenterDecoration()));
+    } else if(!source.isCollection() && target.isCollection()) {
+      OPMObjectInstance targetValue = putValueInCollectionUsingReference(getVariable(source),
+          link.getCenterDecoration(), target);
+      setVariable(target, targetValue);
+    } else {
+      throw new IllegalStateException("Invalid reference state in data transfer link.");
+    }
+  }
+
+  private void transferDataWithTwoReferences(OPMObject source, OPMProceduralLink link, OPMObject target) {
+    if(source.isCollection() && target.isCollection()) {
+      String[] refs = link.getCenterDecoration().split(",");
+      if(refs[0].equals("") || refs[0].equals("")) {
+        throw new IllegalStateException("Invalid reference state in data transfer link.");
+      }
+      OPMObjectInstance sourceValue = getCollectionValueUsingReference(source, refs[0]);
+      OPMObjectInstance targetValue = putValueInCollectionUsingReference(sourceValue, refs[1], target);
+      setVariable(target, targetValue);
+    } else {
+      throw new IllegalStateException("Invalid reference state in data transfer link.");
+    }
+  }
+
+  private OPMObjectInstance getCollectionValueUsingReference(OPMObject source, String reference) {
+    OPMObjectInstance sourceValue = null;
+    if(valueAnalyzer.isNumericalLiteral(reference)) {
+      int sourceIndex = valueAnalyzer.parseNumericalLiteral(reference).intValue();
+      sourceValue = getVariable(source).getCollectionElementAtIndex(sourceIndex);
+    } else {
+      sourceValue = getVariable(source).getCollectionElement(reference);
+    }
+    return sourceValue;
+  }
+
+  private OPMObjectInstance putValueInCollectionUsingReference(OPMObjectInstance value, String reference,
+      OPMObject targetCollection) {
+    OPMObjectInstance targetValue = getVariable(targetCollection);
+    if(targetValue == null) {
+      targetValue = OPMObjectInstance.createCollectionInstace();
+    }
+    if(valueAnalyzer.isNumericalLiteral(reference)) {
+      int targetIndex = valueAnalyzer.parseNumericalLiteral(reference).intValue();
+      targetValue.putCollectionElementAtIndex(targetIndex, value);
+    } else {
+      targetValue.putCollectionElement(reference, value);
+    }
+    return targetValue;
   }
 
   /**
