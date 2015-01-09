@@ -206,7 +206,7 @@ public class OPMObjectInstance {
 
   public OPMObjectInstance getCollectionFirstElement() {
     checkTypeForCollectionOnlyOperations();
-    return collectionValues.get(0);
+    return collectionValues.get(collectionValues.firstKey());
   }
 
   public OPMObjectInstance getLastCollectionElement() {
