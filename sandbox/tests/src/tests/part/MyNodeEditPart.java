@@ -121,8 +121,8 @@ public class MyNodeEditPart extends AbstractGraphicalEditPart implements NodeEdi
   }
 
   @Override
-  protected List getModelChildren() {
-    List retVal = ((Node) getModel()).getChildren();
+  protected List<Node> getModelChildren() {
+    List<Node> retVal = ((Node) getModel()).getChildren();
     System.out.println(this.toString() + retVal.size());
     return retVal;
   }
@@ -177,12 +177,12 @@ public class MyNodeEditPart extends AbstractGraphicalEditPart implements NodeEdi
   }
 
   @Override
-  protected List getModelSourceConnections() {
+  protected List<Link> getModelSourceConnections() {
     return ((Node) getModel()).getSourceLinks();
   }
 
   @Override
-  protected List getModelTargetConnections() {
+  protected List<Link> getModelTargetConnections() {
     return ((Node) getModel()).getTargetLinks();
   }
 
