@@ -5,11 +5,10 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
-import java.util.logging.Logger;
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
  * Show a dialog with the text "Hello World".
@@ -19,12 +18,9 @@ import com.vainolo.utils.SimpleLoggerFactory;
  */
 public class OPMPrintHelloWorldProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
 
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMPrintHelloWorldProcessInstance.class
-      .getName());
-
   @Override
   public void executing() {
-    logger.info("Hello World");
+    logInfo("Hello World");
   }
 
   @Override

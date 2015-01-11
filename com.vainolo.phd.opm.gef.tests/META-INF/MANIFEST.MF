@@ -5,4 +5,5 @@ Bundle-SymbolicName: com.vainolo.phd.opm.gef.tests
 Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Fragment-Host: com.vainolo.phd.opm.gef
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: com.vainolo.phd.opm.utilities.analysis

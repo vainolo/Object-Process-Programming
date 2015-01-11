@@ -10,13 +10,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
  com.vainolo.vainolibraries.java.eclipse;visibility:=reexport,
  org.junit;bundle-version="4.11.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: lib/simplelogger.jar,
- .
+Bundle-ClassPath: .
 Import-Package: org.eclipse.core.resources,
  org.eclipse.draw2d.geometry
 Export-Package: com.vainolo.phd.opm.utilities,
  com.vainolo.phd.opm.utilities.analysis,
- com.vainolo.phd.opm.utilities.predicates,
- com.vainolo.utils
+ com.vainolo.phd.opm.utilities.predicates 

@@ -5,8 +5,10 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.utilities;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.logInfo;
+import static com.vainolo.phd.opm.utilities.OPMLogger.logWarning;
+
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -22,12 +24,9 @@ import com.vainolo.phd.opm.model.OPMNamedElement;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 public enum OPMFileUtils {
   INSTANCE;
-
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMFileUtils.class.getName());
 
   public OPMObjectProcessDiagram loadOPDFile(String uri) {
     OPMObjectProcessDiagram opd;
@@ -39,8 +38,8 @@ public enum OPMFileUtils {
       opdResource.load(null);
       opd = (OPMObjectProcessDiagram) opdResource.getContents().get(0);
     } catch(final IOException e) {
-      logger.warning("OPD File " + uri + " could not be loaded. Please check the path.");
-      logger.warning("Exception thrown: " + e);
+      logWarning("OPD File " + uri + " could not be loaded. Please check the path.");
+      logWarning("Exception thrown: " + e);
       opd = null;
     }
 
@@ -50,8 +49,8 @@ public enum OPMFileUtils {
   public void createOPDFile2(IFile opdFile, String name, OPMObjectProcessDiagramKind kind, boolean isObject,
       boolean isProcess) throws IOException {
     if(opdFile.exists()) {
-      logger.info("Tried to create file that already exists.");
-      logger.info("Filename: " + opdFile.getFullPath());
+      logInfo("Tried to create file that already exists.");
+      logInfo("Filename: " + opdFile.getFullPath());
       throw new IllegalArgumentException("Tried to create a file that already exists: " + opdFile.getName());
     }
 

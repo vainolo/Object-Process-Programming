@@ -4,8 +4,9 @@ Bundle-Name: OPM Validation
 Bundle-SymbolicName: com.vainolo.phd.opm.validation
 Bundle-Version: 0.0.1.qualifier
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: com.vainolo.phd.opm.model,
  org.junit,
  com.vainolo.phd.opm.utilities
 Export-Package: com.vainolo.phd.opm.validation
+Import-Package: com.vainolo.phd.opm.utilities.analysis

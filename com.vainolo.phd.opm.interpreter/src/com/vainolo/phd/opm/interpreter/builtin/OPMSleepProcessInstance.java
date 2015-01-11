@@ -5,14 +5,14 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
+
 import java.util.List;
-import java.util.logging.Logger;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
  * Sleep a given amount of time.
@@ -22,16 +22,15 @@ import com.vainolo.utils.SimpleLoggerFactory;
  * 
  */
 public class OPMSleepProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMSleepProcessInstance.class.getName());
 
   @Override
   protected void executing() {
     double time = (double) getArgument("time").getValue();
-    logger.info("Sleeping for " + time + " seconds.");
+    logInfo("Sleeping for " + time + " seconds.");
     try {
       Thread.sleep((int) time * 1000);
     } catch(InterruptedException e) {
-      logger.finest("Sleep process interrupted. Returning.");
+      logFinest("Sleep process interrupted. Returning.");
       return;
     }
   }

@@ -5,19 +5,17 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
+
 import java.lang.reflect.Method;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.vainolo.phd.opm.model.OPMFactory;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 public class OPMJavaProcessExecutableInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMJavaProcessExecutableInstance.class
-      .getName());
 
   private final Pattern classAndMethodAndParametersPattern = Pattern.compile("(.*)\\.([^\\.]*)\\((.*)\\)");
 
@@ -81,8 +79,7 @@ public class OPMJavaProcessExecutableInstance extends OPMAbstractProcessInstance
         .getDescription());
 
     if(!classAndMethodAndParametersMatcher.find()) {
-      logger
-          .info("Could not parse method definition " + process.getDescription() + " for process " + process.getName());
+      logInfo("Could not parse method definition " + process.getDescription() + " for process " + process.getName());
       throw new RuntimeException("Could not parse method definition " + process.getDescription() + " for process "
           + process.getName());
     }
@@ -112,15 +109,15 @@ public class OPMJavaProcessExecutableInstance extends OPMAbstractProcessInstance
       method = cls.getMethod(methodName, parameterClasses);
 
     } catch(ClassNotFoundException e) {
-      logger.info("Could not load class " + className + " for process " + process.getName()
+      logInfo("Could not load class " + className + " for process " + process.getName()
           + ". Check that the class is in the classpath.");
       throw new RuntimeException(e);
     } catch(NoSuchMethodException e) {
-      logger.info("Could not find methdod " + methodName + " in class " + className
+      logInfo("Could not find methdod " + methodName + " in class " + className
           + ". Please check that you have given the correct parameters and try again.");
       throw new RuntimeException(e);
     } catch(SecurityException e) {
-      logger.info("Some security exception happened. Don't know what this means :-)");
+      logInfo("Some security exception happened. Don't know what this means :-)");
       throw new RuntimeException(e);
     }
 

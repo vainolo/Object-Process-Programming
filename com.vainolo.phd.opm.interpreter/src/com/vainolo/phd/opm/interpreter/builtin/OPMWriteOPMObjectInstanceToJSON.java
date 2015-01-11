@@ -5,9 +5,10 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
+
 import java.util.List;
 import java.util.Map.Entry;
-import java.util.logging.Logger;
 
 import com.eclipsesource.json.JsonObject;
 import com.google.common.base.Preconditions;
@@ -17,10 +18,8 @@ import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance.InstanceType;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 public class OPMWriteOPMObjectInstanceToJSON extends OPMAbstractProcessInstance implements OPMProcessInstance {
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
   @Override
   protected void executing() {
@@ -30,7 +29,7 @@ public class OPMWriteOPMObjectInstanceToJSON extends OPMAbstractProcessInstance 
       setArgument("json", OPMObjectInstance.createFromValue(jsonObject.toString()));
     } catch(Exception e) {
       e.printStackTrace();
-      logger.severe(e.getLocalizedMessage());
+      logSevere(e.getLocalizedMessage());
     }
   }
 

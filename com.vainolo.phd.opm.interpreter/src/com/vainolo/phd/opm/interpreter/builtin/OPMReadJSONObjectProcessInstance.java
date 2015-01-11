@@ -5,10 +5,11 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
+
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
 
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonObject.Member;
@@ -17,10 +18,8 @@ import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMObjectInstance;
 import com.vainolo.phd.opm.interpreter.OPMParameter;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 public class OPMReadJSONObjectProcessInstance extends OPMAbstractProcessInstance implements OPMProcessInstance {
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
 
   @Override
   protected void executing() {
@@ -31,7 +30,7 @@ public class OPMReadJSONObjectProcessInstance extends OPMAbstractProcessInstance
       setArgument("object", opmObjectInstance);
     } catch(Exception e) {
       e.printStackTrace();
-      logger.severe(e.getLocalizedMessage());
+      logSevere(e.getLocalizedMessage());
     }
   }
 
@@ -43,7 +42,7 @@ public class OPMReadJSONObjectProcessInstance extends OPMAbstractProcessInstance
   }
 
   private void addPart(OPMObjectInstance whole, Member member) {
-    logger.info("Adding part " + member.getName() + " with value " + member.getValue().toString());
+    logInfo("Adding part " + member.getName() + " with value " + member.getValue().toString());
     if(member.getValue().isArray()) {
       throw new UnsupportedOperationException();
     } else if(member.getValue().isString()) {

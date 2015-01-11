@@ -5,12 +5,11 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter.builtin;
 
-import java.util.logging.Logger;
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
 
 import com.vainolo.phd.opm.interpreter.OPMAbstractProcessInstance;
 import com.vainolo.phd.opm.interpreter.OPMProcessInstance;
 import com.vainolo.phd.opm.model.OPMProcess;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 /**
  * An OPM process that upon execution simply creates all process outputs.
@@ -21,8 +20,6 @@ import com.vainolo.utils.SimpleLoggerFactory;
  */
 public class OPMConceptualProcess extends OPMAbstractProcessInstance implements OPMProcessInstance {
 
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMAbstractProcessInstance.class.getName());
-
   private OPMProcess process;
 
   public OPMConceptualProcess(OPMProcess process) {
@@ -31,7 +28,7 @@ public class OPMConceptualProcess extends OPMAbstractProcessInstance implements 
 
   @Override
   protected void executing() {
-    logger.info("Executing conceptual process " + getName() + ".");
+    logInfo("Executing conceptual process " + getName() + ".");
   }
 
   @Override

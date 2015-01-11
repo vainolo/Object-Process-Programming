@@ -5,7 +5,7 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.interpreter;
 
-import java.util.logging.Logger;
+import static com.vainolo.phd.opm.utilities.OPMLogger.*;
 
 import org.eclipse.core.runtime.Path;
 
@@ -24,18 +24,15 @@ import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.utilities.OPMFileUtils;
 import com.vainolo.phd.opm.utilities.analysis.OPDAnalyzer;
-import com.vainolo.utils.SimpleLoggerFactory;
 
 public class OPMProcessInstanceFactory {
-
-  private static final Logger logger = SimpleLoggerFactory.createLogger(OPMProcessInstanceFactory.class.getName());
 
   public static OPMProcessInstance createExecutableInstance(final OPMObjectProcessDiagram opd) {
     switch(opd.getKind()) {
     case COMPOUND:
       return new OPMInZoomedProcessExecutableInstance(opd, new OPDAnalyzer());
     case UNFOLDED:
-      logger.info("Unfolded OPDs cannot be executed.");
+      logInfo("Unfolded OPDs cannot be executed.");
       throw new IllegalArgumentException("Unfolded OPDs cannot be executed");
     }
     return null;
