@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OPM Utilities
 Bundle-SymbolicName: com.vainolo.phd.opm.utilities;singleton:=true
-Bundle-Version: 0.0.1.qualifier
+Bundle-Version: 0.1.0
 Bundle-Activator: com.vainolo.phd.opm.utilities.Activator
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Require-Bundle: org.eclipse.core.runtime,

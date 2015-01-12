@@ -2,7 +2,7 @@
 <feature
       id="com.vainolo.phd.opm.feature"
       label="OPP"
-      version="0.0.1.qualifier"
+      version="0.1.0"
       provider-name="Arieh &quot;Vainolo&quot; Bibliowicz">
 
    <description url="http://www.example.com/description">
@@ -39,95 +39,49 @@
          id="com.vainolo.phd.opm.gef"
          download-size="0"
          install-size="0"
-         version="0.0.1.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="com.vainolo.phd.opm.interpreter"
          download-size="0"
          install-size="0"
-         version="0.0.1.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="com.vainolo.phd.opm.model"
          download-size="0"
          install-size="0"
-         version="0.0.1.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="com.vainolo.phd.opm.model.edit"
          download-size="0"
          install-size="0"
-         version="0.0.1.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="com.vainolo.phd.opm.model.editor"
          download-size="0"
          install-size="0"
-         version="0.0.1.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="com.vainolo.phd.opm.utilities"
          download-size="0"
          install-size="0"
-         version="0.0.1.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="com.vainolo.phd.opm.validation"
          download-size="0"
          install-size="0"
-         version="0.0.1.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="com.vainolo.phd.opm.gef.tests"
-         download-size="0"
-         install-size="0"
-         version="0.0.1.qualifier"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="com.vainolo.phd.opm.interpreter.tests"
-         download-size="0"
-         install-size="0"
-         version="0.0.1.qualifier"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="com.vainolo.phd.opm.model.tests"
-         download-size="0"
-         install-size="0"
-         version="0.0.1.qualifier"
-         unpack="false"/>
-
-   <plugin
-         id="com.vainolo.phd.opm.utilities.tests"
-         download-size="0"
-         install-size="0"
-         version="0.0.1.qualifier"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="com.vainolo.phd.opm.validation.tests"
-         download-size="0"
-         install-size="0"
-         version="0.0.1.qualifier"
-         fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="com.vainolo.vainolibraries.java.eclipse"
-         download-size="0"
-         install-size="0"
-         version="0.0.1.qualifier"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
