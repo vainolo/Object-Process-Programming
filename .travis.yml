@@ -1,2 +1,2 @@
-script: mvn clean install -U
+script: mvn -f com.vainolo.phd.opm.releng/pom.xml clean install -U
 
