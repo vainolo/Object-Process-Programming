@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OPM Interpreter Unit Tests
 Bundle-SymbolicName: com.vainolo.phd.opm.interpreter.tests
-Bundle-Version: 0.1.0
+Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Fragment-Host: com.vainolo.phd.opm.interpreter
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

@@ -2,7 +2,7 @@
 <feature
       id="com.vainolo.phd.opm.feature"
       label="OPP"
-      version="0.1.0"
+      version="0.1.0.qualifier"
       provider-name="Arieh &quot;Vainolo&quot; Bibliowicz">
 
    <description url="http://www.example.com/description">

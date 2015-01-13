@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OPM Interpreter
 Bundle-SymbolicName: com.vainolo.phd.opm.interpreter;singleton:=true
-Bundle-Version: 0.1.0
+Bundle-Version: 0.1.0.qualifier
 Require-Bundle: com.vainolo.phd.opm.utilities,
  org.eclipse.core.resources;bundle-version="3.7.100",
  com.vainolo.phd.opm.model,
