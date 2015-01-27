@@ -5,6 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opm.gef;
 
+import static com.google.common.base.Preconditions.*;
+
 import java.util.Collection;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.traverse.BreadthFirstIterator;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opm.gef.editor.OPMGraphicalEditor;
 import com.vainolo.phd.opm.interpreter.utils.OPDExecutionAnalyzer;
@@ -119,13 +122,46 @@ public class OPLViewPart extends ViewPart {
 
     StringBuilder oplBuilder = new StringBuilder();
     oplBuilder.append("<html>\n" + getStyleSheet() + "</head>\n" + "<body>\n");
-    oplBuilder.append("<p>" + format(opd) + " is a <span class='process'>process</span><p>");
+    switch(opd.getKind()) {
+    case COMPOUND:
+      oplBuilder.append(buildInZoomedProcessOPL(opd));
+      break;
+    case UNFOLDED:
+      oplBuilder.append(buildUnfoldedOPL(opd));
+      break;
+    case SYSTEM:
+      oplBuilder.append(buildSystemOPL(opd));
+      break;
+    }
+    oplBuilder.append("</body>\n" + "</html>");
+    browser.setText(oplBuilder.toString());
+  }
+
+  private String buildUnfoldedOPL(OPMObjectProcessDiagram opd) {
+    StringBuilder oplBuilder = new StringBuilder();
+    OPMThing unfoldedThing = analyzer.getUnfoldedThing(opd);
+    if(unfoldedThing != null)
+      oplBuilder.append("<p>Unfolding of " + unfoldedThing.getName() + "</p>");
+    return oplBuilder.toString();
+  }
+
+  private String buildSystemOPL(OPMObjectProcessDiagram opd) {
+    StringBuilder oplBuilder = new StringBuilder();
+    OPMProcess system = analyzer.getSystemProcess(opd);
+    if(system != null)
+      oplBuilder.append("<p>System " + system.getName() + "</p>");
+    return oplBuilder.toString();
+  }
+
+  private String buildInZoomedProcessOPL(OPMObjectProcessDiagram opd) {
+    checkArgument(OPMObjectProcessDiagramKind.COMPOUND.equals(opd.getKind()));
+    StringBuilder oplBuilder = new StringBuilder();
+    oplBuilder.append("<p>" + format(opd) + " is a <span class='process'>process</span>.<p>");
     oplBuilder.append(buildParametersOPL(opd));
     oplBuilder.append(buildProcessListOPL(opd));
     oplBuilder.append(buildExecutionOrderOPL(opd));
     oplBuilder.append(buildResultsOPL(opd));
-    oplBuilder.append("</body>\n" + "</html>");
-    browser.setText(oplBuilder.toString());
+    return oplBuilder.toString();
   }
 
   private String buildParametersOPL(OPMObjectProcessDiagram opd) {
@@ -138,13 +174,13 @@ public class OPLViewPart extends ViewPart {
 
     builder.append("<p>The parameters of " + format(opd) + " are ");
     if(parameters.size() == 1) {
-      builder.append(format(parameters.iterator().next()) + "</p>");
+      builder.append(format(parameters.iterator().next()));
     } else {
       OPMObject[] parametersArray = parameters.toArray(new OPMObject[0]);
-      builder.append(buildCommaSeparatedNamedElementSentence(parametersArray) + "</p>");
+      builder.append(buildCommaSeparatedNamedElementSentence(parametersArray));
     }
 
-    return builder.toString();
+    return builder.append(".</p>").toString();
   }
 
   private String buildProcessListOPL(OPMObjectProcessDiagram opd) {
@@ -163,7 +199,7 @@ public class OPLViewPart extends ViewPart {
       for(int i = 0; i < processArray.length - 1; i++) {
         processListOPLBuilder.append(format(processArray[i]) + ", ");
       }
-      processListOPLBuilder.append("and " + format(processArray[processArray.length - 1]) + "</p>\n");
+      processListOPLBuilder.append("and " + format(processArray[processArray.length - 1]) + ".</p>\n");
     }
 
     return processListOPLBuilder.toString();
@@ -215,16 +251,13 @@ public class OPLViewPart extends ViewPart {
         noninitialProcessDetails.append("<p>" + format(p) + " is executed after ");
         OPMProcess[] requiredProcesses = executionAnalyzer.findRequiredProcesses(opdDag, p).toArray(new OPMProcess[0]);
         noninitialProcessDetails.append(buildCommaSeparatedNamedElementSentence(requiredProcesses));
-        if(requiredProcesses.length == 1)
-          noninitialProcessDetails.append(" terminates</p>");
-        else
-          noninitialProcessDetails.append(" terminate</p>");
+        noninitialProcessDetails.append(":</p>");
         noninitialProcessDetails.append("<div class='indent'>" + buildProcessDetailsOPL(p) + "</div>");
       }
     }
 
     builder.append("<p>The execution of " + format(opd) + " starts with "
-        + buildCommaSeparatedNamedElementSentence(initialProcesses.toArray(new OPMProcess[0])) + "</p>");
+        + buildCommaSeparatedNamedElementSentence(initialProcesses.toArray(new OPMProcess[0])) + ":</p>");
     builder.append(initialProcessDetails);
     builder.append("<div class='indent'>" + buildObjectDependenciesOPL(opd) + "</div>");
     builder.append(noninitialProcessDetails);
@@ -266,7 +299,7 @@ public class OPLViewPart extends ViewPart {
     if(outgoingDataLinks.size() != 0) {
       String resultsOPL = buildProcessResultsOPL(outgoingDataLinks);
       if(!"".equals(resultsOPL)) {
-        processDetails.add(resultsOPL);
+        processDetails.add(resultsOPL + ".");
       }
     }
 
@@ -340,11 +373,11 @@ public class OPLViewPart extends ViewPart {
     String[] elements = new String[links.size()];
     OPMProceduralLink[] linksArray = links.toArray(new OPMProceduralLink[0]);
     for(int i = 0; i < linksArray.length; i++) {
+      OPMNamedElement target = (OPMNamedElement) linksArray[i].getTarget();
       if(linksArray[i].getCenterDecoration() == null || "".equals(linksArray[i].getCenterDecoration())) {
-        elements[i] = format((OPMNamedElement) linksArray[i].getTarget());
+        elements[i] = format(target);
       } else {
-        elements[i] = formatParameter(linksArray[i].getCenterDecoration()) + " as "
-            + format((OPMNamedElement) linksArray[i].getTarget());
+        elements[i] = formatParameter(linksArray[i].getCenterDecoration()) + " as " + format(target);
       }
     }
     return buildCommaSeparatedList(elements);
@@ -412,7 +445,13 @@ public class OPLViewPart extends ViewPart {
   }
 
   public String formatObject(OPMObject object) {
-    return "<span class='object'>" + object.getName() + "</span>";
+    String name = "";
+    if((object.getName() == null) || (object.getName().matches("\\s*"))) {
+      name = "anonymous";
+    } else {
+      name = object.getName();
+    }
+    return "<span class='object'>" + name + "</span>";
   }
 
   public String formatState(OPMState state) {

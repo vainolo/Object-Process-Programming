@@ -183,7 +183,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
       opdKind.setLayoutData(data);
 
       for(String objectName : new String[] { OPMObjectProcessDiagramKind.COMPOUND.getLiteral(),
-          OPMObjectProcessDiagramKind.UNFOLDED.getLiteral() }) {
+          OPMObjectProcessDiagramKind.UNFOLDED.getLiteral(), OPMObjectProcessDiagramKind.SYSTEM.getLiteral() }) {
         opdKind.add(objectName);
       }
 

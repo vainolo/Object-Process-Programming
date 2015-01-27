@@ -39,13 +39,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
  * @generated
  */
 public class OPMObjectProcessDiagramItemProvider
-	extends OPMContainerItemProvider
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
-		IItemPropertySource {
+	extends OPMContainerItemProvider {
 	/**
    * This constructs an instance from a factory and a notifier.
    * <!-- begin-user-doc -->

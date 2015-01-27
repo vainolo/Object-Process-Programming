@@ -1,5 +1,7 @@
 package com.vainolo.phd.opm.utilities.analysis;
 
+import static com.vainolo.phd.opm.utilities.OPMLogger.logWarning;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +15,7 @@ import com.vainolo.phd.opm.model.OPMLink;
 import com.vainolo.phd.opm.model.OPMNode;
 import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
+import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
 import com.vainolo.phd.opm.model.OPMPackage;
 import com.vainolo.phd.opm.model.OPMProceduralLink;
 import com.vainolo.phd.opm.model.OPMProceduralLinkKind;
@@ -20,6 +23,7 @@ import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opm.model.OPMState;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregator;
 import com.vainolo.phd.opm.model.OPMStructuralLinkAggregatorKind;
+import com.vainolo.phd.opm.model.OPMThing;
 import com.vainolo.phd.opm.utilities.OPMConstants;
 
 public class OPDAnalyzer {
@@ -407,9 +411,52 @@ public class OPDAnalyzer {
       }
     }
     if(inZoomedProcess == null) {
-      throw new IllegalStateException("No process found in an in-zoomed OPD");
+      logWarning("Tried to get an in-zoomed process when none exist in the diagram. OPD: {0}.", opd.getName());
     }
     return inZoomedProcess;
+  }
+
+  /**
+   * Find the thing that is unfolded in the diagram. An unfolded thing must
+   * match the name of the OPD.
+   * 
+   * @param opd
+   *          an unfolded {@link OPMObjectProcessDiagram}.
+   * @return the unfolded {@link OPMThing} of the diagram.
+   */
+  public OPMThing getUnfoldedThing(OPMObjectProcessDiagram opd) {
+    OPMThing unfoldedThing = getThingByName(opd, opd.getName());
+    if(unfoldedThing == null)
+      logWarning("Tried to get an unfolded thing when none exist in the diagram. OPD: {0}.", opd.getName());
+    return unfoldedThing;
+  }
+
+  /**
+   * Find the system {@link OPMProcess} of the diagram. The system process must
+   * match the name of the OPD.
+   * 
+   * @param opd
+   *          an {@link OPMObjectProcessDiagram} of kind
+   *          {@link OPMObjectProcessDiagramKind#SYSTEM}
+   * @return the unfolded {@link OPMThing} of the diagram.
+   */
+  public OPMProcess getSystemProcess(OPMObjectProcessDiagram opd) {
+    OPMThing systemThing = getThingByName(opd, opd.getName());
+    if(systemThing == null)
+      logWarning("Tried to get a system thing when none exist in the diagram. OPD: {0}.", opd.getName());
+    return OPMProcess.class.cast(systemThing);
+  }
+
+  private OPMThing getThingByName(OPMObjectProcessDiagram opd, String name) {
+    for(OPMNode node : opd.getNodes()) {
+      if(OPMThing.class.isInstance(node)) {
+        OPMThing thing = OPMThing.class.cast(node);
+        if(thing.getName().equals(opd.getName())) {
+          return thing;
+        }
+      }
+    }
+    return null;
   }
 
   /**
