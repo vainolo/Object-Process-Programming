@@ -20,7 +20,6 @@ public class OPMInZoomedProcessResultStorer {
 
   private OPDAnalyzer analyzer;
   private OPMInZoomedProcessInstanceHeap heap;
-  private OPMInZoomedProcessExecutionState executionState;
 
   public static OPMInZoomedProcessResultStorer createResultStorer(OPDAnalyzer analyzer,
       OPMInZoomedProcessInstanceHeap heap) {
@@ -28,10 +27,6 @@ public class OPMInZoomedProcessResultStorer {
     storer.analyzer = analyzer;
     storer.heap = heap;
     return storer;
-  }
-
-  public void extractResultsToVariables(OPMProcessInstance instance) {
-    extractResultsToVariables(executionState.getProcess(instance), instance);
   }
 
   public void extractResultsToVariables(OPMProcess process, OPMProcessInstance instance) {

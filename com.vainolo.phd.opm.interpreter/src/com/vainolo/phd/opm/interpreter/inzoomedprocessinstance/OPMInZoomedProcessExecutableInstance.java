@@ -76,8 +76,6 @@ public class OPMInZoomedProcessExecutableInstance extends OPMAbstractProcessInst
     this.opd = opd;
     this.analyzer = analyzer;
     this.executionAnalyzer = new OPDExecutionAnalyzer();
-    // this.executionHelper = new OPMInZoomedProcessExecutionHelper();
-    // this.executionState = new OPMInZoomedProcessExecutionState();
     this.heap = OPMInterpreterInjector.INSTANCE.getInstance(OPMInZoomedProcessInstanceHeap.class);
     this.valueAnalyzer = new OPMObjectInstanceValueAnalyzer();
     this.argumentHandler = new OPMInZoomedProcessArgumentHandler(analyzer, heap);
