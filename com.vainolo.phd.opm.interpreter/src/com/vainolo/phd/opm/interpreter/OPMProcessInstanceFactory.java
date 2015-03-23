@@ -39,8 +39,8 @@ public class OPMProcessInstanceFactory {
   }
 
   public static OPMProcessInstance createExecutableInstance(String opdName) {
-    OPMObjectProcessDiagram opd = OPMFileUtils.INSTANCE.loadOPDFile(OPMInterpreter.container
-        .getFile(new Path(opdName + ".opm")).getFullPath().toString());
+    OPMObjectProcessDiagram opd = OPMFileUtils.loadOPDFile(OPMInterpreter.container.getFile(new Path(opdName + ".opm"))
+        .getFullPath().toString());
     return createExecutableInstance(opd);
 
   }

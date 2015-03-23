@@ -35,7 +35,7 @@ public class OPMThingInZoomCommand extends Command {
     // input.getFile().getParent().getLocationURI().toString();
     try {
       if(!newFile.exists()) {
-        OPMFileUtils.INSTANCE.createOPDFile2(newFile, thingName, OPMObjectProcessDiagramKind.COMPOUND,
+        OPMFileUtils.createOPDFile2(newFile, thingName, OPMObjectProcessDiagramKind.COMPOUND,
             OPMObject.class.isInstance(model), OPMProcess.class.isInstance(model));
       }
       input.getFile().getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);

@@ -18,17 +18,15 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
-import com.google.common.base.Preconditions;
 import com.vainolo.phd.opm.model.OPMFactory;
-import com.vainolo.phd.opm.model.OPMNamedElement;
-import com.vainolo.phd.opm.model.OPMNode;
+import com.vainolo.phd.opm.model.OPMObject;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
 import com.vainolo.phd.opm.model.OPMObjectProcessDiagramKind;
+import com.vainolo.phd.opm.model.OPMProcess;
 
-public enum OPMFileUtils {
-  INSTANCE;
+public class OPMFileUtils {
 
-  public OPMObjectProcessDiagram loadOPDFile(String uri) {
+  public static OPMObjectProcessDiagram loadOPDFile(String uri) {
     OPMObjectProcessDiagram opd;
     final ResourceSet resourceSet = new ResourceSetImpl();
     resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
@@ -46,7 +44,7 @@ public enum OPMFileUtils {
     return opd;
   }
 
-  public void createOPDFile2(IFile opdFile, String name, OPMObjectProcessDiagramKind kind, boolean isObject,
+  public static void createOPDFile2(IFile opdFile, String name, OPMObjectProcessDiagramKind kind, boolean isObject,
       boolean isProcess) throws IOException {
     if(opdFile.exists()) {
       logInfo("Tried to create file that already exists.");
@@ -63,47 +61,32 @@ public enum OPMFileUtils {
     resource.getContents().add(opd);
     switch(kind) {
     case COMPOUND:
-      createInitialNode(opd, name, isObject, isProcess, new Rectangle(200, 100, 300, 400));
+      createInitialProcessNode(opd);
       break;
     case UNFOLDED:
-      createInitialNode(opd, name, isObject, isProcess, new Rectangle(200, 100, 100, 100));
+      createInitialObjectNode(opd, name);
+      break;
+    case SYSTEM:
       break;
     }
     resource.save(null);
   }
 
-  /**
-   * Create the first node of the diagram. Note that either
-   * <code>isObject</code> or <code>isProcess</code> must be true, but not both
-   * of them.
-   * 
-   * @param opd
-   *          parent OPD where the node will be created.
-   * @param name
-   *          the name of the new node.
-   * @param isObject
-   *          <code>true</code> if the new node is an object, <code>false</code>
-   *          otherwise.
-   * @param isProcess
-   *          <code>true</code> if the new node is an process,
-   *          <code>false</code> otherwise.
-   * @param constraints
-   *          the desired constraints for the new node.
-   */
-  private void createInitialNode(OPMObjectProcessDiagram opd, String name, boolean isObject, boolean isProcess,
-      Rectangle constraints) {
-    Preconditions.checkArgument((isObject ^ isProcess),
-        "Initial node must be either an Object or a Process. Found isProcess=" + isProcess + ", isObject=" + isObject);
-    OPMNode node = null;
-    if(isObject) {
-      node = OPMFactory.eINSTANCE.createOPMObject();
-    } else if(isProcess) {
-      node = OPMFactory.eINSTANCE.createOPMProcess();
-    }
-    node.setId(1);
-    ((OPMNamedElement) node).setName(name);
-    node.setConstraints(constraints);
-    opd.getNodes().add(node);
-    opd.setLastKnownUsedId(2);
+  private static void createInitialProcessNode(OPMObjectProcessDiagram opd) {
+    OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
+    process.setId(1);
+    process.setName("");
+    process.setConstraints(new Rectangle(200, 100, 100, 100));
+    opd.getNodes().add(process);
+    opd.setLastKnownUsedId(1);
+  }
+
+  private static void createInitialObjectNode(OPMObjectProcessDiagram opd, String name) {
+    OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
+    object.setId(1);
+    object.setName(name);
+    object.setConstraints(new Rectangle(200, 100, 100, 100));
+    opd.getNodes().add(object);
+    opd.setLastKnownUsedId(1);
   }
 }

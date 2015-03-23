@@ -70,8 +70,7 @@ public class OPMModelWizard extends Wizard implements INewWizard {
         @Override
         protected void execute(final IProgressMonitor progressMonitor) {
           try {
-            OPMFileUtils.INSTANCE.createOPDFile2(modelFile,
-                modelFile.getName().substring(0, modelFile.getName().length() - 4),
+            OPMFileUtils.createOPDFile2(modelFile, modelFile.getName().substring(0, modelFile.getName().length() - 4),
                 initialObjectCreationPage.getOPDKind(), false, true);
           } catch(Exception exception) {
             OPMGEFEditorPlugin.INSTANCE.log(exception);

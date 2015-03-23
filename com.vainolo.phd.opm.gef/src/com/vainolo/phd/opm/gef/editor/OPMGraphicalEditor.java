@@ -158,7 +158,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
       IFileEditorInput fileInput = (IFileEditorInput) input;
       opdFile = fileInput.getFile();
-      opd = OPMFileUtils.INSTANCE.loadOPDFile(opdFile.getLocationURI().toString());
+      opd = OPMFileUtils.loadOPDFile(opdFile.getLocationURI().toString());
       if(opd == null) {
         throw new RuntimeException("Could not load OPD file " + opdFile.getLocationURI().toString());
       }
