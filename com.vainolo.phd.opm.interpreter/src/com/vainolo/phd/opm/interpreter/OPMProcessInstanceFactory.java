@@ -32,8 +32,11 @@ public class OPMProcessInstanceFactory {
     case COMPOUND:
       return new OPMInZoomedProcessExecutableInstance(opd, new OPDAnalyzer());
     case UNFOLDED:
-      logInfo("Unfolded OPDs cannot be executed.");
+      logInfo("Unfolded OPDs can't be executed.");
       throw new IllegalArgumentException("Unfolded OPDs cannot be executed");
+    case SYSTEM:
+      logInfo("System OPDs can't be executed yet.");
+      throw new IllegalArgumentException("System OPDs can't be executed yet.");
     }
     return null;
   }
