@@ -48,6 +48,16 @@ public class OPMGraphicalEditorContextMenuProvider extends ContextMenuProvider {
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
     action = getActionRegistry().getAction(ToggleStateValueAction.TOGGLE_VALUE_STATE_ID);
     menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(CreateOPMObjectAction.ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(CreateOPMProcessAction.ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(CreateOPMStateAction.ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(CreateOPMConsumptionLinkAction.ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(CreateOPMResultLinkAction.ID);
+    menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
   }
 
   private ActionRegistry getActionRegistry() {

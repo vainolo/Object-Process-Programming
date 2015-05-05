@@ -12,10 +12,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor.PropertyValueWrapper;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
-import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.EditDomain;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.KeyStroke;
+import org.eclipse.gef.*;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.gef.dnd.TemplateTransferDragSourceListener;
 import org.eclipse.gef.dnd.TemplateTransferDropTargetListener;
@@ -79,6 +76,11 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   @Override
+  public GraphicalViewer getGraphicalViewer() {
+    return super.getGraphicalViewer();
+  }
+
+  @Override
   protected void configureGraphicalViewer() {
     super.configureGraphicalViewer();
     getGraphicalViewer().setEditPartFactory(new OPMEditPartFactory());
@@ -125,6 +127,11 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     if(palette == null)
       palette = new OPMGraphicalEditorPalette(idManager);
     return palette;
+  }
+
+  @Override
+  public DefaultEditDomain getEditDomain() {
+    return super.getEditDomain();
   }
 
   /**
@@ -207,6 +214,21 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     action = new ThingInZoomAction(this);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
+
+    action = new CreateOPMObjectAction(this);
+    getActionRegistry().registerAction(action);
+
+    action = new CreateOPMProcessAction(this);
+    getActionRegistry().registerAction(action);
+
+    action = new CreateOPMStateAction(this);
+    getActionRegistry().registerAction(action);
+
+    action = new CreateOPMConsumptionLinkAction(this);
+    getActionRegistry().registerAction(action);
+
+    action = new CreateOPMResultLinkAction(this);
+    getActionRegistry().registerAction(action);
 
     action = new CopyTemplateAction(this);
     getActionRegistry().registerAction(action);
