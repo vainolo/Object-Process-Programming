@@ -40,7 +40,9 @@ public class OPMCreateResultLinkAction extends WorkbenchPartAction {
     OPMGraphicalEditor editor = (OPMGraphicalEditor) getWorkbenchPart();
     editor.getGraphicalViewer().getSelectedEditParts();
     editor.getEditDomain().setActiveTool(tool);
-    if(editor.getGraphicalViewer().getSelectedEditParts().size() > 0) {
+    if(editor.getGraphicalViewer().getSelectedEditParts().size() == 1) {
+      if(!OPMProcessEditPart.class.isInstance(editor.getGraphicalViewer().getSelectedEditParts().get(0)))
+        return;
       OPMProcessEditPart selection = (OPMProcessEditPart) editor.getGraphicalViewer().getSelectedEditParts().get(0);
       Event e = new Event();
       e.button = 1;

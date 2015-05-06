@@ -11,6 +11,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import com.vainolo.phd.opm.gef.editor.OPMGraphicalEditor;
 import com.vainolo.phd.opm.gef.editor.factory.OPMConsumptionLinkFactory;
 import com.vainolo.phd.opm.gef.editor.part.OPMObjectEditPart;
+import com.vainolo.phd.opm.gef.editor.part.OPMProcessEditPart;
 import com.vainolo.phd.opm.model.OPMObject;
 
 public class OPMCreateConsumptionLinkAction extends WorkbenchPartAction {
@@ -40,7 +41,9 @@ public class OPMCreateConsumptionLinkAction extends WorkbenchPartAction {
     OPMGraphicalEditor editor = (OPMGraphicalEditor) getWorkbenchPart();
     editor.getGraphicalViewer().getSelectedEditParts();
     editor.getEditDomain().setActiveTool(tool);
-    if(editor.getGraphicalViewer().getSelectedEditParts().size() > 0) {
+    if(editor.getGraphicalViewer().getSelectedEditParts().size() == 1) {
+      if(!OPMObjectEditPart.class.isInstance(editor.getGraphicalViewer().getSelectedEditParts().get(0)))
+        return;
       OPMObjectEditPart selection = (OPMObjectEditPart) editor.getGraphicalViewer().getSelectedEditParts().get(0);
       Event e = new Event();
       e.button = 1;
