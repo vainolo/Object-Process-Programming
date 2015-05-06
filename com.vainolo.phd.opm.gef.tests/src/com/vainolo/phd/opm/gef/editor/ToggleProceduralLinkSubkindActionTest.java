@@ -10,7 +10,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.vainolo.phd.opm.gef.editor.action.ToggledProceduralLinkSubkindAction;
+import com.vainolo.phd.opm.gef.editor.action.OPMToggledProceduralLinkSubkindAction;
 import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
 import com.vainolo.phd.opm.gef.editor.part.OPMProceduralLinkEditPart;
 import com.vainolo.phd.opm.model.OPMFactory;
@@ -20,12 +20,12 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**
- * Test cases for {@link ToggledProceduralLinkSubkindAction}.
+ * Test cases for {@link OPMToggledProceduralLinkSubkindAction}.
  * 
  * @author Arieh "Vainolo" Bibliowicz
  * 
  */
-public class ToggleProceduralLinkSubkindActionTest extends ToggledProceduralLinkSubkindAction {
+public class ToggleProceduralLinkSubkindActionTest extends OPMToggledProceduralLinkSubkindAction {
 
   /**
    * Dummy constructor. We are subclassing the original class in order to access
@@ -116,7 +116,7 @@ public class ToggleProceduralLinkSubkindActionTest extends ToggledProceduralLink
 
   @Test
   public void test_Constructor_ToggleConditional() {
-    ToggledProceduralLinkSubkindAction action = new ToggledProceduralLinkSubkindAction(mock(IWorkbenchPart.class),
+    OPMToggledProceduralLinkSubkindAction action = new OPMToggledProceduralLinkSubkindAction(mock(IWorkbenchPart.class),
         CONDITIONAL_SUBKIND_ID);
     Request request = action.getRequest();
     assertEquals(OPMConstants.OPM_CONDITIONAL_LINK_SUBKIND, request.getExtendedData().get("subkind"));
@@ -124,7 +124,7 @@ public class ToggleProceduralLinkSubkindActionTest extends ToggledProceduralLink
 
   @Test
   public void test_Constructor_ToggleEvent() {
-    ToggledProceduralLinkSubkindAction action = new ToggledProceduralLinkSubkindAction(mock(IWorkbenchPart.class),
+    OPMToggledProceduralLinkSubkindAction action = new OPMToggledProceduralLinkSubkindAction(mock(IWorkbenchPart.class),
         EVENT_SUBKIND_ID);
     Request request = action.getRequest();
     assertEquals(OPMConstants.OPM_EVENT_LINK_SUBKIND, request.getExtendedData().get("subkind"));
@@ -132,7 +132,7 @@ public class ToggleProceduralLinkSubkindActionTest extends ToggledProceduralLink
 
   @Test
   public void test_Constructor_ToggleOptional() {
-    ToggledProceduralLinkSubkindAction action = new ToggledProceduralLinkSubkindAction(mock(IWorkbenchPart.class),
+    OPMToggledProceduralLinkSubkindAction action = new OPMToggledProceduralLinkSubkindAction(mock(IWorkbenchPart.class),
         OPTIONAL_SUBKIND_ID);
     Request request = action.getRequest();
     assertEquals(OPMConstants.OPM_OPTIONAL_LINK_SUBKIND, request.getExtendedData().get("subkind"));

@@ -7,13 +7,13 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opm.gef.editor.part.OPMStateEditPart;
 
-public class ToggleStateValueAction extends SelectionAction {
+public class OPMToggleStateValueAction extends SelectionAction {
 
   public static final String TOGGLE_VALUE_STATE_ID = "ToggleValueState";
   public static final String TOGGLE_VALUE_STATE_REQUEST = "ToggleValueState";
   private Request request;
 
-  public ToggleStateValueAction(IWorkbenchPart part) {
+  public OPMToggleStateValueAction(IWorkbenchPart part) {
     super(part);
     request = new Request(TOGGLE_VALUE_STATE_REQUEST);
     setId(TOGGLE_VALUE_STATE_ID);

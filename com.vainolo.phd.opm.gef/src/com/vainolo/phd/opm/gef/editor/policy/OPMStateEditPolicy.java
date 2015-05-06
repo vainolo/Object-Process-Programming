@@ -5,7 +5,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
 import com.google.common.base.Preconditions;
-import com.vainolo.phd.opm.gef.editor.action.ToggleStateValueAction;
+import com.vainolo.phd.opm.gef.editor.action.OPMToggleStateValueAction;
 import com.vainolo.phd.opm.gef.editor.command.OPMToggleStateValueCommand;
 import com.vainolo.phd.opm.gef.editor.part.OPMStateEditPart;
 
@@ -16,7 +16,7 @@ public class OPMStateEditPolicy extends GraphicalEditPolicy {
   public Command getCommand(Request request) {
     Preconditions.checkState(OPMStateEditPart.class.isInstance(getHost()));
     OPMStateEditPart editPart = OPMStateEditPart.class.cast(getHost());
-    if(request.getType().equals(ToggleStateValueAction.TOGGLE_VALUE_STATE_REQUEST)) {
+    if(request.getType().equals(OPMToggleStateValueAction.TOGGLE_VALUE_STATE_REQUEST)) {
       return new OPMToggleStateValueCommand(editPart);
     } else {
       return super.getCommand(request);

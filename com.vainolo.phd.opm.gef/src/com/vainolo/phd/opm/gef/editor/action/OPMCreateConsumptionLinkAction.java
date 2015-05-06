@@ -13,7 +13,7 @@ import com.vainolo.phd.opm.gef.editor.factory.OPMConsumptionLinkFactory;
 import com.vainolo.phd.opm.gef.editor.part.OPMObjectEditPart;
 import com.vainolo.phd.opm.model.OPMObject;
 
-public class CreateOPMConsumptionLinkAction extends WorkbenchPartAction {
+public class OPMCreateConsumptionLinkAction extends WorkbenchPartAction {
 
   public static final String ID = "CreateConsumptionLink";
   public static final String REQUEST = "CreateConsumptionLink";
@@ -21,7 +21,7 @@ public class CreateOPMConsumptionLinkAction extends WorkbenchPartAction {
   private final Request request;
   private ConnectionCreationTool tool;
 
-  public CreateOPMConsumptionLinkAction(IWorkbenchPart part) {
+  public OPMCreateConsumptionLinkAction(IWorkbenchPart part) {
     super(part);
     request = new Request(REQUEST);
     setId(ID);

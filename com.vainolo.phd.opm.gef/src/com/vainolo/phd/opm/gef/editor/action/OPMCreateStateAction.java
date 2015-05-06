@@ -6,20 +6,23 @@ import org.eclipse.gef.ui.actions.WorkbenchPartAction;
 import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opm.gef.editor.OPMGraphicalEditor;
-import com.vainolo.phd.opm.gef.editor.factory.OPMProcessFactory;
+import com.vainolo.phd.opm.gef.editor.factory.OPMStateFactory;
 
-public class CreateOPMProcessAction extends WorkbenchPartAction {
+public class OPMCreateStateAction extends WorkbenchPartAction {
 
-  public static final String ID = "CreateProcess";
-  public static final String REQUEST = "CreateProcess";
+  public static final String ID = "CreateState";
+  public static final String REQUEST = "CreateState";
 
   private final Request request;
+  private CreationTool tool;
 
-  public CreateOPMProcessAction(IWorkbenchPart part) {
+  public OPMCreateStateAction(IWorkbenchPart part) {
     super(part);
     request = new Request(REQUEST);
     setId(ID);
-    setText("Create Process");
+    setText("Create State");
+    OPMGraphicalEditor editor = (OPMGraphicalEditor) getWorkbenchPart();
+    tool = new CreationTool(new OPMStateFactory(editor.getIdManager()));
   }
 
   public Request getRequest() {
@@ -29,7 +32,7 @@ public class CreateOPMProcessAction extends WorkbenchPartAction {
   @Override
   public void run() {
     OPMGraphicalEditor editor = (OPMGraphicalEditor) getWorkbenchPart();
-    editor.getEditDomain().setActiveTool(new CreationTool(new OPMProcessFactory(editor.getIdManager())));
+    editor.getEditDomain().setActiveTool(tool);
   }
 
   @Override

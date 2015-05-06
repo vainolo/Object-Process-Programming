@@ -14,7 +14,7 @@ import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editpolicies.ComponentEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 
-import com.vainolo.phd.opm.gef.editor.action.ResizeToContentsAction;
+import com.vainolo.phd.opm.gef.editor.action.OPMResizeToContentsAction;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeChangeConstraintCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMNodeDeleteCommand;
 import com.vainolo.phd.opm.gef.editor.figure.OPMNodeFigure;
@@ -61,7 +61,7 @@ public class OPMNodeEditPolicy extends ComponentEditPolicy {
 
   @Override
   public Command getCommand(Request request) {
-    if(request.getType().equals(ResizeToContentsAction.RESIZE_TO_CONTENTS_REQUEST)) {
+    if(request.getType().equals(OPMResizeToContentsAction.RESIZE_TO_CONTENTS_REQUEST)) {
       OPMNodeEditPart host = (OPMNodeEditPart) getHost();
       OPMNode node = (OPMNode) host.getModel();
       OPMNodeFigure figure = (OPMNodeFigure) host.getFigure();

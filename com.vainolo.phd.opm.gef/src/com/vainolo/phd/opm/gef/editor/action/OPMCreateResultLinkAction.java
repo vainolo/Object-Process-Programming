@@ -13,7 +13,7 @@ import com.vainolo.phd.opm.gef.editor.factory.OPMResultLinkFactory;
 import com.vainolo.phd.opm.gef.editor.part.OPMProcessEditPart;
 import com.vainolo.phd.opm.model.OPMProcess;
 
-public class CreateOPMResultLinkAction extends WorkbenchPartAction {
+public class OPMCreateResultLinkAction extends WorkbenchPartAction {
 
   public static final String ID = "CreateResultLink";
   public static final String REQUEST = "CreateResultLink";
@@ -21,7 +21,7 @@ public class CreateOPMResultLinkAction extends WorkbenchPartAction {
   private final Request request;
   private ConnectionCreationTool tool;
 
-  public CreateOPMResultLinkAction(IWorkbenchPart part) {
+  public OPMCreateResultLinkAction(IWorkbenchPart part) {
     super(part);
     request = new Request(REQUEST);
     setId(ID);

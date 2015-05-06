@@ -9,13 +9,13 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opm.gef.editor.part.OPMThingEditPart;
 
-public class ThingInZoomAction extends SelectionAction {
+public class OPMThingInZoomAction extends SelectionAction {
 
   public static final String THING_IN_ZOOM_ID = "CreateInZoomedOPD";
   public static final String THING_IN_ZOOM_REQUEST = "CreateInZoomedOPD";
   private Request request;
 
-  public ThingInZoomAction(IWorkbenchPart part) {
+  public OPMThingInZoomAction(IWorkbenchPart part) {
     super(part);
     setId(THING_IN_ZOOM_ID);
     setText("In-Zoom");

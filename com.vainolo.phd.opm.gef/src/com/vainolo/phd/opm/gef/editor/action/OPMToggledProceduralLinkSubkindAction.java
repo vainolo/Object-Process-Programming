@@ -11,7 +11,7 @@ import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
 import com.vainolo.phd.opm.gef.editor.part.OPMProceduralLinkEditPart;
 import com.vainolo.phd.opm.utilities.OPMConstants;
 
-public class ToggledProceduralLinkSubkindAction extends SelectionAction {
+public class OPMToggledProceduralLinkSubkindAction extends SelectionAction {
 
   public static final String CONDITIONAL_SUBKIND_ID = "ToggleConditionalSubkind";
   public static final String EVENT_SUBKIND_ID = "ToggleEventSubkind";
@@ -22,7 +22,7 @@ public class ToggledProceduralLinkSubkindAction extends SelectionAction {
   private final Request request;
 
   @SuppressWarnings("unchecked")
-  public ToggledProceduralLinkSubkindAction(IWorkbenchPart part, String subkindId) {
+  public OPMToggledProceduralLinkSubkindAction(IWorkbenchPart part, String subkindId) {
     super(part);
     request = new Request(TOGGLE_PROCEDURAL_LINK_SUBKIND_REQUEST);
     switch(subkindId) {

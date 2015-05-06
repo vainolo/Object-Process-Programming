@@ -4,8 +4,8 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
-import com.vainolo.phd.opm.gef.editor.action.ThingInZoomAction;
-import com.vainolo.phd.opm.gef.editor.action.ToggleThingMultiplicityAction;
+import com.vainolo.phd.opm.gef.editor.action.OPMThingInZoomAction;
+import com.vainolo.phd.opm.gef.editor.action.OPMToggleThingMultiplicityAction;
 import com.vainolo.phd.opm.gef.editor.command.OPMToggleThingMultiplicityCommand;
 import com.vainolo.phd.opm.gef.editor.command.OPMThingInZoomCommand;
 import com.vainolo.phd.opm.gef.editor.part.OPMThingEditPart;
@@ -27,9 +27,9 @@ public class OPMThingEditPolicy extends GraphicalEditPolicy {
 
   @Override
   public Command getCommand(Request request) {
-    if(request.getType().equals(ThingInZoomAction.THING_IN_ZOOM_REQUEST)) {
+    if(request.getType().equals(OPMThingInZoomAction.THING_IN_ZOOM_REQUEST)) {
       return thingInZoom();
-    } else if(request.getType().equals(ToggleThingMultiplicityAction.TOGGLE_MULTIPLICITY_REQUEST)) {
+    } else if(request.getType().equals(OPMToggleThingMultiplicityAction.TOGGLE_MULTIPLICITY_REQUEST)) {
       return toggleMultiplicity();
     } else {
       return super.getCommand(request);

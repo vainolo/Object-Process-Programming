@@ -117,7 +117,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     GraphicalViewerKeyHandler keyHandler = new GraphicalViewerKeyHandler(getGraphicalViewer());
     keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.OPEN_EXT));
     keyHandler.put(KeyStroke.getPressed(SWT.F3, 0),
-        getActionRegistry().getAction(ResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
+        getActionRegistry().getAction(OPMResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
     getGraphicalViewer().setKeyHandler(keyHandler);
 
   }
@@ -183,7 +183,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   protected void createActions() {
     super.createActions();
 
-    IAction action = new ResizeToContentsAction(this);
+    IAction action = new OPMResizeToContentsAction(this);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
@@ -191,43 +191,43 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
-    action = new ToggledProceduralLinkSubkindAction(this, ToggledProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
+    action = new OPMToggledProceduralLinkSubkindAction(this, OPMToggledProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
-    action = new ToggledProceduralLinkSubkindAction(this, ToggledProceduralLinkSubkindAction.EVENT_SUBKIND_ID);
+    action = new OPMToggledProceduralLinkSubkindAction(this, OPMToggledProceduralLinkSubkindAction.EVENT_SUBKIND_ID);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
-    action = new ToggledProceduralLinkSubkindAction(this, ToggledProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
+    action = new OPMToggledProceduralLinkSubkindAction(this, OPMToggledProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
-    action = new ToggleThingMultiplicityAction(this);
+    action = new OPMToggleThingMultiplicityAction(this);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
-    action = new ToggleStateValueAction(this);
+    action = new OPMToggleStateValueAction(this);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
-    action = new ThingInZoomAction(this);
+    action = new OPMThingInZoomAction(this);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
-    action = new CreateOPMObjectAction(this);
+    action = new OPMCreateObjectAction(this);
     getActionRegistry().registerAction(action);
 
-    action = new CreateOPMProcessAction(this);
+    action = new OPMCreateProcessAction(this);
     getActionRegistry().registerAction(action);
 
-    action = new CreateOPMStateAction(this);
+    action = new OPMCreateStateAction(this);
     getActionRegistry().registerAction(action);
 
-    action = new CreateOPMConsumptionLinkAction(this);
+    action = new OPMCreateConsumptionLinkAction(this);
     getActionRegistry().registerAction(action);
 
-    action = new CreateOPMResultLinkAction(this);
+    action = new OPMCreateResultLinkAction(this);
     getActionRegistry().registerAction(action);
 
     action = new CopyTemplateAction(this);

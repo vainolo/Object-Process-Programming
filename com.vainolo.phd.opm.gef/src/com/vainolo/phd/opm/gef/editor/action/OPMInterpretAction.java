@@ -16,10 +16,10 @@ import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
 import com.vainolo.phd.opm.gef.editor.OPMGraphicalEditor;
 import com.vainolo.phd.opm.interpreter.OPMInterpreter;
 
-public class InterpretAction extends Action {
+public class OPMInterpretAction extends Action {
   public static final String INTERPRET_ID = "Interpret";
 
-  public InterpretAction() {
+  public OPMInterpretAction() {
     setId(INTERPRET_ID);
     setText("Interpret");
     setToolTipText("Interpret the current model.");

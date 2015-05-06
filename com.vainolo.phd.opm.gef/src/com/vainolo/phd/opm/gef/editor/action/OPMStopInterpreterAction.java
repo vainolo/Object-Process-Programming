@@ -11,11 +11,11 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import com.vainolo.phd.opm.gef.OPMGEFEditorPlugin;
 import com.vainolo.phd.opm.interpreter.OPMInterpreter;
 
-public class StopInterpreterAction extends Action {
+public class OPMStopInterpreterAction extends Action {
 
   public static final String STOP_INTERPRETER_ID = "StopInterpreter";
 
-  public StopInterpreterAction() {
+  public OPMStopInterpreterAction() {
     super();
     setId(STOP_INTERPRETER_ID);
     setText("Stop Interpreter");

@@ -14,14 +14,14 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opm.gef.editor.part.OPMNodeEditPart;
 
-public class ResizeToContentsAction extends SelectionAction {
+public class OPMResizeToContentsAction extends SelectionAction {
 
   public static final String RESIZE_TO_CONTENTS_ID = "ResizeToContents";
   public static final String RESIZE_TO_CONTENTS_REQUEST = "ResizeToContents";
 
   private final Request request;
 
-  public ResizeToContentsAction(IWorkbenchPart part) {
+  public OPMResizeToContentsAction(IWorkbenchPart part) {
     super(part);
     setId(RESIZE_TO_CONTENTS_ID);
     setText("Resize to Contents");

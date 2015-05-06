@@ -8,18 +8,21 @@ import org.eclipse.ui.IWorkbenchPart;
 import com.vainolo.phd.opm.gef.editor.OPMGraphicalEditor;
 import com.vainolo.phd.opm.gef.editor.factory.OPMObjectFactory;
 
-public class CreateOPMObjectAction extends WorkbenchPartAction {
+public class OPMCreateObjectAction extends WorkbenchPartAction {
 
   public static final String ID = "CreateObject";
   public static final String REQUEST = "CreateObject";
 
   private final Request request;
+  private CreationTool tool;
 
-  public CreateOPMObjectAction(IWorkbenchPart part) {
+  public OPMCreateObjectAction(IWorkbenchPart part) {
     super(part);
     request = new Request(REQUEST);
     setId(ID);
     setText("Create Object");
+    OPMGraphicalEditor editor = (OPMGraphicalEditor) getWorkbenchPart();
+    tool = new CreationTool(new OPMObjectFactory(editor.getIdManager()));
   }
 
   public Request getRequest() {
@@ -29,7 +32,7 @@ public class CreateOPMObjectAction extends WorkbenchPartAction {
   @Override
   public void run() {
     OPMGraphicalEditor editor = (OPMGraphicalEditor) getWorkbenchPart();
-    editor.getEditDomain().setActiveTool(new CreationTool(new OPMObjectFactory(editor.getIdManager())));
+    editor.getEditDomain().setActiveTool(tool);
   }
 
   @Override

@@ -9,7 +9,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opm.gef.editor.part.OPMThingEditPart;
 
-public class ToggleThingMultiplicityAction extends SelectionAction {
+public class OPMToggleThingMultiplicityAction extends SelectionAction {
 
   public static final String TOGGLE_MULTIPLICITY_ID = "ToggleMultiplicity";
 
@@ -17,7 +17,7 @@ public class ToggleThingMultiplicityAction extends SelectionAction {
 
   private final Request request;
 
-  public ToggleThingMultiplicityAction(IWorkbenchPart part) {
+  public OPMToggleThingMultiplicityAction(IWorkbenchPart part) {
     super(part);
     request = new Request(TOGGLE_MULTIPLICITY_REQUEST);
     setId(TOGGLE_MULTIPLICITY_ID);
