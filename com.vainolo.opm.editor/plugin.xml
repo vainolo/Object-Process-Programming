@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.vainolo.opm.editor.OPMEditor"
+            default="true"
+            extensions="opmm"
+            id="com.vainolo.opm.gef.editorId"
+            name="OPM Gef Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="com.vainolo.opm.editor.wizard.ID"
+            class="com.vainolo.opm.editor.OPMWizard"
+            id="com.vainolo.opm.editor.wizard"
+            name="OPM Diagram">
+      </wizard>
+   </extension>
+
+</plugin>
