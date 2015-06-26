@@ -1,5 +1,5 @@
 package com.vainolo.opm.model;
 
-public class StructuralLink {
+public class OPStructuralLink {
 
 }

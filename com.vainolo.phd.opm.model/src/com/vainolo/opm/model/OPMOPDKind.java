@@ -3,11 +3,11 @@ package com.vainolo.opm.model;
 public enum OPMOPDKind {
   SYSTEM(1, "SYSTEM", "System"), INZOOMED(2, "INZOOMED", "In-Zoomed"), UNFOLDED(3, "UNFOLDED", "Un-Folded");
 
-  private int value;
-  private String name;
-  private String literal;
+  private final int value;
+  private final String name;
+  private final String literal;
 
-  private static OPMOPDKind[] values = {SYSTEM, INZOOMED, UNFOLDED};
+  private static OPMOPDKind[] kinds = {SYSTEM, INZOOMED, UNFOLDED};
   
   OPMOPDKind(int value, String name, String literal) {
     this.value = value;
@@ -19,8 +19,16 @@ public enum OPMOPDKind {
     return literal;
   }
   
+  public String getName() {
+    return name;
+  }
+  
+  public int getValue() {
+    return value;
+  }
+  
   public static OPMOPDKind getByName(String name) {
-    for(OPMOPDKind kind : values) {
+    for(OPMOPDKind kind : kinds) {
       if(kind.name.equals(name))
           return kind;
     }

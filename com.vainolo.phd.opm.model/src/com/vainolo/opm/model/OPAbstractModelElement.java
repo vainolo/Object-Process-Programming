@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractModelElement implements ModelElement {
+public abstract class OPAbstractModelElement implements OPModelElement {
   private int id;
-  private List<ModelObserver> observers = new ArrayList<ModelObserver>();
+  private List<OPModelObserver> observers = new ArrayList<OPModelObserver>();
   
-  public AbstractModelElement(int id) {
+  public void setId(int id) {
     this.id = id;
   }
   
@@ -18,12 +18,12 @@ public abstract class AbstractModelElement implements ModelElement {
   }
 
   @Override
-  public void addObserver(ModelObserver observer) {
+  public void addObserver(OPModelObserver observer) {
     observers.add(observer);
   }
 
   @Override
-  public void removeObserver(ModelObserver observer) {
+  public void removeObserver(OPModelObserver observer) {
     observers.remove(observer);
   }
 
@@ -33,13 +33,13 @@ public abstract class AbstractModelElement implements ModelElement {
   }
 
   @Override
-  public List<ModelObserver> getObservers() {
+  public List<OPModelObserver> getObservers() {
     return Collections.unmodifiableList(observers);
   }
  
   @Override
   public void notifyObservers() {
-    for(ModelObserver observer: observers) {
+    for(OPModelObserver observer: observers) {
       observer.notifyObserver(this);
     }
   }

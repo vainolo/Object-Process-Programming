@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="com.vainolo.opm.editor.OPMEditor"
+            class="com.vainolo.opm.editor.OPEditor"
             default="true"
             extensions="opmm"
             id="com.vainolo.opm.gef.editorId"

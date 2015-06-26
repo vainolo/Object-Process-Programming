@@ -4,14 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Process extends AbstractModelElement implements ModelElement, NamedElement, Container {
-
-  public Process(int id) {
-    super(id);
-  }
+public class OPProcess extends OPAbstractModelElement implements OPModelElement, OPNamedElement, OPContainer {
 
   private String name;
-  private List<Node> nodes = new ArrayList<Node>();
+  private List<OPNode> nodes = new ArrayList<OPNode>();
 
   @Override
   public void setName(String name) {
@@ -24,18 +20,18 @@ public class Process extends AbstractModelElement implements ModelElement, Named
   }
 
   @Override
-  public List<Node> getNodes() {
+  public List<OPNode> getNodes() {
     return Collections.unmodifiableList(nodes );
   }
 
   @Override
-  public void addNode(Node node) {
+  public void addNode(OPNode node) {
     nodes.add(node);
     notifyObservers();
   }
 
   @Override
-  public void removeNode(Node node) {
+  public void removeNode(OPNode node) {
     nodes.remove(node);
     notifyObservers();
   }

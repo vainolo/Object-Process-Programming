@@ -191,7 +191,8 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
-    action = new OPMToggledProceduralLinkSubkindAction(this, OPMToggledProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
+    action = new OPMToggledProceduralLinkSubkindAction(this,
+        OPMToggledProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
@@ -265,6 +266,7 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         // by the generated EMF classes and wrapped by the
         // AdapterFactoryContentProvider
         // to yield standard eclipse interfaces.
+
         IPropertySourceProvider sourceProvider = new IPropertySourceProvider() {
           IPropertySourceProvider modelPropertySourceProvider = new AdapterFactoryContentProvider(
               new OPMItemProviderAdapterFactory());
@@ -284,7 +286,6 @@ public class OPMGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
               return null;
             }
           }
-
         };
         UndoablePropertySheetEntry root = new UndoablePropertySheetEntry(getCommandStack());
         root.setPropertySourceProvider(sourceProvider);

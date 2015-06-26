@@ -1,11 +1,11 @@
 package com.vainolo.opm.editor;
 
-public class OPMEditorPlugin {
+public class OPEditorPlugin {
 
-  private OPMEditorPlugin() {
+  private OPEditorPlugin() {
   };
 
-  public static OPMEditorPlugin INSTANCE = new OPMEditorPlugin();
+  public static OPEditorPlugin INSTANCE = new OPEditorPlugin();
 
   public void log(String s) {
     System.out.println(s);

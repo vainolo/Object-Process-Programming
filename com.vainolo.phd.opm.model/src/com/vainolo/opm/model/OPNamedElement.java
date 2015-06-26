@@ -1,6 +1,6 @@
 package com.vainolo.opm.model;
 
-public interface NamedElement {
+public interface OPNamedElement {
   void setName(String name);
   String getName();
 }

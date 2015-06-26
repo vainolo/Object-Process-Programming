@@ -70,10 +70,10 @@ public class OPMWizard extends Wizard implements INewWizard {
         @Override
         protected void execute(final IProgressMonitor progressMonitor) {
           try {
-        	  OPMEditorPlugin.INSTANCE.log(modelFile.getName());
-        	  OPMEditorPlugin.INSTANCE.log(modelFile.getFullPath().toString());
+        	  OPEditorPlugin.INSTANCE.log(modelFile.getName());
+        	  OPEditorPlugin.INSTANCE.log(modelFile.getFullPath().toString());
           } catch(Exception exception) {
-            OPMEditorPlugin.INSTANCE.log(exception);
+            OPEditorPlugin.INSTANCE.log(exception);
           } finally {
             progressMonitor.done();
           }
@@ -106,7 +106,7 @@ public class OPMWizard extends Wizard implements INewWizard {
 
       return true;
     } catch(Exception exception) {
-      OPMEditorPlugin.INSTANCE.log(exception);
+      OPEditorPlugin.INSTANCE.log(exception);
       return false;
     }
   }
