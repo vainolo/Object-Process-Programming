@@ -41,8 +41,7 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
-import com.vainolo.opm.model.OPMOPDKind;
-
+import com.vainolo.opm.model.OPObjectProcessDiagramKind;
 
 public class OPMWizard extends Wizard implements INewWizard {
 
@@ -181,7 +180,7 @@ public class OPMWizard extends Wizard implements INewWizard {
       data.grabExcessHorizontalSpace = true;
       opdKind.setLayoutData(data);
 
-      for(String objectName : new String[] { OPMOPDKind.SYSTEM.getLiteral() }) {
+      for(String objectName : new String[] { OPObjectProcessDiagramKind.SYSTEM.getLiteral() }) {
         opdKind.add(objectName);
       }
 
@@ -189,8 +188,8 @@ public class OPMWizard extends Wizard implements INewWizard {
       setControl(composite);
     }
 
-    public OPMOPDKind getOPDKind() {
-      return OPMOPDKind.getByName(opdKind.getText());
+    public OPObjectProcessDiagramKind getOPDKind() {
+      return OPObjectProcessDiagramKind.getByName(opdKind.getText());
     }
 
     @Override

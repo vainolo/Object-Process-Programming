@@ -5,6 +5,7 @@
          point="org.eclipse.ui.editors">
       <editor
             class="com.vainolo.opm.editor.OPEditor"
+            contributorClass="com.vainolo.opm.editor.OPEditorActionBarContributor"
             default="true"
             extensions="opmm"
             id="com.vainolo.opm.gef.editorId"
@@ -20,5 +21,46 @@
             name="OPM Diagram">
       </wizard>
    </extension>
+   
+   	<extension point="org.eclipse.ui.views">
+	   <view class="com.vainolo.opm.editor.navigator.OPNavigator"
+	         id="com.vainolo.opm.editor.navigator"
+	         name="Virtual CNF"
+	         restorable="true">
+	   </view>
+	</extension> 
+    <extension point="org.eclipse.ui.navigator.navigatorContent">
+   <navigatorContent activeByDefault="true" 
+   		 contentProvider="com.vainolo.opm.editor.navigator.OPContentProvider"
+         id="com.vainolo.opm.cnf.content.VirtualContent"
+         labelProvider="com.vainolo.opm.editor.navigator.OPLabelProvider"
+         name="Virtual content"
+         priority="normal">
+		<triggerPoints>
+		   <or>
+		      <instanceof value="com.vainolo.opm.model.OPObjectProcessDiagram" />
+		   </or>
+		</triggerPoints>      
+	<possibleChildren>
+	   <or>
+	      <instanceof value="com.vainolo.opm.model.OPObjectProcessDiagram" />
+	      <instanceof value="com.vainolo.opm.model.OPThing" />
+	   </or>
+</possibleChildren> 
+</navigatorContent>
+</extension>
 
+<extension point="org.eclipse.ui.navigator.viewer">
+   <viewer viewerId="com.vainolo.opm.editor.navigator">
+   </viewer>
+   <viewerContentBinding viewerId="com.vainolo.opm.editor.navigator">
+      <includes>
+         <contentExtension
+               isRoot="false"
+               pattern="com.vainolo.opm.cnf.content.VirtualContent">
+         </contentExtension>
+      </includes>
+   </viewerContentBinding>
+</extension>
+   
 </plugin>

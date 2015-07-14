@@ -7,7 +7,7 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
-Export-Package: com.vainolo.opm.model,
+Export-Package: 
  com.vainolo.phd.opm.model,
  com.vainolo.phd.opm.model.impl,
  com.vainolo.phd.opm.model.util
