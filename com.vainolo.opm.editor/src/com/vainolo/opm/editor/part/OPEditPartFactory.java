@@ -4,11 +4,11 @@ import org.eclipse.gef.EditPart;
 import org.eclipse.gef.EditPartFactory;
 
 import com.vainolo.opm.editor.OPEditorPlugin;
-import com.vainolo.opm.model.OPLinkView;
 import com.vainolo.opm.model.OPNode;
-import com.vainolo.opm.model.OPNodeView;
 import com.vainolo.opm.model.OPObject;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
+import com.vainolo.opm.model.view.OPLinkView;
+import com.vainolo.opm.model.view.OPNodeView;
 
 public class OPEditPartFactory implements EditPartFactory {
 

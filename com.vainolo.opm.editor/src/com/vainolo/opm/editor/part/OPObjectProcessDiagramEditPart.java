@@ -2,15 +2,18 @@ package com.vainolo.opm.editor.part;
 
 import java.util.Collections;
 import java.util.List;
+
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+
 import com.vainolo.opm.editor.figure.OPObjectProcessDiagramFigure;
 import com.vainolo.opm.editor.policy.OPObjectProcessDiagramXYLayoutPolicy;
-import com.vainolo.opm.model.OPModelBase;
+import com.vainolo.opm.model.OPElement;
 import com.vainolo.opm.model.OPModelObserver;
-import com.vainolo.opm.model.OPNodeView;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
+import com.vainolo.opm.model.view.OPElementView;
+import com.vainolo.opm.model.view.OPNodeView;
 
 public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart implements OPModelObserver {
 	
@@ -26,8 +29,8 @@ public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart im
 	}
 	
 	@Override
-	protected List<OPNodeView> getModelChildren() {
-		return Collections.unmodifiableList(((OPObjectProcessDiagram) getModel()).getNodes());
+	protected List<OPElementView> getModelChildren() {
+		return Collections.unmodifiableList(((OPObjectProcessDiagram) getModel()).getViewElements());
 	}
 
 	@Override
@@ -50,7 +53,7 @@ public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart im
 	}
 
 	@Override
-	public void acceptNotification(OPModelBase notifier) {
+	public void acceptNotification(OPElement notifier) {
 		refresh();
 	}
 }

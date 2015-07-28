@@ -4,14 +4,16 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.common.collect.Lists;
-import com.vainolo.opm.model.OPLinkView;
-import com.vainolo.opm.model.OPNodeView;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
-import com.vainolo.opm.model.OPThingView;
+import com.vainolo.opm.model.view.OPElementView;
+import com.vainolo.opm.model.view.OPLinkView;
+import com.vainolo.opm.model.view.OPNodeView;
+import com.vainolo.opm.model.view.OPThingView;
 
-public class OPObjectProcessDiagramImpl extends OPAbstractModelBase implements
+public class OPObjectProcessDiagramImpl extends OPAbstractElement implements
 		OPObjectProcessDiagram {
 	private List<OPNodeView> nodes = Lists.newArrayList();
+	private List<OPElementView> elements = Lists.newArrayList();
 	private List<OPLinkView> links = Lists.newArrayList();
 	private boolean inzoomed = false;
 	private OPThingView inzoomedThing;
@@ -63,23 +65,6 @@ public class OPObjectProcessDiagramImpl extends OPAbstractModelBase implements
 	}
 	
 	@Override
-	public void removeNode(OPNodeView node) {
-		nodes.remove(node);
-		notifyObservers();
-	}
-
-	@Override
-	public void addNode(OPNodeView node) {
-		nodes.add(node);
-		notifyObservers();
-	}
-
-	@Override
-	public List<OPNodeView> getNodes() {
-		return Collections.unmodifiableList(nodes);
-	}
-
-	@Override
 	public void addLinkView(OPLinkView link) {
 		links.add(link);
 		notifyObservers();
@@ -94,6 +79,23 @@ public class OPObjectProcessDiagramImpl extends OPAbstractModelBase implements
 	@Override
 	public List<OPLinkView> getLinks() {
 		return Collections.unmodifiableList(links);
+	}
+
+	@Override
+	public void addElementView(OPElementView element) {
+		elements.add(element);
+		notifyObservers();
+	}
+
+	@Override
+	public void removeElementView(OPElementView element) {
+		elements.remove(element);
+		notifyObservers();
+	}
+
+	@Override
+	public List<OPElementView> getViewElements() {
+		return Collections.unmodifiableList(elements);
 	}
 
 }

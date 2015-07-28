@@ -2,7 +2,7 @@ package com.vainolo.opm.model;
 
 import java.util.List;
 
-public interface OPModelBase {
+public interface OPElement {
   int getId();
   void setId(int i);
   void notifyObservers();

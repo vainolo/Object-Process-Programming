@@ -15,11 +15,10 @@ import org.eclipse.ui.views.properties.PropertySheetPage;
 import com.vainolo.opm.editor.part.OPEditPartFactory;
 import com.vainolo.opm.editor.property.OPPropertySourceFactory;
 import com.vainolo.opm.model.OPModelFactory;
-import com.vainolo.opm.model.OPNodeView;
 import com.vainolo.opm.model.OPObject;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.OPProcess;
-import com.vainolo.opm.model.OPRectangle;
+import com.vainolo.opm.model.view.OPNodeView;
 
 public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 	
@@ -30,28 +29,22 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 	public OPEditor() {
 		setEditDomain(new DefaultEditDomain(this));
 		opd = OPModelFactory.createObjectProcessDiagram();
-		OPNodeView view = OPModelFactory.createOPNodeView();
+		OPNodeView view = OPModelFactory.createThingView();
 		OPObject object = OPModelFactory.createObject();
 		view.setModel(object);
 		object.setName("Hello");
-		view.setContainer(opd);
-		opd.addNode(view);
-		OPRectangle constraints = object.getView().getConstraints();
-		constraints.setHeight(100);
-		constraints.setWidth(100);
-		constraints.getPoint().setX(200);
-		constraints.getPoint().setY(200);
-		view = OPModelFactory.createOPNodeView();
+		view.setViewElementContainer(opd);
+		opd.addElementView(view);
+		view.setViewElementContainer(opd);
+		object.getView().setConstraints(100, 100, 200, 200);
+		view = OPModelFactory.createThingView();
 		OPProcess process = OPModelFactory.createProcess();
 		view.setModel(process);
 		process.setName("world");
-		view.setContainer(opd);
-		opd.addNode(view);
-		constraints = process.getView().getConstraints();
-		constraints.setHeight(100);
-		constraints.setWidth(100);
-		constraints.getPoint().setX(400);
-		constraints.getPoint().setY(200);
+		view.setViewElementContainer(opd);
+		opd.addElementView(view);
+		view.setViewElementContainer(opd);
+		process.getView().setConstraints(400, 100, 200, 200);
 	}
 	
 	@Override
@@ -85,7 +78,7 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 				IPropertySourceProvider provider = new IPropertySourceProvider() {
 					@Override
 					public IPropertySource getPropertySource(Object object) {
-						return OPPropertySourceFactory.getPropertySource(object);
+						return null;//OPPropertySourceFactory.getPropertySource(object);
 					}
 				};
 				UndoablePropertySheetEntry root = new UndoablePropertySheetEntry(getCommandStack());

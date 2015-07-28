@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.vainolo.opm.model.OPModelBase;
+import com.vainolo.opm.model.OPElement;
 import com.vainolo.opm.model.OPModelObserver;
 
-public abstract class OPAbstractModelBase implements OPModelBase {
+public abstract class OPAbstractElement implements OPElement {
 
   private int id;
   private List<OPModelObserver> observers = new ArrayList<OPModelObserver>();
 
-  public OPAbstractModelBase(int id) {
+  public OPAbstractElement(int id) {
     this.id = id;
   }
   

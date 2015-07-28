@@ -1,6 +1,10 @@
-package com.vainolo.opm.model;
+package com.vainolo.opm.model.view;
 
-public interface OPLinkView extends OPModelBase {
+
+import com.vainolo.opm.model.OPLink;
+import com.vainolo.opm.model.OPObjectProcessDiagram;
+
+public interface OPLinkView extends OPElementView {
 	OPLink getModel();
 	void setModel(OPLink link);
 	
@@ -9,7 +13,8 @@ public interface OPLinkView extends OPModelBase {
 	
 	OPNodeView getTarget();
 	void setTarget(OPNodeView nodeView);
-	
+
+	// TODO: remove
 	OPObjectProcessDiagram getObjectProcessDiagram();
 	void setObjectProcessDiagram(OPObjectProcessDiagram opd);
 }

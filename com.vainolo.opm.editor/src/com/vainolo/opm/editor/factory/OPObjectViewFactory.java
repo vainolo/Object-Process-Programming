@@ -3,14 +3,15 @@ package com.vainolo.opm.editor.factory;
 import org.eclipse.gef.requests.CreationFactory;
 
 import com.vainolo.opm.model.OPModelFactory;
-import com.vainolo.opm.model.OPNodeView;
 import com.vainolo.opm.model.OPObject;
+import com.vainolo.opm.model.view.OPNodeView;
+import com.vainolo.opm.model.view.OPThingView;
 
 public class OPObjectViewFactory implements CreationFactory {
 
 	@Override
 	public Object getNewObject() {
-		OPNodeView view = OPModelFactory.createOPNodeView();
+		OPThingView view = OPModelFactory.createThingView();
 		OPObject object = OPModelFactory.createObject();
 		object.setName("...");
 		view.setModel(object);

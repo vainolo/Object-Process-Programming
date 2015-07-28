@@ -8,10 +8,10 @@ import org.eclipse.gef.editpolicies.ConnectionEndpointEditPolicy;
 
 import com.vainolo.opm.editor.figure.OPProceduralLinkFigure;
 import com.vainolo.opm.editor.policy.OPProceduralLinkDeleteEditPolicy;
-import com.vainolo.opm.model.OPLinkView;
-import com.vainolo.opm.model.OPModelBase;
+import com.vainolo.opm.model.OPElement;
 import com.vainolo.opm.model.OPModelObserver;
 import com.vainolo.opm.model.OPProceduralLink;
+import com.vainolo.opm.model.view.OPLinkView;
 ;
 
 public class OPProceduralLinkEditPart extends AbstractConnectionEditPart implements OPModelObserver {
@@ -33,19 +33,19 @@ public class OPProceduralLinkEditPart extends AbstractConnectionEditPart impleme
 	@Override
 	public void activate() {
 		if(!isActive())
-			((OPModelBase) getModel()).addObserver(this);
+			((OPElement) getModel()).addObserver(this);
 		super.activate();
 	}
 	
 	@Override
 	public void deactivate() {
 		if(isActive())
-			((OPModelBase) getModel()).removeObserver(this);
+			((OPElement) getModel()).removeObserver(this);
 		super.deactivate();
 	}
 	
 	@Override
-	public void acceptNotification(OPModelBase notifier) {
+	public void acceptNotification(OPElement notifier) {
 		refresh();
 	}
 	

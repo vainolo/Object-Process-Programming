@@ -5,7 +5,7 @@ import org.eclipse.gef.editpolicies.ConnectionEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 
 import com.vainolo.opm.editor.command.OPLinkViewDeleteCommand;
-import com.vainolo.opm.model.OPLinkView;
+import com.vainolo.opm.model.view.OPLinkView;
 
 public class OPProceduralLinkDeleteEditPolicy extends ConnectionEditPolicy {
 

@@ -1,12 +1,12 @@
-package com.vainolo.opm.model.impl;
+package com.vainolo.opm.model.view.impl;
 
 import com.vainolo.opm.model.OPLink;
-import com.vainolo.opm.model.OPLinkView;
 import com.vainolo.opm.model.OPModelObserver;
-import com.vainolo.opm.model.OPNodeView;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
+import com.vainolo.opm.model.view.OPLinkView;
+import com.vainolo.opm.model.view.OPNodeView;
 
-public class OPLinkViewImpl extends OPAbstractModelBase implements OPLinkView {
+public class OPLinkViewImpl extends OPAbstractElementView implements OPLinkView {
 
 	private OPLink model;
 	private OPNodeView source;

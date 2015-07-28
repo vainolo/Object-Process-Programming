@@ -2,7 +2,7 @@ package com.vainolo.opm.model;
 
 import java.util.List;
 
-public interface OPSystem extends OPModelBase {
+public interface OPSystem extends OPElement {
   String getName();
   void setName(String name);
   

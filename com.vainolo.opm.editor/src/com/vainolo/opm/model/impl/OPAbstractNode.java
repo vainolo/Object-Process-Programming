@@ -8,9 +8,9 @@ import com.vainolo.opm.model.OPNode;
 import com.vainolo.opm.model.OPLink;
 import com.vainolo.opm.model.OPModelObserver;
 import com.vainolo.opm.model.OPContainer;
-import com.vainolo.opm.model.OPNodeView;
+import com.vainolo.opm.model.view.OPNodeView;
 
-public abstract class OPAbstractNode extends OPAbstractModelBase implements OPNode {
+public abstract class OPAbstractNode extends OPAbstractElement implements OPNode {
 
   private String name = "";
   private List<OPLink> links = new ArrayList<OPLink>();

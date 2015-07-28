@@ -3,7 +3,7 @@ package com.vainolo.opm.model.impl;
 import com.vainolo.opm.model.OPNode;
 import com.vainolo.opm.model.OPLink;
 
-public abstract class OPAbstractLink extends OPAbstractModelBase implements OPLink {
+public abstract class OPAbstractLink extends OPAbstractElement implements OPLink {
 
 	private OPNode source;
 	private OPNode target;

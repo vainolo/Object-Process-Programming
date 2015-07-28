@@ -1,39 +1,22 @@
-package com.vainolo.opm.model.impl;
+package com.vainolo.opm.model.view.impl;
 
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-
-import com.vainolo.opm.model.OPLinkView;
-import com.vainolo.opm.model.OPModelFactory;
 import com.vainolo.opm.model.OPNode;
-import com.vainolo.opm.model.OPRectangle;
-import com.vainolo.opm.model.OPNodeView;
-import com.vainolo.opm.model.OPNodeViewContainer;
+import com.vainolo.opm.model.view.OPLinkView;
+import com.vainolo.opm.model.view.OPNodeView;
 
-public class OPNodeViewImpl extends OPAbstractModelBase implements OPNodeView {
-
-	private OPRectangle constraints;
+public abstract class OPNodeViewImpl extends OPAbstractElementView implements OPNodeView {
+	private int[] constraints = new int[4];
+	
 	private OPNode model;
 	private List<OPLinkView> links = new ArrayList<OPLinkView>();
-	private OPNodeViewContainer container;
 
 	public OPNodeViewImpl(int id) {
 		super(id);
-		constraints = OPModelFactory.createOPRectangle();
-	}
-
-	@Override
-	public OPRectangle getConstraints() {
-		return constraints;
-	}
-
-	@Override
-	public void setConstraints(OPRectangle constraints) {
-		this.constraints = constraints;
-		notifyObservers();
 	}
 
 	@Override
@@ -67,13 +50,21 @@ public class OPNodeViewImpl extends OPAbstractModelBase implements OPNodeView {
 	}
 
 	@Override
-	public OPNodeViewContainer getContainer() {
-		return container;
+	public int[] getConstraints() {
+		return Arrays.copyOf(constraints, 4);
 	}
 
 	@Override
-	public void setContainer(OPNodeViewContainer container) {
-		this.container = container;
+	public void setConstraints(int x, int y, int width, int height) {
+		constraints[0] = x;
+		constraints[1] = y;
+		constraints[2] = width;
+		constraints[3] = height;
 		notifyObservers();
+	}
+
+	@Override
+	public void setConstraints(int[] constraints) {
+		setConstraints(constraints[0], constraints[1], constraints[2], constraints[3]);
 	}
 }

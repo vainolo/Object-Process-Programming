@@ -1,7 +1,6 @@
 package com.vainolo.opm.editor.part;
 
 import java.util.List;
-
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -14,10 +13,10 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 import com.vainolo.opm.editor.figure.OPMNodeFigure;
 import com.vainolo.opm.editor.policy.OPProceduralLinkConnectionEditPolicy;
 import com.vainolo.opm.editor.policy.OPNodeDeleteEditPolicy;
-import com.vainolo.opm.model.OPLinkView;
-import com.vainolo.opm.model.OPModelBase;
+import com.vainolo.opm.model.OPElement;
 import com.vainolo.opm.model.OPModelObserver;
-import com.vainolo.opm.model.OPNodeView;
+import com.vainolo.opm.model.view.OPLinkView;
+import com.vainolo.opm.model.view.OPNodeView;
 
 
 public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implements NodeEditPart, OPModelObserver {
@@ -46,19 +45,19 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
 	@Override
 	public void activate() {
 		if(!isActive())
-			((OPModelBase) getModel()).addObserver(this);
+			((OPElement) getModel()).addObserver(this);
 		super.activate();
 	}
 	
 	@Override
 	public void deactivate() {
 		if(isActive())
-			((OPModelBase) getModel()).removeObserver(this);
+			((OPElement) getModel()).removeObserver(this);
 		super.deactivate();
 	}
 	
 	@Override
-	public void acceptNotification(OPModelBase notifier) {
+	public void acceptNotification(OPElement notifier) {
 		refresh();
 	}
 

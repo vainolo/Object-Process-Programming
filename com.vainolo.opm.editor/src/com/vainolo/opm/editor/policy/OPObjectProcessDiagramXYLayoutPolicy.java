@@ -1,16 +1,16 @@
 package com.vainolo.opm.editor.policy;
 
 import org.eclipse.draw2d.geometry.Rectangle;
+
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.CreateRequest;
+
 import com.vainolo.opm.editor.command.OPChangeNodeConstraintsCommand;
-import com.vainolo.opm.editor.command.OPAddNodeViewToNodeContainerCommand;
-import com.vainolo.opm.model.OPModelFactory;
-import com.vainolo.opm.model.OPNodeView;
+import com.vainolo.opm.editor.command.OPCreateNodeViewCommand;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
-import com.vainolo.opm.model.OPRectangle;
+import com.vainolo.opm.model.view.OPNodeView;
 
 public class OPObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
 
@@ -18,20 +18,20 @@ public class OPObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
 	protected Command getCreateCommand(CreateRequest request) {
 		OPObjectProcessDiagram opd = (OPObjectProcessDiagram)getHost().getModel();
 		OPNodeView node = (OPNodeView) request.getNewObject();
-		OPAddNodeViewToNodeContainerCommand command = new OPAddNodeViewToNodeContainerCommand();
+		OPCreateNodeViewCommand command = new OPCreateNodeViewCommand();
 		
 		Rectangle requestConstraints = (Rectangle) getConstraintFor(request);
-		OPRectangle constraints = OPModelFactory.createOPRectangle();
+		int[] constraints = new int[4];
 		if(requestConstraints.getSize().isEmpty()) {
-			constraints.getPoint().setX(requestConstraints.x);
-			constraints.getPoint().setY(requestConstraints.y);
-			constraints.setWidth(50);
-			constraints.setHeight(50);
+			constraints[0] = requestConstraints.x;
+			constraints[1] = requestConstraints.y;
+			constraints[2] = 50;
+			constraints[3] = 50;
 		} else {
-			constraints.getPoint().setX(requestConstraints.x);
-			constraints.getPoint().setY(requestConstraints.y);
-			constraints.setWidth(requestConstraints.width);
-			constraints.setHeight(requestConstraints.height);
+			constraints[0] = requestConstraints.x;
+			constraints[1] = requestConstraints.y;
+			constraints[2] = requestConstraints.width;
+			constraints[3] = requestConstraints.height;
 		}
 		command.setConstaints(constraints);
 		command.setObjectProcessDiagram(opd);
@@ -45,11 +45,11 @@ public class OPObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
 		OPNodeView node = (OPNodeView) child.getModel();
 		command.setNode(node);
 		Rectangle r = (Rectangle) constraint;
-		OPRectangle constraints = OPModelFactory.createOPRectangle();
-		constraints.getPoint().setX(r.x);
-		constraints.getPoint().setY(r.y);
-		constraints.setWidth(r.width);
-		constraints.setHeight(r.height);
+		int[] constraints = new int[4];
+		constraints[0] = r.x;
+		constraints[1] = r.y;
+		constraints[2] = r.width;
+		constraints[3] = r.height;
 		command.setConstratins(constraints);
 		return command;
 	}

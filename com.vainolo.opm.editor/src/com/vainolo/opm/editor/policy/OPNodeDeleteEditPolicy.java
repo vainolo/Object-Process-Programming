@@ -1,12 +1,11 @@
 package com.vainolo.opm.editor.policy;
 
 import org.eclipse.gef.commands.Command;
-
 import org.eclipse.gef.editpolicies.ComponentEditPolicy;
 import org.eclipse.gef.requests.GroupRequest;
 
 import com.vainolo.opm.editor.command.OPMDeleteNodeCommand;
-import com.vainolo.opm.model.OPNodeView;
+import com.vainolo.opm.model.view.OPNodeView;
 
 public class OPNodeDeleteEditPolicy extends ComponentEditPolicy {
 	@Override

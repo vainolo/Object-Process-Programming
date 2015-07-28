@@ -2,10 +2,10 @@ package com.vainolo.opm.editor.factory;
 
 import org.eclipse.gef.requests.CreationFactory;
 
-import com.vainolo.opm.model.OPLinkView;
 import com.vainolo.opm.model.OPModelFactory;
 import com.vainolo.opm.model.OPProceduralLink;
 import com.vainolo.opm.model.OPProceduralLinkKind;
+import com.vainolo.opm.model.view.OPLinkView;
 
 public class OPProceduralLinkViewFactory implements CreationFactory {
 

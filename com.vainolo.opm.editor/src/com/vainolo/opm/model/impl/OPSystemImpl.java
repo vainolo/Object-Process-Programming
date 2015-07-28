@@ -8,7 +8,7 @@ import com.vainolo.opm.model.OPSystem;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.OPThing;
 
-public class OPSystemImpl extends OPAbstractModelBase implements OPSystem {
+public class OPSystemImpl extends OPAbstractElement implements OPSystem {
 
   private String name = "";
   private List<OPThing> things = new ArrayList<OPThing>();

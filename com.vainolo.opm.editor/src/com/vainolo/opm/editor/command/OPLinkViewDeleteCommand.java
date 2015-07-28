@@ -2,8 +2,8 @@ package com.vainolo.opm.editor.command;
 
 import org.eclipse.gef.commands.Command;
 
-import com.vainolo.opm.model.OPLinkView;
-import com.vainolo.opm.model.OPNodeView;
+import com.vainolo.opm.model.view.OPLinkView;
+import com.vainolo.opm.model.view.OPNodeView;
 
 public class OPLinkViewDeleteCommand extends Command{
 
