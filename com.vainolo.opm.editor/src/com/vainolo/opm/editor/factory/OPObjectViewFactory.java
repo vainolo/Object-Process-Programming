@@ -10,7 +10,7 @@ public class OPObjectViewFactory implements CreationFactory {
 
 	@Override
 	public Object getNewObject() {
-		OPNodeView view = OPModelFactory.createNodeView();
+		OPNodeView view = OPModelFactory.createOPNodeView();
 		OPObject object = OPModelFactory.createObject();
 		object.setName("...");
 		view.setModel(object);

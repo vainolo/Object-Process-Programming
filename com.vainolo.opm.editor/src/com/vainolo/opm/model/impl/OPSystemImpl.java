@@ -36,6 +36,11 @@ public class OPSystemImpl extends OPAbstractModelBase implements OPSystem {
   }
   
   @Override
+  public void setNextId(int nextId) {
+	  this.nextId = nextId;
+  }
+  
+  @Override
   public List<OPThing> getThings() {
     return Collections.unmodifiableList(things);
   }
@@ -43,6 +48,11 @@ public class OPSystemImpl extends OPAbstractModelBase implements OPSystem {
   @Override
   public OPObjectProcessDiagram getSD() {
     return sd;
+  }
+  
+  @Override
+  public void setSD(OPObjectProcessDiagram sd) {
+	  this.sd = sd;
   }
 
   @Override

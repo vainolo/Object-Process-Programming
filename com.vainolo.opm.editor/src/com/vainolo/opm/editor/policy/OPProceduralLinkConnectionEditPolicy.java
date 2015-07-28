@@ -1,6 +1,7 @@
 package com.vainolo.opm.editor.policy;
 
 import org.eclipse.gef.commands.Command;
+
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editpolicies.GraphicalNodeEditPolicy;
 import org.eclipse.gef.requests.CreateConnectionRequest;
@@ -9,11 +10,9 @@ import org.eclipse.gef.requests.ReconnectRequest;
 import com.vainolo.opm.editor.command.OPCreateProceduralLinkCommand;
 import com.vainolo.opm.editor.command.OPLinkViewDeleteCommand;
 import com.vainolo.opm.model.OPLinkView;
-import com.vainolo.opm.model.OPNode;
-import com.vainolo.opm.model.OPLink;
 import com.vainolo.opm.model.OPNodeView;
 
-public class OPConnectionEditPolicy extends GraphicalNodeEditPolicy {
+public class OPProceduralLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
 	@Override
 	protected Command getConnectionCreateCommand(CreateConnectionRequest request) {

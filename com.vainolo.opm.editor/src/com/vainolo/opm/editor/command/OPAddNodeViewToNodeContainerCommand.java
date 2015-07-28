@@ -5,10 +5,10 @@ import org.eclipse.gef.commands.Command;
 import com.vainolo.opm.model.OPNodeView;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.OPRectangle;
-import com.vainolo.opm.model.OPViewContainer;
+import com.vainolo.opm.model.OPNodeViewContainer;
 
 public class OPAddNodeViewToNodeContainerCommand extends Command{
-	private OPViewContainer container;
+	private OPNodeViewContainer container;
 	private OPNodeView node;
 	private OPRectangle constraints;
 

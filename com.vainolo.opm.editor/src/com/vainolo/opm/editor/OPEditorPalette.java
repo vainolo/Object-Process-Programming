@@ -10,7 +10,6 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import com.vainolo.opm.editor.factory.OPObjectViewFactory;
 import com.vainolo.opm.editor.factory.OPProceduralLinkViewFactory;
 import com.vainolo.opm.editor.factory.OPProcessViewFactory;
-import com.vainolo.opm.model.OPProceduralLink;
 import com.vainolo.opm.model.OPProceduralLinkKind;
 
 public class OPEditorPalette extends PaletteRoot {

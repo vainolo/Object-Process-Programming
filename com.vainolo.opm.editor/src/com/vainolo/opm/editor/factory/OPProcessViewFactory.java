@@ -12,7 +12,7 @@ public class OPProcessViewFactory implements CreationFactory {
 
 	@Override
 	public Object getNewObject() {
-		OPNodeView view = OPModelFactory.createNodeView();
+		OPNodeView view = OPModelFactory.createOPNodeView();
 		process = OPModelFactory.createProcess();
 		process.setName("...");
 		view.setModel(process);

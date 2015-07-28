@@ -12,7 +12,9 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide;bundle-version="3.10.2",
  org.eclipse.core.resources;bundle-version="3.9.1",
  org.eclipse.draw2d,
- org.eclipse.ui.navigator;bundle-version="3.5.401"
+ org.eclipse.ui.navigator;bundle-version="3.5.401",
+ com.vainolo.vainolibraries.java.eclipse;bundle-version="0.1.0",
+ org.junit
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.core.resources

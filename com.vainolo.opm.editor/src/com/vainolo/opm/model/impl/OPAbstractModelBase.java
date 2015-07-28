@@ -20,6 +20,11 @@ public abstract class OPAbstractModelBase implements OPModelBase {
   public int getId() {
     return id;
   }
+  
+  @Override
+  public void setId(int id) {
+	  this.id = id;
+  }
 
   @Override
   public void notifyObservers() {

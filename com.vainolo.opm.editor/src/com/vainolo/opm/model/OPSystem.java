@@ -7,10 +7,13 @@ public interface OPSystem extends OPModelBase {
   void setName(String name);
   
   int getNextId();
+  void setNextId(int nextId);
   
   List<OPThing> getThings();
   void addThing(OPThing thing);
   void removeThing(OPThing thing);
   
   OPObjectProcessDiagram getSD();
+  void setSD(OPObjectProcessDiagram sd);
+
 }

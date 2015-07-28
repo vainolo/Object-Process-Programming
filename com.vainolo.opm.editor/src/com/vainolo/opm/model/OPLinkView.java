@@ -9,4 +9,7 @@ public interface OPLinkView extends OPModelBase {
 	
 	OPNodeView getTarget();
 	void setTarget(OPNodeView nodeView);
+	
+	OPObjectProcessDiagram getObjectProcessDiagram();
+	void setObjectProcessDiagram(OPObjectProcessDiagram opd);
 }

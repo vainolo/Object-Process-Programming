@@ -30,7 +30,7 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 	public OPEditor() {
 		setEditDomain(new DefaultEditDomain(this));
 		opd = OPModelFactory.createObjectProcessDiagram();
-		OPNodeView view = OPModelFactory.createNodeView();
+		OPNodeView view = OPModelFactory.createOPNodeView();
 		OPObject object = OPModelFactory.createObject();
 		view.setModel(object);
 		object.setName("Hello");
@@ -41,7 +41,7 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 		constraints.setWidth(100);
 		constraints.getPoint().setX(200);
 		constraints.getPoint().setY(200);
-		view = OPModelFactory.createNodeView();
+		view = OPModelFactory.createOPNodeView();
 		OPProcess process = OPModelFactory.createProcess();
 		view.setModel(process);
 		process.setName("world");
@@ -83,6 +83,7 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 			if(propertyPage == null) {
 				propertyPage = (UndoablePropertySheetPage)super.getAdapter(type);
 				IPropertySourceProvider provider = new IPropertySourceProvider() {
+					@Override
 					public IPropertySource getPropertySource(Object object) {
 						return OPPropertySourceFactory.getPropertySource(object);
 					}

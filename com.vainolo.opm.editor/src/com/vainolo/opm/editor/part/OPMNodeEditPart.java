@@ -12,7 +12,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import com.vainolo.opm.editor.figure.OPMNodeFigure;
-import com.vainolo.opm.editor.policy.OPConnectionEditPolicy;
+import com.vainolo.opm.editor.policy.OPProceduralLinkConnectionEditPolicy;
 import com.vainolo.opm.editor.policy.OPNodeDeleteEditPolicy;
 import com.vainolo.opm.model.OPLinkView;
 import com.vainolo.opm.model.OPModelBase;
@@ -24,7 +24,7 @@ public abstract class OPMNodeEditPart extends AbstractGraphicalEditPart implemen
 
 	@Override
 	protected void createEditPolicies() {
-		installEditPolicy(UUID.randomUUID().toString(), new OPConnectionEditPolicy());
+		installEditPolicy(UUID.randomUUID().toString(), new OPProceduralLinkConnectionEditPolicy());
 		installEditPolicy(UUID.randomUUID().toString(), new OPNodeDeleteEditPolicy());
 	}
 

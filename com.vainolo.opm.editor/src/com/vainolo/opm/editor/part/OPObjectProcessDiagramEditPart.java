@@ -1,16 +1,12 @@
 package com.vainolo.opm.editor.part;
 
 import java.util.Collections;
-
 import java.util.List;
-
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
-
 import com.vainolo.opm.editor.figure.OPObjectProcessDiagramFigure;
 import com.vainolo.opm.editor.policy.OPObjectProcessDiagramXYLayoutPolicy;
-import com.vainolo.opm.model.OPNode;
 import com.vainolo.opm.model.OPModelBase;
 import com.vainolo.opm.model.OPModelObserver;
 import com.vainolo.opm.model.OPNodeView;

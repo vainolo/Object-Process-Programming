@@ -21,7 +21,7 @@ public class OPObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
 		OPAddNodeViewToNodeContainerCommand command = new OPAddNodeViewToNodeContainerCommand();
 		
 		Rectangle requestConstraints = (Rectangle) getConstraintFor(request);
-		OPRectangle constraints = OPModelFactory.createConstraints();
+		OPRectangle constraints = OPModelFactory.createOPRectangle();
 		if(requestConstraints.getSize().isEmpty()) {
 			constraints.getPoint().setX(requestConstraints.x);
 			constraints.getPoint().setY(requestConstraints.y);
@@ -45,7 +45,7 @@ public class OPObjectProcessDiagramXYLayoutPolicy extends XYLayoutEditPolicy {
 		OPNodeView node = (OPNodeView) child.getModel();
 		command.setNode(node);
 		Rectangle r = (Rectangle) constraint;
-		OPRectangle constraints = OPModelFactory.createConstraints();
+		OPRectangle constraints = OPModelFactory.createOPRectangle();
 		constraints.getPoint().setX(r.x);
 		constraints.getPoint().setY(r.y);
 		constraints.setWidth(r.width);

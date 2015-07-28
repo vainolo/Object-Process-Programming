@@ -4,12 +4,14 @@ import com.vainolo.opm.model.OPLink;
 import com.vainolo.opm.model.OPLinkView;
 import com.vainolo.opm.model.OPModelObserver;
 import com.vainolo.opm.model.OPNodeView;
+import com.vainolo.opm.model.OPObjectProcessDiagram;
 
 public class OPLinkViewImpl extends OPAbstractModelBase implements OPLinkView {
 
 	private OPLink model;
 	private OPNodeView source;
 	private OPNodeView target;
+	private OPObjectProcessDiagram opd;
 
 	public OPLinkViewImpl(int id) {
 		super(id);
@@ -65,6 +67,18 @@ public class OPLinkViewImpl extends OPAbstractModelBase implements OPLinkView {
 		this.target = target;
 		if(target != null)
 			target.addLink(this);
+		notifyObservers();
+	}
+
+	@Override
+	public OPObjectProcessDiagram getObjectProcessDiagram() {
+		return opd;
+	}
+
+	@Override
+	public void setObjectProcessDiagram(OPObjectProcessDiagram opd) {
+		this.opd = opd;
+		opd.addLinkView(this);
 		notifyObservers();
 	}
 }

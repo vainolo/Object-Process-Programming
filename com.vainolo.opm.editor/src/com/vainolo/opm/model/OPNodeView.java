@@ -13,6 +13,6 @@ public interface OPNodeView extends OPModelBase {
 	void addLink(OPLinkView link);
 	void removeLink(OPLinkView link);
 	
-	OPViewContainer getContainer();
-	void setContainer(OPViewContainer container); 
+	OPNodeViewContainer getContainer();
+	void setContainer(OPNodeViewContainer container);
 }

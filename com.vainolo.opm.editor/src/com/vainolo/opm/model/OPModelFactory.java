@@ -1,15 +1,15 @@
 package com.vainolo.opm.model;
 
 import com.vainolo.opm.model.impl.OPLinkViewImpl;
-
 import com.vainolo.opm.model.impl.OPObjectImpl;
-import com.vainolo.opm.model.impl.OPConstraintsImpl;
+import com.vainolo.opm.model.impl.OPRectangleImpl;
 import com.vainolo.opm.model.impl.OPNodeViewImpl;
 import com.vainolo.opm.model.impl.OPPointImpl;
 import com.vainolo.opm.model.impl.OPProceduralLinkImpl;
 import com.vainolo.opm.model.impl.OPProcessImpl;
 import com.vainolo.opm.model.impl.OPObjectProcessDiagramImpl;
 import com.vainolo.opm.model.impl.OPSystemImpl;
+import com.vainolo.opm.model.impl.OPThingViewImpl;
 
 public class OPModelFactory {
 	private static int nextId = 1;
@@ -23,7 +23,7 @@ public class OPModelFactory {
 		return nextId-1;
 	}
 	
-	public static OPSystem createOPMSystem() {
+	public static OPSystem createOPSystem() {
 		return new OPSystemImpl();
 	}
 	
@@ -31,15 +31,15 @@ public class OPModelFactory {
 		return new OPObjectProcessDiagramImpl(getNextId());
 	}
 	
-	public static OPPoint createPoint() {
+	public static OPPoint createOPPoint() {
 		return new OPPointImpl(getNextId());
 	}
 
-	public static OPRectangle createConstraints() {
-		return new OPConstraintsImpl(getNextId());
+	public static OPRectangle createOPRectangle() {
+		return new OPRectangleImpl(getNextId());
 	}
 
-	public static OPNodeView createNodeView() {
+	public static OPNodeView createOPNodeView() {
 		return new OPNodeViewImpl(getNextId());
 	}
 
@@ -57,5 +57,9 @@ public class OPModelFactory {
 
 	public static OPLinkView createLinkView() {
 		return new OPLinkViewImpl(getNextId());
+	}
+
+	public static OPThingView createThingView() {
+		return new OPThingViewImpl(getNextId());
 	}
 }

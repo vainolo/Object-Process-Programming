@@ -1,6 +1,7 @@
 package com.vainolo.opm.editor.command;
 
 import org.eclipse.gef.commands.Command;
+import static com.vainolo.opm.model.util.OPModelUtils.*;
 
 import com.vainolo.opm.model.OPLinkView;
 import com.vainolo.opm.model.OPNodeView;
@@ -27,12 +28,14 @@ public class OPCreateProceduralLinkCommand extends Command {
 	public void execute() {
 		link.setSource(source);
 		link.setTarget(target);
+		link.setObjectProcessDiagram(getObjectProcessDiagram(source));
 	}
 	
 	@Override
 	public void undo() {
 		link.setSource(null);
 		link.setTarget(null);
+		link.setObjectProcessDiagram(null);
 	}
 	
 }

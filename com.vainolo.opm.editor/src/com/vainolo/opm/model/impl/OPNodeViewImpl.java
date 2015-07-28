@@ -11,18 +11,18 @@ import com.vainolo.opm.model.OPModelFactory;
 import com.vainolo.opm.model.OPNode;
 import com.vainolo.opm.model.OPRectangle;
 import com.vainolo.opm.model.OPNodeView;
-import com.vainolo.opm.model.OPViewContainer;
+import com.vainolo.opm.model.OPNodeViewContainer;
 
 public class OPNodeViewImpl extends OPAbstractModelBase implements OPNodeView {
 
 	private OPRectangle constraints;
 	private OPNode model;
 	private List<OPLinkView> links = new ArrayList<OPLinkView>();
-	private OPViewContainer container;
+	private OPNodeViewContainer container;
 
 	public OPNodeViewImpl(int id) {
 		super(id);
-		constraints = OPModelFactory.createConstraints();
+		constraints = OPModelFactory.createOPRectangle();
 	}
 
 	@Override
@@ -67,12 +67,12 @@ public class OPNodeViewImpl extends OPAbstractModelBase implements OPNodeView {
 	}
 
 	@Override
-	public OPViewContainer getContainer() {
+	public OPNodeViewContainer getContainer() {
 		return container;
 	}
 
 	@Override
-	public void setContainer(OPViewContainer container) {
+	public void setContainer(OPNodeViewContainer container) {
 		this.container = container;
 		notifyObservers();
 	}

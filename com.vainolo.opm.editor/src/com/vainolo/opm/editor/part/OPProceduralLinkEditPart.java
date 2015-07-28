@@ -12,7 +12,6 @@ import com.vainolo.opm.model.OPLinkView;
 import com.vainolo.opm.model.OPModelBase;
 import com.vainolo.opm.model.OPModelObserver;
 import com.vainolo.opm.model.OPProceduralLink;
-import com.vainolo.opm.model.OPProceduralLinkKind;
 ;
 
 public class OPProceduralLinkEditPart extends AbstractConnectionEditPart implements OPModelObserver {
