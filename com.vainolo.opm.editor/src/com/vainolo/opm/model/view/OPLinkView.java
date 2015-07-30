@@ -13,8 +13,4 @@ public interface OPLinkView extends OPElementView {
 	
 	OPNodeView getTarget();
 	void setTarget(OPNodeView nodeView);
-
-	// TODO: remove
-	OPObjectProcessDiagram getObjectProcessDiagram();
-	void setObjectProcessDiagram(OPObjectProcessDiagram opd);
 }

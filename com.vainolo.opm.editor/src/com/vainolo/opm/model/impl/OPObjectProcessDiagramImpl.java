@@ -65,23 +65,6 @@ public class OPObjectProcessDiagramImpl extends OPAbstractElement implements
 	}
 	
 	@Override
-	public void addLinkView(OPLinkView link) {
-		links.add(link);
-		notifyObservers();
-	}
-
-	@Override
-	public void removeLinkView(OPLinkView link) {
-		links.remove(link);
-		notifyObservers();
-	}
-
-	@Override
-	public List<OPLinkView> getLinks() {
-		return Collections.unmodifiableList(links);
-	}
-
-	@Override
 	public void addElementView(OPElementView element) {
 		elements.add(element);
 		notifyObservers();
@@ -94,7 +77,7 @@ public class OPObjectProcessDiagramImpl extends OPAbstractElement implements
 	}
 
 	@Override
-	public List<OPElementView> getViewElements() {
+	public List<OPElementView> getElementViews() {
 		return Collections.unmodifiableList(elements);
 	}
 

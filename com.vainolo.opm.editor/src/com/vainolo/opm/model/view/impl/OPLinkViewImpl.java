@@ -69,16 +69,4 @@ public class OPLinkViewImpl extends OPAbstractElementView implements OPLinkView 
 			target.addLink(this);
 		notifyObservers();
 	}
-
-	@Override
-	public OPObjectProcessDiagram getObjectProcessDiagram() {
-		return opd;
-	}
-
-	@Override
-	public void setObjectProcessDiagram(OPObjectProcessDiagram opd) {
-		this.opd = opd;
-		opd.addLinkView(this);
-		notifyObservers();
-	}
 }

@@ -22,7 +22,7 @@ public class OPModelFactory {
 		return nextId-1;
 	}
 	
-	public static OPSystem createOPSystem() {
+	public static OPSystem createSystem() {
 		return new OPSystemImpl();
 	}
 	

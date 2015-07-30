@@ -15,20 +15,20 @@ public abstract class OPAbstractThing extends OPAbstractNode implements OPThing 
     super(id);
   }
 
-  private List<OPNode> elements = new ArrayList<OPNode>();
-  private boolean isInZoomed = false;
-  private OPObjectProcessDiagram zoomedObjectProcessDiagram;
+  private List<OPNode> nodes = new ArrayList<OPNode>();
+  private boolean isInzoomed = false;
+  private OPObjectProcessDiagram inzoomedObjectProcessDiagram;
   private boolean isUnfolded = false;
   private OPObjectProcessDiagram unfoldedObjectProcessDiagram;
 
   @Override
-  public List<OPNode> getChildElements() {
-    return Collections.unmodifiableList(elements);
+  public List<OPNode> getNodes() {
+    return Collections.unmodifiableList(nodes);
   }
   
   @Override
-  public void addChildElement(OPNode element) {
-    elements.add(element);
+  public void addNode(OPNode element) {
+    nodes.add(element);
     for(OPModelObserver observer:getObservers()) {
       element.addObserver(observer);
     }
@@ -36,8 +36,8 @@ public abstract class OPAbstractThing extends OPAbstractNode implements OPThing 
   }
   
   @Override
-  public void removeChildElement(OPNode element) {
-    elements.remove(element);
+  public void removeNode(OPNode element) {
+    nodes.remove(element);
     for(OPModelObserver observer:getObservers()) {
       element.removeObserver(observer);
     }
@@ -45,18 +45,18 @@ public abstract class OPAbstractThing extends OPAbstractNode implements OPThing 
   }
 
   @Override
-  public boolean isInZoomed() {
-    return isInZoomed;
+  public boolean isInzoomed() {
+    return isInzoomed;
   }
   
   @Override
-  public boolean setZoomed(boolean zoomed) {
-    return isInZoomed = zoomed;
+  public boolean setInzoomed(boolean inzoomed) {
+    return isInzoomed = inzoomed;
   }
   
   @Override
-  public OPObjectProcessDiagram getInZoomedObjectProcessDiagram() {
-    return zoomedObjectProcessDiagram;
+  public OPObjectProcessDiagram getInzoomedObjectProcessDiagram() {
+    return inzoomedObjectProcessDiagram;
   }
 
   @Override

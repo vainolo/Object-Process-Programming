@@ -30,7 +30,7 @@ public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart im
 	
 	@Override
 	protected List<OPElementView> getModelChildren() {
-		return Collections.unmodifiableList(((OPObjectProcessDiagram) getModel()).getViewElements());
+		return Collections.unmodifiableList(((OPObjectProcessDiagram) getModel()).getElementViews());
 	}
 
 	@Override

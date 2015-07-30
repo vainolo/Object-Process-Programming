@@ -1,9 +1,6 @@
 package com.vainolo.opm.model;
 
-import java.util.List;
-
 import com.vainolo.opm.model.view.OPElementViewContainer;
-import com.vainolo.opm.model.view.OPLinkView;
 import com.vainolo.opm.model.view.OPThingView;
 
 public interface OPObjectProcessDiagram extends OPElement, OPElementViewContainer {
@@ -16,8 +13,4 @@ public interface OPObjectProcessDiagram extends OPElement, OPElementViewContaine
   void setUnfolded(boolean unfolded);
   OPThingView getUnfoldedThing();
   void setUnfoldedThing(OPThingView unfoldedThing);
-  
-  void addLinkView(OPLinkView link);
-  void removeLinkView(OPLinkView link);
-  List<OPLinkView> getLinks();
 }

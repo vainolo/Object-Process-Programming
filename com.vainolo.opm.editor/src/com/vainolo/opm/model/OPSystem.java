@@ -13,6 +13,10 @@ public interface OPSystem extends OPElement {
   void addThing(OPThing thing);
   void removeThing(OPThing thing);
   
+  List<OPLink> getLinks();
+  void addLink(OPLink link);
+  void removeLink(OPLink link);
+  
   OPObjectProcessDiagram getSD();
   void setSD(OPObjectProcessDiagram sd);
 

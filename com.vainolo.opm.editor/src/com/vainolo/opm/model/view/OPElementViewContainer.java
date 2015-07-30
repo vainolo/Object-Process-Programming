@@ -7,5 +7,5 @@ import com.vainolo.opm.model.OPElement;
 public interface OPElementViewContainer extends OPElement {
 	void addElementView(OPElementView element);
 	void removeElementView(OPElementView element);
-	List<OPElementView> getViewElements();
+	List<OPElementView> getElementViews();
 }

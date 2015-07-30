@@ -3,18 +3,15 @@ package com.vainolo.opm.model;
 import java.util.List;
 
 public interface OPThing extends OPNode {
-
-  List<OPNode> getChildElements();
-  void addChildElement(OPNode element);
-  void removeChildElement(OPNode element);
+  List<OPNode> getNodes();
+  void addNode(OPNode node);
+  void removeNode(OPNode node);
   
-  boolean isInZoomed();
-  boolean setZoomed(boolean zoomed);
-  OPObjectProcessDiagram getInZoomedObjectProcessDiagram();
+  boolean isInzoomed();
+  boolean setInzoomed(boolean inzoomed);
+  OPObjectProcessDiagram getInzoomedObjectProcessDiagram();
   
   boolean isUnfolded();
   void setUnfolded(boolean unfolded);
   OPObjectProcessDiagram getUnfoldedObjectProcessDiagram();
-
-  
 }

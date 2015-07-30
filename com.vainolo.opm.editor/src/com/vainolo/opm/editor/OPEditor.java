@@ -1,34 +1,46 @@
 package com.vainolo.opm.editor;
 
-import org.eclipse.core.runtime.IProgressMonitor;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.util.EventObject;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.ui.views.properties.IPropertySourceProvider;
 import org.eclipse.ui.views.properties.PropertySheetPage;
 
 import com.vainolo.opm.editor.part.OPEditPartFactory;
-import com.vainolo.opm.editor.property.OPPropertySourceFactory;
 import com.vainolo.opm.model.OPModelFactory;
 import com.vainolo.opm.model.OPObject;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.OPProcess;
+import com.vainolo.opm.model.OPSystem;
+import com.vainolo.opm.model.io.OPJsonWriter;
 import com.vainolo.opm.model.view.OPNodeView;
 
 public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 	
+	private OPSystem system;
 	private OPObjectProcessDiagram opd;
 	private PropertySheetPage propertyPage;
 	
-
 	public OPEditor() {
 		setEditDomain(new DefaultEditDomain(this));
+		
+		system = OPModelFactory.createSystem();
 		opd = OPModelFactory.createObjectProcessDiagram();
+		system.setSD(opd);
 		OPNodeView view = OPModelFactory.createThingView();
 		OPObject object = OPModelFactory.createObject();
 		view.setModel(object);
@@ -66,8 +78,29 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 
 	@Override
 	public void doSave(IProgressMonitor monitor) {
-
+		FileEditorInput input = (FileEditorInput) getEditorInput();
+		IFile file = input.getFile();
+		try {
+			OPJsonWriter writer = new OPJsonWriter();
+			String systemJson = writer.writeOPSystem(system).toString(); 
+			file.setContents(new ByteArrayInputStream(systemJson.getBytes()), IFile.FORCE, monitor);
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}	
+		getCommandStack().markSaveLocation();
 	}
+
+	@Override
+	protected void setInput(IEditorInput input) {
+		super.setInput(input);
+	}
+	
+	  @Override
+	  public void commandStackChanged(EventObject event) {
+	    firePropertyChange(PROP_DIRTY);
+	    super.commandStackChanged(event);
+	  }
+
 	
 	@SuppressWarnings("rawtypes")
 	@Override
@@ -90,4 +123,5 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 		return super.getAdapter(type);
 	}
 
+	
 }

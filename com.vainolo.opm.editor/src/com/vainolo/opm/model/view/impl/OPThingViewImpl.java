@@ -29,7 +29,7 @@ public class OPThingViewImpl extends OPNodeViewImpl implements OPThingView {
 	}
 
 	@Override
-	public List<OPElementView> getViewElements() {
+	public List<OPElementView> getElementViews() {
 		return Collections.unmodifiableList(elements);
 	}
 

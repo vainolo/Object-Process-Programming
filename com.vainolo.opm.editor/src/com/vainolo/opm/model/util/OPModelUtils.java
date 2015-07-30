@@ -11,5 +11,4 @@ public class OPModelUtils {
 			container = ((OPElementView)container).getElementViewContainer();
 		return (OPObjectProcessDiagram) container;
 	}
-	
 }

@@ -35,7 +35,7 @@ public class OPCreateProceduralLinkCommand extends Command {
 	public void undo() {
 		link.setSource(null);
 		link.setTarget(null);
-		link.setObjectProcessDiagram(null);
+		link.setViewElementContainer(null);
 	}
 	
 	@Override
