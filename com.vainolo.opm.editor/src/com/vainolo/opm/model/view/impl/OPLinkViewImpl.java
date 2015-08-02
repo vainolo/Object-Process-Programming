@@ -6,7 +6,7 @@ import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.view.OPLinkView;
 import com.vainolo.opm.model.view.OPNodeView;
 
-public class OPLinkViewImpl extends OPAbstractElementView implements OPLinkView {
+public abstract class OPLinkViewImpl extends OPAbstractElementView implements OPLinkView {
 
 	private OPLink model;
 	private OPNodeView source;

@@ -7,12 +7,16 @@ import com.vainolo.opm.model.view.OPThingView;
 
 public class OPProcessViewFactory implements CreationFactory {
 
-	private OPProcess process;
+	private OPModelFactory factory;
 
+	public OPProcessViewFactory(OPModelFactory factory) {
+		this.factory = factory;
+	}
+	
 	@Override
 	public Object getNewObject() {
-		OPThingView view = OPModelFactory.createThingView();
-		process = OPModelFactory.createProcess();
+		OPThingView view = factory.createThingView();
+		OPProcess process = factory.createProcess();
 		process.setName("...");
 		view.setModel(process);
 		return view;

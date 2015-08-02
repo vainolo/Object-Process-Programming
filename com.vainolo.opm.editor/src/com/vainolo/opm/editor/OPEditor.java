@@ -1,8 +1,6 @@
 package com.vainolo.opm.editor;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.StringReader;
 import java.util.EventObject;
 
 import org.eclipse.core.resources.IFile;
@@ -35,22 +33,24 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 	private OPObjectProcessDiagram opd;
 	private PropertySheetPage propertyPage;
 	
+	private OPModelFactory modelFactory = new OPModelFactory(); 
+	
 	public OPEditor() {
 		setEditDomain(new DefaultEditDomain(this));
-		
-		system = OPModelFactory.createSystem();
-		opd = OPModelFactory.createObjectProcessDiagram();
+		system = getModelFactory().createSystem();
+		getModelFactory().setSystem(system);
+		opd = getModelFactory().createObjectProcessDiagram();
 		system.setSD(opd);
-		OPNodeView view = OPModelFactory.createThingView();
-		OPObject object = OPModelFactory.createObject();
+		OPNodeView view = getModelFactory().createThingView();
+		OPObject object = getModelFactory().createObject();
 		view.setModel(object);
 		object.setName("Hello");
 		view.setViewElementContainer(opd);
 		opd.addElementView(view);
 		view.setViewElementContainer(opd);
 		object.getView().setConstraints(100, 100, 200, 200);
-		view = OPModelFactory.createThingView();
-		OPProcess process = OPModelFactory.createProcess();
+		view = getModelFactory().createThingView();
+		OPProcess process = getModelFactory().createProcess();
 		view.setModel(process);
 		process.setName("world");
 		view.setViewElementContainer(opd);
@@ -73,7 +73,7 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 	
 	@Override
 	protected PaletteRoot getPaletteRoot() {
-		return new OPEditorPalette();
+		return new OPEditorPalette(getModelFactory());
 	}
 
 	@Override
@@ -123,5 +123,7 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 		return super.getAdapter(type);
 	}
 
-	
+	public OPModelFactory getModelFactory() {
+		return modelFactory;
+	}
 }

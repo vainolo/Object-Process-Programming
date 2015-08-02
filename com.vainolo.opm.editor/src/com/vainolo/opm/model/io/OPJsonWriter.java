@@ -27,6 +27,7 @@ public class OPJsonWriter {
 
 	public JsonObject writeOPSystem(OPSystem system) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPSystem.class.getSimpleName());
 		writeOPElement(json, system);
 		json.set("name", system.getName());
 		json.set("nextId", system.getNextId());
@@ -46,21 +47,23 @@ public class OPJsonWriter {
 			if(OPProceduralLink.class.isInstance(link)) 
 				array.add(writeOPProceduralLink(OPProceduralLink.class.cast(link)));
 			else if(OPStructuralLink.class.isInstance(link))
-				array.add(writeOPStructuralLink(OPProceduralLink.class.cast(link)));
+				array.add(writeOPStructuralLink(OPStructuralLink.class.cast(link)));
 		}
 		return json;
 	}
 	
-	private JsonObject writeOPStructuralLink(OPProceduralLink proceduralLink) {
+	 JsonObject writeOPProceduralLink(OPProceduralLink proceduralLink) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPProceduralLink.class.getSimpleName());
 		writeOPLink(json, proceduralLink);
 		json.set("kind", proceduralLink.getKind().getName());
 		return json;
 
 	}
 
-	private JsonObject writeOPProceduralLink(OPProceduralLink structuralLink) {
+	 JsonObject writeOPStructuralLink(OPStructuralLink structuralLink) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPStructuralLink.class.getSimpleName());
 		writeOPLink(json, structuralLink);
 		json.set("kind", structuralLink.getKind().getName());
 		return json;
@@ -77,6 +80,7 @@ public class OPJsonWriter {
 	
 	JsonObject writeOPObjectProcessDiagram(OPObjectProcessDiagram opd) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPObjectProcessDiagram.class.getSimpleName());
 		writeOPElement(json, opd);
 		writeOPElementViewContainer(json, opd);
 		json.set("inzoomed", opd.isInzoomed());
@@ -90,12 +94,14 @@ public class OPJsonWriter {
 	
 	JsonObject writeOPObject(OPObject object) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPObject.class.getSimpleName());
 		writeOPThing(json, object);
 		return json;
 	}
 
 	JsonObject writeOPProcess(OPProcess process) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPProcess.class.getSimpleName());
 		writeOPThing(json, process);
 		return json;
 	}
@@ -122,6 +128,7 @@ public class OPJsonWriter {
 	
 	JsonObject writeOPState(OPState state) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPState.class.getSimpleName());
 		writeOPNode(json, state);
 		return json;
 	}
@@ -149,6 +156,8 @@ public class OPJsonWriter {
 				array.add(writeOPProceduralLinkView(OPProceduralLinkView.class.cast(elementView)));
 			else if(OPStructuralLinkPartView.class.isInstance(elementView))
 				array.add(writeOPStructuralLinkPartView(OPStructuralLinkPartView.class.cast(elementView)));
+			else
+				throw new IllegalStateException("Unexpected view type: "+elementView);
 		}
 		json.set("elementViews", array);
 	}
@@ -157,6 +166,7 @@ public class OPJsonWriter {
 
 	JsonObject writeOPThingView(OPThingView thingView) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPThingView.class.getSimpleName());
 		writeOPNodeView(json, thingView);
 		writeOPElementViewContainer(json, thingView);
 		return json;
@@ -164,18 +174,21 @@ public class OPJsonWriter {
 	
 	JsonObject writeOPStateView(OPStateView stateView) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPStateView.class.getSimpleName());
 		writeOPNodeView(json, stateView);
 		return json;
 	}
 
 	JsonObject writeOPStructuralLinkGrouperView(OPStructuralLinkGrouperView structuralLinkGrouperView) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPStructuralLinkGrouperView.class.getSimpleName());
 		writeOPNodeView(json, structuralLinkGrouperView);
 		return json;
 	}
 
 	JsonObject writeOPProceduralLinkView(OPProceduralLinkView proceduralLinkView) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPProceduralLinkView.class.getSimpleName());
 		writeOPLinkView(json, proceduralLinkView);
 		return json;
 	}
@@ -183,13 +196,14 @@ public class OPJsonWriter {
 
 	JsonObject writeOPStructuralLinkPartView(OPStructuralLinkPartView structuralLinkPartView) {
 		JsonObject json = new JsonObject();
+		json.set("type", OPStructuralLinkPartView.class.getSimpleName());
 		writeOPLinkView(json, structuralLinkPartView);
 		return json;
 	}
 
 	
 	void writeOPNodeView(JsonObject json, OPNodeView nodeView) {
-		writeOPElement(json, nodeView);
+		writeOPElementView(json, nodeView);
 		int[] constraints = nodeView.getConstraints();
 		json.set("x", constraints[0]);
 		json.set("y", constraints[1]);		
@@ -203,8 +217,15 @@ public class OPJsonWriter {
 	}
 
 	void writeOPLinkView(JsonObject json, OPLinkView proceduralLinkView) {
+		writeOPElementView(json, proceduralLinkView);
 		json.set("model", proceduralLinkView.getModel().getId());
 		json.set("source", proceduralLinkView.getSource().getId());
 		json.set("target", proceduralLinkView.getTarget().getId());
 	}
+
+	void writeOPElementView(JsonObject json, OPElementView elementView) {
+		writeOPElement(json, elementView);
+		json.set("elementViewContainer", elementView.getElementViewContainer().getId());
+	}
+
 }

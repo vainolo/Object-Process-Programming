@@ -6,47 +6,52 @@ import com.vainolo.opm.model.impl.OPProcessImpl;
 import com.vainolo.opm.model.impl.OPObjectProcessDiagramImpl;
 import com.vainolo.opm.model.impl.OPSystemImpl;
 import com.vainolo.opm.model.view.OPLinkView;
+import com.vainolo.opm.model.view.OPProceduralLinkView;
 import com.vainolo.opm.model.view.OPThingView;
 import com.vainolo.opm.model.view.impl.OPLinkViewImpl;
+import com.vainolo.opm.model.view.impl.OPProceduralLinkViewImpl;
 import com.vainolo.opm.model.view.impl.OPThingViewImpl;
 
 public class OPModelFactory {
-	private static int nextId = 1;
 	
-	public static void setNextId(int id) {
-		nextId = id;
-	}
-	
-	synchronized public static int getNextId() {
+	private OPSystem system;
+
+	synchronized private int getNextId() {
+		int nextId = system.getNextId();
 		nextId++;
+		system.setNextId(nextId);
 		return nextId-1;
 	}
 	
-	public static OPSystem createSystem() {
+	public OPSystem createSystem() {
 		return new OPSystemImpl();
 	}
 	
-	public static OPObjectProcessDiagram createObjectProcessDiagram() {
+	public void setSystem(OPSystem system) {
+		this.system = system;
+	}
+	
+	public OPObjectProcessDiagram createObjectProcessDiagram() {
 		return new OPObjectProcessDiagramImpl(getNextId());
 	}
 	
-	public static OPObject createObject() {
+	public OPObject createObject() {
 		return new OPObjectImpl(getNextId());
 	}
 
-	public static OPProceduralLink createProceduralLink() {
+	public OPProceduralLink createProceduralLink() {
 		return new OPProceduralLinkImpl(getNextId());
 	}
 
-	public static OPProcess createProcess() {
+	public OPProcess createProcess() {
 		return new OPProcessImpl(getNextId());
 	}
 
-	public static OPLinkView createLinkView() {
-		return new OPLinkViewImpl(getNextId());
-	}
-
-	public static OPThingView createThingView() {
+	public OPThingView createThingView() {
 		return new OPThingViewImpl(getNextId());
+	}
+	
+	public OPProceduralLinkView createProceduralLinkView() {
+		return new OPProceduralLinkViewImpl(getNextId());
 	}
 }

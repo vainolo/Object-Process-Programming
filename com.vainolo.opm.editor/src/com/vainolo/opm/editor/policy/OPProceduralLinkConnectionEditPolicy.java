@@ -10,6 +10,7 @@ import com.vainolo.opm.editor.command.OPCreateProceduralLinkCommand;
 import com.vainolo.opm.editor.command.OPLinkViewDeleteCommand;
 import com.vainolo.opm.model.view.OPLinkView;
 import com.vainolo.opm.model.view.OPNodeView;
+import com.vainolo.opm.model.view.OPProceduralLinkView;
 
 public class OPProceduralLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
@@ -17,7 +18,7 @@ public class OPProceduralLinkConnectionEditPolicy extends GraphicalNodeEditPolic
 	protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
 		OPCreateProceduralLinkCommand command = new OPCreateProceduralLinkCommand();
 		command.setSource((OPNodeView) getHost().getModel());
-		command.setLink((OPLinkView) request.getNewObject());
+		command.setLink((OPProceduralLinkView) request.getNewObject());
 		request.setStartCommand(command);
 		return command;
 	}
@@ -37,8 +38,8 @@ public class OPProceduralLinkConnectionEditPolicy extends GraphicalNodeEditPolic
 		deleteCommand.setLink((OPLinkView) request.getConnectionEditPart().getModel());
 		command.add(deleteCommand);
 		OPCreateProceduralLinkCommand createCommand = new OPCreateProceduralLinkCommand();
-		createCommand.setLink((OPLinkView) request.getConnectionEditPart().getModel());
-		createCommand.setSource(((OPLinkView)request.getConnectionEditPart().getModel()).getSource());
+		createCommand.setLink((OPProceduralLinkView) request.getConnectionEditPart().getModel());
+		createCommand.setSource(((OPProceduralLinkView)request.getConnectionEditPart().getModel()).getSource());
 		createCommand.setTarget((OPNodeView) request.getTarget().getModel());
 		command.add(createCommand);
 		return command;
@@ -51,7 +52,7 @@ public class OPProceduralLinkConnectionEditPolicy extends GraphicalNodeEditPolic
 		deleteCommand.setLink((OPLinkView) request.getConnectionEditPart().getModel());
 		command.add(deleteCommand);
 		OPCreateProceduralLinkCommand createCommand = new OPCreateProceduralLinkCommand();
-		createCommand.setLink((OPLinkView) request.getConnectionEditPart().getModel());
+		createCommand.setLink((OPProceduralLinkView) request.getConnectionEditPart().getModel());
 		createCommand.setSource((OPNodeView) request.getTarget().getModel());
 		createCommand.setTarget(((OPLinkView)request.getConnectionEditPart().getModel()).getTarget());
 		command.add(createCommand);

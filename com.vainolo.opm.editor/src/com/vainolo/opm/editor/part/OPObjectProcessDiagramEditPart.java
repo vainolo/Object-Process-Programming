@@ -2,6 +2,8 @@ package com.vainolo.opm.editor.part;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
@@ -11,9 +13,11 @@ import com.vainolo.opm.editor.figure.OPObjectProcessDiagramFigure;
 import com.vainolo.opm.editor.policy.OPObjectProcessDiagramXYLayoutPolicy;
 import com.vainolo.opm.model.OPElement;
 import com.vainolo.opm.model.OPModelObserver;
+import com.vainolo.opm.model.OPNode;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.view.OPElementView;
 import com.vainolo.opm.model.view.OPNodeView;
+import com.vainolo.opm.model.view.OPThingView;
 
 public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart implements OPModelObserver {
 	
@@ -30,7 +34,8 @@ public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart im
 	
 	@Override
 	protected List<OPElementView> getModelChildren() {
-		return Collections.unmodifiableList(((OPObjectProcessDiagram) getModel()).getElementViews());
+		List<OPElementView> nodes = ((OPObjectProcessDiagram)getModel()).getElementViews().stream().filter(e -> OPThingView.class.isInstance(e)).collect(Collectors.toList());
+		return Collections.unmodifiableList(nodes);
 	}
 
 	@Override

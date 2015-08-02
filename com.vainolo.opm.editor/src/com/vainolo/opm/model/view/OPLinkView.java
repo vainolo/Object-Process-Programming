@@ -1,8 +1,6 @@
 package com.vainolo.opm.model.view;
 
-
 import com.vainolo.opm.model.OPLink;
-import com.vainolo.opm.model.OPObjectProcessDiagram;
 
 public interface OPLinkView extends OPElementView {
 	OPLink getModel();
