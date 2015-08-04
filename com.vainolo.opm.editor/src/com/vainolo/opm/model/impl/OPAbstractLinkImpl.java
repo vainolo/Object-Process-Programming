@@ -3,12 +3,12 @@ package com.vainolo.opm.model.impl;
 import com.vainolo.opm.model.OPNode;
 import com.vainolo.opm.model.OPLink;
 
-public abstract class OPAbstractLink extends OPAbstractElement implements OPLink {
+public abstract class OPAbstractLinkImpl extends OPAbstractElementImpl implements OPLink {
 
 	private OPNode source;
 	private OPNode target;
 
-	public OPAbstractLink(int id) {
+	public OPAbstractLinkImpl(int id) {
 		super(id);
 	}
 

@@ -10,7 +10,7 @@ import com.vainolo.opm.model.view.OPLinkView;
 import com.vainolo.opm.model.view.OPNodeView;
 import com.vainolo.opm.model.view.OPThingView;
 
-public class OPObjectProcessDiagramImpl extends OPAbstractElement implements
+public class OPObjectProcessDiagramImpl extends OPAbstractElementImpl implements
 		OPObjectProcessDiagram {
 	private List<OPNodeView> nodes = Lists.newArrayList();
 	private List<OPElementView> elements = Lists.newArrayList();

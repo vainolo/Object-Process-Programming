@@ -6,6 +6,7 @@
  */
 package com.vainolo.opm.editor;
 
+import java.io.ByteArrayInputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -41,7 +42,11 @@ import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
+import com.vainolo.opm.model.OPModelFactory;
+import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.OPObjectProcessDiagramKind;
+import com.vainolo.opm.model.OPSystem;
+import com.vainolo.opm.model.io.OPJsonWriter;
 
 public class OPMWizard extends Wizard implements INewWizard {
 
@@ -64,14 +69,22 @@ public class OPMWizard extends Wizard implements INewWizard {
   public boolean performFinish() {
     try {
       final IFile modelFile = getModelFile();
+	  OPModelFactory factory = new OPModelFactory();
+	  final OPSystem system = factory.createSystem();
 
       WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
         @Override
         protected void execute(final IProgressMonitor progressMonitor) {
           try {
-        	  OPEditorPlugin.INSTANCE.log(modelFile.getName());
-        	  OPEditorPlugin.INSTANCE.log(modelFile.getFullPath().toString());
+        	  OPJsonWriter writer = new OPJsonWriter();
+        	  factory.setSystem(system);
+        	  system.setName(modelFile.getName().split("\\.")[0]);
+        	  OPObjectProcessDiagram sd = factory.createObjectProcessDiagram();
+        	  system.setSD(sd);
+        	  String systemJson = writer.writeOPSystem(system).toString(); 
+        	  modelFile.create(new ByteArrayInputStream(systemJson.getBytes()), IFile.FORCE, progressMonitor);        	  
           } catch(Exception exception) {
+        	  exception.printStackTrace();
             OPEditorPlugin.INSTANCE.log(exception);
           } finally {
             progressMonitor.done();
@@ -96,7 +109,7 @@ public class OPMWizard extends Wizard implements INewWizard {
 
       try {
         modelFile.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
-        page.openEditor(new FileEditorInput(modelFile),
+        page.openEditor(new OPEditorInput(modelFile, system),
             workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
       } catch(PartInitException exception) {
         MessageDialog.openError(workbenchWindow.getShell(), "Open Editor", exception.getMessage());
@@ -186,10 +199,6 @@ public class OPMWizard extends Wizard implements INewWizard {
 
       opdKind.select(0);
       setControl(composite);
-    }
-
-    public OPObjectProcessDiagramKind getOPDKind() {
-      return OPObjectProcessDiagramKind.getByName(opdKind.getText());
     }
 
     @Override

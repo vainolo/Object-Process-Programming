@@ -6,14 +6,14 @@ import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.view.OPLinkView;
 import com.vainolo.opm.model.view.OPNodeView;
 
-public abstract class OPLinkViewImpl extends OPAbstractElementView implements OPLinkView {
+public abstract class OPAbstractLinkViewImpl extends OPAbstractElementViewImpl implements OPLinkView {
 
 	private OPLink model;
 	private OPNodeView source;
 	private OPNodeView target;
 	private OPObjectProcessDiagram opd;
 
-	public OPLinkViewImpl(int id) {
+	public OPAbstractLinkViewImpl(int id) {
 		super(id);
 	}
 
@@ -24,17 +24,7 @@ public abstract class OPLinkViewImpl extends OPAbstractElementView implements OP
 
 	@Override
 	public void setModel(OPLink model) {
-		if(this.model != null) {
-			for(OPModelObserver observer:getObservers()) {
-				this.model.removeObserver(observer);
-			}
-		}
 		this.model = model;
-		if(this.model != null) {
-			for(OPModelObserver observer : getObservers()) {
-				model.addObserver(observer);
-			}
-		}
 		notifyObservers();
 	}
 

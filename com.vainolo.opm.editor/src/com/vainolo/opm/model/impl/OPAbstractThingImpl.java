@@ -9,17 +9,19 @@ import com.vainolo.opm.model.OPModelObserver;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.OPThing;
 
-public abstract class OPAbstractThing extends OPAbstractNode implements OPThing {
+public abstract class OPAbstractThingImpl extends OPAbstractNodeImpl implements OPThing {
 
-  public OPAbstractThing(int id) {
+	  private List<OPNode> nodes = new ArrayList<OPNode>();
+	  private boolean isInzoomed = false;
+	  private OPObjectProcessDiagram inzoomedObjectProcessDiagram;
+	  private boolean isUnfolded = false;
+	  private OPObjectProcessDiagram unfoldedObjectProcessDiagram;
+
+	  
+	  public OPAbstractThingImpl(int id) {
     super(id);
   }
 
-  private List<OPNode> nodes = new ArrayList<OPNode>();
-  private boolean isInzoomed = false;
-  private OPObjectProcessDiagram inzoomedObjectProcessDiagram;
-  private boolean isUnfolded = false;
-  private OPObjectProcessDiagram unfoldedObjectProcessDiagram;
 
   @Override
   public List<OPNode> getNodes() {
@@ -29,18 +31,12 @@ public abstract class OPAbstractThing extends OPAbstractNode implements OPThing 
   @Override
   public void addNode(OPNode element) {
     nodes.add(element);
-    for(OPModelObserver observer:getObservers()) {
-      element.addObserver(observer);
-    }
     notifyObservers();
   }
   
   @Override
   public void removeNode(OPNode element) {
     nodes.remove(element);
-    for(OPModelObserver observer:getObservers()) {
-      element.removeObserver(observer);
-    }
     notifyObservers();
   }
 

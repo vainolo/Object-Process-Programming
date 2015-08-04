@@ -11,12 +11,12 @@ import com.google.common.base.Preconditions;
 import com.vainolo.opm.editor.factory.OPObjectViewFactory;
 import com.vainolo.opm.editor.factory.OPProceduralLinkViewFactory;
 import com.vainolo.opm.editor.factory.OPProcessViewFactory;
-import com.vainolo.opm.model.OPModelFactory;
-import com.vainolo.opm.model.OPProceduralLinkKind;
+import com.vainolo.opm.model.opm.OPFactory;
+import com.vainolo.opm.model.opm.OPProceduralLinkKind;
 
 public class OPEditorPalette extends PaletteRoot {
 
-	public OPEditorPalette(OPModelFactory factory) {
+	public OPEditorPalette(OPFactory factory) {
 		Preconditions.checkArgument(factory != null, "Model factory cannot be null.");
 		
 		PaletteDrawer drawer = new PaletteDrawer("All");

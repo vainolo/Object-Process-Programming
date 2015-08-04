@@ -7,12 +7,16 @@ import com.vainolo.opm.model.impl.OPObjectProcessDiagramImpl;
 import com.vainolo.opm.model.impl.OPSystemImpl;
 import com.vainolo.opm.model.view.OPLinkView;
 import com.vainolo.opm.model.view.OPProceduralLinkView;
+import com.vainolo.opm.model.view.OPStateView;
+import com.vainolo.opm.model.view.OPStructuralLinkGrouperView;
 import com.vainolo.opm.model.view.OPThingView;
-import com.vainolo.opm.model.view.impl.OPLinkViewImpl;
+import com.vainolo.opm.model.view.impl.OPAbstractLinkViewImpl;
 import com.vainolo.opm.model.view.impl.OPProceduralLinkViewImpl;
+import com.vainolo.opm.model.view.impl.OPStateViewImpl;
+import com.vainolo.opm.model.view.impl.OPStructuralLinkGrouperViewImpl;
 import com.vainolo.opm.model.view.impl.OPThingViewImpl;
 
-public class OPModelFactory {
+private class OPModelFactory {
 	
 	private OPSystem system;
 
@@ -53,5 +57,13 @@ public class OPModelFactory {
 	
 	public OPProceduralLinkView createProceduralLinkView() {
 		return new OPProceduralLinkViewImpl(getNextId());
+	}
+
+	public OPStateView createStateView() {
+		return new OPStateViewImpl(getNextId());
+	}
+
+	public OPStructuralLinkGrouperView createStructuralLinkGrouperView() {
+		return new OPStructuralLinkGrouperViewImpl(getNextId());
 	}
 }

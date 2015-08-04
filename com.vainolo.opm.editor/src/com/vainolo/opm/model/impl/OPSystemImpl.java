@@ -1,6 +1,7 @@
 package com.vainolo.opm.model.impl;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import com.vainolo.opm.model.OPSystem;
 import com.vainolo.opm.model.OPObjectProcessDiagram;
 import com.vainolo.opm.model.OPThing;
 
-public class OPSystemImpl extends OPAbstractElement implements OPSystem {
+public class OPSystemImpl extends OPAbstractElementImpl implements OPSystem {
 
   private String name = "";
   private List<OPThing> things = new ArrayList<OPThing>();

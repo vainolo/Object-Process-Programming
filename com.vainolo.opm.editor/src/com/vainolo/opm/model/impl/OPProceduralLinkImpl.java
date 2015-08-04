@@ -3,7 +3,7 @@ package com.vainolo.opm.model.impl;
 import com.vainolo.opm.model.OPProceduralLink;
 import com.vainolo.opm.model.OPProceduralLinkKind;
 
-public class OPProceduralLinkImpl extends OPAbstractLink implements OPProceduralLink {
+public class OPProceduralLinkImpl extends OPAbstractLinkImpl implements OPProceduralLink {
 
 	private OPProceduralLinkKind kind;
 

@@ -2,25 +2,25 @@ package com.vainolo.opm.editor.factory;
 
 import org.eclipse.gef.requests.CreationFactory;
 
-import com.vainolo.opm.model.OPModelFactory;
-import com.vainolo.opm.model.OPProceduralLink;
-import com.vainolo.opm.model.OPProceduralLinkKind;
-import com.vainolo.opm.model.view.OPLinkView;
+import com.vainolo.opm.model.opm.OPFactory;
+import com.vainolo.opm.model.opm.OPProceduralLink;
+import com.vainolo.opm.model.opm.OPProceduralLinkKind;
+import com.vainolo.opm.model.opm.OPProceduralLinkView;
 
 public class OPProceduralLinkViewFactory implements CreationFactory {
 
 	private OPProceduralLinkKind kind;
-	private OPModelFactory factory;
+	private OPFactory factory;
 	
-	public OPProceduralLinkViewFactory(OPModelFactory factory, OPProceduralLinkKind kind) {
+	public OPProceduralLinkViewFactory(OPFactory factory, OPProceduralLinkKind kind) {
 		this.factory = factory;
 		this.kind = kind;
 	}
 
 	@Override
 	public Object getNewObject() {
-		OPLinkView view = factory.createProceduralLinkView();
-		OPProceduralLink model = factory.createProceduralLink();
+		OPProceduralLinkView view = factory.createOPProceduralLinkView();
+		OPProceduralLink model = factory.createOPProceduralLink();
 		model.setKind(kind);
 		view.setModel(model);
 		return view;
@@ -28,7 +28,7 @@ public class OPProceduralLinkViewFactory implements CreationFactory {
 
 	@Override
 	public Object getObjectType() {
-		return OPLinkView.class;
+		return OPProceduralLinkView.class;
 	}
 
 }

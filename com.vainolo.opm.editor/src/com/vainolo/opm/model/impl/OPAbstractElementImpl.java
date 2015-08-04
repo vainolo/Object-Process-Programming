@@ -1,18 +1,19 @@
 package com.vainolo.opm.model.impl;
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.List;
 
 import com.vainolo.opm.model.OPElement;
 import com.vainolo.opm.model.OPModelObserver;
 
-public abstract class OPAbstractElement implements OPElement {
+public abstract class OPAbstractElementImpl implements OPElement {
 
   private int id;
-  private List<OPModelObserver> observers = new ArrayList<OPModelObserver>();
+  private transient List<OPModelObserver> observers = new ArrayList<OPModelObserver>();
 
-  public OPAbstractElement(int id) {
+  public OPAbstractElementImpl(int id) {
     this.id = id;
   }
   
@@ -25,7 +26,7 @@ public abstract class OPAbstractElement implements OPElement {
   public void setId(int id) {
 	  this.id = id;
   }
-
+  
   @Override
   public void notifyObservers() {
     for(OPModelObserver observer: observers)

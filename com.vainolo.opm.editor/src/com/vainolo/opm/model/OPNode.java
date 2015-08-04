@@ -14,7 +14,7 @@ public interface OPNode extends OPElement {
   
   OPNodeView getView();
   void setView(OPNodeView view);
-  
+
   OPContainer getContainer();
   void setContainer(OPContainer container);
 }

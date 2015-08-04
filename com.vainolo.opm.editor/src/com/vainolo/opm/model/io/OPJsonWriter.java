@@ -1,7 +1,12 @@
 package com.vainolo.opm.model.io;
 
+import java.util.List;
+import java.util.Map;
+
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.vainolo.opm.model.OPElement;
 import com.vainolo.opm.model.OPLink;
 import com.vainolo.opm.model.OPNode;
@@ -13,6 +18,8 @@ import com.vainolo.opm.model.OPState;
 import com.vainolo.opm.model.OPStructuralLink;
 import com.vainolo.opm.model.OPSystem;
 import com.vainolo.opm.model.OPThing;
+import com.vainolo.opm.model.impl.OPAbstractElementImpl;
+import com.vainolo.opm.model.impl.OPSystemImpl;
 import com.vainolo.opm.model.view.OPElementView;
 import com.vainolo.opm.model.view.OPElementViewContainer;
 import com.vainolo.opm.model.view.OPLinkView;
@@ -25,31 +32,51 @@ import com.vainolo.opm.model.view.OPThingView;
 
 public class OPJsonWriter {
 
-	public JsonObject writeOPSystem(OPSystem system) {
-		JsonObject json = new JsonObject();
-		json.set("type", OPSystem.class.getSimpleName());
-		writeOPElement(json, system);
-		json.set("name", system.getName());
-		json.set("nextId", system.getNextId());
-		json.set("sd", writeOPObjectProcessDiagram(system.getSD()));
-		JsonArray array = new JsonArray();
-		for(OPThing thing:system.getThings()) {
-			if(OPObject.class.isInstance(thing))
-				array.add(writeOPObject(OPObject.class.cast(thing)));
-			else if(OPProcess.class.isInstance(thing))
-				array.add(writeOPProcess(OPProcess.class.cast(thing)));
-			else
-				throw new IllegalStateException("Unexpected thing subclass "+thing.getClass());
-		}
-		json.set("things", array);
-		array = new JsonArray();
-		for(OPLink link:system.getLinks()) {
-			if(OPProceduralLink.class.isInstance(link)) 
-				array.add(writeOPProceduralLink(OPProceduralLink.class.cast(link)));
-			else if(OPStructuralLink.class.isInstance(link))
-				array.add(writeOPStructuralLink(OPStructuralLink.class.cast(link)));
-		}
-		return json;
+	public String writeOPSystem(OPSystem system) {
+		return "";
+//		Map args = Maps.newHashMap();
+//		List<String> fields = Lists.newArrayList("observers"); 
+//		Map<Class, List<String>> classFields = Maps.newHashMap();
+//		classFields.put(OPSystemImpl.class, fields);
+//		args.put(JsonWriter.FIELD_SPECIFIERS, classFields);
+//		
+//		return JsonWriter.objectToJson(system, args);
+		
+//		ObjectMapper mapper = new ObjectMapper();
+//		String res = "";
+//		try {
+//			res = mapper.writeValueAsString(system);
+//		} catch (JsonProcessingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return res;
+		
+		
+//		JsonObject json = new JsonObject();
+//		json.set("type", OPSystem.class.getSimpleName());
+//		writeOPElement(json, system);
+//		json.set("name", system.getName());
+//		json.set("nextId", system.getNextId());
+//		json.set("sd", writeOPObjectProcessDiagram(system.getSD()));
+//		JsonArray array = new JsonArray();
+//		for(OPThing thing:system.getThings()) {
+//			if(OPObject.class.isInstance(thing))
+//				array.add(writeOPObject(OPObject.class.cast(thing)));
+//			else if(OPProcess.class.isInstance(thing))
+//				array.add(writeOPProcess(OPProcess.class.cast(thing)));
+//			else
+//				throw new IllegalStateException("Unexpected thing subclass "+thing.getClass());
+//		}
+//		json.set("things", array);
+//		array = new JsonArray();
+//		for(OPLink link:system.getLinks()) {
+//			if(OPProceduralLink.class.isInstance(link)) 
+//				array.add(writeOPProceduralLink(OPProceduralLink.class.cast(link)));
+//			else if(OPStructuralLink.class.isInstance(link))
+//				array.add(writeOPStructuralLink(OPStructuralLink.class.cast(link)));
+//		}
+//		return json;
 	}
 	
 	 JsonObject writeOPProceduralLink(OPProceduralLink proceduralLink) {
@@ -145,7 +172,7 @@ public class OPJsonWriter {
 	
 	void writeOPElementViewContainer(JsonObject json, OPElementViewContainer viewContainer) {
 		JsonArray array = new JsonArray();
-		for(OPElementView elementView:viewContainer.getElementViews()) {
+		for(OPElementView elementView : viewContainer.getElementViews()) {
 			if(OPThingView.class.isInstance(elementView))
 				array.add(writeOPThingView(OPThingView.class.cast(elementView)));
 			else if(OPStateView.class.isInstance(elementView))
@@ -225,7 +252,6 @@ public class OPJsonWriter {
 
 	void writeOPElementView(JsonObject json, OPElementView elementView) {
 		writeOPElement(json, elementView);
-		json.set("elementViewContainer", elementView.getElementViewContainer().getId());
 	}
 
 }

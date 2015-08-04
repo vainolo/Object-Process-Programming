@@ -10,14 +10,14 @@ import com.vainolo.opm.model.OPModelObserver;
 import com.vainolo.opm.model.OPContainer;
 import com.vainolo.opm.model.view.OPNodeView;
 
-public abstract class OPAbstractNode extends OPAbstractElement implements OPNode {
+public abstract class OPAbstractNodeImpl extends OPAbstractElementImpl implements OPNode {
 
   private String name = "";
   private List<OPLink> links = new ArrayList<OPLink>();
   private OPNodeView view;
   private OPContainer container;
 	
-  public OPAbstractNode(int id) {
+  public OPAbstractNodeImpl(int id) {
     super(id);
    }
 
@@ -75,18 +75,5 @@ public abstract class OPAbstractNode extends OPAbstractElement implements OPNode
 	  this.container = container;
 	  this.container.addNode(this);
 	  notifyObservers();
-  }
-  
-  @Override
-	public void addObserver(OPModelObserver observer) {
-		super.addObserver(observer);
-		getView().addObserver(observer);
-	}
-  
-  @Override
-	public void removeObserver(OPModelObserver observer) {
-		super.removeObserver(observer);
-		getView().removeObserver(observer);
-	}
-  
+  }  
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.vainolo.opm.model/src" modelPluginID="com.vainolo.opm.model"
+    modelName="OPM" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>opm.ecore</foreignModel>
+  <genPackages prefix="OP" basePackage="com.vainolo.opm.model" disposableProviderFactory="true"
+      ecorePackage="opm.ecore#/">
+    <genClasses ecoreClass="opm.ecore#//OPElement"/>
+    <genClasses ecoreClass="opm.ecore#//OPLink"/>
+    <genClasses image="false" ecoreClass="opm.ecore#//OPNode"/>
+    <genClasses ecoreClass="opm.ecore#//OPState"/>
+    <genClasses image="false" ecoreClass="opm.ecore#//OPThing"/>
+    <genClasses ecoreClass="opm.ecore#//OPObject"/>
+    <genClasses ecoreClass="opm.ecore#//OPObjectProcessDiagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference opm.ecore#//OPObjectProcessDiagram/elements"/>
+    </genClasses>
+    <genClasses ecoreClass="opm.ecore#//OPSystem">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opm.ecore#//OPSystem/systemDiagram"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="opm.ecore#//OPElementView">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference opm.ecore#//OPElementView/opd"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference opm.ecore#//OPElementView/model"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="opm.ecore#//OPNodeView"/>
+    <genClasses image="false" ecoreClass="opm.ecore#//OPLinkView"/>
+    <genClasses image="false" ecoreClass="opm.ecore#//OPThingView">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opm.ecore#//OPThingView/name"/>
+    </genClasses>
+    <genClasses ecoreClass="opm.ecore#//OPStateView"/>
+    <genClasses ecoreClass="opm.ecore#//OPStructuralLinkAggregatorView"/>
+    <genClasses ecoreClass="opm.ecore#//OPObjectView"/>
+    <genClasses ecoreClass="opm.ecore#//OPProcessView"/>
+    <genClasses ecoreClass="opm.ecore#//OPProceduralLinkView"/>
+    <genClasses ecoreClass="opm.ecore#//OPStructuralLinkPartView"/>
+  </genPackages>
+</genmodel:GenModel>

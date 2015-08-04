@@ -9,7 +9,7 @@ import com.vainolo.opm.model.OPNode;
 import com.vainolo.opm.model.view.OPLinkView;
 import com.vainolo.opm.model.view.OPNodeView;
 
-public abstract class OPNodeViewImpl extends OPAbstractElementView implements OPNodeView {
+public abstract class OPNodeViewImpl extends OPAbstractElementViewImpl implements OPNodeView {
 	private int[] constraints = new int[4];
 	
 	private OPNode model;

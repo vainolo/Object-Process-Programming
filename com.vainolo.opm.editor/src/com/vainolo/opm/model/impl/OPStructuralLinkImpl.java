@@ -3,7 +3,7 @@ package com.vainolo.opm.model.impl;
 import com.vainolo.opm.model.OPStructuralLink;
 import com.vainolo.opm.model.OPStructuralLinkKind;
 
-public class OPStructuralLinkImpl extends OPAbstractLink implements OPStructuralLink {
+public class OPStructuralLinkImpl extends OPAbstractLinkImpl implements OPStructuralLink {
 
 	public OPStructuralLinkImpl(int id) {
 		super(id);
