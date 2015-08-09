@@ -2,7 +2,6 @@
  */
 package com.vainolo.opm.model.opm;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model interface="true" abstract="true"
  * @generated
  */
-public interface OPElementView extends EObject {
+public interface OPElementView extends OPElement {
 	/**
 	 * Returns the value of the '<em><b>Opd</b></em>' container reference.
 	 * It is bidirectional and its opposite is '{@link com.vainolo.opm.model.opm.OPObjectProcessDiagram#getElements <em>Elements</em>}'.

@@ -9,7 +9,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import com.vainolo.opm.model.OPProceduralLinkKind;
+import com.vainolo.opm.model.opm.OPProceduralLinkKind;
 
 public class OPProceduralLinkFigure extends OPLinkFigure {
 	private static final PointList CONS_RES_ARROW = new PointList();

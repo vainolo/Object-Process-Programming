@@ -68,16 +68,16 @@ public class OPAdapterFactory extends AdapterFactoryImpl {
 	protected OPSwitch<Adapter> modelSwitch =
 		new OPSwitch<Adapter>() {
 			@Override
+			public Adapter caseOPElement(OPElement object) {
+				return createOPElementAdapter();
+			}
+			@Override
 			public Adapter caseOPSystem(OPSystem object) {
 				return createOPSystemAdapter();
 			}
 			@Override
 			public Adapter caseOPObjectProcessDiagram(OPObjectProcessDiagram object) {
 				return createOPObjectProcessDiagramAdapter();
-			}
-			@Override
-			public Adapter caseOPElement(OPElement object) {
-				return createOPElementAdapter();
 			}
 			@Override
 			public Adapter caseOPLink(OPLink object) {
@@ -110,6 +110,10 @@ public class OPAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseOPStructuralLink(OPStructuralLink object) {
 				return createOPStructuralLinkAdapter();
+			}
+			@Override
+			public Adapter caseOPTaggedLink(OPTaggedLink object) {
+				return createOPTaggedLinkAdapter();
 			}
 			@Override
 			public Adapter caseOPElementView(OPElementView object) {
@@ -150,6 +154,10 @@ public class OPAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseOPStructuralLinkPartView(OPStructuralLinkPartView object) {
 				return createOPStructuralLinkPartViewAdapter();
+			}
+			@Override
+			public Adapter caseOPTaggedLinkView(OPTaggedLinkView object) {
+				return createOPTaggedLinkViewAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -252,6 +260,20 @@ public class OPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createOPStructuralLinkAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.vainolo.opm.model.opm.OPTaggedLink <em>Tagged Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.vainolo.opm.model.opm.OPTaggedLink
+	 * @generated
+	 */
+	public Adapter createOPTaggedLinkAdapter() {
 		return null;
 	}
 
@@ -448,6 +470,20 @@ public class OPAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createOPStructuralLinkPartViewAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link com.vainolo.opm.model.opm.OPTaggedLinkView <em>Tagged Link View</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see com.vainolo.opm.model.opm.OPTaggedLinkView
+	 * @generated
+	 */
+	public Adapter createOPTaggedLinkViewAdapter() {
 		return null;
 	}
 

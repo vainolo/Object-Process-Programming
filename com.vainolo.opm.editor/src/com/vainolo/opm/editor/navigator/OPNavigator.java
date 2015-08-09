@@ -6,6 +6,4 @@ public class OPNavigator extends CommonNavigator {
 
 	public OPNavigator() {
 	}
-	
-
 }

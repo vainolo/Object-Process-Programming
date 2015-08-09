@@ -3,7 +3,6 @@ package com.vainolo.opm.editor.part;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.gef.EditPolicy;
@@ -11,15 +10,14 @@ import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
 
 import com.vainolo.opm.editor.figure.OPObjectProcessDiagramFigure;
 import com.vainolo.opm.editor.policy.OPObjectProcessDiagramXYLayoutPolicy;
-import com.vainolo.opm.model.OPElement;
-import com.vainolo.opm.model.OPModelObserver;
-import com.vainolo.opm.model.OPNode;
-import com.vainolo.opm.model.OPObjectProcessDiagram;
-import com.vainolo.opm.model.view.OPElementView;
-import com.vainolo.opm.model.view.OPNodeView;
-import com.vainolo.opm.model.view.OPThingView;
+import com.vainolo.opm.model.opm.OPElementView;
+import com.vainolo.opm.model.opm.OPNodeView;
+import com.vainolo.opm.model.opm.OPObjectProcessDiagram;
+import com.vainolo.opm.model.opm.OPThingView;
 
-public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart implements OPModelObserver {
+public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
+	
+	OPElementAdapterForEditPart adapter = new OPElementAdapterForEditPart(this);
 	
 	@Override
 	protected IFigure createFigure() {
@@ -34,7 +32,8 @@ public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart im
 	
 	@Override
 	protected List<OPElementView> getModelChildren() {
-		List<OPElementView> nodes = ((OPObjectProcessDiagram)getModel()).getElementViews().stream().filter(e -> OPThingView.class.isInstance(e)).collect(Collectors.toList());
+		OPObjectProcessDiagram model = (OPObjectProcessDiagram) getModel();
+		List<OPElementView> nodes = model.getElements().stream().filter(e -> OPNodeView.class.isInstance(e)).collect(Collectors.toList());
 		return Collections.unmodifiableList(nodes);
 	}
 
@@ -46,19 +45,14 @@ public class OPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart im
 	@Override
 	public void activate() {
 		if(!isActive())
-			((OPObjectProcessDiagram) getModel()).addObserver(this);
+			((OPObjectProcessDiagram) getModel()).eAdapters().add(adapter);
 		super.activate();
 	}
 	
 	@Override
 	public void deactivate() {
 		if(isActive())
-			((OPObjectProcessDiagram) getModel()).removeObserver(this);
+			((OPObjectProcessDiagram) getModel()).eAdapters().remove(adapter);
 		super.deactivate();
-	}
-
-	@Override
-	public void acceptNotification(OPElement notifier) {
-		refresh();
 	}
 }

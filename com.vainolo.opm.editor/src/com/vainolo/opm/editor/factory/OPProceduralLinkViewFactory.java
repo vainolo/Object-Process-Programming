@@ -10,17 +10,15 @@ import com.vainolo.opm.model.opm.OPProceduralLinkView;
 public class OPProceduralLinkViewFactory implements CreationFactory {
 
 	private OPProceduralLinkKind kind;
-	private OPFactory factory;
 	
-	public OPProceduralLinkViewFactory(OPFactory factory, OPProceduralLinkKind kind) {
-		this.factory = factory;
+	public OPProceduralLinkViewFactory(OPProceduralLinkKind kind) {
 		this.kind = kind;
 	}
 
 	@Override
 	public Object getNewObject() {
-		OPProceduralLinkView view = factory.createOPProceduralLinkView();
-		OPProceduralLink model = factory.createOPProceduralLink();
+		OPProceduralLinkView view = OPFactory.eINSTANCE.createOPProceduralLinkView();
+		OPProceduralLink model = OPFactory.eINSTANCE.createOPProceduralLink();
 		model.setKind(kind);
 		view.setModel(model);
 		return view;
@@ -30,5 +28,4 @@ public class OPProceduralLinkViewFactory implements CreationFactory {
 	public Object getObjectType() {
 		return OPProceduralLinkView.class;
 	}
-
 }

@@ -7,6 +7,10 @@ import java.util.EventObject;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.gef.DefaultEditDomain;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.parts.GraphicalEditorWithFlyoutPalette;
@@ -36,30 +40,32 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 	private PropertySheetPage propertyPage;
 	
 	private OPFactory modelFactory = OPFactory.eINSTANCE;
+	private IFile systemFile;
 	
 	public OPEditor() {
 		setEditDomain(new DefaultEditDomain(this));
 		
-		system = getModelFactory().createOPSystem();
-		opd = getModelFactory().createOPObjectProcessDiagram();
-		system.setSystemDiagram(opd);
-		OPObjectView objectView = getModelFactory().createOPObjectView();
-		OPObject object = getModelFactory().createOPObject();
-		objectView.setModel(object);
-		objectView.setOpd(opd);
-		object.setName("Hello");
-		objectView.setX(100);
-		objectView.setY(100);
-		objectView.setWidth(50);
-		objectView.setHeight(50);
-		OPProcessView processView = getModelFactory().createOPProcessView();
-		OPProcess process = getModelFactory().createOPProcess();
-		processView.setModel(process);
-		process.setName("world");
-		processView.setX(400);
-		processView.setY(100);
-		processView.setWidth(50);
-		processView.setHeight(50);
+//		system = getModelFactory().createOPSystem();
+//		opd = getModelFactory().createOPObjectProcessDiagram();
+//		system.setSystemDiagram(opd);
+//		OPObjectView objectView = getModelFactory().createOPObjectView();
+//		OPObject object = getModelFactory().createOPObject();
+//		objectView.setModel(object);
+//		objectView.setOpd(opd);
+//		object.setName("Hello");
+//		objectView.setX(100);
+//		objectView.setY(100);
+//		objectView.setWidth(50);
+//		objectView.setHeight(50);
+//		OPProcessView processView = getModelFactory().createOPProcessView();
+//		OPProcess process = getModelFactory().createOPProcess();
+//		processView.setModel(process);
+//		processView.setOpd(opd);
+//		process.setName("world");
+//		processView.setX(400);
+//		processView.setY(100);
+//		processView.setWidth(50);
+//		processView.setHeight(50);
 	}
 	
 	@Override
@@ -85,7 +91,6 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 			system.eResource().save(null);
 			getCommandStack().markSaveLocation();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -95,9 +100,18 @@ public class OPEditor extends GraphicalEditorWithFlyoutPalette {
 		if(!OPEditorInput.class.isInstance(input)) {
 			if(FileEditorInput.class.isInstance(input)) {
 				FileEditorInput fInput = FileEditorInput.class.cast(input);
-				
-//				OPEditorInput opInput = new OPEditorInput(fInput.getFile(), system)
 			}
+		}
+		FileEditorInput fInput = (FileEditorInput) input;
+		systemFile = fInput.getFile();
+		ResourceSet resourceSet = new ResourceSetImpl();
+		Resource opdResource = resourceSet.createResource(URI.createURI(systemFile.getLocationURI().toString()));
+		try {
+			opdResource.load(null);
+			system = (OPSystem) opdResource.getContents().get(0);
+			opd = system.getSystemDiagram();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		super.setInput(input);
 	}

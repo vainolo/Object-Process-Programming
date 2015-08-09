@@ -22,24 +22,6 @@ public interface OPFactory extends EFactory {
 	OPFactory eINSTANCE = com.vainolo.opm.model.opm.impl.OPFactoryImpl.init();
 
 	/**
-	 * Returns a new object of class '<em>Element</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Element</em>'.
-	 * @generated
-	 */
-	OPElement createOPElement();
-
-	/**
-	 * Returns a new object of class '<em>Link</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Link</em>'.
-	 * @generated
-	 */
-	OPLink createOPLink();
-
-	/**
 	 * Returns a new object of class '<em>Object</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -76,6 +58,15 @@ public interface OPFactory extends EFactory {
 	OPStructuralLink createOPStructuralLink();
 
 	/**
+	 * Returns a new object of class '<em>Tagged Link</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tagged Link</em>'.
+	 * @generated
+	 */
+	OPTaggedLink createOPTaggedLink();
+
+	/**
 	 * Returns a new object of class '<em>State</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -85,15 +76,6 @@ public interface OPFactory extends EFactory {
 	OPState createOPState();
 
 	/**
-	 * Returns a new object of class '<em>Object Process Diagram</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Object Process Diagram</em>'.
-	 * @generated
-	 */
-	OPObjectProcessDiagram createOPObjectProcessDiagram();
-
-	/**
 	 * Returns a new object of class '<em>System</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -101,6 +83,15 @@ public interface OPFactory extends EFactory {
 	 * @generated
 	 */
 	OPSystem createOPSystem();
+
+	/**
+	 * Returns a new object of class '<em>Object Process Diagram</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Object Process Diagram</em>'.
+	 * @generated
+	 */
+	OPObjectProcessDiagram createOPObjectProcessDiagram();
 
 	/**
 	 * Returns a new object of class '<em>Object View</em>'.
@@ -146,6 +137,15 @@ public interface OPFactory extends EFactory {
 	 * @generated
 	 */
 	OPStructuralLinkPartView createOPStructuralLinkPartView();
+
+	/**
+	 * Returns a new object of class '<em>Tagged Link View</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Tagged Link View</em>'.
+	 * @generated
+	 */
+	OPTaggedLinkView createOPTaggedLinkView();
 
 	/**
 	 * Returns a new object of class '<em>Structural Link Aggregator View</em>'.

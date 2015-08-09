@@ -58,20 +58,29 @@ public interface OPPackage extends EPackage {
 	OPPackage eINSTANCE = com.vainolo.opm.model.opm.impl.OPPackageImpl.init();
 
 	/**
-	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPElementImpl <em>Element</em>}' class.
+	 * The meta object id for the '{@link com.vainolo.opm.model.opm.OPElement <em>Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see com.vainolo.opm.model.opm.impl.OPElementImpl
+	 * @see com.vainolo.opm.model.opm.OPElement
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPElement()
 	 * @generated
 	 */
-	int OP_ELEMENT = 2;
+	int OP_ELEMENT = 0;
 
 	/**
-	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPLinkImpl <em>Link</em>}' class.
+	 * The feature id for the '<em><b>System</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see com.vainolo.opm.model.opm.impl.OPLinkImpl
+	 * @generated
+	 * @ordered
+	 */
+	int OP_ELEMENT__SYSTEM = 0;
+
+	/**
+	 * The meta object id for the '{@link com.vainolo.opm.model.opm.OPLink <em>Link</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.opm.model.opm.OPLink
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPLink()
 	 * @generated
 	 */
@@ -155,7 +164,7 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPObjectProcessDiagram()
 	 * @generated
 	 */
-	int OP_OBJECT_PROCESS_DIAGRAM = 1;
+	int OP_OBJECT_PROCESS_DIAGRAM = 2;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPSystemImpl <em>System</em>}' class.
@@ -165,61 +174,7 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPSystem()
 	 * @generated
 	 */
-	int OP_SYSTEM = 0;
-
-	/**
-	 * The feature id for the '<em><b>System Diagram</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OP_SYSTEM__SYSTEM_DIAGRAM = 0;
-
-	/**
-	 * The number of structural features of the '<em>System</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OP_SYSTEM_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>System</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OP_SYSTEM_OPERATION_COUNT = 0;
-
-	/**
-	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OP_OBJECT_PROCESS_DIAGRAM__ELEMENTS = 0;
-
-	/**
-	 * The number of structural features of the '<em>Object Process Diagram</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OP_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = 1;
-
-	/**
-	 * The number of operations of the '<em>Object Process Diagram</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int OP_OBJECT_PROCESS_DIAGRAM_OPERATION_COUNT = 0;
+	int OP_SYSTEM = 1;
 
 	/**
 	 * The number of structural features of the '<em>Element</em>' class.
@@ -228,7 +183,7 @@ public interface OPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OP_ELEMENT_FEATURE_COUNT = 0;
+	int OP_ELEMENT_FEATURE_COUNT = 1;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -240,13 +195,121 @@ public interface OPPackage extends EPackage {
 	int OP_ELEMENT_OPERATION_COUNT = 0;
 
 	/**
+	 * The feature id for the '<em><b>System Diagram</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_SYSTEM__SYSTEM_DIAGRAM = 0;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_SYSTEM__NAME = 1;
+
+	/**
+	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_SYSTEM__ELEMENTS = 2;
+
+	/**
+	 * The number of structural features of the '<em>System</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_SYSTEM_FEATURE_COUNT = 3;
+
+	/**
+	 * The number of operations of the '<em>System</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_SYSTEM_OPERATION_COUNT = 0;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT_PROCESS_DIAGRAM__SYSTEM = OP_ELEMENT__SYSTEM;
+
+	/**
+	 * The feature id for the '<em><b>Elements</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT_PROCESS_DIAGRAM__ELEMENTS = OP_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of structural features of the '<em>Object Process Diagram</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT_PROCESS_DIAGRAM_FEATURE_COUNT = OP_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of operations of the '<em>Object Process Diagram</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT_PROCESS_DIAGRAM_OPERATION_COUNT = OP_ELEMENT_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_LINK__SYSTEM = OP_ELEMENT__SYSTEM;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_LINK__SOURCE = OP_ELEMENT_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_LINK__TARGET = OP_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OP_LINK_FEATURE_COUNT = OP_ELEMENT_FEATURE_COUNT + 0;
+	int OP_LINK_FEATURE_COUNT = OP_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Link</em>' class.
@@ -258,6 +321,15 @@ public interface OPPackage extends EPackage {
 	int OP_LINK_OPERATION_COUNT = OP_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_NODE__SYSTEM = OP_ELEMENT__SYSTEM;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -267,13 +339,31 @@ public interface OPPackage extends EPackage {
 	int OP_NODE__NAME = OP_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_NODE__INCOMING_LINKS = OP_ELEMENT_FEATURE_COUNT + 1;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_NODE__OUTGOING_LINKS = OP_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Node</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OP_NODE_FEATURE_COUNT = OP_ELEMENT_FEATURE_COUNT + 1;
+	int OP_NODE_FEATURE_COUNT = OP_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of operations of the '<em>Node</em>' class.
@@ -285,6 +375,15 @@ public interface OPPackage extends EPackage {
 	int OP_NODE_OPERATION_COUNT = OP_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STATE__SYSTEM = OP_NODE__SYSTEM;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -292,6 +391,24 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_STATE__NAME = OP_NODE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STATE__INCOMING_LINKS = OP_NODE__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STATE__OUTGOING_LINKS = OP_NODE__OUTGOING_LINKS;
 
 	/**
 	 * The number of structural features of the '<em>State</em>' class.
@@ -312,6 +429,15 @@ public interface OPPackage extends EPackage {
 	int OP_STATE_OPERATION_COUNT = OP_NODE_OPERATION_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_THING__SYSTEM = OP_NODE__SYSTEM;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -319,6 +445,24 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_THING__NAME = OP_NODE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_THING__INCOMING_LINKS = OP_NODE__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_THING__OUTGOING_LINKS = OP_NODE__OUTGOING_LINKS;
 
 	/**
 	 * The number of structural features of the '<em>Thing</em>' class.
@@ -339,6 +483,15 @@ public interface OPPackage extends EPackage {
 	int OP_THING_OPERATION_COUNT = OP_NODE_OPERATION_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT__SYSTEM = OP_THING__SYSTEM;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -346,6 +499,24 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_OBJECT__NAME = OP_THING__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT__INCOMING_LINKS = OP_THING__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT__OUTGOING_LINKS = OP_THING__OUTGOING_LINKS;
 
 	/**
 	 * The number of structural features of the '<em>Object</em>' class.
@@ -366,6 +537,15 @@ public interface OPPackage extends EPackage {
 	int OP_OBJECT_OPERATION_COUNT = OP_THING_OPERATION_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCESS__SYSTEM = OP_THING__SYSTEM;
+
+	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -373,6 +553,24 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_PROCESS__NAME = OP_THING__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCESS__INCOMING_LINKS = OP_THING__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCESS__OUTGOING_LINKS = OP_THING__OUTGOING_LINKS;
 
 	/**
 	 * The number of structural features of the '<em>Process</em>' class.
@@ -391,6 +589,33 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_PROCESS_OPERATION_COUNT = OP_THING_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCEDURAL_LINK__SYSTEM = OP_LINK__SYSTEM;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCEDURAL_LINK__SOURCE = OP_LINK__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCEDURAL_LINK__TARGET = OP_LINK__TARGET;
 
 	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -420,6 +645,33 @@ public interface OPPackage extends EPackage {
 	int OP_PROCEDURAL_LINK_OPERATION_COUNT = OP_LINK_OPERATION_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK__SYSTEM = OP_LINK__SYSTEM;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK__SOURCE = OP_LINK__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK__TARGET = OP_LINK__TARGET;
+
+	/**
 	 * The number of structural features of the '<em>Structural Link</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -438,6 +690,61 @@ public interface OPPackage extends EPackage {
 	int OP_STRUCTURAL_LINK_OPERATION_COUNT = OP_LINK_OPERATION_COUNT + 0;
 
 	/**
+	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPTaggedLinkImpl <em>Tagged Link</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.opm.model.opm.impl.OPTaggedLinkImpl
+	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPTaggedLink()
+	 * @generated
+	 */
+	int OP_TAGGED_LINK = 11;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK__SYSTEM = OP_LINK__SYSTEM;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK__SOURCE = OP_LINK__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK__TARGET = OP_LINK__TARGET;
+
+	/**
+	 * The number of structural features of the '<em>Tagged Link</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK_FEATURE_COUNT = OP_LINK_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Tagged Link</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK_OPERATION_COUNT = OP_LINK_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.OPElementView <em>Element View</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -445,7 +752,16 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPElementView()
 	 * @generated
 	 */
-	int OP_ELEMENT_VIEW = 11;
+	int OP_ELEMENT_VIEW = 12;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_ELEMENT_VIEW__SYSTEM = OP_ELEMENT__SYSTEM;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -454,7 +770,7 @@ public interface OPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OP_ELEMENT_VIEW__OPD = 0;
+	int OP_ELEMENT_VIEW__OPD = OP_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Model</b></em>' reference.
@@ -463,7 +779,7 @@ public interface OPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OP_ELEMENT_VIEW__MODEL = 1;
+	int OP_ELEMENT_VIEW__MODEL = OP_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of structural features of the '<em>Element View</em>' class.
@@ -472,7 +788,7 @@ public interface OPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OP_ELEMENT_VIEW_FEATURE_COUNT = 2;
+	int OP_ELEMENT_VIEW_FEATURE_COUNT = OP_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Element View</em>' class.
@@ -481,7 +797,7 @@ public interface OPPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int OP_ELEMENT_VIEW_OPERATION_COUNT = 0;
+	int OP_ELEMENT_VIEW_OPERATION_COUNT = OP_ELEMENT_OPERATION_COUNT + 0;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.OPNodeView <em>Node View</em>}' class.
@@ -491,7 +807,16 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPNodeView()
 	 * @generated
 	 */
-	int OP_NODE_VIEW = 12;
+	int OP_NODE_VIEW = 13;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_NODE_VIEW__SYSTEM = OP_ELEMENT_VIEW__SYSTEM;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -548,13 +873,31 @@ public interface OPPackage extends EPackage {
 	int OP_NODE_VIEW__HEIGHT = OP_ELEMENT_VIEW_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_NODE_VIEW__INCOMING_LINKS = OP_ELEMENT_VIEW_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_NODE_VIEW__OUTGOING_LINKS = OP_ELEMENT_VIEW_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Node View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OP_NODE_VIEW_FEATURE_COUNT = OP_ELEMENT_VIEW_FEATURE_COUNT + 4;
+	int OP_NODE_VIEW_FEATURE_COUNT = OP_ELEMENT_VIEW_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of operations of the '<em>Node View</em>' class.
@@ -573,7 +916,7 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPThingView()
 	 * @generated
 	 */
-	int OP_THING_VIEW = 14;
+	int OP_THING_VIEW = 15;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPObjectViewImpl <em>Object View</em>}' class.
@@ -583,7 +926,7 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPObjectView()
 	 * @generated
 	 */
-	int OP_OBJECT_VIEW = 17;
+	int OP_OBJECT_VIEW = 18;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPProcessViewImpl <em>Process View</em>}' class.
@@ -593,7 +936,7 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPProcessView()
 	 * @generated
 	 */
-	int OP_PROCESS_VIEW = 18;
+	int OP_PROCESS_VIEW = 19;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPStateViewImpl <em>State View</em>}' class.
@@ -603,7 +946,7 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPStateView()
 	 * @generated
 	 */
-	int OP_STATE_VIEW = 15;
+	int OP_STATE_VIEW = 16;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.OPLinkView <em>Link View</em>}' class.
@@ -613,7 +956,16 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPLinkView()
 	 * @generated
 	 */
-	int OP_LINK_VIEW = 13;
+	int OP_LINK_VIEW = 14;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_LINK_VIEW__SYSTEM = OP_ELEMENT_VIEW__SYSTEM;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -634,13 +986,31 @@ public interface OPPackage extends EPackage {
 	int OP_LINK_VIEW__MODEL = OP_ELEMENT_VIEW__MODEL;
 
 	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_LINK_VIEW__SOURCE = OP_ELEMENT_VIEW_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_LINK_VIEW__TARGET = OP_ELEMENT_VIEW_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Link View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OP_LINK_VIEW_FEATURE_COUNT = OP_ELEMENT_VIEW_FEATURE_COUNT + 0;
+	int OP_LINK_VIEW_FEATURE_COUNT = OP_ELEMENT_VIEW_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Link View</em>' class.
@@ -650,6 +1020,15 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_LINK_VIEW_OPERATION_COUNT = OP_ELEMENT_VIEW_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_THING_VIEW__SYSTEM = OP_NODE_VIEW__SYSTEM;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -706,6 +1085,24 @@ public interface OPPackage extends EPackage {
 	int OP_THING_VIEW__HEIGHT = OP_NODE_VIEW__HEIGHT;
 
 	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_THING_VIEW__INCOMING_LINKS = OP_NODE_VIEW__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_THING_VIEW__OUTGOING_LINKS = OP_NODE_VIEW__OUTGOING_LINKS;
+
+	/**
 	 * The number of structural features of the '<em>Thing View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -722,6 +1119,15 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_THING_VIEW_OPERATION_COUNT = OP_NODE_VIEW_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STATE_VIEW__SYSTEM = OP_NODE_VIEW__SYSTEM;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -778,6 +1184,24 @@ public interface OPPackage extends EPackage {
 	int OP_STATE_VIEW__HEIGHT = OP_NODE_VIEW__HEIGHT;
 
 	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STATE_VIEW__INCOMING_LINKS = OP_NODE_VIEW__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STATE_VIEW__OUTGOING_LINKS = OP_NODE_VIEW__OUTGOING_LINKS;
+
+	/**
 	 * The number of structural features of the '<em>State View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -803,7 +1227,7 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPProceduralLinkView()
 	 * @generated
 	 */
-	int OP_PROCEDURAL_LINK_VIEW = 19;
+	int OP_PROCEDURAL_LINK_VIEW = 20;
 
 	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPStructuralLinkPartViewImpl <em>Structural Link Part View</em>}' class.
@@ -813,7 +1237,7 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPStructuralLinkPartView()
 	 * @generated
 	 */
-	int OP_STRUCTURAL_LINK_PART_VIEW = 20;
+	int OP_STRUCTURAL_LINK_PART_VIEW = 21;
 
 	/**
 	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPElement <em>Element</em>}'.
@@ -826,6 +1250,17 @@ public interface OPPackage extends EPackage {
 	EClass getOPElement();
 
 	/**
+	 * Returns the meta object for the container reference '{@link com.vainolo.opm.model.opm.OPElement#getSystem <em>System</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the container reference '<em>System</em>'.
+	 * @see com.vainolo.opm.model.opm.OPElement#getSystem()
+	 * @see #getOPElement()
+	 * @generated
+	 */
+	EReference getOPElement_System();
+
+	/**
 	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPLink <em>Link</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -836,6 +1271,28 @@ public interface OPPackage extends EPackage {
 	EClass getOPLink();
 
 	/**
+	 * Returns the meta object for the reference '{@link com.vainolo.opm.model.opm.OPLink#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @see com.vainolo.opm.model.opm.OPLink#getSource()
+	 * @see #getOPLink()
+	 * @generated
+	 */
+	EReference getOPLink_Source();
+
+	/**
+	 * Returns the meta object for the reference '{@link com.vainolo.opm.model.opm.OPLink#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @see com.vainolo.opm.model.opm.OPLink#getTarget()
+	 * @see #getOPLink()
+	 * @generated
+	 */
+	EReference getOPLink_Target();
+
+	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPStructuralLinkAggregatorViewImpl <em>Structural Link Aggregator View</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -843,7 +1300,16 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPStructuralLinkAggregatorView()
 	 * @generated
 	 */
-	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW = 16;
+	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW = 17;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW__SYSTEM = OP_NODE_VIEW__SYSTEM;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -900,13 +1366,40 @@ public interface OPPackage extends EPackage {
 	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW__HEIGHT = OP_NODE_VIEW__HEIGHT;
 
 	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW__INCOMING_LINKS = OP_NODE_VIEW__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW__OUTGOING_LINKS = OP_NODE_VIEW__OUTGOING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW__KIND = OP_NODE_VIEW_FEATURE_COUNT + 0;
+
+	/**
 	 * The number of structural features of the '<em>Structural Link Aggregator View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW_FEATURE_COUNT = OP_NODE_VIEW_FEATURE_COUNT + 0;
+	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW_FEATURE_COUNT = OP_NODE_VIEW_FEATURE_COUNT + 1;
 
 	/**
 	 * The number of operations of the '<em>Structural Link Aggregator View</em>' class.
@@ -916,6 +1409,15 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_STRUCTURAL_LINK_AGGREGATOR_VIEW_OPERATION_COUNT = OP_NODE_VIEW_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT_VIEW__SYSTEM = OP_THING_VIEW__SYSTEM;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -972,6 +1474,24 @@ public interface OPPackage extends EPackage {
 	int OP_OBJECT_VIEW__HEIGHT = OP_THING_VIEW__HEIGHT;
 
 	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT_VIEW__INCOMING_LINKS = OP_THING_VIEW__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_OBJECT_VIEW__OUTGOING_LINKS = OP_THING_VIEW__OUTGOING_LINKS;
+
+	/**
 	 * The number of structural features of the '<em>Object View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -988,6 +1508,15 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_OBJECT_VIEW_OPERATION_COUNT = OP_THING_VIEW_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCESS_VIEW__SYSTEM = OP_THING_VIEW__SYSTEM;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -1044,6 +1573,24 @@ public interface OPPackage extends EPackage {
 	int OP_PROCESS_VIEW__HEIGHT = OP_THING_VIEW__HEIGHT;
 
 	/**
+	 * The feature id for the '<em><b>Incoming Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCESS_VIEW__INCOMING_LINKS = OP_THING_VIEW__INCOMING_LINKS;
+
+	/**
+	 * The feature id for the '<em><b>Outgoing Links</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCESS_VIEW__OUTGOING_LINKS = OP_THING_VIEW__OUTGOING_LINKS;
+
+	/**
 	 * The number of structural features of the '<em>Process View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1060,6 +1607,15 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_PROCESS_VIEW_OPERATION_COUNT = OP_THING_VIEW_OPERATION_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCEDURAL_LINK_VIEW__SYSTEM = OP_LINK_VIEW__SYSTEM;
 
 	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
@@ -1080,6 +1636,24 @@ public interface OPPackage extends EPackage {
 	int OP_PROCEDURAL_LINK_VIEW__MODEL = OP_LINK_VIEW__MODEL;
 
 	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCEDURAL_LINK_VIEW__SOURCE = OP_LINK_VIEW__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_PROCEDURAL_LINK_VIEW__TARGET = OP_LINK_VIEW__TARGET;
+
+	/**
 	 * The number of structural features of the '<em>Procedural Link View</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1098,6 +1672,15 @@ public interface OPPackage extends EPackage {
 	int OP_PROCEDURAL_LINK_VIEW_OPERATION_COUNT = OP_LINK_VIEW_OPERATION_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK_PART_VIEW__SYSTEM = OP_LINK_VIEW__SYSTEM;
+
+	/**
 	 * The feature id for the '<em><b>Opd</b></em>' container reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1114,6 +1697,24 @@ public interface OPPackage extends EPackage {
 	 * @ordered
 	 */
 	int OP_STRUCTURAL_LINK_PART_VIEW__MODEL = OP_LINK_VIEW__MODEL;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK_PART_VIEW__SOURCE = OP_LINK_VIEW__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_STRUCTURAL_LINK_PART_VIEW__TARGET = OP_LINK_VIEW__TARGET;
 
 	/**
 	 * The number of structural features of the '<em>Structural Link Part View</em>' class.
@@ -1135,6 +1736,79 @@ public interface OPPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link com.vainolo.opm.model.opm.impl.OPTaggedLinkViewImpl <em>Tagged Link View</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.opm.model.opm.impl.OPTaggedLinkViewImpl
+	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPTaggedLinkView()
+	 * @generated
+	 */
+	int OP_TAGGED_LINK_VIEW = 22;
+
+	/**
+	 * The feature id for the '<em><b>System</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK_VIEW__SYSTEM = OP_LINK_VIEW__SYSTEM;
+
+	/**
+	 * The feature id for the '<em><b>Opd</b></em>' container reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK_VIEW__OPD = OP_LINK_VIEW__OPD;
+
+	/**
+	 * The feature id for the '<em><b>Model</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK_VIEW__MODEL = OP_LINK_VIEW__MODEL;
+
+	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK_VIEW__SOURCE = OP_LINK_VIEW__SOURCE;
+
+	/**
+	 * The feature id for the '<em><b>Target</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK_VIEW__TARGET = OP_LINK_VIEW__TARGET;
+
+	/**
+	 * The number of structural features of the '<em>Tagged Link View</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK_VIEW_FEATURE_COUNT = OP_LINK_VIEW_FEATURE_COUNT + 0;
+
+	/**
+	 * The number of operations of the '<em>Tagged Link View</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int OP_TAGGED_LINK_VIEW_OPERATION_COUNT = OP_LINK_VIEW_OPERATION_COUNT + 0;
+
+	/**
 	 * The meta object id for the '{@link com.vainolo.opm.model.opm.OPProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1142,7 +1816,17 @@ public interface OPPackage extends EPackage {
 	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPProceduralLinkKind()
 	 * @generated
 	 */
-	int OP_PROCEDURAL_LINK_KIND = 21;
+	int OP_PROCEDURAL_LINK_KIND = 23;
+
+	/**
+	 * The meta object id for the '{@link com.vainolo.opm.model.opm.OPStructuralLinkKind <em>Structural Link Kind</em>}' enum.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see com.vainolo.opm.model.opm.OPStructuralLinkKind
+	 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPStructuralLinkKind()
+	 * @generated
+	 */
+	int OP_STRUCTURAL_LINK_KIND = 24;
 
 	/**
 	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPObject <em>Object</em>}'.
@@ -1196,6 +1880,16 @@ public interface OPPackage extends EPackage {
 	EClass getOPStructuralLink();
 
 	/**
+	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPTaggedLink <em>Tagged Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tagged Link</em>'.
+	 * @see com.vainolo.opm.model.opm.OPTaggedLink
+	 * @generated
+	 */
+	EClass getOPTaggedLink();
+
+	/**
 	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPNode <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1215,6 +1909,28 @@ public interface OPPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getOPNode_Name();
+
+	/**
+	 * Returns the meta object for the reference list '{@link com.vainolo.opm.model.opm.OPNode#getIncomingLinks <em>Incoming Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Incoming Links</em>'.
+	 * @see com.vainolo.opm.model.opm.OPNode#getIncomingLinks()
+	 * @see #getOPNode()
+	 * @generated
+	 */
+	EReference getOPNode_IncomingLinks();
+
+	/**
+	 * Returns the meta object for the reference list '{@link com.vainolo.opm.model.opm.OPNode#getOutgoingLinks <em>Outgoing Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Outgoing Links</em>'.
+	 * @see com.vainolo.opm.model.opm.OPNode#getOutgoingLinks()
+	 * @see #getOPNode()
+	 * @generated
+	 */
+	EReference getOPNode_OutgoingLinks();
 
 	/**
 	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPState <em>State</em>}'.
@@ -1277,6 +1993,28 @@ public interface OPPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getOPSystem_SystemDiagram();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.opm.model.opm.OPSystem#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see com.vainolo.opm.model.opm.OPSystem#getName()
+	 * @see #getOPSystem()
+	 * @generated
+	 */
+	EAttribute getOPSystem_Name();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link com.vainolo.opm.model.opm.OPSystem#getElements <em>Elements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Elements</em>'.
+	 * @see com.vainolo.opm.model.opm.OPSystem#getElements()
+	 * @see #getOPSystem()
+	 * @generated
+	 */
+	EReference getOPSystem_Elements();
 
 	/**
 	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPObjectView <em>Object View</em>}'.
@@ -1373,6 +2111,28 @@ public interface OPPackage extends EPackage {
 	EAttribute getOPNodeView_Height();
 
 	/**
+	 * Returns the meta object for the reference list '{@link com.vainolo.opm.model.opm.OPNodeView#getIncomingLinks <em>Incoming Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Incoming Links</em>'.
+	 * @see com.vainolo.opm.model.opm.OPNodeView#getIncomingLinks()
+	 * @see #getOPNodeView()
+	 * @generated
+	 */
+	EReference getOPNodeView_IncomingLinks();
+
+	/**
+	 * Returns the meta object for the reference list '{@link com.vainolo.opm.model.opm.OPNodeView#getOutgoingLinks <em>Outgoing Links</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Outgoing Links</em>'.
+	 * @see com.vainolo.opm.model.opm.OPNodeView#getOutgoingLinks()
+	 * @see #getOPNodeView()
+	 * @generated
+	 */
+	EReference getOPNodeView_OutgoingLinks();
+
+	/**
 	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPElementView <em>Element View</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1415,6 +2175,28 @@ public interface OPPackage extends EPackage {
 	EClass getOPLinkView();
 
 	/**
+	 * Returns the meta object for the reference '{@link com.vainolo.opm.model.opm.OPLinkView#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @see com.vainolo.opm.model.opm.OPLinkView#getSource()
+	 * @see #getOPLinkView()
+	 * @generated
+	 */
+	EReference getOPLinkView_Source();
+
+	/**
+	 * Returns the meta object for the reference '{@link com.vainolo.opm.model.opm.OPLinkView#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Target</em>'.
+	 * @see com.vainolo.opm.model.opm.OPLinkView#getTarget()
+	 * @see #getOPLinkView()
+	 * @generated
+	 */
+	EReference getOPLinkView_Target();
+
+	/**
 	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPProceduralLinkView <em>Procedural Link View</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1435,6 +2217,16 @@ public interface OPPackage extends EPackage {
 	EClass getOPStructuralLinkPartView();
 
 	/**
+	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPTaggedLinkView <em>Tagged Link View</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Tagged Link View</em>'.
+	 * @see com.vainolo.opm.model.opm.OPTaggedLinkView
+	 * @generated
+	 */
+	EClass getOPTaggedLinkView();
+
+	/**
 	 * Returns the meta object for enum '{@link com.vainolo.opm.model.opm.OPProceduralLinkKind <em>Procedural Link Kind</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1445,6 +2237,16 @@ public interface OPPackage extends EPackage {
 	EEnum getOPProceduralLinkKind();
 
 	/**
+	 * Returns the meta object for enum '{@link com.vainolo.opm.model.opm.OPStructuralLinkKind <em>Structural Link Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for enum '<em>Structural Link Kind</em>'.
+	 * @see com.vainolo.opm.model.opm.OPStructuralLinkKind
+	 * @generated
+	 */
+	EEnum getOPStructuralLinkKind();
+
+	/**
 	 * Returns the meta object for class '{@link com.vainolo.opm.model.opm.OPStructuralLinkAggregatorView <em>Structural Link Aggregator View</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1453,6 +2255,17 @@ public interface OPPackage extends EPackage {
 	 * @generated
 	 */
 	EClass getOPStructuralLinkAggregatorView();
+
+	/**
+	 * Returns the meta object for the attribute '{@link com.vainolo.opm.model.opm.OPStructuralLinkAggregatorView#getKind <em>Kind</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Kind</em>'.
+	 * @see com.vainolo.opm.model.opm.OPStructuralLinkAggregatorView#getKind()
+	 * @see #getOPStructuralLinkAggregatorView()
+	 * @generated
+	 */
+	EAttribute getOPStructuralLinkAggregatorView_Kind();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1478,24 +2291,48 @@ public interface OPPackage extends EPackage {
 	 */
 	interface Literals {
 		/**
-		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.impl.OPElementImpl <em>Element</em>}' class.
+		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.OPElement <em>Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see com.vainolo.opm.model.opm.impl.OPElementImpl
+		 * @see com.vainolo.opm.model.opm.OPElement
 		 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPElement()
 		 * @generated
 		 */
 		EClass OP_ELEMENT = eINSTANCE.getOPElement();
 
 		/**
-		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.impl.OPLinkImpl <em>Link</em>}' class.
+		 * The meta object literal for the '<em><b>System</b></em>' container reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see com.vainolo.opm.model.opm.impl.OPLinkImpl
+		 * @generated
+		 */
+		EReference OP_ELEMENT__SYSTEM = eINSTANCE.getOPElement_System();
+
+		/**
+		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.OPLink <em>Link</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.opm.model.opm.OPLink
 		 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPLink()
 		 * @generated
 		 */
 		EClass OP_LINK = eINSTANCE.getOPLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OP_LINK__SOURCE = eINSTANCE.getOPLink_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OP_LINK__TARGET = eINSTANCE.getOPLink_Target();
 
 		/**
 		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.impl.OPObjectImpl <em>Object</em>}' class.
@@ -1546,6 +2383,16 @@ public interface OPPackage extends EPackage {
 		EClass OP_STRUCTURAL_LINK = eINSTANCE.getOPStructuralLink();
 
 		/**
+		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.impl.OPTaggedLinkImpl <em>Tagged Link</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.opm.model.opm.impl.OPTaggedLinkImpl
+		 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPTaggedLink()
+		 * @generated
+		 */
+		EClass OP_TAGGED_LINK = eINSTANCE.getOPTaggedLink();
+
+		/**
 		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.OPNode <em>Node</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1562,6 +2409,22 @@ public interface OPPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute OP_NODE__NAME = eINSTANCE.getOPNode_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Incoming Links</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OP_NODE__INCOMING_LINKS = eINSTANCE.getOPNode_IncomingLinks();
+
+		/**
+		 * The meta object literal for the '<em><b>Outgoing Links</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OP_NODE__OUTGOING_LINKS = eINSTANCE.getOPNode_OutgoingLinks();
 
 		/**
 		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.impl.OPStateImpl <em>State</em>}' class.
@@ -1618,6 +2481,22 @@ public interface OPPackage extends EPackage {
 		 * @generated
 		 */
 		EReference OP_SYSTEM__SYSTEM_DIAGRAM = eINSTANCE.getOPSystem_SystemDiagram();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OP_SYSTEM__NAME = eINSTANCE.getOPSystem_Name();
+
+		/**
+		 * The meta object literal for the '<em><b>Elements</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OP_SYSTEM__ELEMENTS = eINSTANCE.getOPSystem_Elements();
 
 		/**
 		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.impl.OPObjectViewImpl <em>Object View</em>}' class.
@@ -1702,6 +2581,22 @@ public interface OPPackage extends EPackage {
 		EAttribute OP_NODE_VIEW__HEIGHT = eINSTANCE.getOPNodeView_Height();
 
 		/**
+		 * The meta object literal for the '<em><b>Incoming Links</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OP_NODE_VIEW__INCOMING_LINKS = eINSTANCE.getOPNodeView_IncomingLinks();
+
+		/**
+		 * The meta object literal for the '<em><b>Outgoing Links</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OP_NODE_VIEW__OUTGOING_LINKS = eINSTANCE.getOPNodeView_OutgoingLinks();
+
+		/**
 		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.OPElementView <em>Element View</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1738,6 +2633,22 @@ public interface OPPackage extends EPackage {
 		EClass OP_LINK_VIEW = eINSTANCE.getOPLinkView();
 
 		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OP_LINK_VIEW__SOURCE = eINSTANCE.getOPLinkView_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Target</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference OP_LINK_VIEW__TARGET = eINSTANCE.getOPLinkView_Target();
+
+		/**
 		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.impl.OPProceduralLinkViewImpl <em>Procedural Link View</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1758,6 +2669,16 @@ public interface OPPackage extends EPackage {
 		EClass OP_STRUCTURAL_LINK_PART_VIEW = eINSTANCE.getOPStructuralLinkPartView();
 
 		/**
+		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.impl.OPTaggedLinkViewImpl <em>Tagged Link View</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.opm.model.opm.impl.OPTaggedLinkViewImpl
+		 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPTaggedLinkView()
+		 * @generated
+		 */
+		EClass OP_TAGGED_LINK_VIEW = eINSTANCE.getOPTaggedLinkView();
+
+		/**
 		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.OPProceduralLinkKind <em>Procedural Link Kind</em>}' enum.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1768,6 +2689,16 @@ public interface OPPackage extends EPackage {
 		EEnum OP_PROCEDURAL_LINK_KIND = eINSTANCE.getOPProceduralLinkKind();
 
 		/**
+		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.OPStructuralLinkKind <em>Structural Link Kind</em>}' enum.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see com.vainolo.opm.model.opm.OPStructuralLinkKind
+		 * @see com.vainolo.opm.model.opm.impl.OPPackageImpl#getOPStructuralLinkKind()
+		 * @generated
+		 */
+		EEnum OP_STRUCTURAL_LINK_KIND = eINSTANCE.getOPStructuralLinkKind();
+
+		/**
 		 * The meta object literal for the '{@link com.vainolo.opm.model.opm.impl.OPStructuralLinkAggregatorViewImpl <em>Structural Link Aggregator View</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1776,6 +2707,14 @@ public interface OPPackage extends EPackage {
 		 * @generated
 		 */
 		EClass OP_STRUCTURAL_LINK_AGGREGATOR_VIEW = eINSTANCE.getOPStructuralLinkAggregatorView();
+
+		/**
+		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute OP_STRUCTURAL_LINK_AGGREGATOR_VIEW__KIND = eINSTANCE.getOPStructuralLinkAggregatorView_Kind();
 
 	}
 

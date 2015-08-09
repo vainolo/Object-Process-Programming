@@ -4,8 +4,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.part.FileEditorInput;
 
-import com.vainolo.opm.model.OPObjectProcessDiagram;
-import com.vainolo.opm.model.OPSystem;
+import com.vainolo.opm.model.opm.OPObjectProcessDiagram;
+import com.vainolo.opm.model.opm.OPSystem;
 
 public class OPEditorInput extends FileEditorInput implements IEditorInput {
 
@@ -21,6 +21,6 @@ public class OPEditorInput extends FileEditorInput implements IEditorInput {
 	}
 
 	OPObjectProcessDiagram getCurrentCurrentObjectProcessDiagram() {
-		return system.getSD();
+		return system.getSystemDiagram();
 	}
 }

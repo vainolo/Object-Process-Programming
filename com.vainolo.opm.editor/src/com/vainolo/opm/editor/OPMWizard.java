@@ -19,6 +19,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -39,14 +43,11 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewFileCreationPage;
-import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
-import com.vainolo.opm.model.OPModelFactory;
-import com.vainolo.opm.model.OPObjectProcessDiagram;
-import com.vainolo.opm.model.OPObjectProcessDiagramKind;
-import com.vainolo.opm.model.OPSystem;
-import com.vainolo.opm.model.io.OPJsonWriter;
+import com.vainolo.opm.model.opm.OPFactory;
+import com.vainolo.opm.model.opm.OPObjectProcessDiagram;
+import com.vainolo.opm.model.opm.OPSystem;
 
 public class OPMWizard extends Wizard implements INewWizard {
 
@@ -69,20 +70,22 @@ public class OPMWizard extends Wizard implements INewWizard {
   public boolean performFinish() {
     try {
       final IFile modelFile = getModelFile();
-	  OPModelFactory factory = new OPModelFactory();
-	  final OPSystem system = factory.createSystem();
+	  OPFactory factory = OPFactory.eINSTANCE;
+	  final OPSystem system = factory.createOPSystem();
 
       WorkspaceModifyOperation operation = new WorkspaceModifyOperation() {
         @Override
         protected void execute(final IProgressMonitor progressMonitor) {
           try {
-        	  OPJsonWriter writer = new OPJsonWriter();
-        	  factory.setSystem(system);
         	  system.setName(modelFile.getName().split("\\.")[0]);
-        	  OPObjectProcessDiagram sd = factory.createObjectProcessDiagram();
-        	  system.setSD(sd);
-        	  String systemJson = writer.writeOPSystem(system).toString(); 
-        	  modelFile.create(new ByteArrayInputStream(systemJson.getBytes()), IFile.FORCE, progressMonitor);        	  
+        	  OPObjectProcessDiagram sd = factory.createOPObjectProcessDiagram();
+        	  sd.setSystem(system);
+        	  system.setSystemDiagram(sd);
+        	  ResourceSet resourceSet = new ResourceSetImpl();
+        	  Resource resource = resourceSet.createResource(URI.createURI(modelFile.getLocationURI().toString()));
+        	  resource.getContents().add(system);
+        	  resource.save(null);
+        	  
           } catch(Exception exception) {
         	  exception.printStackTrace();
             OPEditorPlugin.INSTANCE.log(exception);
@@ -193,7 +196,7 @@ public class OPMWizard extends Wizard implements INewWizard {
       data.grabExcessHorizontalSpace = true;
       opdKind.setLayoutData(data);
 
-      for(String objectName : new String[] { OPObjectProcessDiagramKind.SYSTEM.getLiteral() }) {
+      for(String objectName : new String[] { }) {
         opdKind.add(objectName);
       }
 

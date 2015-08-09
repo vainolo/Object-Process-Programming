@@ -66,6 +66,12 @@ public class OPSwitch<T> extends Switch<T> {
 	@Override
 	protected T doSwitch(int classifierID, EObject theEObject) {
 		switch (classifierID) {
+			case OPPackage.OP_ELEMENT: {
+				OPElement opElement = (OPElement)theEObject;
+				T result = caseOPElement(opElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case OPPackage.OP_SYSTEM: {
 				OPSystem opSystem = (OPSystem)theEObject;
 				T result = caseOPSystem(opSystem);
@@ -75,12 +81,7 @@ public class OPSwitch<T> extends Switch<T> {
 			case OPPackage.OP_OBJECT_PROCESS_DIAGRAM: {
 				OPObjectProcessDiagram opObjectProcessDiagram = (OPObjectProcessDiagram)theEObject;
 				T result = caseOPObjectProcessDiagram(opObjectProcessDiagram);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
-			case OPPackage.OP_ELEMENT: {
-				OPElement opElement = (OPElement)theEObject;
-				T result = caseOPElement(opElement);
+				if (result == null) result = caseOPElement(opObjectProcessDiagram);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -148,9 +149,18 @@ public class OPSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case OPPackage.OP_TAGGED_LINK: {
+				OPTaggedLink opTaggedLink = (OPTaggedLink)theEObject;
+				T result = caseOPTaggedLink(opTaggedLink);
+				if (result == null) result = caseOPLink(opTaggedLink);
+				if (result == null) result = caseOPElement(opTaggedLink);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case OPPackage.OP_ELEMENT_VIEW: {
 				OPElementView opElementView = (OPElementView)theEObject;
 				T result = caseOPElementView(opElementView);
+				if (result == null) result = caseOPElement(opElementView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -158,6 +168,7 @@ public class OPSwitch<T> extends Switch<T> {
 				OPNodeView opNodeView = (OPNodeView)theEObject;
 				T result = caseOPNodeView(opNodeView);
 				if (result == null) result = caseOPElementView(opNodeView);
+				if (result == null) result = caseOPElement(opNodeView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -165,6 +176,7 @@ public class OPSwitch<T> extends Switch<T> {
 				OPLinkView opLinkView = (OPLinkView)theEObject;
 				T result = caseOPLinkView(opLinkView);
 				if (result == null) result = caseOPElementView(opLinkView);
+				if (result == null) result = caseOPElement(opLinkView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -173,6 +185,7 @@ public class OPSwitch<T> extends Switch<T> {
 				T result = caseOPThingView(opThingView);
 				if (result == null) result = caseOPNodeView(opThingView);
 				if (result == null) result = caseOPElementView(opThingView);
+				if (result == null) result = caseOPElement(opThingView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -181,6 +194,7 @@ public class OPSwitch<T> extends Switch<T> {
 				T result = caseOPStateView(opStateView);
 				if (result == null) result = caseOPNodeView(opStateView);
 				if (result == null) result = caseOPElementView(opStateView);
+				if (result == null) result = caseOPElement(opStateView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -189,6 +203,7 @@ public class OPSwitch<T> extends Switch<T> {
 				T result = caseOPStructuralLinkAggregatorView(opStructuralLinkAggregatorView);
 				if (result == null) result = caseOPNodeView(opStructuralLinkAggregatorView);
 				if (result == null) result = caseOPElementView(opStructuralLinkAggregatorView);
+				if (result == null) result = caseOPElement(opStructuralLinkAggregatorView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -198,6 +213,7 @@ public class OPSwitch<T> extends Switch<T> {
 				if (result == null) result = caseOPThingView(opObjectView);
 				if (result == null) result = caseOPNodeView(opObjectView);
 				if (result == null) result = caseOPElementView(opObjectView);
+				if (result == null) result = caseOPElement(opObjectView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -207,6 +223,7 @@ public class OPSwitch<T> extends Switch<T> {
 				if (result == null) result = caseOPThingView(opProcessView);
 				if (result == null) result = caseOPNodeView(opProcessView);
 				if (result == null) result = caseOPElementView(opProcessView);
+				if (result == null) result = caseOPElement(opProcessView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -215,6 +232,7 @@ public class OPSwitch<T> extends Switch<T> {
 				T result = caseOPProceduralLinkView(opProceduralLinkView);
 				if (result == null) result = caseOPLinkView(opProceduralLinkView);
 				if (result == null) result = caseOPElementView(opProceduralLinkView);
+				if (result == null) result = caseOPElement(opProceduralLinkView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -223,6 +241,16 @@ public class OPSwitch<T> extends Switch<T> {
 				T result = caseOPStructuralLinkPartView(opStructuralLinkPartView);
 				if (result == null) result = caseOPLinkView(opStructuralLinkPartView);
 				if (result == null) result = caseOPElementView(opStructuralLinkPartView);
+				if (result == null) result = caseOPElement(opStructuralLinkPartView);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case OPPackage.OP_TAGGED_LINK_VIEW: {
+				OPTaggedLinkView opTaggedLinkView = (OPTaggedLinkView)theEObject;
+				T result = caseOPTaggedLinkView(opTaggedLinkView);
+				if (result == null) result = caseOPLinkView(opTaggedLinkView);
+				if (result == null) result = caseOPElementView(opTaggedLinkView);
+				if (result == null) result = caseOPElement(opTaggedLinkView);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -317,6 +345,21 @@ public class OPSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseOPStructuralLink(OPStructuralLink object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tagged Link</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tagged Link</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOPTaggedLink(OPTaggedLink object) {
 		return null;
 	}
 
@@ -527,6 +570,21 @@ public class OPSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseOPStructuralLinkPartView(OPStructuralLinkPartView object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Tagged Link View</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Tagged Link View</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseOPTaggedLinkView(OPTaggedLinkView object) {
 		return null;
 	}
 

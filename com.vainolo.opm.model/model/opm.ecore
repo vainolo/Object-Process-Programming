@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="opm" nsURI="http://www.vainolo.org/opm" nsPrefix="opm">
+  <eClassifiers xsi:type="ecore:EClass" name="OPElement" abstract="true" interface="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="system" eType="#//OPSystem"
+        eOpposite="#//OPSystem/elements"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPSystem">
     <eStructuralFeatures xsi:type="ecore:EReference" name="systemDiagram" eType="#//OPObjectProcessDiagram"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//OPElement" containment="true" eOpposite="#//OPElement/system"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPObjectProcessDiagram">
+  <eClassifiers xsi:type="ecore:EClass" name="OPObjectProcessDiagram" eSuperTypes="#//OPElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
         eType="#//OPElementView" containment="true" eOpposite="#//OPElementView/opd"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OPElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OPLink" eSuperTypes="#//OPElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPLink" abstract="true" interface="true"
+      eSuperTypes="#//OPElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//OPNode"
+        eOpposite="#//OPNode/outgoingLinks"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//OPNode"
+        eOpposite="#//OPNode/incomingLinks"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPNode" abstract="true" interface="true"
       eSuperTypes="#//OPElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingLinks" upperBound="-1"
+        eType="#//OPLink" eOpposite="#//OPLink/target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingLinks" upperBound="-1"
+        eType="#//OPLink" eOpposite="#//OPLink/source"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPState" eSuperTypes="#//OPNode"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPThing" abstract="true" interface="true"
@@ -29,7 +45,13 @@
     <eLiterals name="Result" literal="RESULT"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPStructuralLink" eSuperTypes="#//OPLink"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OPElementView" abstract="true" interface="true">
+  <eClassifiers xsi:type="ecore:EEnum" name="OPStructuralLinkKind">
+    <eLiterals name="Aggregation" literal="AGGREGATION"/>
+    <eLiterals name="Exhibition" value="1" literal="EXHIBITION"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OPTaggedLink" eSuperTypes="#//OPLink"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPElementView" abstract="true" interface="true"
+      eSuperTypes="#//OPElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="opd" eType="#//OPObjectProcessDiagram"
         eOpposite="#//OPObjectProcessDiagram/elements"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//OPElement"/>
@@ -40,15 +62,27 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="y" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingLinks" upperBound="-1"
+        eType="#//OPLinkView" eOpposite="#//OPLinkView/target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingLinks" upperBound="-1"
+        eType="#//OPLinkView" eOpposite="#//OPLinkView/source"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPLinkView" abstract="true" interface="true"
-      eSuperTypes="#//OPElementView"/>
+      eSuperTypes="#//OPElementView">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//OPNodeView"
+        eOpposite="#//OPNodeView/outgoingLinks"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//OPNodeView"
+        eOpposite="#//OPNodeView/incomingLinks"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPThingView" abstract="true" interface="true"
       eSuperTypes="#//OPNodeView"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPStateView" eSuperTypes="#//OPNodeView"/>
-  <eClassifiers xsi:type="ecore:EClass" name="OPStructuralLinkAggregatorView" eSuperTypes="#//OPNodeView"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPStructuralLinkAggregatorView" eSuperTypes="#//OPNodeView">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPStructuralLinkKind"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPObjectView" eSuperTypes="#//OPThingView"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPProcessView" eSuperTypes="#//OPThingView"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPProceduralLinkView" eSuperTypes="#//OPLinkView"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPStructuralLinkPartView" eSuperTypes="#//OPLinkView"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OPTaggedLinkView" eSuperTypes="#//OPLinkView"/>
 </ecore:EPackage>

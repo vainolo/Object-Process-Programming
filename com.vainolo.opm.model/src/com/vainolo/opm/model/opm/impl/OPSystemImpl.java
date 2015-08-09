@@ -2,17 +2,20 @@
  */
 package com.vainolo.opm.model.opm.impl;
 
+import com.vainolo.opm.model.opm.OPElement;
 import com.vainolo.opm.model.opm.OPObjectProcessDiagram;
 import com.vainolo.opm.model.opm.OPPackage;
 import com.vainolo.opm.model.opm.OPSystem;
-
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,6 +25,8 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link com.vainolo.opm.model.opm.impl.OPSystemImpl#getSystemDiagram <em>System Diagram</em>}</li>
+ *   <li>{@link com.vainolo.opm.model.opm.impl.OPSystemImpl#getName <em>Name</em>}</li>
+ *   <li>{@link com.vainolo.opm.model.opm.impl.OPSystemImpl#getElements <em>Elements</em>}</li>
  * </ul>
  * </p>
  *
@@ -37,6 +42,33 @@ public class OPSystemImpl extends MinimalEObjectImpl.Container implements OPSyst
 	 * @ordered
 	 */
 	protected OPObjectProcessDiagram systemDiagram;
+	/**
+	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NAME_EDEFAULT = null;
+	/**
+	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getName()
+	 * @generated
+	 * @ordered
+	 */
+	protected String name = NAME_EDEFAULT;
+	/**
+	 * The cached value of the '{@link #getElements() <em>Elements</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getElements()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<OPElement> elements;
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -99,12 +131,78 @@ public class OPSystemImpl extends MinimalEObjectImpl.Container implements OPSyst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setName(String newName) {
+		String oldName = name;
+		name = newName;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, OPPackage.OP_SYSTEM__NAME, oldName, name));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<OPElement> getElements() {
+		if (elements == null) {
+			elements = new EObjectContainmentWithInverseEList<OPElement>(OPElement.class, this, OPPackage.OP_SYSTEM__ELEMENTS, OPPackage.OP_ELEMENT__SYSTEM);
+		}
+		return elements;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OPPackage.OP_SYSTEM__ELEMENTS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getElements()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case OPPackage.OP_SYSTEM__ELEMENTS:
+				return ((InternalEList<?>)getElements()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case OPPackage.OP_SYSTEM__SYSTEM_DIAGRAM:
 				if (resolve) return getSystemDiagram();
 				return basicGetSystemDiagram();
+			case OPPackage.OP_SYSTEM__NAME:
+				return getName();
+			case OPPackage.OP_SYSTEM__ELEMENTS:
+				return getElements();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -114,11 +212,19 @@ public class OPSystemImpl extends MinimalEObjectImpl.Container implements OPSyst
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case OPPackage.OP_SYSTEM__SYSTEM_DIAGRAM:
 				setSystemDiagram((OPObjectProcessDiagram)newValue);
+				return;
+			case OPPackage.OP_SYSTEM__NAME:
+				setName((String)newValue);
+				return;
+			case OPPackage.OP_SYSTEM__ELEMENTS:
+				getElements().clear();
+				getElements().addAll((Collection<? extends OPElement>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -135,6 +241,12 @@ public class OPSystemImpl extends MinimalEObjectImpl.Container implements OPSyst
 			case OPPackage.OP_SYSTEM__SYSTEM_DIAGRAM:
 				setSystemDiagram((OPObjectProcessDiagram)null);
 				return;
+			case OPPackage.OP_SYSTEM__NAME:
+				setName(NAME_EDEFAULT);
+				return;
+			case OPPackage.OP_SYSTEM__ELEMENTS:
+				getElements().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -149,8 +261,28 @@ public class OPSystemImpl extends MinimalEObjectImpl.Container implements OPSyst
 		switch (featureID) {
 			case OPPackage.OP_SYSTEM__SYSTEM_DIAGRAM:
 				return systemDiagram != null;
+			case OPPackage.OP_SYSTEM__NAME:
+				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+			case OPPackage.OP_SYSTEM__ELEMENTS:
+				return elements != null && !elements.isEmpty();
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (name: ");
+		result.append(name);
+		result.append(')');
+		return result.toString();
 	}
 
 } //OPSystemImpl

@@ -2,6 +2,8 @@
  */
 package com.vainolo.opm.model.opm;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -15,6 +17,8 @@ package com.vainolo.opm.model.opm;
  *   <li>{@link com.vainolo.opm.model.opm.OPNodeView#getY <em>Y</em>}</li>
  *   <li>{@link com.vainolo.opm.model.opm.OPNodeView#getWidth <em>Width</em>}</li>
  *   <li>{@link com.vainolo.opm.model.opm.OPNodeView#getHeight <em>Height</em>}</li>
+ *   <li>{@link com.vainolo.opm.model.opm.OPNodeView#getIncomingLinks <em>Incoming Links</em>}</li>
+ *   <li>{@link com.vainolo.opm.model.opm.OPNodeView#getOutgoingLinks <em>Outgoing Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -127,4 +131,40 @@ public interface OPNodeView extends OPElementView {
 	 * @generated
 	 */
 	void setHeight(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Incoming Links</b></em>' reference list.
+	 * The list contents are of type {@link com.vainolo.opm.model.opm.OPLinkView}.
+	 * It is bidirectional and its opposite is '{@link com.vainolo.opm.model.opm.OPLinkView#getTarget <em>Target</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Incoming Links</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Incoming Links</em>' reference list.
+	 * @see com.vainolo.opm.model.opm.OPPackage#getOPNodeView_IncomingLinks()
+	 * @see com.vainolo.opm.model.opm.OPLinkView#getTarget
+	 * @model opposite="target"
+	 * @generated
+	 */
+	EList<OPLinkView> getIncomingLinks();
+
+	/**
+	 * Returns the value of the '<em><b>Outgoing Links</b></em>' reference list.
+	 * The list contents are of type {@link com.vainolo.opm.model.opm.OPLinkView}.
+	 * It is bidirectional and its opposite is '{@link com.vainolo.opm.model.opm.OPLinkView#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Outgoing Links</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Outgoing Links</em>' reference list.
+	 * @see com.vainolo.opm.model.opm.OPPackage#getOPNodeView_OutgoingLinks()
+	 * @see com.vainolo.opm.model.opm.OPLinkView#getSource
+	 * @model opposite="source"
+	 * @generated
+	 */
+	EList<OPLinkView> getOutgoingLinks();
 } // OPNodeView

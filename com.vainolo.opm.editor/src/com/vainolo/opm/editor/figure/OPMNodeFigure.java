@@ -17,11 +17,19 @@ public abstract class OPMNodeFigure extends Figure {
 		return true;
 	}
 
-	public ConnectionAnchor getConnectionAnchor() {
+	private ConnectionAnchor getConnectionAnchor() {
 		return anchor;
 	}
 	
 	protected void setConnectionAnchor(ConnectionAnchor anchor) {
 		this.anchor = anchor;
+	}
+	
+	public ConnectionAnchor getSourceConnectionAnchor() {
+		return getConnectionAnchor();
+	}
+	
+	public ConnectionAnchor getTargetConnectionAnchor() {
+		return getConnectionAnchor();
 	}
 }

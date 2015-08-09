@@ -8,16 +8,10 @@ import com.vainolo.opm.model.opm.OPObjectView;
 
 public class OPObjectViewFactory implements CreationFactory {
 
-	private OPFactory factory;
-
-	public OPObjectViewFactory(OPFactory factory) {
-		this.factory = factory;
-	}
-	
 	@Override
 	public Object getNewObject() {
-		OPObjectView view = factory.createOPObjectView();
-		OPObject object = factory.createOPObject();
+		OPObjectView view = OPFactory.eINSTANCE.createOPObjectView();
+		OPObject object = OPFactory.eINSTANCE.createOPObject();
 		object.setName("...");
 		view.setModel(object);
 		return view;

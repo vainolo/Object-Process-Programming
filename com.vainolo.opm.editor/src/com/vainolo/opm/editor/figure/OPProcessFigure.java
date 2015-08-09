@@ -33,7 +33,7 @@ public class OPProcessFigure extends OPMNodeFigure {
 	@Override
 	protected void paintFigure(Graphics graphics) {
 		super.paintFigure(graphics);
-		bounds = getBounds().getCopy();
+		Rectangle bounds = getBounds().getCopy();
 		setConstraint(borderEllipse, new Rectangle(0,0,bounds.width,bounds.height));
 		setConstraint(nameLabel, new Rectangle(0, 0, bounds.width, bounds.height));
 	}

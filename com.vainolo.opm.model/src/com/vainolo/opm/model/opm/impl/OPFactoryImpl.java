@@ -59,19 +59,19 @@ public class OPFactoryImpl extends EFactoryImpl implements OPFactory {
 		switch (eClass.getClassifierID()) {
 			case OPPackage.OP_SYSTEM: return createOPSystem();
 			case OPPackage.OP_OBJECT_PROCESS_DIAGRAM: return createOPObjectProcessDiagram();
-			case OPPackage.OP_ELEMENT: return createOPElement();
-			case OPPackage.OP_LINK: return createOPLink();
 			case OPPackage.OP_STATE: return createOPState();
 			case OPPackage.OP_OBJECT: return createOPObject();
 			case OPPackage.OP_PROCESS: return createOPProcess();
 			case OPPackage.OP_PROCEDURAL_LINK: return createOPProceduralLink();
 			case OPPackage.OP_STRUCTURAL_LINK: return createOPStructuralLink();
+			case OPPackage.OP_TAGGED_LINK: return createOPTaggedLink();
 			case OPPackage.OP_STATE_VIEW: return createOPStateView();
 			case OPPackage.OP_STRUCTURAL_LINK_AGGREGATOR_VIEW: return createOPStructuralLinkAggregatorView();
 			case OPPackage.OP_OBJECT_VIEW: return createOPObjectView();
 			case OPPackage.OP_PROCESS_VIEW: return createOPProcessView();
 			case OPPackage.OP_PROCEDURAL_LINK_VIEW: return createOPProceduralLinkView();
 			case OPPackage.OP_STRUCTURAL_LINK_PART_VIEW: return createOPStructuralLinkPartView();
+			case OPPackage.OP_TAGGED_LINK_VIEW: return createOPTaggedLinkView();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -87,6 +87,8 @@ public class OPFactoryImpl extends EFactoryImpl implements OPFactory {
 		switch (eDataType.getClassifierID()) {
 			case OPPackage.OP_PROCEDURAL_LINK_KIND:
 				return createOPProceduralLinkKindFromString(eDataType, initialValue);
+			case OPPackage.OP_STRUCTURAL_LINK_KIND:
+				return createOPStructuralLinkKindFromString(eDataType, initialValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
@@ -102,29 +104,11 @@ public class OPFactoryImpl extends EFactoryImpl implements OPFactory {
 		switch (eDataType.getClassifierID()) {
 			case OPPackage.OP_PROCEDURAL_LINK_KIND:
 				return convertOPProceduralLinkKindToString(eDataType, instanceValue);
+			case OPPackage.OP_STRUCTURAL_LINK_KIND:
+				return convertOPStructuralLinkKindToString(eDataType, instanceValue);
 			default:
 				throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
 		}
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public OPElement createOPElement() {
-		OPElementImpl opElement = new OPElementImpl();
-		return opElement;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public OPLink createOPLink() {
-		OPLinkImpl opLink = new OPLinkImpl();
-		return opLink;
 	}
 
 	/**
@@ -172,6 +156,16 @@ public class OPFactoryImpl extends EFactoryImpl implements OPFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public OPTaggedLink createOPTaggedLink() {
+		OPTaggedLinkImpl opTaggedLink = new OPTaggedLinkImpl();
+		return opTaggedLink;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OPState createOPState() {
 		OPStateImpl opState = new OPStateImpl();
 		return opState;
@@ -182,9 +176,9 @@ public class OPFactoryImpl extends EFactoryImpl implements OPFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OPObjectProcessDiagram createOPObjectProcessDiagram() {
-		OPObjectProcessDiagramImpl opObjectProcessDiagram = new OPObjectProcessDiagramImpl();
-		return opObjectProcessDiagram;
+	public OPSystem createOPSystem() {
+		OPSystemImpl opSystem = new OPSystemImpl();
+		return opSystem;
 	}
 
 	/**
@@ -192,9 +186,9 @@ public class OPFactoryImpl extends EFactoryImpl implements OPFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OPSystem createOPSystem() {
-		OPSystemImpl opSystem = new OPSystemImpl();
-		return opSystem;
+	public OPObjectProcessDiagram createOPObjectProcessDiagram() {
+		OPObjectProcessDiagramImpl opObjectProcessDiagram = new OPObjectProcessDiagramImpl();
+		return opObjectProcessDiagram;
 	}
 
 	/**
@@ -252,6 +246,16 @@ public class OPFactoryImpl extends EFactoryImpl implements OPFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public OPTaggedLinkView createOPTaggedLinkView() {
+		OPTaggedLinkViewImpl opTaggedLinkView = new OPTaggedLinkViewImpl();
+		return opTaggedLinkView;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public OPProceduralLinkKind createOPProceduralLinkKindFromString(EDataType eDataType, String initialValue) {
 		OPProceduralLinkKind result = OPProceduralLinkKind.get(initialValue);
 		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
@@ -264,6 +268,26 @@ public class OPFactoryImpl extends EFactoryImpl implements OPFactory {
 	 * @generated
 	 */
 	public String convertOPProceduralLinkKindToString(EDataType eDataType, Object instanceValue) {
+		return instanceValue == null ? null : instanceValue.toString();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public OPStructuralLinkKind createOPStructuralLinkKindFromString(EDataType eDataType, String initialValue) {
+		OPStructuralLinkKind result = OPStructuralLinkKind.get(initialValue);
+		if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+		return result;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String convertOPStructuralLinkKindToString(EDataType eDataType, Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 

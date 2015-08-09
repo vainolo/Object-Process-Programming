@@ -4,8 +4,6 @@ package com.vainolo.opm.model.opm;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Object Process Diagram</b></em>'.
@@ -22,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface OPObjectProcessDiagram extends EObject {
+public interface OPObjectProcessDiagram extends OPElement {
 	/**
 	 * Returns the value of the '<em><b>Elements</b></em>' containment reference list.
 	 * The list contents are of type {@link com.vainolo.opm.model.opm.OPElementView}.
