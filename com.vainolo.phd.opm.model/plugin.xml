@@ -14,7 +14,7 @@
       <package
             uri="www.vainolo.com/phd/opm"
             class="com.vainolo.phd.opm.model.OPMPackage"
-            genModel="model/opm.genmodel"/>
+            genModel="model/opp.genmodel"/>
    </extension>
 
 </plugin>

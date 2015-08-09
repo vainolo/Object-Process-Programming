@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: com.vainolo.phd.opm.model.editor;singleton:=true
+Bundle-SymbolicName: com.vainolo.phd.opp.model.editor;singleton:=true
 Bundle-Version: 0.1.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: com.vainolo.phd.opm.model.presentation.OPMEditorPlugin$Implementation
@@ -11,10 +11,10 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: com.vainolo.phd.opm.model.presentation
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
- com.vainolo.phd.opm.model.edit;visibility:=reexport,
+ com.vainolo.phd.opp.model.edit;visibility:=reexport,
  org.eclipse.emf.ecore.xmi;visibility:=reexport,
  org.eclipse.emf.edit.ui;visibility:=reexport,
  org.eclipse.ui.ide;visibility:=reexport,
- com.vainolo.phd.opm.model,
+ com.vainolo.phd.opp.model,
  org.eclipse.draw2d
 Bundle-ActivationPolicy: lazy

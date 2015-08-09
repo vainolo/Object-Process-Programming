@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OPM GEF Tests
-Bundle-SymbolicName: com.vainolo.phd.opm.gef.tests
+Bundle-SymbolicName: com.vainolo.phd.opp.gef.tests
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
-Fragment-Host: com.vainolo.phd.opm.gef
+Fragment-Host: com.vainolo.phd.opp.gef
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: com.vainolo.phd.opm.utilities.analysis

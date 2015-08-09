@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OPM Validation Tests
-Bundle-SymbolicName: com.vainolo.phd.opm.validation.tests
+Bundle-SymbolicName: com.vainolo.phd.opp.validation.tests
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: VAINOLO
-Fragment-Host: com.vainolo.phd.opm.validation;bundle-version="0.0.1"
+Fragment-Host: com.vainolo.phd.opp.validation;bundle-version="0.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
