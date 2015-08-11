@@ -2,11 +2,11 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.vainolo.phd.opm</groupId>
+  <groupId>com.vainolo.phd.opp</groupId>
   <artifactId>main-build</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-    <module>com.vainolo.phd.opm.releng</module>
+    <module>com.vainolo.phd.opp.releng</module>
   </modules>
 </project>

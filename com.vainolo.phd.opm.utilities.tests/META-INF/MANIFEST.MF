@@ -1,8 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: OPM Utilities Tests
-Bundle-SymbolicName: com.vainolo.phd.opp.utilities.tests
-Bundle-Version: 0.1.0.qualifier
-Bundle-Vendor: Arieh "Vainolo" Bibliowicz
-Fragment-Host: com.vainolo.phd.opp.utilities
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
