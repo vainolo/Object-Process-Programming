@@ -1,0 +1,125 @@
+/*******************************************************************************
+ * Copyright (c) 2012 Arieh 'Vainolo' Bibliowicz
+ * You can use this code for educational purposes. For any other uses
+ * please contact me: vainolo@gmail.com
+ *******************************************************************************/
+package com.vainolo.phd.opp.editor.policy;
+
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPolicy;
+import org.eclipse.gef.Request;
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
+import org.eclipse.gef.editpolicies.ComponentEditPolicy;
+import org.eclipse.gef.requests.GroupRequest;
+
+import com.vainolo.phd.opp.editor.action.OPMResizeToContentsAction;
+import com.vainolo.phd.opp.editor.command.OPPNodeChangeConstraintCommand;
+import com.vainolo.phd.opp.editor.command.OPPNodeDeleteCommand;
+import com.vainolo.phd.opp.editor.figure.OPMNodeFigure;
+import com.vainolo.phd.opp.editor.part.OPMNodeEditPart;
+import com.vainolo.phd.opp.model.OPPContainer;
+import com.vainolo.phd.opp.model.OPPLink;
+import com.vainolo.phd.opp.model.OPPNode;
+import com.vainolo.phd.opp.utilities.analysis.OPDAnalyzer;
+
+/**
+ * {@link EditPolicy} used for delete requests.
+ * 
+ * @author Arieh "Vainolo" Bibliowicz
+ */
+public class OPMNodeEditPolicy extends ComponentEditPolicy {
+
+  private OPDAnalyzer analyzer;
+
+  public OPMNodeEditPolicy(OPDAnalyzer analyzer) {
+    super();
+    this.analyzer = analyzer;
+
+  }
+
+  /**
+   * Create a command to delete a node. When a node is deleted all incoming and
+   * outgoing links are also deleted (functionality provided by the command).
+   * When a {@link OPPThing} node is deleted, there is special treatment for
+   * structural links that start and end at this node. If this node is source
+   * for a structural link, the {@link OPPStructuralLinkAggregator} of this link
+   * must be deleted. Also if this node is the target of the only outgoing link
+   * of a {@link OPPStructuralLinkAggregator}, the aggregator must be deleted.
+   * 
+   * @return a command that deletes a node and all other required diagram
+   *         entities.
+   */
+  @Override
+  protected Command createDeleteCommand(GroupRequest deleteRequest) {
+    OPPNode nodeToDelete = (OPPNode) getHost().getModel();
+    return createRecursiveDeleteNodeCommand(nodeToDelete);
+  }
+
+  @Override
+  public Command getCommand(Request request) {
+    if(request.getType().equals(OPMResizeToContentsAction.RESIZE_TO_CONTENTS_REQUEST)) {
+      OPMNodeEditPart host = (OPMNodeEditPart) getHost();
+      OPPNode node = (OPPNode) host.getModel();
+      OPMNodeFigure figure = (OPMNodeFigure) host.getFigure();
+      Dimension preferredSize = figure.getPreferredSize();
+      OPPNodeChangeConstraintCommand command = new OPPNodeChangeConstraintCommand();
+      command.setNode(node);
+      command.setNewConstraint(node.getX(), node.getY(), preferredSize.width, preferredSize.height);
+      return command;
+    }
+    return super.getCommand(request);
+  }
+
+  /**
+   * This function creates a command that consists of all the commands required
+   * to delete the given node and all of the nodes contained inside it. This
+   * function is called recursively when a node is a container and has internal
+   * nodes.
+   * 
+   * @param nodeToDelete
+   *          the node that will be deleted.
+   * @return a {@link CompoundCommand} command that deletes the node, the
+   *         contained nodes and all links that must be deleted.
+   */
+  private CompoundCommand createRecursiveDeleteNodeCommand(OPPNode nodeToDelete) {
+    CompoundCommand compoundCommand = new CompoundCommand();
+
+    // For every outgoing structural link, create a command to delete the
+    // aggregator node at the end of the link.
+    for(OPPLink outgoingStructuralLink : analyzer.findOutgoingStructuralLinks(nodeToDelete)) {
+      OPPNode aggregatorNode = outgoingStructuralLink.getTarget();
+      OPPNodeDeleteCommand aggregatorNodeDeleteCommand = new OPPNodeDeleteCommand();
+      aggregatorNodeDeleteCommand.setNode(aggregatorNode);
+      compoundCommand.add(aggregatorNodeDeleteCommand);
+    }
+
+    // For every incoming structural link whose aggregator has only one outgoing
+    // link, create a command to delete the
+    // aggregator.
+    for(OPPLink incomingStructuralLink : analyzer.findIncomingStructuralLinks(nodeToDelete)) {
+      OPPNode aggregatorNode = incomingStructuralLink.getSource();
+      if(aggregatorNode.getOutgoingLinks().size() == 1) {
+        OPPNodeDeleteCommand aggregatorNodeDeleteCommand = new OPPNodeDeleteCommand();
+        aggregatorNodeDeleteCommand.setNode(aggregatorNode);
+        compoundCommand.add(aggregatorNodeDeleteCommand);
+      }
+    }
+
+    if(nodeToDelete instanceof OPPContainer) {
+      OPPContainer container = (OPPContainer) nodeToDelete;
+      for(OPPNode node : container.getNodes()) {
+        Command containedNodeDelete = createRecursiveDeleteNodeCommand(node);
+        compoundCommand.add(containedNodeDelete);
+      }
+    }
+
+    // Create a command to delete the node.
+    OPPNodeDeleteCommand nodeDeleteCommand = new OPPNodeDeleteCommand();
+    nodeDeleteCommand.setNode(nodeToDelete);
+    compoundCommand.add(nodeDeleteCommand);
+
+    return compoundCommand;
+  }
+}

@@ -17,4 +17,25 @@
             genModel="model/opp.genmodel"/>
    </extension>
 
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated opp -->
+      <package
+            uri="www.vainolo.com/phd/opp"
+            class="com.vainolo.phd.opp.model.OPPPackage"
+            genModel="model/opp.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.edit.itemProviderAdapterFactories">
+      <!-- @generated opp -->
+      <factory
+            uri="www.vainolo.com/phd/opp"
+            class="com.vainolo.phd.opp.model.provider.OPPItemProviderAdapterFactory"
+            supportedTypes=
+              "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
+               org.eclipse.emf.edit.provider.IStructuredItemContentProvider
+               org.eclipse.emf.edit.provider.ITreeItemContentProvider
+               org.eclipse.emf.edit.provider.IItemLabelProvider
+               org.eclipse.emf.edit.provider.IItemPropertySource"/>
+   </extension>
+
 </plugin>

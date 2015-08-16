@@ -35,8 +35,8 @@
 		</plugins>
 	</build>
 	<modules>
-		<module>../com.vainolo.phd.opp.gef</module>
-		<module>../com.vainolo.phd.opp.gef.tests</module>		
+		<module>../com.vainolo.phd.opp.editor</module>
+		<module>../com.vainolo.phd.opp.editor.tests</module>		
 		<module>../com.vainolo.phd.opp.model</module>
 		<module>../com.vainolo.phd.opp.model.edit</module>
 		<module>../com.vainolo.phd.opp.model.editor</module>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="com.vainolo.phd.opp.editor.OPMGraphicalEditor"
+            contributorClass="com.vainolo.phd.opp.editor.OPMGraphicalEditorActionBarContributor"
+            default="true"
+            extensions="opp"
+            icon="src/com/vainolo/phd/opp/editor/icons/opp16x16.ico"
+            id="com.vainolo.phd.opp.editor.editorID"
+            name="OPM GEF Editor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <view
+            class="com.vainolo.phd.opp.editor.OPLViewPart"
+            id="com.vainolo.phd.opp.editor.OPPOPLView"
+            name="OPL"
+            restorable="true">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <wizard
+            category="com.vainolo.phd.opm.editor.Wizard.ID"
+            class="com.vainolo.phd.opp.editor.OPPModelWizard"
+            icon="src/com/vainolo/phd/opp/editor/icons/opp16x16.ico"
+            id="com.vainolo.phd.opp.editor.NewOPPDWizardID"
+            name="OPP Diagram">
+      </wizard>
+      <category
+            id="com.vainolo.phd.opp.editor.Wizard.ID"
+            name="OPP">
+      </category>
+   </extension>
+
+</plugin>

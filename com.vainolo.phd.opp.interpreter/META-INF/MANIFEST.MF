@@ -11,5 +11,5 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="3.7.100",
  com.vainolo.phd.opp.utilities
 Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.vainolo.phd.opm.interpreter,
- com.vainolo.phd.opm.interpreter.utils
+Export-Package: com.vainolo.phd.opp.interpreter,
+ com.vainolo.phd.opp.interpreter.utils

@@ -7,3 +7,4 @@ Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Fragment-Host: com.vainolo.phd.opp.interpreter
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.junit;bundle-version="4.11.0"
+Import-Package: com.vainolo.phd.opp.model

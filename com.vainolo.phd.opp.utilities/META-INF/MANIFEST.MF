@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: OPM Utilities
 Bundle-SymbolicName: com.vainolo.phd.opp.utilities;singleton:=true
 Bundle-Version: 0.1.0.qualifier
-Bundle-Activator: com.vainolo.phd.opm.utilities.Activator
+Bundle-Activator: com.vainolo.phd.opp.utilities.Activator
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Require-Bundle: org.eclipse.core.runtime,
  com.vainolo.phd.opp.model,
@@ -53,9 +53,10 @@ Export-Package: com.eclipsesource.json,
  com.google.inject.name,
  com.google.inject.spi,
  com.google.inject.util,
- com.vainolo.phd.opm.utilities,
- com.vainolo.phd.opm.utilities.analysis,
- com.vainolo.phd.opm.utilities.predicates,
+ com.vainolo.phd.opp.utilities,
+ com.vainolo.phd.opp.utilities,
+ com.vainolo.phd.opp.utilities.analysis,
+ com.vainolo.phd.opp.utilities.predicates,
  org.hamcrest,
  org.hamcrest.core,
  org.hamcrest.internal,
