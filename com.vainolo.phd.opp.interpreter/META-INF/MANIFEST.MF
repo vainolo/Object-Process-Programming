@@ -9,7 +9,15 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="3.7.100",
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
  com.vainolo.phd.opp.model,
  com.vainolo.phd.opp.utilities
-Bundle-ClassPath: .
+Bundle-ClassPath: .,
+ lib/vertx/vertx-core-3.0.0.jar,
+ lib/vertx/vertx-web-3.0.0.jar,
+ lib/vertx/netty-buffer-4.0.28.Final.jar,
+ lib/vertx/netty-codec-4.0.28.Final.jar,
+ lib/vertx/netty-codec-http-4.0.28.Final.jar,
+ lib/vertx/netty-common-4.0.28.Final.jar,
+ lib/vertx/netty-handler-4.0.28.Final.jar,
+ lib/vertx/netty-transport-4.0.28.Final.jar
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: com.vainolo.phd.opp.interpreter,
  com.vainolo.phd.opp.interpreter.utils

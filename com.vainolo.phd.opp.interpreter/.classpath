@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="lib/vertx/netty-buffer-4.0.28.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/vertx/netty-codec-4.0.28.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/vertx/netty-codec-http-4.0.28.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/vertx/netty-common-4.0.28.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/vertx/netty-handler-4.0.28.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/vertx/netty-transport-4.0.28.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/vertx/vertx-web-3.0.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/vertx/vertx-core-3.0.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
