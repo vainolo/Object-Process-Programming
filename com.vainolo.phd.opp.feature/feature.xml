@@ -36,7 +36,7 @@
    </requires>
 
    <plugin
-         id="com.vainolo.phd.opp.gef"
+         id="com.vainolo.phd.opp.editor"
          download-size="0"
          install-size="0"
          version="0.0.0"
