@@ -4,8 +4,8 @@
    <extension
          point="org.eclipse.ui.editors">
       <editor
-            class="com.vainolo.phd.opp.editor.OPMGraphicalEditor"
-            contributorClass="com.vainolo.phd.opp.editor.OPMGraphicalEditorActionBarContributor"
+            class="com.vainolo.phd.opp.editor.OPPGraphicalEditor"
+            contributorClass="com.vainolo.phd.opp.editor.OPPGraphicalEditorActionBarContributor"
             default="true"
             extensions="opp"
             icon="src/com/vainolo/phd/opp/editor/icons/opp16x16.ico"
@@ -16,7 +16,7 @@
    <extension
          point="org.eclipse.ui.views">
       <view
-            class="com.vainolo.phd.opp.editor.OPLViewPart"
+            class="com.vainolo.phd.opp.editor.OPPOPLViewPart"
             id="com.vainolo.phd.opp.editor.OPPOPLView"
             name="OPL"
             restorable="true">

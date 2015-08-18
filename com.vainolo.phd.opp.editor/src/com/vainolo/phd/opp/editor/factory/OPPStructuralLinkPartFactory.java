@@ -17,9 +17,9 @@ import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
  */
 public class OPPStructuralLinkPartFactory implements CreationFactory {
 
-  private OPMIdManager idManager;
+  private OPPIdManager idManager;
 
-  public OPPStructuralLinkPartFactory(OPMIdManager idManager) {
+  public OPPStructuralLinkPartFactory(OPPIdManager idManager) {
     this.idManager = idManager;
   }
 

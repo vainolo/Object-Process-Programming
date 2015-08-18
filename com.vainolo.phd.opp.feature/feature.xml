@@ -57,20 +57,6 @@
          unpack="false"/>
 
    <plugin
-         id="com.vainolo.phd.opp.model.edit"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="com.vainolo.phd.opp.model.editor"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.vainolo.phd.opp.utilities"
          download-size="0"
          install-size="0"

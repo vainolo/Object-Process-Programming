@@ -17,7 +17,7 @@ import com.vainolo.phd.opp.model.OPPContainer;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
-import com.vainolo.phd.opp.utilities.analysis.OPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 
 /**
  * Command used to delete a node. The functionality of this class fairly closed
@@ -39,7 +39,7 @@ public final class OPPNodeDeleteCommand extends Command {
   /** Targets for the links that start or end at this node. */
   private Map<OPPLink, OPPNode> linkTargets;
 
-  private OPDAnalyzer analyzer = new OPDAnalyzer();
+  private OPPOPDAnalyzer analyzer = new OPPOPDAnalyzer();
 
   @Override
   public void execute() {

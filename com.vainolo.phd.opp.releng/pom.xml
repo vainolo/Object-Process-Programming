@@ -38,8 +38,6 @@
 		<module>../com.vainolo.phd.opp.editor</module>
 		<module>../com.vainolo.phd.opp.editor.tests</module>		
 		<module>../com.vainolo.phd.opp.model</module>
-		<module>../com.vainolo.phd.opp.model.edit</module>
-		<module>../com.vainolo.phd.opp.model.editor</module>
 		<module>../com.vainolo.phd.opp.utilities</module>
 		<module>../com.vainolo.phd.opp.utilities.tests</module>		
 		<module>../com.vainolo.phd.opp.validation</module>

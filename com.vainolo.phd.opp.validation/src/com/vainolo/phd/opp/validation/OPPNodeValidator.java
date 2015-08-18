@@ -1,9 +1,5 @@
 package com.vainolo.phd.opp.validation;
 
-import com.vainolo.phd.opm.model.OPMNode;
-import com.vainolo.phd.opm.model.OPMObject;
-import com.vainolo.phd.opm.model.OPMObjectProcessDiagram;
-import com.vainolo.phd.opm.model.OPMProcess;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;

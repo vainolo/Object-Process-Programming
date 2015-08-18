@@ -5,8 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.utilities;
 
-import static com.vainolo.phd.opp.utilities.OPMLogger.logInfo;
-import static com.vainolo.phd.opp.utilities.OPMLogger.logWarning;
+import static com.vainolo.phd.opp.utilities.OPPLogger.logInfo;
+import static com.vainolo.phd.opp.utilities.OPPLogger.logWarning;
 
 import java.io.IOException;
 

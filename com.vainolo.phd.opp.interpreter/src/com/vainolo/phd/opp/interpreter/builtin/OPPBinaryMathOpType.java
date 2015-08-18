@@ -1,0 +1,24 @@
+package com.vainolo.phd.opp.interpreter.builtin;
+
+/**
+ * Basic binary math operations
+ */
+public enum OPPBinaryMathOpType {
+  ADD, SUBS, MULT, DIV, POW;
+
+  public String getName() {
+    switch(this) {
+    case ADD:
+      return "Add";
+    case SUBS:
+      return "Subtract";
+    case MULT:
+      return "Multiply";
+    case DIV:
+      return "Divide";
+    case POW:
+      return "Power";
+    }
+    throw new IllegalStateException("This should NEVER happen!");
+  }
+}

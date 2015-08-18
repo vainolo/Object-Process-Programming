@@ -17,7 +17,7 @@ import org.eclipse.gef.requests.CreateRequest;
 
 import com.vainolo.phd.opp.editor.command.OPPNodeChangeConstraintCommand;
 import com.vainolo.phd.opp.editor.command.OPPNodeCreateCommand;
-import com.vainolo.phd.opp.editor.part.OPMStructuralLinkAggregatorEditPart;
+import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opp.model.OPPContainer;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.validation.OPPNodeValidator;
@@ -110,7 +110,7 @@ public class OPPContainerXYLayoutPolicy extends XYLayoutEditPolicy {
   @Override
   protected Command getResizeChildrenCommand(ChangeBoundsRequest request) {
     for(Object editPart : request.getEditParts()) {
-      if(editPart instanceof OPMStructuralLinkAggregatorEditPart) {
+      if(editPart instanceof OPPStructuralLinkAggregatorEditPart) {
         return UnexecutableCommand.INSTANCE;
       }
     }

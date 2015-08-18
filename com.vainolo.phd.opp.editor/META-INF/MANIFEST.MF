@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: OPP Editor
 Bundle-SymbolicName: com.vainolo.phd.opp.editor;singleton:=true
 Bundle-Version: 0.1.0.qualifier
-Bundle-Activator: com.vainolo.phd.opp.editor.Activator
+Bundle-Activator: com.vainolo.phd.opp.editor.OPPEditorActivator
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -13,7 +13,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.emf.edit,
  org.eclipse.emf.edit.ui,
- com.vainolo.phd.opp.model.edit,
  com.vainolo.phd.opp.interpreter,
  com.vainolo.phd.opp.utilities,
  com.vainolo.phd.opp.validation
