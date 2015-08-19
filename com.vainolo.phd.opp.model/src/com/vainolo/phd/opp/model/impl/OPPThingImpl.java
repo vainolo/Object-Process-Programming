@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#isCollection <em>Collection</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#isMain <em>Main</em>}</li>
  * </ul>
  * </p>
  *
@@ -131,6 +132,26 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
    * @ordered
    */
   protected boolean collection = COLLECTION_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isMain() <em>Main</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isMain()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean MAIN_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isMain() <em>Main</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isMain()
+   * @generated
+   * @ordered
+   */
+  protected boolean main = MAIN_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -252,6 +273,27 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isMain() {
+    return main;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setMain(boolean newMain) {
+    boolean oldMain = main;
+    main = newMain;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_THING__MAIN, oldMain, main));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @SuppressWarnings("unchecked")
   @Override
   public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -294,6 +336,8 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
         return getDescription();
       case OPPPackage.OPP_THING__COLLECTION:
         return isCollection();
+      case OPPPackage.OPP_THING__MAIN:
+        return isMain();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -323,6 +367,9 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
       case OPPPackage.OPP_THING__COLLECTION:
         setCollection((Boolean)newValue);
         return;
+      case OPPPackage.OPP_THING__MAIN:
+        setMain((Boolean)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -350,6 +397,9 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
       case OPPPackage.OPP_THING__COLLECTION:
         setCollection(COLLECTION_EDEFAULT);
         return;
+      case OPPPackage.OPP_THING__MAIN:
+        setMain(MAIN_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -372,6 +422,8 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
       case OPPPackage.OPP_THING__COLLECTION:
         return collection != COLLECTION_EDEFAULT;
+      case OPPPackage.OPP_THING__MAIN:
+        return main != MAIN_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -440,6 +492,8 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
     result.append(description);
     result.append(", collection: ");
     result.append(collection);
+    result.append(", main: ");
+    result.append(main);
     result.append(')');
     return result.toString();
   }

@@ -459,13 +459,22 @@ public interface OPPPackage extends EPackage {
   int OPP_THING__COLLECTION = OPP_NODE_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Main</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_THING__MAIN = OPP_NODE_FEATURE_COUNT + 5;
+
+  /**
    * The number of structural features of the '<em>Thing</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_THING_FEATURE_COUNT = OPP_NODE_FEATURE_COUNT + 5;
+  int OPP_THING_FEATURE_COUNT = OPP_NODE_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link com.vainolo.phd.opp.model.impl.OPPStateImpl <em>State</em>}' class.
@@ -713,6 +722,15 @@ public interface OPPPackage extends EPackage {
   int OPP_OBJECT__COLLECTION = OPP_THING__COLLECTION;
 
   /**
+   * The feature id for the '<em><b>Main</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_OBJECT__MAIN = OPP_THING__MAIN;
+
+  /**
    * The feature id for the '<em><b>Parameter</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -856,6 +874,15 @@ public interface OPPPackage extends EPackage {
    * @ordered
    */
   int OPP_PROCESS__COLLECTION = OPP_THING__COLLECTION;
+
+  /**
+   * The feature id for the '<em><b>Main</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_PROCESS__MAIN = OPP_THING__MAIN;
 
   /**
    * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -1699,6 +1726,17 @@ public interface OPPPackage extends EPackage {
   EAttribute getOPPThing_Collection();
 
   /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPThing#isMain <em>Main</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Main</em>'.
+   * @see com.vainolo.phd.opp.model.OPPThing#isMain()
+   * @see #getOPPThing()
+   * @generated
+   */
+  EAttribute getOPPThing_Main();
+
+  /**
    * Returns the meta object for class '{@link com.vainolo.phd.opp.model.OPPState <em>State</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2223,6 +2261,14 @@ public interface OPPPackage extends EPackage {
      * @generated
      */
     EAttribute OPP_THING__COLLECTION = eINSTANCE.getOPPThing_Collection();
+
+    /**
+     * The meta object literal for the '<em><b>Main</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPP_THING__MAIN = eINSTANCE.getOPPThing_Main();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opp.model.impl.OPPStateImpl <em>State</em>}' class.

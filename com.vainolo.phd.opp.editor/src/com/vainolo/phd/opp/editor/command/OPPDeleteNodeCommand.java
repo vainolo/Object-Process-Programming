@@ -13,30 +13,15 @@ import java.util.Map;
 
 import org.eclipse.gef.commands.Command;
 
-import com.vainolo.phd.opp.model.OPPContainer;
-import com.vainolo.phd.opp.model.OPPLink;
-import com.vainolo.phd.opp.model.OPPNode;
-import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
+import com.vainolo.phd.opp.model.*;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 
-/**
- * Command used to delete a node. The functionality of this class fairly closed
- * so it is declared final.
- * 
- * @author Arieh "Vainolo" Bibliowicz
- * 
- */
-public final class OPPNodeDeleteCommand extends Command {
+public final class OPPDeleteNodeCommand extends Command {
 
-  /** Node to be deleted. */
   private OPPNode node;
-  /** Container of the node. */
   private OPPContainer container;
-  /** Incoming and outgoing links. */
   private List<OPPLink> links;
-  /** Sources for the links that start or end at this node. */
   private Map<OPPLink, OPPNode> linkSources;
-  /** Targets for the links that start or end at this node. */
   private Map<OPPLink, OPPNode> linkTargets;
 
   private OPPOPDAnalyzer analyzer = new OPPOPDAnalyzer();
@@ -98,5 +83,17 @@ public final class OPPNodeDeleteCommand extends Command {
   public void setNode(final OPPNode node) {
     this.node = node;
     this.container = node.getContainer();
+  }
+
+  @Override
+  public boolean canExecute() {
+    if(node == null)
+      return false;
+    if(node instanceof OPPThing) {
+      OPPThing thing = (OPPThing) node;
+      if(thing.isMain())
+        return false;
+    }
+    return true;
   }
 }

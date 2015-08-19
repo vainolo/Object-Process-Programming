@@ -16,7 +16,7 @@ import org.eclipse.gef.requests.GroupRequest;
 
 import com.vainolo.phd.opp.editor.action.OPPResizeToContentsAction;
 import com.vainolo.phd.opp.editor.command.OPPNodeChangeConstraintCommand;
-import com.vainolo.phd.opp.editor.command.OPPNodeDeleteCommand;
+import com.vainolo.phd.opp.editor.command.OPPDeleteNodeCommand;
 import com.vainolo.phd.opp.editor.figure.OPPNodeFigure;
 import com.vainolo.phd.opp.editor.part.OPPNodeEditPart;
 import com.vainolo.phd.opp.model.OPPContainer;
@@ -90,7 +90,7 @@ public class OPPNodeEditPolicy extends ComponentEditPolicy {
     // aggregator node at the end of the link.
     for(OPPLink outgoingStructuralLink : analyzer.findOutgoingStructuralLinks(nodeToDelete)) {
       OPPNode aggregatorNode = outgoingStructuralLink.getTarget();
-      OPPNodeDeleteCommand aggregatorNodeDeleteCommand = new OPPNodeDeleteCommand();
+      OPPDeleteNodeCommand aggregatorNodeDeleteCommand = new OPPDeleteNodeCommand();
       aggregatorNodeDeleteCommand.setNode(aggregatorNode);
       compoundCommand.add(aggregatorNodeDeleteCommand);
     }
@@ -101,7 +101,7 @@ public class OPPNodeEditPolicy extends ComponentEditPolicy {
     for(OPPLink incomingStructuralLink : analyzer.findIncomingStructuralLinks(nodeToDelete)) {
       OPPNode aggregatorNode = incomingStructuralLink.getSource();
       if(aggregatorNode.getOutgoingLinks().size() == 1) {
-        OPPNodeDeleteCommand aggregatorNodeDeleteCommand = new OPPNodeDeleteCommand();
+        OPPDeleteNodeCommand aggregatorNodeDeleteCommand = new OPPDeleteNodeCommand();
         aggregatorNodeDeleteCommand.setNode(aggregatorNode);
         compoundCommand.add(aggregatorNodeDeleteCommand);
       }
@@ -116,7 +116,7 @@ public class OPPNodeEditPolicy extends ComponentEditPolicy {
     }
 
     // Create a command to delete the node.
-    OPPNodeDeleteCommand nodeDeleteCommand = new OPPNodeDeleteCommand();
+    OPPDeleteNodeCommand nodeDeleteCommand = new OPPDeleteNodeCommand();
     nodeDeleteCommand.setNode(nodeToDelete);
     compoundCommand.add(nodeDeleteCommand);
 

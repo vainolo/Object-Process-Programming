@@ -75,7 +75,8 @@ public class OPPFileUtils {
     OPPProcess process = OPPFactory.eINSTANCE.createOPPProcess();
     process.setId(1);
     process.setName(name);
-    process.setConstraints(200, 100, 100, 100);
+    process.setConstraints(200, 100, 300, 400);
+    process.setMain(true);
     opd.getNodes().add(process);
     opd.setLastKnownUsedId(1);
   }
@@ -85,6 +86,7 @@ public class OPPFileUtils {
     object.setId(1);
     object.setName(name);
     object.setConstraints(200, 100, 100, 100);
+    object.setMain(true);
     opd.getNodes().add(object);
     opd.setLastKnownUsedId(1);
   }

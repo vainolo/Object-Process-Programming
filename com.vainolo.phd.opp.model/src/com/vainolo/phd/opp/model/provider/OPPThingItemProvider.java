@@ -52,6 +52,7 @@ public class OPPThingItemProvider extends OPPNodeItemProvider {
       addAlignmentPropertyDescriptor(object);
       addDescriptionPropertyDescriptor(object);
       addCollectionPropertyDescriptor(object);
+      addMainPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -145,6 +146,28 @@ public class OPPThingItemProvider extends OPPNodeItemProvider {
   }
 
   /**
+   * This adds a property descriptor for the Main feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addMainPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPPThing_main_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPPThing_main_feature", "_UI_OPPThing_type"),
+         OPPPackage.Literals.OPP_THING__MAIN,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
    * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
    * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -205,6 +228,7 @@ public class OPPThingItemProvider extends OPPNodeItemProvider {
       case OPPPackage.OPP_THING__ALIGNMENT:
       case OPPPackage.OPP_THING__DESCRIPTION:
       case OPPPackage.OPP_THING__COLLECTION:
+      case OPPPackage.OPP_THING__MAIN:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case OPPPackage.OPP_THING__NODES:

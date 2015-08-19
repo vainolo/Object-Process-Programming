@@ -18,6 +18,7 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
   private ConnectionAnchor connectionAnchor;
   private final SmartLabelFigure smartLabel;
   private boolean isMultiple = false;
+  private Object mainProcess;
 
   public OPPProcessFigure() {
     ellipse = createEllipseFigure();
@@ -146,5 +147,4 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
   public void setBounds(Rectangle rect) {
     super.setBounds(rect);
   }
-
 }

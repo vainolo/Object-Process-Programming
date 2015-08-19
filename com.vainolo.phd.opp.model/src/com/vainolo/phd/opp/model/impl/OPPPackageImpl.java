@@ -448,6 +448,15 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getOPPThing_Main() {
+    return (EAttribute)oppThingEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOPPState() {
     return oppStateEClass;
   }
@@ -768,6 +777,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
     oppThingEClass = createEClass(OPP_THING);
     createEAttribute(oppThingEClass, OPP_THING__DESCRIPTION);
     createEAttribute(oppThingEClass, OPP_THING__COLLECTION);
+    createEAttribute(oppThingEClass, OPP_THING__MAIN);
 
     oppStateEClass = createEClass(OPP_STATE);
     createEAttribute(oppStateEClass, OPP_STATE__VALUE);
@@ -892,6 +902,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
     initEClass(oppThingEClass, OPPThing.class, "OPPThing", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPPThing_Description(), ecorePackage.getEString(), "description", null, 0, 1, OPPThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPThing_Collection(), ecorePackage.getEBoolean(), "collection", "false", 1, 1, OPPThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPPThing_Main(), ecorePackage.getEBoolean(), "main", "false", 1, 1, OPPThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppStateEClass, OPPState.class, "OPPState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPPState_Value(), ecorePackage.getEBoolean(), "value", "false", 1, 1, OPPState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
