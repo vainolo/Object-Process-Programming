@@ -47,8 +47,8 @@ public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
    * adding decorations depending on the link kind. An agent link is decorated
    * at the target with black filled {@link OPPCircleDecoration}. An instrument
    * link is decorated at the target with a white filled
-   * {@link OPPCircleDecoration}. A consumption or result link is decorated at the
-   * target with a {@link PolylineDecoration} (which is an arrow). An effect
+   * {@link OPPCircleDecoration}. A consumption or result link is decorated at
+   * the target with a {@link PolylineDecoration} (which is an arrow). An effect
    * link link is decorated at the source and target with a
    * {@link PolylineDecoration}.
    * 
@@ -68,7 +68,6 @@ public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
 
   @Override
   public OPPProceduralLink getModel() {
-    // TODO Auto-generated method stub
     return OPPProceduralLink.class.cast(super.getModel());
   }
 
@@ -82,7 +81,6 @@ public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
       subKindLabel = subKindLabel.substring(1, subKindLabel.length() - 1);
       subKindLabel = subKindLabel.replace(" ", "");
       getFigure().setSubKindLabelText(subKindLabel);
-      // getFigure().getSubkindLabel().setText(subKindLabel);
     } else {
       getFigure().setSubKindLabelText("");
     }

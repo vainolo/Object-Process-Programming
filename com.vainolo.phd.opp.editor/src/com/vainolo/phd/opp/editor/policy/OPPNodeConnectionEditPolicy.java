@@ -17,7 +17,7 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.google.common.base.Preconditions;
-import com.vainolo.phd.opp.editor.command.OPPLinkCreateCommand;
+import com.vainolo.phd.opp.editor.command.OPPCreateLinkCommand;
 import com.vainolo.phd.opp.editor.command.OPPNodeCreateCommand;
 import com.vainolo.phd.opp.editor.factory.OPPIdManager;
 import com.vainolo.phd.opp.editor.factory.OPPStructuralLinkPartFactory;
@@ -74,7 +74,7 @@ public class OPPNodeConnectionEditPolicy extends GraphicalNodeEditPolicy {
       return null;
     }
 
-    OPPLinkCreateCommand result = new OPPLinkCreateCommand();
+    OPPCreateLinkCommand result = new OPPCreateLinkCommand();
     result.setSource((OPPNode) getHost().getModel());
     result.setLink((OPPLink) request.getNewObject());
     result.setOPD(analyzer.findOPD((OPPNode) (OPPNode) getHost().getModel()));
@@ -96,8 +96,8 @@ public class OPPNodeConnectionEditPolicy extends GraphicalNodeEditPolicy {
   @Override
   protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
     // A null command must be returned (and not the usual UnexecutableCommand),
-    // otherwise GEF shows the used a symbol that the connection can be
-    // completed but when the used clicks it is not created.
+    // otherwise GEF shows a symbol that the connection can be completed but
+    // when the used clicks it is not created.
     if(request.getStartCommand() == null || request.getTargetEditPart() instanceof OPPStructuralLinkAggregatorEditPart) {
       return null;
     }
@@ -111,7 +111,7 @@ public class OPPNodeConnectionEditPolicy extends GraphicalNodeEditPolicy {
         return null;
       }
 
-      OPPLinkCreateCommand linkCreateCommand = (OPPLinkCreateCommand) request.getStartCommand();
+      OPPCreateLinkCommand linkCreateCommand = (OPPCreateLinkCommand) request.getStartCommand();
       linkCreateCommand.setTarget((OPPNode) getHost().getModel());
       command = linkCreateCommand;
     }
@@ -181,9 +181,9 @@ public class OPPNodeConnectionEditPolicy extends GraphicalNodeEditPolicy {
    *          the target of the link.
    * @return
    */
-  private OPPLinkCreateCommand createCreateOPMLlinkCreateCommand(OPPNode source, OPPNode target,
+  private OPPCreateLinkCommand createCreateOPMLlinkCreateCommand(OPPNode source, OPPNode target,
       OPPObjectProcessDiagram opd) {
-    OPPLinkCreateCommand command = new OPPLinkCreateCommand();
+    OPPCreateLinkCommand command = new OPPCreateLinkCommand();
     command.setSource(source);
     command.setTarget(target);
     command.setOPD(opd);

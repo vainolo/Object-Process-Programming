@@ -17,7 +17,7 @@ import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
  * @author Arieh "Vainolo" Bibliowicz
  * 
  */
-public class OPPLinkCreateCommand extends Command {
+public class OPPCreateLinkCommand extends Command {
 
   private OPPNode source;
   private OPPNode target;

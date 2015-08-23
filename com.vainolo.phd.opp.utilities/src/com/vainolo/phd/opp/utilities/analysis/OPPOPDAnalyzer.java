@@ -154,7 +154,6 @@ public class OPPOPDAnalyzer {
         }
       }
     }
-    // TODO: add support for links that end at states.
     return false;
   }
 

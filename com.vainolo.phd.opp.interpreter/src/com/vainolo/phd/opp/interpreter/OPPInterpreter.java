@@ -51,8 +51,7 @@ public enum OPPInterpreter {
     try {
       instance.call();
     } catch(Exception e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      logSevere("Unexpected exception: " + e.getMessage());
     }
     logInfo("Finished interpreting {0}.", opdName);
   }

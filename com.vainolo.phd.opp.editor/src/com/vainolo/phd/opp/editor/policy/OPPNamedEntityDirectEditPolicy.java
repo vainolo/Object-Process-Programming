@@ -20,16 +20,16 @@ public class OPPNamedEntityDirectEditPolicy extends DirectEditPolicy {
   protected Command getDirectEditCommand(final DirectEditRequest request) {
     final Object model = getHost().getModel();
     Command c = null;
-    if(OPPNamedElement.class.isInstance(model)) {
+    if(model instanceof OPPNamedElement) {
       OPPNamedElementRenameCommand command = new OPPNamedElementRenameCommand();
       command.setModel((OPPNamedElement) getHost().getModel());
       command.setNewName((String) request.getCellEditor().getValue());
       c = command;
-    } else if(OPPProceduralLink.class.isInstance(model)) {
+    } else if(model instanceof OPPProceduralLink) {
       c = new Command() {
         String oldCenterDecorationString;
         String newCenterDecorationString = (String) request.getCellEditor().getValue();
-        OPPProceduralLink link = OPPProceduralLink.class.cast(model);
+        OPPProceduralLink link = (OPPProceduralLink) model;
 
         @Override
         public void execute() {

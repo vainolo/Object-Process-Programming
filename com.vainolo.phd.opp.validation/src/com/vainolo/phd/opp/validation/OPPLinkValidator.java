@@ -89,31 +89,4 @@ public class OPPLinkValidator {
     }
     return false;
   }
-
-  /**
-   * Validate a full link between two nodes.
-   * 
-   * @param source
-   *          of the link.
-   * @param target
-   *          of the link.
-   * @param link
-   *          that connects the nodes.
-   * @return <code>true</code> if the link is valid, <code>false</code>
-   *         otherwise.
-   */
-  public boolean validateFullConnection(OPPNode source, OPPNode target, OPPLink link) {
-    return true;
-  }
-
-  /**
-   * Validate if the name of the link can be changed to a new name
-   * 
-   * @param link
-   * @param newName
-   * @return
-   */
-  public boolean validateLinkRename(OPPLink link, String newName) {
-    return true;
-  }
 }

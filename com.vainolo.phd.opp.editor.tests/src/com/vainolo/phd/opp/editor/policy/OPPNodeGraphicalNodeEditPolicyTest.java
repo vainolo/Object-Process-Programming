@@ -5,7 +5,7 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.vainolo.phd.opp.editor.command.OPPLinkCreateCommand;
+import com.vainolo.phd.opp.editor.command.OPPCreateLinkCommand;
 import com.vainolo.phd.opp.editor.factory.OPPIdManager;
 import com.vainolo.phd.opp.editor.part.OPPNodeEditPart;
 import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
@@ -65,8 +65,8 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
 
     command = policy.getConnectionCreateCommand(requestMock);
     assertNotNull(command);
-    assertTrue(OPPLinkCreateCommand.class.isInstance(command));
-    OPPLinkCreateCommand linkCreateCommand = OPPLinkCreateCommand.class.cast(command);
+    assertTrue(OPPCreateLinkCommand.class.isInstance(command));
+    OPPCreateLinkCommand linkCreateCommand = OPPCreateLinkCommand.class.cast(command);
     assertEquals(nodeMock, linkCreateCommand.getSource());
     assertEquals(linkMock, linkCreateCommand.getLink());
   }

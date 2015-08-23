@@ -291,7 +291,6 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     public boolean apply(OPPProcess process) {
       for(OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
         if(!isLinkSourceReady(link)) {
-          // TODO: need to take into account object that have no name.
           logFine(PROCESS_NOT_READY, process.getName(), analyzer.getSourceObject(link).getName());
           return false;
         }
