@@ -29,7 +29,7 @@ public class OPPSleepProcessInstance extends OPPAbstractProcessInstance implemen
     logInfo("Sleeping for " + time + " seconds.");
     try {
       Thread.sleep((int) time * 1000);
-    } catch(InterruptedException e) {
+    } catch (InterruptedException e) {
       logFinest("Sleep process interrupted. Returning.");
       return;
     }
@@ -41,13 +41,8 @@ public class OPPSleepProcessInstance extends OPPAbstractProcessInstance implemen
   }
 
   @Override
-  public boolean isReady() {
-    return getArgument("time") != null;
-  }
-
-  @Override
-  public List<OPPParameter> getIncomingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("time", false));
+  public List<OPPParameter> getIncomingParameters() {
+    return Lists.newArrayList(new OPPParameter("time"));
   }
 
 }

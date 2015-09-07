@@ -35,7 +35,7 @@ public class OPPObjectInstanceValueAnalyzer {
    *         <code>false</code> otherwise.
    */
   public boolean isStringLiteral(String value) {
-    if(value.startsWith("\"") || value.startsWith("'"))
+    if (value.startsWith("\"") || value.startsWith("'"))
       return true;
     else
       return false;
@@ -97,12 +97,12 @@ public class OPPObjectInstanceValueAnalyzer {
     String[] indices = literal.split("\\.\\.");
     int start = Integer.parseInt(indices[0]);
     int end = Integer.parseInt(indices[1]);
-    if(start <= end) {
-      for(int i = start; i <= end; i++) {
+    if (start <= end) {
+      for (int i = start; i <= end; i++) {
         collection.add(new BigDecimal(i));
       }
     } else {
-      for(int i = start; i >= end; i--) {
+      for (int i = start; i >= end; i--) {
         collection.add(new BigDecimal(i));
       }
     }
@@ -123,21 +123,21 @@ public class OPPObjectInstanceValueAnalyzer {
     OPPObjectInstance objectInstance = null;
 
     String objectName = object.getName();
-    if(objectName != null && !"".equals(objectName)) {
-      if(isStringLiteral(objectName)) {
+    if (objectName != null && !"".equals(objectName)) {
+      if (isStringLiteral(objectName)) {
         objectInstance = OPPObjectInstance.createFromValue(parseStringLiteral(objectName));
-      } else if(isNumericalLiteral(objectName)) {
+      } else if (isNumericalLiteral(objectName)) {
         objectInstance = OPPObjectInstance.createFromValue(parseNumericalLiteral(objectName));
-      } else if(isCollectionLiteral(objectName)) {
-        objectInstance = OPPObjectInstance.createCollectionInstace();
-        for(BigDecimal value : parseCollectionLiteral(objectName)) {
-          objectInstance.appendCollectionElement(OPPObjectInstance.createFromValue(value));
+      } else if (isCollectionLiteral(objectName)) {
+        objectInstance = OPPObjectInstance.createCompositeInstance();
+        for (BigDecimal value : parseCollectionLiteral(objectName)) {
+          objectInstance.addLastPart(OPPObjectInstance.createFromValue(value));
         }
       }
     } else {
       Collection<OPPState> states = analyzer.findStates(object);
-      for(OPPState state : states) {
-        if(state.isValue()) {
+      for (OPPState state : states) {
+        if (state.isValue()) {
           objectInstance = OPPObjectInstance.createFromValue(state.getName());
         }
       }
@@ -159,14 +159,14 @@ public class OPPObjectInstanceValueAnalyzer {
     logFinest("Calculating value of {0}.", value);
     checkArgument((value != null) && (!"".equals(value)), "Value cannot be null or empty.");
     OPPObjectInstance objectInstance = null;
-    if(isStringLiteral(value)) {
+    if (isStringLiteral(value)) {
       objectInstance = OPPObjectInstance.createFromValue(parseStringLiteral(value));
-    } else if(isNumericalLiteral(value)) {
+    } else if (isNumericalLiteral(value)) {
       objectInstance = OPPObjectInstance.createFromValue(parseNumericalLiteral(value));
-    } else if(isCollectionLiteral(value)) {
-      objectInstance = OPPObjectInstance.createCollectionInstace();
-      for(BigDecimal v : parseCollectionLiteral(value)) {
-        objectInstance.appendCollectionElement(OPPObjectInstance.createFromValue(v));
+    } else if (isCollectionLiteral(value)) {
+      objectInstance = OPPObjectInstance.createCompositeInstance();
+      for (BigDecimal v : parseCollectionLiteral(value)) {
+        objectInstance.addLastPart(OPPObjectInstance.createFromValue(v));
       }
     } else {
       logInfo("Assume this is a string with no enclosing quotes.");
@@ -188,7 +188,7 @@ public class OPPObjectInstanceValueAnalyzer {
    */
   public boolean isObjectNumericalValueInState(String stateName, BigDecimal value) {
     logFinest("Checking numerical state {0} against value {1}.", stateName, value);
-    if(isNumericalLiteral(stateName)) {
+    if (isNumericalLiteral(stateName)) {
       return parseNumericalLiteral(stateName).equals(value);
     } else {
       // state name is a numerical logical expression
@@ -196,7 +196,7 @@ public class OPPObjectInstanceValueAnalyzer {
       // are MANDATORY
       String[] split = stateName.split(" ");
       BigDecimal number = new BigDecimal(split[2]);
-      switch(split[1]) {
+      switch (split[1]) {
       case "<":
         return value.compareTo(number) == -1;
       case "<=":
@@ -234,12 +234,11 @@ public class OPPObjectInstanceValueAnalyzer {
    *         false</code> otherwise.
    */
   public boolean isObjectInstanceInState(OPPObjectInstance instance, OPPState state) {
-    if(instance == null) {
+    if (instance == null) {
       return false;
     }
-    if(isStringLiteral(state.getName()) || state.getName().matches("[a-zA-Z]+")) {
-      return (parseStringLiteral(state.getName()).equals(instance.getValue()) || state.getName().equals(
-          instance.getValue()));
+    if (isStringLiteral(state.getName()) || state.getName().matches("[a-zA-Z]+")) {
+      return (parseStringLiteral(state.getName()).equals(instance.getValue()) || state.getName().equals(instance.getValue()));
     } else {
       return isObjectNumericalValueInState(state.getName(), BigDecimal.class.cast(instance.getValue()));
     }

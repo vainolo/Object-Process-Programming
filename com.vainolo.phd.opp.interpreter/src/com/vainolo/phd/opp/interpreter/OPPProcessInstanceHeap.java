@@ -15,7 +15,7 @@ public class OPPProcessInstanceHeap {
 
   public void addArgument(String name, OPPObjectInstance value) {
     logFinest("Setting argument {0} with value {1}.", name, value);
-    if(value == null)
+    if (value == null)
       return;
     arguments.put(name.toLowerCase(), OPPObjectInstance.createFromExistingInstance(value));
   }

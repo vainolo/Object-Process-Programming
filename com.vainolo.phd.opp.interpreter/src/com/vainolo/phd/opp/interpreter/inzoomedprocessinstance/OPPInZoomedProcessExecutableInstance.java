@@ -5,12 +5,14 @@ import static com.vainolo.phd.opp.utilities.OPPStrings.*;
 import static com.google.common.base.Preconditions.*;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
@@ -42,7 +44,7 @@ import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPState;
 
 /**
- * Executable instance used for a {@link OPMObjectProcessDiagram} containing an
+ * Executable instance used for a {@link OPPObjectProcessDiagram} containing an
  * in-zoomed process.
  * 
  * @author Arieh "Vainolo" Bibliowicz
@@ -78,8 +80,6 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
     this.heap = new OPPInZoomedProcessInstanceHeap(valueAnalyzer, analyzer);
     this.argumentHandler = new OPPInZoomedProcessArgumentHandler(analyzer, heap);
-    // this.storer = OPMInZoomedProcessResultStorer.createResultStorer(analyzer,
-    // executionState, heap);
     this.heapObserver = new OPMHeapObserver();
     this.heap.addObserver(heapObserver);
     this.isReadyPred = new IsProcessReady();
@@ -106,74 +106,77 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   @Override
   protected void executing() throws Exception {
     logInfo(OPPStrings.STARTING_EXECUTION, getName());
-    final Map<OPPProcessInstance, OPPProcess> mapping = Maps.newHashMap();
+    final Map<OPPProcessInstance, OPPProcess> instance2ProcessMap = Maps.newHashMap();
     heap.initializeVariablesWithLiterals(analyzer.getInZoomedProcess(getOpd()));
 
     Set<OPPProcess> P_init = executionAnalyzer.findInitialProcesses(opdDag);
     Set<OPPProcess> P_waiting = Sets.newHashSet(Sets.filter(P_init, notReadyAndNotSkipPred));
-    Set<OPPProcess> P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_init, isReadyAndNotSkipPred),
-        findInvokedProcesses()));
+    Set<OPPProcess> P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_init, isReadyAndNotSkipPred), findInvokedProcesses()));
     Set<OPPProcessInstance> P_executing = Sets.newHashSet();
 
-    if(P_waiting.size() == 0 && P_ready.size() == 0) {
+    if (P_waiting.size() == 0 && P_ready.size() == 0) {
       logInfo("Could not find anything to execute in process {0}. Exiting.", getName());
       return;
     }
 
-    while(Sets.union(P_ready, P_executing).size() > 0) {
-      logInfo("Starting execution loop, {0} waiting, {1} ready, and {2} executing .", P_waiting.size(), P_ready.size(),
-          P_executing.size());
+    while (Sets.union(P_ready, P_executing).size() > 0) {
+      logInfo("Starting execution loop, {0} waiting, {1} ready, and {2} executing .", P_waiting.size(), P_ready.size(), P_executing.size());
       heapObserver.clear();
-      for(OPPProcess readyProcess : P_ready) {
+      for (OPPProcess readyProcess : P_ready) {
         OPPProcessInstance readyInstance = OPPProcessInstanceFactory.createExecutableInstance(readyProcess);
         argumentHandler.loadInstanceArguments(readyProcess, readyInstance);
-        mapping.put(readyInstance, readyProcess);
+        instance2ProcessMap.put(readyInstance, readyProcess);
         completionService.submit(readyInstance);
         P_executing.add(readyInstance);
       }
 
       Future<OPPProcessExecutionResult> executionResult = completionService.take();
-      OPPProcessInstance instance = executionResult.get().getInstance();
-      P_executing.remove(instance);
-      argumentHandler.extractResultsToVariables(mapping.get(instance), instance);
+      OPPProcessInstance executedInstance = executionResult.get().getInstance();
+      P_executing.remove(executedInstance);
+      argumentHandler.extractResultsToVariables(instance2ProcessMap.get(executedInstance), executedInstance);
 
-      Set<OPPProcess> P_executingProcesses = Sets.newHashSet(Collections2.transform(P_executing,
-          new Function<OPPProcessInstance, OPPProcess>() {
-            @Override
-            public OPPProcess apply(OPPProcessInstance input) {
-              return mapping.get(input);
-            }
-          }));
-      P_waiting = calculateNewWaitingProcessesSet(mapping.get(instance), P_waiting, P_executingProcesses);
+      Set<OPPProcess> P_executingProcesses2 = P_executing.stream().map(p -> instance2ProcessMap.get(p)).collect(Collectors.toSet());
+      Set<OPPProcess> P_executingProcesses = Sets.newHashSet(Collections2.transform(P_executing, new Function<OPPProcessInstance, OPPProcess>() {
+        @Override
+        public OPPProcess apply(OPPProcessInstance input) {
+          return instance2ProcessMap.get(input);
+        }
+      }));
+
+      if (P_executingProcesses.containsAll(P_executingProcesses2) && P_executingProcesses2.containsAll(P_executingProcesses)) {
+        logInfo("P_executingProcesses are equal");
+      } else {
+        logInfo("P_ExecutingProcesses are not equal!!!!!!!");
+      }
+
+      P_waiting = calculateNewWaitingProcessesSet(instance2ProcessMap.get(executedInstance), P_waiting, P_executingProcesses);
       P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_waiting, isReadyPred), findInvokedProcesses()));
       P_waiting = Sets.newHashSet(Sets.difference(P_waiting, P_ready));
-      logInfo("Finished execution loop, {0} waiting, {1} ready, and {2} executing.", P_waiting.size(), P_ready.size(),
-          P_executing.size());
-      mapping.remove(instance);
+      logInfo("Finished execution loop, {0} waiting, {1} ready, and {2} executing.", P_waiting.size(), P_ready.size(), P_executing.size());
+      instance2ProcessMap.remove(executedInstance);
     }
 
-    if(P_waiting.size() > 0) {
+    if (P_waiting.size() > 0) {
       logInfo("Finished execution of {0} with waiting processes.", getName());
     }
 
   }
 
-  private Set<OPPProcess> calculateNewWaitingProcessesSet(OPPProcess process, Set<OPPProcess> P_waiting,
-      Set<OPPProcess> P_executing) {
+  private Set<OPPProcess> calculateNewWaitingProcessesSet(OPPProcess process, Set<OPPProcess> P_waiting, Set<OPPProcess> P_executing) {
     Set<OPPProcess> successors = executionAnalyzer.findFollowingProcesses(opdDag, process);
     Set<OPPProcess> P_waitingLocal = Sets.newHashSet(P_waiting);
-    while(successors.size() > 0) {
-      for(OPPProcess succ : Sets.filter(successors, Predicates.not(mustSkipPred))) {
+    while (successors.size() > 0) {
+      for (OPPProcess succ : Sets.filter(successors, Predicates.not(mustSkipPred))) {
         Set<OPPProcess> pred = executionAnalyzer.findRequiredProcesses(opdDag, succ);
-        if(Sets.intersection(Sets.union(P_waiting, P_executing), pred).size() == 0) {
+        if (Sets.intersection(Sets.union(P_waiting, P_executing), pred).size() == 0) {
           P_waitingLocal.add(succ);
         }
       }
 
       Set<OPPProcess> newSuccessors = Sets.newHashSet();
-      for(OPPProcess skippedSucc : Sets.filter(successors, mustSkipPred)) {
+      for (OPPProcess skippedSucc : Sets.filter(successors, mustSkipPred)) {
         Set<OPPProcess> pred = executionAnalyzer.findRequiredProcesses(opdDag, skippedSucc);
-        if(Sets.intersection(Sets.union(P_waiting, P_executing), pred).size() == 0) {
+        if (Sets.intersection(Sets.union(P_waiting, P_executing), pred).size() == 0) {
           newSuccessors.addAll(executionAnalyzer.findFollowingProcesses(opdDag, skippedSucc));
         }
       }
@@ -184,7 +187,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
   private Set<OPPProcess> findInvokedProcesses() {
     Set<OPPProcess> invokedProcesses = Sets.newHashSet();
-    for(OPPObject changedObject : heapObserver.getObjectsWithNewValue()) {
+    for (OPPObject changedObject : heapObserver.getObjectsWithNewValue()) {
       invokedProcesses.addAll(findProcessesToInvokeAfterObjectHasChanged(changedObject));
     }
     invokedProcesses = Sets.filter(invokedProcesses, isReadyAndNotSkipPred);
@@ -197,8 +200,8 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     checkNotNull(value, "Changed object cannot be null.");
     Set<OPPProcess> ret = Sets.newHashSet();
     Collection<OPPProceduralLink> outgoingEventLinks = analyzer.findOutgoingEventLinks(object);
-    for(OPPProceduralLink eventLink : outgoingEventLinks) {
-      if(objectValueTriggersEvent(eventLink, value)) {
+    for (OPPProceduralLink eventLink : outgoingEventLinks) {
+      if (objectValueTriggersEvent(eventLink, value)) {
         ret.add(analyzer.getProcess(eventLink));
       }
     }
@@ -206,27 +209,28 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   }
 
   private boolean objectValueTriggersEvent(OPPProceduralLink link, OPPObjectInstance objectInstance) {
-    if(OPPObject.class.isInstance(link.getSource())) {
+    if (OPPObject.class.isInstance(link.getSource())) {
       return true;
-    } else if(OPPState.class.isInstance(link.getSource())) {
+    } else if (OPPState.class.isInstance(link.getSource())) {
       OPPState state = OPPState.class.cast(link.getSource());
-      if(valueAnalyzer.isObjectInstanceInState(objectInstance, state)) {
+      if (valueAnalyzer.isObjectInstanceInState(objectInstance, state)) {
         return true;
       }
     }
     return false;
   }
 
-  @Override
-  public boolean isReady() {
-    Collection<OPPObject> parameters = analyzer.findIncomingParameters(getOpd());
-    for(OPPObject object : parameters) {
-      if(getArgument(object.getName()) == null) {
-        return false;
-      }
-    }
-    return true;
-  }
+  // @Override
+  // public boolean isReady() {
+  // Collection<OPPObject> parameters =
+  // analyzer.findIncomingParameters(getOpd());
+  // for (OPPObject object : parameters) {
+  // if (getArgument(object.getName()) == null) {
+  // return false;
+  // }
+  // }
+  // return true;
+  // }
 
   /**
    * Get the main in-zoomed {@link OPPProcess} of the
@@ -248,21 +252,21 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   }
 
   @Override
-  public List<OPPParameter> getIncomingParameterNames() {
+  public List<OPPParameter> getIncomingParameters() {
     List<OPPParameter> incomingParameters = Lists.newArrayList();
     Collection<OPPObject> parameters = analyzer.findIncomingParameters(getOpd());
-    for(OPPObject object : parameters) {
-      incomingParameters.add(new OPPParameter(object.getName(), object.isCollection()));
+    for (OPPObject object : parameters) {
+      incomingParameters.add(new OPPParameter(object.getName()));
     }
     return incomingParameters;
   }
 
   @Override
-  public List<OPPParameter> getOutgoingParameterNames() {
+  public List<OPPParameter> getOutgoingParameters() {
     List<OPPParameter> outgoingParameters = Lists.newArrayList();
     Collection<OPPObject> parameters = analyzer.findOutgoingParameters(getOpd());
-    for(OPPObject object : parameters) {
-      outgoingParameters.add(new OPPParameter(object.getName(), object.isCollection()));
+    for (OPPObject object : parameters) {
+      outgoingParameters.add(new OPPParameter(object.getName()));
     }
     return outgoingParameters;
   }
@@ -289,8 +293,8 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   class IsProcessReady extends ExecutablePredicateCommons implements Predicate<OPPProcess> {
     @Override
     public boolean apply(OPPProcess process) {
-      for(OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
-        if(!isLinkSourceReady(link)) {
+      for (OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
+        if (!isLinkSourceReady(link)) {
           logFine(PROCESS_NOT_READY, process.getName(), analyzer.getSourceObject(link).getName());
           return false;
         }
@@ -302,8 +306,8 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   class mustSkipProcess extends ExecutablePredicateCommons implements Predicate<OPPProcess> {
     @Override
     public boolean apply(OPPProcess process) {
-      for(OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
-        if(link.getSubKinds().contains(OPPConstants.OPP_CONDITIONAL_LINK_SUBKIND) && !isLinkSourceReady(link)) {
+      for (OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
+        if (link.getSubKinds().contains(OPPConstants.OPP_CONDITIONAL_LINK_SUBKIND) && !isLinkSourceReady(link)) {
           return true;
         }
       }
@@ -314,7 +318,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   class ExecutablePredicateCommons {
     public boolean isObjectReady(OPPObject object) {
       OPPObjectInstance variable = heap.getVariable(object);
-      if(variable == null) {
+      if (variable == null) {
         return false;
       } else {
         return true;
@@ -324,7 +328,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     public boolean isObjectInState(OPPState state) {
       OPPObject sourceObject = analyzer.getObject(state);
       OPPObjectInstance variable = heap.getVariable(sourceObject);
-      if(!valueAnalyzer.isObjectInstanceInState(variable, state)) {
+      if (!valueAnalyzer.isObjectInstanceInState(variable, state)) {
         return false;
       } else {
         return true;
@@ -333,9 +337,9 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     }
 
     public boolean isLinkSourceReady(OPPProceduralLink link) {
-      if(analyzer.isSourceObject(link)) {
+      if (analyzer.isSourceObject(link)) {
         return isObjectReady(analyzer.getSourceObject(link));
-      } else if(analyzer.isSourceState(link)) {
+      } else if (analyzer.isSourceState(link)) {
         return isObjectInState(analyzer.getSourceState(link));
       } else {
         throw new IllegalStateException("Process has incoming links with a source that is not an object.");

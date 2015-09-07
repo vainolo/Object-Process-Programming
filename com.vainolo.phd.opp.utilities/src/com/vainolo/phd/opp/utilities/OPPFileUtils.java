@@ -6,7 +6,7 @@
 package com.vainolo.phd.opp.utilities;
 
 import static com.vainolo.phd.opp.utilities.OPPLogger.logInfo;
-import static com.vainolo.phd.opp.utilities.OPPLogger.logWarning;
+import static com.vainolo.phd.opp.utilities.OPPLogger.logSevere;
 
 import java.io.IOException;
 
@@ -28,24 +28,22 @@ public class OPPFileUtils {
   public static OPPObjectProcessDiagram loadOPPFile(String uri) {
     OPPObjectProcessDiagram opd;
     ResourceSet resourceSet = new ResourceSetImpl();
-    resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-        .put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
+    resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
     Resource oppResource = resourceSet.createResource(URI.createURI(uri));
     try {
       oppResource.load(null);
       opd = (OPPObjectProcessDiagram) oppResource.getContents().get(0);
-    } catch(final IOException e) {
-      logWarning("OPD File " + uri + " could not be loaded. Please check the path.");
-      logWarning("Exception thrown: " + e);
+    } catch (final IOException e) {
+      logSevere("OPD File " + uri + " could not be loaded. Please check the path.");
+      logSevere("Exception thrown: " + e);
       opd = null;
     }
 
     return opd;
   }
 
-  public static void createOPPFile(IFile opdFile, String name, OPPObjectProcessDiagramKind kind, boolean isObject,
-      boolean isProcess) throws IOException {
-    if(opdFile.exists()) {
+  public static void createOPPFile(IFile opdFile, String name, OPPObjectProcessDiagramKind kind, boolean isObject, boolean isProcess) throws IOException {
+    if (opdFile.exists()) {
       logInfo("Tried to create file that already exists.");
       logInfo("Filename: " + opdFile.getFullPath());
       throw new IllegalArgumentException("Tried to create a file that already exists: " + opdFile.getName());
@@ -58,7 +56,7 @@ public class OPPFileUtils {
     opd.setName(name);
     opd.setKind(kind);
     resource.getContents().add(opd);
-    switch(kind) {
+    switch (kind) {
     case COMPOUND:
       createInitialOPPProcessNode(opd, name);
       break;
@@ -90,77 +88,4 @@ public class OPPFileUtils {
     opd.getNodes().add(object);
     opd.setLastKnownUsedId(1);
   }
-
-  // public static OPMObjectProcessDiagram loadOPDFile(String uri) {
-  // OPMObjectProcessDiagram opd;
-  // final ResourceSet resourceSet = new ResourceSetImpl();
-  // resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-  // .put(Resource.Factory.Registry.DEFAULT_EXTENSION, new
-  // XMIResourceFactoryImpl());
-  // final Resource opdResource =
-  // resourceSet.createResource(URI.createURI(uri));
-  // try {
-  // opdResource.load(null);
-  // opd = (OPMObjectProcessDiagram) opdResource.getContents().get(0);
-  // } catch(final IOException e) {
-  // logWarning("OPD File " + uri +
-  // " could not be loaded. Please check the path.");
-  // logWarning("Exception thrown: " + e);
-  // opd = null;
-  // }
-  //
-  // return opd;
-  // }
-  //
-  // public static void createOPDFile2(IFile opdFile, String name,
-  // OPMObjectProcessDiagramKind kind, boolean isObject,
-  // boolean isProcess) throws IOException {
-  // if(opdFile.exists()) {
-  // logInfo("Tried to create file that already exists.");
-  // logInfo("Filename: " + opdFile.getFullPath());
-  // throw new
-  // IllegalArgumentException("Tried to create a file that already exists: " +
-  // opdFile.getName());
-  // }
-  //
-  // final ResourceSet resourceSet = new ResourceSetImpl();
-  // final Resource resource =
-  // resourceSet.createResource(URI.createURI(opdFile.getLocationURI().toString()));
-  // OPMObjectProcessDiagram opd =
-  // OPMFactory.eINSTANCE.createOPMObjectProcessDiagram();
-  // opd.setId(0);
-  // opd.setName(name);
-  // opd.setKind(kind);
-  // resource.getContents().add(opd);
-  // switch(kind) {
-  // case COMPOUND:
-  // createInitialProcessNode(opd);
-  // break;
-  // case UNFOLDED:
-  // createInitialObjectNode(opd, name);
-  // break;
-  // case SYSTEM:
-  // break;
-  // }
-  // resource.save(null);
-  // }
-  //
-  // private static void createInitialProcessNode(OPMObjectProcessDiagram opd) {
-  // OPMProcess process = OPMFactory.eINSTANCE.createOPMProcess();
-  // process.setId(1);
-  // process.setName("");
-  // process.setConstraints(new Rectangle(200, 100, 100, 100));
-  // opd.getNodes().add(process);
-  // opd.setLastKnownUsedId(1);
-  // }
-  //
-  // private static void createInitialObjectNode(OPMObjectProcessDiagram opd,
-  // String name) {
-  // OPMObject object = OPMFactory.eINSTANCE.createOPMObject();
-  // object.setId(1);
-  // object.setName(name);
-  // object.setConstraints(new Rectangle(200, 100, 100, 100));
-  // opd.getNodes().add(object);
-  // opd.setLastKnownUsedId(1);
-  // }
 }

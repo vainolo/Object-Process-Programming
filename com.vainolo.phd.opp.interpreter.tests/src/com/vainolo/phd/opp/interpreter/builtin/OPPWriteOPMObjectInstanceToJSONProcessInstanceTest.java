@@ -32,7 +32,7 @@ public class OPPWriteOPMObjectInstanceToJSONProcessInstanceTest {
   @Test
   public void test_execute_intElement() throws Exception {
     OPPObjectInstance opmObject = OPPObjectInstance.createCompositeInstance();
-    opmObject.addCompositePart("int", OPPObjectInstance.createFromValue(new BigDecimal(3)));
+    opmObject.setPart("int", OPPObjectInstance.createFromValue(new BigDecimal(3)));
     OPPObjectInstance result = writeJson(opmObject);
     JsonObject jsonObject = JsonObject.readFrom(result.getStringValue());
     assertEquals(3, jsonObject.get("int").asInt());
@@ -41,7 +41,7 @@ public class OPPWriteOPMObjectInstanceToJSONProcessInstanceTest {
   @Test
   public void test_execute_doubleElement() throws Exception {
     OPPObjectInstance opmObject = OPPObjectInstance.createCompositeInstance();
-    opmObject.addCompositePart("double", OPPObjectInstance.createFromValue(new BigDecimal(5.47)));
+    opmObject.setPart("double", OPPObjectInstance.createFromValue(new BigDecimal(5.47)));
     OPPObjectInstance result = writeJson(opmObject);
     JsonObject jsonObject = JsonObject.readFrom(result.getStringValue());
     assertEquals(5.47, jsonObject.get("double").asDouble(), 0.00001);
@@ -50,7 +50,7 @@ public class OPPWriteOPMObjectInstanceToJSONProcessInstanceTest {
   @Test
   public void test_execute_stringElement() throws Exception {
     OPPObjectInstance opmObject = OPPObjectInstance.createCompositeInstance();
-    opmObject.addCompositePart("name", OPPObjectInstance.createFromValue("hello"));
+    opmObject.setPart("name", OPPObjectInstance.createFromValue("hello"));
     OPPObjectInstance result = writeJson(opmObject);
     JsonObject jsonObject = JsonObject.readFrom(result.getStringValue());
     assertEquals("hello", jsonObject.get("name").asString());
@@ -59,7 +59,7 @@ public class OPPWriteOPMObjectInstanceToJSONProcessInstanceTest {
   @Test
   public void test_execute_stateElement() throws Exception {
     OPPObjectInstance opmObject = OPPObjectInstance.createCompositeInstance();
-    opmObject.addCompositePart("bool", OPPObjectInstance.createFromValue("true"));
+    opmObject.setPart("bool", OPPObjectInstance.createFromValue("true"));
     OPPObjectInstance result = writeJson(opmObject);
     JsonObject jsonObject = JsonObject.readFrom(result.getStringValue());
     assertEquals("true", jsonObject.get("bool").asString());
@@ -68,12 +68,12 @@ public class OPPWriteOPMObjectInstanceToJSONProcessInstanceTest {
   @Test
   public void text_execute_multipleElements() throws Exception {
     OPPObjectInstance opmObject = OPPObjectInstance.createCompositeInstance();
-    opmObject.addCompositePart("a", OPPObjectInstance.createFromValue(new BigDecimal(5)));
+    opmObject.setPart("a", OPPObjectInstance.createFromValue(new BigDecimal(5)));
     OPPObjectInstance part = OPPObjectInstance.createCompositeInstance();
-    part.addCompositePart("b1", OPPObjectInstance.createFromValue("hello"));
-    part.addCompositePart("b2", OPPObjectInstance.createFromValue(new BigDecimal(5.43)));
-    opmObject.addCompositePart("b", part);
-    opmObject.addCompositePart("c", OPPObjectInstance.createFromValue("one"));
+    part.setPart("b1", OPPObjectInstance.createFromValue("hello"));
+    part.setPart("b2", OPPObjectInstance.createFromValue(new BigDecimal(5.43)));
+    opmObject.setPart("b", part);
+    opmObject.setPart("c", OPPObjectInstance.createFromValue("one"));
     OPPObjectInstance result = writeJson(opmObject);
     JsonObject json = JsonObject.readFrom(result.getStringValue());
     assertEquals(5, json.get("a").asInt());

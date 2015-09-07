@@ -28,12 +28,7 @@ public class OPPOutputProcessInstance extends OPPAbstractProcessInstance impleme
   }
 
   @Override
-  public boolean isReady() {
-    return getArgument("text") != null;
-  }
-
-  @Override
-  public List<OPPParameter> getIncomingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("text", false));
+  public List<OPPParameter> getIncomingParameters() {
+    return Lists.newArrayList(new OPPParameter("text"));
   }
 }

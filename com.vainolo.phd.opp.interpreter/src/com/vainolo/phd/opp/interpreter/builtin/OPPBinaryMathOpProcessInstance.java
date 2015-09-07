@@ -24,7 +24,7 @@ public class OPPBinaryMathOpProcessInstance extends OPPAbstractProcessInstance {
     BigDecimal a = getArgument("a").getNumericalValue();
     BigDecimal b = getArgument("b").getNumericalValue();
     BigDecimal c = null;
-    switch(opType) {
+    switch (opType) {
     case ADD:
       c = a.add(b);
       break;
@@ -51,17 +51,33 @@ public class OPPBinaryMathOpProcessInstance extends OPPAbstractProcessInstance {
   }
 
   @Override
-  public boolean isReady() {
-    return (getArgument("a") != null) && (getArgument("b") != null);
+  public List<OPPParameter> getIncomingParameters() {
+    return Lists.newArrayList(new OPPParameter("a"), new OPPParameter("b"));
   }
 
   @Override
-  public List<OPPParameter> getIncomingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("a", false), new OPPParameter("b", false));
+  public List<OPPParameter> getOutgoingParameters() {
+    return Lists.newArrayList(new OPPParameter("c"));
   }
 
-  @Override
-  public List<OPPParameter> getOutgoingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("c", false));
+  public static enum OPPBinaryMathOpType {
+    ADD, SUBS, MULT, DIV, POW;
+
+    public String getName() {
+      switch (this) {
+      case ADD:
+        return "Add";
+      case SUBS:
+        return "Subtract";
+      case MULT:
+        return "Multiply";
+      case DIV:
+        return "Divide";
+      case POW:
+        return "Power";
+      }
+      throw new IllegalStateException("This should NEVER happen!");
+    }
   }
+
 }

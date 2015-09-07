@@ -10,8 +10,6 @@ import static com.google.common.base.Preconditions.*;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.UUID;
@@ -22,10 +20,8 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
 
 /**
- * And instance of an OPM Object. An OPM object can have two primary constructs:
- * it either has a value or is composite. Values can be {@link String},
- * {@link BigDecimal}, or a state, which is treated pretty similarly to a
- * string.
+ * And instance of an OPM Object. An OPM object can have two primary constructs: it either has a value or is composite.
+ * Values can be {@link String}, {@link BigDecimal}, or a state, which is treated pretty similarly to a string.
  * 
  * @author Arieh 'Vainolo' Bibliowicz
  * 
@@ -33,62 +29,67 @@ import com.google.common.collect.Maps;
 public class OPPObjectInstance {
 
   private Object value = null;
-  private Map<String, OPPObjectInstance> parts = Maps.newHashMap();
-  // private List<OPMObjectInstance> collectionValues = Lists.newArrayList();
-  private SortedMap<Integer, OPPObjectInstance> collectionValues = Maps.newTreeMap();
-  private BiMap<String, Integer> collectionNameToIndexMapping = HashBiMap.create();
-  public final InstanceType type;
+  private SortedMap<Integer, OPPObjectInstance> compositeValues = Maps.newTreeMap();
+  private BiMap<String, Integer> compositeKeyToIndexMapping = HashBiMap.create();
+  public final InstanceKind kind;
+  private UUID id;
 
-  private OPPObjectInstance(InstanceType type) {
-    this.type = type;
+  private OPPObjectInstance(InstanceKind type) {
+    this.kind = type;
+    this.id = UUID.randomUUID();
+  }
+
+  public String getId() {
+    return id.toString();
   }
 
   // Creation
   public static OPPObjectInstance createCompositeInstance() {
-    return new OPPObjectInstance(InstanceType.COMPOSITE);
-  }
-
-  public static OPPObjectInstance createCollectionInstace() {
-    return new OPPObjectInstance(InstanceType.COLLECTION);
+    return new OPPObjectInstance(InstanceKind.COMPOSITE);
   }
 
   public static OPPObjectInstance createFromValue(BigDecimal decimalValue) {
     Preconditions.checkNotNull(decimalValue, "Value cannot be null.");
-    OPPObjectInstance instance = new OPPObjectInstance(InstanceType.NUMERICAL);
+    OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.NUMERICAL);
     instance.setValue(decimalValue);
     return instance;
   }
 
   public static OPPObjectInstance createFromValue(String stringValue) {
     Preconditions.checkNotNull(stringValue, "Value cannot be null.");
-    OPPObjectInstance instance = new OPPObjectInstance(InstanceType.STRING);
+    OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.STRING);
     instance.setValue(stringValue);
+    return instance;
+  }
+
+  public static OPPObjectInstance createFromValue(Object object) {
+    Preconditions.checkNotNull(object);
+    OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.JAVA_OBJECT);
+    instance.setValue(object);
     return instance;
   }
 
   public static OPPObjectInstance createFromExistingInstance(OPPObjectInstance existingInstance) {
     Preconditions.checkNotNull(existingInstance, "Existing instance cannot be null.");
     OPPObjectInstance newInstance = null;
-    switch(existingInstance.type) {
+    switch (existingInstance.kind) {
     case NUMERICAL:
       newInstance = createFromValue(existingInstance.getNumericalValue());
       break;
     case STRING:
       newInstance = createFromValue(existingInstance.getStringValue());
       break;
+    case JAVA_OBJECT:
+      newInstance = createFromValue(existingInstance.getValue());
+      break;
     case COMPOSITE:
       newInstance = createCompositeInstance();
-      for(Entry<String, OPPObjectInstance> part : existingInstance.getCompositeParts()) {
-        newInstance.addCompositePart(part.getKey(), createFromExistingInstance(part.getValue()));
+      for (Integer index : existingInstance.compositeValues.keySet()) {
+        newInstance.compositeValues.put(index, existingInstance.compositeValues.get(index));
+        newInstance.compositeKeyToIndexMapping.inverse().put(index, existingInstance.compositeKeyToIndexMapping.inverse().get(index));
       }
+    default:
       break;
-    case COLLECTION:
-      newInstance = createCollectionInstace();
-      for(Integer index : existingInstance.collectionValues.keySet()) {
-        newInstance.collectionValues.put(index, existingInstance.collectionValues.get(index));
-        newInstance.collectionNameToIndexMapping.inverse().put(index,
-            existingInstance.collectionNameToIndexMapping.inverse().get(index));
-      }
     }
 
     return newInstance;
@@ -109,10 +110,10 @@ public class OPPObjectInstance {
 
   public String getStringValue() {
     checkTypeForValueOnlyOperations();
-    if(InstanceType.STRING.equals(type)) {
-      return String.class.cast(getValue());
-    } else if(InstanceType.NUMERICAL.equals(type)) {
-      return BigDecimal.class.cast(getValue()).toString();
+    if (InstanceKind.STRING.equals(kind)) {
+      return (String) getValue();
+    } else if (InstanceKind.NUMERICAL.equals(kind)) {
+      return ((BigDecimal) getValue()).toString();
     } else {
       throw new IllegalStateException("Cannot fetch value of an instance that is not a value");
     }
@@ -120,9 +121,9 @@ public class OPPObjectInstance {
 
   public BigDecimal getNumericalValue() {
     checkTypeForValueOnlyOperations();
-    if(InstanceType.STRING.equals(type)) {
+    if (InstanceKind.STRING.equals(kind)) {
       return new BigDecimal(String.class.cast(getValue()));
-    } else if(InstanceType.NUMERICAL.equals(type)) {
+    } else if (InstanceKind.NUMERICAL.equals(kind)) {
       return BigDecimal.class.cast(getValue());
     } else {
       throw new IllegalStateException("Cannot fetch value of an instance that is not a value");
@@ -133,116 +134,126 @@ public class OPPObjectInstance {
     return value != null;
   }
 
-  // Composite
-  public void addCompositePart(String name, OPPObjectInstance part) {
+  // Compound
+  public void addFirstPart(OPPObjectInstance value) {
     checkTypeForCompositeOnlyOperations();
-    checkNotNull(name);
-    checkNotNull(part);
-    parts.put(name, part);
+    checkNotNull(value, "Cannot append a null element to a collection.");
+    Integer firstKey = 0;
+    if (compositeValues.size() > 0) {
+      firstKey = compositeValues.firstKey();
+    }
+    int newKey = firstKey - 1;
+    compositeValues.put(newKey, value);
+    compositeKeyToIndexMapping.put(UUID.randomUUID().toString(), newKey);
   }
 
-  public OPPObjectInstance getCompositePart(String name) {
+  public void addLastPart(OPPObjectInstance value) {
     checkTypeForCompositeOnlyOperations();
-    checkNotNull(name, "Part name cannot be null");
-    checkArgument(!"".equals(name), "Part name cannot be empty");
-    return parts.get(name);
-  }
-
-  public Set<Entry<String, OPPObjectInstance>> getCompositeParts() {
-    checkTypeForCompositeOnlyOperations();
-    return Collections.unmodifiableSet(parts.entrySet());
-  }
-
-  // Collection
-  public int appendCollectionElement(OPPObjectInstance value) {
-    checkTypeForCollectionOnlyOperations();
     checkNotNull(value, "Cannot append a null element to a collection.");
     Integer lastKey = 0;
-    if(collectionValues.size() > 0) {
-      lastKey = collectionValues.lastKey();
+    if (compositeValues.size() > 0) {
+      lastKey = compositeValues.lastKey();
     }
     int newKey = lastKey + 1;
-    collectionValues.put(newKey, value);
-    collectionNameToIndexMapping.put(UUID.randomUUID().toString(), newKey);
-    return newKey;
+    compositeValues.put(newKey, value);
+    compositeKeyToIndexMapping.put(UUID.randomUUID().toString(), newKey);
   }
 
-  public void putCollectionElement(String name, OPPObjectInstance value) {
-    checkTypeForCollectionOnlyOperations();
+  public void setPart(String name, OPPObjectInstance value) {
+    checkTypeForCompositeOnlyOperations();
     checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
     checkNotNull(value, "Cannot put a null element to a collection.");
-    if(collectionNameToIndexMapping.containsKey(name)) {
-      collectionValues.remove(collectionNameToIndexMapping.get(name));
-      collectionNameToIndexMapping.remove(name);
+    if (compositeKeyToIndexMapping.containsKey(name)) {
+      compositeValues.remove(compositeKeyToIndexMapping.get(name));
+      compositeKeyToIndexMapping.remove(name);
     }
-    int index = appendCollectionElement(value);
-    collectionNameToIndexMapping.inverse().remove(index);
-    collectionNameToIndexMapping.put(name, index);
-  }
-
-  public void putCollectionElementAtIndex(int index, OPPObjectInstance value) {
-    checkTypeForCollectionOnlyOperations();
-    checkNotNull(value, "Cannot insert a null element to a collection.");
-    if(collectionValues.containsKey(index)) {
-      collectionValues.remove(index);
-      collectionNameToIndexMapping.inverse().remove(index);
+    int lastKey = 0;
+    if (compositeValues.size() > 0) {
+      lastKey = compositeValues.lastKey();
     }
-    collectionValues.put(index, value);
-    collectionNameToIndexMapping.put(UUID.randomUUID().toString(), index);
-
+    int newKey = lastKey + 1;
+    compositeValues.put(newKey, value);
+    compositeKeyToIndexMapping.put(name, newKey);
   }
 
-  public OPPObjectInstance getCollectionElement(String name) {
-    checkTypeForCollectionOnlyOperations();
-    checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
-    checkState(collectionNameToIndexMapping.containsKey(name), "Collection does contain a value at index %s.", name);
-    return collectionValues.get(collectionNameToIndexMapping.get(name));
+  public OPPObjectInstance getPart(String key) {
+    checkTypeForCompositeOnlyOperations();
+    checkState((key != null) && (!"".equals(key)), "Key cannot be null or empty.");
+    return compositeValues.get(compositeKeyToIndexMapping.get(key));
   }
 
-  public OPPObjectInstance getCollectionElementAtIndex(int index) {
-    checkTypeForCollectionOnlyOperations();
-    return collectionValues.get(index);
+  public OPPObjectInstance getFirstPart() {
+    checkTypeForCompositeOnlyOperations();
+    return compositeValues.get(compositeValues.firstKey());
   }
 
-  public OPPObjectInstance getCollectionFirstElement() {
-    checkTypeForCollectionOnlyOperations();
-    return collectionValues.get(collectionValues.firstKey());
+  public OPPObjectInstance getLastPart() {
+    checkTypeForCompositeOnlyOperations();
+    return compositeValues.get(compositeValues.lastKey());
   }
 
-  public OPPObjectInstance getLastCollectionElement() {
-    checkTypeForCollectionOnlyOperations();
-    return collectionValues.get(collectionValues.lastKey());
+  public Collection<OPPObjectInstance> getAllParts() {
+    checkTypeForCompositeOnlyOperations();
+    return Collections.unmodifiableCollection(compositeValues.values());
   }
 
-  public Collection<OPPObjectInstance> getCollectionAllElements() {
-    checkTypeForCollectionOnlyOperations();
-    return Collections.unmodifiableCollection(collectionValues.values());
+  public Set<String> getAllPartIndexes() {
+    checkTypeForCompositeOnlyOperations();
+    return Collections.unmodifiableSet(compositeKeyToIndexMapping.keySet());
   }
 
-  public Set<String> getCollectionAllIndexes() {
-    checkTypeForCollectionOnlyOperations();
-    return Collections.unmodifiableSet(collectionNameToIndexMapping.keySet());
+  public void removePart(OPPObjectInstance key) {
+    checkTypeForCompositeOnlyOperations();
+    checkState(key != null, "Key cannot be null.");
+    switch (key.kind) {
+    case STRING:
+    case NUMERICAL:
+      removePart(key.getStringValue());
+      break;
+    case COMPOSITE:
+      removePart(key.getId());
+      break;
+    case JAVA_OBJECT:
+      throw new OPPRuntimeException("Java object keys are not supported.");
+    }
+  }
+
+  public void removePart(String key) {
+    checkTypeForCompositeOnlyOperations();
+    checkState((key != null) && ("".equals(key)), "Key cannot be null or empty.");
+    Integer index = compositeKeyToIndexMapping.get(key);
+    compositeValues.remove(index);
+    compositeKeyToIndexMapping.remove(key);
+  }
+
+  public OPPObjectInstance removeFirstPart() {
+    checkTypeForCompositeOnlyOperations();
+    Integer firstIndex = compositeValues.firstKey();
+    OPPObjectInstance firstInstance = compositeValues.remove(firstIndex);
+    compositeKeyToIndexMapping.inverse().remove(firstIndex);
+    return firstInstance;
+  }
+
+  public OPPObjectInstance removeLastPart() {
+    checkTypeForCompositeOnlyOperations();
+    Integer lastIndex = compositeValues.lastKey();
+    OPPObjectInstance lastInstance = compositeValues.remove(lastIndex);
+    compositeKeyToIndexMapping.inverse().remove(lastIndex);
+    return lastInstance;
   }
 
   // General
   @Override
   public String toString() {
-    if(InstanceType.STRING.equals(type) || InstanceType.NUMERICAL.equals(type))
+    if (InstanceKind.STRING.equals(kind) || InstanceKind.NUMERICAL.equals(kind)) {
       return value.toString();
-    else if(InstanceType.COMPOSITE.equals(type)) {
+    } else if (InstanceKind.COMPOSITE.equals(kind)) {
       StringBuilder ret = new StringBuilder("{");
-      for(String partName : parts.keySet()) {
-        ret.append(partName + ":" + parts.get(partName) + ",");
+      for (Integer index : compositeValues.keySet()) {
+        ret.append(compositeKeyToIndexMapping.inverse().get(index).toString() + ":" + compositeValues.get(index).toString() + ",");
       }
-      ret.replace(ret.length() - 1, ret.length(), "}");
-      return ret.toString();
-    } else if(InstanceType.COLLECTION.equals(type)) {
-      StringBuilder ret = new StringBuilder("[");
-      for(OPPObjectInstance element : collectionValues.values()) {
-        ret.append(element.toString() + ",");
-      }
-      if(ret.length() > 2)
-        ret.replace(ret.length() - 1, ret.length(), "]");
+      if (ret.length() > 2)
+        ret.replace(ret.length() - 1, ret.length(), "}");
       return ret.toString();
     } else {
       return super.toString();
@@ -250,23 +261,15 @@ public class OPPObjectInstance {
   }
 
   private void checkTypeForValueOnlyOperations() {
-    checkState(!InstanceType.COLLECTION.equals(type),
-        "Instance is a collection but operation is only valid for value instances.");
-    checkState(!InstanceType.COMPOSITE.equals(type),
-        "Instance is a collection but operation is only valid for value instances.");
+    checkState(!InstanceKind.COMPOSITE.equals(kind), "Instance is a collection but operation is only valid for value instances.");
   }
 
   private void checkTypeForCompositeOnlyOperations() {
-    checkState(InstanceType.COMPOSITE.equals(type), "Composite operations can only be applied to composite instances.");
+    checkState(InstanceKind.COMPOSITE.equals(kind), "Collection operations can only be applied to collection instances.");
   }
 
-  private void checkTypeForCollectionOnlyOperations() {
-    checkState(InstanceType.COLLECTION.equals(type),
-        "Collection operations can only be applied to collection instances.");
-  }
-
-  public enum InstanceType {
-    NUMERICAL, STRING, COMPOSITE, COLLECTION;
+  public enum InstanceKind {
+    NUMERICAL, STRING, JAVA_OBJECT, COMPOSITE;
   }
 
 }

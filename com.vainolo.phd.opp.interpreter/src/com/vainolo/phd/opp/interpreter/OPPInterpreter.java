@@ -35,8 +35,8 @@ public enum OPPInterpreter {
 
   /**
    * Execute an Object Process Diagram (OPD). An OPD can be of two kinds,
-   * {@link OPMObjectProcessDiagramKind#SYSTEM} and
-   * {@link OPMObjectProcessDiagramKind#COMPOUND}, but they can both be executed
+   * {@link OPPObjectProcessDiagramKind#SYSTEM} and
+   * {@link OPPObjectProcessDiagramKind#COMPOUND}, but they can both be executed
    * in the same way.
    * 
    * @param opdName
@@ -50,7 +50,7 @@ public enum OPPInterpreter {
 
     try {
       instance.call();
-    } catch(Exception e) {
+    } catch (Exception e) {
       logSevere("Unexpected exception: " + e.getMessage());
     }
     logInfo("Finished interpreting {0}.", opdName);

@@ -44,7 +44,7 @@ public interface OPPProcessInstance extends Callable<OPPProcessExecutionResult> 
    * 
    * @return a list of the incoming parameter names.
    */
-  List<OPPParameter> getIncomingParameterNames();
+  List<OPPParameter> getIncomingParameters();
 
   /**
    * Get a list of the names of all the outgoing parameters of this
@@ -52,7 +52,7 @@ public interface OPPProcessInstance extends Callable<OPPProcessExecutionResult> 
    * 
    * @return a list of the outgoing parameter names.
    */
-  List<OPPParameter> getOutgoingParameterNames();
+  List<OPPParameter> getOutgoingParameters();
 
   /**
    * Get the name of the OPD/Process
@@ -65,12 +65,4 @@ public interface OPPProcessInstance extends Callable<OPPProcessExecutionResult> 
    * Set the name of the Process.
    */
   void setName(String name);
-
-  /**
-   * Check if the instance is ready for execution
-   * 
-   * @return <code>true</code> if all required parameters are available,
-   *         <code>false</code> otherwise.
-   */
-  boolean isReady();
 }

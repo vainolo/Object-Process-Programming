@@ -85,14 +85,12 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getGraphicalViewer().setEditPartFactory(new OPPEditPartFactory());
     getActionRegistry().registerAction(new ToggleGridAction(getGraphicalViewer()));
     getActionRegistry().registerAction(new ToggleSnapToGeometryAction(getGraphicalViewer()));
-    getGraphicalViewer().setContextMenu(
-        new OPPGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
+    getGraphicalViewer().setContextMenu(new OPPGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
     configureKeyboardShortcuts();
 
     // D&D
     getGraphicalViewer().addDropTargetListener(new TemplateTransferDropTargetListener(getGraphicalViewer()));
-    getEditDomain().getPaletteViewer().addDragSourceListener(
-        new TemplateTransferDragSourceListener(getEditDomain().getPaletteViewer()));
+    getEditDomain().getPaletteViewer().addDragSourceListener(new TemplateTransferDragSourceListener(getEditDomain().getPaletteViewer()));
     // end D&D
 
     // start zoom
@@ -115,15 +113,14 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   private void configureKeyboardShortcuts() {
     GraphicalViewerKeyHandler keyHandler = new GraphicalViewerKeyHandler(getGraphicalViewer());
     keyHandler.put(KeyStroke.getPressed(SWT.F2, 0), getActionRegistry().getAction(GEFActionConstants.OPEN_EXT));
-    keyHandler.put(KeyStroke.getPressed(SWT.F3, 0),
-        getActionRegistry().getAction(OPPResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
+    keyHandler.put(KeyStroke.getPressed(SWT.F3, 0), getActionRegistry().getAction(OPPResizeToContentsAction.RESIZE_TO_CONTENTS_ID));
     getGraphicalViewer().setKeyHandler(keyHandler);
 
   }
 
   @Override
   protected PaletteRoot getPaletteRoot() {
-    if(palette == null)
+    if (palette == null)
       palette = new OPPGraphicalEditorPalette(idManager);
     return palette;
   }
@@ -144,7 +141,7 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
       opd.eResource().save(null);
       opdFile.touch(null);
       getCommandStack().markSaveLocation();
-    } catch(Exception e) {
+    } catch (Exception e) {
       throw new RuntimeException(e);
     }
   }
@@ -160,20 +157,15 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     OPPPackage.eINSTANCE.eClass(); // This initializes the OPMPackage
                                    // singleton implementation. Must be called
                                    // before reading the file.
-    if(input instanceof IFileEditorInput) {
+    if (input instanceof IFileEditorInput) {
 
       IFileEditorInput fileInput = (IFileEditorInput) input;
       opdFile = fileInput.getFile();
       opd = OPPFileUtils.loadOPPFile(opdFile.getLocationURI().toString());
-      if(opd == null) {
+      if (opd == null) {
         throw new RuntimeException("Could not load OPD file " + opdFile.getLocationURI().toString());
       }
       idManager.setInitialId(opd.getLastKnownUsedId());
-      // if(opd.getId() == 0) {
-      // opd.setId(1);
-      // opd.setLastKnownUsedId(2);
-      // }
-      // OPMIdManager.setInitialId(opd.getNextId());
     }
   }
 
@@ -190,8 +182,7 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
-    action = new OPPToggledProceduralLinkSubkindAction(this,
-        OPPToggledProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
+    action = new OPPToggledProceduralLinkSubkindAction(this, OPPToggledProceduralLinkSubkindAction.CONDITIONAL_SUBKIND_ID);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
@@ -254,8 +245,8 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
    */
   @Override
   public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
-    if(type.equals(IPropertySheetPage.class)) {
-      if(propertyPage == null) {
+    if (type.equals(IPropertySheetPage.class)) {
+      if (propertyPage == null) {
         propertyPage = (UndoablePropertySheetPage) super.getAdapter(type);
         // A new PropertySourceProvider was implemented to fetch the model
         // from the edit part when required. The property source is provided
@@ -264,19 +255,18 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         // to yield standard eclipse interfaces.
 
         IPropertySourceProvider sourceProvider = new IPropertySourceProvider() {
-          IPropertySourceProvider modelPropertySourceProvider = new AdapterFactoryContentProvider(
-              new OPPItemProviderAdapterFactory());
+          IPropertySourceProvider modelPropertySourceProvider = new AdapterFactoryContentProvider(new OPPItemProviderAdapterFactory());
 
           @Override
           public IPropertySource getPropertySource(Object object) {
             IPropertySource source = null;
-            if(object instanceof EditPart) {
+            if (object instanceof EditPart) {
               source = modelPropertySourceProvider.getPropertySource(((EditPart) object).getModel());
             } else {
               source = modelPropertySourceProvider.getPropertySource(object);
             }
 
-            if(source != null) {
+            if (source != null) {
               return new UnwrappingPropertySource(source);
             } else {
               return null;
@@ -288,7 +278,7 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
         propertyPage.setRootEntry(root);
       }
       return propertyPage;
-    } else if(type == ZoomManager.class) {
+    } else if (type == ZoomManager.class) {
       return ((ScalableFreeformRootEditPart) getGraphicalViewer().getRootEditPart()).getZoomManager();
     }
 
@@ -312,7 +302,7 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     @Override
     public Object getEditableValue() {
       Object value = source.getEditableValue();
-      if(value instanceof PropertyValueWrapper) {
+      if (value instanceof PropertyValueWrapper) {
         PropertyValueWrapper wrapper = (PropertyValueWrapper) value;
         return wrapper.getEditableValue(null);
       } else {
@@ -328,7 +318,7 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     @Override
     public Object getPropertyValue(Object id) {
       Object value = source.getPropertyValue(id);
-      if(value instanceof PropertyValueWrapper) {
+      if (value instanceof PropertyValueWrapper) {
         PropertyValueWrapper wrapper = (PropertyValueWrapper) value;
         return wrapper.getEditableValue(null);
       } else {

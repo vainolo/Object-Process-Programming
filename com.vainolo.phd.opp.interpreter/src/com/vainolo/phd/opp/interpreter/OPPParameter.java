@@ -4,17 +4,11 @@ public class OPPParameter {
   String name;
   boolean isCollection;
 
-  public OPPParameter(String name, boolean isCollection) {
+  public OPPParameter(String name) {
     this.name = name;
-    this.isCollection = isCollection;
   }
 
   public String getName() {
     return name;
   }
-
-  public boolean isCollection() {
-    return isCollection;
-  }
-
 }

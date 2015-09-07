@@ -28,12 +28,12 @@ public class OPPProcessEditPart extends OPPThingEditPart {
     final GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
     figure.setMultiple(model.isCollection());
-    figure.getNameFigure().setText(model.getName());
+    if (!model.isMain())
+      figure.getNameFigure().setText(model.getName());
     figure.setTooltipText(model.getDescription());
     figure.invalidateTree();
 
-    parent.setLayoutConstraint(this, figure,
-        new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
+    parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
 
   }
 

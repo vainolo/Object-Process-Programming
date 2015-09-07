@@ -39,7 +39,7 @@ public class OPPCompareProcessInstance extends OPPAbstractProcessInstance implem
     OPPObjectInstance c;
 
     boolean result = false;
-    switch(comparisonType) {
+    switch (comparisonType) {
     case EQUAL:
       result = (a.compareTo(b) == 0);
       break;
@@ -59,7 +59,7 @@ public class OPPCompareProcessInstance extends OPPAbstractProcessInstance implem
       break;
     }
 
-    if(result) {
+    if (result) {
       c = OPPObjectInstance.createFromValue("true");
     } else {
       c = OPPObjectInstance.createFromValue("false");
@@ -73,17 +73,12 @@ public class OPPCompareProcessInstance extends OPPAbstractProcessInstance implem
   }
 
   @Override
-  public boolean isReady() {
-    return (getArgument("a") != null) && (getArgument("b") != null);
+  public List<OPPParameter> getIncomingParameters() {
+    return Lists.newArrayList(new OPPParameter("a"), new OPPParameter("b"));
   }
 
   @Override
-  public List<OPPParameter> getIncomingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("a", false), new OPPParameter("b", false));
-  }
-
-  @Override
-  public List<OPPParameter> getOutgoingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("c", false));
+  public List<OPPParameter> getOutgoingParameters() {
+    return Lists.newArrayList(new OPPParameter("c"));
   }
 }

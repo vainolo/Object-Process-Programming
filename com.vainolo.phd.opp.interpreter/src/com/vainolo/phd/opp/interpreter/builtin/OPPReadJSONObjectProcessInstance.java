@@ -28,7 +28,7 @@ public class OPPReadJSONObjectProcessInstance extends OPPAbstractProcessInstance
       JsonObject jsonObject = JsonObject.readFrom(getArgument("json").getStringValue());
       populateOPMObjectInstanceFromJSONObject(opmObjectInstance, jsonObject);
       setArgument("object", opmObjectInstance);
-    } catch(Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
       logSevere(e.getLocalizedMessage());
     }
@@ -36,22 +36,22 @@ public class OPPReadJSONObjectProcessInstance extends OPPAbstractProcessInstance
 
   private void populateOPMObjectInstanceFromJSONObject(OPPObjectInstance opmObjectInstance, JsonObject jsonObject) {
     Iterator<Member> it = jsonObject.iterator();
-    while(it.hasNext()) {
+    while (it.hasNext()) {
       addPart(opmObjectInstance, it.next());
     }
   }
 
   private void addPart(OPPObjectInstance whole, Member member) {
     logInfo("Adding part " + member.getName() + " with value " + member.getValue().toString());
-    if(member.getValue().isArray()) {
+    if (member.getValue().isArray()) {
       throw new UnsupportedOperationException();
-    } else if(member.getValue().isString()) {
+    } else if (member.getValue().isString()) {
       addStringPart(whole, member.getName(), member.getValue().asString());
-    } else if(member.getValue().isNumber()) {
+    } else if (member.getValue().isNumber()) {
       addNumberPart(whole, member.getName(), member.getValue().asDouble());
-    } else if(member.getValue().isBoolean()) {
+    } else if (member.getValue().isBoolean()) {
       addBooleanPart(whole, member.getName(), member.getValue().asBoolean());
-    } else if(member.getValue().isObject()) {
+    } else if (member.getValue().isObject()) {
       addObjectPart(whole, member.getName(), member.getValue().asObject());
     }
     // null JSON values are ignored.
@@ -60,20 +60,20 @@ public class OPPReadJSONObjectProcessInstance extends OPPAbstractProcessInstance
   private void addObjectPart(OPPObjectInstance whole, String name, JsonObject value) {
     OPPObjectInstance part = OPPObjectInstance.createCompositeInstance();
     populateOPMObjectInstanceFromJSONObject(part, value);
-    whole.addCompositePart(name, part);
+    whole.setPart(name, part);
   }
 
   private void addStringPart(OPPObjectInstance whole, String name, String value) {
-    whole.addCompositePart(name, OPPObjectInstance.createFromValue(value));
+    whole.setPart(name, OPPObjectInstance.createFromValue(value));
   }
 
   private void addNumberPart(OPPObjectInstance instance, String whole, double value) {
-    instance.addCompositePart(whole, OPPObjectInstance.createFromValue(new BigDecimal(value)));
+    instance.setPart(whole, OPPObjectInstance.createFromValue(new BigDecimal(value)));
   }
 
   private void addBooleanPart(OPPObjectInstance whole, String name, boolean value) {
     OPPObjectInstance bool = OPPObjectInstance.createFromValue(Boolean.toString(value));
-    whole.addCompositePart(name, bool);
+    whole.setPart(name, bool);
   }
 
   @Override
@@ -82,18 +82,13 @@ public class OPPReadJSONObjectProcessInstance extends OPPAbstractProcessInstance
   }
 
   @Override
-  public boolean isReady() {
-    return getArgument("json") != null;
+  public List<OPPParameter> getIncomingParameters() {
+    return Lists.newArrayList(new OPPParameter("json"));
   }
 
   @Override
-  public List<OPPParameter> getIncomingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("json", false));
-  }
-
-  @Override
-  public List<OPPParameter> getOutgoingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("object", false));
+  public List<OPPParameter> getOutgoingParameters() {
+    return Lists.newArrayList(new OPPParameter("object"));
   }
 
 }

@@ -48,24 +48,24 @@ public class OPPObjectInstanceValueAnalyzerTests {
 
     array = "[1..5]";
     instance = valueAnalyzer.calculateOPMObjectValue(array);
-    assertEquals(5, instance.getCollectionAllElements().size());
-    List<OPPObjectInstance> collectionElements = Lists.newArrayList(instance.getCollectionAllElements());
+    assertEquals(5, instance.getAllParts().size());
+    List<OPPObjectInstance> collectionElements = Lists.newArrayList(instance.getAllParts());
     for(int i = 1; i <= 5; i++) {
       assertEquals(i, collectionElements.get(i - 1).getNumericalValue().intValue());
     }
 
     array = "[25..76]";
     instance = valueAnalyzer.calculateOPMObjectValue(array);
-    assertEquals(52, instance.getCollectionAllElements().size());
-    collectionElements = Lists.newArrayList(instance.getCollectionAllElements());
+    assertEquals(52, instance.getAllParts().size());
+    collectionElements = Lists.newArrayList(instance.getAllParts());
     for(int i = 25; i <= 76; i++) {
       assertEquals(i, collectionElements.get(i - 25).getNumericalValue().intValue());
     }
 
     array = "[15..10]";
     instance = valueAnalyzer.calculateOPMObjectValue(array);
-    assertEquals(6, instance.getCollectionAllElements().size());
-    collectionElements = Lists.newArrayList(instance.getCollectionAllElements());
+    assertEquals(6, instance.getAllParts().size());
+    collectionElements = Lists.newArrayList(instance.getAllParts());
     for(int i = 15; i >= 10; i--) {
       assertEquals(i, collectionElements.get(15 - i).getNumericalValue().intValue());
     }

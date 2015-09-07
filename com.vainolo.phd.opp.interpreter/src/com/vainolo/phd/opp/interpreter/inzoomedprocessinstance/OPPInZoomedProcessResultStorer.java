@@ -44,7 +44,7 @@ public class OPPInZoomedProcessResultStorer {
     logFine("Found {0} anonymous results and {1} named results.", anonymousResultObjects.size(), namedResults.size());
 
     // First extract named results
-    List<String> outgoingParameters = Lists.transform(instance.getOutgoingParameterNames(),
+    List<String> outgoingParameters = Lists.transform(instance.getOutgoingParameters(),
         new Function<OPPParameter, String>() {
           @Override
           public String apply(OPPParameter input) {
@@ -60,7 +60,7 @@ public class OPPInZoomedProcessResultStorer {
     Iterator<OPPObject> anonymousResultsIterator = anonymousResultObjects.iterator();
     while(anonymousResultsIterator.hasNext()) {
       OPPObject resultObject = anonymousResultsIterator.next();
-      if(instance.getOutgoingParameterNames().contains(resultObject.getName())) {
+      if(instance.getOutgoingParameters().contains(resultObject.getName())) {
         if(instance.getArgument(resultObject.getName()) != null) {
           heap.setVariable(resultObject, instance.getArgument(resultObject.getName()));
           anonymousResultsIterator.remove();

@@ -27,10 +27,4 @@ public class OPPPrintHelloWorldProcessInstance extends OPPAbstractProcessInstanc
   public String getName() {
     return "Hello World";
   }
-
-  @Override
-  public boolean isReady() {
-    return true;
-  }
-
 }

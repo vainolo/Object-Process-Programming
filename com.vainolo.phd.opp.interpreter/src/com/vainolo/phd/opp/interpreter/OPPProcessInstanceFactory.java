@@ -9,7 +9,7 @@ import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
 import org.eclipse.core.runtime.Path;
 
-import com.vainolo.phd.opp.interpreter.builtin.OPPBinaryMathOpType;
+import com.vainolo.phd.opp.interpreter.builtin.OPPBinaryMathOpProcessInstance.OPPBinaryMathOpType;
 import com.vainolo.phd.opp.interpreter.builtin.OPPBinaryMathOpProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPConceptualProcess;
@@ -28,7 +28,7 @@ import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 public class OPPProcessInstanceFactory {
 
   public static OPPProcessInstance createExecutableInstance(OPPObjectProcessDiagram opd) {
-    switch(opd.getKind()) {
+    switch (opd.getKind()) {
     case COMPOUND:
       return new OPPInZoomedProcessExecutableInstance(opd, new OPPOPDAnalyzer());
     case UNFOLDED:
@@ -42,15 +42,14 @@ public class OPPProcessInstanceFactory {
   }
 
   public static OPPProcessInstance createExecutableInstance(String opdName) {
-    OPPObjectProcessDiagram opd = OPPFileUtils.loadOPPFile(OPPInterpreter.container.getFile(new Path(opdName + ".opm"))
-        .getFullPath().toString());
+    OPPObjectProcessDiagram opd = OPPFileUtils.loadOPPFile(OPPInterpreter.container.getFile(new Path(opdName + ".opp")).getFullPath().toString());
     return createExecutableInstance(opd);
 
   }
 
   public static OPPProcessInstance createExecutableInstance(OPPProcess process) {
     OPPProcessInstance executableInstance = null;
-    switch(process.getKind()) {
+    switch (process.getKind()) {
     case BUILT_IN:
       executableInstance = createBuiltInProcess(process);
       break;
@@ -71,38 +70,37 @@ public class OPPProcessInstanceFactory {
   private static OPPProcessInstance createBuiltInProcess(final OPPProcess process) {
     OPPProcessInstance processInstance;
 
-    if(process.getName().equals("Input")) {
+    if (process.getName().equals("Input")) {
       processInstance = OPPInterpreterInjector.INSTANCE.getInstance(OPPInputProcessInstance.class);
-    } else if(process.getName().equals("Output") || process.getName().equals("Dialog")
-        || process.getName().equals("Print")) {
+    } else if (process.getName().equals("Output") || process.getName().equals("Dialog") || process.getName().equals("Print")) {
       processInstance = new OPPOutputProcessInstance();
       processInstance.setName(process.getName());
-    } else if(process.getName().equals("+")) {
-      processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.ADD);// OPMAddProcessInstance();
-    } else if(process.getName().equals("-")) {
-      processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.SUBS);// OPMSubstractProcessInstance();
-    } else if(process.getName().equals("*")) {
+    } else if (process.getName().equals("+")) {
+      processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.ADD);
+    } else if (process.getName().equals("-")) {
+      processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.SUBS);
+    } else if (process.getName().equals("*")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.MULT);
-    } else if(process.getName().equals("/")) {
+    } else if (process.getName().equals("/")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.DIV);
-    } else if(process.getName().equals("^")) {
+    } else if (process.getName().equals("^")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.POW);
-    } else if(process.getName().equals("Sleep")) {
+    } else if (process.getName().equals("Sleep")) {
       processInstance = new OPPSleepProcessInstance();
       processInstance.setName(process.getName());
-    } else if(process.getName().equals("Hello World")) {
+    } else if (process.getName().equals("Hello World")) {
       processInstance = new OPPPrintHelloWorldProcessInstance();
-    } else if(process.getName().equals("Create") || process.getName().equals("New")) {
+    } else if (process.getName().equals("Create") || process.getName().equals("New")) {
       processInstance = new OPPCreateObjectProcessInstance();
-    } else if(process.getName().equals("<=")) {
+    } else if (process.getName().equals("<=")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN_OR_EQUAL);
-    } else if(process.getName().equals(">=")) {
+    } else if (process.getName().equals(">=")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.GREATER_THAN_OR_EQUAL);
-    } else if(process.getName().equals(">")) {
+    } else if (process.getName().equals(">")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.GREATER_THAN);
-    } else if(process.getName().equals("<")) {
+    } else if (process.getName().equals("<")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN);
-    } else if(process.getName().equals("==")) {
+    } else if (process.getName().equals("==")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.EQUAL);
     } else {
       throw new IllegalStateException("Tried to create unexistent build-in process " + process.getName());

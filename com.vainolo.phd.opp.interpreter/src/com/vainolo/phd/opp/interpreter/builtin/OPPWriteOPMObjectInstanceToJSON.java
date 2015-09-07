@@ -17,7 +17,7 @@ import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceType;
+import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
 
 public class OPPWriteOPMObjectInstanceToJSON extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
@@ -27,29 +27,28 @@ public class OPPWriteOPMObjectInstanceToJSON extends OPPAbstractProcessInstance 
     try {
       JsonObject jsonObject = populateJSONFromOPMObjectInstance(opmObjectInstance);
       setArgument("json", OPPObjectInstance.createFromValue(jsonObject.toString()));
-    } catch(Exception e) {
+    } catch (Exception e) {
       e.printStackTrace();
       logSevere(e.getLocalizedMessage());
     }
   }
 
   private JsonObject populateJSONFromOPMObjectInstance(OPPObjectInstance opmObjectInstance) {
-    Preconditions.checkState(opmObjectInstance.type == InstanceType.COMPOSITE);
+    Preconditions.checkState(opmObjectInstance.kind == InstanceKind.COMPOSITE);
     JsonObject jsonObject = new JsonObject();
-    for(Entry<String, OPPObjectInstance> part : opmObjectInstance.getCompositeParts()) {
-      String name = part.getKey();
-      OPPObjectInstance value = part.getValue();
-      addJSONElement(jsonObject, name, value);
+    for (String partName : opmObjectInstance.getAllPartIndexes()) {
+      OPPObjectInstance partValue = opmObjectInstance.getPart(partName);
+      addJSONElement(jsonObject, partName, partValue);
     }
     return jsonObject;
   }
 
   private void addJSONElement(JsonObject jsonObject, String name, OPPObjectInstance opmObject) {
-    if(opmObject.type == InstanceType.STRING) {
+    if (opmObject.kind == InstanceKind.STRING) {
       jsonObject.add(name, opmObject.getStringValue());
-    } else if(opmObject.type == InstanceType.NUMERICAL) {
+    } else if (opmObject.kind == InstanceKind.NUMERICAL) {
       jsonObject.add(name, opmObject.getNumericalValue().doubleValue());
-    } else if(opmObject.type == InstanceType.COMPOSITE) {
+    } else if (opmObject.kind == InstanceKind.COMPOSITE) {
       jsonObject.add(name, populateJSONFromOPMObjectInstance(opmObject));
     } else {
       throw new IllegalStateException();
@@ -62,18 +61,13 @@ public class OPPWriteOPMObjectInstanceToJSON extends OPPAbstractProcessInstance 
   }
 
   @Override
-  public boolean isReady() {
-    return getArgument("object") != null;
+  public List<OPPParameter> getIncomingParameters() {
+    return Lists.newArrayList(new OPPParameter("object"));
   }
 
   @Override
-  public List<OPPParameter> getIncomingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("object", false));
-  }
-
-  @Override
-  public List<OPPParameter> getOutgoingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("json", false));
+  public List<OPPParameter> getOutgoingParameters() {
+    return Lists.newArrayList(new OPPParameter("json"));
   }
 
 }

@@ -12,11 +12,6 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/luna</url>
 		</repository>
-		<repository>
-		  <id>com.vainolo.vainolibraries</id>
-		  <layout>p2</layout>
-		  <url>http://www.vainolo.com/files/repos/vainolibraries/repository</url>
-		</repository>
 	</repositories>
   
 	<build>

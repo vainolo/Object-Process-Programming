@@ -32,17 +32,12 @@ public class OPPSubstractProcessInstance extends OPPAbstractProcessInstance impl
   }
 
   @Override
-  public boolean isReady() {
-    return (getArgument("a") != null) && (getArgument("b") != null);
+  public List<OPPParameter> getIncomingParameters() {
+    return Lists.newArrayList(new OPPParameter("a"), new OPPParameter("b"));
   }
 
   @Override
-  public List<OPPParameter> getIncomingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("a", false), new OPPParameter("b", false));
-  }
-
-  @Override
-  public List<OPPParameter> getOutgoingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("c", false));
+  public List<OPPParameter> getOutgoingParameters() {
+    return Lists.newArrayList(new OPPParameter("c"));
   }
 }

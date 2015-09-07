@@ -9,7 +9,6 @@ import java.util.Observer;
 import java.util.Set;
 
 import static com.google.common.base.Preconditions.*;
-import static com.vainolo.phd.opp.interpreter.utils.OPPInterpreterPreconditions.*;
 import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
 import com.google.common.collect.Lists;
@@ -19,6 +18,7 @@ import com.google.inject.Inject;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstanceHeap;
+import com.vainolo.phd.opp.interpreter.OPPRuntimeException;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
@@ -64,27 +64,16 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   public void setVariable(OPPObject object, OPPObjectInstance value) {
     logFiner("Setting value of object {0} with value {1}.", object.getName(), value.toString());
     checkArgument(value != null, "Value cannot be null");
-    if(analyzer.isObjectComposite(object)) {
-      checkInstanceArgumentIsComposite(value, "The value of a composite object must be a composite instance.");
-    } else {
-      checkInstanceArgumentIsNotComposite(value, "The value of a simple object cannot be a composite instance.");
-    }
 
-    if(analyzer.isObjectCollection(object)) {
-      checkInstanceArgumentIsCollection(value, "The value of a collection object must be a collection instance.");
-    } else {
-      checkInstanceArgumentIsNotCollection(value, "The value of a simple object cannot be a collection instance.");
-    }
-
-    if(analyzer.isObjectPartOfAnotherObject(object)) {
+    if (analyzer.isObjectPartOfAnotherObject(object)) {
       OPPObject parentObject = analyzer.findParent(object);
       OPPObjectInstance parentValue = getVariable(parentObject);
-      if(parentValue == null) {
+      if (parentValue == null) {
         parentValue = OPPObjectInstance.createCompositeInstance();
       }
       setVariable(parentObject, parentValue);
       parentValue = getVariable(parentObject);
-      parentValue.addCompositePart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
+      parentValue.setPart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
       observable.notifyObservers(new OPMHeapChange(parentObject, parentValue, object, getVariable(object)));
     } else {
       OPPObjectInstance objectValue = OPPObjectInstance.createFromExistingInstance(value);
@@ -105,16 +94,14 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    *         value has been assigned.
    */
   public OPPObjectInstance getVariable(OPPObject object) {
-    if(analyzer.isObjectPartOfAnotherObject(object)) {
+    if (analyzer.isObjectPartOfAnotherObject(object)) {
       OPPObjectInstance parent = getVariable(analyzer.findParent(object));
-      if(parent == null) {
-        logSevere("Tried to get the value of {0} which is part of another object, but parent object doesn't exist.",
-            object.getName());
-        throw new IllegalStateException(
-            "Getting value of an object which is part of another object, but parent doesn't exist.");
+      if (parent == null) {
+        logSevere("Tried to get the value of {0} which is part of another object, but parent object doesn't exist.", object.getName());
+        throw new IllegalStateException("Getting value of an object which is part of another object, but parent doesn't exist.");
       } else {
-        logFinest("Getting value of {0} which is {1}.", object.getName(), parent.getCompositePart(object.getName()));
-        return parent.getCompositePart(object.getName());
+        logFinest("Getting value of {0} which is {1}.", object.getName(), parent.getPart(object.getName()));
+        return parent.getPart(object.getName());
       }
     } else {
       logFinest("Getting value of {0} which is {1}.", object.getName(), variables.get(object));
@@ -130,86 +117,28 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    */
   private void transferDataFromObject(OPPObject source) {
     Collection<OPPProceduralLink> dataTransferLinks = analyzer.findOutgoingDataLinks(source);
-    for(OPPProceduralLink link : dataTransferLinks) {
-      if(analyzer.isTargetProcess(link))
+    for (OPPProceduralLink link : dataTransferLinks) {
+      if (analyzer.isTargetProcess(link))
         continue;
+
       OPPObject target = analyzer.getTargetObject(link);
 
-      if((link.getCenterDecoration() == null) || (link.getCenterDecoration().equals(""))) {
-        transferDataWithNoReferences(source, target);
-      } else if(!link.getCenterDecoration().contains(",")) {
+      if ((link.getCenterDecoration() == null) || (link.getCenterDecoration().equals(""))) {
+        setVariable(target, getVariable(source));
+      } else if (!link.getCenterDecoration().contains(",")) {
         transferDataWithOneReference(source, link, target);
-      } else { // link.getCenterDecoration().contains(",")
+      } else {
         transferDataWithTwoReferences(source, link, target);
       }
     }
   }
 
-  private void transferDataWithNoReferences(OPPObject source, OPPObject target) {
-    if((source.isCollection() && target.isCollection()) || (!source.isCollection() && !target.isCollection())) {
-      setVariable(target, getVariable(source));
-    } else if(source.isCollection() && !target.isCollection()) {
-      setVariable(target, getVariable(source).getCollectionFirstElement());
-    } else { // !source.isCollection() && target.isCollection()
-      OPPObjectInstance targetValue = getVariable(target);
-      if(targetValue == null) {
-        targetValue = OPPObjectInstance.createCollectionInstace();
-      }
-      targetValue.appendCollectionElement(getVariable(source));
-      setVariable(target, targetValue);
-    }
-  }
-
   private void transferDataWithOneReference(OPPObject source, OPPProceduralLink link, OPPObject target) {
-    if(source.isCollection() && !target.isCollection()) {
-      setVariable(target, getCollectionValueUsingReference(source, link.getCenterDecoration()));
-    } else if(!source.isCollection() && target.isCollection()) {
-      OPPObjectInstance targetValue = putValueInCollectionUsingReference(getVariable(source),
-          link.getCenterDecoration(), target);
-      setVariable(target, targetValue);
-    } else {
-      throw new IllegalStateException("Invalid reference state in data transfer link.");
-    }
+    throw new OPPRuntimeException("Data transfer modifiers are not supported.");
   }
 
   private void transferDataWithTwoReferences(OPPObject source, OPPProceduralLink link, OPPObject target) {
-    if(source.isCollection() && target.isCollection()) {
-      String[] refs = link.getCenterDecoration().split(",");
-      if(refs[0].equals("") || refs[0].equals("")) {
-        throw new IllegalStateException("Invalid reference state in data transfer link.");
-      }
-      OPPObjectInstance sourceValue = getCollectionValueUsingReference(source, refs[0]);
-      OPPObjectInstance targetValue = putValueInCollectionUsingReference(sourceValue, refs[1], target);
-      setVariable(target, targetValue);
-    } else {
-      throw new IllegalStateException("Invalid reference state in data transfer link.");
-    }
-  }
-
-  private OPPObjectInstance getCollectionValueUsingReference(OPPObject source, String reference) {
-    OPPObjectInstance sourceValue = null;
-    if(valueAnalyzer.isNumericalLiteral(reference)) {
-      int sourceIndex = valueAnalyzer.parseNumericalLiteral(reference).intValue();
-      sourceValue = getVariable(source).getCollectionElementAtIndex(sourceIndex);
-    } else {
-      sourceValue = getVariable(source).getCollectionElement(reference);
-    }
-    return sourceValue;
-  }
-
-  private OPPObjectInstance putValueInCollectionUsingReference(OPPObjectInstance value, String reference,
-      OPPObject targetCollection) {
-    OPPObjectInstance targetValue = getVariable(targetCollection);
-    if(targetValue == null) {
-      targetValue = OPPObjectInstance.createCollectionInstace();
-    }
-    if(valueAnalyzer.isNumericalLiteral(reference)) {
-      int targetIndex = valueAnalyzer.parseNumericalLiteral(reference).intValue();
-      targetValue.putCollectionElementAtIndex(targetIndex, value);
-    } else {
-      targetValue.putCollectionElement(reference, value);
-    }
-    return targetValue;
+    throw new OPPRuntimeException("Double data link modifiers are not supported");
   }
 
   /**
@@ -221,7 +150,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    */
   public void calculateOPMObjectValueAndSetVariableIfValueIfExists(OPPObject object) {
     OPPObjectInstance objectValue = valueAnalyzer.calculateOPMObjectValue(object, analyzer);
-    if(objectValue != null)
+    if (objectValue != null)
       setVariable(object, objectValue);
   }
 
@@ -230,9 +159,9 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    */
   public void initializeVariablesWithLiterals(OPPProcess mainProcess) {
     Collection<OPPObject> objectVariables = analyzer.findObjects(mainProcess);
-    for(OPPObject object : objectVariables) {
+    for (OPPObject object : objectVariables) {
       calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
-      if(getVariable(object) != null)
+      if (getVariable(object) != null)
         transferDataFromObject(object);
     }
   }
@@ -243,8 +172,8 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    */
   public void initializeVariablesWithArgumentValues(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> objectArguments = analyzer.findParameters(opd);
-    for(OPPObject object : objectArguments) {
-      if(getArgument(object.getName()) != null) {
+    for (OPPObject object : objectArguments) {
+      if (getArgument(object.getName()) != null) {
         setVariable(object, getArgument(object.getName()));
       } else {
         calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
@@ -275,8 +204,8 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    */
   public void exportVariableValuesToArguments(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> objectArguments = analyzer.findParameters(opd);
-    for(OPPObject object : objectArguments) {
-      if(getVariable(object) != null) {
+    for (OPPObject object : objectArguments) {
+      if (getVariable(object) != null) {
         addArgument(object.getName(), getVariable(object));
       }
     }
@@ -318,8 +247,8 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
 
     public Set<OPPObject> getObjectsWithNewValue() {
       Set<OPPObject> objects = Sets.newHashSet();
-      for(OPMHeapChange change : changes) {
-        if(change.changeType.equals(OPMHeapChangeType.VARIABLE_SET)) {
+      for (OPMHeapChange change : changes) {
+        if (change.changeType.equals(OPMHeapChangeType.VARIABLE_SET)) {
           objects.add(change.object);
         }
       }
@@ -344,8 +273,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
       this.objectInstance = instance;
     }
 
-    public OPMHeapChange(OPPObject parent, OPPObjectInstance parentInstance, OPPObject child,
-        OPPObjectInstance childInstance) {
+    public OPMHeapChange(OPPObject parent, OPPObjectInstance parentInstance, OPPObject child, OPPObjectInstance childInstance) {
       this.changeType = OPMHeapChangeType.PART_ADDED;
       this.object = parent;
       this.objectInstance = parentInstance;

@@ -45,11 +45,11 @@ public class OPPOPDAnalyzer {
   public OPPObject getObject(OPPLink link) {
     OPPNode source = link.getSource();
     OPPNode target = link.getTarget();
-    if(OPPObject.class.isInstance(source) && !OPPObject.class.isInstance(target))
+    if (OPPObject.class.isInstance(source) && !OPPObject.class.isInstance(target))
       return OPPObject.class.cast(source);
-    else if(!OPPObject.class.isInstance(source) && OPPObject.class.isInstance(target))
+    else if (!OPPObject.class.isInstance(source) && OPPObject.class.isInstance(target))
       return OPPObject.class.cast(target);
-    else if(OPPState.class.isInstance(source))
+    else if (OPPState.class.isInstance(source))
       return OPPObject.class.cast(source.getContainer());
     else
       return null;
@@ -67,9 +67,9 @@ public class OPPOPDAnalyzer {
    */
   public OPPObject getSourceObject(OPPLink link) {
     OPPNode source = link.getSource();
-    if(OPPObject.class.isInstance(source))
+    if (OPPObject.class.isInstance(source))
       return OPPObject.class.cast(source);
-    else if(OPPState.class.isInstance(source))
+    else if (OPPState.class.isInstance(source))
       return OPPObject.class.cast(source.getContainer());
     else
       throw new IllegalArgumentException("Source must be a state or an object.");
@@ -87,9 +87,9 @@ public class OPPOPDAnalyzer {
   public OPPProcess getProcess(OPPLink link) {
     OPPNode source = link.getSource();
     OPPNode target = link.getTarget();
-    if(OPPProcess.class.isInstance(source) && !OPPProcess.class.isInstance(target))
+    if (OPPProcess.class.isInstance(source) && !OPPProcess.class.isInstance(target))
       return OPPProcess.class.cast(source);
-    else if(!OPPProcess.class.isInstance(source) && OPPProcess.class.isInstance(target))
+    else if (!OPPProcess.class.isInstance(source) && OPPProcess.class.isInstance(target))
       return OPPProcess.class.cast(target);
     else
       return null;
@@ -104,7 +104,7 @@ public class OPPOPDAnalyzer {
    */
   public OPPObjectProcessDiagram findOPD(OPPNode node) {
     OPPContainer currentContainer = node.getContainer();
-    while(!(currentContainer instanceof OPPObjectProcessDiagram)) {
+    while (!(currentContainer instanceof OPPObjectProcessDiagram)) {
       currentContainer = ((OPPNode) currentContainer).getContainer();
     }
     return (OPPObjectProcessDiagram) currentContainer;
@@ -127,8 +127,8 @@ public class OPPOPDAnalyzer {
 
   public Collection<OPPObject> findIncomingParameters(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> incomingParameters = Lists.newArrayList();
-    for(OPPObject parameter : findParameters(opd)) {
-      if(hasOutgoingDataLinks(parameter)) {
+    for (OPPObject parameter : findParameters(opd)) {
+      if (hasOutgoingDataLinks(parameter)) {
         incomingParameters.add(parameter);
       }
     }
@@ -137,8 +137,8 @@ public class OPPOPDAnalyzer {
 
   public Collection<OPPObject> findOutgoingParameters(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> outgoingParameters = Lists.newArrayList();
-    for(OPPObject parameter : findParameters(opd)) {
-      if(hasIncomingResultLink(parameter)) {
+    for (OPPObject parameter : findParameters(opd)) {
+      if (hasIncomingResultLink(parameter)) {
         outgoingParameters.add(parameter);
       }
     }
@@ -146,10 +146,9 @@ public class OPPOPDAnalyzer {
   }
 
   private boolean hasIncomingResultLink(OPPObject parameter) {
-    for(OPPLink link : parameter.getIncomingLinks()) {
-      if(OPPProceduralLink.class.isInstance(link)) {
-        if(IsOPPResultLink.INSTANCE.apply(OPPProceduralLink.class.cast(link))
-            || IsOPPConsumptionLink.INSTANCE.apply(OPPProceduralLink.class.cast(link))) {
+    for (OPPLink link : parameter.getIncomingLinks()) {
+      if (OPPProceduralLink.class.isInstance(link)) {
+        if (IsOPPResultLink.INSTANCE.apply(OPPProceduralLink.class.cast(link)) || IsOPPConsumptionLink.INSTANCE.apply(OPPProceduralLink.class.cast(link))) {
           return true;
         }
       }
@@ -310,7 +309,7 @@ public class OPPOPDAnalyzer {
   public Collection<OPPProceduralLink> findOutgoingDataLinks(OPPObject object) {
     Collection result = Lists.newArrayList();
     result.addAll(Collections2.filter(object.getOutgoingLinks(), new IsOPPObjectOutgoingDataTransferLink()));
-    for(OPPState state : findStates(object)) {
+    for (OPPState state : findStates(object)) {
       result.addAll(findOutgoingDataLinks(state));
     }
     return result;
@@ -325,7 +324,7 @@ public class OPPOPDAnalyzer {
   public Collection<OPPProceduralLink> findOutgoingAgentLinks(OPPObject object) {
     Collection result = Lists.newArrayList();
     result.addAll(Collections2.filter(object.getOutgoingLinks(), IsOPPAgentLink.INSTANCE));
-    for(OPPState state : findStates(object)) {
+    for (OPPState state : findStates(object)) {
       result.addAll(findOutgoingAgentLinks(state));
     }
     return result;
@@ -375,16 +374,16 @@ public class OPPOPDAnalyzer {
    */
   public OPPProcess getInZoomedProcess(OPPObjectProcessDiagram opd) {
     OPPProcess inZoomedProcess = null;
-    for(OPPNode node : opd.getNodes()) {
-      if(OPPProcess.class.isInstance(node)) {
-        if(inZoomedProcess != null) {
+    for (OPPNode node : opd.getNodes()) {
+      if (OPPProcess.class.isInstance(node)) {
+        if (inZoomedProcess != null) {
           throw new IllegalStateException("More than one process found in an in-zoomed OPD");
         } else {
           inZoomedProcess = (OPPProcess) node;
         }
       }
     }
-    if(inZoomedProcess == null) {
+    if (inZoomedProcess == null) {
       logWarning("Tried to get an in-zoomed process when none exist in the diagram. OPD: {0}.", opd.getName());
     }
     return inZoomedProcess;
@@ -400,7 +399,7 @@ public class OPPOPDAnalyzer {
    */
   public OPPThing getUnfoldedThing(OPPObjectProcessDiagram opd) {
     OPPThing unfoldedThing = getThingByName(opd, opd.getName());
-    if(unfoldedThing == null)
+    if (unfoldedThing == null)
       logWarning("Tried to get an unfolded thing when none exist in the diagram. OPD: {0}.", opd.getName());
     return unfoldedThing;
   }
@@ -416,16 +415,16 @@ public class OPPOPDAnalyzer {
    */
   public OPPProcess getSystemProcess(OPPObjectProcessDiagram opd) {
     OPPThing systemThing = getThingByName(opd, opd.getName());
-    if(systemThing == null)
+    if (systemThing == null)
       logWarning("Tried to get a system thing when none exist in the diagram. OPD: {0}.", opd.getName());
     return OPPProcess.class.cast(systemThing);
   }
 
   private OPPThing getThingByName(OPPObjectProcessDiagram opd, String name) {
-    for(OPPNode node : opd.getNodes()) {
-      if(OPPThing.class.isInstance(node)) {
+    for (OPPNode node : opd.getNodes()) {
+      if (OPPThing.class.isInstance(node)) {
         OPPThing thing = OPPThing.class.cast(node);
-        if(thing.getName().equals(opd.getName())) {
+        if (thing.getName().equals(opd.getName())) {
           return thing;
         }
       }
@@ -444,7 +443,7 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(final OPPLink link) {
-      if(OPPPackage.eINSTANCE.getOPPStructuralLinkAggregator().isInstance(link.getSource())
+      if (OPPPackage.eINSTANCE.getOPPStructuralLinkAggregator().isInstance(link.getSource())
           || OPPPackage.eINSTANCE.getOPPStructuralLinkAggregator().isInstance(link.getTarget()))
         return true;
 
@@ -463,9 +462,9 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(final OPPNode node) {
-      if(OPPObject.class.isInstance(node)) {
+      if (OPPObject.class.isInstance(node)) {
         OPPObject o = (OPPObject) node;
-        if(o.isParameter()) {
+        if (o.isParameter()) {
           return true;
         }
       }
@@ -484,9 +483,9 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(final OPPNode node) {
-      if(OPPObject.class.isInstance(node)) {
+      if (OPPObject.class.isInstance(node)) {
         OPPObject o = (OPPObject) node;
-        if(!o.isParameter()) {
+        if (!o.isParameter()) {
           return true;
         }
       }
@@ -503,11 +502,11 @@ public class OPPOPDAnalyzer {
   public static class IsOPPDataLink implements Predicate<OPPLink> {
     @Override
     public boolean apply(final OPPLink link) {
-      if(!OPPProceduralLink.class.isInstance(link))
+      if (!OPPProceduralLink.class.isInstance(link))
         return false;
       else {
         OPPProceduralLink localLink = (OPPProceduralLink) link;
-        switch(localLink.getKind()) {
+        switch (localLink.getKind()) {
         case DATA:
           return true;
         default:
@@ -547,11 +546,11 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(final OPPLink link) {
-      if(!OPPProceduralLink.class.isInstance(link))
+      if (!OPPProceduralLink.class.isInstance(link))
         return false;
       else {
         OPPProceduralLink localLink = OPPProceduralLink.class.cast(link);
-        switch(localLink.getKind()) {
+        switch (localLink.getKind()) {
         case DATA:
           return true;
         default:
@@ -571,7 +570,7 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(final OPPNode node) {
-      if(OPPObject.class.isInstance(node))
+      if (OPPObject.class.isInstance(node))
         return true;
       return false;
     }
@@ -587,7 +586,7 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(final OPPNode node) {
-      if(OPPProcess.class.isInstance(node))
+      if (OPPProcess.class.isInstance(node))
         return true;
       return false;
     }
@@ -603,7 +602,7 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(OPPLink input) {
-      if(OPPProceduralLink.class.isInstance(input)) {
+      if (OPPProceduralLink.class.isInstance(input)) {
         OPPProceduralLink link = OPPProceduralLink.class.cast(input);
         return OPPProceduralLinkKind.AGENT.equals(link.getKind());
       } else {
@@ -666,25 +665,6 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Check if the given object is parent of other objects
-   * 
-   * @param object
-   *          and {@link OPPObject}
-   * @return <code>true</code> if the object is composite, <code>false</code>
-   *         otherwise.
-   */
-  public boolean isObjectComposite(OPPObject object) {
-    Collection<OPPLink> outgoingStructuralLinks = findOutgoingStructuralLinks(object);
-    for(OPPLink link : outgoingStructuralLinks) {
-      OPPStructuralLinkAggregator target = OPPStructuralLinkAggregator.class.cast(link.getTarget());
-      if(target.getKind().equals(OPPStructuralLinkAggregatorKind.AGGREGATION)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
    * Find the aggregate parent of this {@link OPPObject}, or <code>null</code>
    * if the {@link OPPObject} has no parent.
    * 
@@ -695,26 +675,14 @@ public class OPPOPDAnalyzer {
    */
   public OPPObject findParent(OPPObject object) {
     Collection<OPPLink> incomingStructuralLinks = findIncomingStructuralLinks(object);
-    for(OPPLink link : incomingStructuralLinks) {
+    for (OPPLink link : incomingStructuralLinks) {
       OPPStructuralLinkAggregator source = OPPStructuralLinkAggregator.class.cast(link.getSource());
-      if(source.getKind().equals(OPPStructuralLinkAggregatorKind.AGGREGATION)) {
+      if (source.getKind().equals(OPPStructuralLinkAggregatorKind.AGGREGATION)) {
         OPPLink aggregatorIncomingLink = source.getIncomingLinks().iterator().next();
         return OPPObject.class.cast(aggregatorIncomingLink.getSource());
       }
     }
     return null;
-  }
-
-  /**
-   * Check if the given object is a collection.
-   * 
-   * @param object
-   *          an {@link OPPObject}
-   * @return <code>true</code> if the object is a collection, <code>false</code>
-   *         otherwise.
-   */
-  public boolean isObjectCollection(OPPObject object) {
-    return object.isCollection();
   }
 
   public boolean isSourceObject(OPPLink link) {
@@ -739,9 +707,9 @@ public class OPPOPDAnalyzer {
 
   public OPPObject getTargetObject(OPPProceduralLink link) {
     OPPNode target = link.getTarget();
-    if(OPPObject.class.isInstance(target))
+    if (OPPObject.class.isInstance(target))
       return OPPObject.class.cast(target);
-    else if(OPPState.class.isInstance(target))
+    else if (OPPState.class.isInstance(target))
       return OPPObject.class.cast(target.getContainer());
     else
       throw new IllegalArgumentException("Target must be an object or a state.");

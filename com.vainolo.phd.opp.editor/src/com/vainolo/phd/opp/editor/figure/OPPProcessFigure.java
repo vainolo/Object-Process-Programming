@@ -72,7 +72,7 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
   protected void paintFigure(Graphics graphics) {
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
-    if(isMultiple)
+    if (isMultiple)
       paintMultipleProcess(r);
     else
       paintSimpleProcess(r);
@@ -100,7 +100,7 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
    * @return an {@link EllipseAnchor} on the figure.
    */
   private ConnectionAnchor getConnectionAnchor() {
-    if(connectionAnchor == null) {
+    if (connectionAnchor == null) {
       connectionAnchor = new EllipseAnchor(this);
     }
     return connectionAnchor;
@@ -114,10 +114,6 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
   @Override
   public ConnectionAnchor getTargetConnectionAnchor() {
     return getConnectionAnchor();
-  }
-
-  public void setText(String text) {
-    smartLabel.setText(text);
   }
 
   @Override

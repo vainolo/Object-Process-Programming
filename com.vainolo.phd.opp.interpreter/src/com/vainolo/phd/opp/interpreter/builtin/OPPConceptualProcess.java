@@ -35,9 +35,4 @@ public class OPPConceptualProcess extends OPPAbstractProcessInstance implements 
   public String getName() {
     return process.getName();
   }
-
-  @Override
-  public boolean isReady() {
-    return true;
-  }
 }

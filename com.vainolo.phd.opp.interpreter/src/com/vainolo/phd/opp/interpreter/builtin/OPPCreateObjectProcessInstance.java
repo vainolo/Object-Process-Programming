@@ -25,12 +25,7 @@ public class OPPCreateObjectProcessInstance extends OPPAbstractProcessInstance i
   }
 
   @Override
-  public boolean isReady() {
-    return true;
-  }
-
-  @Override
-  public List<OPPParameter> getOutgoingParameterNames() {
-    return Lists.newArrayList(new OPPParameter("object", false));
+  public List<OPPParameter> getOutgoingParameters() {
+    return Lists.newArrayList(new OPPParameter("object"));
   }
 }

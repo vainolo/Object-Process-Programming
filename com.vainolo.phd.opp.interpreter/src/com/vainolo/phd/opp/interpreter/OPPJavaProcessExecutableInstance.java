@@ -40,13 +40,13 @@ public class OPPJavaProcessExecutableInstance extends OPPAbstractProcessInstance
   @Override
   protected void executing() {
     loadMethod();
-    for(String parameter : parameters) {
+    for (String parameter : parameters) {
       OPPObject object = OPPFactory.eINSTANCE.createOPPObject();
       object.setName(parameter);
     }
 
     arguments = new Object[parameters.length];
-    for(int i = 0; i < parameters.length; i++) {
+    for (int i = 0; i < parameters.length; i++) {
       arguments[i] = getArgument("arg" + i);
     }
 
@@ -55,7 +55,7 @@ public class OPPJavaProcessExecutableInstance extends OPPAbstractProcessInstance
 
     // final Object result = callMethod(method);
     OPPObjectInstance instance = null; // OPMObjectInstance.createFromValue(result);
-    if(!method.getReturnType().equals(Void.TYPE)) {
+    if (!method.getReturnType().equals(Void.TYPE)) {
       setArgument("result", instance);
     }
   }
@@ -75,20 +75,18 @@ public class OPPJavaProcessExecutableInstance extends OPPAbstractProcessInstance
   // }
 
   private Method loadMethod() {
-    final Matcher classAndMethodAndParametersMatcher = classAndMethodAndParametersPattern.matcher(process
-        .getDescription());
+    final Matcher classAndMethodAndParametersMatcher = classAndMethodAndParametersPattern.matcher(process.getDescription());
 
-    if(!classAndMethodAndParametersMatcher.find()) {
+    if (!classAndMethodAndParametersMatcher.find()) {
       logInfo("Could not parse method definition " + process.getDescription() + " for process " + process.getName());
-      throw new RuntimeException("Could not parse method definition " + process.getDescription() + " for process "
-          + process.getName());
+      throw new RuntimeException("Could not parse method definition " + process.getDescription() + " for process " + process.getName());
     }
 
     className = classAndMethodAndParametersMatcher.group(1);
     methodName = classAndMethodAndParametersMatcher.group(2);
     String methodParameters = classAndMethodAndParametersMatcher.group(3);
 
-    if(!methodParameters.isEmpty()) {
+    if (!methodParameters.isEmpty()) {
       methodParameters = methodParameters.replaceAll("\\s*", "");
       parameters = methodParameters.split(",");
     }
@@ -100,23 +98,21 @@ public class OPPJavaProcessExecutableInstance extends OPPAbstractProcessInstance
       Class<?>[] parameterClasses = null;
       cls = getClass(className);
 
-      if(parameters.length != 0) {
+      if (parameters.length != 0) {
         parameterClasses = new Class[parameters.length];
-        for(int i = 0; i < parameters.length; i++) {
+        for (int i = 0; i < parameters.length; i++) {
           parameterClasses[i] = getClass(parameters[i]);
         }
       }
       method = cls.getMethod(methodName, parameterClasses);
 
-    } catch(ClassNotFoundException e) {
-      logInfo("Could not load class " + className + " for process " + process.getName()
-          + ". Check that the class is in the classpath.");
+    } catch (ClassNotFoundException e) {
+      logInfo("Could not load class " + className + " for process " + process.getName() + ". Check that the class is in the classpath.");
       throw new RuntimeException(e);
-    } catch(NoSuchMethodException e) {
-      logInfo("Could not find methdod " + methodName + " in class " + className
-          + ". Please check that you have given the correct parameters and try again.");
+    } catch (NoSuchMethodException e) {
+      logInfo("Could not find methdod " + methodName + " in class " + className + ". Please check that you have given the correct parameters and try again.");
       throw new RuntimeException(e);
-    } catch(SecurityException e) {
+    } catch (SecurityException e) {
       logInfo("Some security exception happened. Don't know what this means :-)");
       throw new RuntimeException(e);
     }
@@ -125,31 +121,26 @@ public class OPPJavaProcessExecutableInstance extends OPPAbstractProcessInstance
   }
 
   private Class<?> getClass(String name) throws ClassNotFoundException {
-    if(byte.class.getName().equals(name))
+    if (byte.class.getName().equals(name))
       return byte.class;
-    if(short.class.getName().equals(name))
+    if (short.class.getName().equals(name))
       return short.class;
-    if(int.class.getName().equals(name))
+    if (int.class.getName().equals(name))
       return int.class;
-    if(long.class.getName().equals(name))
+    if (long.class.getName().equals(name))
       return long.class;
-    if(float.class.getName().equals(name))
+    if (float.class.getName().equals(name))
       return float.class;
-    if(double.class.getName().equals(name))
+    if (double.class.getName().equals(name))
       return double.class;
-    if(boolean.class.getName().equals(name))
+    if (boolean.class.getName().equals(name))
       return boolean.class;
-    if(char.class.getName().equals(name))
+    if (char.class.getName().equals(name))
       return char.class;
 
-    if(name.charAt(0) == '[')
+    if (name.charAt(0) == '[')
       throw new UnsupportedOperationException("Array parameters are not supported yet.");
 
     return Class.forName(name);
-  }
-
-  @Override
-  public boolean isReady() {
-    return true;
   }
 }

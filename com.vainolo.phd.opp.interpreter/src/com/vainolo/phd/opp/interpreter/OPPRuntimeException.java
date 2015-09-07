@@ -14,4 +14,12 @@ public class OPPRuntimeException extends RuntimeException {
   public OPPRuntimeException(Throwable cause) {
     super(cause);
   }
+
+  public OPPRuntimeException() {
+    super();
+  }
+
+  public OPPRuntimeException(String message) {
+    super(message);
+  }
 }
