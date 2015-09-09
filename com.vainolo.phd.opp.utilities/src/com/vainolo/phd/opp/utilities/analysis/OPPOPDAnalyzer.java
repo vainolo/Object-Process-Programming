@@ -34,13 +34,12 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Return the {@link OPPObject} connected to an {@link OPPLink}, when there is
-   * no ambiguity.
+   * Return the {@link OPPObject} connected to an {@link OPPLink}, when there is no ambiguity.
    * 
    * @param link
    *          connected to an {@link OPPObject}
-   * @return the source or target {@link OPPObject} of the {@link OPPLink}, if
-   *         there is no ambiguity, or <code>null</code> if there is ambiguity.
+   * @return the source or target {@link OPPObject} of the {@link OPPLink}, if there is no ambiguity, or
+   *         <code>null</code> if there is ambiguity.
    */
   public OPPObject getObject(OPPLink link) {
     OPPNode source = link.getSource();
@@ -56,14 +55,13 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Return the {@link OPPObject} source of an {@link OPPLink} that starts in an
-   * {@link OPPObject} or an {@link OPPState}.
+   * Return the {@link OPPObject} source of an {@link OPPLink} that starts in an {@link OPPObject} or an
+   * {@link OPPState}.
    * 
    * @param link
    *          from where the {@link OPPObject} is fetched.
-   * @return the source {@link OPPObject} of the {@link OPPLink} or
-   *         <code>null</code> if the source is not an {@link OPPObject} of
-   *         {@link OPPState}.
+   * @return the source {@link OPPObject} of the {@link OPPLink} or <code>null</code> if the source is not an
+   *         {@link OPPObject} of {@link OPPState}.
    */
   public OPPObject getSourceObject(OPPLink link) {
     OPPNode source = link.getSource();
@@ -76,13 +74,12 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Return the {@link OPPProcess} connected to an {@link OPPLink}, when there
-   * is no ambiguity.
+   * Return the {@link OPPProcess} connected to an {@link OPPLink}, when there is no ambiguity.
    * 
    * @param link
    *          connected to an {@link OPPProcess}
-   * @return the source or target {@link OPPProcess} of the {@link OPPLink}, if
-   *         there is no ambiguity, or <code>null</code> if there is ambiguity.
+   * @return the source or target {@link OPPProcess} of the {@link OPPLink}, if there is no ambiguity, or
+   *         <code>null</code> if there is ambiguity.
    */
   public OPPProcess getProcess(OPPLink link) {
     OPPNode source = link.getSource();
@@ -111,10 +108,9 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Find all the parameters of the OPD. The definition of a parameter is based
-   * on how the process is being modeled. Currently, parameters are all the
-   * objects directly below the OPD, which are not inside the main process, and
-   * are not part of a compound object.
+   * Find all the parameters of the OPD. The definition of a parameter is based on how the process is being modeled.
+   * Currently, parameters are all the objects directly below the OPD, which are not inside the main process, and are
+   * not part of a compound object.
    * 
    * @param opd
    *          to search.
@@ -161,27 +157,27 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Find all the {@link OPPObject} instances directly contained in an
-   * {@link OPPContainer}.
+   * Find all the {@link OPPObject} instances directly contained in an {@link OPPContainer}.
    * 
    * @param container
    *          to search.
-   * @return all {@link OPPObject} instances directly contained in the
-   *         {@link OPPContainer}.
+   * @return all {@link OPPObject} instances directly contained in the {@link OPPContainer}.
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPPObject> findObjects(OPPContainer container) {
     return (Collection) Collections2.filter(container.getNodes(), IsOPPObjectNode.INSTANCE);
   }
 
+  // public Collection<OPPObject> findObjectsThatAreNotParts(OPPContainer container) {
+  // return findObjects(container).stream().filter(o -> !isObjectPartOfAnotherObject(o)).collect(Collectors.toList());
+  // }
+
   /**
-   * Find all the {@link OPPProcess} instances directly contained in an
-   * {@link OPPContainer}.
+   * Find all the {@link OPPProcess} instances directly contained in an {@link OPPContainer}.
    * 
    * @param container
    *          to search.
-   * @return all {@link OPPProcess} insatnces directly contained in the
-   *         {@link OPPContainer}.
+   * @return all {@link OPPProcess} insatnces directly contained in the {@link OPPContainer}.
    */
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPPProcess> findProcesses(OPPContainer container) {
@@ -248,8 +244,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Find all agent links in a {@link Collection} of {@link OPPProceduralLink}
-   * instances.
+   * Find all agent links in a {@link Collection} of {@link OPPProceduralLink} instances.
    * 
    * @param links
    *          to search
@@ -261,8 +256,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Find all consumption links in a {@link Collection} of
-   * {@link OPPProceduralLink} instances.
+   * Find all consumption links in a {@link Collection} of {@link OPPProceduralLink} instances.
    * 
    * @param links
    *          to search
@@ -298,8 +292,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Find all outgoing data links of an {@link OPPObject}, including links that
-   * start at an inner {@link OPPState}.
+   * Find all outgoing data links of an {@link OPPObject}, including links that start at an inner {@link OPPState}.
    * 
    * @param object
    *          to search.
@@ -361,15 +354,13 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Find the main {@link OPPProcess} in an in-zoomed process
-   * {@link OPPObjectProcessDiagram}.
+   * Find the main {@link OPPProcess} in an in-zoomed process {@link OPPObjectProcessDiagram}.
    * 
    * @param opd
    *          an in-zoomed {@link OPPProcess} {@link OPPObjectProcessDiagram}.
    * @return
    * @throws IllegalStateException
-   *           if there is no main {@link OPPProcess} or there is more than one
-   *           {@link OPPProcess} directly below the
+   *           if there is no main {@link OPPProcess} or there is more than one {@link OPPProcess} directly below the
    *           {@link OPPObjectProcessDiagram}
    */
   public OPPProcess getInZoomedProcess(OPPObjectProcessDiagram opd) {
@@ -390,8 +381,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Find the thing that is unfolded in the diagram. An unfolded thing must
-   * match the name of the OPD.
+   * Find the thing that is unfolded in the diagram. An unfolded thing must match the name of the OPD.
    * 
    * @param opd
    *          an unfolded {@link OPPObjectProcessDiagram}.
@@ -405,12 +395,10 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Find the system {@link OPPProcess} of the diagram. The system process must
-   * match the name of the OPD.
+   * Find the system {@link OPPProcess} of the diagram. The system process must match the name of the OPD.
    * 
    * @param opd
-   *          an {@link OPPObjectProcessDiagram} of kind
-   *          {@link OPPObjectProcessDiagramKind#SYSTEM}
+   *          an {@link OPPObjectProcessDiagram} of kind {@link OPPObjectProcessDiagramKind#SYSTEM}
    * @return the unfolded {@link OPPThing} of the diagram.
    */
   public OPPProcess getSystemProcess(OPPObjectProcessDiagram opd) {
@@ -523,8 +511,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Match all {@link OPPProceduralLink}s which are event links - i.e. have an
-   * event subkind.
+   * Match all {@link OPPProceduralLink}s which are event links - i.e. have an event subkind.
    * 
    */
   public enum IsOPPEventLink implements Predicate<OPPProceduralLink> {
@@ -538,8 +525,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Predicate that matches {@link OPPProcess} outgoing
-   * {@link OPPProceduralLink}s.
+   * Predicate that matches {@link OPPProcess} outgoing {@link OPPProceduralLink}s.
    */
   public enum IsOPPProcessOutgoingDataLink implements Predicate<OPPLink> {
     INSTANCE;
@@ -561,8 +547,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Predicate that matches {@link OPPNode} instances that are also
-   * {@link OPPObject} instances.
+   * Predicate that matches {@link OPPNode} instances that are also {@link OPPObject} instances.
    * 
    */
   public enum IsOPPObjectNode implements Predicate<OPPNode> {
@@ -577,8 +562,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Predicate that matches {@link OPPNode} instances that are also
-   * {@link OPPProcess} instances.
+   * Predicate that matches {@link OPPNode} instances that are also {@link OPPProcess} instances.
    * 
    */
   public enum IsOPPProcessNode implements Predicate<OPPNode> {
@@ -593,8 +577,8 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Predicate that matches {@link OPPLink} instances which are
-   * {@link OPPProceduralLink}s of {@link OPPProceduralLinkKind#AGENT} kind.
+   * Predicate that matches {@link OPPLink} instances which are {@link OPPProceduralLink}s of
+   * {@link OPPProceduralLinkKind#AGENT} kind.
    * 
    */
   public enum IsOPPAgentLink implements Predicate<OPPLink> {
@@ -612,8 +596,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Matches {@link OPPProceduralLink} instances of
-   * {@link OPPProceduralLinkKind#CONSUMPTION} kind.
+   * Matches {@link OPPProceduralLink} instances of {@link OPPProceduralLinkKind#CONSUMPTION} kind.
    * 
    */
   public enum IsOPPConsumptionLink implements Predicate<OPPProceduralLink> {
@@ -626,8 +609,7 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Matches {@link OPPProceduralLink} insances of
-   * {@link OPPProceduralLinkKind#RESULT} kind.
+   * Matches {@link OPPProceduralLink} insances of {@link OPPProceduralLinkKind#RESULT} kind.
    * 
    */
   public enum IsOPPResultLink implements Predicate<OPPProceduralLink> {
@@ -665,13 +647,11 @@ public class OPPOPDAnalyzer {
   }
 
   /**
-   * Find the aggregate parent of this {@link OPPObject}, or <code>null</code>
-   * if the {@link OPPObject} has no parent.
+   * Find the aggregate parent of this {@link OPPObject}, or <code>null</code> if the {@link OPPObject} has no parent.
    * 
    * @param object
    *          being searched.
-   * @return the parent of this {@link OPPObject} if it has one,
-   *         <code>null</code> otherwise.
+   * @return the parent of this {@link OPPObject} if it has one, <code>null</code> otherwise.
    */
   public OPPObject findParent(OPPObject object) {
     Collection<OPPLink> incomingStructuralLinks = findIncomingStructuralLinks(object);

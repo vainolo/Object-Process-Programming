@@ -28,21 +28,21 @@ public class OPPGetPartProcessInstanceTest {
 
   @Test
   public void test_getPart_byStringInstance() throws Exception {
-    compositeInstance.setPart(stringPart.getStringValue(), numericPart);
+    compositeInstance.addPart(stringPart.getStringValue(), numericPart);
     OPPObjectInstance part = doTest(compositeInstance, stringPart);
     assertEquals(numericalValue, part.getNumericalValue());
   }
 
   @Test
   public void test_getPart_byNumberInstance() throws Exception {
-    compositeInstance.setPart(numericPart.getStringValue(), stringPart);
+    compositeInstance.addPart(numericPart.getStringValue(), stringPart);
     OPPObjectInstance part = doTest(compositeInstance, numericPart);
     assertEquals(stringValue, part.getStringValue());
   }
 
   @Test
   public void test_getPart_byInstance() throws Exception {
-    compositeInstance.setPart(compositeKey.getId(), numericPart);
+    compositeInstance.addPart(compositeKey.getId(), numericPart);
     OPPObjectInstance part = doTest(compositeInstance, compositeKey);
     assertEquals(numericalValue, part.getNumericalValue());
   }

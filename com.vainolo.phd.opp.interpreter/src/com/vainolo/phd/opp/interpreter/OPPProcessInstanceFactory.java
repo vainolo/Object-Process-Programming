@@ -19,6 +19,14 @@ import com.vainolo.phd.opp.interpreter.builtin.OPPOutputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPPrintHelloWorldProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPSleepProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance.ComparisonType;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddFirstPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddLastPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetFirstPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetLastPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessExecutableInstance;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPProcess;
@@ -51,7 +59,7 @@ public class OPPProcessInstanceFactory {
     OPPProcessInstance executableInstance = null;
     switch (process.getKind()) {
     case BUILT_IN:
-      executableInstance = createBuiltInProcess(process);
+      executableInstance = createBuiltInProcess(process.getName());
       break;
     case COMPOUND:
       executableInstance = createExecutableInstance(process.getName());
@@ -67,46 +75,59 @@ public class OPPProcessInstanceFactory {
     return executableInstance;
   }
 
-  private static OPPProcessInstance createBuiltInProcess(final OPPProcess process) {
+  private static OPPProcessInstance createBuiltInProcess(String name) {
     OPPProcessInstance processInstance;
 
-    if (process.getName().equals("Input")) {
-      processInstance = OPPInterpreterInjector.INSTANCE.getInstance(OPPInputProcessInstance.class);
-    } else if (process.getName().equals("Output") || process.getName().equals("Dialog") || process.getName().equals("Print")) {
+    if (name.equalsIgnoreCase("Input")) {
+      processInstance = new OPPInputProcessInstance();
+    } else if (name.equalsIgnoreCase("Output") || name.equalsIgnoreCase("Dialog") || name.equalsIgnoreCase("Print")) {
       processInstance = new OPPOutputProcessInstance();
-      processInstance.setName(process.getName());
-    } else if (process.getName().equals("+")) {
+      processInstance.setName(name);
+    } else if (name.equals("+")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.ADD);
-    } else if (process.getName().equals("-")) {
+    } else if (name.equals("-")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.SUBS);
-    } else if (process.getName().equals("*")) {
+    } else if (name.equals("*")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.MULT);
-    } else if (process.getName().equals("/")) {
+    } else if (name.equals("/")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.DIV);
-    } else if (process.getName().equals("^")) {
+    } else if (name.equals("^")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.POW);
-    } else if (process.getName().equals("Sleep")) {
+    } else if (name.equalsIgnoreCase("Sleep")) {
       processInstance = new OPPSleepProcessInstance();
-      processInstance.setName(process.getName());
-    } else if (process.getName().equals("Hello World")) {
+    } else if (name.equalsIgnoreCase("Hello World")) {
       processInstance = new OPPPrintHelloWorldProcessInstance();
-    } else if (process.getName().equals("Create") || process.getName().equals("New")) {
+    } else if (name.equalsIgnoreCase("Create") || name.equalsIgnoreCase("New")) {
       processInstance = new OPPCreateObjectProcessInstance();
-    } else if (process.getName().equals("<=")) {
+    } else if (name.equals("<=")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN_OR_EQUAL);
-    } else if (process.getName().equals(">=")) {
+    } else if (name.equals(">=")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.GREATER_THAN_OR_EQUAL);
-    } else if (process.getName().equals(">")) {
+    } else if (name.equals(">")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.GREATER_THAN);
-    } else if (process.getName().equals("<")) {
+    } else if (name.equals("<")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN);
-    } else if (process.getName().equals("==")) {
+    } else if (name.equals("==")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.EQUAL);
+    } else if (name.equalsIgnoreCase("Add First Part")) {
+      processInstance = new OPPAddFirstPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Add Last Part")) {
+      processInstance = new OPPAddLastPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Get First Part")) {
+      processInstance = new OPPGetFirstPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Get Last Part")) {
+      processInstance = new OPPGetLastPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Get Part")) {
+      processInstance = new OPPGetPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Remove First Part")) {
+      processInstance = new OPPRemoveFirstPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Remove Last Part")) {
+      processInstance = new OPPRemoveLastPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Add Part")) {
+      processInstance = new OPPAddPartProcessInstance();
     } else {
-      throw new IllegalStateException("Tried to create unexistent build-in process " + process.getName());
+      throw new IllegalStateException("Tried to create unexistent build-in process " + name);
     }
-
     return processInstance;
-
   }
 }

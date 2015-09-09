@@ -28,8 +28,8 @@ public class OPPInputProcessInstance extends OPPAbstractProcessInstance implemen
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
 
   @Inject
-  public OPPInputProcessInstance(OPPObjectInstanceValueAnalyzer valueAnalyzer) {
-    this.valueAnalyzer = valueAnalyzer;
+  public OPPInputProcessInstance() {
+    this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
   }
 
   @Override

@@ -9,14 +9,14 @@ import org.junit.Test;
 
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 
-public class OPPSetPartProcessInstanceTest {
+public class OPPAddPartProcessInstanceTest {
 
   private String stringValue = "hello";
   private BigDecimal numericalValue = new BigDecimal(5);
   private OPPObjectInstance compositeInstance1, compositeInstance2;
   private OPPObjectInstance numericInstance;
   private OPPObjectInstance stringInstance;
-  private OPPSetPartProcessInstance setPartProcessInstance;
+  private OPPAddPartProcessInstance setPartProcessInstance;
 
   private OPPObjectInstance doTest(OPPObjectInstance composite, OPPObjectInstance key, OPPObjectInstance value) throws Exception {
     setPartProcessInstance.setArgument("whole", composite);
@@ -27,25 +27,25 @@ public class OPPSetPartProcessInstanceTest {
   }
 
   @Test
-  public void test_setPart_byStringInstance() throws Exception {
+  public void test_addPart_byStringInstance() throws Exception {
     OPPObjectInstance result = doTest(compositeInstance1, stringInstance, numericInstance);
     assertEquals(numericInstance.getNumericalValue(), result.getPart(stringInstance.getStringValue()).getNumericalValue());
   }
 
   @Test
-  public void test_setPart_byNumberInstance() throws Exception {
+  public void test_addPart_byNumberInstance() throws Exception {
     OPPObjectInstance result = doTest(compositeInstance1, numericInstance, stringInstance);
     assertEquals(stringInstance.getStringValue(), result.getPart(numericInstance.getStringValue()).getStringValue());
   }
 
   @Test
-  public void test_setPart_byInstance() throws Exception {
+  public void test_addPart_byInstance() throws Exception {
     OPPObjectInstance result = doTest(compositeInstance1, compositeInstance2, numericInstance);
     assertEquals(numericInstance.getNumericalValue(), result.getPart(compositeInstance2.getId()).getNumericalValue());
   }
 
   @Test(expected = NullPointerException.class)
-  public void test_setPart_getPartOnOriginalObjectThrowsException() throws Exception {
+  public void test_addPart_getPartOnOriginalObjectThrowsException() throws Exception {
     doTest(compositeInstance1, stringInstance, numericInstance);
     compositeInstance1.getPart(stringInstance.getStringValue());
   }
@@ -57,7 +57,7 @@ public class OPPSetPartProcessInstanceTest {
     numericInstance = OPPObjectInstance.createFromValue(numericalValue);
     stringInstance = OPPObjectInstance.createFromValue(stringValue);
 
-    setPartProcessInstance = new OPPSetPartProcessInstance();
+    setPartProcessInstance = new OPPAddPartProcessInstance();
   }
 
 }

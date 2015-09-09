@@ -159,7 +159,7 @@ public class OPPObjectInstance {
     compositeKeyToIndexMapping.put(UUID.randomUUID().toString(), newKey);
   }
 
-  public void setPart(String name, OPPObjectInstance value) {
+  public void addPart(String name, OPPObjectInstance value) {
     checkTypeForCompositeOnlyOperations();
     checkState((name != null) && !("".equals(name)), "Named location of element must not be null or empty.");
     checkNotNull(value, "Cannot put a null element to a collection.");
@@ -254,6 +254,8 @@ public class OPPObjectInstance {
       }
       if (ret.length() > 2)
         ret.replace(ret.length() - 1, ret.length(), "}");
+      else
+        ret.append("}");
       return ret.toString();
     } else {
       return super.toString();

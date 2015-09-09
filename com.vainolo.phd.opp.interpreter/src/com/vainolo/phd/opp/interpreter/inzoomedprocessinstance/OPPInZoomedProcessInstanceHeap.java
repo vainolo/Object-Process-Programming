@@ -46,14 +46,13 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    * </p>
    * 
    * <p>
-   * If the {@link OPPObject} is a part of another {@link Object}, the parent
-   * {@link OPPObject} is updated. If the {@link OPPObject} is part of another
-   * {@link OPPObject}, but the parent doesn't exist yet, it is created.
+   * If the {@link OPPObject} is a part of another {@link Object}, the parent {@link OPPObject} is updated. If the
+   * {@link OPPObject} is part of another {@link OPPObject}, but the parent doesn't exist yet, it is created.
    * </p>
    * 
    * <p>
-   * If the {@link OPPObject} has outgoing data links to other {@link OPPObject}
-   * s, these {@link OPPObject}s are updated (recursively if necessary).
+   * If the {@link OPPObject} has outgoing data links to other {@link OPPObject} s, these {@link OPPObject}s are updated
+   * (recursively if necessary).
    * 
    * 
    * @param object
@@ -73,7 +72,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
       }
       setVariable(parentObject, parentValue);
       parentValue = getVariable(parentObject);
-      parentValue.setPart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
+      parentValue.addPart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
       observable.notifyObservers(new OPMHeapChange(parentObject, parentValue, object, getVariable(object)));
     } else {
       OPPObjectInstance objectValue = OPPObjectInstance.createFromExistingInstance(value);
@@ -84,14 +83,12 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   }
 
   /**
-   * Return the value stored in the {@link OPPObject}. If the {@link OPPObject}
-   * is part of another {@link OPPObject}, the value if fetched from the parent
-   * {@link OPPObject}.
+   * Return the value stored in the {@link OPPObject}. If the {@link OPPObject} is part of another {@link OPPObject},
+   * the value if fetched from the parent {@link OPPObject}.
    * 
    * @param object
    *          where a value can be stored
-   * @return the value of the {@link OPPObject}, or <code>null</code> if no
-   *         value has been assigned.
+   * @return the value of the {@link OPPObject}, or <code>null</code> if no value has been assigned.
    */
   public OPPObjectInstance getVariable(OPPObject object) {
     if (analyzer.isObjectPartOfAnotherObject(object)) {
@@ -110,8 +107,8 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   }
 
   /**
-   * Transfer the data in an {@link OPPObject} through outgoing data links to
-   * other {@link OPPObject}'s, also doing this recursively if needed.
+   * Transfer the data in an {@link OPPObject} through outgoing data links to other {@link OPPObject}'s, also doing this
+   * recursively if needed.
    * 
    * @param source
    */
@@ -142,16 +139,20 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   }
 
   /**
-   * Calculate the value of an {@link OPPObject} literal, and set the value of
-   * the {@link OPPObject} variable with the literal value.
+   * Calculate the value of an {@link OPPObject} literal, and set the value of the {@link OPPObject} variable with the
+   * literal value.
    * 
    * @param object
    *          that is being analyzed.
    */
-  public void calculateOPMObjectValueAndSetVariableIfValueIfExists(OPPObject object) {
+  public boolean calculateOPMObjectValueAndSetVariableIfValueIfExists(OPPObject object) {
     OPPObjectInstance objectValue = valueAnalyzer.calculateOPMObjectValue(object, analyzer);
-    if (objectValue != null)
+    if (objectValue != null) {
       setVariable(object, objectValue);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   /**
@@ -160,15 +161,15 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   public void initializeVariablesWithLiterals(OPPProcess mainProcess) {
     Collection<OPPObject> objectVariables = analyzer.findObjects(mainProcess);
     for (OPPObject object : objectVariables) {
-      calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
-      if (getVariable(object) != null)
+      boolean valueSet = calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
+      if (valueSet)
         transferDataFromObject(object);
     }
   }
 
   /**
-   * Create a variable for all of the arguments that were passed to the process,
-   * or for arguments that contain literal values.
+   * Create a variable for all of the arguments that were passed to the process, or for arguments that contain literal
+   * values.
    */
   public void initializeVariablesWithArgumentValues(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> objectArguments = analyzer.findParameters(opd);
@@ -183,8 +184,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   }
 
   /**
-   * Initialize variables of the process instance. Variables are initialized
-   * from two sources: arguments and literals.
+   * Initialize variables of the process instance. Variables are initialized from two sources: arguments and literals.
    * 
    * @param opd
    *          that is being executed.
@@ -195,12 +195,10 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   }
 
   /**
-   * Copy the value stored in variables matching process arguments to the
-   * external arguments.
+   * Copy the value stored in variables matching process arguments to the external arguments.
    * 
    * @param opd
-   *          The Object Process Diagram that contains the variables and the
-   *          arguments.
+   *          The Object Process Diagram that contains the variables and the arguments.
    */
   public void exportVariableValuesToArguments(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> objectArguments = analyzer.findParameters(opd);

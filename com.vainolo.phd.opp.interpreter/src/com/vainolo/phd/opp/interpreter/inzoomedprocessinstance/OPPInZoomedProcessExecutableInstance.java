@@ -44,8 +44,7 @@ import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPState;
 
 /**
- * Executable instance used for a {@link OPPObjectProcessDiagram} containing an
- * in-zoomed process.
+ * Executable instance used for a {@link OPPObjectProcessDiagram} containing an in-zoomed process.
  * 
  * @author Arieh "Vainolo" Bibliowicz
  * 
@@ -135,20 +134,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       P_executing.remove(executedInstance);
       argumentHandler.extractResultsToVariables(instance2ProcessMap.get(executedInstance), executedInstance);
 
-      Set<OPPProcess> P_executingProcesses2 = P_executing.stream().map(p -> instance2ProcessMap.get(p)).collect(Collectors.toSet());
-      Set<OPPProcess> P_executingProcesses = Sets.newHashSet(Collections2.transform(P_executing, new Function<OPPProcessInstance, OPPProcess>() {
-        @Override
-        public OPPProcess apply(OPPProcessInstance input) {
-          return instance2ProcessMap.get(input);
-        }
-      }));
-
-      if (P_executingProcesses.containsAll(P_executingProcesses2) && P_executingProcesses2.containsAll(P_executingProcesses)) {
-        logInfo("P_executingProcesses are equal");
-      } else {
-        logInfo("P_ExecutingProcesses are not equal!!!!!!!");
-      }
-
+      Set<OPPProcess> P_executingProcesses = P_executing.stream().map(p -> instance2ProcessMap.get(p)).collect(Collectors.toSet());
       P_waiting = calculateNewWaitingProcessesSet(instance2ProcessMap.get(executedInstance), P_waiting, P_executingProcesses);
       P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_waiting, isReadyPred), findInvokedProcesses()));
       P_waiting = Sets.newHashSet(Sets.difference(P_waiting, P_ready));
@@ -233,8 +219,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   // }
 
   /**
-   * Get the main in-zoomed {@link OPPProcess} of the
-   * {@link OPPObjectProcessDiagram}
+   * Get the main in-zoomed {@link OPPProcess} of the {@link OPPObjectProcessDiagram}
    * 
    * @return the main {@link OPPProcess} of this {@link OPPObjectProcessDiagram}
    */
@@ -277,8 +262,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   }
 
   /**
-   * @deprecated This function should not be called for this kind of instance.
-   *             Calling it will throw an exception
+   * @deprecated This function should not be called for this kind of instance. Calling it will throw an exception
    */
   @Override
   public void setName(String name) {
