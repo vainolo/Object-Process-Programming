@@ -23,9 +23,9 @@ public class OPPLogger {
       public synchronized String format(LogRecord record) {
         dat.setTime(record.getMillis());
         String source;
-        if(record.getSourceClassName() != null) {
+        if (record.getSourceClassName() != null) {
           source = record.getSourceClassName();
-          if(record.getSourceMethodName() != null) {
+          if (record.getSourceMethodName() != null) {
             source += "." + record.getSourceMethodName();
           }
         } else {
@@ -33,7 +33,7 @@ public class OPPLogger {
         }
         String message = formatMessage(record);
         String throwable = "";
-        if(record.getThrown() != null) {
+        if (record.getThrown() != null) {
           StringWriter sw = new StringWriter();
           PrintWriter pw = new PrintWriter(sw);
           pw.println();
@@ -67,7 +67,7 @@ public class OPPLogger {
   }
 
   public static void logInfo(String msg) {
-    logInfo(msg, (Object) null);
+    log(Level.INFO, msg, null);
   }
 
   public static void logInfo(String msg, Object... params) {
@@ -75,7 +75,7 @@ public class OPPLogger {
   }
 
   public static void logWarning(String msg) {
-    logWarning(msg, (Object) null);
+    log(Level.WARNING, msg, null);
   }
 
   public static void logWarning(String msg, Object... params) {
@@ -83,7 +83,7 @@ public class OPPLogger {
   }
 
   public static void logSevere(String msg) {
-    logSevere(msg, (Object) null);
+    log(Level.SEVERE, msg, null);
   }
 
   public static void logSevere(String msg, Object... params) {
@@ -91,7 +91,7 @@ public class OPPLogger {
   }
 
   public static void logFine(String msg) {
-    logFine(msg, (Object) null);
+    log(Level.FINE, msg, null);
   }
 
   public static void logFine(String msg, Object... params) {
@@ -99,7 +99,7 @@ public class OPPLogger {
   }
 
   public static void logFiner(String msg) {
-    logFiner(msg, (Object) null);
+    log(Level.FINER, msg, null);
   }
 
   public static void logFiner(String msg, Object... params) {
@@ -107,7 +107,7 @@ public class OPPLogger {
   }
 
   public static void logFinest(String msg) {
-    logFinest(msg, (Object) null);
+    log(Level.FINEST, msg, null);
   }
 
   public static void logFinest(String msg, Object... params) {

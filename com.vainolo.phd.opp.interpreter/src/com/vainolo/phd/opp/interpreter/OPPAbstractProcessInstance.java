@@ -7,14 +7,19 @@ package com.vainolo.phd.opp.interpreter;
 
 import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static com.google.common.base.Preconditions.*;
+import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPProcessExecutionResult.OPMProcessExecutionResultType;
 
 /**
- * Default implementation of {@link OPPProcessInstance} interface to be used by
- * subclasses.
+ * Default implementation of {@link OPPProcessInstance} interface to be used by subclasses.
  * 
  * @author Arieh "Vainolo" Bibliowicz
  * 
@@ -68,15 +73,27 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   public void setArgument(String name, OPPObjectInstance value) {
-    if(name == null)
+    if (name == null)
       name = "";
+    else {
+      if (!getAllParameterNames().contains(name)) {
+        logSevere("Process {1} does not have a parameter named {2}.", getName(), name);
+        throw new OPPRuntimeException("Process " + getName() + " does not have a parameter named " + name + ".");
+      }
+    }
     getHeap().addArgument(name.toLowerCase(), value);
   }
 
   @Override
   public OPPObjectInstance getArgument(String name) {
-    if(name == null)
+    if (name == null)
       name = "";
+    else {
+      if (!getAllParameterNames().contains(name)) {
+        logSevere("Process {1} does not have a parameter named {2}.", getName(), name);
+        throw new OPPRuntimeException("Process " + getName() + " does not have a parameter named " + name + ".");
+      }
+    }
     return getHeap().getArgument(name.toLowerCase());
   }
 
@@ -90,6 +107,10 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
     return Lists.newArrayList();
   }
 
+  private List<String> getAllParameterNames() {
+    return Stream.concat(getIncomingParameters().stream(), getOutgoingParameters().stream()).map(p -> p.getName()).collect(Collectors.toList());
+  }
+
   @Override
   public OPPProcessExecutionResult call() throws Exception {
     result = new OPPProcessExecutionResult(this, OPMProcessExecutionResultType.FINISHED);
@@ -97,7 +118,7 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
       preExecution();
       executing();
       postExecution();
-    } catch(Exception e) {
+    } catch (Exception e) {
       throw new OPPRuntimeException(e);
     }
     return result;
