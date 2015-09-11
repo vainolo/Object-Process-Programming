@@ -33,22 +33,19 @@ public interface OPPProcessInstance extends Callable<OPPProcessExecutionResult> 
    *          of the argument.
    * @return value of the argument.
    * @throws IllegalStateException
-   *           if the argument has no value (only occurs for outgoing
-   *           arguments).
+   *           if the argument has no value (only occurs for outgoing arguments).
    */
   OPPObjectInstance getArgument(String name);
 
   /**
-   * Get a list of the names of all the incoming parameters of this
-   * {@link OPPProcessInstance}.
+   * Get a list of the names of all the incoming parameters of this {@link OPPProcessInstance}.
    * 
    * @return a list of the incoming parameter names.
    */
   List<OPPParameter> getIncomingParameters();
 
   /**
-   * Get a list of the names of all the outgoing parameters of this
-   * {@link OPPProcessInstance}.
+   * Get a list of the names of all the outgoing parameters of this {@link OPPProcessInstance}.
    * 
    * @return a list of the outgoing parameter names.
    */

@@ -59,10 +59,10 @@ public class OPPProcessInstanceFactory {
     OPPProcessInstance executableInstance = null;
     switch (process.getKind()) {
     case BUILT_IN:
-      executableInstance = createBuiltInProcess(process.getName());
-      break;
     case COMPOUND:
-      executableInstance = createExecutableInstance(process.getName());
+      executableInstance = createBuiltInProcess(process.getName());
+      if (executableInstance == null)
+        executableInstance = createExecutableInstance(process.getName());
       break;
     case CONCEPTUAL:
       executableInstance = new OPPConceptualProcess(process);
@@ -76,7 +76,7 @@ public class OPPProcessInstanceFactory {
   }
 
   private static OPPProcessInstance createBuiltInProcess(String name) {
-    OPPProcessInstance processInstance;
+    OPPProcessInstance processInstance = null;
 
     if (name.equalsIgnoreCase("Input")) {
       processInstance = new OPPInputProcessInstance();
@@ -126,7 +126,7 @@ public class OPPProcessInstanceFactory {
     } else if (name.equalsIgnoreCase("Add Part")) {
       processInstance = new OPPAddPartProcessInstance();
     } else {
-      throw new IllegalStateException("Tried to create unexistent build-in process " + name);
+      logFine("Build in process {0} not found.", name);
     }
     return processInstance;
   }

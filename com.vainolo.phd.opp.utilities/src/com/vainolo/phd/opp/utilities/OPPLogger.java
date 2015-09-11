@@ -20,6 +20,7 @@ public class OPPLogger {
       String format = "[%1$tF %1$tT] %2$s %3$s %5$s\n";
       private final Date dat = new Date();
 
+      @Override
       public synchronized String format(LogRecord record) {
         dat.setTime(record.getMillis());
         String source;

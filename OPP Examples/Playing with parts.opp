@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Playing with parts" lastKnownUsedId="194">
+  <nodes xsi:type="opp:OPPProcess" id="1" width="839" height="724" x="200" y="100" name="Playing with parts" main="true">
+    <nodes xsi:type="opp:OPPProcess" id="1" outgoingLinks="10" width="50" height="50" x="213" y="107" name="New" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="2" incomingLinks="10" outgoingLinks="11" width="50" height="50" x="355" y="101" name=" "/>
+    <nodes xsi:type="opp:OPPObject" id="3" outgoingLinks="12" width="82" height="33" x="458" y="97" name="&quot;world&quot;"/>
+    <nodes xsi:type="opp:OPPObject" id="4" outgoingLinks="13 185 190" width="82" height="33" x="581" y="116" name=" "/>
+    <nodes xsi:type="opp:OPPProcess" id="5" incomingLinks="11 12 13" outgoingLinks="14" width="99" height="75" x="391" y="227" name="Add Part" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="6" incomingLinks="14" outgoingLinks="90" width="50" height="50" x="353" y="339" name=" "/>
+    <nodes xsi:type="opp:OPPProcess" id="87" incomingLinks="90 190" outgoingLinks="93" width="99" height="75" x="305" y="431" name="Get Part" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="91" incomingLinks="93" outgoingLinks="95" width="50" height="50" x="451" y="503" name=" "/>
+    <nodes xsi:type="opp:OPPProcess" id="92" incomingLinks="95" width="103" height="42" x="350" y="619" name="Dialog" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="99" incomingLinks="186" width="82" height="33" x="676" y="203" name="&quot;hello&quot;"/>
+    <nodes xsi:type="opp:OPPStructuralLinkAggregator" id="100" incomingLinks="185" outgoingLinks="186" width="15" height="15" x="654" y="173"/>
+  </nodes>
+  <links xsi:type="opp:OPPProceduralLink" id="10" source="1" target="2" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="11" source="2" target="5" centerDecoration="whole" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="12" source="3" target="5" centerDecoration="part" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="13" source="4" target="5" centerDecoration="key" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="14" source="5" target="6" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="90" source="6" target="87" centerDecoration="whole" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="93" source="87" target="91" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="95" source="91" target="92" kind="Data"/>
+  <links xsi:type="opp:OPPStructuralLinkPart" id="185" source="4" target="100"/>
+  <links xsi:type="opp:OPPStructuralLinkPart" id="186" source="100" target="99"/>
+  <links xsi:type="opp:OPPProceduralLink" id="190" source="4" target="87" centerDecoration="key" kind="Data">
+    <bendpoints x="714" y="459"/>
+  </links>
+</opp:OPPObjectProcessDiagram>

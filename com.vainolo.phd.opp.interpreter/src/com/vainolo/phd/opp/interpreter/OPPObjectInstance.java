@@ -202,28 +202,31 @@ public class OPPObjectInstance {
     return Collections.unmodifiableSet(compositeKeyToIndexMapping.keySet());
   }
 
-  public void removePart(OPPObjectInstance key) {
+  public OPPObjectInstance removePart(OPPObjectInstance key) {
     checkTypeForCompositeOnlyOperations();
     checkState(key != null, "Key cannot be null.");
+    OPPObjectInstance part = null;
     switch (key.kind) {
     case STRING:
     case NUMERICAL:
-      removePart(key.getStringValue());
+      part = removePart(key.getStringValue());
       break;
     case COMPOSITE:
-      removePart(key.getId());
+      part = removePart(key.getId());
       break;
     case JAVA_OBJECT:
       throw new OPPRuntimeException("Java object keys are not supported.");
     }
+    return part;
   }
 
-  public void removePart(String key) {
+  public OPPObjectInstance removePart(String key) {
     checkTypeForCompositeOnlyOperations();
-    checkState((key != null) && ("".equals(key)), "Key cannot be null or empty.");
+    checkState((key != null) && (!"".equals(key)), "Key cannot be null or empty.");
     Integer index = compositeKeyToIndexMapping.get(key);
-    compositeValues.remove(index);
+    OPPObjectInstance part = compositeValues.remove(index);
     compositeKeyToIndexMapping.remove(key);
+    return part;
   }
 
   public OPPObjectInstance removeFirstPart() {

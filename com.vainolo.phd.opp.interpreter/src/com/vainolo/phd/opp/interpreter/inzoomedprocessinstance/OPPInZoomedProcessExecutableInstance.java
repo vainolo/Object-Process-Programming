@@ -10,8 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
@@ -25,10 +27,12 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
+import com.vainolo.phd.opp.utilities.OPPLogger;
 import com.vainolo.phd.opp.utilities.OPPStrings;
 import com.vainolo.phd.opp.utilities.OPPConstants;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
+import com.vainolo.phd.opp.interpreter.OPPInterpreter;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
@@ -66,6 +70,8 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   private Predicate<OPPProcess> isReadyAndNotSkipPred;
   private ExecutorCompletionService<OPPProcessExecutionResult> completionService;
 
+  // private ExecutorService executor;
+
   /**
    * Create a new instance.
    * 
@@ -85,7 +91,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     this.mustSkipPred = new mustSkipProcess();
     this.notReadyAndNotSkipPred = Predicates.and(Predicates.not(isReadyPred), Predicates.not(mustSkipPred));
     this.isReadyAndNotSkipPred = Predicates.and(isReadyPred, Predicates.not(mustSkipPred));
-    this.completionService = new ExecutorCompletionService<>(Executors.newCachedThreadPool());
+    this.completionService = new ExecutorCompletionService<>(OPPInterpreter.INSTANCE.getExecutor());
   }
 
   @Override
@@ -118,8 +124,14 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       return;
     }
 
+    logInfo("Starting execution loop, {0} waiting, {1} ready, and {2} executing .", P_waiting.size(), P_ready.size(), P_executing.size());
     while (Sets.union(P_ready, P_executing).size() > 0) {
-      logInfo("Starting execution loop, {0} waiting, {1} ready, and {2} executing .", P_waiting.size(), P_ready.size(), P_executing.size());
+      OPPLogger.setLevel(Level.INFO);
+      if (Thread.currentThread().isInterrupted()) {
+        logInfo("Process execution has been stopped. Stopping executor and terminating.");
+        return;
+      }
+
       heapObserver.clear();
       for (OPPProcess readyProcess : P_ready) {
         OPPProcessInstance readyInstance = OPPProcessInstanceFactory.createExecutableInstance(readyProcess);
@@ -138,13 +150,18 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       P_waiting = calculateNewWaitingProcessesSet(instance2ProcessMap.get(executedInstance), P_waiting, P_executingProcesses);
       P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_waiting, isReadyPred), findInvokedProcesses()));
       P_waiting = Sets.newHashSet(Sets.difference(P_waiting, P_ready));
-      logInfo("Finished execution loop, {0} waiting, {1} ready, and {2} executing.", P_waiting.size(), P_ready.size(), P_executing.size());
+      logInfo("Finished execution iteration, {0} waiting, {1} ready, and {2} executing.", P_waiting.size(), P_ready.size(), P_executing.size());
       instance2ProcessMap.remove(executedInstance);
     }
 
     if (P_waiting.size() > 0) {
-      logInfo("Finished execution of {0} with waiting processes.", getName());
+      logInfo("No more ready processes to execute. There are {0} waiting processes. Sleeping until stopped.", P_waiting.size());
+      while (!Thread.currentThread().isInterrupted()) {
+        Thread.sleep(1000);
+      }
+      logInfo("Stopped execution of process {0}.", getName());
     }
+    logInfo("Finished execution of process {0}.", getName());
 
   }
 
@@ -205,18 +222,6 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     }
     return false;
   }
-
-  // @Override
-  // public boolean isReady() {
-  // Collection<OPPObject> parameters =
-  // analyzer.findIncomingParameters(getOpd());
-  // for (OPPObject object : parameters) {
-  // if (getArgument(object.getName()) == null) {
-  // return false;
-  // }
-  // }
-  // return true;
-  // }
 
   /**
    * Get the main in-zoomed {@link OPPProcess} of the {@link OPPObjectProcessDiagram}
@@ -330,5 +335,4 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       }
     }
   }
-
 }
