@@ -15,6 +15,8 @@ public class OPPAddPartProcessInstance extends OPPAbstractProcessInstance {
     OPPObjectInstance composite = getArgument("whole");
     OPPObjectInstance key = getArgument("key");
     OPPObjectInstance part = getArgument("part");
+    if (composite == null)
+      composite = OPPObjectInstance.createCompositeInstance();
     composite.addPart(key.getStringValue(), part);
     setArgument("new whole", composite);
   }

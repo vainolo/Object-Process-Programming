@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#isParameter <em>Parameter</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#isGlobal <em>Global</em>}</li>
  * </ul>
  * </p>
  *
@@ -44,6 +45,26 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
    * @ordered
    */
   protected boolean parameter = PARAMETER_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean GLOBAL_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isGlobal() <em>Global</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isGlobal()
+   * @generated
+   * @ordered
+   */
+  protected boolean global = GLOBAL_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -90,11 +111,34 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isGlobal() {
+    return global;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setGlobal(boolean newGlobal) {
+    boolean oldGlobal = global;
+    global = newGlobal;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_OBJECT__GLOBAL, oldGlobal, global));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
       case OPPPackage.OPP_OBJECT__PARAMETER:
         return isParameter();
+      case OPPPackage.OPP_OBJECT__GLOBAL:
+        return isGlobal();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -109,6 +153,9 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
     switch (featureID) {
       case OPPPackage.OPP_OBJECT__PARAMETER:
         setParameter((Boolean)newValue);
+        return;
+      case OPPPackage.OPP_OBJECT__GLOBAL:
+        setGlobal((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -125,6 +172,9 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
       case OPPPackage.OPP_OBJECT__PARAMETER:
         setParameter(PARAMETER_EDEFAULT);
         return;
+      case OPPPackage.OPP_OBJECT__GLOBAL:
+        setGlobal(GLOBAL_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -139,6 +189,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
     switch (featureID) {
       case OPPPackage.OPP_OBJECT__PARAMETER:
         return parameter != PARAMETER_EDEFAULT;
+      case OPPPackage.OPP_OBJECT__GLOBAL:
+        return global != GLOBAL_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -155,6 +207,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (parameter: ");
     result.append(parameter);
+    result.append(", global: ");
+    result.append(global);
     result.append(')');
     return result.toString();
   }

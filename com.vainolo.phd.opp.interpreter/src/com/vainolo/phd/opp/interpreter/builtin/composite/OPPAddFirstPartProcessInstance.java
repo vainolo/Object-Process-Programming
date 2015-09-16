@@ -13,6 +13,8 @@ public class OPPAddFirstPartProcessInstance extends OPPAbstractProcessInstance {
   protected void executing() throws Exception {
     OPPObjectInstance composite = getArgument("whole");
     OPPObjectInstance part = getArgument("part");
+    if (composite == null)
+      composite = OPPObjectInstance.createCompositeInstance();
     composite.addFirstPart(part);
     setArgument("new whole", composite);
   }

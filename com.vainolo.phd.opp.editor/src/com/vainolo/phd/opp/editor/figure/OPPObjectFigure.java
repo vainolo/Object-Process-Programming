@@ -63,10 +63,10 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
   }
 
   public void setObjectKind(boolean newCollection) {
-    if(collection && !newCollection) {
+    if (collection && !newCollection) {
       shade1Figure.setVisible(false);
       shade2Figure.setVisible(false);
-    } else if(!collection && newCollection) {
+    } else if (!collection && newCollection) {
       shade1Figure.setVisible(true);
       shade2Figure.setVisible(true);
     }
@@ -86,10 +86,10 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
 
   private void paintNameAndContainer(Rectangle r, int offset) {
     Dimension nameDimensions = nameLabel.getPreferredSize();
-    if(nameDimensions.width > r.width - 2 * offset) {
+    if (nameDimensions.width > r.width - 2 * offset) {
       nameDimensions = nameLabel.getPreferredSize(r.width - 2 * offset, -1);
     }
-    if(!collection)
+    if (!collection)
       borderFigure.setConstraint(nameLabel, new Rectangle(0, 5, r.width, nameDimensions.height));
     else
       borderFigure.setConstraint(nameLabel, new Rectangle(0, 5, r.width - 2 * offset, nameDimensions.height));
@@ -101,7 +101,7 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
   protected void paintFigure(Graphics graphics) {
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
-    if(!collection) {
+    if (!collection) {
       paintBorders(r, 0);
       paintNameAndContainer(r, 0);
     } else {
@@ -111,7 +111,7 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
   }
 
   public ConnectionAnchor getConnectionAnchor() {
-    if(connectionAnchor == null) {
+    if (connectionAnchor == null) {
       connectionAnchor = new ChopboxAnchor(this);
     }
     return connectionAnchor;
@@ -134,7 +134,7 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
 
     // If contentPane size is wider than smart label size, we must re-calculate
     // the height of the smart label using the width of the content pane.
-    if(smartLabelSize.width() < contentPaneSize.width()) {
+    if (smartLabelSize.width() < contentPaneSize.width()) {
       nameLabel.invalidate();
       smartLabelSize = nameLabel.getPreferredSize(contentPaneSize.width(), -1);
     }
@@ -143,7 +143,7 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
     prefSize.width = max(smartLabelSize.width(), contentPaneSize.width());
     prefSize.height = max(smartLabelSize.height(), contentPaneSize.height());
 
-    if(collection)
+    if (collection)
       prefSize = prefSize.expand(20, 10);
 
     return prefSize.expand(5, 5);
@@ -155,12 +155,14 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
     return nameLabel;
   }
 
-  static final Comparator<OPPStateFigure> stateComparator = new Comparator<OPPStateFigure>() {
-    @Override
-    public int compare(OPPStateFigure o1, OPPStateFigure o2) {
-      return o1.getNameFigure().getText().compareTo(o2.getNameFigure().getText());
+  public void setDashedBorder(boolean dashed) {
+    if (dashed) {
+      borderFigure.setLineStyle(SWT.LINE_DASH);
+    } else {
+      borderFigure.setLineStyle(SWT.LINE_SOLID);
     }
-  };
+
+  }
 
   class ContentPane extends Figure {
     public ContentPane() {
@@ -172,9 +174,8 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
       super.paintFigure(graphics);
       @SuppressWarnings("unchecked")
       List<OPPStateFigure> stateFigures = Lists.newArrayList(getChildren());
-      for(OPPStateFigure child : stateFigures) {
-        setConstraint(child,
-            new Rectangle(child.getBounds().x, child.getBounds().y, child.getBounds().width, child.getBounds().height));
+      for (OPPStateFigure child : stateFigures) {
+        setConstraint(child, new Rectangle(child.getBounds().x, child.getBounds().y, child.getBounds().width, child.getBounds().height));
       }
     }
 
@@ -184,7 +185,7 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
       List<OPPStateFigure> stateFigures = Lists.newArrayList(getChildren());
       int width = 0;
       int height = 0;
-      for(OPPStateFigure stateFigure : stateFigures) {
+      for (OPPStateFigure stateFigure : stateFigures) {
         Rectangle stateBounds = stateFigure.getBounds();
         width = (width > stateBounds.x + stateBounds.width) ? width : stateBounds.x + stateBounds.width;
         height = (height > stateBounds.y + stateBounds.height) ? height : stateBounds.y + stateBounds.height;

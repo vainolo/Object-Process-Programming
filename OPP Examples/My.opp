@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="My" lastKnownUsedId="1">
-  <nodes xsi:type="opp:OPPProcess" id="1" width="300" height="400" x="200" y="100" name="My" main="true"/>
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="My" lastKnownUsedId="4">
+  <nodes xsi:type="opp:OPPProcess" id="1" width="300" height="400" x="436" y="93" name="My" main="true">
+    <nodes xsi:type="opp:OPPObject" id="1" width="50" height="50" x="159" y="129"/>
+  </nodes>
 </opp:OPPObjectProcessDiagram>

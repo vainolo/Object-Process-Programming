@@ -17,7 +17,7 @@ public class OPPLogger {
     logger.setUseParentHandlers(false);
     ConsoleHandler handler = new ConsoleHandler();
     Formatter formatter = new Formatter() {
-      String format = "[%1$tF %1$tT] %2$s %3$s %5$s\n";
+      String format = "[%1$tF %1$tT] [%2$s] [%3$s] %5$s\n";
       private final Date dat = new Date();
 
       @Override

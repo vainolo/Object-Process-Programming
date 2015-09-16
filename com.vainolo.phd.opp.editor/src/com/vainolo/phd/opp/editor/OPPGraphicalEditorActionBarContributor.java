@@ -32,15 +32,13 @@ public class OPPGraphicalEditorActionBarContributor extends ActionBarContributor
     addRetargetAction(new RedoRetargetAction());
     addRetargetAction(new DeleteRetargetAction());
 
-    addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY, GEFMessages.ToggleGrid_Label,
-        IAction.AS_CHECK_BOX) {
+    addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_GRID_VISIBILITY, GEFMessages.ToggleGrid_Label, IAction.AS_CHECK_BOX) {
       @Override
       public ImageDescriptor getImageDescriptor() {
         return ImageDescriptor.createFromFile(OPPEditorPlugin.class, "icons/opm_grid.gif");
       }
     });
-    addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY,
-        GEFMessages.ToggleSnapToGeometry_Label, IAction.AS_CHECK_BOX) {
+    addRetargetAction(new RetargetAction(GEFActionConstants.TOGGLE_SNAP_TO_GEOMETRY, GEFMessages.ToggleSnapToGeometry_Label, IAction.AS_CHECK_BOX) {
       @Override
       public ImageDescriptor getImageDescriptor() {
         return ImageDescriptor.createFromFile(OPPEditorPlugin.class, "icons/opm_snap_to_grid.gif");

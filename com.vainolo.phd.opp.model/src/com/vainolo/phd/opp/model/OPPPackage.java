@@ -740,13 +740,22 @@ public interface OPPPackage extends EPackage {
   int OPP_OBJECT__PARAMETER = OPP_THING_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Global</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_OBJECT__GLOBAL = OPP_THING_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Object</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_OBJECT_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 1;
+  int OPP_OBJECT_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.vainolo.phd.opp.model.impl.OPPProcessImpl <em>Process</em>}' class.
@@ -1779,6 +1788,17 @@ public interface OPPPackage extends EPackage {
   EAttribute getOPPObject_Parameter();
 
   /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPObject#isGlobal <em>Global</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Global</em>'.
+   * @see com.vainolo.phd.opp.model.OPPObject#isGlobal()
+   * @see #getOPPObject()
+   * @generated
+   */
+  EAttribute getOPPObject_Global();
+
+  /**
    * Returns the meta object for class '{@link com.vainolo.phd.opp.model.OPPProcess <em>Process</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2305,6 +2325,14 @@ public interface OPPPackage extends EPackage {
      * @generated
      */
     EAttribute OPP_OBJECT__PARAMETER = eINSTANCE.getOPPObject_Parameter();
+
+    /**
+     * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPP_OBJECT__GLOBAL = eINSTANCE.getOPPObject_Global();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opp.model.impl.OPPProcessImpl <em>Process</em>}' class.

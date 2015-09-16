@@ -14,7 +14,7 @@ import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.inject.Inject;
+import com.vainolo.phd.opp.interpreter.OPPInterpreter;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstanceHeap;
@@ -28,16 +28,24 @@ import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
 
   private OPPOPDAnalyzer analyzer;
-  private final Map<OPPObject, OPPObjectInstance> variables;
+  private Map<OPPObject, OPPObjectInstance> variables;
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
   private Observable observable;
+  private boolean globalHeap = false;
 
-  @Inject
-  OPPInZoomedProcessInstanceHeap(OPPObjectInstanceValueAnalyzer valueAnalyzer, OPPOPDAnalyzer analyzer) {
-    this.valueAnalyzer = valueAnalyzer;
-    this.analyzer = analyzer;
+  public OPPInZoomedProcessInstanceHeap() {
+    this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
+    this.analyzer = new OPPOPDAnalyzer();
     this.variables = Maps.newHashMap();
     this.observable = new OPMHeapObservable();
+  }
+
+  public void setGlobalHeap(boolean global) {
+    globalHeap = true;
+  }
+
+  private boolean isGlobalHeap() {
+    return globalHeap;
   }
 
   /**
@@ -61,25 +69,37 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    *          the value to store
    */
   public void setVariable(OPPObject object, OPPObjectInstance value) {
-    logFiner("Setting value of object {0} with value {1}.", object.getName(), value.toString());
+    logFiner("Setting variable {0} with value {1}.", object.getName(), value.toString());
     checkArgument(value != null, "Value cannot be null");
 
     if (analyzer.isObjectPartOfAnotherObject(object)) {
-      OPPObject parentObject = analyzer.findParent(object);
-      OPPObjectInstance parentValue = getVariable(parentObject);
-      if (parentValue == null) {
-        parentValue = OPPObjectInstance.createCompositeInstance();
-      }
-      setVariable(parentObject, parentValue);
-      parentValue = getVariable(parentObject);
-      parentValue.addPart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
-      observable.notifyObservers(new OPMHeapChange(parentObject, parentValue, object, getVariable(object)));
+      setPartVariable(object, value);
     } else {
-      OPPObjectInstance objectValue = OPPObjectInstance.createFromExistingInstance(value);
-      variables.put(object, objectValue);
-      observable.notifyObservers(new OPMHeapChange(object, objectValue));
+      setMainVariable(object, value);
     }
     transferDataFromObject(object);
+  }
+
+  private void setPartVariable(OPPObject object, OPPObjectInstance value) {
+    OPPObject parentObject = analyzer.findParent(object);
+    OPPObjectInstance parentValue = getVariable(parentObject);
+    if (parentValue == null) {
+      parentValue = OPPObjectInstance.createCompositeInstance();
+    }
+    setVariable(parentObject, parentValue);
+    parentValue = getVariable(parentObject);
+    parentValue.addPart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
+    observable.notifyObservers(new OPMHeapChange(parentObject, parentValue, object, getVariable(object)));
+  }
+
+  private void setMainVariable(OPPObject object, OPPObjectInstance value) {
+    OPPObjectInstance objectValue = OPPObjectInstance.createFromExistingInstance(value);
+    if (object.isGlobal() && !isGlobalHeap()) {
+      OPPInterpreter.INSTANCE.getGlobalHeap().setVariable(object.getName(), objectValue);
+    } else {
+      variables.put(object, objectValue);
+    }
+    observable.notifyObservers(new OPMHeapChange(object, objectValue));
   }
 
   /**
@@ -92,18 +112,35 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    */
   public OPPObjectInstance getVariable(OPPObject object) {
     if (analyzer.isObjectPartOfAnotherObject(object)) {
-      OPPObjectInstance parent = getVariable(analyzer.findParent(object));
-      if (parent == null) {
-        logSevere("Tried to get the value of {0} which is part of another object, but parent object doesn't exist.", object.getName());
-        throw new IllegalStateException("Getting value of an object which is part of another object, but parent doesn't exist.");
-      } else {
-        logFinest("Getting value of {0} which is {1}.", object.getName(), parent.getPart(object.getName()));
-        return parent.getPart(object.getName());
-      }
+      return getPartVariable(object);
     } else {
-      logFinest("Getting value of {0} which is {1}.", object.getName(), variables.get(object));
-      return variables.get(object);
+      return getMainVariable(object);
     }
+  }
+
+  private OPPObjectInstance getPartVariable(OPPObject object) {
+    OPPObjectInstance parent = getVariable(analyzer.findParent(object));
+    OPPObjectInstance value;
+    if (parent == null) {
+      logSevere("Tried to get variable {0} which is part of another object, but parent object doesn't exist.", object.getName());
+      throw new OPPRuntimeException("Getting value of an object which is part of another object, but parent doesn't exist.");
+    } else {
+      value = parent.getPart(object.getName());
+      logFinest("Getting variable {0} which is {1}.", object.getName(), parent.getPart(object.getName()));
+    }
+    return value;
+  }
+
+  private OPPObjectInstance getMainVariable(OPPObject object) {
+    OPPObjectInstance value;
+    if (object.isGlobal() && !isGlobalHeap()) {
+      value = OPPInterpreter.INSTANCE.getGlobalHeap().getVariable(object.getName());
+      logFinest("Getting global variable {0} which is {1}.", object.getName(), value);
+    } else {
+      value = variables.get(object);
+      logFinest("Getting variable {0} which is {1}.", object.getName(), value);
+    }
+    return value;
   }
 
   /**

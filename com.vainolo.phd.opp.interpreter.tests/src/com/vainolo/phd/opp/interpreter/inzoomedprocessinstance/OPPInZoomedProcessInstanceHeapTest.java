@@ -118,7 +118,7 @@ public class OPPInZoomedProcessInstanceHeapTest {
 
   @Before
   public void setup() {
-    heap = new OPPInZoomedProcessInstanceHeap(new OPPObjectInstanceValueAnalyzer(), new OPPOPDAnalyzer());
+    heap = new OPPInZoomedProcessInstanceHeap();
     observer = new MyObserver();
 
     obj1 = OPPFactory.eINSTANCE.createOPPObject();

@@ -1,8 +1,10 @@
 package com.vainolo.phd.opp.interpreter.inzoomedprocessinstance;
 
-import static com.vainolo.phd.opp.utilities.OPPLogger.logFine;
+import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +17,7 @@ import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPRuntimeException;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPObject;
+import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 
@@ -31,23 +34,14 @@ public class OPPInZoomedProcessArgumentHandler {
     Map<String, OPPArgument> namedArguments = Maps.newHashMap();
     List<OPPArgument> anonymousArguments = Lists.newArrayList();
 
-    for (OPPLink incomingDataLink : analyzer.findIncomingDataLinks(process)) {
-      OPPArgument argument = new OPPArgument(analyzer.getObject(incomingDataLink));
-      if (incomingDataLink.getCenterDecoration() == null || "".equals(incomingDataLink.getCenterDecoration())) {
-        anonymousArguments.add(argument);
-      } else if (incomingDataLink.getCenterDecoration().contains(",")) {
-        throw new OPPRuntimeException("Argument modifiers are not supported.");
-      } else {
-        namedArguments.put(incomingDataLink.getCenterDecoration(), argument);
-      }
-    }
+    catalogueArguments(analyzer.findIncomingDataLinks(process), namedArguments, anonymousArguments);
 
     logFine("Found {0} anonymous arguments and {1} named arguments.", anonymousArguments.size(), namedArguments.size());
 
     List<String> availableParametersNames = instance.getIncomingParameters().stream().map(param -> param.getName()).collect(Collectors.toList());
     loadNamedArguments(instance, namedArguments);
-    availableParametersNames.removeAll(namedArguments.keySet());
 
+    availableParametersNames.removeAll(namedArguments.keySet());
     loadAnonymousArguments(instance, anonymousArguments, availableParametersNames);
   }
 
@@ -57,30 +51,26 @@ public class OPPInZoomedProcessArgumentHandler {
     }
   }
 
-  private void loadAnonymousArguments(OPPProcessInstance instance, List<OPPArgument> arguments, List<String> availableParameters) {
+  private void loadAnonymousArguments(OPPProcessInstance instance, List<OPPArgument> arguments, List<String> availableParameterNames) {
+    // First arguments who's variable names matches an available parameter name
+    List<OPPArgument> argumentsMatchingParameterNames = arguments.stream().filter(a -> availableParameterNames.contains(a.object.getName()))
+        .collect(Collectors.toList());
+    List<String> remainingParameterNames = Lists.newArrayList(availableParameterNames);
 
-    // First arguments who's variable names matches the parameter name
-    Iterator<String> availableParametersIterator = availableParameters.iterator();
-    while (availableParametersIterator.hasNext()) {
-      String parameterName = availableParametersIterator.next();
-      if (arguments.contains(parameterName)) {
-        OPPObjectInstance argument = getValue(arguments.get(arguments.indexOf(parameterName)));
-        instance.setArgument(parameterName, argument);
-        arguments.remove(parameterName);
-        availableParametersIterator.remove();
-      }
+    for (OPPArgument argument : argumentsMatchingParameterNames) {
+      instance.setArgument(argument.object.getName(), getValue(argument));
+      remainingParameterNames.remove(argument.object.getName());
     }
 
     // now remaining arguments using available parameter names
-    availableParametersIterator = availableParameters.iterator();
-    while (arguments.size() > 0 && availableParametersIterator.hasNext()) {
-      String parameterName = availableParametersIterator.next();
+    Iterator<String> remainingParameterNamesIterator = remainingParameterNames.iterator();
+    while (arguments.size() > 0 && remainingParameterNamesIterator.hasNext()) {
+      String parameterName = remainingParameterNamesIterator.next();
       instance.setArgument(parameterName, getValue(arguments.remove(0)));
-      availableParametersIterator.remove();
+      remainingParameterNamesIterator.remove();
     }
 
-    // In case there are left arguments, pass them as parameters with default
-    // names
+    // In case there are left arguments, pass them as parameters with default names
     if (arguments.size() > 0) {
       int argNumber = 0;
       for (OPPArgument argument : arguments) {
@@ -92,20 +82,11 @@ public class OPPInZoomedProcessArgumentHandler {
 
   public void extractResultsToVariables(OPPProcess process, OPPProcessInstance instance) {
     Map<String, OPPArgument> namedResults = Maps.newHashMap();
-    List<OPPArgument> anonymousResult = Lists.newArrayList();
+    List<OPPArgument> anonymousResults = Lists.newArrayList();
 
-    for (OPPLink resultLink : analyzer.findOutgoingDataLinks(process)) {
-      OPPArgument argument = new OPPArgument(analyzer.getObject(resultLink));
-      if (resultLink.getCenterDecoration() == null || "".equals(resultLink.getCenterDecoration())) {
-        anonymousResult.add(argument);
-      } else if (resultLink.getCenterDecoration().contains(",")) {
-        throw new OPPRuntimeException("Argument modifiers are not supported.");
-      } else {
-        namedResults.put(resultLink.getCenterDecoration(), argument);
-      }
-    }
+    catalogueArguments(analyzer.findOutgoingDataLinks(process), namedResults, anonymousResults);
 
-    logFine("Found {0} anonymous results and {1} named results.", anonymousResult.size(), namedResults.size());
+    logFine("Found {0} anonymous results and {1} named results.", anonymousResults.size(), namedResults.size());
 
     // First extract named results
     List<String> outgoingParametersNames = instance.getOutgoingParameters().stream().map(p -> p.getName()).collect(Collectors.toList());
@@ -116,7 +97,7 @@ public class OPPInZoomedProcessArgumentHandler {
 
     // Then extract results where the variable in the instance matches the
     // result object
-    Iterator<OPPArgument> anonymousResultsIterator = anonymousResult.iterator();
+    Iterator<OPPArgument> anonymousResultsIterator = anonymousResults.iterator();
     while (anonymousResultsIterator.hasNext()) {
       OPPArgument argument = anonymousResultsIterator.next();
       if (instance.getOutgoingParameters().contains(argument.object.getName())) {
@@ -129,12 +110,26 @@ public class OPPInZoomedProcessArgumentHandler {
 
     // Finally, extract all remaining outgoing parameters to the remaining
     // anonymous result objects.
-    for (int i = 0; i < anonymousResult.size(); i++) {
-      setValue(anonymousResult.get(i), instance.getArgument(outgoingParametersNames.get(i)));
+    for (int i = 0; i < anonymousResults.size(); i++) {
+      setValue(anonymousResults.get(i), instance.getArgument(outgoingParametersNames.get(i)));
+    }
+  }
+
+  private void catalogueArguments(Collection<OPPProceduralLink> links, Map<String, OPPArgument> namedArguments, List<OPPArgument> anonymousArguments) {
+    for (OPPLink link : links) {
+      OPPArgument argument = new OPPArgument(analyzer.getObject(link));
+      if (link.getCenterDecoration() == null || "".equals(link.getCenterDecoration())) {
+        anonymousArguments.add(argument);
+      } else if (link.getCenterDecoration().contains(",")) {
+        throw new OPPRuntimeException("Argument modifiers are not supported.");
+      } else {
+        namedArguments.put(link.getCenterDecoration(), argument);
+      }
     }
   }
 
   private void setValue(OPPArgument argument, OPPObjectInstance objectInstance) {
+    logFinest("Setting value of {0} with {1}.", argument.object.getName(), objectInstance);
     if (argument.hasModifier) {
       throw new OPPRuntimeException("Argument modifiers are not supported.");
     } else {

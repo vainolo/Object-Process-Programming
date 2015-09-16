@@ -46,6 +46,7 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
       super.getPropertyDescriptors(object);
 
       addParameterPropertyDescriptor(object);
+      addGlobalPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -64,6 +65,28 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
          getString("_UI_OPPObject_parameter_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_OPPObject_parameter_feature", "_UI_OPPObject_type"),
          OPPPackage.Literals.OPP_OBJECT__PARAMETER,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Global feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addGlobalPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPPObject_global_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPPObject_global_feature", "_UI_OPPObject_type"),
+         OPPPackage.Literals.OPP_OBJECT__GLOBAL,
          true,
          false,
          false,
@@ -111,6 +134,7 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
 
     switch (notification.getFeatureID(OPPObject.class)) {
       case OPPPackage.OPP_OBJECT__PARAMETER:
+      case OPPPackage.OPP_OBJECT__GLOBAL:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

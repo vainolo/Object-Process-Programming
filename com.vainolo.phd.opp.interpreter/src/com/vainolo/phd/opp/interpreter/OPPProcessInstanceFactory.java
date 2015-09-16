@@ -38,7 +38,7 @@ public class OPPProcessInstanceFactory {
   public static OPPProcessInstance createExecutableInstance(OPPObjectProcessDiagram opd) {
     switch (opd.getKind()) {
     case COMPOUND:
-      return new OPPInZoomedProcessExecutableInstance(opd, new OPPOPDAnalyzer());
+      return new OPPInZoomedProcessExecutableInstance(opd);
     case UNFOLDED:
       logInfo("Unfolded OPDs can't be executed.");
       throw new IllegalArgumentException("Unfolded OPDs cannot be executed");
@@ -60,9 +60,12 @@ public class OPPProcessInstanceFactory {
     switch (process.getKind()) {
     case BUILT_IN:
     case COMPOUND:
+      logFinest("Searching for built-in process named {0}.", process.getName());
       executableInstance = createBuiltInProcess(process.getName());
-      if (executableInstance == null)
+      if (executableInstance == null) {
+        logFinest("Built-in process {0} not found, searching compound processes.", process.getName());
         executableInstance = createExecutableInstance(process.getName());
+      }
       break;
     case CONCEPTUAL:
       executableInstance = new OPPConceptualProcess(process);
@@ -125,8 +128,6 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPRemoveLastPartProcessInstance();
     } else if (name.equalsIgnoreCase("Add Part")) {
       processInstance = new OPPAddPartProcessInstance();
-    } else {
-      logFine("Build in process {0} not found.", name);
     }
     return processInstance;
   }

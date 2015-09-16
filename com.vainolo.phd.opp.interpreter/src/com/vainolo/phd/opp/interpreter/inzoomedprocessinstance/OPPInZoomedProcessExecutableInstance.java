@@ -5,29 +5,22 @@ import static com.vainolo.phd.opp.utilities.OPPStrings.*;
 import static com.google.common.base.Preconditions.*;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
-import com.vainolo.phd.opp.utilities.OPPLogger;
 import com.vainolo.phd.opp.utilities.OPPStrings;
 import com.vainolo.phd.opp.utilities.OPPConstants;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
@@ -39,7 +32,6 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessExecutionResult;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstanceFactory;
-import com.vainolo.phd.opp.interpreter.OPPProcessInstanceHeap;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap.OPMHeapObserver;
 import com.vainolo.phd.opp.interpreter.utils.OPPOPDExecutionAnalyzer;
 import com.vainolo.phd.opp.model.OPPObject;
@@ -78,12 +70,12 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
    * @param opd
    *          the {@link OPPObjectProcessDiagram} for this instance.
    */
-  public OPPInZoomedProcessExecutableInstance(OPPObjectProcessDiagram opd, OPPOPDAnalyzer analyzer) {
+  public OPPInZoomedProcessExecutableInstance(OPPObjectProcessDiagram opd) {
     this.opd = opd;
-    this.analyzer = analyzer;
+    this.analyzer = new OPPOPDAnalyzer();
     this.executionAnalyzer = new OPPOPDExecutionAnalyzer();
     this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
-    this.heap = new OPPInZoomedProcessInstanceHeap(valueAnalyzer, analyzer);
+    this.heap = new OPPInZoomedProcessInstanceHeap();
     this.argumentHandler = new OPPInZoomedProcessArgumentHandler(analyzer, heap);
     this.heapObserver = new OPMHeapObserver();
     this.heap.addObserver(heapObserver);
@@ -99,20 +91,20 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     super.preExecution();
     inZoomedProcess = analyzer.getInZoomedProcess(getOpd());
     opdDag = executionAnalyzer.createExecutionDAG(getInZoomedProcess());
-    heap.initializeVariablesWithArgumentValues(getOpd());
+    getHeap().initializeVariablesWithArgumentValues(getOpd());
   }
 
   @Override
   protected void postExecution() {
     super.postExecution();
-    heap.exportVariableValuesToArguments(getOpd());
+    getHeap().exportVariableValuesToArguments(getOpd());
   }
 
   @Override
   protected void executing() throws Exception {
     logInfo(OPPStrings.STARTING_EXECUTION, getName());
     final Map<OPPProcessInstance, OPPProcess> instance2ProcessMap = Maps.newHashMap();
-    heap.initializeVariablesWithLiterals(analyzer.getInZoomedProcess(getOpd()));
+    getHeap().initializeVariablesWithLiterals(analyzer.getInZoomedProcess(getOpd()));
 
     Set<OPPProcess> P_init = executionAnalyzer.findInitialProcesses(opdDag);
     Set<OPPProcess> P_waiting = Sets.newHashSet(Sets.filter(P_init, notReadyAndNotSkipPred));
@@ -126,7 +118,6 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
     logInfo("Starting execution loop, {0} waiting, {1} ready, and {2} executing .", P_waiting.size(), P_ready.size(), P_executing.size());
     while (Sets.union(P_ready, P_executing).size() > 0) {
-      OPPLogger.setLevel(Level.INFO);
       if (Thread.currentThread().isInterrupted()) {
         logInfo("Process execution has been stopped. Stopping executor and terminating.");
         return;
@@ -199,7 +190,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   }
 
   private Set<OPPProcess> findProcessesToInvokeAfterObjectHasChanged(OPPObject object) {
-    OPPObjectInstance value = heap.getVariable(object);
+    OPPObjectInstance value = getHeap().getVariable(object);
     checkNotNull(value, "Changed object cannot be null.");
     Set<OPPProcess> ret = Sets.newHashSet();
     Collection<OPPProceduralLink> outgoingEventLinks = analyzer.findOutgoingEventLinks(object);
@@ -275,7 +266,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   }
 
   @Override
-  protected OPPProcessInstanceHeap getHeap() {
+  protected OPPInZoomedProcessInstanceHeap getHeap() {
     return heap;
   }
 
@@ -306,7 +297,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
   class ExecutablePredicateCommons {
     public boolean isObjectReady(OPPObject object) {
-      OPPObjectInstance variable = heap.getVariable(object);
+      OPPObjectInstance variable = getHeap().getVariable(object);
       if (variable == null) {
         return false;
       } else {
@@ -316,7 +307,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
     public boolean isObjectInState(OPPState state) {
       OPPObject sourceObject = analyzer.getObject(state);
-      OPPObjectInstance variable = heap.getVariable(sourceObject);
+      OPPObjectInstance variable = getHeap().getVariable(sourceObject);
       if (!valueAnalyzer.isObjectInstanceInState(variable, state)) {
         return false;
       } else {

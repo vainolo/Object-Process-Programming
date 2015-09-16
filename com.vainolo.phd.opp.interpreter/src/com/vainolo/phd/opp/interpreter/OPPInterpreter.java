@@ -33,6 +33,7 @@ public enum OPPInterpreter {
   private OPPProcessInstance instance;
   private ExecutorService executor;
   private ExecutorCompletionService<OPPProcessExecutionResult> completionService;
+  private OPPGlobalHeap globalHeap;
 
   private OPPInterpreter() {
   }
@@ -47,6 +48,7 @@ public enum OPPInterpreter {
   public void interpret(String opdName, final IContainer _container) {
     executor = Executors.newCachedThreadPool();
     completionService = new ExecutorCompletionService<>(executor);
+    globalHeap = new OPPGlobalHeap();
 
     OPPLogger.setLevel(Level.INFO);
 
@@ -76,5 +78,9 @@ public enum OPPInterpreter {
       logWarning("Interrupted while waiting for all processes to finish.");
       e.printStackTrace();
     }
+  }
+
+  public OPPGlobalHeap getGlobalHeap() {
+    return globalHeap;
   }
 }

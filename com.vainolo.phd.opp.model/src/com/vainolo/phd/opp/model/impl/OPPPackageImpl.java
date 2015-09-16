@@ -493,6 +493,15 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getOPPObject_Global() {
+    return (EAttribute)oppObjectEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOPPProcess() {
     return oppProcessEClass;
   }
@@ -784,6 +793,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
 
     oppObjectEClass = createEClass(OPP_OBJECT);
     createEAttribute(oppObjectEClass, OPP_OBJECT__PARAMETER);
+    createEAttribute(oppObjectEClass, OPP_OBJECT__GLOBAL);
 
     oppProcessEClass = createEClass(OPP_PROCESS);
     createEAttribute(oppProcessEClass, OPP_PROCESS__KIND);
@@ -909,6 +919,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
 
     initEClass(oppObjectEClass, OPPObject.class, "OPPObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPPObject_Parameter(), ecorePackage.getEBoolean(), "parameter", "false", 1, 1, OPPObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPPObject_Global(), ecorePackage.getEBoolean(), "global", null, 0, 1, OPPObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppProcessEClass, OPPProcess.class, "OPPProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPPProcess_Kind(), this.getOPPProcessKind(), "kind", "Compound", 1, 1, OPPProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
