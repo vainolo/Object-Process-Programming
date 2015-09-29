@@ -52,8 +52,7 @@ public class OPPInZoomedProcessExecutableInstanceTest {
     return object;
   }
 
-  private OPPProceduralLink createProceduralLink(String centerDecoration, OPPProceduralLinkKind kind, OPPNode source,
-      OPPNode target) {
+  private OPPProceduralLink createProceduralLink(String centerDecoration, OPPProceduralLinkKind kind, OPPNode source, OPPNode target) {
     OPPProceduralLink link = OPPFactory.eINSTANCE.createOPPProceduralLink();
     link.setCenterDecoration(centerDecoration);
     link.setKind(kind);
@@ -67,6 +66,7 @@ public class OPPInZoomedProcessExecutableInstanceTest {
     OPPObjectProcessDiagram opd = createInZoomedOPD("Adding Two Numbers");
     OPPProcess inZoomedProcess = createProcess("Adding Two Numbers", OPPProcessKind.COMPOUND);
     opd.getNodes().add(inZoomedProcess);
+
     OPPProcess innerProcess = createProcess("+", OPPProcessKind.BUILT_IN);
     inZoomedProcess.getNodes().add(innerProcess);
     OPPObject object = createObject("a");
@@ -94,16 +94,18 @@ public class OPPInZoomedProcessExecutableInstanceTest {
 
   @Test
   public void test_execute_AddTwoNumber_ArgumentInference() throws Exception {
-    OPPObjectProcessDiagram opd = createInZoomedOPD("Adding Two Numbers with Arugment Inference");
+    OPPObjectProcessDiagram opd = createInZoomedOPD("Adding Two Numbers with Argument Inference");
     OPPProcess inZoomedProcess = createProcess("Adding Two Numbers with Argument Inference", OPPProcessKind.COMPOUND);
     opd.getNodes().add(inZoomedProcess);
 
     OPPProcess addProcess = createProcess("+", OPPProcessKind.BUILT_IN);
     inZoomedProcess.getNodes().add(addProcess);
+
     OPPObject one = createObject("1");
     opd.getNodes().add(one);
     OPPObject two = createObject("2");
     opd.getNodes().add(two);
+
     OPPObject a = createObject("a");
     inZoomedProcess.getNodes().add(a);
     OPPObject b = createObject("b");
@@ -119,15 +121,17 @@ public class OPPInZoomedProcessExecutableInstanceTest {
 
     OPPProcessInstance instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
     instance.call();
-    assertEquals(3.0, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
+    assertEquals(3.0, ((BigDecimal) instance.getArgument("c").getValue()).doubleValue(), 0.01);
 
+    instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
     c.setName("C");
     instance.call();
-    assertEquals(3.0, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
+    assertEquals(3.0, ((BigDecimal) instance.getArgument("C").getValue()).doubleValue(), 0.01);
 
+    instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
     a.setName("A");
     instance.call();
-    assertEquals(3.0, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
+    assertEquals(3.0, ((BigDecimal) instance.getArgument("C").getValue()).doubleValue(), 0.01);
 
   }
 

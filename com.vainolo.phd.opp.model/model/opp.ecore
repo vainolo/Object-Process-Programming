@@ -99,7 +99,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OPPProceduralLinkKind">
     <eLiterals name="AGENT" literal="Agent"/>
-    <eLiterals name="DATA" value="1" literal="Data"/>
+    <eLiterals name="CONS_RES" value="1" literal="Consumption/Result"/>
+    <eLiterals name="INSTRUMENT" value="2" literal="Instrument"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OPPProcessKind">
     <eLiterals name="COMPOUND" literal="Compound"/>

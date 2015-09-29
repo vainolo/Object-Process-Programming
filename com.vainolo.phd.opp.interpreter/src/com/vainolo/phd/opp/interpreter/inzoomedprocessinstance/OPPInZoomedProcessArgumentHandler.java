@@ -57,12 +57,14 @@ public class OPPInZoomedProcessArgumentHandler {
         .collect(Collectors.toList());
     List<String> remainingParameterNames = Lists.newArrayList(availableParameterNames);
 
+    // Arguments that match parameter names
     for (OPPArgument argument : argumentsMatchingParameterNames) {
       instance.setArgument(argument.object.getName(), getValue(argument));
       remainingParameterNames.remove(argument.object.getName());
+      arguments.remove(argument);
     }
 
-    // now remaining arguments using available parameter names
+    // Fill up remaining parameters using the remaining arguments
     Iterator<String> remainingParameterNamesIterator = remainingParameterNames.iterator();
     while (arguments.size() > 0 && remainingParameterNamesIterator.hasNext()) {
       String parameterName = remainingParameterNamesIterator.next();

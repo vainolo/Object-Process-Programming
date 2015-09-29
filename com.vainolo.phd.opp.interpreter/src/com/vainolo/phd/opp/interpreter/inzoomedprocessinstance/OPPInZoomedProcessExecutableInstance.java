@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
@@ -83,7 +84,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     this.mustSkipPred = new mustSkipProcess();
     this.notReadyAndNotSkipPred = Predicates.and(Predicates.not(isReadyPred), Predicates.not(mustSkipPred));
     this.isReadyAndNotSkipPred = Predicates.and(isReadyPred, Predicates.not(mustSkipPred));
-    this.completionService = new ExecutorCompletionService<>(OPPInterpreter.INSTANCE.getExecutor());
+    this.completionService = new ExecutorCompletionService<>(Executors.newCachedThreadPool());
   }
 
   @Override
