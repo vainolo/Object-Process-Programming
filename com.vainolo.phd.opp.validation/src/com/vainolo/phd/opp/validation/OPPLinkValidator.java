@@ -22,31 +22,30 @@ public class OPPLinkValidator {
    *          of the link.
    * @param link
    *          the link.
-   * @return <code>true</code> if the link can start at the specified source,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the link can start at the specified source, <code>false</code> otherwise.
    */
   public boolean validateAddSource(OPPNode source, OPPLink link) {
-    if(OPPProceduralLink.class.isInstance(link)) {
+    if (OPPProceduralLink.class.isInstance(link)) {
       OPPProceduralLink proceduralLink = OPPProceduralLink.class.cast(link);
-      if(OPPObject.class.isInstance(source)) {
-        switch(proceduralLink.getKind()) {
-        case DATA:
+      if (OPPObject.class.isInstance(source)) {
+        switch (proceduralLink.getKind()) {
+        case CONS_RES:
         case AGENT:
           return true;
         default:
           return false;
         }
-      } else if(OPPProcess.class.isInstance(source)) {
-        switch(proceduralLink.getKind()) {
-        case DATA:
+      } else if (OPPProcess.class.isInstance(source)) {
+        switch (proceduralLink.getKind()) {
+        case CONS_RES:
           return true;
         default:
           return false;
         }
-      } else if(OPPState.class.isInstance(source)) {
-        switch(proceduralLink.getKind()) {
+      } else if (OPPState.class.isInstance(source)) {
+        switch (proceduralLink.getKind()) {
         case AGENT:
-        case DATA:
+        case CONS_RES:
           return true;
         default:
           return false;
@@ -63,23 +62,22 @@ public class OPPLinkValidator {
    *          the link.
    * @param target
    *          of the link.
-   * @return <code>true</code> if the link can end at the specified target,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the link can end at the specified target, <code>false</code> otherwise.
    */
   public boolean validateAddTarget(OPPLink link, OPPNode target) {
-    if(OPPProceduralLink.class.isInstance(link)) {
+    if (OPPProceduralLink.class.isInstance(link)) {
       OPPProceduralLink proceduralLink = OPPProceduralLink.class.cast(link);
-      if(OPPObject.class.isInstance(target)) {
-        switch(proceduralLink.getKind()) {
-        case DATA:
+      if (OPPObject.class.isInstance(target)) {
+        switch (proceduralLink.getKind()) {
+        case CONS_RES:
         case AGENT:
           return true;
         default:
           return false;
         }
-      } else if(OPPProcess.class.isInstance(target)) {
-        switch(proceduralLink.getKind()) {
-        case DATA:
+      } else if (OPPProcess.class.isInstance(target)) {
+        switch (proceduralLink.getKind()) {
+        case CONS_RES:
         case AGENT:
           return true;
         default:

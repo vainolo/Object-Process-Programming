@@ -5,9 +5,8 @@
   <nodes xsi:type="opp:OPPProcess" id="2" incomingLinks="40" width="150" height="75" x="102" y="276" name="Book Borrowing" kind="Built In"/>
   <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="69" width="150" height="75" x="377" y="390" name="Book Returning" kind="Built In"/>
   <nodes xsi:type="opp:OPPProcess" id="4" incomingLinks="99" width="195" height="140" x="563" y="365" name="Number of Borrowerd Books Checking" kind="Built In"/>
-  <nodes xsi:type="opp:OPPProcess" id="5" incomingLinks="112" width="165" height="107" x="130" y="433" name="Book Return Day Checking" kind="Built In"/>
   <nodes xsi:type="opp:OPPStructuralLinkAggregator" id="6" incomingLinks="39" outgoingLinks="40 69 99 112 128 157" width="15" height="15" x="590" y="240"/>
-  <nodes xsi:type="opp:OPPObject" id="113" incomingLinks="128" width="94" height="56" x="786" y="277" name="Library Database" global="true"/>
+  <nodes xsi:type="opp:OPPObject" id="113" incomingLinks="128" width="94" height="56" x="786" y="277" name="Library base" global="true"/>
   <nodes xsi:type="opp:OPPProcess" id="130" incomingLinks="157" width="114" height="75" x="918" y="429" name="Book Adding" kind="Built In"/>
   <links xsi:type="opp:OPPStructuralLinkPart" id="39" source="1" target="6"/>
   <links xsi:type="opp:OPPStructuralLinkPart" id="40" source="6" target="2"/>

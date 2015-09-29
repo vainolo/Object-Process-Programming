@@ -13,8 +13,7 @@ import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 
 /**
- * Factory used by palette tools to create {@link OPMProceduralLink} of
- * {@link OPMProceduralLinkKind#CONSUMPTION} kind.
+ * Factory used by palette tools to create {@link OPMProceduralLink} of {@link OPMProceduralLinkKind#CONSUMPTION} kind.
  */
 
 public class OPPDataLinkFactory implements CreationFactory {
@@ -28,7 +27,7 @@ public class OPPDataLinkFactory implements CreationFactory {
   @Override
   public Object getNewObject() {
     OPPProceduralLink link = OPPFactory.eINSTANCE.createOPPProceduralLink();
-    link.setKind(OPPProceduralLinkKind.DATA);
+    link.setKind(OPPProceduralLinkKind.CONS_RES);
     link.setId(idManager.getNextId());
     return link;
   }

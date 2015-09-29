@@ -20,9 +20,10 @@ public enum IsOPPProcessIncomingDataLink implements Predicate<OPPProceduralLink>
 
   @Override
   public boolean apply(final OPPProceduralLink link) {
-    switch(link.getKind()) {
+    switch (link.getKind()) {
     case AGENT:
-    case DATA:
+    case CONS_RES:
+    case INSTRUMENT:
       return true;
     default:
       return false;

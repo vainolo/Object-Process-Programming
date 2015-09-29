@@ -6,7 +6,7 @@
     <nodes xsi:type="opp:OPPObject" id="3" incomingLinks="6" outgoingLinks="7" width="50" height="50" x="127" y="212" name=" "/>
     <nodes xsi:type="opp:OPPProcess" id="4" incomingLinks="7" width="103" height="42" x="100" y="305" name="Dialog" kind="Built In"/>
   </nodes>
-  <links xsi:type="opp:OPPProceduralLink" id="5" source="1" target="2" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="6" source="2" target="3" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="7" source="3" target="4" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="5" source="1" target="2" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="6" source="2" target="3" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="7" source="3" target="4" kind="Consumption/Result"/>
 </opp:OPPObjectProcessDiagram>

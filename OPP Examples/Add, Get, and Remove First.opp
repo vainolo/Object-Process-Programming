@@ -21,22 +21,22 @@
     <nodes xsi:type="opp:OPPObject" id="43" incomingLinks="44" outgoingLinks="47" width="50" height="50" x="198" y="595" name=" "/>
     <nodes xsi:type="opp:OPPProcess" id="46" incomingLinks="47" width="103" height="42" x="164" y="745" name="Dialog" kind="Built In"/>
   </nodes>
-  <links xsi:type="opp:OPPProceduralLink" id="4" source="3" target="2" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="11" source="1" target="5" centerDecoration="part" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="15" source="2" target="5" centerDecoration="whole" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="16" source="5" target="6" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="17" source="6" target="10" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="18" source="7" target="8" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="19" source="8" target="9" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="20" source="6" target="7" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="28" source="10" target="26" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="29" source="26" target="23" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="30" source="23" target="24" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="31" source="24" target="25" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="37" source="26" target="34" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="38" source="34" target="35" centerDecoration="first" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="39" source="35" target="36" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="40" source="22" target="10" centerDecoration="part" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="44" source="34" target="43" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="47" source="43" target="46" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="4" source="3" target="2" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="11" source="1" target="5" centerDecoration="part" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="15" source="2" target="5" centerDecoration="whole" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="16" source="5" target="6" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="17" source="6" target="10" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="18" source="7" target="8" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="19" source="8" target="9" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="20" source="6" target="7" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="28" source="10" target="26" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="29" source="26" target="23" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="30" source="23" target="24" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="31" source="24" target="25" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="37" source="26" target="34" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="38" source="34" target="35" centerDecoration="first" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="39" source="35" target="36" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="40" source="22" target="10" centerDecoration="part" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="44" source="34" target="43" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="47" source="43" target="46" kind="Consumption/Result"/>
 </opp:OPPObjectProcessDiagram>

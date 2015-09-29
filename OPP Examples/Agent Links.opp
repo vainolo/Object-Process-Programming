@@ -22,7 +22,7 @@
   <links xsi:type="opp:OPPProceduralLink" id="15" source="8" target="9">
     <bendpoints x="684" y="348"/>
   </links>
-  <links xsi:type="opp:OPPProceduralLink" id="17" source="10" target="2" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="18" source="11" target="3" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="20" source="12" target="9" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="17" source="10" target="2" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="18" source="11" target="3" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="20" source="12" target="9" kind="Consumption/Result"/>
 </opp:OPPObjectProcessDiagram>

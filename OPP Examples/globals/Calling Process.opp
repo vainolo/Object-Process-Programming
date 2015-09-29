@@ -8,8 +8,8 @@
     <nodes xsi:type="opp:OPPProcess" id="9" incomingLinks="10" width="103" height="42" x="266" y="366" name="Dialog" kind="Built In"/>
     <nodes xsi:type="opp:OPPProcess" id="13" outgoingLinks="14" width="64" height="36" x="204" y="17" name="New" kind="Built In"/>
   </nodes>
-  <links xsi:type="opp:OPPProceduralLink" id="6" source="2" target="5" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="7" source="5" target="4" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="10" source="4" target="9" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="14" source="13" target="2" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="6" source="2" target="5" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="7" source="5" target="4" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="10" source="4" target="9" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="14" source="13" target="2" kind="Consumption/Result"/>
 </opp:OPPObjectProcessDiagram>

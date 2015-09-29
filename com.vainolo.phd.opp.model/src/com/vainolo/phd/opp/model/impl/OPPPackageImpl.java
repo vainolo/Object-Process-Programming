@@ -956,7 +956,8 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
 
     initEEnum(oppProceduralLinkKindEEnum, OPPProceduralLinkKind.class, "OPPProceduralLinkKind");
     addEEnumLiteral(oppProceduralLinkKindEEnum, OPPProceduralLinkKind.AGENT);
-    addEEnumLiteral(oppProceduralLinkKindEEnum, OPPProceduralLinkKind.DATA);
+    addEEnumLiteral(oppProceduralLinkKindEEnum, OPPProceduralLinkKind.CONS_RES);
+    addEEnumLiteral(oppProceduralLinkKindEEnum, OPPProceduralLinkKind.INSTRUMENT);
 
     initEEnum(oppProcessKindEEnum, OPPProcessKind.class, "OPPProcessKind");
     addEEnumLiteral(oppProcessKindEEnum, OPPProcessKind.COMPOUND);

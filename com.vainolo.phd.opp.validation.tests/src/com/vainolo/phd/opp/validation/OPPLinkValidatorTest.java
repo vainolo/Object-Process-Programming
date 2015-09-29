@@ -35,7 +35,7 @@ public class OPPLinkValidatorTest {
 
   @Test
   public void testValidateSource_ObjectSource_DataLink() {
-    link = createProceduralLink(OPPProceduralLinkKind.DATA);
+    link = createProceduralLink(OPPProceduralLinkKind.CONS_RES);
     boolean result = validator.validateAddSource(object, link);
     assertTrue(result);
   }
@@ -49,7 +49,7 @@ public class OPPLinkValidatorTest {
 
   @Test
   public void testValidateSource_ProcessSource_DataLink() {
-    link = createProceduralLink(OPPProceduralLinkKind.DATA);
+    link = createProceduralLink(OPPProceduralLinkKind.CONS_RES);
     boolean result = validator.validateAddSource(process, link);
     assertTrue(result);
   }
@@ -63,7 +63,7 @@ public class OPPLinkValidatorTest {
 
   @Test
   public void testValidateTarget_DataLink_ObjectTarget() {
-    link = createProceduralLink(OPPProceduralLinkKind.DATA);
+    link = createProceduralLink(OPPProceduralLinkKind.CONS_RES);
     boolean result = validator.validateAddTarget(link, object);
     assertTrue(result);
   }
@@ -77,7 +77,7 @@ public class OPPLinkValidatorTest {
 
   @Test
   public void testValidateTarget_DataLink_ProcessTarget() {
-    link = createProceduralLink(OPPProceduralLinkKind.DATA);
+    link = createProceduralLink(OPPProceduralLinkKind.CONS_RES);
     boolean result = validator.validateAddTarget(link, process);
     assertTrue(result);
   }
@@ -98,7 +98,7 @@ public class OPPLinkValidatorTest {
 
   @Test
   public void testValudateSource_DataLink_StateSource() {
-    link = createProceduralLink(OPPProceduralLinkKind.DATA);
+    link = createProceduralLink(OPPProceduralLinkKind.CONS_RES);
     boolean result = validator.validateAddSource(state, link);
     assertTrue(result);
   }

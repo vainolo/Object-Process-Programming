@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/com.vainolo.phd.opp.model/src" editDirectory="/com.vainolo.phd.opp.model/src"
-    modelPluginID="com.vainolo.phd.opp.model" modelName="OPP" importerID="org.eclipse.emf.importer.ecore"
-    complianceLevel="6.0" copyrightFields="false" interfaceNamePattern="">
+    modelPluginID="com.vainolo.phd.opp.model" modelName="OPP" booleanFlagsField=""
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    interfaceNamePattern="" classNamePattern="">
   <foreignModel>opp.ecore</foreignModel>
   <genPackages prefix="OPP" basePackage="com.vainolo.phd" disposableProviderFactory="true"
       interfacePackageSuffix="model" metaDataPackageSuffix="model" classPackageSuffix="model.impl"
       utilityPackageSuffix="model.util" providerPackageSuffix="model.provider" presentationPackageSuffix="model.presentation"
-      testsPackageSuffix="model.tests" ecorePackage="opp.ecore#/">
+      testsPackageSuffix="model.tests" contentTypeIdentifier="" ecorePackage="opp.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="opp.ecore#//OPPStructuralLinkAggregatorKind">
       <genEnumLiterals ecoreEnumLiteral="opp.ecore#//OPPStructuralLinkAggregatorKind/AGGREGATION"/>
       <genEnumLiterals ecoreEnumLiteral="opp.ecore#//OPPStructuralLinkAggregatorKind/GENERALIZATION"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="opp.ecore#//OPPProceduralLinkKind">
       <genEnumLiterals ecoreEnumLiteral="opp.ecore#//OPPProceduralLinkKind/AGENT"/>
-      <genEnumLiterals ecoreEnumLiteral="opp.ecore#//OPPProceduralLinkKind/DATA"/>
+      <genEnumLiterals ecoreEnumLiteral="opp.ecore#//OPPProceduralLinkKind/CONS_RES"/>
+      <genEnumLiterals ecoreEnumLiteral="opp.ecore#//OPPProceduralLinkKind/INSTRUMENT"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="opp.ecore#//OPPProcessKind">
       <genEnumLiterals ecoreEnumLiteral="opp.ecore#//OPPProcessKind/COMPOUND"/>
@@ -65,12 +67,14 @@
     <genClasses image="false" ecoreClass="opp.ecore#//OPPThing">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPThing/description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPThing/collection"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPThing/main"/>
     </genClasses>
     <genClasses ecoreClass="opp.ecore#//OPPState">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPState/value"/>
     </genClasses>
     <genClasses ecoreClass="opp.ecore#//OPPObject">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPObject/parameter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPObject/global"/>
     </genClasses>
     <genClasses ecoreClass="opp.ecore#//OPPProcess">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPProcess/kind"/>

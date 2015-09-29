@@ -20,8 +20,8 @@ public enum IsOPPProcessOutgoingDataLink implements Predicate<OPPProceduralLink>
 
   @Override
   public boolean apply(final OPPProceduralLink link) {
-    switch(link.getKind()) {
-    case DATA:
+    switch (link.getKind()) {
+    case CONS_RES:
       return true;
     default:
       return false;

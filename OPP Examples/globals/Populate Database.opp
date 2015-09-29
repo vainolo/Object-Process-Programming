@@ -7,14 +7,14 @@
     <nodes xsi:type="opp:OPPObject" id="7" outgoingLinks="8" width="50" height="50" x="272" y="57" name="1"/>
     <nodes xsi:type="opp:OPPObject" id="10" outgoingLinks="11" width="50" height="50" x="464" y="287" name="2"/>
   </nodes>
-  <links xsi:type="opp:OPPProceduralLink" id="4" source="1" target="2" centerDecoration="whole" kind="Data">
+  <links xsi:type="opp:OPPProceduralLink" id="4" source="1" target="2" centerDecoration="whole" kind="Consumption/Result">
     <bendpoints x="516" y="240"/>
   </links>
-  <links xsi:type="opp:OPPProceduralLink" id="5" source="2" target="1" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="8" source="7" target="2" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="11" source="10" target="3" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="12" source="1" target="3" centerDecoration="whole" kind="Data">
+  <links xsi:type="opp:OPPProceduralLink" id="5" source="2" target="1" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="8" source="7" target="2" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="11" source="10" target="3" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="12" source="1" target="3" centerDecoration="whole" kind="Consumption/Result">
     <bendpoints x="701" y="393"/>
   </links>
-  <links xsi:type="opp:OPPProceduralLink" id="13" source="3" target="1" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="13" source="3" target="1" kind="Consumption/Result"/>
 </opp:OPPObjectProcessDiagram>

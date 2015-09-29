@@ -34,7 +34,7 @@ public class OPPInZoomedProcessArgumentHandlerTest {
 
   @Test
   public void test_LoadArguments_NamedArgument() {
-    createOPPProceduralLink(anonObj1, process, OPPProceduralLinkKind.DATA, "a");
+    createOPPProceduralLink(anonObj1, process, OPPProceduralLinkKind.CONS_RES, "a");
     when(heap.getVariable(anonObj1)).thenReturn(objectInstanceMock1);
     when(instance.getIncomingParameters()).thenReturn(Lists.newArrayList(new OPPParameter("a")));
     loader.loadInstanceArguments(process, instance);
@@ -43,8 +43,8 @@ public class OPPInZoomedProcessArgumentHandlerTest {
 
   @Test
   public void test_LoadArguments_OnlyAnonymousArgumentsFromNamedObjects() {
-    createOPPProceduralLink(namedObj1, process, OPPProceduralLinkKind.DATA, "");
-    createOPPProceduralLink(namedObj2, process, OPPProceduralLinkKind.DATA, "");
+    createOPPProceduralLink(namedObj1, process, OPPProceduralLinkKind.CONS_RES, "");
+    createOPPProceduralLink(namedObj2, process, OPPProceduralLinkKind.CONS_RES, "");
     when(heap.getVariable(namedObj1)).thenReturn(objectInstanceMock1);
     when(heap.getVariable(namedObj2)).thenReturn(objectInstanceMock2);
     when(instance.getIncomingParameters()).thenReturn(Lists.newArrayList(new OPPParameter("a"), new OPPParameter("b")));
@@ -55,8 +55,8 @@ public class OPPInZoomedProcessArgumentHandlerTest {
 
   @Test
   public void test_LoadArguments_MixedNamedArgumentsAnonymousArgumentsFromNamedObjects() {
-    createOPPProceduralLink(namedObj1, process, OPPProceduralLinkKind.DATA, "");
-    createOPPProceduralLink(anonObj1, process, OPPProceduralLinkKind.DATA, "b");
+    createOPPProceduralLink(namedObj1, process, OPPProceduralLinkKind.CONS_RES, "");
+    createOPPProceduralLink(anonObj1, process, OPPProceduralLinkKind.CONS_RES, "b");
     when(heap.getVariable(namedObj1)).thenReturn(objectInstanceMock1);
     when(heap.getVariable(anonObj1)).thenReturn(objectInstanceMock2);
     when(instance.getIncomingParameters()).thenReturn(Lists.newArrayList(new OPPParameter("a"), new OPPParameter("b")));
@@ -67,9 +67,9 @@ public class OPPInZoomedProcessArgumentHandlerTest {
 
   @Test
   public void test_LoadArguments_NamedArgumentsAnonymousFromNamedObjectsAndAnonymousFromParameterNames() {
-    createOPPProceduralLink(namedObj1, process, OPPProceduralLinkKind.DATA, "x");
-    createOPPProceduralLink(namedObj2, process, OPPProceduralLinkKind.DATA, "");
-    createOPPProceduralLink(namedObj3, process, OPPProceduralLinkKind.DATA, "");
+    createOPPProceduralLink(namedObj1, process, OPPProceduralLinkKind.CONS_RES, "x");
+    createOPPProceduralLink(namedObj2, process, OPPProceduralLinkKind.CONS_RES, "");
+    createOPPProceduralLink(namedObj3, process, OPPProceduralLinkKind.CONS_RES, "");
     when(heap.getVariable(namedObj1)).thenReturn(objectInstanceMock1);
     when(heap.getVariable(namedObj2)).thenReturn(objectInstanceMock2);
     when(heap.getVariable(namedObj3)).thenReturn(objectInstanceMock3);
@@ -82,9 +82,9 @@ public class OPPInZoomedProcessArgumentHandlerTest {
 
   @Test
   public void test_LoadArguments_AnonymousArgumentsWithNoMatchingParameters() {
-    createOPPProceduralLink(namedObj1, process, OPPProceduralLinkKind.DATA, "");
-    createOPPProceduralLink(namedObj2, process, OPPProceduralLinkKind.DATA, "");
-    createOPPProceduralLink(namedObj3, process, OPPProceduralLinkKind.DATA, "");
+    createOPPProceduralLink(namedObj1, process, OPPProceduralLinkKind.CONS_RES, "");
+    createOPPProceduralLink(namedObj2, process, OPPProceduralLinkKind.CONS_RES, "");
+    createOPPProceduralLink(namedObj3, process, OPPProceduralLinkKind.CONS_RES, "");
     when(heap.getVariable(namedObj1)).thenReturn(objectInstanceMock1);
     when(heap.getVariable(namedObj2)).thenReturn(objectInstanceMock2);
     when(heap.getVariable(namedObj3)).thenReturn(objectInstanceMock3);

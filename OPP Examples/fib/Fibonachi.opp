@@ -12,10 +12,10 @@
   <links xsi:type="opp:OPPProceduralLink" id="6" source="4" target="5">
     <subKinds>c</subKinds>
   </links>
-  <links xsi:type="opp:OPPProceduralLink" id="8" source="3" target="5" kind="Data">
+  <links xsi:type="opp:OPPProceduralLink" id="8" source="3" target="5" kind="Consumption/Result">
     <bendpoints x="728" y="370"/>
   </links>
-  <links xsi:type="opp:OPPProceduralLink" id="14" source="10" target="13" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="15" source="5" target="13" kind="Data"/>
-  <links xsi:type="opp:OPPProceduralLink" id="16" source="2" target="3" kind="Data"/>
+  <links xsi:type="opp:OPPProceduralLink" id="14" source="10" target="13" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="15" source="5" target="13" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="16" source="2" target="3" kind="Consumption/Result"/>
 </opp:OPPObjectProcessDiagram>

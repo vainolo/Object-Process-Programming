@@ -495,7 +495,7 @@ public class OPPOPDAnalyzer {
       else {
         OPPProceduralLink localLink = (OPPProceduralLink) link;
         switch (localLink.getKind()) {
-        case DATA:
+        case CONS_RES:
           return true;
         default:
           return false;
@@ -537,7 +537,7 @@ public class OPPOPDAnalyzer {
       else {
         OPPProceduralLink localLink = OPPProceduralLink.class.cast(link);
         switch (localLink.getKind()) {
-        case DATA:
+        case CONS_RES:
           return true;
         default:
           return false;
@@ -604,7 +604,7 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(OPPProceduralLink input) {
-      return OPPProceduralLinkKind.DATA.equals(input.getKind());
+      return OPPProceduralLinkKind.CONS_RES.equals(input.getKind());
     }
   }
 
@@ -617,7 +617,7 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(OPPProceduralLink input) {
-      return OPPProceduralLinkKind.DATA.equals(input.getKind());
+      return OPPProceduralLinkKind.CONS_RES.equals(input.getKind());
     }
   }
 

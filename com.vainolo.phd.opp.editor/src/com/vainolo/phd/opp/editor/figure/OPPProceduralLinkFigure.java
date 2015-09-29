@@ -18,7 +18,8 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
   private final OPPProceduralLinkKind kind;
   private final SmartLabelFigure centerDecorationLabel;
   private final Label subKinds;
-  private final OPMProceduralLinkDecorator decorator;
+
+  // private final OPMProceduralLinkDecorator decorator;
 
   public OPPProceduralLinkFigure(OPPProceduralLinkKind kind) {
     this.kind = kind;
@@ -32,13 +33,14 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
     add(centerDecorationLabel, locator);
 
     setConnectionRouter(new BendpointConnectionRouter());
+
     subKinds = new Label("");
     subKinds.setBackgroundColor(ColorConstants.white);
     subKinds.setOpaque(true);
-    add(subKinds, new OPPProceduralLinkSubKindLocator(this, 8, 10));
+    add(subKinds, new OPPProceduralLinkSubKindLocator(this, 15, 15));
 
-    decorator = new OPMProceduralLinkDecorator();
-    decorator.setText("a");
+    // decorator = new OPMProceduralLinkDecorator();
+    // decorator.setText("a");
     // add(decorator, new OPMProceduralLinkSubKindLocator(this, 10, 10));
   }
 
@@ -48,12 +50,12 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
 
   public void setSubKindLabelText(String text) {
     subKinds.setText(text);
-    if(text == null || "".equals(text)) {
-      decorator.setVisible(false);
-    } else {
-      decorator.setVisible(true);
-      decorator.setText(text);
-    }
+    // if (text == null || "".equals(text)) {
+    // decorator.setVisible(false);
+    // } else {
+    // decorator.setVisible(true);
+    // decorator.setText(text);
+    // }
   }
 
   @Override
@@ -64,22 +66,22 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
     Point target = points.getLastPoint();
     Point pointBeforeTarget = points.getPoint(points.size() - 2);
 
-    switch(kind) {
-    case DATA:
+    switch (kind) {
+    case CONS_RES:
       arrow.setLocation(target);
       arrow.setReferencePoint(pointBeforeTarget);
       g.drawPolyline(arrow.getPoints());
       break;
     case AGENT:
+    case INSTRUMENT:
       int radius = OPPFigureConstants.AGENT_CIRCLE_RATIO;
       g.pushState();
       g.setBackgroundColor(ColorConstants.black);
       g.fillOval(target.x() - radius, target.y() - radius, radius * 2, radius * 2);
-      // if(kind == OPMProceduralLinkKind.INSTRUMENT) {
-      // g.setBackgroundColor(ColorConstants.white);
-      // g.fillOval(target.x() - (radius - 2), target.y() - (radius - 2),
-      // (radius - 2) * 2, (radius - 2) * 2);
-      // }
+      if (kind == OPPProceduralLinkKind.INSTRUMENT) {
+        g.setBackgroundColor(ColorConstants.white);
+        g.fillOval(target.x() - (radius - 2), target.y() - (radius - 2), (radius - 2) * 2, (radius - 2) * 2);
+      }
       g.popState();
       break;
     }
@@ -87,7 +89,7 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
 
   @Override
   public Rectangle getBounds() {
-    if(bounds == null) {
+    if (bounds == null) {
       bounds = super.getBounds();
       bounds.expand(30, 30);
     }

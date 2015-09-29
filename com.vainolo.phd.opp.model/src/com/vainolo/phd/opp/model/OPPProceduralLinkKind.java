@@ -29,14 +29,22 @@ public enum OPPProceduralLinkKind implements Enumerator {
   AGENT(0, "AGENT", "Agent"),
 
   /**
-   * The '<em><b>DATA</b></em>' literal object.
+   * The '<em><b>CONS RES</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #DATA_VALUE
+   * @see #CONS_RES_VALUE
    * @generated
    * @ordered
    */
-  DATA(1, "DATA", "Data");
+  CONS_RES(1, "CONS_RES", "Consumption/Result"), /**
+   * The '<em><b>INSTRUMENT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #INSTRUMENT_VALUE
+   * @generated
+   * @ordered
+   */
+  INSTRUMENT(2, "INSTRUMENT", "Instrument");
 
   /**
    * The '<em><b>AGENT</b></em>' literal value.
@@ -54,19 +62,34 @@ public enum OPPProceduralLinkKind implements Enumerator {
   public static final int AGENT_VALUE = 0;
 
   /**
-   * The '<em><b>DATA</b></em>' literal value.
+   * The '<em><b>CONS RES</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>DATA</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>CONS RES</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #DATA
-   * @model literal="Data"
+   * @see #CONS_RES
+   * @model literal="Consumption/Result"
    * @generated
    * @ordered
    */
-  public static final int DATA_VALUE = 1;
+  public static final int CONS_RES_VALUE = 1;
+
+  /**
+   * The '<em><b>INSTRUMENT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>INSTRUMENT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #INSTRUMENT
+   * @model literal="Instrument"
+   * @generated
+   * @ordered
+   */
+  public static final int INSTRUMENT_VALUE = 2;
 
   /**
    * An array of all the '<em><b>Procedural Link Kind</b></em>' enumerators.
@@ -77,7 +100,8 @@ public enum OPPProceduralLinkKind implements Enumerator {
   private static final OPPProceduralLinkKind[] VALUES_ARRAY =
     new OPPProceduralLinkKind[] {
       AGENT,
-      DATA,
+      CONS_RES,
+      INSTRUMENT,
     };
 
   /**
@@ -129,7 +153,8 @@ public enum OPPProceduralLinkKind implements Enumerator {
   public static OPPProceduralLinkKind get(int value) {
     switch (value) {
       case AGENT_VALUE: return AGENT;
-      case DATA_VALUE: return DATA;
+      case CONS_RES_VALUE: return CONS_RES;
+      case INSTRUMENT_VALUE: return INSTRUMENT;
     }
     return null;
   }

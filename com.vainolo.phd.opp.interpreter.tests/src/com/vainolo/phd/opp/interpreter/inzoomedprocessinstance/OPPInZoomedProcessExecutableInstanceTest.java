@@ -71,13 +71,13 @@ public class OPPInZoomedProcessExecutableInstanceTest {
     inZoomedProcess.getNodes().add(innerProcess);
     OPPObject object = createObject("a");
     opd.getNodes().add(object);
-    opd.getLinks().add(createProceduralLink("a", OPPProceduralLinkKind.DATA, object, innerProcess));
+    opd.getLinks().add(createProceduralLink("a", OPPProceduralLinkKind.CONS_RES, object, innerProcess));
     object = createObject("b");
     opd.getNodes().add(object);
-    opd.getLinks().add(createProceduralLink("b", OPPProceduralLinkKind.DATA, object, innerProcess));
+    opd.getLinks().add(createProceduralLink("b", OPPProceduralLinkKind.CONS_RES, object, innerProcess));
     object = createObject("c");
     opd.getNodes().add(object);
-    opd.getLinks().add(createProceduralLink("c", OPPProceduralLinkKind.DATA, innerProcess, object));
+    opd.getLinks().add(createProceduralLink("c", OPPProceduralLinkKind.CONS_RES, innerProcess, object));
 
     OPPProcessInstance instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
 
@@ -113,11 +113,11 @@ public class OPPInZoomedProcessExecutableInstanceTest {
     OPPObject c = createObject("c");
     opd.getNodes().add(c);
 
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.DATA, one, a));
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.DATA, two, b));
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.DATA, a, addProcess));
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.DATA, b, addProcess));
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.DATA, addProcess, c));
+    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, one, a));
+    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, two, b));
+    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, a, addProcess));
+    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, b, addProcess));
+    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, addProcess, c));
 
     OPPProcessInstance instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
     instance.call();
