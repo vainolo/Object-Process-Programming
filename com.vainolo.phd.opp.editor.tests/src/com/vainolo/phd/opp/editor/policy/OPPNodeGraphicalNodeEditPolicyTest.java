@@ -9,7 +9,7 @@ import com.vainolo.phd.opp.editor.command.OPPCreateLinkCommand;
 import com.vainolo.phd.opp.editor.factory.OPPIdManager;
 import com.vainolo.phd.opp.editor.part.OPPNodeEditPart;
 import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
-import com.vainolo.phd.opp.editor.policy.OPPNodeConnectionEditPolicy;
+import com.vainolo.phd.opp.editor.policy.OPPLinkConnectionEditPolicy;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
 
 public class OPPNodeGraphicalNodeEditPolicyTest {
 
-  private OPPNodeConnectionEditPolicy policy;
+  private OPPLinkConnectionEditPolicy policy;
   private OPPLinkValidator validatorMock;
   private CreateConnectionRequest requestMock;
   private Command command;
@@ -33,7 +33,7 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_StartingAtStructuralLinkAggregator_ReturnNull() {
-    policy = new OPPNodeConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPPIdManager());
+    policy = new OPPLinkConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPPIdManager());
     policy.setHost(nodeEditPartMock);
 
     command = policy.getConnectionCreateCommand(requestMock);
@@ -43,7 +43,7 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_InvalidSource_ReturnNull() {
-    policy = new OPPNodeConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPPIdManager());
+    policy = new OPPLinkConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPPIdManager());
     policy.setHost(nodeEditPartMock);
     when(nodeEditPartMock.getModel()).thenReturn(nodeMock);
     when(requestMock.getNewObject()).thenReturn(linkMock);
@@ -56,7 +56,7 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_ValidSource_ValidCommand() {
-    policy = new OPPNodeConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPPIdManager());
+    policy = new OPPLinkConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPPIdManager());
     policy.setHost(nodeEditPartMock);
     when(nodeEditPartMock.getModel()).thenReturn(nodeMock);
     when(requestMock.getNewObject()).thenReturn(linkMock);

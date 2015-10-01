@@ -22,7 +22,7 @@ import com.vainolo.phd.opp.editor.figure.OPPNamedElementFigure;
 import com.vainolo.phd.opp.editor.figure.OPPProceduralLinkFigure;
 import com.vainolo.phd.opp.editor.part.delegates.OPPDirectEditDelegate;
 import com.vainolo.phd.opp.editor.policy.OPPLinkBendpointEditPolicy;
-import com.vainolo.phd.opp.editor.policy.OPPLinkConnectionEditPolicy;
+import com.vainolo.phd.opp.editor.policy.OPPDeleteLinkEditPolicy;
 import com.vainolo.phd.opp.editor.policy.OPPNamedEntityDirectEditPolicy;
 import com.vainolo.phd.opp.editor.policy.OPPProceduralLinkEditPolicy;
 import com.vainolo.phd.opp.validation.OPPProceduralLinkValidator;
@@ -99,7 +99,7 @@ public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
   protected void createEditPolicies() {
     super.createEditPolicies();
     installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OPPLinkBendpointEditPolicy());
-    installEditPolicy(EditPolicy.CONNECTION_ROLE, new OPPLinkConnectionEditPolicy());
+    installEditPolicy(EditPolicy.CONNECTION_ROLE, new OPPDeleteLinkEditPolicy());
     installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPPNamedEntityDirectEditPolicy());
     installEditPolicy(OPPProceduralLinkEditPolicy.PROCEDURAL_LINK_EDIT_ROLE, new OPPProceduralLinkEditPolicy(
         new OPPProceduralLinkValidator()));

@@ -25,24 +25,25 @@ public class OPPLinkValidator {
    * @return <code>true</code> if the link can start at the specified source, <code>false</code> otherwise.
    */
   public boolean validateAddSource(OPPNode source, OPPLink link) {
-    if (OPPProceduralLink.class.isInstance(link)) {
-      OPPProceduralLink proceduralLink = OPPProceduralLink.class.cast(link);
-      if (OPPObject.class.isInstance(source)) {
+    if (link instanceof OPPProceduralLink) {
+      OPPProceduralLink proceduralLink = (OPPProceduralLink) link;
+      if (source instanceof OPPObject) {
         switch (proceduralLink.getKind()) {
         case CONS_RES:
         case AGENT:
+        case INSTRUMENT:
           return true;
         default:
           return false;
         }
-      } else if (OPPProcess.class.isInstance(source)) {
+      } else if (source instanceof OPPProcess) {
         switch (proceduralLink.getKind()) {
         case CONS_RES:
           return true;
         default:
           return false;
         }
-      } else if (OPPState.class.isInstance(source)) {
+      } else if (source instanceof OPPState) {
         switch (proceduralLink.getKind()) {
         case AGENT:
         case CONS_RES:
@@ -65,20 +66,22 @@ public class OPPLinkValidator {
    * @return <code>true</code> if the link can end at the specified target, <code>false</code> otherwise.
    */
   public boolean validateAddTarget(OPPLink link, OPPNode target) {
-    if (OPPProceduralLink.class.isInstance(link)) {
-      OPPProceduralLink proceduralLink = OPPProceduralLink.class.cast(link);
-      if (OPPObject.class.isInstance(target)) {
+    if (link instanceof OPPProceduralLink) {
+      OPPProceduralLink proceduralLink = (OPPProceduralLink) link;
+      if (target instanceof OPPObject) {
         switch (proceduralLink.getKind()) {
         case CONS_RES:
         case AGENT:
+        case INSTRUMENT:
           return true;
         default:
           return false;
         }
-      } else if (OPPProcess.class.isInstance(target)) {
+      } else if (target instanceof OPPProcess) {
         switch (proceduralLink.getKind()) {
         case CONS_RES:
         case AGENT:
+        case INSTRUMENT:
           return true;
         default:
           return false;

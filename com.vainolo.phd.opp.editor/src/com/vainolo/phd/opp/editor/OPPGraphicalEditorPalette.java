@@ -50,32 +50,27 @@ public class OPPGraphicalEditorPalette extends PaletteRoot {
 
     // NODES TOUCHED
     MarqueeToolEntry marquee = new MarqueeToolEntry();
-    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(
-        MarqueeSelectionTool.BEHAVIOR_NODES_TOUCHED));
+    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(MarqueeSelectionTool.BEHAVIOR_NODES_TOUCHED));
     marqueeStack.add(marquee);
 
     // NODES CONTAINED AND RELATED CONNECTIONS
     marquee = new MarqueeToolEntry();
-    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(
-        MarqueeSelectionTool.BEHAVIOR_NODES_CONTAINED_AND_RELATED_CONNECTIONS));
+    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(MarqueeSelectionTool.BEHAVIOR_NODES_CONTAINED_AND_RELATED_CONNECTIONS));
     marqueeStack.add(marquee);
 
     // NODES TOUCHED AND RELATED CONNECTIONS
     marquee = new MarqueeToolEntry();
-    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(
-        MarqueeSelectionTool.BEHAVIOR_NODES_TOUCHED_AND_RELATED_CONNECTIONS));
+    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(MarqueeSelectionTool.BEHAVIOR_NODES_TOUCHED_AND_RELATED_CONNECTIONS));
     marqueeStack.add(marquee);
 
     // CONNECTIONS CONTAINED
     marquee = new MarqueeToolEntry();
-    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(
-        MarqueeSelectionTool.BEHAVIOR_CONNECTIONS_CONTAINED));
+    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(MarqueeSelectionTool.BEHAVIOR_CONNECTIONS_CONTAINED));
     marqueeStack.add(marquee);
 
     // CONNECTIONS TOUCHED
     marquee = new MarqueeToolEntry();
-    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(
-        MarqueeSelectionTool.BEHAVIOR_CONNECTIONS_TOUCHED));
+    marquee.setToolProperty(MarqueeSelectionTool.PROPERTY_MARQUEE_BEHAVIOR, new Integer(MarqueeSelectionTool.BEHAVIOR_CONNECTIONS_TOUCHED));
     marqueeStack.add(marquee);
 
     marqueeStack.setUserModificationPermission(PaletteEntry.PERMISSION_NO_MODIFICATION);
@@ -92,21 +87,18 @@ public class OPPGraphicalEditorPalette extends PaletteRoot {
   private PaletteDrawer createNodeTools(OPPIdManager idManager) {
     PaletteDrawer drawer = new PaletteDrawer("Nodes");
 
-    ToolEntry entry = new CombinedTemplateCreationEntry("OPMObject", "Create a new Object", new OPPObjectFactory(
-        idManager), ImageDescriptor.createFromFile(this.getClass(), "icons/object.ico"),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/object.ico"));
+    ToolEntry entry = new CombinedTemplateCreationEntry("OPMObject", "Create a new Object", new OPPObjectFactory(idManager), ImageDescriptor.createFromFile(
+        this.getClass(), "icons/object.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/object.ico"));
     entry.setToolClass(OPPCreationAndDirectEditTool.class);
     drawer.add(entry);
 
-    entry = new CreationToolEntry("OPMProcess", "Create a new Process", new OPPProcessFactory(idManager),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/process.ico"), ImageDescriptor.createFromFile(
-            this.getClass(), "icons/process.ico"));
+    entry = new CreationToolEntry("OPMProcess", "Create a new Process", new OPPProcessFactory(idManager), ImageDescriptor.createFromFile(this.getClass(),
+        "icons/process.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/process.ico"));
     entry.setToolClass(OPPCreationAndDirectEditTool.class);
     drawer.add(entry);
 
-    entry = new CreationToolEntry("OPMState", "Create a new State", new OPPStateFactory(idManager),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/state.ico"), ImageDescriptor.createFromFile(
-            this.getClass(), "icons/state.ico"));
+    entry = new CreationToolEntry("OPMState", "Create a new State", new OPPStateFactory(idManager), ImageDescriptor.createFromFile(this.getClass(),
+        "icons/state.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/state.ico"));
     entry.setToolClass(OPPCreationAndDirectEditTool.class);
     drawer.add(entry);
 
@@ -116,27 +108,26 @@ public class OPPGraphicalEditorPalette extends PaletteRoot {
   private PaletteEntry createProceduralLinkTools(OPPIdManager idManager) {
     PaletteDrawer drawer = new PaletteDrawer("Procedural Links");
 
-    drawer.add(new ConnectionCreationToolEntry("Agent", "Create a new Agent link", new OPPAgentLinkFactory(idManager),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/agent.ico"), ImageDescriptor.createFromFile(
-            this.getClass(), "icons/agent.ico")));
+    drawer.add(new ConnectionCreationToolEntry("Agent", "Create a new Agent link", new OPPAgentLinkFactory(idManager), ImageDescriptor.createFromFile(
+        this.getClass(), "icons/agent.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/agent.ico")));
 
-    drawer.add(new ConnectionCreationToolEntry("Data", "Create a new Data link", new OPPDataLinkFactory(idManager),
-        ImageDescriptor.createFromFile(this.getClass(), "icons/consumption.ico"), ImageDescriptor.createFromFile(
-            this.getClass(), "icons/consumption.ico")));
+    drawer.add(new ConnectionCreationToolEntry("Instrument", "Create a new Instrument link", new OPPInstrumentLinkFactory(idManager), ImageDescriptor
+        .createFromFile(this.getClass(), "icons/instrument.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/instrument.ico")));
+
+    drawer.add(new ConnectionCreationToolEntry("Data", "Create a new Data link", new OPPConsResLinkFactory(idManager), ImageDescriptor.createFromFile(
+        this.getClass(), "icons/consumption.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/consumption.ico")));
 
     return drawer;
   }
 
   private PaletteEntry createStructuralLinkTools(OPPIdManager idManager) {
     PaletteDrawer drawer = new PaletteDrawer("Structural Links");
-    drawer.add(new ConnectionCreationToolEntry("Aggregation", "Create a new Aggregation link",
-        new OPPAggregationStructuralLinkAggregatorFactory(idManager), ImageDescriptor.createFromFile(this.getClass(),
-            "icons/aggregation.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/aggregation.ico")));
+    drawer.add(new ConnectionCreationToolEntry("Aggregation", "Create a new Aggregation link", new OPPAggregationStructuralLinkAggregatorFactory(idManager),
+        ImageDescriptor.createFromFile(this.getClass(), "icons/aggregation.ico"), ImageDescriptor.createFromFile(this.getClass(), "icons/aggregation.ico")));
 
-    drawer.add(new ConnectionCreationToolEntry("Generalization", "Create a new Generalization link",
-        new OPPGeneralizationStructuralLinkAggregatorFactory(idManager), ImageDescriptor.createFromFile(
-            this.getClass(), "icons/generalization.ico"), ImageDescriptor.createFromFile(this.getClass(),
-            "icons/generalization.ico")));
+    drawer.add(new ConnectionCreationToolEntry("Generalization", "Create a new Generalization link", new OPPGeneralizationStructuralLinkAggregatorFactory(
+        idManager), ImageDescriptor.createFromFile(this.getClass(), "icons/generalization.ico"), ImageDescriptor.createFromFile(this.getClass(),
+        "icons/generalization.ico")));
 
     return drawer;
   }

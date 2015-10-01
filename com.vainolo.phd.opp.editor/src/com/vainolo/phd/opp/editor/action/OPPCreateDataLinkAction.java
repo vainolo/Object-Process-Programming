@@ -14,7 +14,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPThing;
 import com.vainolo.phd.opp.editor.OPPGraphicalEditor;
-import com.vainolo.phd.opp.editor.factory.OPPDataLinkFactory;
+import com.vainolo.phd.opp.editor.factory.OPPConsResLinkFactory;
 import com.vainolo.phd.opp.editor.part.OPPObjectEditPart;
 import com.vainolo.phd.opp.editor.part.OPPProcessEditPart;
 import com.vainolo.phd.opp.editor.part.OPPThingEditPart;
@@ -33,7 +33,7 @@ public class OPPCreateDataLinkAction extends WorkbenchPartAction {
     setId(ID);
     setText("Create Data Transfer Link");
     OPPGraphicalEditor editor = (OPPGraphicalEditor) getWorkbenchPart();
-    tool = new ConnectionCreationTool(new OPPDataLinkFactory(editor.getIdManager()));
+    tool = new ConnectionCreationTool(new OPPConsResLinkFactory(editor.getIdManager()));
     tool.setUnloadWhenFinished(true);
   }
 

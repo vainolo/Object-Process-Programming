@@ -22,7 +22,7 @@ import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.editor.OPPGraphicalEditor;
 import com.vainolo.phd.opp.editor.factory.OPPIdManager;
 import com.vainolo.phd.opp.editor.figure.OPPNodeFigure;
-import com.vainolo.phd.opp.editor.policy.OPPNodeConnectionEditPolicy;
+import com.vainolo.phd.opp.editor.policy.OPPLinkConnectionEditPolicy;
 import com.vainolo.phd.opp.editor.policy.OPPNodeEditPolicy;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 import com.vainolo.phd.opp.validation.OPPLinkValidator;
@@ -74,7 +74,7 @@ public abstract class OPPNodeEditPart extends AbstractGraphicalEditPart implemen
     OPPIdManager idManager = ((OPPGraphicalEditor) ((DefaultEditDomain) (getViewer().getEditDomain())).getEditorPart())
         .getIdManager();
     installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPPNodeEditPolicy(new OPPOPDAnalyzer()));
-    installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPPNodeConnectionEditPolicy(new OPPLinkValidator(),
+    installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPPLinkConnectionEditPolicy(new OPPLinkValidator(),
         new OPPOPDAnalyzer(), idManager));
   }
 
