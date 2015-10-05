@@ -22,6 +22,7 @@ import com.vainolo.phd.opp.interpreter.OPPRuntimeException;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
+import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 
@@ -69,9 +70,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    *          the value to store
    */
   public void setVariable(OPPObject object, OPPObjectInstance value) {
-    logFiner("Setting variable {0} with value {1}.", object.getName(), value.toString());
     checkArgument(value != null, "Value cannot be null");
-
     if (analyzer.isObjectPartOfAnotherObject(object)) {
       setPartVariable(object, value);
     } else {
@@ -89,10 +88,12 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
     setVariable(parentObject, parentValue);
     parentValue = getVariable(parentObject);
     parentValue.addPart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
+    logFinest("Setting part variable {0} with value {1}.", object.getName(), value.toString());
     observable.notifyObservers(new OPMHeapChange(parentObject, parentValue, object, getVariable(object)));
   }
 
   private void setMainVariable(OPPObject object, OPPObjectInstance value) {
+    logFinest("Setting main variable {0} with value {1}.", object.getName(), value.toString());
     OPPObjectInstance objectValue = OPPObjectInstance.createFromExistingInstance(value);
     if (object.isGlobal() && !isGlobalHeap()) {
       OPPInterpreter.INSTANCE.getGlobalHeap().setVariable(object.getName(), objectValue);
@@ -126,7 +127,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
       throw new OPPRuntimeException("Getting value of an object which is part of another object, but parent doesn't exist.");
     } else {
       value = parent.getPart(object.getName());
-      logFinest("Getting variable {0} which is {1}.", object.getName(), parent.getPart(object.getName()));
+      logFinest("Getting part variable {0} which is {1}.", object.getName(), parent.getPart(object.getName()));
     }
     return value;
   }
@@ -138,9 +139,39 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
       logFinest("Getting global variable {0} which is {1}.", object.getName(), value);
     } else {
       value = variables.get(object);
-      logFinest("Getting variable {0} which is {1}.", object.getName(), value);
+      logFinest("Getting main variable {0} which is {1}.", object.getName(), value);
     }
     return value;
+  }
+
+  /** Clear the value of a variable when used with a consumption link. */
+  public void clearVariable(OPPObject object) {
+
+    if (analyzer.isObjectPartOfAnotherObject(object)) {
+      clearPartVariable(object);
+    } else {
+      clearMainVariable(object);
+    }
+  }
+
+  private void clearPartVariable(OPPObject object) {
+    OPPObjectInstance parent = getVariable(analyzer.findParent(object));
+    if (parent == null) {
+      logSevere("Tried clearing a variable which is part of another object, but parent object doesn't exist.", object.getName());
+      throw new OPPRuntimeException("Tried clearing a variable which is part of another object, but parent object doesn't exist.");
+    } else {
+      logFinest("Clearing part variable {0}.", object.getName());
+      parent.removePart(object.getName());
+    }
+  }
+
+  private void clearMainVariable(OPPObject object) {
+    if (object.isGlobal() && !isGlobalHeap()) {
+      OPPInterpreter.INSTANCE.getGlobalHeap().clearVariable(object.getName());
+    } else {
+      variables.remove(object);
+      logFinest("Clearing main variable {0}.", object.getName());
+    }
   }
 
   /**
@@ -156,23 +187,17 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
         continue;
 
       OPPObject target = analyzer.getTargetObject(link);
-
       if ((link.getCenterDecoration() == null) || (link.getCenterDecoration().equals(""))) {
         setVariable(target, getVariable(source));
-      } else if (!link.getCenterDecoration().contains(",")) {
-        transferDataWithOneReference(source, link, target);
       } else {
-        transferDataWithTwoReferences(source, link, target);
+        throw new OPPRuntimeException("Data transfer link modifiers are not supported.");
       }
+
+      if (link.getKind() == OPPProceduralLinkKind.CONS_RES) {
+        clearVariable(source);
+      }
+
     }
-  }
-
-  private void transferDataWithOneReference(OPPObject source, OPPProceduralLink link, OPPObject target) {
-    throw new OPPRuntimeException("Data transfer modifiers are not supported.");
-  }
-
-  private void transferDataWithTwoReferences(OPPObject source, OPPProceduralLink link, OPPObject target) {
-    throw new OPPRuntimeException("Double data link modifiers are not supported");
   }
 
   /**
@@ -198,9 +223,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   public void initializeVariablesWithLiterals(OPPProcess mainProcess) {
     Collection<OPPObject> objectVariables = analyzer.findObjects(mainProcess);
     for (OPPObject object : objectVariables) {
-      boolean valueSet = calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
-      if (valueSet)
-        transferDataFromObject(object);
+      calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
     }
   }
 
@@ -216,7 +239,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
       } else {
         calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
       }
-      transferDataFromObject(object);
+      // transferDataFromObject(object);
     }
   }
 
@@ -241,7 +264,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
     Collection<OPPObject> objectArguments = analyzer.findParameters(opd);
     for (OPPObject object : objectArguments) {
       if (getVariable(object) != null) {
-        addArgument(object.getName(), getVariable(object));
+        setArgument(object.getName(), getVariable(object));
       }
     }
   }
@@ -316,4 +339,5 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
       this.childInstance = childInstance;
     }
   }
+
 }

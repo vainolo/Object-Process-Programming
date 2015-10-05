@@ -19,4 +19,8 @@ public class OPPGlobalHeap extends OPPProcessInstanceHeap {
     return variables.get(name);
   }
 
+  public void clearVariable(String name) {
+    variables.remove(name);
+  }
+
 }

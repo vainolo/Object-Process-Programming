@@ -102,9 +102,9 @@ public class OPPInZoomedProcessExecutableInstanceTest {
     inZoomedProcess.getNodes().add(addProcess);
 
     OPPObject one = createObject("1");
-    opd.getNodes().add(one);
+    inZoomedProcess.getNodes().add(one);
     OPPObject two = createObject("2");
-    opd.getNodes().add(two);
+    inZoomedProcess.getNodes().add(two);
 
     OPPObject a = createObject("a");
     inZoomedProcess.getNodes().add(a);

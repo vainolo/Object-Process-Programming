@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Populate Database" lastKnownUsedId="14">
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Populate Database" lastKnownUsedId="18">
   <nodes xsi:type="opp:OPPProcess" id="1" width="565" height="612" x="353" y="60" name="Populate Database" main="true">
-    <nodes xsi:type="opp:OPPObject" id="1" incomingLinks="5 13" outgoingLinks="4 12" width="93" height="33" x="101" y="271" name="Database" global="true"/>
-    <nodes xsi:type="opp:OPPProcess" id="2" incomingLinks="4 8" outgoingLinks="5" width="128" height="107" x="297" y="159" name="Add First Part" kind="Built In"/>
-    <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="11 12" outgoingLinks="13" width="128" height="107" x="294" y="382" name="Add First Part" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="1" incomingLinks="5 13" outgoingLinks="14 16" width="93" height="33" x="101" y="271" name="Database" global="true"/>
+    <nodes xsi:type="opp:OPPProcess" id="2" incomingLinks="8 14" outgoingLinks="5" width="128" height="107" x="297" y="159" name="Add First Part" kind="Built In"/>
+    <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="11 16" outgoingLinks="13" width="128" height="107" x="294" y="382" name="Add First Part" kind="Built In"/>
     <nodes xsi:type="opp:OPPObject" id="7" outgoingLinks="8" width="50" height="50" x="272" y="57" name="1"/>
     <nodes xsi:type="opp:OPPObject" id="10" outgoingLinks="11" width="50" height="50" x="464" y="287" name="2"/>
   </nodes>
-  <links xsi:type="opp:OPPProceduralLink" id="4" source="1" target="2" centerDecoration="whole" kind="Consumption/Result">
-    <bendpoints x="516" y="240"/>
-  </links>
   <links xsi:type="opp:OPPProceduralLink" id="5" source="2" target="1" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="8" source="7" target="2" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="11" source="10" target="3" kind="Consumption/Result"/>
-  <links xsi:type="opp:OPPProceduralLink" id="12" source="1" target="3" centerDecoration="whole" kind="Consumption/Result">
-    <bendpoints x="701" y="393"/>
-  </links>
   <links xsi:type="opp:OPPProceduralLink" id="13" source="3" target="1" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="14" source="1" target="2" centerDecoration="whole" kind="Instrument">
+    <bendpoints x="534" y="229"/>
+  </links>
+  <links xsi:type="opp:OPPProceduralLink" id="16" source="1" target="3" centerDecoration="whole" kind="Instrument">
+    <bendpoints x="721" y="367"/>
+  </links>
 </opp:OPPObjectProcessDiagram>

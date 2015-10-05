@@ -26,7 +26,6 @@ import com.vainolo.phd.opp.utilities.OPPStrings;
 import com.vainolo.phd.opp.utilities.OPPConstants;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPInterpreter;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
@@ -40,12 +39,6 @@ import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPState;
 
-/**
- * Executable instance used for a {@link OPPObjectProcessDiagram} containing an in-zoomed process.
- * 
- * @author Arieh "Vainolo" Bibliowicz
- * 
- */
 public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   private final OPPObjectProcessDiagram opd;
@@ -62,8 +55,6 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   private Predicate<OPPProcess> notReadyAndNotSkipPred;
   private Predicate<OPPProcess> isReadyAndNotSkipPred;
   private ExecutorCompletionService<OPPProcessExecutionResult> completionService;
-
-  // private ExecutorService executor;
 
   /**
    * Create a new instance.
@@ -154,7 +145,6 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       logInfo("Stopped execution of process {0}.", getName());
     }
     logInfo("Finished execution of process {0}.", getName());
-
   }
 
   private Set<OPPProcess> calculateNewWaitingProcessesSet(OPPProcess process, Set<OPPProcess> P_waiting, Set<OPPProcess> P_executing) {
@@ -191,9 +181,10 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   }
 
   private Set<OPPProcess> findProcessesToInvokeAfterObjectHasChanged(OPPObject object) {
-    OPPObjectInstance value = getHeap().getVariable(object);
-    checkNotNull(value, "Changed object cannot be null.");
     Set<OPPProcess> ret = Sets.newHashSet();
+    OPPObjectInstance value = getHeap().getVariable(object);
+    if (value == null)
+      return ret;
     Collection<OPPProceduralLink> outgoingEventLinks = analyzer.findOutgoingEventLinks(object);
     for (OPPProceduralLink eventLink : outgoingEventLinks) {
       if (objectValueTriggersEvent(eventLink, value)) {

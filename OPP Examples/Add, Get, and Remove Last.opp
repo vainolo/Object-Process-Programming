@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Add, Get, and Remove Last" lastKnownUsedId="49">
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Add, Get, and Remove Last" lastKnownUsedId="52">
   <nodes xsi:type="opp:OPPProcess" id="1" width="934" height="907" x="200" y="100" name="Add, Get, and Remove Last" main="true">
     <nodes xsi:type="opp:OPPObject" id="1" incomingLinks="26" outgoingLinks="27" width="50" height="50" x="361" y="68" name=" "/>
     <nodes xsi:type="opp:OPPProcess" id="2" incomingLinks="27 28" outgoingLinks="29" width="124" height="107" x="327" y="164" name="Add Last Part" kind="Built In"/>
     <nodes xsi:type="opp:OPPProcess" id="9" outgoingLinks="26" width="63" height="42" x="241" y="76" name="New" kind="Built In"/>
     <nodes xsi:type="opp:OPPObject" id="10" outgoingLinks="28" width="50" height="50" x="484" y="91" name="1"/>
     <nodes xsi:type="opp:OPPProcess" id="11" incomingLinks="30 47" outgoingLinks="34" width="124" height="107" x="317" y="381" name="Add Last Part" kind="Built In"/>
-    <nodes xsi:type="opp:OPPProcess" id="12" incomingLinks="31" outgoingLinks="32" width="124" height="107" x="502" y="272" name="Get Last Part" kind="Built In"/>
-    <nodes xsi:type="opp:OPPObject" id="13" incomingLinks="29" outgoingLinks="30 31" width="50" height="50" x="363" y="297" name=" "/>
-    <nodes xsi:type="opp:OPPObject" id="14" incomingLinks="34" outgoingLinks="35 36" width="50" height="50" x="345" y="531" name=" "/>
-    <nodes xsi:type="opp:OPPProcess" id="15" incomingLinks="36" outgoingLinks="37" width="124" height="107" x="465" y="490" name="Get Last Part" kind="Built In"/>
+    <nodes xsi:type="opp:OPPProcess" id="12" incomingLinks="49" outgoingLinks="32" width="124" height="107" x="502" y="272" name="Get Last Part" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="13" incomingLinks="29" outgoingLinks="30 49" width="50" height="50" x="363" y="297" name=" "/>
+    <nodes xsi:type="opp:OPPObject" id="14" incomingLinks="34" outgoingLinks="35 51" width="50" height="50" x="345" y="531" name=" "/>
+    <nodes xsi:type="opp:OPPProcess" id="15" incomingLinks="51" outgoingLinks="37" width="124" height="107" x="465" y="490" name="Get Last Part" kind="Built In"/>
     <nodes xsi:type="opp:OPPProcess" id="16" incomingLinks="35" outgoingLinks="39 41" width="135" height="107" x="316" y="653" name="Remove Last Part" kind="Built In"/>
     <nodes xsi:type="opp:OPPObject" id="18" incomingLinks="32" outgoingLinks="33" width="50" height="50" x="660" y="299" name="last"/>
     <nodes xsi:type="opp:OPPObject" id="19" incomingLinks="37" outgoingLinks="38" width="50" height="50" x="640" y="518" name="last"/>
@@ -26,12 +26,10 @@
   <links xsi:type="opp:OPPProceduralLink" id="28" source="10" target="2" centerDecoration="part" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="29" source="2" target="13" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="30" source="13" target="11" centerDecoration="whole" kind="Consumption/Result"/>
-  <links xsi:type="opp:OPPProceduralLink" id="31" source="13" target="12" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="32" source="12" target="18" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="33" source="18" target="23" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="34" source="11" target="14" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="35" source="14" target="16" kind="Consumption/Result"/>
-  <links xsi:type="opp:OPPProceduralLink" id="36" source="14" target="15" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="37" source="15" target="19" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="38" source="19" target="24" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="39" source="16" target="20" centerDecoration="" kind="Consumption/Result"/>
@@ -39,4 +37,6 @@
   <links xsi:type="opp:OPPProceduralLink" id="41" source="16" target="21" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="42" source="21" target="22" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="47" source="46" target="11" centerDecoration="part" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="49" source="13" target="12" kind="Instrument"/>
+  <links xsi:type="opp:OPPProceduralLink" id="51" source="14" target="15" kind="Instrument"/>
 </opp:OPPObjectProcessDiagram>

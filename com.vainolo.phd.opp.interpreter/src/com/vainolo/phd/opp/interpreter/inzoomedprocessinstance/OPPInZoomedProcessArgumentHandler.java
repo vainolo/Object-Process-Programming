@@ -4,7 +4,6 @@ import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -15,9 +14,9 @@ import com.google.common.collect.Maps;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPRuntimeException;
-import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
+import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 
@@ -35,7 +34,6 @@ public class OPPInZoomedProcessArgumentHandler {
     List<OPPArgument> anonymousArguments = Lists.newArrayList();
 
     catalogueArguments(analyzer.findIncomingDataLinks(process), namedArguments, anonymousArguments);
-
     logFine("Found {0} anonymous arguments and {1} named arguments.", anonymousArguments.size(), namedArguments.size());
 
     List<String> availableParametersNames = instance.getIncomingParameters().stream().map(param -> param.getName()).collect(Collectors.toList());
@@ -47,20 +45,22 @@ public class OPPInZoomedProcessArgumentHandler {
 
   private void loadNamedArguments(OPPProcessInstance instance, Map<String, OPPArgument> namedArguments) {
     for (String parameterName : namedArguments.keySet()) {
-      instance.setArgument(parameterName, getValue(namedArguments.get(parameterName)));
+      OPPObjectInstance value = getArgumentValueFromHeapAndClearIfNecessary(namedArguments.get(parameterName));
+      instance.setArgument(parameterName, value);
     }
   }
 
   private void loadAnonymousArguments(OPPProcessInstance instance, List<OPPArgument> arguments, List<String> availableParameterNames) {
     // First arguments who's variable names matches an available parameter name
-    List<OPPArgument> argumentsMatchingParameterNames = arguments.stream().filter(a -> availableParameterNames.contains(a.object.getName()))
+    List<OPPArgument> argumentsMatchingParameterNames = arguments.stream().filter(a -> availableParameterNames.contains(a.getObject().getName()))
         .collect(Collectors.toList());
     List<String> remainingParameterNames = Lists.newArrayList(availableParameterNames);
 
     // Arguments that match parameter names
     for (OPPArgument argument : argumentsMatchingParameterNames) {
-      instance.setArgument(argument.object.getName(), getValue(argument));
-      remainingParameterNames.remove(argument.object.getName());
+      OPPObjectInstance value = getArgumentValueFromHeapAndClearIfNecessary(argument);
+      instance.setArgument(argument.getObject().getName(), value);
+      remainingParameterNames.remove(argument.getObject().getName());
       arguments.remove(argument);
     }
 
@@ -68,7 +68,8 @@ public class OPPInZoomedProcessArgumentHandler {
     Iterator<String> remainingParameterNamesIterator = remainingParameterNames.iterator();
     while (arguments.size() > 0 && remainingParameterNamesIterator.hasNext()) {
       String parameterName = remainingParameterNamesIterator.next();
-      instance.setArgument(parameterName, getValue(arguments.remove(0)));
+      OPPObjectInstance value = getArgumentValueFromHeapAndClearIfNecessary(arguments.remove(0));
+      instance.setArgument(parameterName, value);
       remainingParameterNamesIterator.remove();
     }
 
@@ -76,7 +77,8 @@ public class OPPInZoomedProcessArgumentHandler {
     if (arguments.size() > 0) {
       int argNumber = 0;
       for (OPPArgument argument : arguments) {
-        instance.setArgument("arg" + argNumber, getValue(argument));
+        OPPObjectInstance value = getArgumentValueFromHeapAndClearIfNecessary(argument);
+        instance.setArgument("arg" + argNumber, value);
         argNumber++;
       }
     }
@@ -93,7 +95,7 @@ public class OPPInZoomedProcessArgumentHandler {
     // First extract named results
     List<String> outgoingParametersNames = instance.getOutgoingParameters().stream().map(p -> p.getName()).collect(Collectors.toList());
     for (String namedResult : namedResults.keySet()) {
-      setValue(namedResults.get(namedResult), instance.getArgument(namedResult));
+      copyArgumentValueToHeap(namedResults.get(namedResult), instance.getArgument(namedResult));
       outgoingParametersNames.remove(namedResult);
     }
 
@@ -102,9 +104,9 @@ public class OPPInZoomedProcessArgumentHandler {
     Iterator<OPPArgument> anonymousResultsIterator = anonymousResults.iterator();
     while (anonymousResultsIterator.hasNext()) {
       OPPArgument argument = anonymousResultsIterator.next();
-      if (instance.getOutgoingParameters().contains(argument.object.getName())) {
-        if (instance.getArgument(argument.object.getName()) != null) {
-          setValue(argument, instance.getArgument(argument.object.getName()));
+      if (instance.getOutgoingParameters().contains(argument.getObject().getName())) {
+        if (instance.getArgument(argument.getObject().getName()) != null) {
+          copyArgumentValueToHeap(argument, instance.getArgument(argument.getObject().getName()));
           anonymousResultsIterator.remove();
         }
       }
@@ -113,13 +115,13 @@ public class OPPInZoomedProcessArgumentHandler {
     // Finally, extract all remaining outgoing parameters to the remaining
     // anonymous result objects.
     for (int i = 0; i < anonymousResults.size(); i++) {
-      setValue(anonymousResults.get(i), instance.getArgument(outgoingParametersNames.get(i)));
+      copyArgumentValueToHeap(anonymousResults.get(i), instance.getArgument(outgoingParametersNames.get(i)));
     }
   }
 
   private void catalogueArguments(Collection<OPPProceduralLink> links, Map<String, OPPArgument> namedArguments, List<OPPArgument> anonymousArguments) {
-    for (OPPLink link : links) {
-      OPPArgument argument = new OPPArgument(analyzer.getObject(link));
+    for (OPPProceduralLink link : links) {
+      OPPArgument argument = new OPPArgument(analyzer.getObject(link), link.getKind() == OPPProceduralLinkKind.CONS_RES);
       if (link.getCenterDecoration() == null || "".equals(link.getCenterDecoration())) {
         anonymousArguments.add(argument);
       } else if (link.getCenterDecoration().contains(",")) {
@@ -130,36 +132,43 @@ public class OPPInZoomedProcessArgumentHandler {
     }
   }
 
-  private void setValue(OPPArgument argument, OPPObjectInstance objectInstance) {
-    logFinest("Setting value of {0} with {1}.", argument.object.getName(), objectInstance);
+  private void copyArgumentValueToHeap(OPPArgument argument, OPPObjectInstance objectInstance) {
+    logFinest("Setting value of {0} with {1}.", argument.getObject().getName(), objectInstance);
     if (argument.hasModifier) {
       throw new OPPRuntimeException("Argument modifiers are not supported.");
     } else {
-      heap.setVariable(argument.object, objectInstance);
+      heap.setVariable(argument.getObject(), objectInstance);
     }
   }
 
-  private OPPObjectInstance getValue(OPPArgument argument) {
+  private OPPObjectInstance getArgumentValueFromHeapAndClearIfNecessary(OPPArgument argument) {
     if (!argument.hasModifier) {
-      return heap.getVariable(argument.object);
+      OPPObjectInstance value = heap.getVariable(argument.getObject());
+      if (argument.isConsumption())
+        heap.clearVariable(argument.getObject());
+      return value;
     } else {
       throw new OPPRuntimeException("Argument modifiers are not supported.");
     }
   }
 
-  /**
-   * Representation of an argument that is passed to a {@link OPPProcessInstance}. If the argument is passed to the
-   * instance using a modifier, this modifier is stored here and is applied only when the value of the argument is
-   * retrieved.
-   */
   class OPPArgument {
     private OPPObject object;
-    public BigDecimal collectionElementIndex;
+    private boolean consumption;
     public boolean hasModifier = false;
     public String modifier;
 
-    public OPPArgument(OPPObject object) {
+    public OPPArgument(OPPObject object, boolean consumption) {
       this.object = object;
+      this.consumption = consumption;
+    }
+
+    public OPPObject getObject() {
+      return object;
+    }
+
+    public boolean isConsumption() {
+      return consumption;
     }
   }
 }
