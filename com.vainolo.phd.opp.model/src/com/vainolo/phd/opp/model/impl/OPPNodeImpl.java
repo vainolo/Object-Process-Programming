@@ -38,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPNodeImpl#getHeight <em>Height</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPNodeImpl#getX <em>X</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPNodeImpl#getY <em>Y</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.impl.OPPNodeImpl#isManualSize <em>Manual Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -143,6 +144,26 @@ public abstract class OPPNodeImpl extends OPPElementImpl implements OPPNode {
    * @ordered
    */
   protected int y = Y_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isManualSize() <em>Manual Size</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isManualSize()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean MANUAL_SIZE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isManualSize() <em>Manual Size</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isManualSize()
+   * @generated
+   * @ordered
+   */
+  protected boolean manualSize = MANUAL_SIZE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -315,6 +336,27 @@ public abstract class OPPNodeImpl extends OPPElementImpl implements OPPNode {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isManualSize() {
+    return manualSize;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setManualSize(boolean newManualSize) {
+    boolean oldManualSize = manualSize;
+    manualSize = newManualSize;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_NODE__MANUAL_SIZE, oldManualSize, manualSize));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
    * @generated NOT
    */
   @Override
@@ -400,6 +442,8 @@ public abstract class OPPNodeImpl extends OPPElementImpl implements OPPNode {
         return getX();
       case OPPPackage.OPP_NODE__Y:
         return getY();
+      case OPPPackage.OPP_NODE__MANUAL_SIZE:
+        return isManualSize();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -436,6 +480,9 @@ public abstract class OPPNodeImpl extends OPPElementImpl implements OPPNode {
       case OPPPackage.OPP_NODE__Y:
         setY((Integer)newValue);
         return;
+      case OPPPackage.OPP_NODE__MANUAL_SIZE:
+        setManualSize((Boolean)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -469,6 +516,9 @@ public abstract class OPPNodeImpl extends OPPElementImpl implements OPPNode {
       case OPPPackage.OPP_NODE__Y:
         setY(Y_EDEFAULT);
         return;
+      case OPPPackage.OPP_NODE__MANUAL_SIZE:
+        setManualSize(MANUAL_SIZE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -495,6 +545,8 @@ public abstract class OPPNodeImpl extends OPPElementImpl implements OPPNode {
         return x != X_EDEFAULT;
       case OPPPackage.OPP_NODE__Y:
         return y != Y_EDEFAULT;
+      case OPPPackage.OPP_NODE__MANUAL_SIZE:
+        return manualSize != MANUAL_SIZE_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -517,6 +569,8 @@ public abstract class OPPNodeImpl extends OPPElementImpl implements OPPNode {
     result.append(x);
     result.append(", y: ");
     result.append(y);
+    result.append(", manualSize: ");
+    result.append(manualSize);
     result.append(')');
     return result.toString();
   }

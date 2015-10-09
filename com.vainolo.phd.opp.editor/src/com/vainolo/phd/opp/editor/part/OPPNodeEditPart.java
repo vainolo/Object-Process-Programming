@@ -50,7 +50,7 @@ public abstract class OPPNodeEditPart extends AbstractGraphicalEditPart implemen
 
   @Override
   public void activate() {
-    if(!isActive()) {
+    if (!isActive()) {
       ((OPPNode) getModel()).eAdapters().add(adapter);
     }
     super.activate();
@@ -58,7 +58,7 @@ public abstract class OPPNodeEditPart extends AbstractGraphicalEditPart implemen
 
   @Override
   public void deactivate() {
-    if(isActive()) {
+    if (isActive()) {
       ((OPPNode) getModel()).eAdapters().remove(adapter);
     }
 
@@ -66,22 +66,19 @@ public abstract class OPPNodeEditPart extends AbstractGraphicalEditPart implemen
   }
 
   /**
-   * Install edit policies that can be applied to {@link OPPNodeEditPart}
-   * instances.
+   * Install edit policies that can be applied to {@link OPPNodeEditPart} instances.
    */
   @Override
   protected void createEditPolicies() {
-    OPPIdManager idManager = ((OPPGraphicalEditor) ((DefaultEditDomain) (getViewer().getEditDomain())).getEditorPart())
-        .getIdManager();
+    OPPIdManager idManager = ((OPPGraphicalEditor) ((DefaultEditDomain) (getViewer().getEditDomain())).getEditorPart()).getIdManager();
     installEditPolicy(EditPolicy.COMPONENT_ROLE, new OPPNodeEditPolicy(new OPPOPDAnalyzer()));
-    installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPPLinkConnectionEditPolicy(new OPPLinkValidator(),
-        new OPPOPDAnalyzer(), idManager));
+    installEditPolicy(EditPolicy.GRAPHICAL_NODE_ROLE, new OPPLinkConnectionEditPolicy(new OPPLinkValidator(), new OPPOPDAnalyzer(), idManager));
   }
 
   @Override
   protected List<OPPNode> getModelChildren() {
     OPPNode model = (OPPNode) getModel();
-    if(model instanceof OPPContainer) {
+    if (model instanceof OPPContainer) {
       OPPContainer container = (OPPContainer) model;
       return Collections.unmodifiableList(container.getNodes());
     } else {
@@ -109,13 +106,6 @@ public abstract class OPPNodeEditPart extends AbstractGraphicalEditPart implemen
     return ((OPPNodeFigure) getFigure()).getTargetConnectionAnchor();
   }
 
-  /**
-   * Receives notifications of changes in the model and refreshed the view
-   * accordingly.
-   * 
-   * @author vainolo
-   * 
-   */
   public class OPMNodeAdapter implements Adapter {
 
     /**

@@ -18,14 +18,12 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
   private ConnectionAnchor connectionAnchor;
   private final SmartLabelFigure smartLabel;
   private boolean isMultiple = false;
-  private Object mainProcess;
 
   public OPPProcessFigure() {
     ellipse = createEllipseFigure();
     ellipse.setLayoutManager(new XYLayout());
     smartLabel = new SmartLabelFigure(OPPFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
     smartLabel.setForegroundColor(OPPFigureConstants.LABEL_COLOR);
-    smartLabel.setHorizontalAlignment(PositionConstants.CENTER);
     ellipse.add(smartLabel);
 
     contentPane = new Figure();

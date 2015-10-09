@@ -27,9 +27,9 @@ public class OPPNodeChangeConstraintCommand extends Command {
    */
   @Override
   public boolean canExecute() {
-    if(node == null)
+    if (node == null)
       return false;
-    if(newX < 0 || newY < 0 || newW < 0 || newH < 0) {
+    if (newX < 0 || newY < 0 || newW < 0 || newH < 0) {
       return false;
     }
     return true;
@@ -44,8 +44,7 @@ public class OPPNodeChangeConstraintCommand extends Command {
   }
 
   /**
-   * Save the old constraints and set new new constraints for the
-   * {@link OPPNode}.
+   * Save the old constraints and set new new constraints for the {@link OPPNode}.
    */
   @Override
   public void execute() {
@@ -53,7 +52,6 @@ public class OPPNodeChangeConstraintCommand extends Command {
     oldY = node.getY();
     oldW = node.getWidth();
     oldH = node.getHeight();
-
     node.setConstraints(newX, newY, newW, newH);
   }
 

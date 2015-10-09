@@ -385,6 +385,15 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getOPPNode_ManualSize() {
+    return (EAttribute)oppNodeEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOPPObjectProcessDiagram() {
     return oppObjectProcessDiagramEClass;
   }
@@ -777,6 +786,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
     createEAttribute(oppNodeEClass, OPP_NODE__HEIGHT);
     createEAttribute(oppNodeEClass, OPP_NODE__X);
     createEAttribute(oppNodeEClass, OPP_NODE__Y);
+    createEAttribute(oppNodeEClass, OPP_NODE__MANUAL_SIZE);
 
     oppObjectProcessDiagramEClass = createEClass(OPP_OBJECT_PROCESS_DIAGRAM);
     createEReference(oppObjectProcessDiagramEClass, OPP_OBJECT_PROCESS_DIAGRAM__LINKS);
@@ -897,6 +907,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
     initEAttribute(getOPPNode_Height(), ecorePackage.getEInt(), "height", "0", 0, 1, OPPNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPNode_X(), ecorePackage.getEInt(), "x", "0", 0, 1, OPPNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPNode_Y(), ecorePackage.getEInt(), "y", "0", 0, 1, OPPNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPPNode_ManualSize(), ecorePackage.getEBoolean(), "manualSize", "false", 0, 1, OPPNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     EOperation op = addEOperation(oppNodeEClass, null, "setConstraints", 0, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, ecorePackage.getEInt(), "x", 0, 1, IS_UNIQUE, IS_ORDERED);

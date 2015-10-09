@@ -23,5 +23,4 @@ public enum OPPFigureConstants {
   public static final int AGENT_CIRCLE_RATIO = 7;
   public static final int NODE_INSETS = 2;
   // public static final double GOLDEN_RATIO = 1.56261;
-
 }

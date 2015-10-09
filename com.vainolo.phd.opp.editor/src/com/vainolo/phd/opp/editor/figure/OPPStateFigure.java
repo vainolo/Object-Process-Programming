@@ -17,8 +17,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 /**
- * A figure representing an OPM State. A state is represented by a rountangle
- * (rounded rectangle).
+ * A figure representing an OPM State. A state is represented by a rountangle (rounded rectangle).
  * 
  * @author vainolo
  * 
@@ -62,7 +61,7 @@ public class OPPStateFigure extends Figure implements OPPNodeFigure, OPPNamedEle
    * @return a {@link ChopboxAnchor} for the state.
    */
   private ConnectionAnchor getConnectionAnchor() {
-    if(connectionAnchor == null) {
+    if (connectionAnchor == null) {
       connectionAnchor = new ChopboxAnchor(this);
     }
     return connectionAnchor;
@@ -80,20 +79,21 @@ public class OPPStateFigure extends Figure implements OPPNodeFigure, OPPNamedEle
 
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
-    return smartLabel.calculateSize().expand(16, 10);
+    Dimension dim = smartLabel.calculateSize().expand(0, 5);
+    return dim.expand(10, 10);
   }
 
   @Override
   protected void paintFigure(Graphics graphics) {
     Rectangle r = getBounds().getCopy();
-    if(valueState) {
+    if (valueState) {
       rectangle.setLineStyle(SWT.LINE_DASH);
     } else {
       rectangle.setLineStyle(SWT.LINE_SOLID);
     }
     setConstraint(rectangle, new Rectangle(0, 0, r.width, r.height));
     setConstraint(innerRectangle, new Rectangle(3, 3, r.width - 6, r.height - 6));
-    if(valueState) {
+    if (valueState) {
       innerRectangle.setVisible(true);
     } else {
       innerRectangle.setVisible(false);

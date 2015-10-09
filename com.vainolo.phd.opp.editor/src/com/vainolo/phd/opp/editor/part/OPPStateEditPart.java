@@ -23,10 +23,8 @@ import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 import org.eclipse.swt.widgets.Display;
 
-import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPState;
 import com.vainolo.phd.opp.editor.figure.OPPNamedElementFigure;
-import com.vainolo.phd.opp.editor.figure.OPPProcessFigure;
 import com.vainolo.phd.opp.editor.figure.OPPStateFigure;
 import com.vainolo.phd.opp.editor.part.delegates.OPPDirectEditDelegate;
 import com.vainolo.phd.opp.editor.policy.OPPNamedEntityDirectEditPolicy;
@@ -66,18 +64,22 @@ public class OPPStateEditPart extends OPPNodeEditPart {
     figure.setValueState(model.isValue());
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
 
-    Display.getCurrent().asyncExec(new Runnable() {
-      @Override
-      public void run() {
-        OPPState model = (OPPState) getModel();
-        OPPStateFigure figure = (OPPStateFigure) getFigure();
-        Dimension prefSize = figure.getPreferredSize();
-        if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
-          model.setWidth(figure.getPreferredSize().width);
-          model.setHeight(figure.getPreferredSize().height);
+    if (!model.isManualSize()) {
+      Display.getCurrent().asyncExec(new Runnable() {
+        @Override
+        public void run() {
+          OPPState model = (OPPState) getModel();
+          OPPStateFigure figure = (OPPStateFigure) getFigure();
+          Dimension prefSize = figure.getPreferredSize();
+          if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
+            model.setWidth(figure.getPreferredSize().width);
+            model.setHeight(figure.getPreferredSize().height);
+          }
+          if (getParent() != null)
+            getParent().refresh();
         }
-      }
-    });
+      });
+    }
   }
 
   /**

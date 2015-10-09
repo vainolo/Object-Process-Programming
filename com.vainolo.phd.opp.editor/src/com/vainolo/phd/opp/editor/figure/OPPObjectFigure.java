@@ -45,7 +45,6 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
 
     nameLabel = new SmartLabelFigure(OPPFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
     nameLabel.setForegroundColor(OPPFigureConstants.LABEL_COLOR);
-    nameLabel.setHorizontalAlignment(PositionConstants.CENTER);
     borderFigure.add(nameLabel);
 
     contentPane = new ContentPane();
@@ -146,7 +145,7 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
     if (collection)
       prefSize = prefSize.expand(20, 10);
 
-    return prefSize.expand(5, 5);
+    return prefSize.expand(10, 10);
 
   }
 

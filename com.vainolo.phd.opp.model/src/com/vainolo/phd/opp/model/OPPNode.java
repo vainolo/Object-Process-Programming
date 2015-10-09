@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link com.vainolo.phd.opp.model.OPPNode#getHeight <em>Height</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPNode#getX <em>X</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPNode#getY <em>Y</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.OPPNode#isManualSize <em>Manual Size</em>}</li>
  * </ul>
  * </p>
  *
@@ -198,6 +199,33 @@ public interface OPPNode extends OPPElement {
    * @generated
    */
   void setY(int value);
+
+  /**
+   * Returns the value of the '<em><b>Manual Size</b></em>' attribute.
+   * The default value is <code>"false"</code>.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Manual Size</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Manual Size</em>' attribute.
+   * @see #setManualSize(boolean)
+   * @see com.vainolo.phd.opp.model.OPPPackage#getOPPNode_ManualSize()
+   * @model default="false"
+   * @generated
+   */
+  boolean isManualSize();
+
+  /**
+   * Sets the value of the '{@link com.vainolo.phd.opp.model.OPPNode#isManualSize <em>Manual Size</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Manual Size</em>' attribute.
+   * @see #isManualSize()
+   * @generated
+   */
+  void setManualSize(boolean value);
 
   /**
    * <!-- begin-user-doc -->

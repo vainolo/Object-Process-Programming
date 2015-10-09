@@ -241,13 +241,22 @@ public interface OPPPackage extends EPackage {
   int OPP_NODE__Y = OPP_ELEMENT_FEATURE_COUNT + 6;
 
   /**
+   * The feature id for the '<em><b>Manual Size</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_NODE__MANUAL_SIZE = OPP_ELEMENT_FEATURE_COUNT + 7;
+
+  /**
    * The number of structural features of the '<em>Node</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_NODE_FEATURE_COUNT = OPP_ELEMENT_FEATURE_COUNT + 7;
+  int OPP_NODE_FEATURE_COUNT = OPP_ELEMENT_FEATURE_COUNT + 8;
 
   /**
    * The meta object id for the '{@link com.vainolo.phd.opp.model.impl.OPPObjectProcessDiagramImpl <em>Object Process Diagram</em>}' class.
@@ -414,6 +423,15 @@ public interface OPPPackage extends EPackage {
   int OPP_THING__Y = OPP_NODE__Y;
 
   /**
+   * The feature id for the '<em><b>Manual Size</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_THING__MANUAL_SIZE = OPP_NODE__MANUAL_SIZE;
+
+  /**
    * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -559,6 +577,15 @@ public interface OPPPackage extends EPackage {
   int OPP_STATE__Y = OPP_NODE__Y;
 
   /**
+   * The feature id for the '<em><b>Manual Size</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_STATE__MANUAL_SIZE = OPP_NODE__MANUAL_SIZE;
+
+  /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -675,6 +702,15 @@ public interface OPPPackage extends EPackage {
    * @ordered
    */
   int OPP_OBJECT__Y = OPP_THING__Y;
+
+  /**
+   * The feature id for the '<em><b>Manual Size</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_OBJECT__MANUAL_SIZE = OPP_THING__MANUAL_SIZE;
 
   /**
    * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
@@ -840,6 +876,15 @@ public interface OPPPackage extends EPackage {
   int OPP_PROCESS__Y = OPP_THING__Y;
 
   /**
+   * The feature id for the '<em><b>Manual Size</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_PROCESS__MANUAL_SIZE = OPP_THING__MANUAL_SIZE;
+
+  /**
    * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1003,6 +1048,15 @@ public interface OPPPackage extends EPackage {
   int OPP_STRUCTURAL_LINK_AGGREGATOR__Y = OPP_NODE__Y;
 
   /**
+   * The feature id for the '<em><b>Manual Size</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_STRUCTURAL_LINK_AGGREGATOR__MANUAL_SIZE = OPP_NODE__MANUAL_SIZE;
+
+  /**
    * The feature id for the '<em><b>Kind</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1131,6 +1185,15 @@ public interface OPPPackage extends EPackage {
    * @ordered
    */
   int OPP_LABEL__Y = OPP_NODE__Y;
+
+  /**
+   * The feature id for the '<em><b>Manual Size</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_LABEL__MANUAL_SIZE = OPP_NODE__MANUAL_SIZE;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1658,6 +1721,17 @@ public interface OPPPackage extends EPackage {
    * @generated
    */
   EAttribute getOPPNode_Y();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPNode#isManualSize <em>Manual Size</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Manual Size</em>'.
+   * @see com.vainolo.phd.opp.model.OPPNode#isManualSize()
+   * @see #getOPPNode()
+   * @generated
+   */
+  EAttribute getOPPNode_ManualSize();
 
   /**
    * Returns the meta object for class '{@link com.vainolo.phd.opp.model.OPPObjectProcessDiagram <em>Object Process Diagram</em>}'.
@@ -2221,6 +2295,14 @@ public interface OPPPackage extends EPackage {
      * @generated
      */
     EAttribute OPP_NODE__Y = eINSTANCE.getOPPNode_Y();
+
+    /**
+     * The meta object literal for the '<em><b>Manual Size</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPP_NODE__MANUAL_SIZE = eINSTANCE.getOPPNode_ManualSize();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opp.model.impl.OPPObjectProcessDiagramImpl <em>Object Process Diagram</em>}' class.

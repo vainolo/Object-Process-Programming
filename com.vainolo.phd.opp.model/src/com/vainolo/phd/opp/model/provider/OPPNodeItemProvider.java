@@ -51,6 +51,7 @@ public class OPPNodeItemProvider extends OPPElementItemProvider {
       addHeightPropertyDescriptor(object);
       addXPropertyDescriptor(object);
       addYPropertyDescriptor(object);
+      addManualSizePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -188,6 +189,28 @@ public class OPPNodeItemProvider extends OPPElementItemProvider {
   }
 
   /**
+   * This adds a property descriptor for the Manual Size feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addManualSizePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPPNode_manualSize_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPPNode_manualSize_feature", "_UI_OPPNode_type"),
+         OPPPackage.Literals.OPP_NODE__MANUAL_SIZE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns the label text for the adapted class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -216,6 +239,7 @@ public class OPPNodeItemProvider extends OPPElementItemProvider {
       case OPPPackage.OPP_NODE__HEIGHT:
       case OPPPackage.OPP_NODE__X:
       case OPPPackage.OPP_NODE__Y:
+      case OPPPackage.OPP_NODE__MANUAL_SIZE:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }
