@@ -7,9 +7,16 @@
 package com.vainolo.phd.opp.editor.part;
 
 import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.Request;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.part.WorkbenchPart;
 
+import com.vainolo.phd.opp.editor.OPPGraphicalEditor;
+import com.vainolo.phd.opp.editor.action.OPPResizeToContentsAction;
 import com.vainolo.phd.opp.editor.figure.OPPProcessFigure;
 import com.vainolo.phd.opp.editor.figure.OPPThingFigure;
 import com.vainolo.phd.opp.model.OPPProcess;
@@ -31,10 +38,24 @@ public class OPPProcessEditPart extends OPPThingEditPart {
     if (!model.isMain())
       figure.getNameFigure().setText(model.getName());
     figure.setTooltipText(model.getDescription());
-    figure.invalidateTree();
-
+    // figure.invalidateTree();
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
 
+    Display.getCurrent().asyncExec(new Runnable() {
+      @Override
+      public void run() {
+        OPPProcess model = getModel();
+        if (model.isMain())
+          return;
+        OPPProcessFigure figure = getFigure();
+        Dimension prefSize = figure.getPreferredSize();
+
+        if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
+          model.setWidth(figure.getPreferredSize().width);
+          model.setHeight(figure.getPreferredSize().height);
+        }
+      }
+    });
   }
 
   @Override

@@ -6,6 +6,7 @@
 package com.vainolo.phd.opp.editor.policy;
 
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editpolicies.DirectEditPolicy;
 import org.eclipse.gef.requests.DirectEditRequest;
 
@@ -19,14 +20,13 @@ public class OPPNamedEntityDirectEditPolicy extends DirectEditPolicy {
   @Override
   protected Command getDirectEditCommand(final DirectEditRequest request) {
     final Object model = getHost().getModel();
-    Command c = null;
-    if(model instanceof OPPNamedElement) {
-      OPPNamedElementRenameCommand command = new OPPNamedElementRenameCommand();
-      command.setModel((OPPNamedElement) getHost().getModel());
-      command.setNewName((String) request.getCellEditor().getValue());
-      c = command;
-    } else if(model instanceof OPPProceduralLink) {
-      c = new Command() {
+    if (model instanceof OPPNamedElement) {
+      OPPNamedElementRenameCommand renameCommand = new OPPNamedElementRenameCommand();
+      renameCommand.setModel((OPPNamedElement) getHost().getModel());
+      renameCommand.setNewName((String) request.getCellEditor().getValue());
+      return renameCommand;
+    } else if (model instanceof OPPProceduralLink) {
+      Command c = new Command() {
         String oldCenterDecorationString;
         String newCenterDecorationString = (String) request.getCellEditor().getValue();
         OPPProceduralLink link = (OPPProceduralLink) model;
@@ -42,8 +42,10 @@ public class OPPNamedEntityDirectEditPolicy extends DirectEditPolicy {
           link.setCenterDecoration(oldCenterDecorationString);
         }
       };
+      return c;
+    } else {
+      return null;
     }
-    return c;
   }
 
   @Override
