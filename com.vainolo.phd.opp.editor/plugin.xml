@@ -36,5 +36,54 @@
             name="OPP">
       </category>
    </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            class="com.vainolo.phd.opp.editor.PerspectiveFactory"
+            id="com.vainolo.phd.opp.editor.perspective"
+            name="OPP">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="com.vainolo.phd.opp.editor.perspective">
+         <view
+               closeable="true"
+               id="org.eclipse.jdt.ui.PackageExplorer"
+               minimized="false"
+               moveable="true"
+               ratio="0.2"
+               relationship="left"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view>
+         <view
+               closeable="true"
+               id="com.vainolo.phd.opp.editor.OPPOPLView"
+               minimized="false"
+               moveable="true"
+               ratio="0.8"
+               relationship="bottom"
+               relative="org.eclipse.ui.editorss"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view>
+         <view
+               closeable="true"
+               id="org.eclipse.ui.console.ConsoleView"
+               minimized="false"
+               moveable="true"
+               relationship="stack"
+               relative="com.vainolo.phd.opp.editor.OPPOPLView"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view>
+      </perspectiveExtension>
+   </extension>
 
 </plugin>
