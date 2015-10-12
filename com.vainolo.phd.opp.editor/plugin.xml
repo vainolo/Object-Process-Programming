@@ -27,6 +27,7 @@
       <wizard
             category="com.vainolo.phd.opm.editor.Wizard.ID"
             class="com.vainolo.phd.opp.editor.OPPModelWizard"
+            finalPerspective="com.vainolo.phd.opp.editor.perspective"
             icon="src/com/vainolo/phd/opp/editor/icons/opp16x16.ico"
             id="com.vainolo.phd.opp.editor.NewOPPDWizardID"
             name="OPP Diagram">

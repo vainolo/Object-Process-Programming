@@ -7,8 +7,9 @@ public class PerspectiveFactory implements IPerspectiveFactory {
 
   @Override
   public void createInitialLayout(IPageLayout layout) {
-    // TODO Auto-generated method stub
-
+    // set a perspective programatically:
+    // PlatformUI.getWorkbench().showPerspective("perspective.id",
+    // PlatformUI.getWorkbench().getActiveWorkbenchWindow());
   }
 
 }
