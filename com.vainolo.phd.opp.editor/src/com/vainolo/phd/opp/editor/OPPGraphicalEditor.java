@@ -5,11 +5,20 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.editor;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.EventObject;
 import java.util.logging.Logger;
 
-import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.*;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor.PropertyValueWrapper;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.gef.*;
@@ -27,6 +36,7 @@ import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
@@ -67,6 +77,8 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     return idManager;
   }
 
+  OPPEditorResourceChangeListener changeListener = new OPPEditorResourceChangeListener();
+
   @Override
   protected void initializeGraphicalViewer() {
     super.initializeGraphicalViewer();
@@ -101,10 +113,8 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     IAction zoomOut = new ZoomOutAction(root.getZoomManager());
     getActionRegistry().registerAction(zoomIn);
     getActionRegistry().registerAction(zoomOut);
-    // ((IKeyBindingService)
-    // getSite().getService(IKeyBindingService.class)).registerAction(zoomIn);
-    // ((IKeyBindingService)
-    // getSite().getService(IKeyBindingService.class)).registerAction(zoomOut);
+    // ((IKeyBindingService) getSite().getService(IKeyBindingService.class)).registerAction(zoomIn);
+    // ((IKeyBindingService) getSite().getService(IKeyBindingService.class)).registerAction(zoomOut);
     // end zoom.
 
     getGraphicalViewer().setRootEditPart(root);
@@ -131,8 +141,8 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   /**
-   * Save the model using the resource from which it was opened, and mark the
-   * current location in the {@link CommandStack}.
+   * Save the model using the resource from which it was opened, and mark the current location in the
+   * {@link CommandStack}.
    */
   @Override
   public void doSave(IProgressMonitor monitor) {
@@ -151,14 +161,14 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     super.setInput(input);
     loadInput(input);
     setPartName(input.getName());
+    // TEMP CHANGE
+    ResourcesPlugin.getWorkspace().addResourceChangeListener(changeListener, IResourceChangeEvent.POST_CHANGE);
   }
 
   private void loadInput(IEditorInput input) {
-    OPPPackage.eINSTANCE.eClass(); // This initializes the OPMPackage
-                                   // singleton implementation. Must be called
-                                   // before reading the file.
+    OPPPackage.eINSTANCE.eClass(); // This initializes the OPMPackage singleton implementation. Must be called before
+                                   // reading the file.
     if (input instanceof IFileEditorInput) {
-
       IFileEditorInput fileInput = (IFileEditorInput) input;
       opdFile = fileInput.getFile();
       opd = OPPFileUtils.loadOPPFile(opdFile.getLocationURI().toString());
@@ -228,8 +238,7 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   /**
-   * Fire a {@link IEditorPart#PROP_DIRTY} property change and call super
-   * implementation.
+   * Fire a {@link IEditorPart#PROP_DIRTY} property change and call super implementation.
    */
   @Override
   public void commandStackChanged(EventObject event) {
@@ -238,10 +247,8 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   /**
-   * This method implements adapting to {@link IPropertySheetPage}. All other
-   * requests are forwarded to the
-   * {@link GraphicalEditorWithFlyoutPalette#getAdapter(Class) parent}
-   * implementation.
+   * This method implements adapting to {@link IPropertySheetPage}. All other requests are forwarded to the
+   * {@link GraphicalEditorWithFlyoutPalette#getAdapter(Class) parent} implementation.
    */
   @Override
   public Object getAdapter(@SuppressWarnings("rawtypes") Class type) {
@@ -286,8 +293,7 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   }
 
   /**
-   * A property source which unwraps values that are wrapped in an EMF
-   * {@link PropertyValueWrapper}
+   * A property source which unwraps values that are wrapped in an EMF {@link PropertyValueWrapper}
    * 
    * @author vainolo
    * 
@@ -345,4 +351,131 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   public OPPObjectProcessDiagram getOPD() {
     return opd;
   }
+
+  @Override
+  public void dispose() {
+    // TEMP CHANGE
+    ResourcesPlugin.getWorkspace().removeResourceChangeListener(changeListener);
+
+    super.dispose();
+  }
+
+  // TEMP CHANGE
+  private class DeltaVisitor implements IResourceDeltaVisitor {
+    @Override
+    public boolean visit(IResourceDelta delta) throws CoreException {
+      if (delta.getResource().getType() == IResource.FILE) {
+        System.out.println("hello");
+        System.out.println(delta.getResource().getFullPath());
+        System.out.println(opdFile.getFullPath());
+
+        if (delta.getResource().getFullPath().equals(opdFile.getFullPath())) {
+          getSite().getShell().getDisplay().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+              if (!isDirty()) {
+                getSite().getPage().closeEditor(OPPGraphicalEditor.this, false);
+              }
+            }
+          });
+        }
+      }
+      for (IResourceDelta child : delta.getAffectedChildren()) {
+        child.accept(this);
+      }
+      return false;
+    }
+  }
+
+  // TEMP CHANGE
+  private class OPPEditorResourceChangeListener implements IResourceChangeListener {
+    @Override
+    public void resourceChanged(IResourceChangeEvent event) {
+      IResourceDelta delta = event.getDelta();
+      try {
+        delta.accept(new DeltaVisitor());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      // // UGLY but works?
+      // IResourceDelta[] children = delta.getAffectedChildren();
+      // for (IResourceDelta child : children) {
+      // child.getResource().get
+      // System.out.println(child.getKind());
+      // }
+      // if (delta.getResource().getType() == IResource.FILE) {
+      // if (delta.getKind() == IResourceDelta.REMOVED) {
+      // System.out.println(delta.getFullPath().toString());
+      // }
+      // }
+    }
+  }
+  // try {
+  // class ResourceDeltaVisitor implements IResourceDeltaVisitor {
+  // // protected ResourceSet resourceSet = editingDomain.getResourceSet();
+  // protected Collection<Resource> changedResources = new ArrayList<Resource>();
+  // protected Collection<Resource> removedResources = new ArrayList<Resource>();
+  // protected Collection<Resource> savedResources = new ArrayList<Resource>();
+  //
+  // @Override
+  // public boolean visit(IResourceDelta delta) {
+  // if (delta.getResource().getType() == IResource.FILE) {
+  // if (delta.getKind() == IResourceDelta.REMOVED || delta.getKind() == IResourceDelta.CHANGED && delta.getFlags() !=
+  // IResourceDelta.MARKERS) {
+  // Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(delta.getFullPath().toString(), true),
+  // false);
+  // if (resource != null) {
+  // if (delta.getKind() == IResourceDelta.REMOVED) {
+  // removedResources.add(resource);
+  // } else if (!savedResources.remove(resource)) {
+  // changedResources.add(resource);
+  // }
+  // }
+  // }
+  // return false;
+  // }
+  //
+  // return true;
+  // }
+  //
+  // public Collection<Resource> getChangedResources() {
+  // return changedResources;
+  // }
+  //
+  // public Collection<Resource> getRemovedResources() {
+  // return removedResources;
+  // }
+  // }
+  //
+  // final ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
+  // delta.accept(visitor);
+  //
+  // if (!visitor.getRemovedResources().isEmpty()) {
+  // getSite().getShell().getDisplay().asyncExec(new Runnable() {
+  // @Override
+  // public void run() {
+  // if (!isDirty()) {
+  // getSite().getPage().closeEditor(OPPGraphicalEditor.this, false);
+  // }
+  // }
+  // });
+  // }
+  //
+  // if (!visitor.getChangedResources().isEmpty()) {
+  // getSite().getShell().getDisplay().asyncExec(new Runnable() {
+  // @Override
+  // public void run() {
+  // changedResources.addAll(visitor.getChangedResources());
+  // if (getSite().getPage().getActiveEditor() == OPPEditor.this) {
+  // handleActivate();
+  // }
+  // }
+  // });
+  // }
+  // } catch (CoreException exception) {
+  // OPPEditorPlugin.INSTANCE.log(exception);
+  // }
+  // }
+  // };
+
 }

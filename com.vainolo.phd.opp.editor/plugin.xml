@@ -84,6 +84,9 @@
                standalone="false"
                visible="true">
          </view>
+         <newWizardShortcut
+               id="com.vainolo.phd.opp.editor.NewOPPDWizardID">
+         </newWizardShortcut>
       </perspectiveExtension>
    </extension>
 
