@@ -7,6 +7,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opp.editor.OPPGraphicalEditor;
 import com.vainolo.phd.opp.editor.factory.OPPObjectFactory;
+import com.vainolo.phd.opp.editor.tool.OPPCreationAndDirectEditTool;
 
 public class OPPCreateObjectAction extends WorkbenchPartAction {
 
@@ -22,7 +23,8 @@ public class OPPCreateObjectAction extends WorkbenchPartAction {
     setId(ID);
     setText("Create Object");
     OPPGraphicalEditor editor = (OPPGraphicalEditor) getWorkbenchPart();
-    tool = new CreationTool(new OPPObjectFactory(editor.getIdManager()));
+    tool = new OPPCreationAndDirectEditTool();
+    tool.setFactory(new OPPObjectFactory(editor.getIdManager()));
   }
 
   public Request getRequest() {

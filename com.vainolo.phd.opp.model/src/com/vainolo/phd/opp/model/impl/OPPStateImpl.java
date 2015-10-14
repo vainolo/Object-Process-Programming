@@ -37,7 +37,7 @@ public class OPPStateImpl extends OPPNodeImpl implements OPPState {
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = "<<name>>";
+  protected static final String NAME_EDEFAULT = "";
 
   /**
    * The cached value of the '{@link #getName() <em>Name</em>}' attribute.

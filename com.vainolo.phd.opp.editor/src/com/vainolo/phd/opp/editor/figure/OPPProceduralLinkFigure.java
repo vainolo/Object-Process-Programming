@@ -23,6 +23,7 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
 
   public OPPProceduralLinkFigure(OPPProceduralLinkKind kind) {
     this.kind = kind;
+    arrow.setScale(10, 5);
 
     setAntialias(SWT.ON);
     setLineWidth(OPPFigureConstants.CONNECTION_LINE_WIDTH);

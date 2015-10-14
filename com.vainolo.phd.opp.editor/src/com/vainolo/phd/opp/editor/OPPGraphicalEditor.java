@@ -5,20 +5,12 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.editor;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.EventObject;
 import java.util.logging.Logger;
 
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor.PropertyValueWrapper;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.gef.*;
@@ -36,7 +28,6 @@ import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
@@ -161,7 +152,6 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     super.setInput(input);
     loadInput(input);
     setPartName(input.getName());
-    // TEMP CHANGE
     ResourcesPlugin.getWorkspace().addResourceChangeListener(changeListener, IResourceChangeEvent.POST_CHANGE);
   }
 
@@ -225,7 +215,13 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     action = new OPPCreateStateAction(this);
     getActionRegistry().registerAction(action);
 
-    action = new OPPCreateDataLinkAction(this);
+    action = new OPPCreateAgentLinkAction(this);
+    getActionRegistry().registerAction(action);
+
+    action = new OPPCreateInstrumentLinkAction(this);
+    getActionRegistry().registerAction(action);
+
+    action = new OPPCreateConsResLinkAction(this);
     getActionRegistry().registerAction(action);
 
     action = new CopyTemplateAction(this);
@@ -354,30 +350,25 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
   @Override
   public void dispose() {
-    // TEMP CHANGE
     ResourcesPlugin.getWorkspace().removeResourceChangeListener(changeListener);
-
     super.dispose();
   }
 
-  // TEMP CHANGE
   private class DeltaVisitor implements IResourceDeltaVisitor {
     @Override
     public boolean visit(IResourceDelta delta) throws CoreException {
-      if (delta.getResource().getType() == IResource.FILE) {
-        System.out.println("hello");
-        System.out.println(delta.getResource().getFullPath());
-        System.out.println(opdFile.getFullPath());
-
-        if (delta.getResource().getFullPath().equals(opdFile.getFullPath())) {
-          getSite().getShell().getDisplay().asyncExec(new Runnable() {
-            @Override
-            public void run() {
-              if (!isDirty()) {
-                getSite().getPage().closeEditor(OPPGraphicalEditor.this, false);
+      if (delta.getKind() == IResourceDelta.REMOVED) {
+        if (delta.getResource().getType() == IResource.FILE) {
+          if (delta.getResource().getFullPath().equals(opdFile.getFullPath())) {
+            getSite().getShell().getDisplay().asyncExec(new Runnable() {
+              @Override
+              public void run() {
+                if (!isDirty()) {
+                  getSite().getPage().closeEditor(OPPGraphicalEditor.this, false);
+                }
               }
-            }
-          });
+            });
+          }
         }
       }
       for (IResourceDelta child : delta.getAffectedChildren()) {
@@ -387,7 +378,6 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     }
   }
 
-  // TEMP CHANGE
   private class OPPEditorResourceChangeListener implements IResourceChangeListener {
     @Override
     public void resourceChanged(IResourceChangeEvent event) {
@@ -397,85 +387,6 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
       } catch (Exception e) {
         e.printStackTrace();
       }
-      // // UGLY but works?
-      // IResourceDelta[] children = delta.getAffectedChildren();
-      // for (IResourceDelta child : children) {
-      // child.getResource().get
-      // System.out.println(child.getKind());
-      // }
-      // if (delta.getResource().getType() == IResource.FILE) {
-      // if (delta.getKind() == IResourceDelta.REMOVED) {
-      // System.out.println(delta.getFullPath().toString());
-      // }
-      // }
     }
   }
-  // try {
-  // class ResourceDeltaVisitor implements IResourceDeltaVisitor {
-  // // protected ResourceSet resourceSet = editingDomain.getResourceSet();
-  // protected Collection<Resource> changedResources = new ArrayList<Resource>();
-  // protected Collection<Resource> removedResources = new ArrayList<Resource>();
-  // protected Collection<Resource> savedResources = new ArrayList<Resource>();
-  //
-  // @Override
-  // public boolean visit(IResourceDelta delta) {
-  // if (delta.getResource().getType() == IResource.FILE) {
-  // if (delta.getKind() == IResourceDelta.REMOVED || delta.getKind() == IResourceDelta.CHANGED && delta.getFlags() !=
-  // IResourceDelta.MARKERS) {
-  // Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(delta.getFullPath().toString(), true),
-  // false);
-  // if (resource != null) {
-  // if (delta.getKind() == IResourceDelta.REMOVED) {
-  // removedResources.add(resource);
-  // } else if (!savedResources.remove(resource)) {
-  // changedResources.add(resource);
-  // }
-  // }
-  // }
-  // return false;
-  // }
-  //
-  // return true;
-  // }
-  //
-  // public Collection<Resource> getChangedResources() {
-  // return changedResources;
-  // }
-  //
-  // public Collection<Resource> getRemovedResources() {
-  // return removedResources;
-  // }
-  // }
-  //
-  // final ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
-  // delta.accept(visitor);
-  //
-  // if (!visitor.getRemovedResources().isEmpty()) {
-  // getSite().getShell().getDisplay().asyncExec(new Runnable() {
-  // @Override
-  // public void run() {
-  // if (!isDirty()) {
-  // getSite().getPage().closeEditor(OPPGraphicalEditor.this, false);
-  // }
-  // }
-  // });
-  // }
-  //
-  // if (!visitor.getChangedResources().isEmpty()) {
-  // getSite().getShell().getDisplay().asyncExec(new Runnable() {
-  // @Override
-  // public void run() {
-  // changedResources.addAll(visitor.getChangedResources());
-  // if (getSite().getPage().getActiveEditor() == OPPEditor.this) {
-  // handleActivate();
-  // }
-  // }
-  // });
-  // }
-  // } catch (CoreException exception) {
-  // OPPEditorPlugin.INSTANCE.log(exception);
-  // }
-  // }
-  // };
-
 }

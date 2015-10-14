@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
 public interface OPPNamedElement extends EObject {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.
-   * The default value is <code>"<<name>>"</code>.
+   * The default value is <code>""</code>.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Name</em>' attribute isn't clear,
@@ -34,7 +34,7 @@ public interface OPPNamedElement extends EObject {
    * @return the value of the '<em>Name</em>' attribute.
    * @see #setName(String)
    * @see com.vainolo.phd.opp.model.OPPPackage#getOPPNamedElement_Name()
-   * @model default="<<name>>"
+   * @model default=""
    * @generated
    */
   String getName();

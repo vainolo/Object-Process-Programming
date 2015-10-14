@@ -66,13 +66,17 @@ public class SmartLabelFigure extends FlowPage {
    * @return A close match to the size that this figure should have to match the required width to height ratio.
    */
   public Dimension calculateSize() {
-    Dimension lineDimensions = TextUtilities.INSTANCE.getStringExtents(textFlow.getText(), getFont());
-    double area = lineDimensions.width() * lineDimensions.height();
-    double width = Math.sqrt(area / ratio) * ratio;
-    invalidate();
-    Dimension pSize = getPreferredSize((int) width, -1).getCopy();
-    if (pSize.width < 10)
-      pSize.width = pSize.height;
-    return pSize;
+    try {
+      Dimension lineDimensions = TextUtilities.INSTANCE.getStringExtents(textFlow.getText(), getFont());
+      double area = lineDimensions.width() * lineDimensions.height();
+      double width = Math.sqrt(area / ratio) * ratio;
+      invalidate();
+      Dimension pSize = getPreferredSize((int) width, -1).getCopy();
+      if (pSize.width < 10)
+        pSize.width = pSize.height;
+      return pSize;
+    } catch (Exception e) {
+      return new Dimension(0, 0);
+    }
   }
 }

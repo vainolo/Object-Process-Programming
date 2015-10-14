@@ -19,8 +19,7 @@ public enum OPPFigureConstants {
 
   public static final int ENTITY_BORDER_WIDTH = 2;
   public static final int IN_ZOOMED_THING_BORDER_WIDTH = 3;
-  public static final int CONNECTION_LINE_WIDTH = 1;
+  public static final int CONNECTION_LINE_WIDTH = 2;
   public static final int AGENT_CIRCLE_RATIO = 7;
   public static final int NODE_INSETS = 2;
-  // public static final double GOLDEN_RATIO = 1.56261;
 }

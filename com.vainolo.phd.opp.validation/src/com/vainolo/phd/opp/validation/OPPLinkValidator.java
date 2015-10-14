@@ -7,12 +7,6 @@ import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPState;
 
-/**
- * Validate model operations done on {@link OPPLink}s.
- * 
- * @author Arieh "Vainolo" Bibliowicz
- * 
- */
 public class OPPLinkValidator {
 
   /**
@@ -46,6 +40,7 @@ public class OPPLinkValidator {
       } else if (source instanceof OPPState) {
         switch (proceduralLink.getKind()) {
         case AGENT:
+        case INSTRUMENT:
         case CONS_RES:
           return true;
         default:

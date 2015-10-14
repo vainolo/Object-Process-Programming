@@ -50,7 +50,7 @@ public class OPPObjectProcessDiagramImpl extends OPPContainerImpl implements OPP
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = "<<name>>";
+  protected static final String NAME_EDEFAULT = "";
 
   /**
    * The cached value of the '{@link #getName() <em>Name</em>}' attribute.

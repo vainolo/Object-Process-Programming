@@ -893,7 +893,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
     initEAttribute(getOPPElement_Id(), ecorePackage.getELong(), "id", null, 0, 1, OPPElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppNamedElementEClass, OPPNamedElement.class, "OPPNamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getOPPNamedElement_Name(), ecorePackage.getEString(), "name", "<<name>>", 0, 1, OPPNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPPNamedElement_Name(), ecorePackage.getEString(), "name", "", 0, 1, OPPNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPNamedElement_Alignment(), this.getOPPVerticalAlignment(), "alignment", "Center", 0, 1, OPPNamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppContainerEClass, OPPContainer.class, "OPPContainer", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
