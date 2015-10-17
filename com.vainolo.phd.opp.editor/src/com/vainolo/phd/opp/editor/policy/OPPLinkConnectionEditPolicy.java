@@ -18,6 +18,7 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.google.common.base.Preconditions;
 import com.vainolo.phd.opp.editor.command.OPPCreateLinkCommand;
+import com.vainolo.phd.opp.editor.command.OPPLinkReconnectCommand;
 import com.vainolo.phd.opp.editor.command.OPPNodeCreateCommand;
 import com.vainolo.phd.opp.editor.factory.OPPIdManager;
 import com.vainolo.phd.opp.editor.factory.OPPStructuralLinkPartFactory;
@@ -27,8 +28,8 @@ import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 import com.vainolo.phd.opp.validation.OPPLinkValidator;
 
 /**
- * Policy used to connect two nodes in the diagram. Currently connections can
- * only be created between two {@link OPPThing} instances.
+ * Policy used to connect two nodes in the diagram. Currently connections can only be created between two
+ * {@link OPPThing} instances.
  * 
  * @author Arieh "Vainolo" Bibliowicz
  */
@@ -48,29 +49,27 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
   }
 
   /**
-   * Create a command used to begin connecting to nodes.
-   * {@link OPPStructuralLinkAggregatorEditPart} nodes cannot be source nodes,
-   * therefore in this case a {@link UnexecutableCommand} is returned.
+   * Create a command used to begin connecting to nodes. {@link OPPStructuralLinkAggregatorEditPart} nodes cannot be
+   * source nodes, therefore in this case a {@link UnexecutableCommand} is returned.
    * 
-   * @return a {@link Command} that contains the initial information neede to
-   *         create a connection between two nodes.
+   * @return a {@link Command} that contains the initial information neede to create a connection between two nodes.
    */
   @Override
   protected Command getConnectionCreateCommand(CreateConnectionRequest request) {
     // We must return null and not the usual UnexecutableCommand because if we
     // return a non-null value the framework thinks that the link can be created
     // from this host, something that we don't want to happen.
-    if(getHost() instanceof OPPStructuralLinkAggregatorEditPart) {
+    if (getHost() instanceof OPPStructuralLinkAggregatorEditPart) {
       return null;
     }
 
-    if(request.getNewObject() instanceof OPPStructuralLinkAggregator) {
+    if (request.getNewObject() instanceof OPPStructuralLinkAggregator) {
       request.setStartCommand(new Command() {
       });
       return request.getStartCommand();
     }
 
-    if(!validator.validateAddSource((OPPNode) getHost().getModel(), (OPPLink) request.getNewObject())) {
+    if (!validator.validateAddSource((OPPNode) getHost().getModel(), (OPPLink) request.getNewObject())) {
       return null;
     }
 
@@ -84,30 +83,27 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
   /**
    * Retrieves the command created by
-   * {@link OPPLinkConnectionEditPolicy#getConnectionCreateCommand(CreateConnectionRequest)
-   * getConnectionCreateCommand}, and adds it information so that the command
-   * can be executed. {@link OPPStructuralLinkAggregatorEditPart} nodes cannot
-   * be source nodes, therefore in this case a {@link UnexecutableCommand} is
-   * returned.
+   * {@link OPPLinkConnectionEditPolicy#getConnectionCreateCommand(CreateConnectionRequest) getConnectionCreateCommand},
+   * and adds it information so that the command can be executed. {@link OPPStructuralLinkAggregatorEditPart} nodes
+   * cannot be source nodes, therefore in this case a {@link UnexecutableCommand} is returned.
    * 
-   * @return a {@link Command} that can be executed to create a connection
-   *         between two nodes.
+   * @return a {@link Command} that can be executed to create a connection between two nodes.
    */
   @Override
   protected Command getConnectionCompleteCommand(CreateConnectionRequest request) {
     // A null command must be returned (and not the usual UnexecutableCommand),
     // otherwise GEF shows a symbol that the connection can be completed but
     // when the used clicks it is not created.
-    if(request.getStartCommand() == null || request.getTargetEditPart() instanceof OPPStructuralLinkAggregatorEditPart) {
+    if (request.getStartCommand() == null || request.getTargetEditPart() instanceof OPPStructuralLinkAggregatorEditPart) {
       return null;
     }
 
     Command command = null;
 
-    if(request.getNewObject() instanceof OPPStructuralLinkAggregator) {
+    if (request.getNewObject() instanceof OPPStructuralLinkAggregator) {
       command = handleOPMStructuralLinkRequest(request);
     } else {
-      if(!validator.validateAddTarget((OPPLink) request.getNewObject(), (OPPNode) getHost().getModel())) {
+      if (!validator.validateAddTarget((OPPLink) request.getNewObject(), (OPPNode) getHost().getModel())) {
         return null;
       }
 
@@ -121,20 +117,17 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
   /**
    * <p>
-   * When the user requests the creation of a structural link, the following is
-   * done:
+   * When the user requests the creation of a structural link, the following is done:
    * </p>
    * <ol>
-   * <li>If this is the first structural link of its kind between the source and
-   * target nodes, we create a new aggregator and connect it to the source and
-   * target.</li>
-   * <li>If there already is an aggregator of its kind between the nodes, we
-   * only add a new link from the aggregator to the new target.</li>
+   * <li>If this is the first structural link of its kind between the source and target nodes, we create a new
+   * aggregator and connect it to the source and target.</li>
+   * <li>If there already is an aggregator of its kind between the nodes, we only add a new link from the aggregator to
+   * the new target.</li>
    * </ol>
    * 
    * @param request
-   *          the user request to create a new strucutral link between the
-   *          nodes.
+   *          the user request to create a new strucutral link between the nodes.
    * @return a command that creates the links as stated above.
    */
   private Command handleOPMStructuralLinkRequest(CreateConnectionRequest request) {
@@ -147,15 +140,15 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
     // Search for an outgoing structural link aggregator matching the
     // requested kind.
     boolean aggregatorFound = false;
-    for(OPPLink structuralLink : analyzer.findOutgoingStructuralLinks(sNode)) {
+    for (OPPLink structuralLink : analyzer.findOutgoingStructuralLinks(sNode)) {
       OPPStructuralLinkAggregator existingAggregator = (OPPStructuralLinkAggregator) structuralLink.getTarget();
-      if(existingAggregator.getKind() == agrNode.getKind()) {
+      if (existingAggregator.getKind() == agrNode.getKind()) {
         aggregatorFound = true;
         agrNode = existingAggregator;
       }
     }
 
-    if(aggregatorFound) {
+    if (aggregatorFound) {
       // Just create a link from the aggregator to the target.
       command = createCreateOPMLlinkCreateCommand(agrNode, tNode, analyzer.findOPD(agrNode));
     } else {
@@ -172,8 +165,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
   }
 
   /**
-   * Helper function to create a command that connects two nodes with a factory
-   * generated link.
+   * Helper function to create a command that connects two nodes with a factory generated link.
    * 
    * @param source
    *          the source of the link.
@@ -181,8 +173,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
    *          the target of the link.
    * @return
    */
-  private OPPCreateLinkCommand createCreateOPMLlinkCreateCommand(OPPNode source, OPPNode target,
-      OPPObjectProcessDiagram opd) {
+  private OPPCreateLinkCommand createCreateOPMLlinkCreateCommand(OPPNode source, OPPNode target, OPPObjectProcessDiagram opd) {
     OPPCreateLinkCommand command = new OPPCreateLinkCommand();
     command.setSource(source);
     command.setTarget(target);
@@ -193,8 +184,8 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
   }
 
   /**
-   * Create a command that adds the provided {@link OPPStructuralLinkAggregator}
-   * to the diagram located between the source and the target {@link OPPNode}.
+   * Create a command that adds the provided {@link OPPStructuralLinkAggregator} to the diagram located between the
+   * source and the target {@link OPPNode}.
    * 
    * @param source
    *          the source for the structural link.
@@ -202,8 +193,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
    *          the target of the structural link.
    * @param aggregator
    *          the aggregator that should be added to the diagram.
-   * @return A {@link OPMNodeCreateCommand} whose execution add the aggregator
-   *         to the diagram.
+   * @return A {@link OPMNodeCreateCommand} whose execution add the aggregator to the diagram.
    */
   public OPPNodeCreateCommand createCreateAggregatorNodeCommand(OPPNode source, OPPNode target, OPPNode aggregator) {
     OPPNodeCreateCommand command = new OPPNodeCreateCommand();
@@ -216,10 +206,10 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
     Point aggrgLeftTopCorner = new Point();
     aggrgLeftTopCorner.x = sCenter.x + (tCenter.x - sCenter.x) / 2 - DEFAULT_AGGREGATOR_DIMENSION.width / 2;
     aggrgLeftTopCorner.y = sCenter.y + (tCenter.y - sCenter.y) / 2 - DEFAULT_AGGREGATOR_DIMENSION.height / 2;
-    if(aggrgLeftTopCorner.x < 0) {
+    if (aggrgLeftTopCorner.x < 0) {
       aggrgLeftTopCorner.x = 0;
     }
-    if(aggrgLeftTopCorner.y < 0) {
+    if (aggrgLeftTopCorner.y < 0) {
       aggrgLeftTopCorner.y = 0;
     }
     command.setConstraints(new Rectangle(aggrgLeftTopCorner, DEFAULT_AGGREGATOR_DIMENSION));
@@ -229,11 +219,31 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
   @Override
   protected Command getReconnectTargetCommand(ReconnectRequest request) {
-    return null;
+    OPPLink link = (OPPLink) request.getConnectionEditPart().getModel();
+    OPPNode target = (OPPNode) request.getTarget().getModel();
+    if (!validator.validateAddTarget(link, target)) {
+      return null;
+    } else {
+      OPPLinkReconnectCommand command = new OPPLinkReconnectCommand();
+      command.setLink(link);
+      command.setSource(link.getSource());
+      command.setTarget(target);
+      return command;
+    }
   }
 
   @Override
   protected Command getReconnectSourceCommand(ReconnectRequest request) {
-    return null;
+    OPPLink link = (OPPLink) request.getConnectionEditPart().getModel();
+    OPPNode source = (OPPNode) request.getTarget().getModel();
+    if (!validator.validateAddTarget(link, source)) {
+      return null;
+    } else {
+      OPPLinkReconnectCommand command = new OPPLinkReconnectCommand();
+      command.setLink(link);
+      command.setSource(source);
+      command.setTarget(link.getTarget());
+      return command;
+    }
   }
 }
