@@ -5,6 +5,9 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.interpreter.builtin;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -17,24 +20,28 @@ import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 
-/**
- * Take input from the user.
- * 
- * @author Arieh "Vainolo" Bibliowicz"
- * 
- */
-public class OPPInputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPConsoleInputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
 
   @Inject
-  public OPPInputProcessInstance() {
+  public OPPConsoleInputProcessInstance() {
     this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
   }
 
   @Override
   protected void executing() {
-    final String input = showInputDialog();
+    OPPObjectInstance prompt = getArgument("prompt");
+    if (prompt != null)
+      System.out.println(prompt);
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String input = "";
+    try {
+      input = br.readLine();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     OPPObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
     setArgument("text", instance);
   }
@@ -48,7 +55,12 @@ public class OPPInputProcessInstance extends OPPAbstractProcessInstance implemen
 
   @Override
   public String getName() {
-    return "Input";
+    return "Console Input";
+  }
+
+  @Override
+  public List<OPPParameter> getIncomingParameters() {
+    return Lists.newArrayList(new OPPParameter("prompt"));
   }
 
   @Override

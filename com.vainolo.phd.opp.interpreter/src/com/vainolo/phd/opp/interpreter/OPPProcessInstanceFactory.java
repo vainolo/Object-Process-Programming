@@ -14,8 +14,10 @@ import com.vainolo.phd.opp.interpreter.builtin.OPPBinaryMathOpProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPConceptualProcess;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCreateObjectProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.OPPInputProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.OPPOutputProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPConsoleInputProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPConsoleOutputProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPDialogInputProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPDialogOutputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPPrintHelloWorldProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPSleepProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance.ComparisonType;
@@ -81,11 +83,14 @@ public class OPPProcessInstanceFactory {
   private static OPPProcessInstance createBuiltInProcess(String name) {
     OPPProcessInstance processInstance = null;
 
-    if (name.equalsIgnoreCase("Input")) {
-      processInstance = new OPPInputProcessInstance();
-    } else if (name.equalsIgnoreCase("Output") || name.equalsIgnoreCase("Dialog") || name.equalsIgnoreCase("Print")) {
-      processInstance = new OPPOutputProcessInstance();
-      processInstance.setName(name);
+    if (name.equalsIgnoreCase("Console Input")) {
+      processInstance = new OPPConsoleInputProcessInstance();
+    } else if (name.equalsIgnoreCase("Console Output")) {
+      processInstance = new OPPConsoleOutputProcessInstance();
+    } else if (name.equalsIgnoreCase("Dialog Input")) {
+      processInstance = new OPPDialogInputProcessInstance();
+    } else if (name.equalsIgnoreCase("Dialog Output")) {
+      processInstance = new OPPDialogOutputProcessInstance();
     } else if (name.equals("+")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.ADD);
     } else if (name.equals("-")) {

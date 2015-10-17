@@ -7,37 +7,28 @@ package com.vainolo.phd.opp.interpreter.builtin;
 
 import java.util.List;
 
-import com.eclipsesource.json.JsonObject;
+import javax.swing.JOptionPane;
+
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
-import com.vainolo.phd.opp.interpreter.json.OPPJsonWriter;
 
-public class OPPWriteOPMObjectInstanceToJSON extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPDialogOutputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   protected void executing() {
-    OPPJsonWriter writer = new OPPJsonWriter();
-    OPPObjectInstance opmObjectInstance = getArgument("object");
-    JsonObject jsonObject = writer.write(opmObjectInstance);
-    setArgument("json", OPPObjectInstance.createFromValue(jsonObject.toString()));
+    Object text = getArgument("text");
+    JOptionPane.showMessageDialog(null, text);
   }
 
   @Override
   public String getName() {
-    return "Write JSON";
+    return "Dialog Output";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("object"));
+    return Lists.newArrayList(new OPPParameter("text"));
   }
-
-  @Override
-  public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("json"));
-  }
-
 }

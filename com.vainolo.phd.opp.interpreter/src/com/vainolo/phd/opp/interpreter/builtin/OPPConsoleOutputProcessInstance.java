@@ -7,24 +7,23 @@ package com.vainolo.phd.opp.interpreter.builtin;
 
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 
-public class OPPOutputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPConsoleOutputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   protected void executing() {
     Object text = getArgument("text");
-    JOptionPane.showMessageDialog(null, text);
+    // JOptionPane.showMessageDialog(null, text);
+    System.out.println(text);
   }
 
   @Override
   public String getName() {
-    return "Output";
+    return "Console Output";
   }
 
   @Override
