@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.Path;
 
 import com.vainolo.phd.opp.interpreter.builtin.OPPBinaryMathOpProcessInstance.OPPBinaryMathOpType;
 import com.vainolo.phd.opp.interpreter.builtin.OPPBinaryMathOpProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPCallWebAPIProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPConceptualProcess;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCreateObjectProcessInstance;
@@ -133,6 +134,8 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPRemoveLastPartProcessInstance();
     } else if (name.equalsIgnoreCase("Add Part")) {
       processInstance = new OPPAddPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Call Web API")) {
+      processInstance = new OPPCallWebAPIProcessInstance();
     }
     return processInstance;
   }
