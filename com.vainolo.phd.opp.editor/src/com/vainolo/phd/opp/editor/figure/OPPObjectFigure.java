@@ -156,7 +156,8 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
 
   public void setDashedBorder(boolean dashed) {
     if (dashed) {
-      borderFigure.setLineStyle(SWT.LINE_DASH);
+      borderFigure.setLineStyle(SWT.LINE_CUSTOM);
+      borderFigure.setLineDash(OPPFigureConstants.GLOBAL_OBJECT_DASH);
     } else {
       borderFigure.setLineStyle(SWT.LINE_SOLID);
     }

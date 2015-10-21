@@ -72,6 +72,10 @@ public class OPPGraphicalEditorContextMenuProvider extends ContextMenuProvider {
     action = getActionRegistry().getAction(OPPResizeToContentsAction.RESIZE_TO_CONTENTS_ID);
     if (action.isEnabled())
       menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+
+    action = getActionRegistry().getAction(OPPToggleGlobalObjectAction.TOGGLE_GLOBALOBJECT_ID);
+    if (action.isEnabled())
+      menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
   }
 
   private ActionRegistry getActionRegistry() {

@@ -13,12 +13,17 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.swt.widgets.Display;
 
 import com.vainolo.phd.opp.model.OPPObject;
-import com.vainolo.phd.opp.model.OPPState;
 import com.vainolo.phd.opp.editor.figure.OPPObjectFigure;
-import com.vainolo.phd.opp.editor.figure.OPPStateFigure;
 import com.vainolo.phd.opp.editor.figure.OPPThingFigure;
+import com.vainolo.phd.opp.editor.policy.OPPObjectEditPolicy;
 
 public class OPPObjectEditPart extends OPPThingEditPart {
+
+  @Override
+  protected void createEditPolicies() {
+    super.createEditPolicies();
+    installEditPolicy(OPPObjectEditPolicy.ID, new OPPObjectEditPolicy());
+  }
 
   @Override
   protected IFigure createFigure() {

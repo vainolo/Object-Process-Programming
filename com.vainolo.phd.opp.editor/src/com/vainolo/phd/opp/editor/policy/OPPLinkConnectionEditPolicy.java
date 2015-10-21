@@ -22,6 +22,7 @@ import com.vainolo.phd.opp.editor.command.OPPLinkReconnectCommand;
 import com.vainolo.phd.opp.editor.command.OPPNodeCreateCommand;
 import com.vainolo.phd.opp.editor.factory.OPPIdManager;
 import com.vainolo.phd.opp.editor.factory.OPPStructuralLinkPartFactory;
+import com.vainolo.phd.opp.editor.figure.OPPFigureConstants;
 import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opp.model.*;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
@@ -35,7 +36,6 @@ import com.vainolo.phd.opp.validation.OPPLinkValidator;
  */
 public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
-  private static final Dimension DEFAULT_AGGREGATOR_DIMENSION = new Dimension(15, 15);
   OPPLinkValidator validator;
   OPPOPDAnalyzer analyzer;
 
@@ -204,15 +204,16 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
     Point sCenter = new Point(source.getX() + source.getWidth() / 2, source.getY() + source.getHeight() / 2);
     Point tCenter = new Point(target.getX() + target.getWidth() / 2, target.getY() + target.getHeight() / 2);
     Point aggrgLeftTopCorner = new Point();
-    aggrgLeftTopCorner.x = sCenter.x + (tCenter.x - sCenter.x) / 2 - DEFAULT_AGGREGATOR_DIMENSION.width / 2;
-    aggrgLeftTopCorner.y = sCenter.y + (tCenter.y - sCenter.y) / 2 - DEFAULT_AGGREGATOR_DIMENSION.height / 2;
+    Dimension d = new Dimension(OPPFigureConstants.STRUCTURAL_AGGREGATOR_SIZE, OPPFigureConstants.STRUCTURAL_AGGREGATOR_SIZE);
+    aggrgLeftTopCorner.x = sCenter.x + (tCenter.x - sCenter.x) / 2 - d.width / 2;
+    aggrgLeftTopCorner.y = sCenter.y + (tCenter.y - sCenter.y) / 2 - d.height / 2;
     if (aggrgLeftTopCorner.x < 0) {
       aggrgLeftTopCorner.x = 0;
     }
     if (aggrgLeftTopCorner.y < 0) {
       aggrgLeftTopCorner.y = 0;
     }
-    command.setConstraints(new Rectangle(aggrgLeftTopCorner, DEFAULT_AGGREGATOR_DIMENSION));
+    command.setConstraints(new Rectangle(aggrgLeftTopCorner, d));
 
     return command;
   }
