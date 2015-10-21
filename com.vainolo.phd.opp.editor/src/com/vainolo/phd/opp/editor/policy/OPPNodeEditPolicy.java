@@ -21,6 +21,7 @@ import com.vainolo.phd.opp.editor.part.OPPNodeEditPart;
 import com.vainolo.phd.opp.model.OPPContainer;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
+import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 
 /**
@@ -78,8 +79,14 @@ public class OPPNodeEditPolicy extends ComponentEditPolicy {
    * @return a {@link CompoundCommand} command that deletes the node, the contained nodes and all links that must be
    *         deleted.
    */
-  private CompoundCommand createRecursiveDeleteNodeCommand(OPPNode nodeToDelete) {
+  private Command createRecursiveDeleteNodeCommand(OPPNode nodeToDelete) {
     CompoundCommand compoundCommand = new CompoundCommand();
+
+    if (nodeToDelete instanceof OPPStructuralLinkAggregator) {
+      OPPDeleteNodeCommand command = new OPPDeleteNodeCommand();
+      command.setNode(nodeToDelete);
+      return command;
+    }
 
     // For every outgoing structural link, create a command to delete the
     // aggregator node at the end of the link.

@@ -2,6 +2,8 @@
  */
 package com.vainolo.phd.opp.model;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -17,6 +19,7 @@ package com.vainolo.phd.opp.model;
  *   <li>{@link com.vainolo.phd.opp.model.OPPLink#getSourceDecoration <em>Source Decoration</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPLink#getTargetDecoration <em>Target Decoration</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPLink#getCenterDecoration <em>Center Decoration</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.OPPLink#getBendpoints <em>Bendpoints</em>}</li>
  * </ul>
  * </p>
  *
@@ -186,5 +189,21 @@ public interface OPPLink extends OPPElement {
    * @generated
    */
   void setCenterDecoration(String value);
+
+  /**
+   * Returns the value of the '<em><b>Bendpoints</b></em>' containment reference list.
+   * The list contents are of type {@link com.vainolo.phd.opp.model.OPPPoint}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Bendpoints</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Bendpoints</em>' containment reference list.
+   * @see com.vainolo.phd.opp.model.OPPPackage#getOPPLink_Bendpoints()
+   * @model containment="true"
+   * @generated
+   */
+  EList<OPPPoint> getBendpoints();
 
 } // OPPLink

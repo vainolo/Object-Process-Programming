@@ -52,6 +52,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPNode/height"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPNode/x"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPNode/y"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPNode/manualSize"/>
       <genOperations ecoreOperation="opp.ecore#//OPPNode/setConstraints">
         <genParameters ecoreParameter="opp.ecore#//OPPNode/setConstraints/x"/>
         <genParameters ecoreParameter="opp.ecore#//OPPNode/setConstraints/y"/>
@@ -91,11 +92,11 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPLink/sourceDecoration"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPLink/targetDecoration"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPLink/centerDecoration"/>
+      <genFeatures property="Readonly" children="true" createChild="true" ecoreFeature="ecore:EReference opp.ecore#//OPPLink/bendpoints"/>
     </genClasses>
     <genClasses ecoreClass="opp.ecore#//OPPProceduralLink">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPProceduralLink/kind"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute opp.ecore#//OPPProceduralLink/subKinds"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EReference opp.ecore#//OPPProceduralLink/bendpoints"/>
     </genClasses>
     <genClasses ecoreClass="opp.ecore#//OPPStructuralLinkPart"/>
     <genClasses ecoreClass="opp.ecore#//OPPPoint">

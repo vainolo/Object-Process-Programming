@@ -8,15 +8,20 @@ import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPPackage;
 
+import com.vainolo.phd.opp.model.OPPPoint;
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,6 +36,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPLinkImpl#getSourceDecoration <em>Source Decoration</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPLinkImpl#getTargetDecoration <em>Target Decoration</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPLinkImpl#getCenterDecoration <em>Center Decoration</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.impl.OPPLinkImpl#getBendpoints <em>Bendpoints</em>}</li>
  * </ul>
  * </p>
  *
@@ -116,6 +122,16 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
    * @ordered
    */
   protected String centerDecoration = CENTER_DECORATION_EDEFAULT;
+
+  /**
+   * The cached value of the '{@link #getBendpoints() <em>Bendpoints</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getBendpoints()
+   * @generated
+   * @ordered
+   */
+  protected EList<OPPPoint> bendpoints;
 
   /**
    * <!-- begin-user-doc -->
@@ -268,21 +284,6 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetTarget(OPPNode newTarget, NotificationChain msgs) {
-    OPPNode oldTarget = target;
-    target = newTarget;
-    if (eNotificationRequired()) {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_LINK__TARGET, oldTarget, newTarget);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public void setTarget(OPPNode newTarget) {
     if (newTarget != target) {
       NotificationChain msgs = null;
@@ -344,6 +345,21 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
    * <!-- end-user-doc -->
    * @generated
    */
+  public NotificationChain basicSetTarget(OPPNode newTarget, NotificationChain msgs) {
+    OPPNode oldTarget = target;
+    target = newTarget;
+    if (eNotificationRequired()) {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_LINK__TARGET, oldTarget, newTarget);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public String getCenterDecoration() {
     return centerDecoration;
   }
@@ -358,6 +374,18 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
     centerDecoration = newCenterDecoration;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_LINK__CENTER_DECORATION, oldCenterDecoration, centerDecoration));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EList<OPPPoint> getBendpoints() {
+    if (bendpoints == null) {
+      bendpoints = new EObjectContainmentEList<OPPPoint>(OPPPoint.class, this, OPPPackage.OPP_LINK__BENDPOINTS);
+    }
+    return bendpoints;
   }
 
   /**
@@ -398,6 +426,8 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
         return basicSetSource(null, msgs);
       case OPPPackage.OPP_LINK__TARGET:
         return basicSetTarget(null, msgs);
+      case OPPPackage.OPP_LINK__BENDPOINTS:
+        return ((InternalEList<?>)getBendpoints()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -438,6 +468,8 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
         return getTargetDecoration();
       case OPPPackage.OPP_LINK__CENTER_DECORATION:
         return getCenterDecoration();
+      case OPPPackage.OPP_LINK__BENDPOINTS:
+        return getBendpoints();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -447,6 +479,7 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue) {
     switch (featureID) {
@@ -467,6 +500,10 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
         return;
       case OPPPackage.OPP_LINK__CENTER_DECORATION:
         setCenterDecoration((String)newValue);
+        return;
+      case OPPPackage.OPP_LINK__BENDPOINTS:
+        getBendpoints().clear();
+        getBendpoints().addAll((Collection<? extends OPPPoint>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -498,6 +535,9 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
       case OPPPackage.OPP_LINK__CENTER_DECORATION:
         setCenterDecoration(CENTER_DECORATION_EDEFAULT);
         return;
+      case OPPPackage.OPP_LINK__BENDPOINTS:
+        getBendpoints().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -522,6 +562,8 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
         return TARGET_DECORATION_EDEFAULT == null ? targetDecoration != null : !TARGET_DECORATION_EDEFAULT.equals(targetDecoration);
       case OPPPackage.OPP_LINK__CENTER_DECORATION:
         return CENTER_DECORATION_EDEFAULT == null ? centerDecoration != null : !CENTER_DECORATION_EDEFAULT.equals(centerDecoration);
+      case OPPPackage.OPP_LINK__BENDPOINTS:
+        return bendpoints != null && !bendpoints.isEmpty();
     }
     return super.eIsSet(featureID);
   }

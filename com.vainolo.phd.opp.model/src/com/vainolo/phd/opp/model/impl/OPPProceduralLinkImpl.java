@@ -32,7 +32,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPProceduralLinkImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPProceduralLinkImpl#getSubKinds <em>Sub Kinds</em>}</li>
- *   <li>{@link com.vainolo.phd.opp.model.impl.OPPProceduralLinkImpl#getBendpoints <em>Bendpoints</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,16 +67,6 @@ public class OPPProceduralLinkImpl extends OPPLinkImpl implements OPPProceduralL
    * @ordered
    */
   protected EList<String> subKinds;
-
-  /**
-   * The cached value of the '{@link #getBendpoints() <em>Bendpoints</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getBendpoints()
-   * @generated
-   * @ordered
-   */
-  protected EList<OPPPoint> bendpoints;
 
   /**
    * <!-- begin-user-doc -->
@@ -136,32 +125,6 @@ public class OPPProceduralLinkImpl extends OPPLinkImpl implements OPPProceduralL
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<OPPPoint> getBendpoints() {
-    if (bendpoints == null) {
-      bendpoints = new EObjectContainmentEList<OPPPoint>(OPPPoint.class, this, OPPPackage.OPP_PROCEDURAL_LINK__BENDPOINTS);
-    }
-    return bendpoints;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-    switch (featureID) {
-      case OPPPackage.OPP_PROCEDURAL_LINK__BENDPOINTS:
-        return ((InternalEList<?>)getBendpoints()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
@@ -169,8 +132,6 @@ public class OPPProceduralLinkImpl extends OPPLinkImpl implements OPPProceduralL
         return getKind();
       case OPPPackage.OPP_PROCEDURAL_LINK__SUB_KINDS:
         return getSubKinds();
-      case OPPPackage.OPP_PROCEDURAL_LINK__BENDPOINTS:
-        return getBendpoints();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -191,10 +152,6 @@ public class OPPProceduralLinkImpl extends OPPLinkImpl implements OPPProceduralL
         getSubKinds().clear();
         getSubKinds().addAll((Collection<? extends String>)newValue);
         return;
-      case OPPPackage.OPP_PROCEDURAL_LINK__BENDPOINTS:
-        getBendpoints().clear();
-        getBendpoints().addAll((Collection<? extends OPPPoint>)newValue);
-        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -213,9 +170,6 @@ public class OPPProceduralLinkImpl extends OPPLinkImpl implements OPPProceduralL
       case OPPPackage.OPP_PROCEDURAL_LINK__SUB_KINDS:
         getSubKinds().clear();
         return;
-      case OPPPackage.OPP_PROCEDURAL_LINK__BENDPOINTS:
-        getBendpoints().clear();
-        return;
     }
     super.eUnset(featureID);
   }
@@ -232,8 +186,6 @@ public class OPPProceduralLinkImpl extends OPPLinkImpl implements OPPProceduralL
         return kind != KIND_EDEFAULT;
       case OPPPackage.OPP_PROCEDURAL_LINK__SUB_KINDS:
         return subKinds != null && !subKinds.isEmpty();
-      case OPPPackage.OPP_PROCEDURAL_LINK__BENDPOINTS:
-        return bendpoints != null && !bendpoints.isEmpty();
     }
     return super.eIsSet(featureID);
   }

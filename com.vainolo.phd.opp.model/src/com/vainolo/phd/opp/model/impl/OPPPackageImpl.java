@@ -619,6 +619,15 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getOPPLink_Bendpoints() {
+    return (EReference)oppLinkEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getOPPProceduralLink() {
     return oppProceduralLinkEClass;
   }
@@ -639,15 +648,6 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    */
   public EAttribute getOPPProceduralLink_SubKinds() {
     return (EAttribute)oppProceduralLinkEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOPPProceduralLink_Bendpoints() {
-    return (EReference)oppProceduralLinkEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -821,11 +821,11 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
     createEAttribute(oppLinkEClass, OPP_LINK__SOURCE_DECORATION);
     createEAttribute(oppLinkEClass, OPP_LINK__TARGET_DECORATION);
     createEAttribute(oppLinkEClass, OPP_LINK__CENTER_DECORATION);
+    createEReference(oppLinkEClass, OPP_LINK__BENDPOINTS);
 
     oppProceduralLinkEClass = createEClass(OPP_PROCEDURAL_LINK);
     createEAttribute(oppProceduralLinkEClass, OPP_PROCEDURAL_LINK__KIND);
     createEAttribute(oppProceduralLinkEClass, OPP_PROCEDURAL_LINK__SUB_KINDS);
-    createEReference(oppProceduralLinkEClass, OPP_PROCEDURAL_LINK__BENDPOINTS);
 
     oppStructuralLinkPartEClass = createEClass(OPP_STRUCTURAL_LINK_PART);
 
@@ -948,11 +948,11 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
     initEAttribute(getOPPLink_SourceDecoration(), ecorePackage.getEString(), "sourceDecoration", null, 0, 1, OPPLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPLink_TargetDecoration(), ecorePackage.getEString(), "targetDecoration", null, 0, 1, OPPLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPLink_CenterDecoration(), ecorePackage.getEString(), "centerDecoration", null, 0, 1, OPPLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getOPPLink_Bendpoints(), this.getOPPPoint(), null, "bendpoints", null, 0, -1, OPPLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppProceduralLinkEClass, OPPProceduralLink.class, "OPPProceduralLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPPProceduralLink_Kind(), this.getOPPProceduralLinkKind(), "kind", null, 0, 1, OPPProceduralLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPProceduralLink_SubKinds(), ecorePackage.getEString(), "subKinds", null, 0, -1, OPPProceduralLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOPPProceduralLink_Bendpoints(), this.getOPPPoint(), null, "bendpoints", null, 0, -1, OPPProceduralLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppStructuralLinkPartEClass, OPPStructuralLinkPart.class, "OPPStructuralLinkPart", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

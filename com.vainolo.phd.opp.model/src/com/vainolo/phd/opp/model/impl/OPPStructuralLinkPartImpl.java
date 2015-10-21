@@ -3,9 +3,16 @@
 package com.vainolo.phd.opp.model.impl;
 
 import com.vainolo.phd.opp.model.OPPPackage;
+import com.vainolo.phd.opp.model.OPPPoint;
 import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
 
+import java.util.Collection;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->

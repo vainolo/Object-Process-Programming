@@ -2,6 +2,8 @@
  */
 package com.vainolo.phd.opp.model;
 
+import org.eclipse.emf.common.util.EList;
+
 
 /**
  * <!-- begin-user-doc -->

@@ -164,8 +164,7 @@ public class OPPOPDAnalyzer {
 
     @Override
     public boolean apply(final OPPLink link) {
-      if (OPPPackage.eINSTANCE.getOPPStructuralLinkAggregator().isInstance(link.getSource())
-          || OPPPackage.eINSTANCE.getOPPStructuralLinkAggregator().isInstance(link.getTarget()))
+      if ((link.getSource() instanceof OPPStructuralLinkAggregator) || (link.getTarget() instanceof OPPStructuralLinkAggregator))
         return true;
 
       return false;

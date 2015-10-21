@@ -14,7 +14,6 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPProceduralLink#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPProceduralLink#getSubKinds <em>Sub Kinds</em>}</li>
- *   <li>{@link com.vainolo.phd.opp.model.OPPProceduralLink#getBendpoints <em>Bendpoints</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,21 +66,5 @@ public interface OPPProceduralLink extends OPPLink {
    * @generated
    */
   EList<String> getSubKinds();
-
-  /**
-   * Returns the value of the '<em><b>Bendpoints</b></em>' containment reference list.
-   * The list contents are of type {@link com.vainolo.phd.opp.model.OPPPoint}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Bendpoints</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Bendpoints</em>' containment reference list.
-   * @see com.vainolo.phd.opp.model.OPPPackage#getOPPProceduralLink_Bendpoints()
-   * @model containment="true"
-   * @generated
-   */
-  EList<OPPPoint> getBendpoints();
 
 } // OPPProceduralLink

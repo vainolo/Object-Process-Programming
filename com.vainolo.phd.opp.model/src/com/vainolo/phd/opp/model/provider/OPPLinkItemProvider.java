@@ -3,6 +3,7 @@
 package com.vainolo.phd.opp.model.provider;
 
 
+import com.vainolo.phd.opp.model.OPPFactory;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPPackage;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
@@ -50,6 +52,7 @@ public class OPPLinkItemProvider extends OPPElementItemProvider {
       addSourceDecorationPropertyDescriptor(object);
       addTargetDecorationPropertyDescriptor(object);
       addCenterDecorationPropertyDescriptor(object);
+      addBendpointsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -165,6 +168,58 @@ public class OPPLinkItemProvider extends OPPElementItemProvider {
   }
 
   /**
+   * This adds a property descriptor for the Bendpoints feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addBendpointsPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPPLink_bendpoints_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPPLink_bendpoints_feature", "_UI_OPPLink_type"),
+         OPPPackage.Literals.OPP_LINK__BENDPOINTS,
+         false,
+         false,
+         false,
+         null,
+         null,
+         null));
+  }
+
+  /**
+   * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
+   * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
+   * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+    if (childrenFeatures == null) {
+      super.getChildrenFeatures(object);
+      childrenFeatures.add(OPPPackage.Literals.OPP_LINK__BENDPOINTS);
+    }
+    return childrenFeatures;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  protected EStructuralFeature getChildFeature(Object object, Object child) {
+    // Check the type of the specified child object and return the proper feature to use for
+    // adding (see {@link AddCommand}) it as a child.
+
+    return super.getChildFeature(object, child);
+  }
+
+  /**
    * This returns OPPLink.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -205,6 +260,9 @@ public class OPPLinkItemProvider extends OPPElementItemProvider {
       case OPPPackage.OPP_LINK__CENTER_DECORATION:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
+      case OPPPackage.OPP_LINK__BENDPOINTS:
+        fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+        return;
     }
     super.notifyChanged(notification);
   }
@@ -219,6 +277,11 @@ public class OPPLinkItemProvider extends OPPElementItemProvider {
   @Override
   protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
     super.collectNewChildDescriptors(newChildDescriptors, object);
+
+    newChildDescriptors.add
+      (createChildParameter
+        (OPPPackage.Literals.OPP_LINK__BENDPOINTS,
+         OPPFactory.eINSTANCE.createOPPPoint()));
   }
 
 }

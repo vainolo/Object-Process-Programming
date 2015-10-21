@@ -47,7 +47,6 @@ public class OPPProceduralLinkItemProvider extends OPPLinkItemProvider {
 
       addKindPropertyDescriptor(object);
       addSubKindsPropertyDescriptor(object);
-      addBendpointsPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -97,28 +96,6 @@ public class OPPProceduralLinkItemProvider extends OPPLinkItemProvider {
   }
 
   /**
-   * This adds a property descriptor for the Bendpoints feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addBendpointsPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_OPPProceduralLink_bendpoints_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_OPPProceduralLink_bendpoints_feature", "_UI_OPPProceduralLink_type"),
-         OPPPackage.Literals.OPP_PROCEDURAL_LINK__BENDPOINTS,
-         true,
-         false,
-         false,
-         null,
-         null,
-         null));
-  }
-
-  /**
    * This returns OPPProceduralLink.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -156,7 +133,6 @@ public class OPPProceduralLinkItemProvider extends OPPLinkItemProvider {
     switch (notification.getFeatureID(OPPProceduralLink.class)) {
       case OPPPackage.OPP_PROCEDURAL_LINK__KIND:
       case OPPPackage.OPP_PROCEDURAL_LINK__SUB_KINDS:
-      case OPPPackage.OPP_PROCEDURAL_LINK__BENDPOINTS:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

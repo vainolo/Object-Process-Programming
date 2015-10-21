@@ -1286,13 +1286,22 @@ public interface OPPPackage extends EPackage {
   int OPP_LINK__CENTER_DECORATION = OPP_ELEMENT_FEATURE_COUNT + 5;
 
   /**
+   * The feature id for the '<em><b>Bendpoints</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_LINK__BENDPOINTS = OPP_ELEMENT_FEATURE_COUNT + 6;
+
+  /**
    * The number of structural features of the '<em>Link</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_LINK_FEATURE_COUNT = OPP_ELEMENT_FEATURE_COUNT + 6;
+  int OPP_LINK_FEATURE_COUNT = OPP_ELEMENT_FEATURE_COUNT + 7;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1358,6 +1367,15 @@ public interface OPPPackage extends EPackage {
   int OPP_PROCEDURAL_LINK__CENTER_DECORATION = OPP_LINK__CENTER_DECORATION;
 
   /**
+   * The feature id for the '<em><b>Bendpoints</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_PROCEDURAL_LINK__BENDPOINTS = OPP_LINK__BENDPOINTS;
+
+  /**
    * The feature id for the '<em><b>Kind</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1376,22 +1394,13 @@ public interface OPPPackage extends EPackage {
   int OPP_PROCEDURAL_LINK__SUB_KINDS = OPP_LINK_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Bendpoints</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OPP_PROCEDURAL_LINK__BENDPOINTS = OPP_LINK_FEATURE_COUNT + 2;
-
-  /**
    * The number of structural features of the '<em>Procedural Link</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_PROCEDURAL_LINK_FEATURE_COUNT = OPP_LINK_FEATURE_COUNT + 3;
+  int OPP_PROCEDURAL_LINK_FEATURE_COUNT = OPP_LINK_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1455,6 +1464,15 @@ public interface OPPPackage extends EPackage {
    * @ordered
    */
   int OPP_STRUCTURAL_LINK_PART__CENTER_DECORATION = OPP_LINK__CENTER_DECORATION;
+
+  /**
+   * The feature id for the '<em><b>Bendpoints</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_STRUCTURAL_LINK_PART__BENDPOINTS = OPP_LINK__BENDPOINTS;
 
   /**
    * The number of structural features of the '<em>Structural Link Part</em>' class.
@@ -2002,6 +2020,17 @@ public interface OPPPackage extends EPackage {
   EAttribute getOPPLink_CenterDecoration();
 
   /**
+   * Returns the meta object for the containment reference list '{@link com.vainolo.phd.opp.model.OPPLink#getBendpoints <em>Bendpoints</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Bendpoints</em>'.
+   * @see com.vainolo.phd.opp.model.OPPLink#getBendpoints()
+   * @see #getOPPLink()
+   * @generated
+   */
+  EReference getOPPLink_Bendpoints();
+
+  /**
    * Returns the meta object for class '{@link com.vainolo.phd.opp.model.OPPProceduralLink <em>Procedural Link</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2032,17 +2061,6 @@ public interface OPPPackage extends EPackage {
    * @generated
    */
   EAttribute getOPPProceduralLink_SubKinds();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link com.vainolo.phd.opp.model.OPPProceduralLink#getBendpoints <em>Bendpoints</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Bendpoints</em>'.
-   * @see com.vainolo.phd.opp.model.OPPProceduralLink#getBendpoints()
-   * @see #getOPPProceduralLink()
-   * @generated
-   */
-  EReference getOPPProceduralLink_Bendpoints();
 
   /**
    * Returns the meta object for class '{@link com.vainolo.phd.opp.model.OPPStructuralLinkPart <em>Structural Link Part</em>}'.
@@ -2519,6 +2537,14 @@ public interface OPPPackage extends EPackage {
     EAttribute OPP_LINK__CENTER_DECORATION = eINSTANCE.getOPPLink_CenterDecoration();
 
     /**
+     * The meta object literal for the '<em><b>Bendpoints</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OPP_LINK__BENDPOINTS = eINSTANCE.getOPPLink_Bendpoints();
+
+    /**
      * The meta object literal for the '{@link com.vainolo.phd.opp.model.impl.OPPProceduralLinkImpl <em>Procedural Link</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2543,14 +2569,6 @@ public interface OPPPackage extends EPackage {
      * @generated
      */
     EAttribute OPP_PROCEDURAL_LINK__SUB_KINDS = eINSTANCE.getOPPProceduralLink_SubKinds();
-
-    /**
-     * The meta object literal for the '<em><b>Bendpoints</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference OPP_PROCEDURAL_LINK__BENDPOINTS = eINSTANCE.getOPPProceduralLink_Bendpoints();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opp.model.impl.OPPStructuralLinkPartImpl <em>Structural Link Part</em>}' class.

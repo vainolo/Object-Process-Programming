@@ -82,13 +82,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="centerDecoration" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="bendpoints" upperBound="-1"
+        eType="#//OPPPoint" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPPProceduralLink" eSuperTypes="#//OPPLink">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" eType="#//OPPProceduralLinkKind"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="subKinds" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="bendpoints" upperBound="-1"
-        eType="#//OPPPoint" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OPPStructuralLinkPart" eSuperTypes="#//OPPLink"/>
   <eClassifiers xsi:type="ecore:EClass" name="OPPPoint" eSuperTypes="#//OPPElement">
