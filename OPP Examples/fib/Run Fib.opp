@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Run Fib" lastKnownUsedId="39">
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Run Fib" lastKnownUsedId="40">
   <nodes xsi:type="opp:OPPProcess" id="1" width="300" height="400" x="476" y="106" name="Run Fib" main="true">
-    <nodes xsi:type="opp:OPPObject" id="1" outgoingLinks="5" width="41" height="38" x="127" y="32" name="12"/>
+    <nodes xsi:type="opp:OPPObject" id="1" outgoingLinks="5" width="35" height="33" x="127" y="32" name="5"/>
     <nodes xsi:type="opp:OPPProcess" id="2" incomingLinks="5" outgoingLinks="6" width="150" height="42" x="77" y="135" name="Fibonachi" kind="Built In"/>
-    <nodes xsi:type="opp:OPPObject" id="3" incomingLinks="6" outgoingLinks="7" width="32" height="38" x="127" y="212" name=" "/>
-    <nodes xsi:type="opp:OPPProcess" id="4" incomingLinks="7" width="103" height="42" x="100" y="305" name="Dialog" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="3" incomingLinks="6" outgoingLinks="7" width="35" height="33" x="127" y="212" name=" "/>
+    <nodes xsi:type="opp:OPPProcess" id="4" incomingLinks="7" width="137" height="75" x="77" y="298" name="Dialog Output" kind="Built In"/>
   </nodes>
   <links xsi:type="opp:OPPProceduralLink" id="5" source="1" target="2" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="6" source="2" target="3" kind="Consumption/Result"/>

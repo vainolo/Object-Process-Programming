@@ -38,7 +38,12 @@ public class OPPObjectEditPart extends OPPThingEditPart {
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
     figure.setObjectKind(model.isCollection());
-    figure.getNameFigure().setText(model.getName());
+    if (model.getInitialValue() == null || model.getInitialValue().equals("")) {
+      figure.getNameFigure().setText(model.getName());
+    } else {
+      figure.getNameFigure().setText(model.getName() + " = " + model.getInitialValue());
+    }
+
     figure.setTooltipText(model.getDescription());
 
     figure.setDashedBorder(model.isGlobal());

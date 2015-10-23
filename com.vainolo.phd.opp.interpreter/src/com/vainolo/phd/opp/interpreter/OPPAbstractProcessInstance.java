@@ -77,7 +77,7 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
       name = "";
     else {
       if (!getAllParameterNames().contains(name)) {
-        logSevere("Process {1} does not have a parameter named {2}.", getName(), name);
+        logSevere("Process {0} does not have a parameter named {1}.", getName(), name);
         throw new OPPRuntimeException("Process " + getName() + " does not have a parameter named " + name + ".");
       }
     }
@@ -121,6 +121,7 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
     } catch (Exception e) {
       logSevere("Exception while executing process {0}.", getName());
       logSevere("Exception: {0}.", e.getMessage());
+      e.printStackTrace();
       throw new OPPRuntimeException(e);
     }
     return result;

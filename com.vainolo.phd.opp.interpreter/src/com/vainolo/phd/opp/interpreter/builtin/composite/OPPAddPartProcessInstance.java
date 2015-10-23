@@ -42,4 +42,9 @@ public class OPPAddPartProcessInstance extends OPPAbstractProcessInstance {
   public List<OPPParameter> getOutgoingParameters() {
     return Lists.newArrayList(new OPPParameter("new whole"));
   }
+
+  @Override
+  public String getName() {
+    return "Add Part";
+  }
 }

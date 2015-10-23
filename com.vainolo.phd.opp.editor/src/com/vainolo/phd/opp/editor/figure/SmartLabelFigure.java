@@ -72,7 +72,7 @@ public class SmartLabelFigure extends FlowPage {
       double width = Math.sqrt(area / ratio) * ratio;
       invalidate();
       Dimension pSize = getPreferredSize((int) width, -1).getCopy();
-      if (pSize.width < 10)
+      if (pSize.width < OPPFigureConstants.MINIMUM_NODE_SIZE)
         pSize.width = pSize.height;
       return pSize;
     } catch (Exception e) {

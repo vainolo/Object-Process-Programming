@@ -123,8 +123,10 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
     OPPObjectInstance parent = getVariable(analyzer.findParent(object));
     OPPObjectInstance value;
     if (parent == null) {
-      logSevere("Tried to get variable {0} which is part of another object, but parent object doesn't exist.", object.getName());
-      throw new OPPRuntimeException("Getting value of an object which is part of another object, but parent doesn't exist.");
+      logFinest("Parent of {0} doesn't exist, so part doesn't exist either.", object.getName());
+      // throw new
+      // OPPRuntimeException("Getting value of an object which is part of another object, but parent doesn't exist.");
+      value = null;
     } else {
       value = parent.getPart(object.getName());
       logFinest("Getting part variable {0} which is {1}.", object.getName(), parent.getPart(object.getName()));
@@ -208,7 +210,12 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
    *          that is being analyzed.
    */
   public boolean calculateOPMObjectValueAndSetVariableIfValueIfExists(OPPObject object) {
-    OPPObjectInstance objectValue = valueAnalyzer.calculateOPMObjectValue(object, analyzer);
+    OPPObjectInstance objectValue;
+    if (object.getInitialValue() != null && !object.getInitialValue().equals("")) {
+      objectValue = valueAnalyzer.calculateOPMObjectValue(object.getInitialValue());
+    } else {
+      objectValue = valueAnalyzer.calculateOPMObjectValue(object, analyzer);
+    }
     if (objectValue != null) {
       setVariable(object, objectValue);
       return true;
@@ -239,7 +246,6 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
       } else {
         calculateOPMObjectValueAndSetVariableIfValueIfExists(object);
       }
-      // transferDataFromObject(object);
     }
   }
 
@@ -263,8 +269,9 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   public void exportVariableValuesToArguments(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> objectArguments = analyzer.findParameters(opd);
     for (OPPObject object : objectArguments) {
-      if (getVariable(object) != null) {
-        setArgument(object.getName(), getVariable(object));
+      OPPObjectInstance variable = getVariable(object);
+      if (variable != null) {
+        setArgument(object.getName(), variable);
       }
     }
   }

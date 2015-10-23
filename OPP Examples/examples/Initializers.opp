@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ASCII"?>
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Initializers" lastKnownUsedId="5">
+  <nodes xsi:type="opp:OPPProcess" id="1" width="300" height="400" x="494" y="101" name="Initializers" main="true">
+    <nodes xsi:type="opp:OPPObject" id="2" outgoingLinks="4" width="66" height="33" x="63" y="72" name="a" initialValue="1"/>
+    <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="4" width="137" height="75" x="114" y="237" name="Dialog Output" kind="Built In"/>
+  </nodes>
+  <links xsi:type="opp:OPPProceduralLink" id="4" source="2" target="3" kind="Instrument"/>
+</opp:OPPObjectProcessDiagram>

@@ -106,7 +106,7 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPSleepProcessInstance();
     } else if (name.equalsIgnoreCase("Hello World")) {
       processInstance = new OPPPrintHelloWorldProcessInstance();
-    } else if (name.equalsIgnoreCase("Create") || name.equalsIgnoreCase("New")) {
+    } else if (name.equalsIgnoreCase("Create Object")) {
       processInstance = new OPPCreateObjectProcessInstance();
     } else if (name.equals("<=")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN_OR_EQUAL);

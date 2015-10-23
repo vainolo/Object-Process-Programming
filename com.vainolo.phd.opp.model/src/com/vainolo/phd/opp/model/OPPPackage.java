@@ -785,13 +785,22 @@ public interface OPPPackage extends EPackage {
   int OPP_OBJECT__GLOBAL = OPP_THING_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Initial Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_OBJECT__INITIAL_VALUE = OPP_THING_FEATURE_COUNT + 2;
+
+  /**
    * The number of structural features of the '<em>Object</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_OBJECT_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 2;
+  int OPP_OBJECT_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link com.vainolo.phd.opp.model.impl.OPPProcessImpl <em>Process</em>}' class.
@@ -1891,6 +1900,17 @@ public interface OPPPackage extends EPackage {
   EAttribute getOPPObject_Global();
 
   /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPObject#getInitialValue <em>Initial Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Initial Value</em>'.
+   * @see com.vainolo.phd.opp.model.OPPObject#getInitialValue()
+   * @see #getOPPObject()
+   * @generated
+   */
+  EAttribute getOPPObject_InitialValue();
+
+  /**
    * Returns the meta object for class '{@link com.vainolo.phd.opp.model.OPPProcess <em>Process</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2433,6 +2453,14 @@ public interface OPPPackage extends EPackage {
      * @generated
      */
     EAttribute OPP_OBJECT__GLOBAL = eINSTANCE.getOPPObject_Global();
+
+    /**
+     * The meta object literal for the '<em><b>Initial Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPP_OBJECT__INITIAL_VALUE = eINSTANCE.getOPPObject_InitialValue();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opp.model.impl.OPPProcessImpl <em>Process</em>}' class.

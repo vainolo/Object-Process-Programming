@@ -14,8 +14,13 @@ public class OPPGetPartProcessInstance extends OPPAbstractProcessInstance {
   protected void executing() throws Exception {
     OPPObjectInstance composite = getArgument("whole");
     OPPObjectInstance key = getArgument("key");
-    OPPObjectInstance part = composite.getPart(key.getStringValue());
-    setArgument("part", part);
+    if (composite.containsPart(key.getStringValue())) {
+      OPPObjectInstance part = composite.getPart(key.getStringValue());
+      setArgument("part", part);
+      setArgument("exists?", OPPObjectInstance.createFromValue("yes"));
+    } else {
+      setArgument("exists?", OPPObjectInstance.createFromValue("no"));
+    }
   }
 
   @Override
@@ -37,6 +42,6 @@ public class OPPGetPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("part"));
+    return Lists.newArrayList(new OPPParameter("part"), new OPPParameter("exists?"));
   }
 }

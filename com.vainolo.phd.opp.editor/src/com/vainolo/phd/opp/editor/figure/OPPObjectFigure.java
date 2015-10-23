@@ -128,7 +128,7 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
 
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
-    Dimension smartLabelSize = nameLabel.calculateSize().expand(0, 5);
+    Dimension smartLabelSize = nameLabel.calculateSize();
     Dimension contentPaneSize = contentPane.getPreferredSize();
 
     // If contentPane size is wider than smart label size, we must re-calculate
@@ -141,9 +141,6 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
     Dimension prefSize = new Dimension();
     prefSize.width = max(smartLabelSize.width(), contentPaneSize.width());
     prefSize.height = max(smartLabelSize.height(), contentPaneSize.height());
-
-    if (collection)
-      prefSize = prefSize.expand(20, 10);
 
     return prefSize.expand(10, 10);
 

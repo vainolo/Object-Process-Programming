@@ -133,11 +133,15 @@ public class OPPInZoomedProcessArgumentHandler {
   }
 
   private void copyArgumentValueToHeap(OPPArgument argument, OPPObjectInstance objectInstance) {
-    logFinest("Setting value of {0} with {1}.", argument.getObject().getName(), objectInstance);
-    if (argument.hasModifier) {
-      throw new OPPRuntimeException("Argument modifiers are not supported.");
+    if (objectInstance == null) {
+      logFinest("Not setting value of {0} because instance is null.", argument.getObject().getName());
     } else {
-      heap.setVariable(argument.getObject(), objectInstance);
+      logFinest("Setting value of {0} with {1}.", argument.getObject().getName(), objectInstance);
+      if (argument.hasModifier) {
+        throw new OPPRuntimeException("Argument modifiers are not supported.");
+      } else {
+        heap.setVariable(argument.getObject(), objectInstance);
+      }
     }
   }
 

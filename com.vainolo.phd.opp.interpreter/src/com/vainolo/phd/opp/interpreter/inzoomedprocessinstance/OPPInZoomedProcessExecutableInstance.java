@@ -144,7 +144,6 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       }
       logInfo("Stopped execution of process {0}.", getName());
     }
-    logInfo("Finished execution of process {0}.", getName());
   }
 
   private Set<OPPProcess> calculateNewWaitingProcessesSet(OPPProcess process, Set<OPPProcess> P_waiting, Set<OPPProcess> P_executing) {

@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#isParameter <em>Parameter</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#isGlobal <em>Global</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
  * </p>
  *
@@ -65,6 +66,26 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
    * @ordered
    */
   protected boolean global = GLOBAL_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getInitialValue() <em>Initial Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInitialValue()
+   * @generated
+   * @ordered
+   */
+  protected static final String INITIAL_VALUE_EDEFAULT = "";
+
+  /**
+   * The cached value of the '{@link #getInitialValue() <em>Initial Value</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInitialValue()
+   * @generated
+   * @ordered
+   */
+  protected String initialValue = INITIAL_VALUE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -132,6 +153,27 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getInitialValue() {
+    return initialValue;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInitialValue(String newInitialValue) {
+    String oldInitialValue = initialValue;
+    initialValue = newInitialValue;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_OBJECT__INITIAL_VALUE, oldInitialValue, initialValue));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
@@ -139,6 +181,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
         return isParameter();
       case OPPPackage.OPP_OBJECT__GLOBAL:
         return isGlobal();
+      case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
+        return getInitialValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -156,6 +200,9 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
         return;
       case OPPPackage.OPP_OBJECT__GLOBAL:
         setGlobal((Boolean)newValue);
+        return;
+      case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
+        setInitialValue((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -175,6 +222,9 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
       case OPPPackage.OPP_OBJECT__GLOBAL:
         setGlobal(GLOBAL_EDEFAULT);
         return;
+      case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
+        setInitialValue(INITIAL_VALUE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -191,6 +241,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
         return parameter != PARAMETER_EDEFAULT;
       case OPPPackage.OPP_OBJECT__GLOBAL:
         return global != GLOBAL_EDEFAULT;
+      case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
+        return INITIAL_VALUE_EDEFAULT == null ? initialValue != null : !INITIAL_VALUE_EDEFAULT.equals(initialValue);
     }
     return super.eIsSet(featureID);
   }
@@ -209,6 +261,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
     result.append(parameter);
     result.append(", global: ");
     result.append(global);
+    result.append(", initialValue: ");
+    result.append(initialValue);
     result.append(')');
     return result.toString();
   }

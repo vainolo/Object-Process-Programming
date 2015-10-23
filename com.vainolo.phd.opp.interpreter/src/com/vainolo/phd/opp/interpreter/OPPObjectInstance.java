@@ -134,7 +134,7 @@ public class OPPObjectInstance {
     return value != null;
   }
 
-  // Compound
+  // Composite
   public void addFirstPart(OPPObjectInstance value) {
     checkTypeForCompositeOnlyOperations();
     checkNotNull(value, "Cannot append a null element to a collection.");
@@ -174,6 +174,10 @@ public class OPPObjectInstance {
     int newKey = lastKey + 1;
     compositeValues.put(newKey, value);
     compositeKeyToIndexMapping.put(name, newKey);
+  }
+
+  public boolean containsPart(String key) {
+    return compositeKeyToIndexMapping.containsKey(key);
   }
 
   public OPPObjectInstance getPart(String key) {
