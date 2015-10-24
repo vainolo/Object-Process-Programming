@@ -15,7 +15,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.edit.ui,
  com.vainolo.phd.opp.interpreter,
  com.vainolo.phd.opp.utilities,
- com.vainolo.phd.opp.validation
+ com.vainolo.phd.opp.validation,
+ com.vainolo.phd.opp.dependencies;bundle-version="0.1.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: 
  com.ibm.icu.text;version="4.4.2.2"

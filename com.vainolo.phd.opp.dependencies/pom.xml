@@ -26,9 +26,6 @@
         <artifactId>maven-bundle-plugin</artifactId>
         <version>2.5.0</version>
         <extensions>true</extensions>
-        <!--
-          the following instructions build a simple set of public/private classes into an OSGi bundle
-        -->
         <configuration>
           <manifestLocation>META-INF</manifestLocation>
           <instructions>
@@ -38,6 +35,7 @@
             <Embed-Dependency>*;scope=compile|runtime</Embed-Dependency>
             <Embed-Directory>target/dependency</Embed-Directory>
             <Embed-StripGroup>true</Embed-StripGroup>
+            <Import-Package>!javax.*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

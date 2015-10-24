@@ -6,6 +6,4 @@ Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Fragment-Host: com.vainolo.phd.opp.editor
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Import-Package: 
- com.vainolo.phd.opp.validation
 Require-Bundle: org.junit;bundle-version="4.11.0"

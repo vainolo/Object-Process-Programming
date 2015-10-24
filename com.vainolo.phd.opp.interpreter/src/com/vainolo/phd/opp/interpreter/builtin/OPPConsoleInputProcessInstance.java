@@ -6,6 +6,7 @@
 package com.vainolo.phd.opp.interpreter.builtin;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -13,7 +14,6 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import com.google.common.collect.Lists;
-import com.google.inject.Inject;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
@@ -24,7 +24,6 @@ public class OPPConsoleInputProcessInstance extends OPPAbstractProcessInstance i
 
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
 
-  @Inject
   public OPPConsoleInputProcessInstance() {
     this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
   }

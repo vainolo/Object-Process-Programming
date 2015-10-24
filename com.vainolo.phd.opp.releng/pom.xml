@@ -5,6 +5,11 @@
 	<artifactId>com.vainolo.phd.opp.releng</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	
+	 <properties>
+	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	    <tycho-version>0.23.1</tycho-version>
+	  </properties>	
 
 	<repositories>
 		<repository>
@@ -19,17 +24,18 @@
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-maven-plugin</artifactId>
-				<version>0.22.0</version>
+				<version>${tycho-version}</version>
 				<extensions>true</extensions>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.tycho</groupId>
 				<artifactId>tycho-versions-plugin</artifactId>
-				<version>0.22.0</version>
+				<version>${tycho-version}</version>
 			</plugin>
 		</plugins>
 	</build>
 	<modules>
+	    <module>../com.vainolo.phd.opp.dependencies</module>
 		<module>../com.vainolo.phd.opp.editor</module>
 		<module>../com.vainolo.phd.opp.editor.tests</module>		
 		<module>../com.vainolo.phd.opp.model</module>
