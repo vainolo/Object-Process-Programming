@@ -9,18 +9,16 @@ import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
-import com.vainolo.phd.opp.model.OPPPackage;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPState;
-import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
-import com.vainolo.phd.opp.model.OPPStructuralLinkAggregatorKind;
 import com.vainolo.phd.opp.model.OPPThing;
 import com.vainolo.phd.opp.utilities.OPPConstants;
 
 public class OPPOPDAnalyzer {
 
+  private OPPNodeExtensions nodeExt = new OPPNodeExtensions();
   private OPPObjectExtensions objectExt = new OPPObjectExtensions();
   private OPPStateExtensions stateExt = new OPPStateExtensions();
   private OPPProcessExtensions processExt = new OPPProcessExtensions();
@@ -40,19 +38,15 @@ public class OPPOPDAnalyzer {
   }
 
   public OPPObjectProcessDiagram findOPD(OPPNode node) {
-    OPPContainer currentContainer = node.getContainer();
-    while (!(currentContainer instanceof OPPObjectProcessDiagram)) {
-      currentContainer = ((OPPNode) currentContainer).getContainer();
-    }
-    return (OPPObjectProcessDiagram) currentContainer;
+    return nodeExt.findOPD(node);
   }
 
   public Collection<OPPLink> findIncomingStructuralLinks(OPPNode node) {
-    return Collections2.filter(node.getIncomingLinks(), IsOPPStructuralLink.INSTANCE);
+    return nodeExt.getIncomingStructuralLinks(node);
   }
 
   public Collection<OPPLink> findOutgoingStructuralLinks(OPPNode node) {
-    return Collections2.filter(node.getOutgoingLinks(), IsOPPStructuralLink.INSTANCE);
+    return nodeExt.findOutgoingStructuralLinks(node);
   }
 
   // Derived to extension classes
@@ -112,7 +106,6 @@ public class OPPOPDAnalyzer {
     return processExt.findOutgoingDataLinks(process);
   }
 
-  @SuppressWarnings("unchecked")
   public Collection<OPPProceduralLink> findOutgoingDataLinks(OPPState state) {
     return stateExt.findOutgoingDataLinks(state);
   }
@@ -151,24 +144,6 @@ public class OPPOPDAnalyzer {
 
   public OPPProcess getSystemProcess(OPPObjectProcessDiagram opd) {
     return opdExt.getSystemProcess(opd);
-  }
-
-  /**
-   * Predicate that matches {@link OPPLink}s which are structural.
-   * 
-   * @author Arieh "Vainolo" Bibliowicz
-   * 
-   */
-  public enum IsOPPStructuralLink implements Predicate<OPPLink> {
-    INSTANCE;
-
-    @Override
-    public boolean apply(final OPPLink link) {
-      if ((link.getSource() instanceof OPPStructuralLinkAggregator) || (link.getTarget() instanceof OPPStructuralLinkAggregator))
-        return true;
-
-      return false;
-    }
   }
 
   /**
@@ -373,7 +348,7 @@ public class OPPOPDAnalyzer {
   }
 
   public boolean isObjectPartOfAnotherObject(OPPObject object) {
-    return findParent(object) != null;
+    return objectExt.findParent(object) != null;
   }
 
   /**
@@ -383,17 +358,6 @@ public class OPPOPDAnalyzer {
    *          being searched.
    * @return the parent of this {@link OPPObject} if it has one, <code>null</code> otherwise.
    */
-  public OPPObject findParent(OPPObject object) {
-    Collection<OPPLink> incomingStructuralLinks = findIncomingStructuralLinks(object);
-    for (OPPLink link : incomingStructuralLinks) {
-      OPPStructuralLinkAggregator source = OPPStructuralLinkAggregator.class.cast(link.getSource());
-      if (source.getKind().equals(OPPStructuralLinkAggregatorKind.AGGREGATION)) {
-        OPPLink aggregatorIncomingLink = source.getIncomingLinks().iterator().next();
-        return OPPObject.class.cast(aggregatorIncomingLink.getSource());
-      }
-    }
-    return null;
-  }
 
   public boolean isSourceObject(OPPLink link) {
     return OPPObject.class.isInstance(link.getSource());
@@ -427,5 +391,9 @@ public class OPPOPDAnalyzer {
 
   public boolean isTargetProcess(OPPProceduralLink link) {
     return OPPProcess.class.isInstance(link.getTarget());
+  }
+
+  public OPPObject findParent(OPPObject object) {
+    return objectExt.findParent(object);
   }
 }

@@ -225,12 +225,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    List<OPPParameter> incomingParameters = Lists.newArrayList();
-    Collection<OPPObject> parameters = analyzer.findIncomingParameters(getOpd());
-    for (OPPObject object : parameters) {
-      incomingParameters.add(new OPPParameter(object.getName()));
-    }
-    return incomingParameters;
+    return analyzer.findIncomingParameters(getOpd()).stream().map(o -> new OPPParameter(o.getName())).collect(Collectors.toList());
   }
 
   @Override

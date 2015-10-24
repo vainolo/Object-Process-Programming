@@ -10,7 +10,6 @@ import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPProcess;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer.IsOPPProcessOutgoingDataLink;
 
 public class OPPProcessExtensions {
 
@@ -66,7 +65,7 @@ public class OPPProcessExtensions {
       }
     }
   }
-  
+
   public enum IsOutgoingDataLink implements Predicate<OPPLink> {
     INSTANCE;
 
@@ -84,6 +83,6 @@ public class OPPProcessExtensions {
         }
       }
     }
-  }  
+  }
 
 }

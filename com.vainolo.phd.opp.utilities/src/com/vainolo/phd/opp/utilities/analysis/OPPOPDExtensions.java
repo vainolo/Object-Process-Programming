@@ -3,9 +3,8 @@ package com.vainolo.phd.opp.utilities.analysis;
 import static com.vainolo.phd.opp.utilities.OPPLogger.logWarning;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
-import com.google.common.base.Predicate;
-import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObject;
@@ -18,14 +17,13 @@ public class OPPOPDExtensions {
   private OPPObjectExtensions objectExt = new OPPObjectExtensions();
 
   public Collection<OPPObject> findParameters(OPPObjectProcessDiagram opd) {
-    Collection<OPPObject> firstLevelObjects = containerExt.findObjects(opd);
-    return Collections2.filter(firstLevelObjects, ObjectNotPartOfAnotherObject.INSTANCE);
+    return containerExt.findObjects(opd).stream().filter(o -> objectExt.findParent(o) == null).collect(Collectors.toList());
   }
 
   public Collection<OPPObject> findIncomingParameters(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> incomingParameters = Lists.newArrayList();
     for (OPPObject parameter : findParameters(opd)) {
-      if (objectExt.hasOutgoingDataLinks(parameter)) {
+      if (objectExt.hasOutgoingProceduralLinksIncludingParts(parameter)) {
         incomingParameters.add(parameter);
       }
     }
@@ -83,17 +81,5 @@ public class OPPOPDExtensions {
     if (systemThing == null)
       logWarning("Tried to get a system thing when none exist in the diagram. OPD: {0}.", opd.getName());
     return OPPProcess.class.cast(systemThing);
-  }
-
-  // Predicates
-  public enum ObjectNotPartOfAnotherObject implements Predicate<OPPObject> {
-    INSTANCE;
-
-    private OPPOPDAnalyzer analyzer = new OPPOPDAnalyzer();
-
-    @Override
-    public boolean apply(OPPObject object) {
-      return !analyzer.isObjectPartOfAnotherObject(object);
-    }
   }
 }

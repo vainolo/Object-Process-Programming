@@ -9,7 +9,7 @@ import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPThing;
 
-public class OPPTestUtils {
+public class OPPTestUtilities {
   private static OPPNamedElement setName(OPPNamedElement namedElement, String name) {
     namedElement.setName(name);
     return namedElement;
@@ -46,8 +46,7 @@ public class OPPTestUtils {
     return (OPPProcess) setNameAndConstraints(process, name, x, y, width, height);
   }
 
-  public static OPPProceduralLink createOPPProceduralLink(OPPNode source, OPPNode target, OPPProceduralLinkKind kind,
-      String center) {
+  public static OPPProceduralLink createOPPProceduralLink(OPPNode source, OPPNode target, OPPProceduralLinkKind kind, String center) {
     OPPProceduralLink link = OPPFactory.eINSTANCE.createOPPProceduralLink();
     link.setKind(kind);
     link.setSource(source);
@@ -55,5 +54,4 @@ public class OPPTestUtils {
     link.setCenterDecoration(center);
     return link;
   }
-
 }

@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import static org.mockito.Mockito.*;
 
-import static com.vainolo.phd.opp.utilities.OPPTestUtils.*;
+import static com.vainolo.phd.opp.utilities.OPPTestUtilities.*;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;

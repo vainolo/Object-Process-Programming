@@ -54,13 +54,17 @@ public class OPPObjectEditPart extends OPPThingEditPart {
       Display.getCurrent().asyncExec(new Runnable() {
         @Override
         public void run() {
-          OPPObject model = (OPPObject) getModel();
-          OPPObjectFigure figure = (OPPObjectFigure) getFigure();
-          Dimension prefSize = figure.getPreferredSize();
+          try {
+            OPPObject model = (OPPObject) getModel();
+            OPPObjectFigure figure = (OPPObjectFigure) getFigure();
+            Dimension prefSize = figure.getPreferredSize();
 
-          if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
-            model.setWidth(figure.getPreferredSize().width);
-            model.setHeight(figure.getPreferredSize().height);
+            if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
+              model.setWidth(figure.getPreferredSize().width);
+              model.setHeight(figure.getPreferredSize().height);
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
           }
         }
       });

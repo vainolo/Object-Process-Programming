@@ -1,6 +1,7 @@
 package com.vainolo.phd.opp.utilities.analysis;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
 
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
@@ -11,9 +12,12 @@ import com.vainolo.phd.opp.model.OPPProcess;
 
 public class OPPContainerExtensions {
 
+  /**
+   * Find {@link OPPObject}s directly inside a container.
+   */
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public Collection<OPPObject> findObjects(OPPContainer container) {
-    return (Collection) Collections2.filter(container.getNodes(), IsObjectNode.INSTANCE);
+    return (Collection) container.getNodes().stream().filter(n -> n instanceof OPPObject).collect(Collectors.toList());
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })

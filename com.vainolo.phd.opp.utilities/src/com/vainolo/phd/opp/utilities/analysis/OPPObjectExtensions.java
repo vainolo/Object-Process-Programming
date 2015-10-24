@@ -2,40 +2,96 @@ package com.vainolo.phd.opp.utilities.analysis;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.model.OPPLink;
-import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPState;
+import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
+import com.vainolo.phd.opp.model.OPPStructuralLinkAggregatorKind;
+import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer.IsOPPAgentLink;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer.IsOPPEventLink;
 
 public class OPPObjectExtensions {
 
   private OPPStateExtensions stateExt = new OPPStateExtensions();
+  private OPPNodeExtensions nodeExt = new OPPNodeExtensions();
+  private Predicate<OPPLink> isObjectOutgoingDataLink = new IsObjectOutgoingDataLink();
+
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  public Collection<OPPProceduralLink> findOutgoingProceduralLinks(OPPObject object) {
+    Collection<OPPLink> outgoingDataLinks = object.getOutgoingLinks().stream().filter(l -> l instanceof OPPProceduralLink).collect(Collectors.toList());
+    for (OPPState state : findStates(object)) {
+      outgoingDataLinks.addAll(stateExt.findOutgoingProceduralLinks(state));
+    }
+    return (Collection) outgoingDataLinks;
+  }
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public Collection<OPPProceduralLink> findOutgoingDataLinks(OPPObject object) {
-    Collection result = Lists.newArrayList();
-    result.addAll(Collections2.filter(object.getOutgoingLinks(), new IsObjectOutgoingDataLink()));
+    Collection<OPPProceduralLink> outgoingDataLinks = (Collection) object.getOutgoingLinks().stream().filter(isObjectOutgoingDataLink)
+        .collect(Collectors.toList());
     for (OPPState state : findStates(object)) {
-      result.addAll(stateExt.findOutgoingDataLinks(state));
+      outgoingDataLinks.addAll(stateExt.findOutgoingDataLinks(state));
     }
-    return result;
+    return outgoingDataLinks;
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPPState> findStates(OPPObject object) {
-    return (Collection) Collections2.filter(object.getNodes(), new IsState());
+    return (Collection) object.getNodes().stream().filter(n -> n instanceof OPPState).collect(Collectors.toList());
   }
 
+  /**
+   * Check if the {@link OPPObject} or one of its {@link OPPState}s has outgoing data links.
+   */
   public boolean hasOutgoingDataLinks(OPPObject object) {
     return findOutgoingDataLinks(object).size() > 0;
+  }
+
+  /**
+   * Check if the {@link OPPObject} or one of its {@link OPPState}s has outgoing procedural links.
+   */
+  public boolean hasOutgoingProceduralLinks(OPPObject object) {
+    return findOutgoingProceduralLinks(object).size() > 0;
+  }
+
+  /**
+   * Check if the {@link OPPObject}, one of its {@link OPPState}s or one of its parts has outgoing procedural links.
+   */
+  public boolean hasOutgoingProceduralLinksIncludingParts(OPPObject object) {
+    if (findOutgoingProceduralLinks(object).size() > 0) {
+      return true;
+    } else {
+      for (OPPObject part : getParts(object)) {
+        if (hasOutgoingProceduralLinksIncludingParts(part)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public Collection<OPPObject> getParts(OPPObject object) {
+    Collection<OPPObject> parts = Lists.newArrayList();
+    for (OPPStructuralLinkAggregator aggregator : getOutgoingStructuralLinks(object)) {
+      if (aggregator.getKind().equals(OPPStructuralLinkAggregatorKind.AGGREGATION)) {
+        parts = (Collection) aggregator.getOutgoingLinks().stream().map(l -> l.getTarget()).filter(n -> n instanceof OPPObject).collect(Collectors.toList());
+      }
+    }
+    return parts;
+  }
+
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  private Collection<OPPStructuralLinkAggregator> getOutgoingStructuralLinks(OPPObject object) {
+    return (Collection) object.getOutgoingLinks().stream().filter(l -> l instanceof OPPStructuralLinkPart).map(l -> l.getTarget()).collect(Collectors.toList());
   }
 
   public boolean hasIncomingResultLink(OPPObject parameter) {
@@ -66,17 +122,22 @@ public class OPPObjectExtensions {
     return Collections2.filter(outgoingProceduralLinks, IsOPPEventLink.INSTANCE);
   }
 
-  // Predicates
-  private class IsState implements Predicate<OPPNode> {
-    @Override
-    public boolean apply(OPPNode node) {
-      return OPPState.class.isInstance(node);
+  public OPPObject findParent(OPPObject object) {
+    Collection<OPPLink> incomingStructuralLinks = nodeExt.getIncomingStructuralLinks(object);
+    for (OPPLink link : incomingStructuralLinks) {
+      OPPStructuralLinkAggregator source = (OPPStructuralLinkAggregator) link.getSource();
+      if (source.getKind().equals(OPPStructuralLinkAggregatorKind.AGGREGATION)) {
+        return (OPPObject) source.getIncomingLinks().iterator().next().getSource();
+      }
     }
+    return null;
   }
 
+  // Predicates
   private class IsObjectOutgoingDataLink implements Predicate<OPPLink> {
+
     @Override
-    public boolean apply(final OPPLink link) {
+    public boolean test(final OPPLink link) {
       if (!OPPProceduralLink.class.isInstance(link))
         return false;
       else {
@@ -92,7 +153,7 @@ public class OPPObjectExtensions {
     }
   }
 
-  public enum IsResultLink implements Predicate<OPPProceduralLink> {
+  public enum IsResultLink implements com.google.common.base.Predicate<OPPProceduralLink> {
     INSTANCE;
 
     @Override
@@ -101,7 +162,7 @@ public class OPPObjectExtensions {
     }
   }
 
-  public enum IsConsumptionLink implements Predicate<OPPProceduralLink> {
+  public enum IsConsumptionLink implements com.google.common.base.Predicate<OPPProceduralLink> {
     INSTANCE;
 
     @Override
@@ -109,5 +170,4 @@ public class OPPObjectExtensions {
       return OPPProceduralLinkKind.CONS_RES.equals(input.getKind());
     }
   }
-
 }
