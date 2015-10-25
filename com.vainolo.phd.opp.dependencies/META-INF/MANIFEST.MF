@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1445722931256
+Bnd-LastModified: 1445768762062
 Build-Jdk: 1.8.0_45
 Built-By: Arieh
 Bundle-ClassPath: .,target/dependency/junit-3.8.1.jar,target/dependency/

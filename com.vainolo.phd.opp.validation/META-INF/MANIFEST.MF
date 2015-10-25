@@ -7,7 +7,6 @@ Bundle-Vendor: Arieh "Vainolo" Bibliowicz
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: com.vainolo.phd.opp.model,
  org.junit,
- com.vainolo.phd.opp.utilities,
- com.vainolo.phd.opp.dependencies
+ com.vainolo.phd.opp.utilities
 Export-Package: com.vainolo.phd.opp.validation
 Import-Package: com.vainolo.phd.opp.utilities.analysis
