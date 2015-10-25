@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.core.resources;bundle-version="3.7.100",
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
  com.vainolo.phd.opp.model,
  com.vainolo.phd.opp.utilities,
- com.vainolo.phd.opp.dependencies;bundle-version="0.1.0"
+ com.vainolo.phd.opp.dependencies
 Bundle-ClassPath: .,
  lib/vertx/vertx-core-3.0.0.jar,
  lib/vertx/vertx-web-3.0.0.jar,

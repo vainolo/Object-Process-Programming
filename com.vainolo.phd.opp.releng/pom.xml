@@ -35,7 +35,7 @@
 		</plugins>
 	</build>
 	<modules>
-	    <module>../com.vainolo.phd.opp.dependencies</module>
+		<module>../com.vainolo.phd.opp.dependencies</module>
 		<module>../com.vainolo.phd.opp.editor</module>
 		<module>../com.vainolo.phd.opp.editor.tests</module>		
 		<module>../com.vainolo.phd.opp.model</module>

@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.core.runtime,
  com.vainolo.phd.opp.model,
  org.eclipse.emf.ecore.xmi;bundle-version="2.7.0",
  org.junit;bundle-version="4.11.0",
- com.vainolo.phd.opp.dependencies;bundle-version="0.1.0"
+ com.vainolo.phd.opp.dependencies
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .,

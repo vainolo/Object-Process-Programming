@@ -8,6 +8,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: com.vainolo.phd.opp.model,
  org.junit,
  com.vainolo.phd.opp.utilities,
- com.vainolo.phd.opp.dependencies;bundle-version="0.1.0"
+ com.vainolo.phd.opp.dependencies
 Export-Package: com.vainolo.phd.opp.validation
 Import-Package: com.vainolo.phd.opp.utilities.analysis
