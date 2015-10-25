@@ -3,5 +3,4 @@ jdk:
   - oraclejdk8
 install: true
 script:
-  - mvn -f com.vainolo.phd.opp.dependencies install
-  - mvn install
+  - echo "hello"
