@@ -26,10 +26,10 @@ public class OPPThingInZoomAction extends SelectionAction {
   protected boolean calculateEnabled() {
     @SuppressWarnings("rawtypes")
     List editParts = getSelectedObjects();
-    if(editParts.size() != 1)
+    if (editParts.size() != 1)
       return false;
     Object editPart = editParts.get(0);
-    if(!OPPThingEditPart.class.isInstance(editPart))
+    if (!OPPThingEditPart.class.isInstance(editPart))
       return false;
 
     return true;
@@ -39,7 +39,11 @@ public class OPPThingInZoomAction extends SelectionAction {
   public void run() {
     OPPThingEditPart editPart = (OPPThingEditPart) getSelectedObjects().get(0);
     Command command = editPart.getCommand(request);
-    execute(command);
+    // boolean isDirtyBeforeCommand = getCommandStack().isDirty();
+    command.execute();
+    // execute(command);
+    // if (!isDirtyBeforeCommand)
+    // getCommandStack().flush();
   }
 
 }
