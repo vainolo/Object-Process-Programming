@@ -165,6 +165,9 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
       if (opd == null) {
         throw new RuntimeException("Could not load OPD file " + opdFile.getLocationURI().toString());
       }
+      // If filename has changed, change the name of the OPD to match the file.
+      opd.setName(opdFile.getName().substring(0, opdFile.getName().length() - 4));
+      doSave(null);
       idManager.setInitialId(opd.getLastKnownUsedId());
     }
   }
