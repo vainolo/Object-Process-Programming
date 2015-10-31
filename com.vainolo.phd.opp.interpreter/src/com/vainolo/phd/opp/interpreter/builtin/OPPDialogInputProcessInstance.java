@@ -5,6 +5,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.interpreter.builtin;
 
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -38,6 +40,10 @@ public class OPPDialogInputProcessInstance extends OPPAbstractProcessInstance im
     OPPObjectInstance prompt = getArgument("prompt");
     if (prompt == null)
       prompt = OPPObjectInstance.createFromValue("Enter a value");
+
+    javax.swing.UIManager.put("OptionPane.messageFont", new Font("Segoe UI", Font.PLAIN, 25));
+    javax.swing.UIManager.put("TextField.font", new Font("Segoe UI", Font.PLAIN, 25));
+
     return JOptionPane.showInputDialog(prompt.getStringValue());
   }
 

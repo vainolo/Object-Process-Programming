@@ -30,6 +30,8 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetPartProcessInstan
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.twitter.OPPInitializeTwitterClientProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.twitter.OPPSearchTwitter;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessExecutableInstance;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPProcess;
@@ -136,6 +138,10 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPAddPartProcessInstance();
     } else if (name.equalsIgnoreCase("Call Web API")) {
       processInstance = new OPPCallWebAPIProcessInstance();
+    } else if (name.equalsIgnoreCase("Initialize Twitter Client")) {
+      processInstance = new OPPInitializeTwitterClientProcessInstance();
+    } else if (name.equalsIgnoreCase("Search Twitter")) {
+      processInstance = new OPPSearchTwitter();
     }
     return processInstance;
   }

@@ -62,9 +62,9 @@ public class OPPContainerXYLayoutPolicy extends XYLayoutEditPolicy {
    */
   @Override
   protected Command getCreateCommand(CreateRequest request) {
-    if (!validator.validateAddNode(getHost().getModel(), request.getNewObject())) {
-      return null;
-    }
+    // if (!validator.validateAddNode(getHost().getModel(), request.getNewObject())) {
+    // return null;
+    // }
 
     OPPContainer model = (OPPContainer) getHost().getModel();
     OPPNode node = (OPPNode) request.getNewObject();

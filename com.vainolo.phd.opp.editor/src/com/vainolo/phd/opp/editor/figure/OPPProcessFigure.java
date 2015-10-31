@@ -50,6 +50,10 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
     return contentPane;
   }
 
+  public void setBorderWidth(int width) {
+    ellipse.setLineWidth(width);
+  }
+
   private void paintSimpleProcess(Rectangle r) {
     setConstraint(ellipse, new Rectangle(0, 0, r.width(), r.height()));
     setConstraint(shade1, new Rectangle(0, 0, r.width(), r.height()));

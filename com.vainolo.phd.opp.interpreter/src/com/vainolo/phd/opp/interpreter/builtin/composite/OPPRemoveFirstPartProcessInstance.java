@@ -12,9 +12,11 @@ public class OPPRemoveFirstPartProcessInstance extends OPPAbstractProcessInstanc
   @Override
   protected void executing() throws Exception {
     OPPObjectInstance composite = getArgument("whole");
-    OPPObjectInstance first = composite.removeFirstPart();
-    setArgument("first", first);
-    setArgument("new whole", composite);
+    if (composite.getAllPartIndexes().size() > 0) {
+      OPPObjectInstance first = composite.removeFirstPart();
+      setArgument("first", first);
+      setArgument("new whole", composite);
+    }
   }
 
   @Override

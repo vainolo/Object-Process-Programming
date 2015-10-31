@@ -10,6 +10,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Display;
 
 import com.vainolo.phd.opp.model.OPPObject;
@@ -58,13 +59,12 @@ public class OPPObjectEditPart extends OPPThingEditPart {
             OPPObject model = (OPPObject) getModel();
             OPPObjectFigure figure = (OPPObjectFigure) getFigure();
             Dimension prefSize = figure.getPreferredSize();
-
             if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
               model.setWidth(figure.getPreferredSize().width);
               model.setHeight(figure.getPreferredSize().height);
             }
-          } catch (Exception e) {
-            e.printStackTrace();
+          } catch (SWTException e) {
+            // most probably caused by an update when the editor is being closed.
           }
         }
       });

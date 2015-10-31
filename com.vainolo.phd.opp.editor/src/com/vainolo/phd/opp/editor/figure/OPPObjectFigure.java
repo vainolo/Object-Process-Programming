@@ -170,8 +170,8 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
     protected void paintFigure(Graphics graphics) {
       super.paintFigure(graphics);
       @SuppressWarnings("unchecked")
-      List<OPPStateFigure> stateFigures = Lists.newArrayList(getChildren());
-      for (OPPStateFigure child : stateFigures) {
+      List<Figure> stateFigures = Lists.newArrayList(getChildren());
+      for (Figure child : stateFigures) {
         setConstraint(child, new Rectangle(child.getBounds().x, child.getBounds().y, child.getBounds().width, child.getBounds().height));
       }
     }

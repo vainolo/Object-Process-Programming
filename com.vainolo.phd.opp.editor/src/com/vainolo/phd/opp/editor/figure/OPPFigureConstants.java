@@ -18,7 +18,7 @@ public enum OPPFigureConstants {
 
   public static final float[] GLOBAL_OBJECT_DASH = { 10f, 10f };
   public static final int ENTITY_BORDER_WIDTH = 2;
-  public static final int IN_ZOOMED_THING_BORDER_WIDTH = 3;
+  public static final int IN_ZOOMED_THING_BORDER_WIDTH = 4;
   public static final int CONNECTION_LINE_WIDTH = 2;
   public static final int AGENT_CIRCLE_RATIO = 7;
   public static final int NODE_INSETS = 2;
