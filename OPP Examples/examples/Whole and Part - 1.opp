@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Whole and Part - 1" lastKnownUsedId="213">
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Whole and Part - 1">
   <nodes xsi:type="opp:OPPProcess" id="1" width="666" height="654" x="268" y="35" manualSize="true" name="Whole and Part - 1" main="true">
     <nodes xsi:type="opp:OPPObject" id="2" incomingLinks="79" width="87" height="38" x="63" y="207" name="&quot;hello&quot;"/>
     <nodes xsi:type="opp:OPPObject" id="7" outgoingLinks="78 122" width="54" height="38" x="184" y="73" name="Book"/>

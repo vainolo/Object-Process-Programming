@@ -133,7 +133,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       P_waiting = calculateNewWaitingProcessesSet(instance2ProcessMap.get(executedInstance), P_waiting, P_executingProcesses);
       P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_waiting, isReadyPred), findInvokedProcesses()));
       P_waiting = Sets.newHashSet(Sets.difference(P_waiting, P_ready));
-      logInfo("Finished execution iteration, {0} waiting, {1} ready, and {2} executing.", P_waiting.size(), P_ready.size(), P_executing.size());
+      logFine("Finished execution iteration, {0} waiting, {1} ready, and {2} executing.", P_waiting.size(), P_ready.size(), P_executing.size());
       instance2ProcessMap.remove(executedInstance);
     }
 
@@ -175,7 +175,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       invokedProcesses.addAll(findProcessesToInvokeAfterObjectHasChanged(changedObject));
     }
     invokedProcesses = Sets.filter(invokedProcesses, isReadyAndNotSkipPred);
-    logInfo("Found {0} invoked processes.", invokedProcesses.size());
+    logFine("Found {0} invoked processes.", invokedProcesses.size());
     return invokedProcesses;
   }
 

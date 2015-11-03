@@ -60,9 +60,9 @@ public class OPPCompareProcessInstance extends OPPAbstractProcessInstance implem
     }
 
     if (result) {
-      c = OPPObjectInstance.createFromValue("true");
+      c = OPPObjectInstance.createFromValue("yes");
     } else {
-      c = OPPObjectInstance.createFromValue("false");
+      c = OPPObjectInstance.createFromValue("no");
     }
     setArgument("c", c);
   }

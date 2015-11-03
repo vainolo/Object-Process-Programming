@@ -30,18 +30,6 @@ public class OPPContainerXYLayoutPolicyTest {
   private XYLayout layoutManagerMock;
 
   @Test
-  public void testGetCreateCommand_InvaidNode_ReturnNull() {
-    when(editPartMock.getModel()).thenReturn(containerMock);
-    when(requestMock.getNewObject()).thenReturn(nodeMock);
-    when(validator.validateAddNode(containerMock, nodeMock)).thenReturn(false);
-    policy.setHost(editPartMock);
-
-    Command result = policy.getCreateCommand(requestMock);
-
-    assertNull(result);
-  }
-
-  @Test
   public void testGetCreateCommand_ValidNode_ReturnCommand() {
     when(editPartMock.getModel()).thenReturn(containerMock);
     when(requestMock.getNewObject()).thenReturn(nodeMock);

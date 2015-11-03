@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Book Borrowing" lastKnownUsedId="104">
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Book Borrowing">
   <nodes xsi:type="opp:OPPProcess" id="1" width="615" height="571" x="501" y="82" name="Book Borrowing" main="true">
     <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="5" outgoingLinks="14" width="150" height="75" x="228" y="66" name="Book Searching" kind="Built In"/>
     <nodes xsi:type="opp:OPPProcess" id="21" incomingLinks="23 29" outgoingLinks="32" width="125" height="75" x="96" y="374" name="Book Loaning" kind="Built In"/>

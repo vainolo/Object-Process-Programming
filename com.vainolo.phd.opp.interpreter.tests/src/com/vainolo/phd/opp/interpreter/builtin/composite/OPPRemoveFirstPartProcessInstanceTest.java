@@ -47,10 +47,12 @@ public class OPPRemoveFirstPartProcessInstanceTest {
     assertEquals(0, newWhole.getAllParts().size());
   }
 
-  @Test(expected = OPPRuntimeException.class)
+  @Test
   public void test_removeFirstPart_noParts() throws Exception {
     removeFirstPartProcessInstance.setArgument("whole", compositeInstance1);
     removeFirstPartProcessInstance.call();
+    OPPObjectInstance first = removeFirstPartProcessInstance.getArgument("first");
+    assertNull(first);
   }
 
   @Before
