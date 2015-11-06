@@ -8,7 +8,7 @@
             contributorClass="com.vainolo.phd.opp.editor.OPPGraphicalEditorActionBarContributor"
             default="true"
             extensions="opp"
-            icon="src/com/vainolo/phd/opp/editor/icons/opp16x16.ico"
+            icon="icons/opp16x16.ico"
             id="com.vainolo.phd.opp.editor.editorID"
             name="OPM GEF Editor">
       </editor>
@@ -28,7 +28,7 @@
             category="com.vainolo.phd.opm.editor.Wizard.ID"
             class="com.vainolo.phd.opp.editor.OPPModelWizard"
             finalPerspective="com.vainolo.phd.opp.editor.perspective"
-            icon="src/com/vainolo/phd/opp/editor/icons/opp16x16.ico"
+            icon="icons/opp16x16.ico"
             id="com.vainolo.phd.opp.editor.NewOPPDWizardID"
             name="OPP Diagram">
       </wizard>
@@ -41,6 +41,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             class="com.vainolo.phd.opp.editor.PerspectiveFactory"
+            icon="icons/opp16x16.ico"
             id="com.vainolo.phd.opp.editor.perspective"
             name="OPP">
       </perspective>
