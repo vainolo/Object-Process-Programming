@@ -167,8 +167,8 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
       }
       // If filename has changed, change the name of the OPD to match the file.
       opd.setName(opdFile.getName().substring(0, opdFile.getName().length() - 4));
-      doSave(null);
       idManager.setInitialId(opd.getLastKnownUsedId());
+      doSave(null);
     }
   }
 
@@ -210,6 +210,10 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getSelectionActions().add(action.getId());
 
     action = new OPPThingInZoomAction(this);
+    getActionRegistry().registerAction(action);
+    getSelectionActions().add(action.getId());
+
+    action = new OPPThingUnfoldAction(this);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 

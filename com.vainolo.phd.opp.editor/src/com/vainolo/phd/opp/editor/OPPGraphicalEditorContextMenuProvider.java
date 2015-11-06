@@ -41,9 +41,6 @@ public class OPPGraphicalEditorContextMenuProvider extends ContextMenuProvider {
     action = getActionRegistry().getAction(OPPToggledProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
     if (action.isEnabled())
       menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-    action = getActionRegistry().getAction(OPPThingInZoomAction.THING_IN_ZOOM_ID);
-    if (action.isEnabled())
-      menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 
     action = getActionRegistry().getAction(OPPCreateObjectAction.ID);
     if (action.isEnabled())
@@ -76,6 +73,14 @@ public class OPPGraphicalEditorContextMenuProvider extends ContextMenuProvider {
     action = getActionRegistry().getAction(OPPToggleGlobalObjectAction.TOGGLE_GLOBALOBJECT_ID);
     if (action.isEnabled())
       menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+
+    action = getActionRegistry().getAction(OPPThingInZoomAction.THING_IN_ZOOM_ID);
+    if (action.isEnabled())
+      menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    action = getActionRegistry().getAction(OPPThingUnfoldAction.THING_UNFOLD_ID);
+    if (action.isEnabled())
+      menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+
   }
 
   private ActionRegistry getActionRegistry() {

@@ -21,6 +21,13 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 
 public class OPPConsoleInputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+  private static final String PROCESS_NAME = "Console Input";
+  private static final String PROMPT_PARAM_NAME = "prompt";
+  private static final OPPParameter PROMPT_PARAM = new OPPParameter(PROMPT_PARAM_NAME);
+  private static final String INPUT_PARAM_NAME = "input";
+  private static final OPPParameter INPUT_PARAM = new OPPParameter(INPUT_PARAM_NAME);
+  private static final List<OPPParameter> INCOMING_PARAMS = Lists.newArrayList(PROMPT_PARAM);
+  private static final List<OPPParameter> OUTGOIN_PARAMS = Lists.newArrayList(INPUT_PARAM);
 
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
 
@@ -30,7 +37,7 @@ public class OPPConsoleInputProcessInstance extends OPPAbstractProcessInstance i
 
   @Override
   protected void executing() {
-    OPPObjectInstance prompt = getArgument("prompt");
+    OPPObjectInstance prompt = getArgument(PROMPT_PARAM_NAME);
     if (prompt != null)
       System.out.println(prompt);
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -42,28 +49,21 @@ public class OPPConsoleInputProcessInstance extends OPPAbstractProcessInstance i
       e.printStackTrace();
     }
     OPPObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
-    setArgument("text", instance);
-  }
-
-  /**
-   * Method is public for testing purposes. Do not call directly.
-   */
-  public String showInputDialog() {
-    return JOptionPane.showInputDialog("Please enter your text here");
+    setArgument(INPUT_PARAM_NAME, instance);
   }
 
   @Override
   public String getName() {
-    return "Console Input";
+    return PROCESS_NAME;
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("prompt"));
+    return INCOMING_PARAMS;
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("text"));
+    return OUTGOIN_PARAMS;
   }
 }

@@ -23,7 +23,7 @@ public class OPPNodeExtensions {
 
   public OPPObjectProcessDiagram findOPD(OPPNode node) {
     OPPContainer currentContainer = node.getContainer();
-    while (!(currentContainer instanceof OPPObjectProcessDiagram)) {
+    while (currentContainer != null && !(currentContainer instanceof OPPObjectProcessDiagram)) {
       currentContainer = ((OPPNode) currentContainer).getContainer();
     }
     return (OPPObjectProcessDiagram) currentContainer;

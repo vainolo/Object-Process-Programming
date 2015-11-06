@@ -6,7 +6,9 @@ import org.eclipse.gef.editpolicies.GraphicalEditPolicy;
 
 import com.vainolo.phd.opp.editor.action.OPPThingInZoomAction;
 import com.vainolo.phd.opp.editor.action.OPPToggleThingMultiplicityAction;
+import com.vainolo.phd.opp.editor.action.OPPThingUnfoldAction;
 import com.vainolo.phd.opp.editor.command.OPPThingInZoomCommand;
+import com.vainolo.phd.opp.editor.command.OPPThingUnfoldCommand;
 import com.vainolo.phd.opp.editor.command.OPPToggleThingMultiplicityCommand;
 import com.vainolo.phd.opp.editor.part.OPPThingEditPart;
 
@@ -19,6 +21,12 @@ public class OPPThingEditPolicy extends GraphicalEditPolicy {
     return command;
   }
 
+  private Command thingUnfold() {
+    OPPThingEditPart part = (OPPThingEditPart) getHost();
+    OPPThingUnfoldCommand command = new OPPThingUnfoldCommand(part);
+    return command;
+  }
+
   private Command toggleMultiplicity() {
     OPPThingEditPart part = (OPPThingEditPart) getHost();
     OPPToggleThingMultiplicityCommand command = new OPPToggleThingMultiplicityCommand(part);
@@ -27,9 +35,11 @@ public class OPPThingEditPolicy extends GraphicalEditPolicy {
 
   @Override
   public Command getCommand(Request request) {
-    if(request.getType().equals(OPPThingInZoomAction.THING_IN_ZOOM_REQUEST)) {
+    if (request.getType().equals(OPPThingInZoomAction.THING_IN_ZOOM_REQUEST)) {
       return thingInZoom();
-    } else if(request.getType().equals(OPPToggleThingMultiplicityAction.TOGGLE_MULTIPLICITY_REQUEST)) {
+    } else if (request.getType().equals(OPPThingUnfoldAction.THING_UNFOLD_REQUEST)) {
+      return thingUnfold();
+    } else if (request.getType().equals(OPPToggleThingMultiplicityAction.TOGGLE_MULTIPLICITY_REQUEST)) {
       return toggleMultiplicity();
     } else {
       return super.getCommand(request);

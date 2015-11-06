@@ -9,17 +9,17 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opp.editor.part.OPPThingEditPart;
 
-public class OPPThingInZoomAction extends SelectionAction {
+public class OPPThingUnfoldAction extends SelectionAction {
 
-  public static final String THING_IN_ZOOM_ID = "InZoomOPD";
-  public static final String THING_IN_ZOOM_REQUEST = "InZoomOPD";
+  public static final String THING_UNFOLD_ID = "UnfoldOPD";
+  public static final String THING_UNFOLD_REQUEST = "UnfoldOPD";
   private Request request;
 
-  public OPPThingInZoomAction(IWorkbenchPart part) {
+  public OPPThingUnfoldAction(IWorkbenchPart part) {
     super(part);
-    setId(THING_IN_ZOOM_ID);
-    setText("In-Zoom");
-    request = new Request(THING_IN_ZOOM_REQUEST);
+    setId(THING_UNFOLD_ID);
+    setText("Unfold");
+    request = new Request(THING_UNFOLD_REQUEST);
   }
 
   @Override

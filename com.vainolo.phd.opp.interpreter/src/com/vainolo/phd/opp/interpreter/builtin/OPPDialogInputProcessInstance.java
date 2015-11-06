@@ -28,23 +28,16 @@ public class OPPDialogInputProcessInstance extends OPPAbstractProcessInstance im
 
   @Override
   protected void executing() {
-    final String input = showInputDialog();
-    OPPObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
-    setArgument("text", instance);
-  }
-
-  /**
-   * Method is public for testing purposes. Do not call directly.
-   */
-  public String showInputDialog() {
     OPPObjectInstance prompt = getArgument("prompt");
     if (prompt == null)
       prompt = OPPObjectInstance.createFromValue("Enter a value");
 
     javax.swing.UIManager.put("OptionPane.messageFont", new Font("Segoe UI", Font.PLAIN, 25));
     javax.swing.UIManager.put("TextField.font", new Font("Segoe UI", Font.PLAIN, 25));
+    String input = JOptionPane.showInputDialog(prompt.getStringValue());
 
-    return JOptionPane.showInputDialog(prompt.getStringValue());
+    OPPObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
+    setArgument("input", instance);
   }
 
   @Override
@@ -59,6 +52,6 @@ public class OPPDialogInputProcessInstance extends OPPAbstractProcessInstance im
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("text"));
+    return Lists.newArrayList(new OPPParameter("input"));
   }
 }

@@ -25,7 +25,10 @@ import com.vainolo.phd.opp.editor.action.OPPResizeToContentsAction;
 import com.vainolo.phd.opp.editor.figure.OPPFigureConstants;
 import com.vainolo.phd.opp.editor.figure.OPPProcessFigure;
 import com.vainolo.phd.opp.editor.figure.OPPThingFigure;
+import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
+import com.vainolo.phd.opp.model.OPPObjectProcessDiagramKind;
 import com.vainolo.phd.opp.model.OPPProcess;
+import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 
 public class OPPProcessEditPart extends OPPThingEditPart {
 
@@ -36,11 +39,15 @@ public class OPPProcessEditPart extends OPPThingEditPart {
 
   @Override
   protected void refreshVisuals() {
-    final OPPProcessFigure figure = getFigure();
-    final OPPProcess model = getModel();
-    final GraphicalEditPart parent = (GraphicalEditPart) getParent();
+    OPPProcessFigure figure = getFigure();
+    OPPProcess model = getModel();
+    GraphicalEditPart parent = (GraphicalEditPart) getParent();
+    OPPOPDAnalyzer an = new OPPOPDAnalyzer();
+    OPPObjectProcessDiagram opd = an.findOPD(model);
+    if (opd == null)
+      return;
 
-    if (!model.isMain()) {
+    if (opd.getKind() != OPPObjectProcessDiagramKind.COMPOUND || !model.isMain()) {
       figure.getNameFigure().setText(model.getName());
 
       final IFileEditorInput input = (IFileEditorInput) ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart().getEditorInput();

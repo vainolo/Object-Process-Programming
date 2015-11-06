@@ -23,6 +23,6 @@ public enum OPPFigureConstants {
   public static final int AGENT_CIRCLE_RATIO = 7;
   public static final int NODE_INSETS = 2;
   public static final int STRUCTURAL_AGGREGATOR_SIZE = 20;
-  public static final double TEXT_WIDTH_TO_HEIGHT_RATIO = 2.5;
+  public static final double TEXT_WIDTH_TO_HEIGHT_RATIO = 3;
   public static final int MINIMUM_NODE_SIZE = 10;
 }

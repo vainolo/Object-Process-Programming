@@ -18,7 +18,7 @@ public class OPPDialogOutputProcessInstance extends OPPAbstractProcessInstance i
 
   @Override
   protected void executing() {
-    Object text = getArgument("text");
+    Object text = getArgument("output");
     JOptionPane.showMessageDialog(null, text);
   }
 
@@ -29,6 +29,6 @@ public class OPPDialogOutputProcessInstance extends OPPAbstractProcessInstance i
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("text"));
+    return Lists.newArrayList(new OPPParameter("output"));
   }
 }

@@ -91,7 +91,7 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
 
   private Dimension calculateEllipseDimensionBasedOnLabelSize(Dimension labelDim) {
     Dimension dim = new Dimension();
-    dim.setWidth((int) (2 * labelDim.width() / Math.sqrt(2)) + 10);
+    dim.setWidth((int) (2 * labelDim.width() / Math.sqrt(2)) + 5);
     dim.setHeight((int) (2 * labelDim.height() / Math.sqrt(2)) + 10);
     return dim;
   }

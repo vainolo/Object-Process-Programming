@@ -17,7 +17,7 @@ public class OPPRemovePartProcessInstanceTest {
   private OPPObjectInstance compositeInstance1, compositeInstance2;
   private OPPObjectInstance numericInstance;
   private OPPObjectInstance stringInstance;
-  private OPPRemovePartProcessInstance removePartProcessInstance;
+  private OPPRemoveNamedPartProcessInstance removePartProcessInstance;
 
   @Test
   public void test_removePart() throws Exception {
@@ -46,7 +46,7 @@ public class OPPRemovePartProcessInstanceTest {
     numericInstance = OPPObjectInstance.createFromValue(numericalValue);
     stringInstance = OPPObjectInstance.createFromValue(stringValue);
 
-    removePartProcessInstance = new OPPRemovePartProcessInstance();
+    removePartProcessInstance = new OPPRemoveNamedPartProcessInstance();
   }
 
 }

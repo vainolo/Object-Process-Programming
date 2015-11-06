@@ -66,17 +66,17 @@ public class OPPBinaryMathOpProcessInstance extends OPPAbstractProcessInstance {
     public String getName() {
       switch (this) {
       case ADD:
-        return "Add";
+        return "a+b";
       case SUBS:
-        return "Subtract";
+        return "a-b";
       case MULT:
-        return "Multiply";
+        return "a*b";
       case DIV:
-        return "Divide";
+        return "a/b";
       case POW:
-        return "Power";
+        return "a^b";
       }
-      throw new IllegalStateException("This should NEVER happen!");
+      return null;
     }
   }
 

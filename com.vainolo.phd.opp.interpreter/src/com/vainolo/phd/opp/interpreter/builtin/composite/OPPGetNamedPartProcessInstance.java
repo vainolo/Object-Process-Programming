@@ -8,12 +8,12 @@ import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
 
-public class OPPGetPartProcessInstance extends OPPAbstractProcessInstance {
+public class OPPGetNamedPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance composite = getArgument("whole");
-    OPPObjectInstance key = getArgument("key");
+    OPPObjectInstance composite = getArgument("object");
+    OPPObjectInstance key = getArgument("name");
     if (composite.containsPart(key.getStringValue())) {
       OPPObjectInstance part = composite.getPart(key.getStringValue());
       setArgument("part", part);

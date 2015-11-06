@@ -11,19 +11,34 @@ public class OPPRemoveLastPartProcessInstance extends OPPAbstractProcessInstance
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance composite = getArgument("whole");
+    OPPObjectInstance composite = getArgument("object");
+
+    if (composite.getAllPartIndexes().size() > 0) {
+      OPPObjectInstance part = composite.removeLastPart();
+      setArgument("part", part);
+      setArgument("new object", composite);
+      setArgument("exists?", OPPObjectInstance.createFromValue("yes"));
+    } else {
+      setArgument("exists?", OPPObjectInstance.createFromValue("no"));
+    }
+
     OPPObjectInstance first = composite.removeLastPart();
     setArgument("last", first);
-    setArgument("new whole", composite);
+    setArgument("new object", composite);
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("whole"));
+    return Lists.newArrayList(new OPPParameter("object"));
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("last"), new OPPParameter("new whole"));
+    return Lists.newArrayList(new OPPParameter("part"), new OPPParameter("new object"), new OPPParameter("exists?"));
+  }
+
+  @Override
+  public String getName() {
+    return "Remove Last Part";
   }
 }
