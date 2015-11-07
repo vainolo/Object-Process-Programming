@@ -20,12 +20,12 @@ public class OPPAddFirstPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance composite = getArgument(OBJECT_PARAM_NAME);
+    OPPObjectInstance object = getArgument(OBJECT_PARAM_NAME);
     OPPObjectInstance part = getArgument(PART_PARAM_NAME);
-    if (composite == null)
-      composite = OPPObjectInstance.createCompositeInstance();
-    composite.addFirstPart(part);
-    setArgument(NEW_OBJECT_PARAM_NAME, composite);
+    if (object == null)
+      object = OPPObjectInstance.createCompositeInstance();
+    object.addFirstPart(part);
+    setArgument(NEW_OBJECT_PARAM_NAME, object);
   }
 
   @Override

@@ -24,12 +24,14 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddFirstPartProcessI
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddLastPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetFirstPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetLastPartProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetNamedPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartValueProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPNewInstanceProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddNamedPartProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveNamedPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddPartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemovePartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.twitter.OPPInitializeTwitterClientProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.twitter.OPPSearchTwitter;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessExecutableInstance;
@@ -106,15 +108,15 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.DIV);
     } else if (name.equals("a^b") || name.equals("^")) {
       processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.POW);
-    } else if (name.equals("a<=b")) {
+    } else if (name.equals("a<=b") || name.equals("<=")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN_OR_EQUAL);
-    } else if (name.equals("a>=b")) {
+    } else if (name.equals("a>=b") || name.equals(">=")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.GREATER_THAN_OR_EQUAL);
-    } else if (name.equals("a>b")) {
+    } else if (name.equals("a>b") || name.equals(">")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.GREATER_THAN);
-    } else if (name.equals("a<b")) {
+    } else if (name.equals("a<b") || name.equals("<")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN);
-    } else if (name.equals("a==b")) {
+    } else if (name.equals("a==b") || name.equals("==")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.EQUAL);
 
       // Composite
@@ -124,20 +126,24 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPAddFirstPartProcessInstance();
     } else if (name.equalsIgnoreCase("Add Last Part")) {
       processInstance = new OPPAddLastPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Add Named Part")) {
-      processInstance = new OPPAddNamedPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Add Part")) {
+      processInstance = new OPPAddPartProcessInstance();
     } else if (name.equalsIgnoreCase("Get First Part")) {
       processInstance = new OPPGetFirstPartProcessInstance();
     } else if (name.equalsIgnoreCase("Get Last Part")) {
       processInstance = new OPPGetLastPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Get Named Part")) {
-      processInstance = new OPPGetNamedPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Get Part")) {
+      processInstance = new OPPGetPartProcessInstance();
     } else if (name.equalsIgnoreCase("Remove First Part")) {
       processInstance = new OPPRemoveFirstPartProcessInstance();
     } else if (name.equalsIgnoreCase("Remove Last Part")) {
       processInstance = new OPPRemoveLastPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Remove Named Part")) {
-      processInstance = new OPPRemoveNamedPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Remove Part")) {
+      processInstance = new OPPRemovePartProcessInstance();
+    } else if (name.equalsIgnoreCase("Has Part")) {
+      processInstance = new OPPHasPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Has Part Value")) {
+      processInstance = new OPPHasPartValueProcessInstance();
 
       // Misc
     } else if (name.equalsIgnoreCase("Sleep")) {

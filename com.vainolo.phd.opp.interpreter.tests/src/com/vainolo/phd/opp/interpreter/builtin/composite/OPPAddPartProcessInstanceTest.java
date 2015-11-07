@@ -16,7 +16,7 @@ public class OPPAddPartProcessInstanceTest {
   private OPPObjectInstance compositeInstance1, compositeInstance2;
   private OPPObjectInstance numericInstance;
   private OPPObjectInstance stringInstance;
-  private OPPAddNamedPartProcessInstance setPartProcessInstance;
+  private OPPAddPartProcessInstance setPartProcessInstance;
 
   private OPPObjectInstance doTest(OPPObjectInstance composite, OPPObjectInstance key, OPPObjectInstance value) throws Exception {
     setPartProcessInstance.setArgument("whole", composite);
@@ -57,7 +57,7 @@ public class OPPAddPartProcessInstanceTest {
     numericInstance = OPPObjectInstance.createFromValue(numericalValue);
     stringInstance = OPPObjectInstance.createFromValue(stringValue);
 
-    setPartProcessInstance = new OPPAddNamedPartProcessInstance();
+    setPartProcessInstance = new OPPAddPartProcessInstance();
   }
 
 }

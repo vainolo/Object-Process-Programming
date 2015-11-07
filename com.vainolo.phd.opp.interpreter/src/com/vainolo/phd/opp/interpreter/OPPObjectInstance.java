@@ -183,17 +183,29 @@ public class OPPObjectInstance {
   public OPPObjectInstance getPart(String key) {
     checkTypeForCompositeOnlyOperations();
     checkState((key != null) && (!"".equals(key)), "Key cannot be null or empty.");
-    return compositeValues.get(compositeKeyToIndexMapping.get(key));
+    if (containsPart(key)) {
+      return compositeValues.get(compositeKeyToIndexMapping.get(key));
+    } else {
+      return null;
+    }
   }
 
   public OPPObjectInstance getFirstPart() {
     checkTypeForCompositeOnlyOperations();
-    return compositeValues.get(compositeValues.firstKey());
+    if (compositeValues.size() > 0) {
+      return compositeValues.get(compositeValues.firstKey());
+    } else {
+      return null;
+    }
   }
 
   public OPPObjectInstance getLastPart() {
     checkTypeForCompositeOnlyOperations();
-    return compositeValues.get(compositeValues.lastKey());
+    if (compositeValues.size() > 0) {
+      return compositeValues.get(compositeValues.lastKey());
+    } else {
+      return null;
+    }
   }
 
   public Collection<OPPObjectInstance> getAllParts() {
@@ -281,4 +293,37 @@ public class OPPObjectInstance {
     NUMERICAL, STRING, JAVA_OBJECT, COMPOSITE;
   }
 
+  @Override
+  public boolean equals(Object obj) {
+    if (!(obj instanceof OPPObjectInstance))
+      return false;
+
+    OPPObjectInstance other = (OPPObjectInstance) obj;
+    if (this.kind != other.kind) {
+      return false;
+    } else {
+      if (this.kind == InstanceKind.NUMERICAL) {
+        return (this.getNumericalValue().compareTo(other.getNumericalValue()) == 0);
+      } else if (this.kind == InstanceKind.STRING) {
+        return this.getStringValue().equals(other.getStringValue());
+      } else if (this.kind == InstanceKind.COMPOSITE) {
+        return this.id == other.id;
+      }
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    switch (kind) {
+    case COMPOSITE:
+      return id.hashCode();
+    case STRING:
+    case NUMERICAL:
+    case JAVA_OBJECT:
+      return value.hashCode();
+    }
+
+    return super.hashCode();
+  }
 }

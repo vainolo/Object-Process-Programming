@@ -16,9 +16,6 @@ public class OPPGetLastPartProcessInstance extends OPPAbstractProcessInstance {
     if (composite.getAllPartIndexes().size() > 0) {
       OPPObjectInstance part = composite.getLastPart();
       setArgument("part", part);
-      setArgument("exists?", OPPObjectInstance.createFromValue("yes"));
-    } else {
-      setArgument("exists?", OPPObjectInstance.createFromValue("no"));
     }
   }
 
@@ -29,7 +26,7 @@ public class OPPGetLastPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("part"), new OPPParameter("exists?"));
+    return Lists.newArrayList(new OPPParameter("part"));
   }
 
   @Override

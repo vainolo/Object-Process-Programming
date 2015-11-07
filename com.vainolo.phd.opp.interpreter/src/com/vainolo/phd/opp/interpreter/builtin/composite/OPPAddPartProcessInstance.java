@@ -8,28 +8,24 @@ import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
 
-public class OPPRemoveNamedPartProcessInstance extends OPPAbstractProcessInstance {
+public class OPPAddPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance composite = getArgument("object");
-    OPPObjectInstance name = getArgument("name");
-
-    if (composite.containsPart(name.getStringValue())) {
-      OPPObjectInstance part = composite.removePart(name);
-      setArgument("part", part);
-      setArgument("new object", composite);
-      setArgument("exists?", OPPObjectInstance.createFromValue("yes"));
-    } else {
-      setArgument("exists?", OPPObjectInstance.createFromValue("no"));
-    }
+    OPPObjectInstance object = getArgument("object");
+    OPPObjectInstance key = getArgument("key");
+    OPPObjectInstance part = getArgument("part");
+    if (object == null)
+      object = OPPObjectInstance.createCompositeInstance();
+    object.addPart(key.getStringValue(), part);
+    setArgument("new object", object);
   }
 
   @Override
   public void setArgument(String name, OPPObjectInstance value) {
     // Modified since we need the original ID of the instance to be used as key, and this ID will be changed when a new
     // instance is created - so we transform the instance to a string that is used as the key.
-    if ("name".equals(name)) {
+    if ("key".equals(name)) {
       if (value.kind == InstanceKind.COMPOSITE) {
         value = OPPObjectInstance.createFromValue(value.getId());
       }
@@ -39,16 +35,16 @@ public class OPPRemoveNamedPartProcessInstance extends OPPAbstractProcessInstanc
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("object"), new OPPParameter("name"));
+    return Lists.newArrayList(new OPPParameter("object"), new OPPParameter("key"), new OPPParameter("part"));
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("part"), new OPPParameter("new object"), new OPPParameter("exists?"));
+    return Lists.newArrayList(new OPPParameter("new object"));
   }
 
   @Override
   public String getName() {
-    return "Remove Part";
+    return "Add Part";
   }
 }

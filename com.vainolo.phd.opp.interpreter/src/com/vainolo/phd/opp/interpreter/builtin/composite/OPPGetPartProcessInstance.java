@@ -8,18 +8,15 @@ import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
 
-public class OPPGetNamedPartProcessInstance extends OPPAbstractProcessInstance {
+public class OPPGetPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance composite = getArgument("object");
-    OPPObjectInstance key = getArgument("name");
-    if (composite.containsPart(key.getStringValue())) {
-      OPPObjectInstance part = composite.getPart(key.getStringValue());
+    OPPObjectInstance object = getArgument("object");
+    OPPObjectInstance key = getArgument("key");
+    if (object.containsPart(key.getStringValue())) {
+      OPPObjectInstance part = object.getPart(key.getStringValue());
       setArgument("part", part);
-      setArgument("exists?", OPPObjectInstance.createFromValue("yes"));
-    } else {
-      setArgument("exists?", OPPObjectInstance.createFromValue("no"));
     }
   }
 
@@ -37,11 +34,16 @@ public class OPPGetNamedPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("whole"), new OPPParameter("key"));
+    return Lists.newArrayList(new OPPParameter("object"), new OPPParameter("key"));
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("part"), new OPPParameter("exists?"));
+    return Lists.newArrayList(new OPPParameter("part"));
+  }
+
+  @Override
+  public String getName() {
+    return "Get Part";
   }
 }

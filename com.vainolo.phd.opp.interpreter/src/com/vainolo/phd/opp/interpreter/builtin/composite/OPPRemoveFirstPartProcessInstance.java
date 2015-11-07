@@ -14,11 +14,8 @@ public class OPPRemoveFirstPartProcessInstance extends OPPAbstractProcessInstanc
     OPPObjectInstance composite = getArgument("object");
     if (composite.getAllPartIndexes().size() > 0) {
       OPPObjectInstance object = composite.removeFirstPart();
-      setArgument("first", object);
-      setArgument("new whole", composite);
-      setArgument("exists?", OPPObjectInstance.createFromValue("yes"));
-    } else {
-      setArgument("exists?", OPPObjectInstance.createFromValue("no"));
+      setArgument("part", object);
+      setArgument("new object", composite);
     }
   }
 
@@ -29,6 +26,11 @@ public class OPPRemoveFirstPartProcessInstance extends OPPAbstractProcessInstanc
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("first"), new OPPParameter("new object"), new OPPParameter("exists?"));
+    return Lists.newArrayList(new OPPParameter("part"), new OPPParameter("new object"));
   }
+
+  @Override
+  public String getName() {
+    return "Remove First Part";
+  };
 }

@@ -11,12 +11,12 @@ public class OPPAddLastPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance composite = getArgument("object");
+    OPPObjectInstance object = getArgument("object");
     OPPObjectInstance part = getArgument("part");
-    if (composite == null)
-      composite = OPPObjectInstance.createCompositeInstance();
-    composite.addLastPart(part);
-    setArgument("new object", composite);
+    if (object == null)
+      object = OPPObjectInstance.createCompositeInstance();
+    object.addLastPart(part);
+    setArgument("new object", object);
   }
 
   @Override

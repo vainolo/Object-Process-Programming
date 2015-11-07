@@ -8,24 +8,26 @@ import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
 
-public class OPPAddNamedPartProcessInstance extends OPPAbstractProcessInstance {
+public class OPPRemovePartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance composite = getArgument("object");
-    OPPObjectInstance name = getArgument("name");
-    OPPObjectInstance part = getArgument("part");
-    if (composite == null)
-      composite = OPPObjectInstance.createCompositeInstance();
-    composite.addPart(name.getStringValue(), part);
-    setArgument("new object", composite);
+    OPPObjectInstance object = getArgument("object");
+    OPPObjectInstance key = getArgument("key");
+
+    if (object.containsPart(key.getStringValue())) {
+      OPPObjectInstance part = object.removePart(key);
+      setArgument("part", part);
+      setArgument("new object", object);
+    } else {
+    }
   }
 
   @Override
   public void setArgument(String name, OPPObjectInstance value) {
     // Modified since we need the original ID of the instance to be used as key, and this ID will be changed when a new
     // instance is created - so we transform the instance to a string that is used as the key.
-    if ("name".equals(name)) {
+    if ("key".equals(name)) {
       if (value.kind == InstanceKind.COMPOSITE) {
         value = OPPObjectInstance.createFromValue(value.getId());
       }
@@ -35,16 +37,16 @@ public class OPPAddNamedPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("object"), new OPPParameter("name"), new OPPParameter("part"));
+    return Lists.newArrayList(new OPPParameter("object"), new OPPParameter("key"));
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("new object"));
+    return Lists.newArrayList(new OPPParameter("part"), new OPPParameter("new object"));
   }
 
   @Override
   public String getName() {
-    return "Add Named Part";
+    return "Remove Part";
   }
 }

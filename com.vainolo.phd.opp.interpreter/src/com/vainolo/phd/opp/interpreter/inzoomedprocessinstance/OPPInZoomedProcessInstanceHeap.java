@@ -124,8 +124,6 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
     OPPObjectInstance value;
     if (parent == null) {
       logFinest("Parent of {0} doesn't exist, so part doesn't exist either.", object.getName());
-      // throw new
-      // OPPRuntimeException("Getting value of an object which is part of another object, but parent doesn't exist.");
       value = null;
     } else {
       value = parent.getPart(object.getName());
