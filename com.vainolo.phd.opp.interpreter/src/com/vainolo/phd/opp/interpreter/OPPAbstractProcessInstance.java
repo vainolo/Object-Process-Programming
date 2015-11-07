@@ -62,6 +62,16 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
    */
   protected void preExecution() {
     logInfo("Started executing process " + getName());
+    StringBuffer arguments = new StringBuffer("Incoming arguments: ");
+    boolean hasParameters = false;
+    for (OPPParameter parameter : getIncomingParameters()) {
+      arguments.append(parameter.getName() + ":" + getArgument(parameter.getName()) + ", ");
+      hasParameters = true;
+    }
+    if (hasParameters) {
+      arguments.substring(0, arguments.length() - 2);
+      logFine(arguments.toString());
+    }
   }
 
   /**
@@ -69,6 +79,16 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
    */
   protected void postExecution() {
     logInfo("Finished executing process " + getName());
+    StringBuffer arguments = new StringBuffer("Outgoing arguments: ");
+    boolean hasParameters = false;
+    for (OPPParameter parameter : getOutgoingParameters()) {
+      arguments.append(parameter.getName() + ":" + getArgument(parameter.getName()) + ", ");
+      hasParameters = true;
+    }
+    if (hasParameters) {
+      arguments.substring(0, arguments.length() - 2);
+      logFine(arguments.toString());
+    }
   }
 
   @Override

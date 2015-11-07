@@ -50,7 +50,7 @@ public enum OPPInterpreter {
     completionService = new ExecutorCompletionService<>(executor);
     globalHeap = new OPPGlobalHeap();
 
-    OPPLogger.setLevel(Level.INFO);
+    OPPLogger.setLevel(Level.FINE);
 
     container = _container;
     logInfo("Interpreting OPD {0}.", opdName);
