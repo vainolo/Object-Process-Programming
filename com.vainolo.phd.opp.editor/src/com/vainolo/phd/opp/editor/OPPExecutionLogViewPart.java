@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.part.ViewPart;
 
+import com.vainolo.phd.opp.interpreter.OPPInterpreter;
 import com.vainolo.phd.opp.utilities.OPPLogTarget;
 import com.vainolo.phd.opp.utilities.OPPLogger;
 
@@ -16,6 +17,7 @@ public class OPPExecutionLogViewPart extends ViewPart implements OPPLogTarget {
 
   public OPPExecutionLogViewPart() {
     OPPLogger.setOPPLogTarget(this);
+    OPPInterpreter.INSTANCE.setLogView(this);
   }
 
   @Override
@@ -32,7 +34,13 @@ public class OPPExecutionLogViewPart extends ViewPart implements OPPLogTarget {
 
   @Override
   public void clear() {
-    label.setText("");
+    Display.getDefault().asyncExec(new Runnable() {
+
+      @Override
+      public void run() {
+        label.setText("");
+      }
+    });
   }
 
   @Override

@@ -16,9 +16,8 @@ import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
 import static com.google.common.base.Preconditions.*;
 
 /**
- * Helper class to analyze {@link OPMObject} and {@link OPMState} values. All of
- * the methods in this class assume that the passed value is neither
- * <code>null</code> nor empty.
+ * Helper class to analyze {@link OPMObject} and {@link OPMState} values. All of the methods in this class assume that
+ * the passed value is neither <code>null</code> nor empty.
  * 
  * @author Arieh "Vainolo" Bibliowicz
  * 
@@ -26,13 +25,12 @@ import static com.google.common.base.Preconditions.*;
 public class OPPObjectInstanceValueAnalyzer {
 
   /**
-   * Check if the value is a string literal. This is done by checking if the
-   * initial character in the value is either a " or a '.
+   * Check if the value is a string literal. This is done by checking if the initial character in the value is either a
+   * " or a '.
    * 
    * @param value
    *          to check. Must not be <code>null</code> or empty.
-   * @return <code>true</code> if the value is a string literal,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the value is a string literal, <code>false</code> otherwise.
    */
   public boolean isStringLiteral(String value) {
     if (value.startsWith("\"") || value.startsWith("'"))
@@ -53,8 +51,7 @@ public class OPPObjectInstanceValueAnalyzer {
   }
 
   /**
-   * Check if the literal is a number. This is done by checking if the first
-   * character of the value is a number.
+   * Check if the literal is a number. This is done by checking if the first character of the value is a number.
    * 
    * @param value
    *          to check. Must not be <code>null</code> or empty.
@@ -76,9 +73,8 @@ public class OPPObjectInstanceValueAnalyzer {
   }
 
   /**
-   * Check if the literal is a collections. Collections can be initialized with
-   * a set of integer values that are specified in the initializer. The first
-   * value of the collection must be less than or equal than the final value of
+   * Check if the literal is a collections. Collections can be initialized with a set of integer values that are
+   * specified in the initializer. The first value of the collection must be less than or equal than the final value of
    * the collection. For example [1..5], [1..1], [5..19]
    */
   public boolean isCollectionLiteral(String value) {
@@ -86,10 +82,9 @@ public class OPPObjectInstanceValueAnalyzer {
   }
 
   /**
-   * Check if the value is a collections. Collections can be initialized with a
-   * set of integer values that are specified in the initializer. The first
-   * value of the collection must be less than or equal than the final value of
-   * the collection. For example [1..5], [1..1], [5..19]
+   * Check if the value is a collections. Collections can be initialized with a set of integer values that are specified
+   * in the initializer. The first value of the collection must be less than or equal than the final value of the
+   * collection. For example [1..5], [1..1], [5..19]
    */
   public List<BigDecimal> parseCollectionLiteral(String literal) {
     List<BigDecimal> collection = Lists.newArrayList();
@@ -110,9 +105,8 @@ public class OPPObjectInstanceValueAnalyzer {
   }
 
   /**
-   * Calculate the value of an {@link OPPObjectInstance} based on the
-   * {@link OPMObject} that represents it. The value can be either a number, a
-   * string a state or a collection initializer.
+   * Calculate the value of an {@link OPPObjectInstance} based on the {@link OPMObject} that represents it. The value
+   * can be either a number, a string a state or a collection initializer.
    * 
    * @param object
    *          that has a constant value
@@ -146,9 +140,8 @@ public class OPPObjectInstanceValueAnalyzer {
   }
 
   /**
-   * Calculate the value of an {@link OPPObjectInstance} based on a
-   * {@link String}. that represents it. The value can be either a number, a
-   * string a state or a collection initializer.
+   * Calculate the value of an {@link OPPObjectInstance} based on a {@link String}. that represents it. The value can be
+   * either a number, a string a state or a collection initializer.
    * 
    * @param object
    *          that has a constant value
@@ -183,8 +176,7 @@ public class OPPObjectInstanceValueAnalyzer {
    *          the text in the state
    * @param value
    *          of the object instance that containts the state
-   * @return <code>true</code> if the value of the object instance matches the
-   *         state, <code>false</code> otherwise.
+   * @return <code>true</code> if the value of the object instance matches the state, <code>false</code> otherwise.
    */
   public boolean isObjectNumericalValueInState(String stateName, BigDecimal value) {
     logFinest("Checking numerical state {0} against value {1}.", stateName, value);
@@ -212,18 +204,14 @@ public class OPPObjectInstanceValueAnalyzer {
   }
 
   /**
-   * Calculate if an object instance is in a state. There are three ways for
-   * this to happen:
+   * Calculate if an object instance is in a state. There are three ways for this to happen:
    * <ol>
-   * <li>If the instance has state values, the current state must match the
-   * given state</li>
-   * <li>If the instance is a string value, the current value must match the
-   * given state. In this case, the state contains a string surrounded by """</li>
-   * <li>If the instance is a numeric value, the current value must match a
-   * numerical comparison to the state. We curently support equality (state with
-   * a number in it) and inequalities written "x op VAL" where x is the letter
-   * x, the operator can be any of <, <=, >, and >=, and the value is a valid
-   * number.
+   * <li>If the instance has state values, the current state must match the given state</li>
+   * <li>If the instance is a string value, the current value must match the given state. In this case, the state
+   * contains a string surrounded by """</li>
+   * <li>If the instance is a numeric value, the current value must match a numerical comparison to the state. We
+   * curently support equality (state with a number in it) and inequalities written "x op VAL" where x is the letter x,
+   * the operator can be any of <, <=, >, and >=, and the value is a valid number.
    * </ol>
    * 
    * @param instance

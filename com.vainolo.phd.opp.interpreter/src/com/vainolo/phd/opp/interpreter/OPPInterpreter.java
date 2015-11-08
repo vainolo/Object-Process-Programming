@@ -36,6 +36,8 @@ public enum OPPInterpreter {
   private ExecutorCompletionService<OPPProcessExecutionResult> completionService;
   private OPPGlobalHeap globalHeap;
 
+  private OPPLogTarget logViewPart;
+
   private OPPInterpreter() {
   }
 
@@ -51,6 +53,7 @@ public enum OPPInterpreter {
     completionService = new ExecutorCompletionService<>(executor);
     globalHeap = new OPPGlobalHeap();
 
+    logViewPart.clear();
     OPPLogger.setLevel(Level.FINE);
 
     container = _container;
@@ -86,6 +89,6 @@ public enum OPPInterpreter {
   }
 
   public void setLogView(OPPLogTarget oppExecutionLogViewPart) {
-
+    logViewPart = oppExecutionLogViewPart;
   }
 }

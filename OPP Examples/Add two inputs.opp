@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Add two inputs" lastKnownUsedId="23">
+  <nodes xsi:type="opp:OPPProcess" id="1" width="601" height="455" x="522" y="189" manualSize="true" name="Add two inputs" main="true">
+    <nodes xsi:type="opp:OPPProcess" id="2" incomingLinks="19" outgoingLinks="6" width="139" height="75" x="27" y="141" name="Dialog Input" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="3" incomingLinks="6" outgoingLinks="12" width="33" height="33" x="196" y="164"/>
+    <nodes xsi:type="opp:OPPProcess" id="4" incomingLinks="22" outgoingLinks="7" width="139" height="75" x="420" y="141" name="Dialog Input" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="5" incomingLinks="7" outgoingLinks="13" width="33" height="33" x="359" y="160"/>
+    <nodes xsi:type="opp:OPPProcess" id="8" incomingLinks="12 13" outgoingLinks="14" width="43" height="42" x="274" y="158" name="+" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="9" incomingLinks="14" outgoingLinks="15" width="33" height="33" x="281" y="289"/>
+    <nodes xsi:type="opp:OPPProcess" id="10" incomingLinks="15" width="145" height="75" x="220" y="354" name="Dialog Output" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="18" outgoingLinks="19" width="97" height="56" x="126" y="49" name="&quot;Number 1&quot;"/>
+    <nodes xsi:type="opp:OPPObject" id="20" outgoingLinks="22" width="97" height="56" x="380" y="60" name="&quot;Number 2&quot;"/>
+  </nodes>
+  <links xsi:type="opp:OPPProceduralLink" id="6" source="2" target="3" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="7" source="4" target="5" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="12" source="3" target="8" kind="Instrument"/>
+  <links xsi:type="opp:OPPProceduralLink" id="13" source="5" target="8" kind="Instrument"/>
+  <links xsi:type="opp:OPPProceduralLink" id="14" source="8" target="9" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="15" source="9" target="10" kind="Instrument"/>
+  <links xsi:type="opp:OPPProceduralLink" id="19" source="18" target="2" kind="Instrument"/>
+  <links xsi:type="opp:OPPProceduralLink" id="22" source="20" target="4" kind="Instrument"/>
+</opp:OPPObjectProcessDiagram>
