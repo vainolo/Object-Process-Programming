@@ -5,12 +5,14 @@ import java.io.StringWriter;
 import java.util.Date;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Formatter;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
 public class OPPLogger {
   private static final Logger logger;
+  private static OPPLogTargetHandler logHandler;
 
   static {
     logger = Logger.getLogger("OPM");
@@ -47,8 +49,18 @@ public class OPPLogger {
     };
     handler.setFormatter(formatter);
     handler.setLevel(Level.FINEST);
+
+    logHandler = new OPPLogTargetHandler();
+    logHandler.setFormatter(formatter);
+    logHandler.setLevel(Level.FINEST);
+
     logger.setLevel(Level.FINEST);
     logger.addHandler(handler);
+    logger.addHandler(logHandler);
+  }
+
+  public static void setOPPLogTarget(OPPLogTarget target) {
+    logHandler.setTarget(target);
   }
 
   private static String[] getClassNameAndMethodName(StackTraceElement[] stack) {
@@ -121,5 +133,32 @@ public class OPPLogger {
     OPPLogger.logFinest("World");
 
     OPPLogger.logInfo("Hello {0}", "hello");
+  }
+
+  static class OPPLogTargetHandler extends Handler {
+
+    private OPPLogTarget target;
+
+    @Override
+    public void publish(LogRecord record) {
+      if (!isLoggable(record))
+        return;
+      String msg = getFormatter().format(record);
+      if (target != null)
+        target.appendLine(msg);
+    }
+
+    public void setTarget(OPPLogTarget target) {
+      this.target = target;
+    }
+
+    @Override
+    public void flush() {
+    }
+
+    @Override
+    public void close() throws SecurityException {
+    }
+
   }
 }

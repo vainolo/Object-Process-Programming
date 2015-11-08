@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import org.eclipse.core.resources.IContainer;
 
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagramKind;
+import com.vainolo.phd.opp.utilities.OPPLogTarget;
 import com.vainolo.phd.opp.utilities.OPPLogger;
 
 /**
@@ -82,5 +83,9 @@ public enum OPPInterpreter {
 
   public OPPGlobalHeap getGlobalHeap() {
     return globalHeap;
+  }
+
+  public void setLogView(OPPLogTarget oppExecutionLogViewPart) {
+
   }
 }

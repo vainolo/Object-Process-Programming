@@ -21,6 +21,12 @@
             name="OPL"
             restorable="true">
       </view>
+      <view
+            class="com.vainolo.phd.opp.editor.OPPExecutionLogViewPart"
+            id="com.vainolo.phd.opp.editor.OPPExecutionLogView"
+            name="OPP Execution Log"
+            restorable="true">
+      </view>
    </extension>
    <extension
          point="org.eclipse.ui.newWizards">
@@ -74,20 +80,15 @@
                standalone="false"
                visible="true">
          </view>
-         <view
-               closeable="true"
-               id="org.eclipse.ui.console.ConsoleView"
-               minimized="false"
-               moveable="true"
-               relationship="stack"
-               relative="com.vainolo.phd.opp.editor.OPPOPLView"
-               showTitle="true"
-               standalone="false"
-               visible="true">
-         </view>
          <newWizardShortcut
                id="com.vainolo.phd.opp.editor.NewOPPDWizardID">
          </newWizardShortcut>
+         <view
+               id="com.vainolo.phd.opp.editor.OPPExecutionLogView"
+               minimized="false"
+               relationship="stack"
+               relative="com.vainolo.phd.opp.editor.OPPOPLView">
+         </view>
       </perspectiveExtension>
    </extension>
 
