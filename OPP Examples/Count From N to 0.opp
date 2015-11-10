@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ASCII"?>
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Count From N to 0" lastKnownUsedId="22">
+  <nodes xsi:type="opp:OPPProcess" id="1" width="507" height="564" x="388" y="112" manualSize="true" name="Count From N to 0" main="true">
+    <nodes xsi:type="opp:OPPProcess" outgoingLinks="4" width="133" height="75" x="199" y="65" name="Dialog Input" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="1" incomingLinks="4 15" outgoingLinks="14" width="115" height="80" x="231" y="212" name="N">
+      <nodes xsi:type="opp:OPPState" id="2" outgoingLinks="13" width="92" height="34" x="13" y="36" manualSize="true" name="x >= 0"/>
+    </nodes>
+    <nodes xsi:type="opp:OPPProcess" id="12" incomingLinks="13 14" outgoingLinks="15" width="179" height="107" x="189" y="385" name="Print and decrease by 1" kind="Built In"/>
+  </nodes>
+  <links xsi:type="opp:OPPProceduralLink" id="4" source="//@nodes.0/@nodes.0" target="1" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="13" source="2" target="12">
+    <subKinds>c</subKinds>
+  </links>
+  <links xsi:type="opp:OPPProceduralLink" id="14" source="1" target="12" kind="Instrument">
+    <bendpoints x="772" y="437"/>
+    <subKinds>e</subKinds>
+  </links>
+  <links xsi:type="opp:OPPProceduralLink" id="15" source="12" target="1" kind="Consumption/Result">
+    <bendpoints x="539" y="494"/>
+    <bendpoints x="545" y="375"/>
+  </links>
+</opp:OPPObjectProcessDiagram>

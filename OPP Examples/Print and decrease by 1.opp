@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ASCII"?>
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Print and decrease by 1">
+  <nodes xsi:type="opp:OPPProcess" id="1" width="300" height="400" x="544" y="149" name="Print and decrease by 1" main="true">
+    <nodes xsi:type="opp:OPPProcess" id="2" incomingLinks="4 5" outgoingLinks="8" width="45" height="42" x="133" y="281" name="-" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="3" outgoingLinks="4" width="35" height="33" x="226" y="220" name="1"/>
+    <nodes xsi:type="opp:OPPProcess" id="6" incomingLinks="7" width="137" height="75" x="73" y="70" name="Dialog Output" kind="Built In"/>
+  </nodes>
+  <nodes xsi:type="opp:OPPObject" outgoingLinks="5 7" width="35" height="33" x="454" y="156" name="n"/>
+  <nodes xsi:type="opp:OPPObject" id="1" incomingLinks="8" width="53" height="33" x="875" y="513" name="n-1"/>
+  <links xsi:type="opp:OPPProceduralLink" id="4" source="3" target="2" centerDecoration="b" kind="Instrument"/>
+  <links xsi:type="opp:OPPProceduralLink" id="5" source="//@nodes.1" target="2" kind="Instrument"/>
+  <links xsi:type="opp:OPPProceduralLink" id="7" source="//@nodes.1" target="6" kind="Instrument"/>
+  <links xsi:type="opp:OPPProceduralLink" id="8" source="2" target="1" kind="Consumption/Result"/>
+</opp:OPPObjectProcessDiagram>
