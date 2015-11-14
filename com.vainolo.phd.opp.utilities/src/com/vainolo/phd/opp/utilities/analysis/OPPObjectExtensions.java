@@ -15,8 +15,8 @@ import com.vainolo.phd.opp.model.OPPState;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregatorKind;
 import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer.IsOPPAgentLink;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer.IsOPPEventLink;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer.IsOPPAgentLink;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer.IsOPPEventLink;
 
 public class OPPObjectExtensions {
 

@@ -22,7 +22,7 @@ import com.vainolo.phd.opp.model.OPPContainer;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 /**
  * {@link EditPolicy} used for delete requests.
@@ -31,9 +31,9 @@ import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
  */
 public class OPPNodeEditPolicy extends ComponentEditPolicy {
 
-  private OPPOPDAnalyzer analyzer;
+  private OPPAnalyzer analyzer;
 
-  public OPPNodeEditPolicy(OPPOPDAnalyzer analyzer) {
+  public OPPNodeEditPolicy(OPPAnalyzer analyzer) {
     super();
     this.analyzer = analyzer;
 

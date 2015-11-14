@@ -24,11 +24,11 @@ import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPProcess;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
 
-  private OPPOPDAnalyzer analyzer;
+  private OPPAnalyzer analyzer;
   private Map<OPPObject, OPPObjectInstance> variables;
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
   private Observable observable;
@@ -36,7 +36,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
 
   public OPPInZoomedProcessInstanceHeap() {
     this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
-    this.analyzer = new OPPOPDAnalyzer();
+    this.analyzer = new OPPAnalyzer();
     this.variables = Maps.newHashMap();
     this.observable = new OPMHeapObservable();
   }

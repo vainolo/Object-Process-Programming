@@ -13,7 +13,7 @@ import com.vainolo.phd.opp.editor.policy.OPPLinkConnectionEditPolicy;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 import com.vainolo.phd.opp.validation.OPPLinkValidator;
 
 import static org.mockito.Mockito.*;
@@ -28,7 +28,7 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
   private OPPNodeEditPart nodeEditPartMock;
   private OPPNode nodeMock;
   private OPPLink linkMock;
-  private OPPOPDAnalyzer opdAnalyzerMock;
+  private OPPAnalyzer opdAnalyzerMock;
   private OPPObjectProcessDiagram opdMock;
 
   @Test
@@ -79,7 +79,7 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
     nodeEditPartMock = mock(OPPNodeEditPart.class);
     nodeMock = mock(OPPNode.class);
     linkMock = mock(OPPLink.class);
-    opdAnalyzerMock = mock(OPPOPDAnalyzer.class);
+    opdAnalyzerMock = mock(OPPAnalyzer.class);
     opdMock = mock(OPPObjectProcessDiagram.class);
   }
 

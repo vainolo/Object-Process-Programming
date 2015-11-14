@@ -18,13 +18,13 @@ import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPProcess;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 public class OPPInZoomedProcessArgumentHandler {
-  private OPPOPDAnalyzer analyzer = new OPPOPDAnalyzer();
+  private OPPAnalyzer analyzer = new OPPAnalyzer();
   private OPPInZoomedProcessInstanceHeap heap;
 
-  public OPPInZoomedProcessArgumentHandler(OPPOPDAnalyzer analyzer, OPPInZoomedProcessInstanceHeap heap) {
+  public OPPInZoomedProcessArgumentHandler(OPPAnalyzer analyzer, OPPInZoomedProcessInstanceHeap heap) {
     this.analyzer = analyzer;
     this.heap = heap;
   }
@@ -34,7 +34,7 @@ public class OPPInZoomedProcessArgumentHandler {
     List<OPPArgument> anonymousArguments = Lists.newArrayList();
 
     catalogueArguments(analyzer.findIncomingDataLinks(process), namedArguments, anonymousArguments);
-    logFine("Found {0} anonymous arguments and {1} named arguments.", anonymousArguments.size(), namedArguments.size());
+    logFiner("Found {0} anonymous arguments and {1} named arguments.", anonymousArguments.size(), namedArguments.size());
 
     List<String> availableParametersNames = instance.getIncomingParameters().stream().map(param -> param.getName()).collect(Collectors.toList());
     loadNamedArguments(instance, namedArguments);
@@ -90,7 +90,7 @@ public class OPPInZoomedProcessArgumentHandler {
 
     catalogueArguments(analyzer.findOutgoingDataLinks(process), namedResults, anonymousResults);
 
-    logFine("Found {0} anonymous results and {1} named results.", anonymousResults.size(), namedResults.size());
+    logFiner("Found {0} anonymous results and {1} named results.", anonymousResults.size(), namedResults.size());
 
     // First extract named results
     List<String> outgoingParametersNames = instance.getOutgoingParameters().stream().map(p -> p.getName()).collect(Collectors.toList());

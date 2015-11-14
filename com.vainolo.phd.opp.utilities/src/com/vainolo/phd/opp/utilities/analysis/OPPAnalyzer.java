@@ -16,7 +16,7 @@ import com.vainolo.phd.opp.model.OPPState;
 import com.vainolo.phd.opp.model.OPPThing;
 import com.vainolo.phd.opp.utilities.OPPConstants;
 
-public class OPPOPDAnalyzer {
+public class OPPAnalyzer {
 
   private OPPNodeExtensions nodeExt = new OPPNodeExtensions();
   private OPPObjectExtensions objectExt = new OPPObjectExtensions();
@@ -87,7 +87,7 @@ public class OPPOPDAnalyzer {
   }
 
   public Collection<OPPProcess> findProcesses(OPPContainer container) {
-    return containerExt.findProcesses(container);
+    return containerExt.getProcesses(container);
   }
 
   public Collection<OPPProceduralLink> findIncomingProceduralLinks(OPPProcess process) {
@@ -331,7 +331,7 @@ public class OPPOPDAnalyzer {
   public enum IsOPPObjectNotPartOfAnotherObject implements Predicate<OPPObject> {
     INSTANCE;
 
-    private OPPOPDAnalyzer analyzer = new OPPOPDAnalyzer();
+    private OPPAnalyzer analyzer = new OPPAnalyzer();
 
     @Override
     public boolean apply(OPPObject object) {

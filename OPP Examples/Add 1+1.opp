@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Add 1+1" lastKnownUsedId="33">
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Add 1+1" lastKnownUsedId="34">
   <nodes xsi:type="opp:OPPProcess" id="1" width="499" height="527" x="399" y="95" name="Add 1+1" main="true">
-    <nodes xsi:type="opp:OPPObject" id="1" outgoingLinks="6" width="27" height="33" x="67" y="84" name="1"/>
-    <nodes xsi:type="opp:OPPObject" id="2" outgoingLinks="7" width="27" height="33" x="174" y="71" name="1"/>
-    <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="6 7" outgoingLinks="8" width="41" height="42" x="124" y="160" name="+" kind="Built In"/>
-    <nodes xsi:type="opp:OPPObject" id="4" incomingLinks="8" outgoingLinks="29 30" width="27" height="33" x="137" y="239" name=" "/>
-    <nodes xsi:type="opp:OPPProcess" id="5" incomingLinks="29" width="103" height="42" x="101" y="318" name="Dialog" kind="Built In"/>
-    <nodes xsi:type="opp:OPPObject" id="14" incomingLinks="30" outgoingLinks="22" width="27" height="33" x="248" y="231" name=" "/>
-    <nodes xsi:type="opp:OPPObject" id="17" outgoingLinks="21" width="50" height="50" x="295" y="65" name="2"/>
-    <nodes xsi:type="opp:OPPProcess" id="18" incomingLinks="21 22" outgoingLinks="24" width="50" height="50" x="347" y="229" name="+" kind="Built In"/>
-    <nodes xsi:type="opp:OPPProcess" id="19" incomingLinks="23" width="103" height="42" x="265" y="387" name="Dialog" kind="Built In"/>
-    <nodes xsi:type="opp:OPPObject" id="20" incomingLinks="24" outgoingLinks="23" width="27" height="33" x="418" y="219" name=" "/>
+    <nodes xsi:type="opp:OPPObject" id="1" outgoingLinks="6" width="37" height="33" x="67" y="84" name="1"/>
+    <nodes xsi:type="opp:OPPObject" id="2" outgoingLinks="7" width="37" height="33" x="174" y="71" name="1"/>
+    <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="6 7" outgoingLinks="8" width="43" height="42" x="124" y="160" name="+" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="4" incomingLinks="8" outgoingLinks="29 30" width="37" height="33" x="137" y="239" name=" "/>
+    <nodes xsi:type="opp:OPPProcess" id="5" incomingLinks="29" width="145" height="75" x="101" y="318" name="Dialog Output" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="14" incomingLinks="30" outgoingLinks="22" width="37" height="33" x="248" y="231" name=" "/>
+    <nodes xsi:type="opp:OPPObject" id="17" outgoingLinks="21" width="37" height="33" x="295" y="65" name="2"/>
+    <nodes xsi:type="opp:OPPProcess" id="18" incomingLinks="21 22" outgoingLinks="24" width="43" height="42" x="347" y="229" name="+" kind="Built In"/>
+    <nodes xsi:type="opp:OPPProcess" id="19" incomingLinks="23" width="145" height="75" x="265" y="387" name="Dialog Output" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="20" incomingLinks="24" outgoingLinks="23" width="37" height="33" x="418" y="219" name=" "/>
   </nodes>
   <links xsi:type="opp:OPPProceduralLink" id="6" source="1" target="3" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="7" source="2" target="3" kind="Consumption/Result"/>

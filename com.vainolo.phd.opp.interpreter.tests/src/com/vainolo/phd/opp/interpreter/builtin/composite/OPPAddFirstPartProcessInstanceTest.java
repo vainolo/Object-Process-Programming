@@ -18,10 +18,10 @@ public class OPPAddFirstPartProcessInstanceTest {
 
   @Test
   public void test_addFirstPart() throws Exception {
-    addFirstPartProcessInstance.setArgument("whole", compositeInstance1);
+    addFirstPartProcessInstance.setArgument("object", compositeInstance1);
     addFirstPartProcessInstance.setArgument("part", numericInstance);
     addFirstPartProcessInstance.call();
-    OPPObjectInstance result = addFirstPartProcessInstance.getArgument("new whole");
+    OPPObjectInstance result = addFirstPartProcessInstance.getArgument("new object");
     assertEquals(numericInstance.getNumericalValue(), result.getFirstPart().getNumericalValue());
   }
 

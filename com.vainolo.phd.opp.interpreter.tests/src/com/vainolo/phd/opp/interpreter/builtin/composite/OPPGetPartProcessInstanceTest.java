@@ -20,7 +20,7 @@ public class OPPGetPartProcessInstanceTest {
   private OPPGetPartProcessInstance getPartProcessInstance;
 
   private OPPObjectInstance doTest(OPPObjectInstance composite, OPPObjectInstance key) throws Exception {
-    getPartProcessInstance.setArgument("whole", composite);
+    getPartProcessInstance.setArgument("object", composite);
     getPartProcessInstance.setArgument("key", key);
     getPartProcessInstance.call();
     return getPartProcessInstance.getArgument("part");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Conditionals example" lastKnownUsedId="31">
-  <nodes xsi:type="opp:OPPProcess" id="1" width="710" height="634" x="474" y="155" manualSize="true" name="Conditionals example" main="true">
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Conditionals example" lastKnownUsedId="32">
+  <nodes xsi:type="opp:OPPProcess" id="1" width="710" height="634" x="265" y="63" manualSize="true" name="Conditionals example" main="true">
     <nodes xsi:type="opp:OPPProcess" id="4" incomingLinks="6" outgoingLinks="9" width="139" height="75" x="408" y="71" name="Dialog Input" kind="Built In"/>
     <nodes xsi:type="opp:OPPObject" id="5" outgoingLinks="6" width="205" height="58" x="139" y="74" manualSize="true" name="&quot;Select Operation (sum, mult)&quot;"/>
     <nodes xsi:type="opp:OPPObject" id="7" incomingLinks="9" width="173" height="68" x="289" y="212">

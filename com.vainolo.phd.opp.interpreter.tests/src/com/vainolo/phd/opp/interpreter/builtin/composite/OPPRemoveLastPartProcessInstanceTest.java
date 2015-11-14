@@ -22,11 +22,11 @@ public class OPPRemoveLastPartProcessInstanceTest {
   @Test
   public void test_removeLastPart() throws Exception {
     compositeInstance1.addFirstPart(numericInstance);
-    removeLastPartProcessInstance.setArgument("whole", compositeInstance1);
+    removeLastPartProcessInstance.setArgument("object", compositeInstance1);
     removeLastPartProcessInstance.call();
-    OPPObjectInstance last = removeLastPartProcessInstance.getArgument("last");
+    OPPObjectInstance last = removeLastPartProcessInstance.getArgument("part");
     assertEquals(numericInstance.getNumericalValue(), last.getNumericalValue());
-    OPPObjectInstance newWhole = removeLastPartProcessInstance.getArgument("new whole");
+    OPPObjectInstance newWhole = removeLastPartProcessInstance.getArgument("new object");
     assertEquals(0, newWhole.getAllParts().size());
   }
 
@@ -34,23 +34,17 @@ public class OPPRemoveLastPartProcessInstanceTest {
   public void test_removeFirstPartTwice() throws Exception {
     compositeInstance1.addFirstPart(stringInstance);
     compositeInstance1.addFirstPart(numericInstance);
-    removeLastPartProcessInstance.setArgument("whole", compositeInstance1);
+    removeLastPartProcessInstance.setArgument("object", compositeInstance1);
     removeLastPartProcessInstance.call();
-    OPPObjectInstance last = removeLastPartProcessInstance.getArgument("last");
+    OPPObjectInstance last = removeLastPartProcessInstance.getArgument("part");
     assertEquals(stringInstance.getStringValue(), last.getStringValue());
-    OPPObjectInstance newWhole = removeLastPartProcessInstance.getArgument("new whole");
-    removeLastPartProcessInstance.setArgument("whole", newWhole);
+    OPPObjectInstance newWhole = removeLastPartProcessInstance.getArgument("new object");
+    removeLastPartProcessInstance.setArgument("object", newWhole);
     removeLastPartProcessInstance.call();
-    last = removeLastPartProcessInstance.getArgument("last");
+    last = removeLastPartProcessInstance.getArgument("part");
     assertEquals(numericInstance.getNumericalValue(), last.getNumericalValue());
-    newWhole = removeLastPartProcessInstance.getArgument("new whole");
+    newWhole = removeLastPartProcessInstance.getArgument("new object");
     assertEquals(0, newWhole.getAllParts().size());
-  }
-
-  @Test(expected = OPPRuntimeException.class)
-  public void test_removeFirstPart_noParts() throws Exception {
-    removeLastPartProcessInstance.setArgument("whole", compositeInstance1);
-    removeLastPartProcessInstance.call();
   }
 
   @Before

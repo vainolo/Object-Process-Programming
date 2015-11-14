@@ -22,11 +22,11 @@ public class OPPRemovePartProcessInstanceTest {
   @Test
   public void test_removePart() throws Exception {
     compositeInstance1.addPart(numericInstance.getStringValue(), stringInstance);
-    removePartProcessInstance.setArgument("whole", compositeInstance1);
+    removePartProcessInstance.setArgument("object", compositeInstance1);
     removePartProcessInstance.setArgument("key", numericInstance);
     removePartProcessInstance.call();
     OPPObjectInstance part = removePartProcessInstance.getArgument("part");
-    OPPObjectInstance newWhole = removePartProcessInstance.getArgument("new whole");
+    OPPObjectInstance newWhole = removePartProcessInstance.getArgument("new object");
 
     assertEquals(stringValue, part.getStringValue());
     assertEquals(0, newWhole.getAllParts().size());

@@ -11,12 +11,13 @@ import java.util.Set;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.eclipse.core.internal.resources.NatureManager;
 import org.jgrapht.experimental.dag.DirectedAcyclicGraph;
 import org.jgrapht.graph.DefaultEdge;
 
-import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -24,7 +25,7 @@ import com.google.common.collect.Sets;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.utilities.OPPStrings;
 import com.vainolo.phd.opp.utilities.OPPConstants;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
@@ -43,7 +44,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
   private final OPPObjectProcessDiagram opd;
   private DirectedAcyclicGraph<OPPProcess, DefaultEdge> opdDag;
-  private OPPOPDAnalyzer analyzer;
+  private OPPAnalyzer analyzer;
   private OPPInZoomedProcessInstanceHeap heap;
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
   private OPPInZoomedProcessArgumentHandler argumentHandler;
@@ -52,9 +53,18 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   private OPMHeapObserver heapObserver;
   private IsProcessReady isReadyPred;
   private mustSkipProcess mustSkipPred;
-  private Predicate<OPPProcess> notReadyAndNotSkipPred;
-  private Predicate<OPPProcess> isReadyAndNotSkipPred;
+  private com.google.common.base.Predicate<OPPProcess> notReadyAndNotSkipPred;
+  private com.google.common.base.Predicate<OPPProcess> isReadyAndNotSkipPred;
   private ExecutorCompletionService<OPPProcessExecutionResult> completionService;
+  private List<OPPProcess> P_waiting;
+  private Set<OPPProcess> P_ready;
+  private Map<OPPProcessInstance, OPPProcess> P_executing;
+  private List<OPPProcess> P_skipped;
+  private List<OPPProcess> P_invoked;
+  private OPPInZoomedProcessIntanceProgramCounter pc;
+
+  private IsReadyPredicate IS_READY = new IsReadyPredicate();
+  private MustSkipPredicate MUST_SKIP = new MustSkipPredicate();
 
   /**
    * Create a new instance.
@@ -64,7 +74,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
    */
   public OPPInZoomedProcessExecutableInstance(OPPObjectProcessDiagram opd) {
     this.opd = opd;
-    this.analyzer = new OPPOPDAnalyzer();
+    this.analyzer = new OPPAnalyzer();
     this.executionAnalyzer = new OPPOPDExecutionAnalyzer();
     this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
     this.heap = new OPPInZoomedProcessInstanceHeap();
@@ -92,15 +102,113 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     getHeap().exportVariableValuesToArguments(getOpd());
   }
 
+  private OPPProcessInstance createAndExecuteInstance(OPPProcess process) {
+    OPPProcessInstance instance = OPPProcessInstanceFactory.createExecutableInstance(process);
+    argumentHandler.loadInstanceArguments(process, instance);
+    completionService.submit(instance);
+    return instance;
+  }
+
+  private void calculateNextProcesses() {
+    List<OPPProcess> nextProcesses = pc.getNextProcesses(P_waiting, P_executing.values());
+    if (nextProcesses.size() > 0) {
+      List<OPPProcess> P_skipped = nextProcesses.stream().filter(MUST_SKIP).collect(Collectors.toList());
+      if (P_skipped.size() != nextProcesses.size()) {
+        P_waiting.addAll(nextProcesses.stream().filter(MUST_SKIP.negate()).collect(Collectors.toSet()));
+        pc.setPC(pc.getNextPC());
+      } else {
+        pc.setPC(pc.getNextPC());
+        calculateNextProcesses();
+      }
+    }
+
+    P_ready.addAll(P_waiting.stream().filter(IS_READY).collect(Collectors.toSet()));
+    P_waiting.removeAll(P_ready);
+  }
+
+  private void executeReadyProcesses() {
+    for (OPPProcess process : P_ready) {
+      OPPProcessInstance readyInstance = createAndExecuteInstance(process);
+      P_executing.put(readyInstance, process);
+    }
+    P_ready.clear();
+  }
+
   @Override
   protected void executing() throws Exception {
+    P_waiting = Lists.newArrayList();
+    P_ready = Sets.newHashSet();
+    P_executing = Maps.newHashMap();
+    P_skipped = Lists.newArrayList();
+    P_invoked = Lists.newArrayList();
+
+    ExecutionMode executionMode = ExecutionMode.NATURAL_ORDER;
+
+    getHeap().initializeVariablesWithLiterals(analyzer.getInZoomedProcess(getOpd()));
+    pc = new OPPInZoomedProcessIntanceProgramCounter(getOpd());
+
+    pc.setPC(pc.getNextPC());
+
+    calculateNextProcesses();
+    executeReadyProcesses();
+
+    while (!P_executing.isEmpty()) {
+      if (Thread.currentThread().isInterrupted()) {
+        logInfo("Process execution has been stopped. Returning.");
+        return;
+      }
+      try {
+        heapObserver.clear();
+        Future<OPPProcessExecutionResult> executionResult = completionService.take();
+        OPPProcessInstance executedInstance = executionResult.get().getInstance();
+        OPPProcess executedProcess = P_executing.get(executedInstance);
+        P_executing.remove(executedInstance);
+        argumentHandler.extractResultsToVariables(executedProcess, executedInstance);
+
+        Set<OPPProcess> invoked = findInvokedAndNotSkippedProcesses();
+        if (invoked.size() > 0) {
+          executionMode = ExecutionMode.EVENT;
+        }
+
+        switch (executionMode) {
+        case NATURAL_ORDER:
+          calculateNextProcesses();
+          executeReadyProcesses();
+          break;
+        case EVENT:
+          if (invoked.size() > 0) {
+            P_ready.addAll(invoked);
+            executeReadyProcesses();
+          } else {
+            if (P_executing.size() == 0) {
+              executionMode = ExecutionMode.NATURAL_ORDER;
+              pc.setPC(executedProcess.getY() + executedProcess.getHeight());
+              calculateNextProcesses();
+              executeReadyProcesses();
+            }
+          }
+          break;
+        }
+
+      } catch (InterruptedException e) {
+        logInfo("Process execution has been stopped. Returning.");
+        return;
+      }
+    }
+
+    if (P_waiting.size() > 0)
+      logInfo("Finished execution of {0} with {1} waiting processes.", getName(), P_waiting.size());
+
+  }
+
+  protected void executing2() throws Exception {
     logInfo(OPPStrings.STARTING_EXECUTION, getName());
-    final Map<OPPProcessInstance, OPPProcess> instance2ProcessMap = Maps.newHashMap();
+    Map<OPPProcessInstance, OPPProcess> instance2ProcessMap = Maps.newHashMap();
     getHeap().initializeVariablesWithLiterals(analyzer.getInZoomedProcess(getOpd()));
 
     Set<OPPProcess> P_init = executionAnalyzer.findInitialProcesses(opdDag);
     Set<OPPProcess> P_waiting = Sets.newHashSet(Sets.filter(P_init, notReadyAndNotSkipPred));
-    Set<OPPProcess> P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_init, isReadyAndNotSkipPred), findInvokedProcesses()));
+    Set<OPPProcess> P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_init, isReadyAndNotSkipPred), findInvokedAndNotSkippedProcesses()));
     Set<OPPProcessInstance> P_executing = Sets.newHashSet();
 
     if (P_waiting.size() == 0 && P_ready.size() == 0) {
@@ -111,7 +219,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     logInfo("Starting execution loop, {0} waiting, {1} ready, and {2} executing .", P_waiting.size(), P_ready.size(), P_executing.size());
     while (Sets.union(P_ready, P_executing).size() > 0) {
       if (Thread.currentThread().isInterrupted()) {
-        logInfo("Process execution has been stopped. Stopping executor and terminating.");
+        logInfo("Process execution has been stopped. Returning.");
         return;
       }
 
@@ -131,7 +239,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
       Set<OPPProcess> P_executingProcesses = P_executing.stream().map(p -> instance2ProcessMap.get(p)).collect(Collectors.toSet());
       P_waiting = calculateNewWaitingProcessesSet(instance2ProcessMap.get(executedInstance), P_waiting, P_executingProcesses);
-      P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_waiting, isReadyPred), findInvokedProcesses()));
+      P_ready = Sets.newHashSet(Sets.union(Sets.filter(P_waiting, isReadyPred), findInvokedAndNotSkippedProcesses()));
       P_waiting = Sets.newHashSet(Sets.difference(P_waiting, P_ready));
       logFine("Finished execution iteration, {0} waiting, {1} ready, and {2} executing.", P_waiting.size(), P_ready.size(), P_executing.size());
       instance2ProcessMap.remove(executedInstance);
@@ -169,7 +277,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     return P_waitingLocal;
   }
 
-  private Set<OPPProcess> findInvokedProcesses() {
+  private Set<OPPProcess> findInvokedAndNotSkippedProcesses() {
     Set<OPPProcess> invokedProcesses = Sets.newHashSet();
     for (OPPObject changedObject : heapObserver.getObjectsWithNewValue()) {
       invokedProcesses.addAll(findProcessesToInvokeAfterObjectHasChanged(changedObject));
@@ -256,7 +364,35 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     return heap;
   }
 
-  class IsProcessReady extends ExecutablePredicateCommons implements Predicate<OPPProcess> {
+  class IsReadyPredicate extends ExecutablePredicateCommons implements Predicate<OPPProcess> {
+    @Override
+    public boolean test(OPPProcess process) {
+      for (OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
+        if (!isLinkSourceReady(link)) {
+          logFine(PROCESS_NOT_READY, process.getName(), analyzer.getSourceObject(link).getName());
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+
+  class MustSkipPredicate extends ExecutablePredicateCommons implements Predicate<OPPProcess> {
+    @Override
+    public boolean test(OPPProcess process) {
+      for (OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
+        if (link.getSubKinds().contains(OPPConstants.OPP_CONDITIONAL_LINK_SUBKIND) && !isLinkSourceReady(link)) {
+          return true;
+        }
+      }
+      return false;
+    }
+  }
+
+  //
+  //
+  //
+  class IsProcessReady extends ExecutablePredicateCommons implements com.google.common.base.Predicate<OPPProcess> {
     @Override
     public boolean apply(OPPProcess process) {
       for (OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
@@ -269,7 +405,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     }
   }
 
-  class mustSkipProcess extends ExecutablePredicateCommons implements Predicate<OPPProcess> {
+  class mustSkipProcess extends ExecutablePredicateCommons implements com.google.common.base.Predicate<OPPProcess> {
     @Override
     public boolean apply(OPPProcess process) {
       for (OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
@@ -311,5 +447,9 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
         throw new IllegalStateException("Process has incoming links with a source that is not an object.");
       }
     }
+  }
+
+  enum ExecutionMode {
+    NATURAL_ORDER, EVENT;
   }
 }

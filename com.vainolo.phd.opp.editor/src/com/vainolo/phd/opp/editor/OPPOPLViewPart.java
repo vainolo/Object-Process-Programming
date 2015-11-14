@@ -24,17 +24,17 @@ import org.jgrapht.traverse.BreadthFirstIterator;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.utils.OPPOPDExecutionAnalyzer;
 import com.vainolo.phd.opp.model.*;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 public class OPPOPLViewPart extends ViewPart {
   private Browser browser;
   private OPPObjectProcessDiagram opd;
-  private OPPOPDAnalyzer analyzer;
+  private OPPAnalyzer analyzer;
   private OPPOPDExecutionAnalyzer executionAnalyzer;
   private OPPObjectProcessDiagramAdapter adapter;
 
   public OPPOPLViewPart() {
-    analyzer = new OPPOPDAnalyzer();
+    analyzer = new OPPAnalyzer();
     executionAnalyzer = new OPPOPDExecutionAnalyzer();
     adapter = new OPPObjectProcessDiagramAdapter();
   }

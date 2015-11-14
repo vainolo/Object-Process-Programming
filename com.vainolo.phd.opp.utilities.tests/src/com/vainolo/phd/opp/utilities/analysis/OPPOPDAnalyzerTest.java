@@ -22,11 +22,11 @@ import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregatorKind;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 public class OPPOPDAnalyzerTest {
   private OPPObjectProcessDiagram opd;
-  private OPPOPDAnalyzer analyzer;
+  private OPPAnalyzer analyzer;
   private OPPNode node;
   private OPPProcess process;
 
@@ -209,7 +209,7 @@ public class OPPOPDAnalyzerTest {
     opd = mock(OPPObjectProcessDiagram.class);
 
     opd = OPPFactory.eINSTANCE.createOPPObjectProcessDiagram();
-    analyzer = new OPPOPDAnalyzer();
+    analyzer = new OPPAnalyzer();
   }
 
 }

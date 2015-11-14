@@ -22,9 +22,9 @@ public class OPPGetLastPartProcessInstanceTest {
   @Test
   public void test_getLastPart_oneElement() throws Exception {
     compositeInstance1.addFirstPart(numericInstance);
-    getLastPartProcessInstance.setArgument("whole", compositeInstance1);
+    getLastPartProcessInstance.setArgument("object", compositeInstance1);
     getLastPartProcessInstance.call();
-    OPPObjectInstance last = getLastPartProcessInstance.getArgument("last");
+    OPPObjectInstance last = getLastPartProcessInstance.getArgument("part");
     assertEquals(numericInstance.getNumericalValue(), last.getNumericalValue());
     assertEquals(1, compositeInstance1.getAllParts().size());
   }
@@ -33,9 +33,9 @@ public class OPPGetLastPartProcessInstanceTest {
   public void test_getLastPart_twoElements() throws Exception {
     compositeInstance1.addLastPart(numericInstance);
     compositeInstance1.addLastPart(stringInstance);
-    getLastPartProcessInstance.setArgument("whole", compositeInstance1);
+    getLastPartProcessInstance.setArgument("object", compositeInstance1);
     getLastPartProcessInstance.call();
-    OPPObjectInstance last = getLastPartProcessInstance.getArgument("last");
+    OPPObjectInstance last = getLastPartProcessInstance.getArgument("part");
     assertEquals(stringInstance.getStringValue(), last.getStringValue());
     assertEquals(2, compositeInstance1.getAllParts().size());
   }

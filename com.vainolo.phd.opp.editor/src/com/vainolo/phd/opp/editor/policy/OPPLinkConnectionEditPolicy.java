@@ -26,7 +26,7 @@ import com.vainolo.phd.opp.editor.factory.OPPStructuralLinkPartFactory;
 import com.vainolo.phd.opp.editor.figure.OPPFigureConstants;
 import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opp.model.*;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 import com.vainolo.phd.opp.validation.OPPLinkValidator;
 
 /**
@@ -38,11 +38,11 @@ import com.vainolo.phd.opp.validation.OPPLinkValidator;
 public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
   OPPLinkValidator validator;
-  OPPOPDAnalyzer analyzer;
+  OPPAnalyzer analyzer;
 
   OPPStructuralLinkPartFactory linkFactory;
 
-  public OPPLinkConnectionEditPolicy(OPPLinkValidator validator, OPPOPDAnalyzer analyzer, OPPIdManager idManager) {
+  public OPPLinkConnectionEditPolicy(OPPLinkValidator validator, OPPAnalyzer analyzer, OPPIdManager idManager) {
     Preconditions.checkNotNull(validator);
     this.validator = validator;
     this.analyzer = analyzer;

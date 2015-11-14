@@ -17,12 +17,14 @@
          point="org.eclipse.ui.views">
       <view
             class="com.vainolo.phd.opp.editor.OPPOPLViewPart"
+            icon="icons/opp16x16.ico"
             id="com.vainolo.phd.opp.editor.OPPOPLView"
             name="OPL"
             restorable="true">
       </view>
       <view
             class="com.vainolo.phd.opp.editor.OPPExecutionLogViewPart"
+            icon="icons/opp16x16.ico"
             id="com.vainolo.phd.opp.editor.OPPExecutionLogView"
             name="OPP Execution Log"
             restorable="true">
@@ -70,7 +72,7 @@
          </view>
          <view
                closeable="true"
-               id="com.vainolo.phd.opp.editor.OPPOPLView"
+               id="com.vainolo.phd.opp.editor.OPPExecutionLogView"
                minimized="false"
                moveable="true"
                ratio="0.8"
@@ -80,11 +82,22 @@
                standalone="false"
                visible="true">
          </view>
+         <view
+               closeable="true"
+               id="com.vainolo.phd.opp.editor.OPPOPLView"
+               minimized="false"
+               moveable="true"
+               relationship="stack"
+               relative="com.vainolo.phd.opp.editor.OPPExecutionLogView"
+               showTitle="true"
+               standalone="false"
+               visible="true">
+         </view>
          <newWizardShortcut
                id="com.vainolo.phd.opp.editor.NewOPPDWizardID">
          </newWizardShortcut>
          <view
-               id="com.vainolo.phd.opp.editor.OPPExecutionLogView"
+               id="org.eclipse.ui.views.PropertySheet"
                minimized="false"
                relationship="stack"
                relative="com.vainolo.phd.opp.editor.OPPOPLView">

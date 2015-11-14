@@ -17,7 +17,7 @@ import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opp.model.OPPContainer;
 import com.vainolo.phd.opp.model.OPPProcess;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 /**
  * Various utilities used to execute an OPD.
@@ -27,7 +27,7 @@ import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
  */
 public class OPPOPDExecutionAnalyzer {
 
-  private OPPOPDAnalyzer analyzer = new OPPOPDAnalyzer();
+  private OPPAnalyzer analyzer = new OPPAnalyzer();
 
   /**
    * Find the processes that should be executed when the OPD is invoked. These

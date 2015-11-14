@@ -22,7 +22,7 @@ import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregatorKind;
 import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 public class OPPInZoomedProcessInstanceHeapTest {
 

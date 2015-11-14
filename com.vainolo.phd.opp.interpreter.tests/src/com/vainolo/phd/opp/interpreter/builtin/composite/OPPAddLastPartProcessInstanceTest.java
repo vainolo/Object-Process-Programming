@@ -18,10 +18,10 @@ public class OPPAddLastPartProcessInstanceTest {
 
   @Test
   public void test_addLastPart() throws Exception {
-    addLastPartProcessInstance.setArgument("whole", compositeInstance1);
+    addLastPartProcessInstance.setArgument("object", compositeInstance1);
     addLastPartProcessInstance.setArgument("part", numericInstance);
     addLastPartProcessInstance.call();
-    OPPObjectInstance result = addLastPartProcessInstance.getArgument("new whole");
+    OPPObjectInstance result = addLastPartProcessInstance.getArgument("new object");
     assertEquals(numericInstance.getNumericalValue(), result.getLastPart().getNumericalValue());
   }
 

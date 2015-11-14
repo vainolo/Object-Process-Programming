@@ -43,6 +43,7 @@ public class OPPInZoomedProcessExecutableInstanceTest {
     OPPProcess process = OPPFactory.eINSTANCE.createOPPProcess();
     process.setKind(kind);
     process.setName(name);
+    process.setY(10);
     return process;
   }
 
@@ -71,10 +72,10 @@ public class OPPInZoomedProcessExecutableInstanceTest {
     inZoomedProcess.getNodes().add(innerProcess);
     OPPObject object = createObject("a");
     opd.getNodes().add(object);
-    opd.getLinks().add(createProceduralLink("a", OPPProceduralLinkKind.CONS_RES, object, innerProcess));
+    opd.getLinks().add(createProceduralLink("a", OPPProceduralLinkKind.INSTRUMENT, object, innerProcess));
     object = createObject("b");
     opd.getNodes().add(object);
-    opd.getLinks().add(createProceduralLink("b", OPPProceduralLinkKind.CONS_RES, object, innerProcess));
+    opd.getLinks().add(createProceduralLink("b", OPPProceduralLinkKind.INSTRUMENT, object, innerProcess));
     object = createObject("c");
     opd.getNodes().add(object);
     opd.getLinks().add(createProceduralLink("c", OPPProceduralLinkKind.CONS_RES, innerProcess, object));

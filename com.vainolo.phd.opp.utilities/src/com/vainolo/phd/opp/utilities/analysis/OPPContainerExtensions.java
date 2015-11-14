@@ -21,7 +21,7 @@ public class OPPContainerExtensions {
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPPProcess> findProcesses(OPPContainer container) {
+  public Collection<OPPProcess> getProcesses(OPPContainer container) {
     return (Collection) Collections2.filter(container.getNodes(), IsProcessNode.INSTANCE);
   }
 

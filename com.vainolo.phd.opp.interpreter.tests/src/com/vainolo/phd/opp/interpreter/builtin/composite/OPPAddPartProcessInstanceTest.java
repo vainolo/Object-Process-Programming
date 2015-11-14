@@ -19,11 +19,11 @@ public class OPPAddPartProcessInstanceTest {
   private OPPAddPartProcessInstance setPartProcessInstance;
 
   private OPPObjectInstance doTest(OPPObjectInstance composite, OPPObjectInstance key, OPPObjectInstance value) throws Exception {
-    setPartProcessInstance.setArgument("whole", composite);
+    setPartProcessInstance.setArgument("object", composite);
     setPartProcessInstance.setArgument("key", key);
     setPartProcessInstance.setArgument("part", value);
     setPartProcessInstance.call();
-    return setPartProcessInstance.getArgument("new whole");
+    return setPartProcessInstance.getArgument("new object");
   }
 
   @Test
@@ -42,12 +42,6 @@ public class OPPAddPartProcessInstanceTest {
   public void test_addPart_byInstance() throws Exception {
     OPPObjectInstance result = doTest(compositeInstance1, compositeInstance2, numericInstance);
     assertEquals(numericInstance.getNumericalValue(), result.getPart(compositeInstance2.getId()).getNumericalValue());
-  }
-
-  @Test(expected = NullPointerException.class)
-  public void test_addPart_getPartOnOriginalObjectThrowsException() throws Exception {
-    doTest(compositeInstance1, stringInstance, numericInstance);
-    compositeInstance1.getPart(stringInstance.getStringValue());
   }
 
   @Before

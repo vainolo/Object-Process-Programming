@@ -5,11 +5,11 @@ import java.util.Collection;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPState;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 public class OPPObjectValidator {
 
-  private OPPOPDAnalyzer analyzer = new OPPOPDAnalyzer();
+  private OPPAnalyzer analyzer = new OPPAnalyzer();
 
   public boolean validateAddNode(OPPObject object, OPPNode node) {
     if(OPPState.class.isInstance(node)) {

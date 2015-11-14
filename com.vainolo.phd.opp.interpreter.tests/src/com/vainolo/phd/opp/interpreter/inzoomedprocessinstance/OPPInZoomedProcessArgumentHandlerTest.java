@@ -19,11 +19,11 @@ import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProces
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPProcess;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 public class OPPInZoomedProcessArgumentHandlerTest {
   private OPPInZoomedProcessArgumentHandler loader;
-  private OPPOPDAnalyzer analyzer;
+  private OPPAnalyzer analyzer;
   private OPPInZoomedProcessInstanceHeap heap;
   private OPPInZoomedProcessExecutableInstance instance;
   private OPPProcess process;
@@ -101,7 +101,7 @@ public class OPPInZoomedProcessArgumentHandlerTest {
     objectInstanceMock2 = mock(OPPObjectInstance.class);
     objectInstanceMock3 = mock(OPPObjectInstance.class);
     instance = mock(OPPInZoomedProcessExecutableInstance.class);
-    analyzer = spy(new OPPOPDAnalyzer());
+    analyzer = spy(new OPPAnalyzer());
     heap = mock(OPPInZoomedProcessInstanceHeap.class);
     loader = new OPPInZoomedProcessArgumentHandler(analyzer, heap);
     process = createOPPProcess("");

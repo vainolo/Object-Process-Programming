@@ -69,8 +69,9 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
       hasParameters = true;
     }
     if (hasParameters) {
-      arguments.substring(0, arguments.length() - 2);
-      logFine(arguments.toString());
+      logFine(arguments.substring(0, arguments.length() - 2));
+    } else {
+      logFine("No incoming arguments");
     }
   }
 
@@ -86,8 +87,9 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
       hasParameters = true;
     }
     if (hasParameters) {
-      arguments.substring(0, arguments.length() - 2);
-      logFine(arguments.toString());
+      logFine(arguments.substring(0, arguments.length() - 2));
+    } else {
+      logFine("No outgoing arguments");
     }
   }
 

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Parallel Output" lastKnownUsedId="14">
-  <nodes xsi:type="opp:OPPProcess" id="1" width="577" height="670" x="498" y="56" manualSize="true" name="Parallel Output" main="true">
-    <nodes xsi:type="opp:OPPObject" outgoingLinks="5" width="135" height="79" x="84" y="115" name="&quot;Some text is shown here&quot;"/>
-    <nodes xsi:type="opp:OPPObject" id="1" outgoingLinks="6" width="138" height="79" x="329" y="114" name="&quot;This is a very long text&quot;"/>
-    <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="5" width="137" height="75" x="83" y="225" name="Dialog Output" kind="Built In"/>
-    <nodes xsi:type="opp:OPPProcess" id="4" incomingLinks="6" width="137" height="75" x="329" y="234" name="Dialog Output" kind="Built In"/>
-    <nodes xsi:type="opp:OPPProcess" id="8" incomingLinks="12" width="137" height="75" x="83" y="490" name="Dialog Output" kind="Built In"/>
-    <nodes xsi:type="opp:OPPProcess" id="9" incomingLinks="13" width="137" height="75" x="329" y="490" name="Dialog Output" kind="Built In"/>
-    <nodes xsi:type="opp:OPPObject" id="10" outgoingLinks="12" width="113" height="56" x="127" y="382" name="&quot;Another Message&quot;"/>
-    <nodes xsi:type="opp:OPPObject" id="11" outgoingLinks="13" width="100" height="56" x="352" y="393" name="&quot;Shown After&quot;"/>
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Parallel Output" lastKnownUsedId="16">
+  <nodes xsi:type="opp:OPPProcess" id="1" width="577" height="670" x="331" y="44" manualSize="true" name="Parallel Output" main="true">
+    <nodes xsi:type="opp:OPPObject" outgoingLinks="5" width="147" height="79" x="84" y="115" name="&quot;Some text is shown here&quot;"/>
+    <nodes xsi:type="opp:OPPObject" id="1" outgoingLinks="6" width="150" height="79" x="329" y="114" name="&quot;This is a very long text&quot;"/>
+    <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="5" width="145" height="75" x="105" y="234" name="Dialog Output" kind="Built In"/>
+    <nodes xsi:type="opp:OPPProcess" id="4" incomingLinks="6" width="145" height="75" x="316" y="234" name="Dialog Output" kind="Built In"/>
+    <nodes xsi:type="opp:OPPProcess" id="8" incomingLinks="12" width="145" height="75" x="116" y="490" name="Dialog Output" kind="Built In"/>
+    <nodes xsi:type="opp:OPPProcess" id="9" incomingLinks="13" width="145" height="75" x="329" y="490" name="Dialog Output" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="10" outgoingLinks="12" width="123" height="56" x="127" y="382" name="&quot;Another Message&quot;"/>
+    <nodes xsi:type="opp:OPPObject" id="11" outgoingLinks="13" width="109" height="56" x="352" y="393" name="&quot;Shown After&quot;"/>
   </nodes>
   <links xsi:type="opp:OPPProceduralLink" id="5" source="//@nodes.0/@nodes.0" target="3" kind="Instrument"/>
   <links xsi:type="opp:OPPProceduralLink" id="6" source="1" target="4" kind="Instrument"/>

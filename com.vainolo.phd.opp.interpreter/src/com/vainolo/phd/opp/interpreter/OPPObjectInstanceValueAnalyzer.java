@@ -11,7 +11,7 @@ import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPState;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPState;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -113,7 +113,7 @@ public class OPPObjectInstanceValueAnalyzer {
    * @param analyzer
    * @return the value of the {@link OPPObjectInstance}
    */
-  public OPPObjectInstance calculateOPMObjectValue(OPPObject object, OPPOPDAnalyzer analyzer) {
+  public OPPObjectInstance calculateOPMObjectValue(OPPObject object, OPPAnalyzer analyzer) {
     OPPObjectInstance objectInstance = null;
 
     String objectName = object.getName();
@@ -162,7 +162,7 @@ public class OPPObjectInstanceValueAnalyzer {
         objectInstance.addLastPart(OPPObjectInstance.createFromValue(v));
       }
     } else {
-      logInfo("Assume this is a string with no enclosing quotes.");
+      logFiner("Assume this is a string with no enclosing quotes.");
       objectInstance = OPPObjectInstance.createFromValue(value);
     }
     logFinest("Value of {0} is {1}.", value, objectInstance);

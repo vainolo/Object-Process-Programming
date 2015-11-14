@@ -14,7 +14,7 @@ import java.util.Map;
 import org.eclipse.gef.commands.Command;
 
 import com.vainolo.phd.opp.model.*;
-import com.vainolo.phd.opp.utilities.analysis.OPPOPDAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 public final class OPPDeleteNodeCommand extends Command {
 
@@ -24,7 +24,7 @@ public final class OPPDeleteNodeCommand extends Command {
   private Map<OPPLink, OPPNode> linkSources;
   private Map<OPPLink, OPPNode> linkTargets;
 
-  private OPPOPDAnalyzer analyzer = new OPPOPDAnalyzer();
+  private OPPAnalyzer analyzer = new OPPAnalyzer();
 
   @Override
   public void execute() {

@@ -22,9 +22,9 @@ public class OPPGetFirstPartProcessInstanceTest {
   @Test
   public void test_getFirstPart_oneElement() throws Exception {
     compositeInstance1.addFirstPart(numericInstance);
-    getFirstPartProcessInstance.setArgument("whole", compositeInstance1);
+    getFirstPartProcessInstance.setArgument("object", compositeInstance1);
     getFirstPartProcessInstance.call();
-    OPPObjectInstance first = getFirstPartProcessInstance.getArgument("first");
+    OPPObjectInstance first = getFirstPartProcessInstance.getArgument("part");
     assertEquals(numericValue, first.getNumericalValue());
   }
 
@@ -32,17 +32,11 @@ public class OPPGetFirstPartProcessInstanceTest {
   public void test_getFirstPart_twoElements() throws Exception {
     compositeInstance1.addFirstPart(numericInstance);
     compositeInstance1.addFirstPart(stringInstance);
-    getFirstPartProcessInstance.setArgument("whole", compositeInstance1);
+    getFirstPartProcessInstance.setArgument("object", compositeInstance1);
     getFirstPartProcessInstance.call();
-    OPPObjectInstance first = getFirstPartProcessInstance.getArgument("first");
+    OPPObjectInstance first = getFirstPartProcessInstance.getArgument("part");
     assertEquals(stringValue, first.getStringValue());
 
-  }
-
-  @Test(expected = OPPRuntimeException.class)
-  public void test_getFirstPart_noParts() throws Exception {
-    getFirstPartProcessInstance.setArgument("whole", compositeInstance1);
-    getFirstPartProcessInstance.call();
   }
 
   @Before
