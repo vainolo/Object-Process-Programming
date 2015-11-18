@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Hello World" lastKnownUsedId="5">
-  <nodes xsi:type="opp:OPPProcess" id="1" width="300" height="400" x="604" y="171" name="Hello World" main="true">
-    <nodes xsi:type="opp:OPPObject" id="2" outgoingLinks="4" width="109" height="56" x="107" y="88" name="&quot;Hello World&quot;"/>
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Hello World" lastKnownUsedId="11">
+  <nodes xsi:type="opp:OPPProcess" id="1" width="300" height="400" x="503" y="115" name="Hello World" main="true">
+    <nodes xsi:type="opp:OPPObject" id="2" outgoingLinks="4" width="109" height="56" x="126" y="143" name="&quot;Hello World&quot;"/>
     <nodes xsi:type="opp:OPPProcess" id="3" incomingLinks="4" width="145" height="75" x="79" y="219" name="Dialog Output" kind="Built In"/>
   </nodes>
   <links xsi:type="opp:OPPProceduralLink" id="4" source="2" target="3" kind="Instrument"/>

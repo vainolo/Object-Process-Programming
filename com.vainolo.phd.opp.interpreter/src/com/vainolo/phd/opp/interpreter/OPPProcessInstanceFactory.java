@@ -18,6 +18,7 @@ import com.vainolo.phd.opp.interpreter.builtin.OPPConsoleInputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPConsoleOutputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPDialogInputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPDialogOutputProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPGetDateProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPSleepProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance.ComparisonType;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddFirstPartProcessInstance;
@@ -154,6 +155,8 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPInitializeTwitterClientProcessInstance();
     } else if (name.equalsIgnoreCase("Search Twitter")) {
       processInstance = new OPPSearchTwitter();
+    } else if (name.equalsIgnoreCase("Get Date")) {
+      processInstance = new OPPGetDateProcessInstance();
     }
     return processInstance;
   }
