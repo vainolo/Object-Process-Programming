@@ -1,33 +1,45 @@
 <?xml version="1.0" encoding="ASCII"?>
-<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Hello World" lastKnownUsedId="58">
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Visual Elements" lastKnownUsedId="80">
   <nodes xsi:type="opp:OPPProcess" id="1" width="121" height="400" x="48" y="195" name="Hello World" main="true"/>
-  <nodes xsi:type="opp:OPPObject" id="1" outgoingLinks="3" width="60" height="33" x="247" y="407" name="value"/>
-  <nodes xsi:type="opp:OPPObject" id="2" incomingLinks="3" width="115" height="33" x="461" y="407" name="collection"/>
-  <nodes xsi:type="opp:OPPObject" id="5" outgoingLinks="10" width="115" height="33" x="337" y="526" name="collection"/>
-  <nodes xsi:type="opp:OPPObject" id="6" outgoingLinks="11" width="43" height="33" x="468" y="526" name="key"/>
-  <nodes xsi:type="opp:OPPObject" id="7" outgoingLinks="12" width="60" height="33" x="524" y="526" name="value"/>
-  <nodes xsi:type="opp:OPPProcess" id="8" incomingLinks="10 11 12" outgoingLinks="13" width="165" height="75" x="407" y="594" name="Put in Collection" kind="Built In"/>
-  <nodes xsi:type="opp:OPPObject" id="9" incomingLinks="13" width="115" height="56" x="432" y="694" name="new collection"/>
-  <nodes xsi:type="opp:OPPObject" id="15" outgoingLinks="20" width="60" height="33" x="402" y="170" name="value"/>
-  <nodes xsi:type="opp:OPPObject" id="16" incomingLinks="20" width="115" height="33" x="586" y="170" name="collection"/>
-  <nodes xsi:type="opp:OPPObject" id="17" outgoingLinks="21" width="60" height="33" x="402" y="269" name="value"/>
-  <nodes xsi:type="opp:OPPObject" id="18" incomingLinks="21" width="115" height="33" x="586" y="269" name="collection"/>
-  <nodes xsi:type="opp:OPPObject" id="23" outgoingLinks="42" width="115" height="33" x="846" y="269" name="collection"/>
-  <nodes xsi:type="opp:OPPObject" id="24" width="60" height="33" x="1077" y="170" name="value"/>
-  <nodes xsi:type="opp:OPPObject" id="26" incomingLinks="42" width="60" height="33" x="1077" y="269" name="value"/>
-  <nodes xsi:type="opp:OPPProcess" id="27" incomingLinks="35 36" outgoingLinks="37" width="165" height="85" x="663" y="594" name="Fetch from Collection" kind="Built In"/>
-  <nodes xsi:type="opp:OPPObject" id="28" outgoingLinks="30" width="115" height="33" x="247" y="349" name="collection"/>
-  <nodes xsi:type="opp:OPPObject" id="29" incomingLinks="30" width="93" height="33" x="517" y="349" name="value"/>
-  <nodes xsi:type="opp:OPPObject" id="32" outgoingLinks="35" width="115" height="33" x="632" y="530" name="collection"/>
-  <nodes xsi:type="opp:OPPObject" id="33" outgoingLinks="36" width="43" height="33" x="769" y="530" name="key"/>
-  <nodes xsi:type="opp:OPPObject" id="34" incomingLinks="37" width="93" height="33" x="699" y="704" name="value"/>
-  <nodes xsi:type="opp:OPPProcess" id="43" incomingLinks="47 48" outgoingLinks="49 57" width="165" height="107" x="960" y="578" name="Remove from Collection" kind="Built In"/>
-  <nodes xsi:type="opp:OPPObject" id="44" outgoingLinks="47" width="115" height="33" x="896" y="526" name="collection"/>
-  <nodes xsi:type="opp:OPPObject" id="45" outgoingLinks="48" width="43" height="33" x="1094" y="526" name="key"/>
-  <nodes xsi:type="opp:OPPObject" id="46" incomingLinks="49" width="115" height="56" x="913" y="718" name="new collection"/>
-  <nodes xsi:type="opp:OPPObject" id="52" outgoingLinks="54" width="115" height="33" x="247" y="465" name="collection"/>
-  <nodes xsi:type="opp:OPPObject" id="53" incomingLinks="54" width="115" height="56" x="546" y="454" name="new collection"/>
-  <nodes xsi:type="opp:OPPObject" id="56" incomingLinks="57" width="60" height="33" x="1086" y="729" name="value"/>
+  <nodes xsi:type="opp:OPPObject" id="1" outgoingLinks="3" width="71" height="33" x="247" y="407" name="value"/>
+  <nodes xsi:type="opp:OPPObject" id="2" incomingLinks="3" width="120" height="33" x="461" y="407" name="collection"/>
+  <nodes xsi:type="opp:OPPObject" id="5" outgoingLinks="10" width="120" height="33" x="337" y="526" name="collection"/>
+  <nodes xsi:type="opp:OPPObject" id="6" outgoingLinks="11" width="57" height="33" x="468" y="526" name="key"/>
+  <nodes xsi:type="opp:OPPObject" id="7" outgoingLinks="12" width="71" height="33" x="524" y="526" name="value"/>
+  <nodes xsi:type="opp:OPPProcess" id="8" incomingLinks="10 11 12" outgoingLinks="13" width="164" height="75" x="407" y="594" name="Put in Collection" kind="Built In"/>
+  <nodes xsi:type="opp:OPPObject" id="9" incomingLinks="13" width="120" height="56" x="432" y="694" name="new collection"/>
+  <nodes xsi:type="opp:OPPObject" id="15" outgoingLinks="20" width="71" height="33" x="402" y="170" name="value"/>
+  <nodes xsi:type="opp:OPPObject" id="16" incomingLinks="20" width="120" height="33" x="586" y="170" name="collection"/>
+  <nodes xsi:type="opp:OPPObject" id="17" outgoingLinks="21" width="71" height="33" x="402" y="269" name="value"/>
+  <nodes xsi:type="opp:OPPObject" id="18" incomingLinks="21" width="120" height="33" x="586" y="269" name="collection"/>
+  <nodes xsi:type="opp:OPPObject" id="23" outgoingLinks="42" width="120" height="33" x="846" y="269" name="collection"/>
+  <nodes xsi:type="opp:OPPObject" id="24" width="71" height="33" x="1077" y="170" name="value"/>
+  <nodes xsi:type="opp:OPPObject" id="26" incomingLinks="42" width="71" height="33" x="1077" y="269" name="value"/>
+  <nodes xsi:type="opp:OPPProcess" id="27" incomingLinks="35 36" outgoingLinks="37" width="183" height="75" x="663" y="594" name="Fetch from Collection" kind="Built In"/>
+  <nodes xsi:type="opp:OPPObject" id="28" outgoingLinks="30" width="120" height="33" x="247" y="349" name="collection"/>
+  <nodes xsi:type="opp:OPPObject" id="29" incomingLinks="30" width="71" height="33" x="517" y="349" name="value"/>
+  <nodes xsi:type="opp:OPPObject" id="32" outgoingLinks="35" width="120" height="33" x="632" y="530" name="collection"/>
+  <nodes xsi:type="opp:OPPObject" id="33" outgoingLinks="36" width="57" height="33" x="769" y="530" name="key"/>
+  <nodes xsi:type="opp:OPPObject" id="34" incomingLinks="37" width="71" height="33" x="699" y="704" name="value"/>
+  <nodes xsi:type="opp:OPPProcess" id="43" incomingLinks="47 48" outgoingLinks="49 57" width="187" height="75" x="960" y="578" name="Remove from Collection" kind="Built In"/>
+  <nodes xsi:type="opp:OPPObject" id="44" outgoingLinks="47" width="120" height="33" x="896" y="526" name="collection"/>
+  <nodes xsi:type="opp:OPPObject" id="45" outgoingLinks="48" width="57" height="33" x="1094" y="526" name="key"/>
+  <nodes xsi:type="opp:OPPObject" id="46" incomingLinks="49" width="120" height="56" x="913" y="718" name="new collection"/>
+  <nodes xsi:type="opp:OPPObject" id="52" outgoingLinks="54" width="120" height="33" x="247" y="465" name="collection"/>
+  <nodes xsi:type="opp:OPPObject" id="53" incomingLinks="54" width="120" height="56" x="546" y="454" name="new collection"/>
+  <nodes xsi:type="opp:OPPObject" id="56" incomingLinks="57" width="71" height="33" x="1086" y="729" name="value"/>
+  <nodes xsi:type="opp:OPPObject" id="59" width="116" height="56" x="1280" y="202" name="Number of items"/>
+  <nodes xsi:type="opp:OPPObject" id="60" width="48" height="33" x="1312" y="303" name="42"/>
+  <nodes xsi:type="opp:OPPObject" id="61" width="87" height="33" x="1278" y="371" name="&quot;Hello&quot;"/>
+  <nodes xsi:type="opp:OPPObject" id="62" width="123" height="56" x="1303" y="461" name="message" initialValue="&quot;Hello&quot;"/>
+  <nodes xsi:type="opp:OPPObject" id="64" width="33" height="33" x="1248" y="135"/>
+  <nodes xsi:type="opp:OPPObject" id="66" outgoingLinks="72" width="33" height="33" x="63" y="718"/>
+  <nodes xsi:type="opp:OPPObject" id="69" outgoingLinks="75" width="33" height="33" x="63" y="805"/>
+  <nodes xsi:type="opp:OPPObject" id="70" outgoingLinks="78" width="33" height="33" x="63" y="889"/>
+  <nodes xsi:type="opp:OPPProcess" id="71" incomingLinks="72" width="37" height="42" x="196" y="714" kind="Built In"/>
+  <nodes xsi:type="opp:OPPProcess" id="73" incomingLinks="75" width="37" height="42" x="196" y="801" kind="Built In"/>
+  <nodes xsi:type="opp:OPPProcess" id="74" incomingLinks="78" outgoingLinks="79" width="37" height="42" x="132" y="885" kind="Built In"/>
+  <nodes xsi:type="opp:OPPObject" id="77" incomingLinks="79" width="33" height="33" x="198" y="889"/>
   <links xsi:type="opp:OPPProceduralLink" id="3" source="1" target="2" centerDecoration="put(&quot;key&quot;)" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="10" source="5" target="8" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="11" source="6" target="8" kind="Consumption/Result"/>
@@ -45,4 +57,8 @@
   <links xsi:type="opp:OPPProceduralLink" id="49" source="43" target="46" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="54" source="52" target="53" centerDecoration="remove(&quot;key&quot;)" kind="Consumption/Result"/>
   <links xsi:type="opp:OPPProceduralLink" id="57" source="43" target="56"/>
+  <links xsi:type="opp:OPPProceduralLink" id="72" source="66" target="71"/>
+  <links xsi:type="opp:OPPProceduralLink" id="75" source="69" target="73" kind="Instrument"/>
+  <links xsi:type="opp:OPPProceduralLink" id="78" source="70" target="74" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="79" source="74" target="77" kind="Consumption/Result"/>
 </opp:OPPObjectProcessDiagram>

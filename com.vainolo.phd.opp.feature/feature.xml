@@ -5,17 +5,23 @@
       version="0.1.0.qualifier"
       provider-name="Arieh &quot;Vainolo&quot; Bibliowicz">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description>
+      Repository for the OPP language editor and interpreter
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+   <copyright>
+      The OPP editor and interpreted is copyright (c) of Arieh &quot;Vainolo&quot;
+Bibliowicz. This software may include other components which
+are copyrighted by their creators.
    </copyright>
 
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license url="">
+      This software is for use only for educational purposes. We assume no responsability to any damages that may be caused by the download, installation, or use of the product.
    </license>
+
+   <url>
+      <discovery label="OPP Github Repository" url="https://github.com/vainolo/Object-Process-Programming"/>
+   </url>
 
    <requires>
       <import plugin="org.eclipse.ui"/>
