@@ -98,8 +98,8 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
   @Override
   protected void postExecution() {
-    super.postExecution();
     getHeap().exportVariableValuesToArguments(getOpd());
+    super.postExecution();
   }
 
   private OPPProcessInstance createAndExecuteInstance(OPPProcess process) {
@@ -183,6 +183,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
             if (P_executing.size() == 0) {
               executionMode = ExecutionMode.NATURAL_ORDER;
               pc.setPC(executedProcess.getY() + executedProcess.getHeight());
+              pc.setPC(pc.getNextPC());
               calculateNextProcesses();
               executeReadyProcesses();
             }

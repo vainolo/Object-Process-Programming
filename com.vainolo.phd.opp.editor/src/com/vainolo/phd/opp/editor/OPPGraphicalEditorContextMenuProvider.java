@@ -38,9 +38,9 @@ public class OPPGraphicalEditorContextMenuProvider extends ContextMenuProvider {
     action = getActionRegistry().getAction(OPPToggledProceduralLinkSubkindAction.EVENT_SUBKIND_ID);
     if (action.isEnabled())
       menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
-    action = getActionRegistry().getAction(OPPToggledProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
-    if (action.isEnabled())
-      menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+    // action = getActionRegistry().getAction(OPPToggledProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
+    // if (action.isEnabled())
+    // menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 
     action = getActionRegistry().getAction(OPPCreateObjectAction.ID);
     if (action.isEnabled())
