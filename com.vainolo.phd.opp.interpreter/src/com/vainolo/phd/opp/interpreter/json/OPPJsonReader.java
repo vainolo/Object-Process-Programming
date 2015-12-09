@@ -5,34 +5,54 @@ import static com.vainolo.phd.opp.utilities.OPPLogger.logInfo;
 import java.math.BigDecimal;
 import java.util.Iterator;
 
+import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
 import com.eclipsesource.json.JsonObject.Member;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 
 public class OPPJsonReader {
+
   public OPPObjectInstance read(JsonObject jsonObject) {
     OPPObjectInstance instance = OPPObjectInstance.createCompositeInstance();
     Iterator<Member> it = jsonObject.iterator();
     while (it.hasNext()) {
-      addPart(instance, it.next());
+      Member member = it.next();
+      addPart(instance, member.getName(), member.getValue());
     }
     return instance;
   }
 
-  private void addPart(OPPObjectInstance whole, Member member) {
-    logInfo("Adding part " + member.getName() + " with value " + member.getValue().toString());
-    if (member.getValue().isArray()) {
-      throw new UnsupportedOperationException();
-    } else if (member.getValue().isString()) {
-      addStringPart(whole, member.getName(), member.getValue().asString());
-    } else if (member.getValue().isNumber()) {
-      addNumberPart(whole, member.getName(), member.getValue().asDouble());
-    } else if (member.getValue().isBoolean()) {
-      addBooleanPart(whole, member.getName(), member.getValue().asBoolean());
-    } else if (member.getValue().isObject()) {
-      addObjectPart(whole, member.getName(), member.getValue().asObject());
+  public OPPObjectInstance read(JsonArray jsonArray) {
+    OPPObjectInstance instance = OPPObjectInstance.createCompositeInstance();
+    for (int i = 0; i < jsonArray.size(); i++) {
+      addPart(instance, String.valueOf(i), jsonArray.get(i));
+    }
+    return instance;
+  }
+
+  private void addPart(OPPObjectInstance whole, String name, JsonValue value) {
+    logInfo("Adding part " + name + " with value " + value.toString());
+    if (value.isArray()) {
+      addArrayPart(whole, name, value.asArray());
+    } else if (value.isString()) {
+      addStringPart(whole, name, value.asString());
+    } else if (value.isNumber()) {
+      addNumberPart(whole, name, value.asDouble());
+    } else if (value.isBoolean()) {
+      addBooleanPart(whole, name, value.asBoolean());
+    } else if (value.isObject()) {
+      addObjectPart(whole, name, value.asObject());
     }
     // null JSON values are ignored.
+  }
+
+  private void addArrayPart(OPPObjectInstance whole, String name, JsonArray array) {
+    OPPObjectInstance part = OPPObjectInstance.createCompositeInstance();
+    for (int i = 0; i < array.size(); i++) {
+      addPart(part, String.valueOf(i), array.get(i));
+    }
+    whole.addPart(name, part);
   }
 
   private void addObjectPart(OPPObjectInstance whole, String name, JsonObject value) {

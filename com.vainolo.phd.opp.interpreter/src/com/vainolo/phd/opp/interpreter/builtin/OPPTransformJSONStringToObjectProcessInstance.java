@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
+import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonObject.Member;
 import com.google.common.collect.Lists;
@@ -20,15 +21,22 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.json.OPPJsonReader;
 
-public class OPPReadJSONObjectProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPTransformJSONStringToObjectProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   protected void executing() {
     OPPJsonReader reader = new OPPJsonReader();
     try {
-      JsonObject jsonObject = JsonObject.readFrom(getArgument("json").getStringValue());
-      OPPObjectInstance opmObjectInstance = reader.read(jsonObject);
-      setArgument("object", opmObjectInstance);
+      String json = getArgument("json").getStringValue();
+      if (json.startsWith("{")) {
+        JsonObject jsonObject = JsonObject.readFrom(json);
+        OPPObjectInstance opmObjectInstance = reader.read(jsonObject);
+        setArgument("object", opmObjectInstance);
+      } else if (json.startsWith("[")) {
+        JsonArray jsonArray = JsonArray.readFrom(json);
+        OPPObjectInstance opmObjectInstance = reader.read(jsonArray);
+        setArgument("object", opmObjectInstance);
+      }
     } catch (Exception e) {
       e.printStackTrace();
       logSevere(e.getLocalizedMessage());

@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
-import com.vainolo.phd.opp.interpreter.builtin.OPPReadJSONObjectProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPTransformJSONStringToObjectProcessInstance;
 
 /**
  * 
@@ -20,7 +20,7 @@ import com.vainolo.phd.opp.interpreter.builtin.OPPReadJSONObjectProcessInstance;
 public class OPPReadJSONObjectProcessInstanceTest {
 
   private OPPObjectInstance readJson(String json) throws Exception {
-    OPPReadJSONObjectProcessInstance instance = new OPPReadJSONObjectProcessInstance();
+    OPPTransformJSONStringToObjectProcessInstance instance = new OPPTransformJSONStringToObjectProcessInstance();
     instance.setArgument("json", OPPObjectInstance.createFromValue(json));
     instance.call();
     return instance.getArgument("object");

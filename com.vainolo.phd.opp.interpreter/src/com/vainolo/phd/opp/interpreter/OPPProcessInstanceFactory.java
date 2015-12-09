@@ -16,9 +16,12 @@ import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPConceptualProcess;
 import com.vainolo.phd.opp.interpreter.builtin.OPPConsoleInputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPConsoleOutputProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPCopyObjectProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPDialogInputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPDialogOutputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPGetDateProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPTransformJSONStringToObjectProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.OPPReadTextFileProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPSleepProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance.ComparisonType;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddFirstPartProcessInstance;
@@ -157,6 +160,12 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPSearchTwitter();
     } else if (name.equalsIgnoreCase("Get Date")) {
       processInstance = new OPPGetDateProcessInstance();
+    } else if (name.equalsIgnoreCase("Copy Object")) {
+      processInstance = new OPPCopyObjectProcessInstance();
+    } else if (name.equalsIgnoreCase("Read Text File")) {
+      processInstance = new OPPReadTextFileProcessInstance();
+    } else if (name.equalsIgnoreCase("Transform JSON String To Object")) {
+      processInstance = new OPPTransformJSONStringToObjectProcessInstance();
     }
     return processInstance;
   }

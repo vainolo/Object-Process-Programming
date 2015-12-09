@@ -9,7 +9,7 @@
 	<classpathentry exported="true" kind="lib" path="lib/httpasyncclient/httpasyncclient-4.0.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/json.org/json-20140107.jar" sourcepath="lib/json.org/json-20140107-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/unirest/unirest-java-1.4.7.jar" sourcepath="lib/unirest/unirest-java-1.4.7-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/minimal-json/0.9.2/minimal-json-0.9.2-SNAPSHOT.jar"/>
+	<classpathentry exported="true" kind="lib" path="lib/minimal-json/0.9.2/minimal-json-0.9.2-SNAPSHOT.jar" sourcepath="lib/minimal-json/0.9.2/minimal-json-0.9.2-SNAPSHOT-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jgrapht/jgrapht-jdk1.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/guice/4.0b/guice-4.0-beta.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/mockito/1.9.5/mockito-all-1.9.5.jar"/>

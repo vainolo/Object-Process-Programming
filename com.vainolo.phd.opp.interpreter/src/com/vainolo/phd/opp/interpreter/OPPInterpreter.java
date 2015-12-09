@@ -53,8 +53,12 @@ public enum OPPInterpreter {
     completionService = new ExecutorCompletionService<>(executor);
     globalHeap = new OPPGlobalHeap();
 
-    logViewPart.clear();
     OPPLogger.setLevel(Level.FINE);
+    try {
+      logViewPart.clear();
+    } catch (NullPointerException e) {
+      OPPLogger.logWarning("logViewPart is null. probably not initialized. Ignoring.");
+    }
 
     container = _container;
     logInfo("Interpreting OPD {0}.", opdName);
