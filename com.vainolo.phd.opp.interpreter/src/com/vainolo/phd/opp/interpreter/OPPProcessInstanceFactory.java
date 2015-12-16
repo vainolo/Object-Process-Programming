@@ -31,6 +31,7 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetLastPartProcessIn
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartValueProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartsProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPNewInstanceProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
@@ -148,6 +149,8 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPHasPartProcessInstance();
     } else if (name.equalsIgnoreCase("Has Part Value")) {
       processInstance = new OPPHasPartValueProcessInstance();
+    } else if (name.equalsIgnoreCase("Has Parts")) {
+      processInstance = new OPPHasPartsProcessInstance();
 
       // Misc
     } else if (name.equalsIgnoreCase("Sleep")) {

@@ -22,7 +22,7 @@ public class OPPObjectExtensions {
 
   private OPPStateExtensions stateExt = new OPPStateExtensions();
   private OPPNodeExtensions nodeExt = new OPPNodeExtensions();
-  private Predicate<OPPLink> isObjectOutgoingDataLink = new IsObjectOutgoingDataLink();
+  private Predicate<OPPLink> isDataLinkPred = new IsDataLink();
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public Collection<OPPProceduralLink> findOutgoingProceduralLinks(OPPObject object) {
@@ -35,8 +35,7 @@ public class OPPObjectExtensions {
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public Collection<OPPProceduralLink> findOutgoingDataLinks(OPPObject object) {
-    Collection<OPPProceduralLink> outgoingDataLinks = (Collection) object.getOutgoingLinks().stream().filter(isObjectOutgoingDataLink)
-        .collect(Collectors.toList());
+    Collection<OPPProceduralLink> outgoingDataLinks = (Collection) object.getOutgoingLinks().stream().filter(isDataLinkPred).collect(Collectors.toList());
     for (OPPState state : findStates(object)) {
       outgoingDataLinks.addAll(stateExt.findOutgoingDataLinks(state));
     }
@@ -94,9 +93,20 @@ public class OPPObjectExtensions {
     return (Collection) object.getOutgoingLinks().stream().filter(l -> l instanceof OPPStructuralLinkPart).map(l -> l.getTarget()).collect(Collectors.toList());
   }
 
+  public boolean hasIncomingDataLinks(OPPObject parameter) {
+    for (OPPLink link : parameter.getIncomingLinks()) {
+      if (link instanceof OPPProceduralLink) {
+        if (isDataLinkPred.test(link)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   public boolean hasIncomingResultLink(OPPObject parameter) {
     for (OPPLink link : parameter.getIncomingLinks()) {
-      if (OPPProceduralLink.class.isInstance(link)) {
+      if (link instanceof OPPProceduralLink) {
         if (IsResultLink.INSTANCE.apply(OPPProceduralLink.class.cast(link)) || IsConsumptionLink.INSTANCE.apply(OPPProceduralLink.class.cast(link))) {
           return true;
         }
@@ -134,11 +144,10 @@ public class OPPObjectExtensions {
   }
 
   // Predicates
-  private class IsObjectOutgoingDataLink implements Predicate<OPPLink> {
-
+  private class IsDataLink implements Predicate<OPPLink> {
     @Override
     public boolean test(final OPPLink link) {
-      if (!OPPProceduralLink.class.isInstance(link))
+      if (!(link instanceof OPPProceduralLink))
         return false;
       else {
         OPPProceduralLink localLink = (OPPProceduralLink) link;
@@ -170,4 +179,5 @@ public class OPPObjectExtensions {
       return OPPProceduralLinkKind.CONS_RES.equals(input.getKind());
     }
   }
+
 }

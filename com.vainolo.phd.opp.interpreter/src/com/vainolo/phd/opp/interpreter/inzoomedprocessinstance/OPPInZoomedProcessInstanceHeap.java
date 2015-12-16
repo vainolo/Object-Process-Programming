@@ -146,7 +146,6 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
 
   /** Clear the value of a variable when used with a consumption link. */
   public void clearVariable(OPPObject object) {
-
     if (analyzer.isObjectPartOfAnotherObject(object)) {
       clearPartVariable(object);
     } else {

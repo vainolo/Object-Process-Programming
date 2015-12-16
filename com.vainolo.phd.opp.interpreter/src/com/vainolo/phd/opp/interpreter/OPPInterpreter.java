@@ -35,8 +35,8 @@ public enum OPPInterpreter {
   private ExecutorService executor;
   private ExecutorCompletionService<OPPProcessExecutionResult> completionService;
   private OPPGlobalHeap globalHeap;
-
   private OPPLogTarget logViewPart;
+  private boolean stopped;
 
   private OPPInterpreter() {
   }
@@ -49,6 +49,7 @@ public enum OPPInterpreter {
    * @param container
    */
   public void interpret(String opdName, final IContainer _container) {
+    stopped = false;
     executor = Executors.newCachedThreadPool();
     completionService = new ExecutorCompletionService<>(executor);
     globalHeap = new OPPGlobalHeap();
@@ -79,13 +80,21 @@ public enum OPPInterpreter {
 
   public void stopExecution() {
     logInfo("Stopping execution");
+    stopped = true;
     executor.shutdownNow();
-    try {
-      executor.awaitTermination(5, TimeUnit.SECONDS);
-    } catch (InterruptedException e) {
-      logWarning("Interrupted while waiting for all processes to finish.");
-      e.printStackTrace();
+    while (!executor.isTerminated()) {
+      try {
+        executor.awaitTermination(5, TimeUnit.SECONDS);
+      } catch (InterruptedException e) {
+        logWarning("Interrupted while waiting for all processes to finish.");
+        e.printStackTrace();
+      }
     }
+    logInfo("Stopped execution");
+  }
+
+  public boolean isStopped() {
+    return stopped;
   }
 
   public OPPGlobalHeap getGlobalHeap() {

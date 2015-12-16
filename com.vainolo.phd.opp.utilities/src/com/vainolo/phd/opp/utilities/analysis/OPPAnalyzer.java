@@ -396,4 +396,8 @@ public class OPPAnalyzer {
   public OPPObject findParent(OPPObject object) {
     return objectExt.findParent(object);
   }
+
+  public Collection<OPPProceduralLink> findOutgoingAgentLinks(OPPProcess executedProcess) {
+    return processExt.findOutgoingAgentLinks(executedProcess);
+  }
 }

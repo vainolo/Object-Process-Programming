@@ -33,7 +33,7 @@ public class OPPOPDExtensions {
   public Collection<OPPObject> findOutgoingParameters(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> outgoingParameters = Lists.newArrayList();
     for (OPPObject parameter : findParameters(opd)) {
-      if (objectExt.hasIncomingResultLink(parameter)) {
+      if (objectExt.hasIncomingDataLinks(parameter)) {
         outgoingParameters.add(parameter);
       }
     }

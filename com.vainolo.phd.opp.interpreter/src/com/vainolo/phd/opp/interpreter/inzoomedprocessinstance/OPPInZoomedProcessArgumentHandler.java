@@ -2,7 +2,6 @@ package com.vainolo.phd.opp.interpreter.inzoomedprocessinstance;
 
 import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -134,7 +133,8 @@ public class OPPInZoomedProcessArgumentHandler {
 
   private void copyArgumentValueToHeap(OPPArgument argument, OPPObjectInstance objectInstance) {
     if (objectInstance == null) {
-      logFinest("Not setting value of {0} because instance is null.", argument.getObject().getName());
+      logFinest("Clearing value of {0} because given argument value is null.", argument.getObject().getName());
+      heap.clearVariable(argument.getObject());
     } else {
       logFinest("Setting value of {0} with {1}.", argument.getObject().getName(), objectInstance);
       if (argument.hasModifier) {

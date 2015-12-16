@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ASCII"?>
+<opp:OPPObjectProcessDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:opp="www.vainolo.com/phd/opp" name="Return" lastKnownUsedId="11">
+  <nodes xsi:type="opp:OPPProcess" id="1" incomingLinks="7" width="551" height="605" x="300" y="100" manualSize="true" name="Return" main="true">
+    <nodes xsi:type="opp:OPPObject" id="2" incomingLinks="4" width="69" height="64" x="252" y="140">
+      <nodes xsi:type="opp:OPPState" id="5" outgoingLinks="7" width="47" height="38" x="12" y="16" name="1"/>
+    </nodes>
+    <nodes xsi:type="opp:OPPProcess" id="3" outgoingLinks="4" width="139" height="75" x="206" y="35" name="Dialog Input" kind="Built In"/>
+    <nodes xsi:type="opp:OPPProcess" id="8" incomingLinks="10" width="145" height="75" x="185" y="420" name="Dialog Output" kind="Built In"/>
+    <nodes xsi:type="opp:OPPObject" id="9" outgoingLinks="10" width="87" height="33" x="228" y="327" name="&quot;Hello&quot;"/>
+  </nodes>
+  <links xsi:type="opp:OPPProceduralLink" id="4" source="3" target="2" kind="Consumption/Result"/>
+  <links xsi:type="opp:OPPProceduralLink" id="7" source="5" target="1">
+    <bendpoints x="711" y="302"/>
+  </links>
+  <links xsi:type="opp:OPPProceduralLink" id="10" source="9" target="8" kind="Instrument"/>
+</opp:OPPObjectProcessDiagram>

@@ -34,6 +34,11 @@ public class OPPProcessExtensions {
     return ((Collection) Collections2.filter(process.getOutgoingLinks(), IsOutgoingDataLink.INSTANCE));
   }
 
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+  public Collection<OPPProceduralLink> findOutgoingAgentLinks(OPPProcess process) {
+    return (Collection) Collections2.filter(process.getOutgoingLinks(), IsAgentLink.INSTANCE);
+  }
+
   public enum IsAgentLink implements Predicate<OPPLink> {
     INSTANCE;
 

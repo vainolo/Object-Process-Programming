@@ -1,6 +1,6 @@
 package com.vainolo.phd.opp.interpreter.json;
 
-import static com.vainolo.phd.opp.utilities.OPPLogger.logInfo;
+import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
@@ -32,7 +32,7 @@ public class OPPJsonReader {
   }
 
   private void addPart(OPPObjectInstance whole, String name, JsonValue value) {
-    logInfo("Adding part " + name + " with value " + value.toString());
+    logFinest("Adding part " + name + " with value " + value.toString());
     if (value.isArray()) {
       addArrayPart(whole, name, value.asArray());
     } else if (value.isString()) {
