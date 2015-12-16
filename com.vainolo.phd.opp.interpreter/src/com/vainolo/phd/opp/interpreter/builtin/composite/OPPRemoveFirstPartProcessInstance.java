@@ -15,8 +15,8 @@ public class OPPRemoveFirstPartProcessInstance extends OPPAbstractProcessInstanc
     if (composite.getAllPartIndexes().size() > 0) {
       OPPObjectInstance object = composite.removeFirstPart();
       setArgument("part", object);
-      setArgument("new object", composite);
     }
+    setArgument("new object", composite);
   }
 
   @Override
