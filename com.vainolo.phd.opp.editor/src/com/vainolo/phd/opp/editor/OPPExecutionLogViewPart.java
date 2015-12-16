@@ -49,7 +49,11 @@ public class OPPExecutionLogViewPart extends ViewPart implements OPPLogTarget {
 
       @Override
       public void run() {
-        label.setText(label.getText() + line);
+        try {
+          label.setText(label.getText() + line);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
     });
   }
