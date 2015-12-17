@@ -1,7 +1,6 @@
 This project implements an OPM Editor and Execution environment.
-All project contents are copyright by Arieh "Vainolo" Bibliowicz, 
-vainolo@gmail.com
-You can use this code for educational purposes. For other uses please
-contact me.
+Copyright (c) 2015 Arieh "Vainolo" Bibliowicz and others. All rights reserved. 
+This program and the accompanying materials are made available under the terms 
+of the Eclipse Public License v1.0 which is available at http://www.eclipse.org/legal/epl-v10.html
 
 [![Build Status](https://travis-ci.org/vainolo/Object-Process-Programming.png)](https://travis-ci.org/vainolo/Object-Process-Programming)
