@@ -54,10 +54,10 @@ public class OPPJavaProcessExecutableInstance extends OPPAbstractProcessInstance
     // target = getArgument("this");
 
     // final Object result = callMethod(method);
-    OPPObjectInstance instance = null; // OPMObjectInstance.createFromValue(result);
-    if (!method.getReturnType().equals(Void.TYPE)) {
-      setArgument("result", instance);
-    }
+    // OPPObjectInstance instance = null; // OPMObjectInstance.createFromValue(result);
+    // if (!method.getReturnType().equals(Void.TYPE)) {
+    // setArgument("result", instance);
+    // }
   }
 
   // private Object callMethod(Method method) {

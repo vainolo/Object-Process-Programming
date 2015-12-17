@@ -103,7 +103,7 @@ public class OPPInZoomedProcessArgumentHandler {
     Iterator<OPPArgument> anonymousResultsIterator = anonymousResults.iterator();
     while (anonymousResultsIterator.hasNext()) {
       OPPArgument argument = anonymousResultsIterator.next();
-      if (instance.getOutgoingParameters().contains(argument.getObject().getName())) {
+      if (instance.getOutgoingParameters().stream().map(p -> p.getName()).collect(Collectors.toList()).contains(argument.getObject().getName())) {
         if (instance.getArgument(argument.getObject().getName()) != null) {
           copyArgumentValueToHeap(argument, instance.getArgument(argument.getObject().getName()));
           anonymousResultsIterator.remove();

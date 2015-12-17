@@ -23,7 +23,7 @@ public class OPPBinaryMathOpProcessInstance extends OPPAbstractProcessInstance {
   public void executing() {
     BigDecimal a = getArgument("a").getNumericalValue();
     BigDecimal b = getArgument("b").getNumericalValue();
-    BigDecimal c = null;
+    BigDecimal c = new BigDecimal(0);
     switch (opType) {
     case ADD:
       c = a.add(b);

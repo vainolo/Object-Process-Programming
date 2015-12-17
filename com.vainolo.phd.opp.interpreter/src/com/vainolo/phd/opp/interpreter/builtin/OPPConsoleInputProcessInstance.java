@@ -42,12 +42,14 @@ public class OPPConsoleInputProcessInstance extends OPPAbstractProcessInstance i
     String input = "";
     try {
       input = br.readLine();
+      if (input != null) {
+        OPPObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
+        setArgument(INPUT_PARAM_NAME, instance);
+      }
     } catch (IOException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    OPPObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
-    setArgument(INPUT_PARAM_NAME, instance);
   }
 
   @Override

@@ -15,8 +15,7 @@ public abstract class OPPThingFigure extends Figure implements OPPNodeFigure, OP
   private final TooltipFigure tooltipFigure;
 
   /**
-   * The figure on which this figure's childs should be added instead of
-   * adding them directory.
+   * The figure on which this figure's childs should be added instead of adding them directory.
    * 
    * @return a figure on which child figures can be added.
    */
@@ -28,14 +27,13 @@ public abstract class OPPThingFigure extends Figure implements OPPNodeFigure, OP
   }
 
   /**
-   * Set the text of the figure's tooltip. If the text is null or empty, no
-   * tooltip will be shown.
+   * Set the text of the figure's tooltip. If the text is null or empty, no tooltip will be shown.
    * 
    * @param tooltipText
    *          the text to show as the figure's tooltip.
    */
   public void setTooltipText(String tooltipText) {
-    if(tooltipText != null && tooltipText != "") {
+    if (tooltipText != null && "".equals(tooltipText)) {
       tooltipFigure.setMessage(tooltipText);
       setToolTip(tooltipFigure);
     } else {
