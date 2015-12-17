@@ -8,13 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
-import com.vainolo.phd.opp.interpreter.OPPRuntimeException;
 
 public class OPPRemoveLastPartProcessInstanceTest {
 
   private String stringValue = "hello";
   private BigDecimal numericalValue = new BigDecimal(5);
-  private OPPObjectInstance compositeInstance1, compositeInstance2;
+  private OPPObjectInstance compositeInstance1;
   private OPPObjectInstance numericInstance;
   private OPPObjectInstance stringInstance;
   private OPPRemoveLastPartProcessInstance removeLastPartProcessInstance;
@@ -50,7 +49,6 @@ public class OPPRemoveLastPartProcessInstanceTest {
   @Before
   public void setup() {
     compositeInstance1 = OPPObjectInstance.createCompositeInstance();
-    compositeInstance2 = OPPObjectInstance.createCompositeInstance();
     numericInstance = OPPObjectInstance.createFromValue(numericalValue);
     stringInstance = OPPObjectInstance.createFromValue(stringValue);
 

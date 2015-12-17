@@ -61,7 +61,7 @@ public class OPPContainerXYLayoutPolicyTest {
     figureMock = mock(Figure.class);
     layoutManagerMock = mock(XYLayout.class);
 
-    policy = new OPPContainerXYLayoutPolicy(validator);
+    policy = new OPPContainerXYLayoutPolicy();
 
   }
 

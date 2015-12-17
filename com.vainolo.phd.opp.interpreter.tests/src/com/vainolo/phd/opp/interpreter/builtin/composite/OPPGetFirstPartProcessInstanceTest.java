@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
-import com.vainolo.phd.opp.interpreter.OPPRuntimeException;
 
 public class OPPGetFirstPartProcessInstanceTest {
 

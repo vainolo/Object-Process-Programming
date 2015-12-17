@@ -9,13 +9,9 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opp.model.OPPNode;
-import com.vainolo.phd.opp.model.OPPObject;
-import com.vainolo.phd.opp.model.OPPThing;
 import com.vainolo.phd.opp.editor.OPPGraphicalEditor;
 import com.vainolo.phd.opp.editor.factory.OPPConsResLinkFactory;
 import com.vainolo.phd.opp.editor.part.OPPNodeEditPart;
-import com.vainolo.phd.opp.editor.part.OPPObjectEditPart;
-import com.vainolo.phd.opp.editor.part.OPPThingEditPart;
 
 public class OPPCreateConsResLinkAction extends WorkbenchPartAction {
 

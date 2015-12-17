@@ -9,8 +9,6 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPState;
-import com.vainolo.phd.opp.model.OPPObject;
-import com.vainolo.phd.opp.model.OPPState;
 import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 import static com.google.common.base.Preconditions.*;

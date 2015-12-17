@@ -9,8 +9,6 @@ package com.vainolo.phd.opp.editor.figure;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.IFigure;
 
-import com.vainolo.phd.opp.model.OPPNode;
-
 /**
  * A figure for a {@link OPMNode} in the diagram.
  * 

@@ -9,7 +9,6 @@ import com.vainolo.phd.opp.editor.command.OPPLinkCreateBendpointCommand;
 import com.vainolo.phd.opp.editor.command.OPPLinkDeleteBendpointCommand;
 import com.vainolo.phd.opp.editor.command.OPPLinkMoveBendpointCommand;
 import com.vainolo.phd.opp.model.OPPLink;
-import com.vainolo.phd.opp.model.OPPProceduralLink;
 
 public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
 

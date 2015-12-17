@@ -21,7 +21,6 @@ import com.vainolo.phd.opp.editor.figure.OPPObjectProcessDiagramFigure;
 import com.vainolo.phd.opp.editor.policy.OPPContainerXYLayoutPolicy;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
-import com.vainolo.phd.opp.validation.OPPNodeValidator;
 
 public class OPPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
@@ -52,7 +51,7 @@ public class OPPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
   @Override
   protected void createEditPolicies() {
-    installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPPContainerXYLayoutPolicy(new OPPNodeValidator()));
+    installEditPolicy(EditPolicy.LAYOUT_ROLE, new OPPContainerXYLayoutPolicy());
     installEditPolicy("Snap Feedback", new SnapFeedbackPolicy());
   }
 
@@ -65,7 +64,7 @@ public class OPPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
   @Override
   public void activate() {
-    if(!isActive()) {
+    if (!isActive()) {
       ((OPPObjectProcessDiagram) getModel()).eAdapters().add(adapter);
     }
     super.activate();
@@ -73,27 +72,27 @@ public class OPPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
 
   @Override
   public void deactivate() {
-    if(isActive()) {
+    if (isActive()) {
       ((OPPObjectProcessDiagram) getModel()).eAdapters().remove(adapter);
     }
     super.deactivate();
   }
 
   /**
-   * Currently the class only adapts to create a {@link SnapToHelper} when the
-   * editor is in snapping mode (either to grid or to shapes).
+   * Currently the class only adapts to create a {@link SnapToHelper} when the editor is in snapping mode (either to
+   * grid or to shapes).
    */
   @Override
   public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
-    if(key == SnapToHelper.class) {
+    if (key == SnapToHelper.class) {
       List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
-      if(Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED))) {
+      if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED))) {
         helpers.add(new SnapToGeometry(this));
       }
-      if(Boolean.TRUE.equals(getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED))) {
+      if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED))) {
         helpers.add(new SnapToGrid(this));
       }
-      if(helpers.size() == 0) {
+      if (helpers.size() == 0) {
         return null;
       } else {
         return new CompoundSnapToHelper(helpers.toArray(new SnapToHelper[0]));

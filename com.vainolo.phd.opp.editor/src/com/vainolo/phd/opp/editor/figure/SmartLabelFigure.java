@@ -13,8 +13,6 @@ import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.ParagraphTextLayout;
 import org.eclipse.draw2d.text.TextFlow;
 
-import com.google.common.base.Preconditions;
-
 /**
  * A figure with a {@link TextFlow} that "smartly" calculates its preferred size, using a provided width to height
  * ratio.

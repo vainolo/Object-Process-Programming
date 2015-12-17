@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.draw2d.*;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.EditPolicy;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.RequestConstants;
@@ -28,8 +27,8 @@ import com.vainolo.phd.opp.editor.policy.OPPProceduralLinkEditPolicy;
 import com.vainolo.phd.opp.validation.OPPProceduralLinkValidator;
 
 /**
- * An extension of a {@link OPPLinkEditPart} used for {@link OPMProceduralLink}
- * instances. It add endpoint decorations to the regular link figure.
+ * An extension of a {@link OPPLinkEditPart} used for {@link OPMProceduralLink} instances. It add endpoint decorations
+ * to the regular link figure.
  * 
  * @author vainolo
  * 
@@ -43,14 +42,11 @@ public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
   }
 
   /**
-   * Extend the connection created by {@link OPPLinkEditPart#createFigure()} by
-   * adding decorations depending on the link kind. An agent link is decorated
-   * at the target with black filled {@link OPPCircleDecoration}. An instrument
-   * link is decorated at the target with a white filled
-   * {@link OPPCircleDecoration}. A consumption or result link is decorated at
-   * the target with a {@link PolylineDecoration} (which is an arrow). An effect
-   * link link is decorated at the source and target with a
-   * {@link PolylineDecoration}.
+   * Extend the connection created by {@link OPPLinkEditPart#createFigure()} by adding decorations depending on the link
+   * kind. An agent link is decorated at the target with black filled {@link OPPCircleDecoration}. An instrument link is
+   * decorated at the target with a white filled {@link OPPCircleDecoration}. A consumption or result link is decorated
+   * at the target with a {@link PolylineDecoration} (which is an arrow). An effect link link is decorated at the source
+   * and target with a {@link PolylineDecoration}.
    * 
    * @return a decorated {@link PolylineConnection} figure.
    */
@@ -76,7 +72,7 @@ public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
     super.refreshVisuals();
     OPPProceduralLink model = (OPPProceduralLink) getModel();
     getFigure().getCenterDecorationLabel().setText(model.getCenterDecoration());
-    if(model.getSubKinds().size() != 0) {
+    if (model.getSubKinds().size() != 0) {
       String subKindLabel = model.getSubKinds().toString();
       subKindLabel = subKindLabel.substring(1, subKindLabel.length() - 1);
       subKindLabel = subKindLabel.replace(" ", "");
@@ -88,7 +84,7 @@ public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
     Connection connection = getConnectionFigure();
     List<OPPPoint> modelConstraint = getModel().getBendpoints();
     List<AbsoluteBendpoint> figureConstraint = new ArrayList<AbsoluteBendpoint>();
-    for(OPPPoint p : modelConstraint) {
+    for (OPPPoint p : modelConstraint) {
       figureConstraint.add(new AbsoluteBendpoint(p.getX(), p.getY()));
     }
     connection.setRoutingConstraint(figureConstraint);
@@ -101,13 +97,12 @@ public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
     installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OPPProceduralLinkBendpointEditPolicy());
     installEditPolicy(EditPolicy.CONNECTION_ROLE, new OPPDeleteLinkEditPolicy());
     installEditPolicy(EditPolicy.DIRECT_EDIT_ROLE, new OPPNamedEntityDirectEditPolicy());
-    installEditPolicy(OPPProceduralLinkEditPolicy.PROCEDURAL_LINK_EDIT_ROLE, new OPPProceduralLinkEditPolicy(
-        new OPPProceduralLinkValidator()));
+    installEditPolicy(OPPProceduralLinkEditPolicy.PROCEDURAL_LINK_EDIT_ROLE, new OPPProceduralLinkEditPolicy(new OPPProceduralLinkValidator()));
   }
 
   @Override
   public void performRequest(final Request req) {
-    if(req.getType() == RequestConstants.REQ_OPEN)
+    if (req.getType() == RequestConstants.REQ_OPEN)
       OPPDirectEditDelegate.performDirectEditing(this, ((OPPNamedElementFigure) getFigure()).getNameFigure());
   }
 

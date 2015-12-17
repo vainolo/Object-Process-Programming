@@ -20,7 +20,6 @@ import com.vainolo.phd.opp.editor.command.OPPNodeCreateCommand;
 import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opp.model.OPPContainer;
 import com.vainolo.phd.opp.model.OPPNode;
-import com.vainolo.phd.opp.validation.OPPNodeValidator;
 
 /**
  * This class describes the commands that can be used to change the layout and create new nodes inside the
@@ -33,11 +32,6 @@ import com.vainolo.phd.opp.validation.OPPNodeValidator;
 public class OPPContainerXYLayoutPolicy extends XYLayoutEditPolicy {
 
   private static final Dimension DEFAULT_THING_DIMENSION = new Dimension(50, 50);
-  private OPPNodeValidator validator;
-
-  public OPPContainerXYLayoutPolicy(OPPNodeValidator validator) {
-    this.validator = validator;
-  }
 
   /**
    * Command created to change the constraints of a {@link OPPNode} instance.

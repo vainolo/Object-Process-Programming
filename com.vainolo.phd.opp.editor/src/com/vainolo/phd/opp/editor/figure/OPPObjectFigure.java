@@ -7,7 +7,6 @@ package com.vainolo.phd.opp.editor.figure;
 
 import static java.lang.Math.max;
 
-import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.draw2d.*;

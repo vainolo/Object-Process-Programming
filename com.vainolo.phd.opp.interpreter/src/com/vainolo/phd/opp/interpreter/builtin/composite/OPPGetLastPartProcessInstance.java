@@ -6,7 +6,6 @@ import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
 
 public class OPPGetLastPartProcessInstance extends OPPAbstractProcessInstance {
 

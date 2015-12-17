@@ -14,7 +14,7 @@ public class OPPRemovePartProcessInstanceTest {
 
   private String stringValue = "hello";
   private BigDecimal numericalValue = new BigDecimal(5);
-  private OPPObjectInstance compositeInstance1, compositeInstance2;
+  private OPPObjectInstance compositeInstance1;
   private OPPObjectInstance numericInstance;
   private OPPObjectInstance stringInstance;
   private OPPRemovePartProcessInstance removePartProcessInstance;
@@ -42,7 +42,6 @@ public class OPPRemovePartProcessInstanceTest {
   @Before
   public void setup() {
     compositeInstance1 = OPPObjectInstance.createCompositeInstance();
-    compositeInstance2 = OPPObjectInstance.createCompositeInstance();
     numericInstance = OPPObjectInstance.createFromValue(numericalValue);
     stringInstance = OPPObjectInstance.createFromValue(stringValue);
 

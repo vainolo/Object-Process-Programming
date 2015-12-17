@@ -6,7 +6,6 @@
 
 package com.vainolo.phd.opp.editor.factory;
 
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.requests.CreationFactory;
 
 import com.vainolo.phd.opp.model.OPPFactory;

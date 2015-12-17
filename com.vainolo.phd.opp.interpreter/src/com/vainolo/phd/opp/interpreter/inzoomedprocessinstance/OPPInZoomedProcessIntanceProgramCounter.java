@@ -5,18 +5,13 @@ import static com.google.common.base.Preconditions.*;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Ordering;
-import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.utilities.analysis.OPPContainerExtensions;
 import com.vainolo.phd.opp.utilities.analysis.OPPOPDExtensions;
-import com.vainolo.phd.opp.utilities.analysis.OPPProcessExtensions;
 
 public class OPPInZoomedProcessIntanceProgramCounter {
   private int pc = 0;
@@ -31,7 +26,6 @@ public class OPPInZoomedProcessIntanceProgramCounter {
 
   private void initialize() {
     OPPOPDExtensions opdExt = new OPPOPDExtensions();
-    OPPProcessExtensions procExt = new OPPProcessExtensions();
     OPPContainerExtensions contExt = new OPPContainerExtensions();
 
     OPPProcess inZoomedProcess = opdExt.getInZoomedProcess(opd);

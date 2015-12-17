@@ -6,7 +6,6 @@
 package com.vainolo.phd.opp.interpreter.builtin;
 
 import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.util.List;
 
 import javax.swing.JOptionPane;

@@ -1,7 +1,6 @@
 package com.vainolo.phd.opp.editor.figure;
 
 import org.eclipse.draw2d.BendpointConnectionRouter;
-import org.eclipse.draw2d.ManhattanConnectionRouter;
 import org.eclipse.draw2d.PolylineConnection;
 
 public class OPPStructuralLinkFigure extends PolylineConnection {

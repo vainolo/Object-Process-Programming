@@ -15,14 +15,12 @@ import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregatorKind;
 
 /**
- * Draws the figure for a {@link OPMStructuralLinkAggregator}. This figure
- * consists of one or two {@link OPPIsoscelesTriangle}, filled or not filled,
- * depending on the type of aggregator that is drawn (a parameter to the
- * figure).
+ * Draws the figure for a {@link OPMStructuralLinkAggregator}. This figure consists of one or two
+ * {@link OPPIsoscelesTriangle}, filled or not filled, depending on the type of aggregator that is drawn (a parameter to
+ * the figure).
  * 
  * @author vainolo
  * 
@@ -50,7 +48,7 @@ public class OPPStructuralLinkAggregatorFigure extends Figure implements OPPNode
     setLayoutManager(new XYLayout());
     triangle = new OPPIsoscelesTriangle();
     triangle.setBackgroundColor(ColorConstants.black);
-    switch(kind) {
+    switch (kind) {
     case AGGREGATION:
       triangle.setFill(true);
       break;
@@ -71,13 +69,12 @@ public class OPPStructuralLinkAggregatorFigure extends Figure implements OPPNode
   }
 
   /**
-   * Create a {@link ConnectionAnchor} that is located at the center-top of the
-   * figure.
+   * Create a {@link ConnectionAnchor} that is located at the center-top of the figure.
    * 
    * @return a {@link ConnectionAnchor} at the center-top of the figure.
    */
   private ConnectionAnchor getTopAnchor() {
-    if(topAnchor == null) {
+    if (topAnchor == null) {
       topAnchor = new AbstractConnectionAnchor(this) {
         @Override
         public Point getLocation(Point reference) {
@@ -95,13 +92,12 @@ public class OPPStructuralLinkAggregatorFigure extends Figure implements OPPNode
   }
 
   /**
-   * Create a {@link ConnectionAnchor} that is located at the center-bottom of
-   * the figure.
+   * Create a {@link ConnectionAnchor} that is located at the center-bottom of the figure.
    * 
    * @return a {@link ConnectionAnchor} at the center-bottom of the figure.
    */
   private ConnectionAnchor getBottomAnchor() {
-    if(bottomAnchor == null) {
+    if (bottomAnchor == null) {
       bottomAnchor = new AbstractConnectionAnchor(this) {
         @Override
         public Point getLocation(Point reference) {

@@ -18,11 +18,8 @@ import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 public class OPPObjectExtensionsTest {
   
   private OPPObject object;
-  private OPPProceduralLink link1;
+  private OPPProceduralLink link1, link2;
   private OPPObjectExtensions ext;
-  private OPPProceduralLink link2;
-  private OPPProceduralLink link3;
-  private OPPProceduralLink link4;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
@@ -51,16 +48,6 @@ public class OPPObjectExtensionsTest {
     
     link2 = createOPPProceduralLink(object, null, OPPProceduralLinkKind.CONS_RES, null);
     result = ext.findOutgoingDataLinks(object);
-    assertEquals(2, result.size());
-    assertTrue(result.contains(link1));
-    assertTrue(result.contains(link2));
-    
-    link3 = createOPPProceduralLink(object, null, OPPProceduralLinkKind.AGENT, null);
-    assertEquals(2, result.size());
-    assertTrue(result.contains(link1));
-    assertTrue(result.contains(link2));
-    
-    link4 = createOPPProceduralLink(null, object, OPPProceduralLinkKind.AGENT, null);
     assertEquals(2, result.size());
     assertTrue(result.contains(link1));
     assertTrue(result.contains(link2));

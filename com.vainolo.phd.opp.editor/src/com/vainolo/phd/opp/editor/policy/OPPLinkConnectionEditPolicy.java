@@ -18,7 +18,6 @@ import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.google.common.base.Preconditions;
 import com.vainolo.phd.opp.editor.command.OPPCreateLinkCommand;
-import com.vainolo.phd.opp.editor.command.OPPLinkCreateBendpointCommand;
 import com.vainolo.phd.opp.editor.command.OPPLinkReconnectCommand;
 import com.vainolo.phd.opp.editor.command.OPPNodeCreateCommand;
 import com.vainolo.phd.opp.editor.factory.OPPIdManager;
@@ -182,17 +181,6 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
     command.setTarget(target);
     command.setOPD(opd);
     OPPStructuralLinkPart link = linkFactory.getNewObject();
-    command.setLink(link);
-    return command;
-  }
-
-  private OPPLinkCreateBendpointCommand createInitialStructuralLinkBendpointComman(OPPNode aggregator, OPPNode target, OPPLink link) {
-    OPPLinkCreateBendpointCommand command = new OPPLinkCreateBendpointCommand();
-    Point p = new Point();
-    p.setX(aggregator.getX() + aggregator.getWidth() / 2);
-    p.setY(target.getY() + target.getHeight() / 2);
-    command.setLocation(p);
-    command.setIndex(0);
     command.setLink(link);
     return command;
   }

@@ -12,16 +12,10 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.EditPart;
 import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.Request;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.part.WorkbenchPart;
 
-import com.vainolo.phd.opp.editor.OPPGraphicalEditor;
-import com.vainolo.phd.opp.editor.action.OPPResizeToContentsAction;
 import com.vainolo.phd.opp.editor.figure.OPPFigureConstants;
 import com.vainolo.phd.opp.editor.figure.OPPProcessFigure;
 import com.vainolo.phd.opp.editor.figure.OPPThingFigure;

@@ -6,9 +6,6 @@
 package com.vainolo.phd.opp.interpreter.builtin;
 
 import java.math.BigDecimal;
-import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;

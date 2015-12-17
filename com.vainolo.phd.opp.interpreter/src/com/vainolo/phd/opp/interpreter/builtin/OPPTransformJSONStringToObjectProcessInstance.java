@@ -7,13 +7,10 @@ package com.vainolo.phd.opp.interpreter.builtin;
 
 import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
-import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.List;
 
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonObject.Member;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;

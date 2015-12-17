@@ -11,11 +11,8 @@ import org.eclipse.gef.ui.actions.ActionRegistry;
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.widgets.Display;
 
 import com.vainolo.phd.opp.editor.action.*;
-import com.vainolo.phd.opp.editor.factory.OPPIdManager;
 
 public class OPPGraphicalEditorContextMenuProvider extends ContextMenuProvider {
 

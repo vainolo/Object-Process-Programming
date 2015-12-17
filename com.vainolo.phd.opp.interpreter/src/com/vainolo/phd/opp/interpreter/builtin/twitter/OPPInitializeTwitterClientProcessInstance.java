@@ -5,18 +5,14 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.interpreter.builtin.twitter;
 
-import static com.vainolo.phd.opp.utilities.OPPLogger.*;
-
 import java.util.List;
 
-import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
-import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 
 public class OPPInitializeTwitterClientProcessInstance extends OPPAbstractProcessInstance {
 

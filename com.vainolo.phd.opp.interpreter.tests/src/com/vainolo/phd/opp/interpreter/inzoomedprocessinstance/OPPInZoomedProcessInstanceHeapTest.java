@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap.OPMHeapChange;
@@ -22,7 +21,6 @@ import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregatorKind;
 import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
-import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
 
 public class OPPInZoomedProcessInstanceHeapTest {
 

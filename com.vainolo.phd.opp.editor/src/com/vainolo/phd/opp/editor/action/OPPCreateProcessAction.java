@@ -7,7 +7,6 @@ import org.eclipse.gef.ui.actions.WorkbenchPartAction;
 import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opp.editor.OPPGraphicalEditor;
-import com.vainolo.phd.opp.editor.factory.OPPIdManager;
 import com.vainolo.phd.opp.editor.factory.OPPProcessFactory;
 import com.vainolo.phd.opp.editor.tool.OPPCreationAndDirectEditTool;
 

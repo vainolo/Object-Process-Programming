@@ -3,7 +3,6 @@ package com.vainolo.phd.opp.interpreter.server;
 import java.util.function.Consumer;
 
 import io.vertx.core.AbstractVerticle;
-import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.ext.web.Router;
@@ -19,7 +18,7 @@ public class OPPServer extends AbstractVerticle {
     Consumer<Vertx> runner = vertx -> {
       try {
         vertx.deployVerticle(OPPServer.class.getName());
-      } catch(Throwable t) {
+      } catch (Throwable t) {
         t.printStackTrace();
       }
     };
