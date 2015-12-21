@@ -20,28 +20,28 @@ import com.vainolo.phd.opp.model.OPPProcess;
 public class OPPProcessExtensions {
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPPProceduralLink> findIncomingDataLinks(OPPProcess process) {
+  public static Collection<OPPProceduralLink> findIncomingDataLinks(OPPProcess process) {
     return (Collection) Collections2.filter(process.getIncomingLinks(), new IsIncomingDataLink());
   }
 
-  public Collection<OPPProceduralLink> findIncomingProceduralLinks(OPPProcess process) {
+  public static Collection<OPPProceduralLink> findIncomingProceduralLinks(OPPProcess process) {
     Set<OPPProceduralLink> dataLinks = Sets.newHashSet(findIncomingDataLinks(process));
     Set<OPPProceduralLink> driverLinks = Sets.newHashSet(findIncomingAgentLinks(process));
     return Sets.union(dataLinks, driverLinks);
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPPProceduralLink> findIncomingAgentLinks(OPPProcess process) {
+  public static Collection<OPPProceduralLink> findIncomingAgentLinks(OPPProcess process) {
     return (Collection) Collections2.filter(process.getIncomingLinks(), IsAgentLink.INSTANCE);
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPPProceduralLink> findOutgoingDataLinks(OPPProcess process) {
+  public static Collection<OPPProceduralLink> findOutgoingDataLinks(OPPProcess process) {
     return ((Collection) Collections2.filter(process.getOutgoingLinks(), IsOutgoingDataLink.INSTANCE));
   }
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public Collection<OPPProceduralLink> findOutgoingAgentLinks(OPPProcess process) {
+  public static Collection<OPPProceduralLink> findOutgoingAgentLinks(OPPProcess process) {
     return (Collection) Collections2.filter(process.getOutgoingLinks(), IsAgentLink.INSTANCE);
   }
 

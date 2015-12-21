@@ -7,7 +7,6 @@
 package com.vainolo.phd.opp.interpreter.inzoomedprocessinstance;
 
 import static com.vainolo.phd.opp.utilities.OPPLogger.*;
-
 import static com.vainolo.phd.opp.utilities.OPPStrings.*;
 
 import java.util.Collection;
@@ -26,7 +25,10 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.utilities.OPPConstants;
-import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPLinkExtensions;
+import com.vainolo.phd.opp.utilities.analysis.OPPOPDExtensions;
+import com.vainolo.phd.opp.utilities.analysis.OPPObjectExtensions;
+import com.vainolo.phd.opp.utilities.analysis.OPPProcessExtensions;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPInterpreter;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
@@ -44,7 +46,6 @@ import com.vainolo.phd.opp.model.OPPState;
 public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   private final OPPObjectProcessDiagram opd;
-  private OPPAnalyzer analyzer;
   private OPPInZoomedProcessInstanceHeap heap;
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
   private OPPInZoomedProcessArgumentHandler argumentHandler;
@@ -69,10 +70,9 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
    */
   public OPPInZoomedProcessExecutableInstance(OPPObjectProcessDiagram opd) {
     this.opd = opd;
-    this.analyzer = new OPPAnalyzer();
     this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
     this.heap = new OPPInZoomedProcessInstanceHeap();
-    this.argumentHandler = new OPPInZoomedProcessArgumentHandler(analyzer, heap);
+    this.argumentHandler = new OPPInZoomedProcessArgumentHandler(heap);
     this.heapObserver = new OPMHeapObserver();
     this.heap.addObserver(heapObserver);
     this.isReadyPred = new IsProcessReady();
@@ -133,7 +133,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
     ExecutionMode executionMode = ExecutionMode.NATURAL_ORDER;
 
-    getHeap().initializeVariablesWithLiterals(analyzer.getInZoomedProcess(getOpd()));
+    getHeap().initializeVariablesWithLiterals(OPPOPDExtensions.getInZoomedProcess(getOpd()));
     pc = new OPPInZoomedProcessIntanceProgramCounter(getOpd());
 
     pc.setPC(pc.getNextPC());
@@ -197,10 +197,10 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   }
 
   private boolean shouldReturn() {
-    OPPProcess mainProcess = analyzer.getInZoomedProcess(getOpd());
+    OPPProcess mainProcess = OPPOPDExtensions.getInZoomedProcess(getOpd());
     for (OPPObject changedObject : heapObserver.getObjectsWithNewValue()) {
       if (heap.getVariable(changedObject) != null) {
-        Collection<OPPProceduralLink> outgoingAgentLinks = analyzer.findOutgoingAgentLinks(changedObject);
+        Collection<OPPProceduralLink> outgoingAgentLinks = OPPObjectExtensions.findOutgoingAgentLinks(changedObject);
         for (OPPProceduralLink link : outgoingAgentLinks) {
           if (link.getTarget().equals(mainProcess)) {
             if (link.getSource() instanceof OPPObject) {
@@ -224,7 +224,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       if (heap.getVariable(changedObject) != null)
         invokedProcesses.addAll(findProcessesToInvokeAfterObjectHasChanged(changedObject));
     }
-    for (OPPProceduralLink outgoingAgentLink : analyzer.findOutgoingAgentLinks(executedProcess)) {
+    for (OPPProceduralLink outgoingAgentLink : OPPProcessExtensions.findOutgoingAgentLinks(executedProcess)) {
       if (outgoingAgentLink.getCenterDecoration().contains("e")) {
         invokedProcesses.add((OPPProcess) outgoingAgentLink.getTarget());
       }
@@ -240,10 +240,10 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     OPPObjectInstance value = getHeap().getVariable(object);
     if (value == null)
       return ret;
-    Collection<OPPProceduralLink> outgoingEventLinks = analyzer.findOutgoingEventLinks(object);
+    Collection<OPPProceduralLink> outgoingEventLinks = OPPObjectExtensions.findOutgoingEventLinks(object);
     for (OPPProceduralLink eventLink : outgoingEventLinks) {
       if (objectValueTriggersEvent(eventLink, value)) {
-        ret.add(analyzer.getProcess(eventLink));
+        ret.add(OPPLinkExtensions.getProcess(eventLink));
       }
     }
     return ret;
@@ -272,13 +272,13 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return analyzer.findIncomingParameters(getOpd()).stream().map(o -> new OPPParameter(o.getName())).collect(Collectors.toList());
+    return OPPOPDExtensions.findIncomingParameters(getOpd()).stream().map(o -> new OPPParameter(o.getName())).collect(Collectors.toList());
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
     List<OPPParameter> outgoingParameters = Lists.newArrayList();
-    Collection<OPPObject> parameters = analyzer.findOutgoingParameters(getOpd());
+    Collection<OPPObject> parameters = OPPOPDExtensions.findOutgoingParameters(getOpd());
     for (OPPObject object : parameters) {
       outgoingParameters.add(new OPPParameter(object.getName()));
     }
@@ -306,9 +306,9 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   class IsReadyPredicate extends ExecutablePredicateCommons implements Predicate<OPPProcess> {
     @Override
     public boolean test(OPPProcess process) {
-      for (OPPProceduralLink link : analyzer.findIncomingDataLinks(process)) {
+      for (OPPProceduralLink link : OPPProcessExtensions.findIncomingDataLinks(process)) {
         if (!isLinkSourceReady(link)) {
-          logFine(PROCESS_NOT_READY, process.getName(), analyzer.getSourceObject(link).getName());
+          logFine(PROCESS_NOT_READY, process.getName(), OPPLinkExtensions.getSourceObject(link).getName());
           return false;
         }
       }
@@ -319,7 +319,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   class MustSkipPredicate extends ExecutablePredicateCommons implements Predicate<OPPProcess> {
     @Override
     public boolean test(OPPProcess process) {
-      for (OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
+      for (OPPProceduralLink link : OPPProcessExtensions.findIncomingProceduralLinks(process)) {
         if (link.getSubKinds().contains(OPPConstants.OPP_CONDITIONAL_LINK_SUBKIND) && !isLinkSourceReady(link)) {
           return true;
         }
@@ -334,9 +334,9 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   class IsProcessReady extends ExecutablePredicateCommons implements com.google.common.base.Predicate<OPPProcess> {
     @Override
     public boolean apply(OPPProcess process) {
-      for (OPPProceduralLink link : analyzer.findIncomingDataLinks(process)) {
+      for (OPPProceduralLink link : OPPProcessExtensions.findIncomingDataLinks(process)) {
         if (!isLinkSourceReady(link)) {
-          logFine(PROCESS_NOT_READY, process.getName(), analyzer.getSourceObject(link).getName());
+          logFine(PROCESS_NOT_READY, process.getName(), OPPLinkExtensions.getSourceObject(link).getName());
           return false;
         }
       }
@@ -347,7 +347,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
   class mustSkipProcess extends ExecutablePredicateCommons implements com.google.common.base.Predicate<OPPProcess> {
     @Override
     public boolean apply(OPPProcess process) {
-      for (OPPProceduralLink link : analyzer.findIncomingProceduralLinks(process)) {
+      for (OPPProceduralLink link : OPPProcessExtensions.findIncomingProceduralLinks(process)) {
         if (link.getSubKinds().contains(OPPConstants.OPP_CONDITIONAL_LINK_SUBKIND) && !isLinkSourceReady(link)) {
           return true;
         }
@@ -367,7 +367,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     }
 
     public boolean isObjectInState(OPPState state) {
-      OPPObject sourceObject = analyzer.getObject(state);
+      OPPObject sourceObject = (OPPObject) state.getContainer();
       OPPObjectInstance variable = getHeap().getVariable(sourceObject);
       if (!valueAnalyzer.isObjectInstanceInState(variable, state)) {
         return false;
@@ -378,10 +378,10 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     }
 
     public boolean isLinkSourceReady(OPPProceduralLink link) {
-      if (analyzer.isSourceObject(link)) {
-        return isObjectReady(analyzer.getSourceObject(link));
-      } else if (analyzer.isSourceState(link)) {
-        return isObjectInState(analyzer.getSourceState(link));
+      if (link.getSource() instanceof OPPObject) {
+        return isObjectReady(OPPLinkExtensions.getSourceObject(link));
+      } else if (link.getSource() instanceof OPPState) {
+        return isObjectInState((OPPState) link.getSource());
       } else {
         return true;
       }

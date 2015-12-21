@@ -17,17 +17,17 @@ import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
 
 public class OPPNodeExtensions {
 
-  public Collection<OPPLink> getIncomingStructuralLinks(OPPNode node) {
+  public static Collection<OPPLink> getIncomingStructuralLinks(OPPNode node) {
     return node.getIncomingLinks().stream().filter(l -> l instanceof OPPStructuralLinkPart).collect(Collectors.toList());
     // return Collections2.filter(node.getIncomingLinks(), IsOPPStructuralLink.INSTANCE);
   }
 
-  public Collection<OPPLink> findOutgoingStructuralLinks(OPPNode node) {
+  public static Collection<OPPLink> getOutgoingStructuralLinks(OPPNode node) {
     return node.getOutgoingLinks().stream().filter(l -> l instanceof OPPStructuralLinkPart).collect(Collectors.toList());
     // return Collections2.filter(node.getOutgoingLinks(), IsOPPStructuralLink.INSTANCE);
   }
 
-  public OPPObjectProcessDiagram findOPD(OPPNode node) {
+  public static OPPObjectProcessDiagram findOPD(OPPNode node) {
     OPPContainer currentContainer = node.getContainer();
     while (currentContainer != null && !(currentContainer instanceof OPPObjectProcessDiagram)) {
       currentContainer = ((OPPNode) currentContainer).getContainer();

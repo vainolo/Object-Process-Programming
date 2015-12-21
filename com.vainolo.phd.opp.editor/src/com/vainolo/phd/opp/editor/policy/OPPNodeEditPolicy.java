@@ -23,7 +23,7 @@ import com.vainolo.phd.opp.model.OPPContainer;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;
-import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPNodeExtensions;
 
 /**
  * {@link EditPolicy} used for delete requests.
@@ -32,12 +32,8 @@ import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
  */
 public class OPPNodeEditPolicy extends ComponentEditPolicy {
 
-  private OPPAnalyzer analyzer;
-
-  public OPPNodeEditPolicy(OPPAnalyzer analyzer) {
+  public OPPNodeEditPolicy() {
     super();
-    this.analyzer = analyzer;
-
   }
 
   /**
@@ -91,7 +87,7 @@ public class OPPNodeEditPolicy extends ComponentEditPolicy {
 
     // For every outgoing structural link, create a command to delete the
     // aggregator node at the end of the link.
-    for (OPPLink outgoingStructuralLink : analyzer.findOutgoingStructuralLinks(nodeToDelete)) {
+    for (OPPLink outgoingStructuralLink : OPPNodeExtensions.getOutgoingStructuralLinks(nodeToDelete)) {
       OPPNode aggregatorNode = outgoingStructuralLink.getTarget();
       OPPDeleteNodeCommand aggregatorNodeDeleteCommand = new OPPDeleteNodeCommand();
       aggregatorNodeDeleteCommand.setNode(aggregatorNode);
@@ -101,7 +97,7 @@ public class OPPNodeEditPolicy extends ComponentEditPolicy {
     // For every incoming structural link whose aggregator has only one outgoing
     // link, create a command to delete the
     // aggregator.
-    for (OPPLink incomingStructuralLink : analyzer.findIncomingStructuralLinks(nodeToDelete)) {
+    for (OPPLink incomingStructuralLink : OPPNodeExtensions.getIncomingStructuralLinks(nodeToDelete)) {
       OPPNode aggregatorNode = incomingStructuralLink.getSource();
       if (aggregatorNode.getOutgoingLinks().size() == 1) {
         OPPDeleteNodeCommand aggregatorNodeDeleteCommand = new OPPDeleteNodeCommand();

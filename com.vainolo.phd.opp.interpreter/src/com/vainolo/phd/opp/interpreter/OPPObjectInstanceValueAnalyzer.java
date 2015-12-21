@@ -15,7 +15,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPState;
-import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPObjectExtensions;
 
 import static com.google.common.base.Preconditions.*;
 
@@ -117,7 +117,7 @@ public class OPPObjectInstanceValueAnalyzer {
    * @param analyzer
    * @return the value of the {@link OPPObjectInstance}
    */
-  public OPPObjectInstance calculateOPMObjectValue(OPPObject object, OPPAnalyzer analyzer) {
+  public OPPObjectInstance calculateOPMObjectValue(OPPObject object) {
     OPPObjectInstance objectInstance = null;
 
     String objectName = object.getName();
@@ -133,7 +133,7 @@ public class OPPObjectInstanceValueAnalyzer {
         }
       }
     } else {
-      Collection<OPPState> states = analyzer.findStates(object);
+      Collection<OPPState> states = OPPObjectExtensions.getStates(object);
       for (OPPState state : states) {
         if (state.isValue()) {
           objectInstance = OPPObjectInstance.createFromValue(state.getName());

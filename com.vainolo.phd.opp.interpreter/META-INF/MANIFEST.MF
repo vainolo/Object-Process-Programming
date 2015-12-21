@@ -19,5 +19,4 @@ Bundle-ClassPath: .,
  lib/vertx/netty-handler-4.0.28.Final.jar,
  lib/vertx/netty-transport-4.0.28.Final.jar
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Export-Package: com.vainolo.phd.opp.interpreter,
- com.vainolo.phd.opp.interpreter.utils
+Export-Package: com.vainolo.phd.opp.interpreter

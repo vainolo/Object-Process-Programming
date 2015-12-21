@@ -31,10 +31,9 @@ public class OPPInZoomedProcessIntanceProgramCounter {
   }
 
   private void initialize() {
-    OPPOPDExtensions opdExt = new OPPOPDExtensions();
     OPPContainerExtensions contExt = new OPPContainerExtensions();
 
-    OPPProcess inZoomedProcess = opdExt.getInZoomedProcess(opd);
+    OPPProcess inZoomedProcess = OPPOPDExtensions.getInZoomedProcess(opd);
     OPPProcessOrdering ordering = new OPPProcessOrdering();
     sortedProcesses = ordering.sortedCopy(contExt.getProcesses(inZoomedProcess));
   }

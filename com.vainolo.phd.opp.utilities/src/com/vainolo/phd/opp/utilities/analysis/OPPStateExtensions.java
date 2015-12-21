@@ -16,27 +16,25 @@ import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPState;
 
 public class OPPStateExtensions {
-  private Predicate<OPPLink> isAgentLink = new IsAgentLink();
-  private Predicate<OPPLink> isDataLink = new IsDataLink();
+  private static Predicate<OPPLink> isAgentLink = new IsAgentLink();
+  private static Predicate<OPPLink> isDataLink = new IsDataLink();
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPPProceduralLink> findOutgoingProceduralLinks(OPPState state) {
+  public static Collection<OPPProceduralLink> findOutgoingProceduralLinks(OPPState state) {
     return (Collection) state.getOutgoingLinks().stream().filter(l -> l instanceof OPPProceduralLink).collect(Collectors.toList());
   }
 
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public Collection<OPPProceduralLink> findOutgoingDataLinks(OPPState state) {
+  public static Collection<OPPProceduralLink> findOutgoingDataLinks(OPPState state) {
     return (Collection) state.getOutgoingLinks().stream().filter(isDataLink).collect(Collectors.toList());
-    // return ((Collection) Collections2.filter(state.getOutgoingLinks(), new IsDataLink()));
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPPProceduralLink> findOutgoingAgentLinks(OPPState state) {
+  public static Collection<OPPProceduralLink> findOutgoingAgentLinks(OPPState state) {
     return (Collection) state.getOutgoingLinks().stream().filter(isAgentLink).collect(Collectors.toList());
-    // return (Collection) Collections2.filter(state.getOutgoingLinks(), IsAgentLink.INSTANCE);
   }
 
-  public class IsAgentLink implements Predicate<OPPLink> {
+  private static class IsAgentLink implements Predicate<OPPLink> {
     @Override
     public boolean test(OPPLink input) {
       if (OPPProceduralLink.class.isInstance(input)) {
@@ -48,7 +46,7 @@ public class OPPStateExtensions {
     }
   }
 
-  public class IsDataLink implements Predicate<OPPLink> {
+  private static class IsDataLink implements Predicate<OPPLink> {
     @Override
     public boolean test(final OPPLink link) {
       if (!OPPProceduralLink.class.isInstance(link))

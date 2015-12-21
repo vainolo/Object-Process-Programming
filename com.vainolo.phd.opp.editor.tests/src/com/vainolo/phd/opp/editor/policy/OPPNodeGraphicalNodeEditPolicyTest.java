@@ -19,7 +19,7 @@ import com.vainolo.phd.opp.editor.policy.OPPLinkConnectionEditPolicy;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
-import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPNodeExtensions;
 import com.vainolo.phd.opp.validation.OPPLinkValidator;
 
 import static org.mockito.Mockito.*;
@@ -34,12 +34,11 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
   private OPPNodeEditPart nodeEditPartMock;
   private OPPNode nodeMock;
   private OPPLink linkMock;
-  private OPPAnalyzer opdAnalyzerMock;
   private OPPObjectProcessDiagram opdMock;
 
   @Test
   public void testGetConnectionCreateCommand_StartingAtStructuralLinkAggregator_ReturnNull() {
-    policy = new OPPLinkConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPPIdManager());
+    policy = new OPPLinkConnectionEditPolicy(validatorMock, new OPPIdManager());
     policy.setHost(nodeEditPartMock);
 
     command = policy.getConnectionCreateCommand(requestMock);
@@ -49,7 +48,7 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_InvalidSource_ReturnNull() {
-    policy = new OPPLinkConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPPIdManager());
+    policy = new OPPLinkConnectionEditPolicy(validatorMock, new OPPIdManager());
     policy.setHost(nodeEditPartMock);
     when(nodeEditPartMock.getModel()).thenReturn(nodeMock);
     when(requestMock.getNewObject()).thenReturn(linkMock);
@@ -62,17 +61,17 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
 
   @Test
   public void testGetConnectionCreateCommand_ValidSource_ValidCommand() {
-    policy = new OPPLinkConnectionEditPolicy(validatorMock, opdAnalyzerMock, new OPPIdManager());
+    policy = new OPPLinkConnectionEditPolicy(validatorMock, new OPPIdManager());
     policy.setHost(nodeEditPartMock);
     when(nodeEditPartMock.getModel()).thenReturn(nodeMock);
     when(requestMock.getNewObject()).thenReturn(linkMock);
     when(validatorMock.validateAddSource(nodeMock, linkMock)).thenReturn(true);
-    when(opdAnalyzerMock.findOPD(nodeMock)).thenReturn(opdMock);
+    when(OPPNodeExtensions.findOPD(nodeMock)).thenReturn(opdMock);
 
     command = policy.getConnectionCreateCommand(requestMock);
     assertNotNull(command);
-    assertTrue(OPPCreateLinkCommand.class.isInstance(command));
-    OPPCreateLinkCommand linkCreateCommand = OPPCreateLinkCommand.class.cast(command);
+    assertTrue(command instanceof OPPCreateLinkCommand);
+    OPPCreateLinkCommand linkCreateCommand = (OPPCreateLinkCommand) command;
     assertEquals(nodeMock, linkCreateCommand.getSource());
     assertEquals(linkMock, linkCreateCommand.getLink());
   }
@@ -85,7 +84,6 @@ public class OPPNodeGraphicalNodeEditPolicyTest {
     nodeEditPartMock = mock(OPPNodeEditPart.class);
     nodeMock = mock(OPPNode.class);
     linkMock = mock(OPPLink.class);
-    opdAnalyzerMock = mock(OPPAnalyzer.class);
     opdMock = mock(OPPObjectProcessDiagram.class);
   }
 

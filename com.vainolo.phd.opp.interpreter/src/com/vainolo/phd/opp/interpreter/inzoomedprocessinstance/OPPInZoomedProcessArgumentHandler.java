@@ -23,14 +23,13 @@ import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
 import com.vainolo.phd.opp.model.OPPProcess;
-import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPLinkExtensions;
+import com.vainolo.phd.opp.utilities.analysis.OPPProcessExtensions;
 
 public class OPPInZoomedProcessArgumentHandler {
-  private OPPAnalyzer analyzer = new OPPAnalyzer();
   private OPPInZoomedProcessInstanceHeap heap;
 
-  public OPPInZoomedProcessArgumentHandler(OPPAnalyzer analyzer, OPPInZoomedProcessInstanceHeap heap) {
-    this.analyzer = analyzer;
+  public OPPInZoomedProcessArgumentHandler(OPPInZoomedProcessInstanceHeap heap) {
     this.heap = heap;
   }
 
@@ -38,7 +37,7 @@ public class OPPInZoomedProcessArgumentHandler {
     Map<String, OPPArgument> namedArguments = Maps.newHashMap();
     List<OPPArgument> anonymousArguments = Lists.newArrayList();
 
-    catalogueArguments(analyzer.findIncomingDataLinks(process), namedArguments, anonymousArguments);
+    catalogueArguments(OPPProcessExtensions.findIncomingDataLinks(process), namedArguments, anonymousArguments);
     logFiner("Found {0} anonymous arguments and {1} named arguments.", anonymousArguments.size(), namedArguments.size());
 
     List<String> availableParametersNames = instance.getIncomingParameters().stream().map(param -> param.getName()).collect(Collectors.toList());
@@ -93,7 +92,7 @@ public class OPPInZoomedProcessArgumentHandler {
     Map<String, OPPArgument> namedResults = Maps.newHashMap();
     List<OPPArgument> anonymousResults = Lists.newArrayList();
 
-    catalogueArguments(analyzer.findOutgoingDataLinks(process), namedResults, anonymousResults);
+    catalogueArguments(OPPProcessExtensions.findOutgoingDataLinks(process), namedResults, anonymousResults);
 
     logFiner("Found {0} anonymous results and {1} named results.", anonymousResults.size(), namedResults.size());
 
@@ -126,7 +125,7 @@ public class OPPInZoomedProcessArgumentHandler {
 
   private void catalogueArguments(Collection<OPPProceduralLink> links, Map<String, OPPArgument> namedArguments, List<OPPArgument> anonymousArguments) {
     for (OPPProceduralLink link : links) {
-      OPPArgument argument = new OPPArgument(analyzer.getObject(link), link.getKind() == OPPProceduralLinkKind.CONS_RES);
+      OPPArgument argument = new OPPArgument(OPPLinkExtensions.getObject(link), link.getKind() == OPPProceduralLinkKind.CONS_RES);
       if (link.getCenterDecoration() == null || "".equals(link.getCenterDecoration())) {
         anonymousArguments.add(argument);
       } else if (link.getCenterDecoration().contains(",")) {

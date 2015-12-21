@@ -19,34 +19,31 @@ import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPThing;
 
 public class OPPOPDExtensions {
-  private OPPContainerExtensions containerExt = new OPPContainerExtensions();
-  private OPPObjectExtensions objectExt = new OPPObjectExtensions();
-
-  public Collection<OPPObject> findParameters(OPPObjectProcessDiagram opd) {
-    return containerExt.findObjects(opd).stream().filter(o -> objectExt.findParent(o) == null).collect(Collectors.toList());
+  public static Collection<OPPObject> getParameters(OPPObjectProcessDiagram opd) {
+    return OPPContainerExtensions.getObjects(opd).stream().filter(o -> OPPObjectExtensions.findParent(o) == null).collect(Collectors.toList());
   }
 
-  public Collection<OPPObject> findIncomingParameters(OPPObjectProcessDiagram opd) {
+  public static Collection<OPPObject> findIncomingParameters(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> incomingParameters = Lists.newArrayList();
-    for (OPPObject parameter : findParameters(opd)) {
-      if (objectExt.hasOutgoingProceduralLinksIncludingParts(parameter)) {
+    for (OPPObject parameter : getParameters(opd)) {
+      if (OPPObjectExtensions.hasOutgoingProceduralLinksIncludingParts(parameter)) {
         incomingParameters.add(parameter);
       }
     }
     return incomingParameters;
   }
 
-  public Collection<OPPObject> findOutgoingParameters(OPPObjectProcessDiagram opd) {
+  public static Collection<OPPObject> findOutgoingParameters(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> outgoingParameters = Lists.newArrayList();
-    for (OPPObject parameter : findParameters(opd)) {
-      if (objectExt.hasIncomingDataLinks(parameter)) {
+    for (OPPObject parameter : getParameters(opd)) {
+      if (OPPObjectExtensions.hasIncomingDataLinks(parameter)) {
         outgoingParameters.add(parameter);
       }
     }
     return outgoingParameters;
   }
 
-  public OPPProcess getInZoomedProcess(OPPObjectProcessDiagram opd) {
+  public static OPPProcess getInZoomedProcess(OPPObjectProcessDiagram opd) {
     OPPProcess inZoomedProcess = null;
     for (OPPNode node : opd.getNodes()) {
       if (node instanceof OPPProcess) {

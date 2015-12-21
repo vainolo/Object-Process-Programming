@@ -9,12 +9,13 @@ package com.vainolo.phd.opp.utilities.analysis;
 import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObject;
+import com.vainolo.phd.opp.model.OPPProceduralLink;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPState;
 
 public class OPPLinkExtensions {
 
-  public OPPObject getObject(OPPLink link) {
+  public static OPPObject getObject(OPPLink link) {
     OPPNode source = link.getSource();
     OPPNode target = link.getTarget();
     if ((source instanceof OPPObject) && !(target instanceof OPPObject))
@@ -27,7 +28,17 @@ public class OPPLinkExtensions {
       return null;
   }
 
-  public OPPObject getSourceObject(OPPLink link) {
+  public static OPPObject getTargetObject(OPPProceduralLink link) {
+    OPPNode target = link.getTarget();
+    if (target instanceof OPPObject)
+      return (OPPObject) target;
+    else if (target instanceof OPPState)
+      return (OPPObject) target.getContainer();
+    else
+      throw new IllegalArgumentException("Target must be an object or a state.");
+  }
+
+  public static OPPObject getSourceObject(OPPLink link) {
     OPPNode source = link.getSource();
     if (source instanceof OPPObject)
       return OPPObject.class.cast(source);
@@ -37,7 +48,7 @@ public class OPPLinkExtensions {
       throw new IllegalArgumentException("Source must be a state or an object.");
   }
 
-  public OPPProcess getProcess(OPPLink link) {
+  public static OPPProcess getProcess(OPPLink link) {
     OPPNode source = link.getSource();
     OPPNode target = link.getTarget();
     if ((source instanceof OPPProcess) && !(target instanceof OPPProcess))

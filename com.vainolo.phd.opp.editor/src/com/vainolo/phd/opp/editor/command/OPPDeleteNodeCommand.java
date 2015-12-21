@@ -15,7 +15,7 @@ import java.util.Map;
 import org.eclipse.gef.commands.Command;
 
 import com.vainolo.phd.opp.model.*;
-import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPNodeExtensions;
 
 public final class OPPDeleteNodeCommand extends Command {
 
@@ -24,8 +24,6 @@ public final class OPPDeleteNodeCommand extends Command {
   private List<OPPLink> links;
   private Map<OPPLink, OPPNode> linkSources;
   private Map<OPPLink, OPPNode> linkTargets;
-
-  private OPPAnalyzer analyzer = new OPPAnalyzer();
 
   @Override
   public void execute() {
@@ -40,8 +38,8 @@ public final class OPPDeleteNodeCommand extends Command {
   }
 
   /**
-   * Detach all links from the node and from the other connecting node, storing
-   * the connection information in local data structures.
+   * Detach all links from the node and from the other connecting node, storing the connection information in local data
+   * structures.
    */
   private void detachLinks() {
     links = new ArrayList<OPPLink>();
@@ -49,7 +47,7 @@ public final class OPPDeleteNodeCommand extends Command {
     linkTargets = new HashMap<OPPLink, OPPNode>();
     links.addAll(node.getIncomingLinks());
     links.addAll(node.getOutgoingLinks());
-    for(OPPLink link : links) {
+    for (OPPLink link : links) {
       linkSources.put(link, link.getSource());
       linkTargets.put(link, link.getTarget());
       link.setSource(null);
@@ -62,14 +60,14 @@ public final class OPPDeleteNodeCommand extends Command {
    * Reattach all links to their source and target node.
    */
   private void reattachLinks() {
-    for(OPPLink link : links) {
+    for (OPPLink link : links) {
       link.setSource(linkSources.get(link));
       link.setTarget(linkTargets.get(link));
-      if(container instanceof OPPObjectProcessDiagram) {
+      if (container instanceof OPPObjectProcessDiagram) {
         link.setOpd((OPPObjectProcessDiagram) container);
       } else {
         OPPNode containerNode = (OPPNode) container;
-        link.setOpd(analyzer.findOPD(containerNode));
+        link.setOpd(OPPNodeExtensions.findOPD(containerNode));
       }
 
     }
@@ -88,11 +86,11 @@ public final class OPPDeleteNodeCommand extends Command {
 
   @Override
   public boolean canExecute() {
-    if(node == null)
+    if (node == null)
       return false;
-    if(node instanceof OPPThing) {
+    if (node instanceof OPPThing) {
       OPPThing thing = (OPPThing) node;
-      if(thing.isMain())
+      if (thing.isMain())
         return false;
     }
     return true;

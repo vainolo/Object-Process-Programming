@@ -23,7 +23,7 @@ import com.vainolo.phd.opp.editor.figure.OPPThingFigure;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagramKind;
 import com.vainolo.phd.opp.model.OPPProcess;
-import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPNodeExtensions;
 
 public class OPPProcessEditPart extends OPPThingEditPart {
 
@@ -37,8 +37,7 @@ public class OPPProcessEditPart extends OPPThingEditPart {
     OPPProcessFigure figure = getFigure();
     OPPProcess model = getModel();
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
-    OPPAnalyzer an = new OPPAnalyzer();
-    OPPObjectProcessDiagram opd = an.findOPD(model);
+    OPPObjectProcessDiagram opd = OPPNodeExtensions.findOPD(model);
     if (opd == null)
       return;
 

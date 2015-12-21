@@ -26,7 +26,7 @@ import com.vainolo.phd.opp.editor.factory.OPPStructuralLinkPartFactory;
 import com.vainolo.phd.opp.editor.figure.OPPFigureConstants;
 import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opp.model.*;
-import com.vainolo.phd.opp.utilities.analysis.OPPAnalyzer;
+import com.vainolo.phd.opp.utilities.analysis.OPPNodeExtensions;
 import com.vainolo.phd.opp.validation.OPPLinkValidator;
 
 /**
@@ -38,14 +38,11 @@ import com.vainolo.phd.opp.validation.OPPLinkValidator;
 public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
   OPPLinkValidator validator;
-  OPPAnalyzer analyzer;
-
   OPPStructuralLinkPartFactory linkFactory;
 
-  public OPPLinkConnectionEditPolicy(OPPLinkValidator validator, OPPAnalyzer analyzer, OPPIdManager idManager) {
+  public OPPLinkConnectionEditPolicy(OPPLinkValidator validator, OPPIdManager idManager) {
     Preconditions.checkNotNull(validator);
     this.validator = validator;
-    this.analyzer = analyzer;
     this.linkFactory = new OPPStructuralLinkPartFactory(idManager);
   }
 
@@ -77,7 +74,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
     OPPCreateLinkCommand result = new OPPCreateLinkCommand();
     result.setSource((OPPNode) getHost().getModel());
     result.setLink((OPPLink) request.getNewObject());
-    result.setOPD(analyzer.findOPD((OPPNode) (OPPNode) getHost().getModel()));
+    result.setOPD(OPPNodeExtensions.findOPD((OPPNode) (OPPNode) getHost().getModel()));
     request.setStartCommand(result);
     return result;
   }
@@ -141,7 +138,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
     // Search for an outgoing structural link aggregator matching the
     // requested kind.
     boolean aggregatorFound = false;
-    for (OPPLink structuralLink : analyzer.findOutgoingStructuralLinks(sNode)) {
+    for (OPPLink structuralLink : OPPNodeExtensions.getOutgoingStructuralLinks(sNode)) {
       OPPStructuralLinkAggregator existingAggregator = (OPPStructuralLinkAggregator) structuralLink.getTarget();
       if (existingAggregator.getKind() == agrNode.getKind()) {
         aggregatorFound = true;
@@ -151,15 +148,15 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
     if (aggregatorFound) {
       CompoundCommand cCommand = new CompoundCommand();
-      OPPCreateLinkCommand linkCreateCommand = createCreateOPMLlinkCreateCommand(agrNode, tNode, analyzer.findOPD(agrNode));
+      OPPCreateLinkCommand linkCreateCommand = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(agrNode));
       cCommand.add(linkCreateCommand);
       // cCommand.add(createInitialStructuralLinkBendpointComman(agrNode, tNode, linkCreateCommand.getLink()));
       command = cCommand;
     } else {
       CompoundCommand cCommand = new CompoundCommand();
       cCommand.add(createCreateAggregatorNodeCommand(sNode, tNode, agrNode));
-      cCommand.add(createCreateOPMLlinkCreateCommand(sNode, agrNode, analyzer.findOPD(sNode)));
-      cCommand.add(createCreateOPMLlinkCreateCommand(agrNode, tNode, analyzer.findOPD(sNode)));
+      cCommand.add(createCreateOPMLlinkCreateCommand(sNode, agrNode, OPPNodeExtensions.findOPD(sNode)));
+      cCommand.add(createCreateOPMLlinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(sNode)));
 
       command = cCommand;
     }

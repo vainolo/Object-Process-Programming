@@ -22,7 +22,7 @@ public class OPPContainerExtensions {
    * Find {@link OPPObject}s directly inside a container.
    */
   @SuppressWarnings({ "rawtypes", "unchecked" })
-  public Collection<OPPObject> findObjects(OPPContainer container) {
+  public static Collection<OPPObject> getObjects(OPPContainer container) {
     return (Collection) container.getNodes().stream().filter(n -> n instanceof OPPObject).collect(Collectors.toList());
   }
 
@@ -32,7 +32,7 @@ public class OPPContainerExtensions {
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
-  public Collection<OPPProcess> findFirstLevelContainedProcesses(OPPContainer container) {
+  public static Collection<OPPProcess> getFirstLevelContainedProcesses(OPPContainer container) {
     return (Collection) Collections2.filter(container.getNodes(), IsProcessNode.INSTANCE);
   }
 
