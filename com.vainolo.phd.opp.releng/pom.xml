@@ -46,5 +46,6 @@
 		<module>../com.vainolo.phd.opp.interpreter.tests</module>
 		<module>../com.vainolo.phd.opp.feature</module>
 		<module>../com.vainolo.phd.opp.releng.p2</module>
+		<module>../com.vainolo.phd.opp.java-dependencies</module>
 	</modules>
 </project>
