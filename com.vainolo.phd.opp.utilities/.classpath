@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry exported="true" kind="lib" path="target/dependency/vertx-auth-common-3.2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/vertx-web-3.2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jackson-annotations-2.6.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jackson-core-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jackson-databind-2.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/netty-buffer-4.0.33.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/netty-codec-4.0.33.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/netty-codec-http-4.0.33.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/netty-common-4.0.33.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/netty-handler-4.0.33.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/netty-transport-4.0.33.Final.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/vertx-core-3.2.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/mockito-all-1.10.19.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/json-20151123.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/commons-codec-1.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/json-20140107.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/httpmime-4.3.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/httpasyncclient-4.0.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/httpcore-nio-4.3.2.jar"/>
