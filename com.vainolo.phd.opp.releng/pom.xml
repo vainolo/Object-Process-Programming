@@ -1,15 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-    <groupId>com.vainolo.phd.opp</groupId>
+	<groupId>com.vainolo.phd.opp</groupId>
 	<artifactId>com.vainolo.phd.opp.releng</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	
-	 <properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	    <tycho-version>0.23.1</tycho-version>
-	  </properties>	
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<tycho-version>0.23.1</tycho-version>
+	</properties>
 
 	<repositories>
 		<repository>
@@ -18,7 +18,7 @@
 			<url>http://download.eclipse.org/releases/luna</url>
 		</repository>
 	</repositories>
-  
+
 	<build>
 		<plugins>
 			<plugin>
@@ -36,12 +36,12 @@
 	</build>
 	<modules>
 		<module>../com.vainolo.phd.opp.editor</module>
-		<module>../com.vainolo.phd.opp.editor.tests</module>		
+		<module>../com.vainolo.phd.opp.editor.tests</module>
 		<module>../com.vainolo.phd.opp.model</module>
 		<module>../com.vainolo.phd.opp.utilities</module>
-		<module>../com.vainolo.phd.opp.utilities.tests</module>		
+		<module>../com.vainolo.phd.opp.utilities.tests</module>
 		<module>../com.vainolo.phd.opp.validation</module>
-		<module>../com.vainolo.phd.opp.validation.tests</module>		
+		<module>../com.vainolo.phd.opp.validation.tests</module>
 		<module>../com.vainolo.phd.opp.interpreter</module>
 		<module>../com.vainolo.phd.opp.interpreter.tests</module>
 		<module>../com.vainolo.phd.opp.feature</module>
