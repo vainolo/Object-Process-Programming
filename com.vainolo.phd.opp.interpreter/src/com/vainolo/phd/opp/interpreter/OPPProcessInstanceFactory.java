@@ -10,8 +10,6 @@ import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
 import org.eclipse.core.runtime.Path;
 
-import com.vainolo.phd.opp.interpreter.builtin.OPPBinaryMathOpProcessInstance.OPPBinaryMathOpType;
-import com.vainolo.phd.opp.interpreter.builtin.OPPBinaryMathOpProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCallWebAPIProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPConceptualProcess;
@@ -38,6 +36,10 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProce
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemovePartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.math.OPPBinaryMathOpProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.math.OPPBinaryMathOpProcessInstance.OPPBinaryMathOpType;
+import com.vainolo.phd.opp.interpreter.builtin.math.OPPUnaryMathOpProcessInstance.OPPUnaryMathOpType;
+import com.vainolo.phd.opp.interpreter.builtin.math.OPPUnaryMathOpProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.twitter.OPPInitializeTwitterClientProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.twitter.OPPSearchTwitter;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessExecutableInstance;
@@ -124,6 +126,12 @@ public class OPPProcessInstanceFactory {
       processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN);
     } else if (name.equals("a==b") || name.equals("==")) {
       processInstance = new OPPCompareProcessInstance(ComparisonType.EQUAL);
+    } else if (name.equals("log(a)") || name.equals("log")) {
+      processInstance = new OPPUnaryMathOpProcessInstance(OPPUnaryMathOpType.LOG);
+    } else if (name.equals("-a") || name.equals("-")) {
+      processInstance = new OPPUnaryMathOpProcessInstance(OPPUnaryMathOpType.NEG);
+    } else if (name.equals("sqrt(a)") || name.equals("sqrt")) {
+      processInstance = new OPPUnaryMathOpProcessInstance(OPPUnaryMathOpType.SQRT);
 
       // Composite
     } else if (name.equalsIgnoreCase("New Instance")) {
