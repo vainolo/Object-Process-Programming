@@ -10,6 +10,7 @@ import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.draw2d.graph.ShortestPathRouter;
 import org.eclipse.swt.SWT;
 
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
@@ -41,9 +42,7 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
     subKinds.setOpaque(true);
     add(subKinds, new OPPProceduralLinkSubKindLocator(this, 15, 15));
 
-    // decorator = new OPMProceduralLinkDecorator();
-    // decorator.setText("a");
-    // add(decorator, new OPMProceduralLinkSubKindLocator(this, 10, 10));
+    setTolerance(10);
   }
 
   public SmartLabelFigure getCenterDecorationLabel() {
@@ -52,12 +51,6 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
 
   public void setSubKindLabelText(String text) {
     subKinds.setText(text);
-    // if (text == null || "".equals(text)) {
-    // decorator.setVisible(false);
-    // } else {
-    // decorator.setVisible(true);
-    // decorator.setText(text);
-    // }
   }
 
   @Override
@@ -95,6 +88,7 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
       bounds = super.getBounds();
       bounds.expand(30, 30);
     }
+    System.out.println(bounds);
     return bounds;
   }
 
