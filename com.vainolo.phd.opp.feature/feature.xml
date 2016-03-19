@@ -49,13 +49,6 @@ are copyrighted by their creators.
          unpack="false"/>
 
    <plugin
-         id="com.vainolo.phd.opp.interpreter"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="com.vainolo.phd.opp.model"
          download-size="0"
          install-size="0"
