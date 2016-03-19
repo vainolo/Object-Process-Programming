@@ -10,7 +10,6 @@ import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.draw2d.graph.ShortestPathRouter;
 import org.eclipse.swt.SWT;
 
 import com.vainolo.phd.opp.model.OPPProceduralLinkKind;
@@ -88,7 +87,6 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
       bounds = super.getBounds();
       bounds.expand(30, 30);
     }
-    System.out.println(bounds);
     return bounds;
   }
 

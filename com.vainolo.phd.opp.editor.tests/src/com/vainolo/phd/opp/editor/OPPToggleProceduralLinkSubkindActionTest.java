@@ -136,14 +136,6 @@ public class OPPToggleProceduralLinkSubkindActionTest extends OPPToggledProcedur
     assertEquals(OPPConstants.OPP_EVENT_LINK_SUBKIND, request.getExtendedData().get("subkind"));
   }
 
-  @Test
-  public void test_Constructor_ToggleOptional() {
-    OPPToggledProceduralLinkSubkindAction action = new OPPToggledProceduralLinkSubkindAction(mock(IWorkbenchPart.class),
-        OPTIONAL_SUBKIND_ID);
-    Request request = action.getRequest();
-    assertEquals(OPPConstants.OPP_OPTIONAL_LINK_SUBKIND, request.getExtendedData().get("subkind"));
-  }
-
   /**
    * Private function to set the mock objects currently selected.
    */

@@ -25,16 +25,16 @@ import com.vainolo.phd.opp.model.OPPThing;
 
 public class OPPFileUtils {
 
-  public static OPPObjectProcessDiagram loadOPPFile(String uri) {
+  public static OPPObjectProcessDiagram loadOPPFile(String oppFile) {
     OPPObjectProcessDiagram opd;
     ResourceSet resourceSet = new ResourceSetImpl();
     resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-    Resource oppResource = resourceSet.createResource(URI.createURI(uri));
+    Resource oppResource = resourceSet.createResource(URI.createURI(oppFile));
     try {
       oppResource.load(null);
       opd = (OPPObjectProcessDiagram) oppResource.getContents().get(0);
     } catch (final IOException e) {
-      logSevere("OPD File " + uri + " could not be loaded. Please check the path.");
+      logSevere("OPD File " + oppFile + " could not be loaded. Please check the path.");
       logSevere("Exception thrown: " + e);
       opd = null;
     }
