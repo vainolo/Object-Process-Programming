@@ -4,7 +4,7 @@ Bundle-Name: OPM Interpreter Unit Tests
 Bundle-SymbolicName: com.vainolo.phd.opp.interpreter.tests
 Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: Arieh "Vainolo" Bibliowicz
-Fragment-Host: com.vainolo.phd.opp.interpreter.plugin
+Fragment-Host: com.vainolo.phd.opp.interpreter
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.junit;bundle-version="4.11.0"
 Import-Package: com.vainolo.phd.opp.model

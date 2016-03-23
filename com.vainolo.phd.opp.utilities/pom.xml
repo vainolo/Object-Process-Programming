@@ -14,7 +14,9 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.vainolo.phd.opp</groupId>
-			<artifactId>com.vainolo.phd.opp.java-dependencies</artifactId>
+			<artifactId>
+				com.vainolo.phd.opp.java-dependencies
+			</artifactId>
 			<version>0.1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

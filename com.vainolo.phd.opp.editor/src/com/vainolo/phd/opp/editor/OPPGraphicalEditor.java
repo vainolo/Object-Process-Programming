@@ -194,6 +194,10 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());
 
+    action = new OPPToggledProceduralLinkSubkindAction(this, OPPToggledProceduralLinkSubkindAction.OPTIONAL_SUBKIND_ID);
+    getActionRegistry().registerAction(action);
+    getSelectionActions().add(action.getId());
+
     action = new OPPToggleThingMultiplicityAction(this);
     getActionRegistry().registerAction(action);
     getSelectionActions().add(action.getId());

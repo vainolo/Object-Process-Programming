@@ -10,32 +10,4 @@
   </parent>
   <artifactId>com.vainolo.phd.opp.model</artifactId>
   <packaging>eclipse-plugin</packaging>
-  <build>
-  	<plugins>
-  		<plugin>
-  			<artifactId>maven-resources-plugin</artifactId>
-  			<version>2.7</version>
-  			<executions>
-  				<execution>
-  					<id>copy-resources</id>
-  					<phase>install</phase>
-  					<goals>
-  						<goal>copy-resources</goal>
-  					</goals>
-  					<configuration>
-  						<outputDirectory>${basedir}/../com.vainolo.phd.opp.editor</outputDirectory>
-  						<resources>
-  							<resource>
-  								<directory>${basedir}/target</directory>
-  								<includes>
-  									<include>*.jar</include>
-  								</includes>
-  							</resource>
-  						</resources>
-  					</configuration>
-  				</execution>
-  			</executions>
-  		</plugin>
-  	</plugins>
-  </build>
 </project>
