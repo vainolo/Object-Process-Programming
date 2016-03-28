@@ -96,7 +96,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
       return null;
     }
 
-    Command command = null;
+    Command command;
 
     if (request.getNewObject() instanceof OPPStructuralLinkAggregator) {
       command = handleOPMStructuralLinkRequest(request);
@@ -129,7 +129,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
    * @return a command that creates the links as stated above.
    */
   private Command handleOPMStructuralLinkRequest(CreateConnectionRequest request) {
-    Command command = null;
+    Command command;
 
     OPPNode sNode = (OPPNode) request.getSourceEditPart().getModel();
     OPPNode tNode = (OPPNode) request.getTargetEditPart().getModel();

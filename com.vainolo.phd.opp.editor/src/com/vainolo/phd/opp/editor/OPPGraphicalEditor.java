@@ -274,7 +274,7 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
 
           @Override
           public IPropertySource getPropertySource(Object object) {
-            IPropertySource source = null;
+            IPropertySource source;
             if (object instanceof EditPart) {
               source = modelPropertySourceProvider.getPropertySource(((EditPart) object).getModel());
             } else {

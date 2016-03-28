@@ -10,7 +10,7 @@ public class EditPartFactory implements org.eclipse.gef.EditPartFactory {
 
 	@Override
 	public EditPart createEditPart(EditPart context, Object model) {
-		EditPart part = null;
+		EditPart part;
 		if(model instanceof Node) {
 			part = new MyNodeEditPart();
 		} else if(model instanceof Canvas) {

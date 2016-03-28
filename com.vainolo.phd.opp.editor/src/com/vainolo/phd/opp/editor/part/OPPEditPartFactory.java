@@ -15,7 +15,7 @@ public class OPPEditPartFactory implements EditPartFactory {
 
   @Override
   public EditPart createEditPart(EditPart context, Object model) {
-    EditPart part = null;
+    EditPart part;
 
     if(model instanceof OPPObjectProcessDiagram) {
       part = new OPPObjectProcessDiagramEditPart();
