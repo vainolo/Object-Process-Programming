@@ -55,7 +55,7 @@ public abstract class OPPThingEditPart extends OPPNodeEditPart {
   @Override
   public Object getAdapter(@SuppressWarnings("rawtypes") final Class key) {
     if (key == SnapToHelper.class) {
-      final List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
+      final List<SnapToHelper> helpers = new ArrayList<>();
       if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED)))
         helpers.add(new SnapToGeometry(this));
       if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED)))

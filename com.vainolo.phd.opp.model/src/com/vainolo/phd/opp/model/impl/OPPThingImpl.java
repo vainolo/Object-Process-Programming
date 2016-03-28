@@ -185,7 +185,7 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
    */
   public EList<OPPNode> getNodes() {
     if (nodes == null) {
-      nodes = new EObjectContainmentWithInverseEList<OPPNode>(OPPNode.class, this, OPPPackage.OPP_THING__NODES, OPPPackage.OPP_NODE__CONTAINER);
+      nodes = new EObjectContainmentWithInverseEList<>(OPPNode.class, this, OPPPackage.OPP_THING__NODES, OPPPackage.OPP_NODE__CONTAINER);
     }
     return nodes;
   }

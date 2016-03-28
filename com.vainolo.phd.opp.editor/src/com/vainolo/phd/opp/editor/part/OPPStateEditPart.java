@@ -90,7 +90,7 @@ public class OPPStateEditPart extends OPPNodeEditPart {
   @Override
   public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
     if (key == SnapToHelper.class) {
-      List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
+      List<SnapToHelper> helpers = new ArrayList<>();
       if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED))) {
         helpers.add(new SnapToGeometry(this));
       }

@@ -17,9 +17,9 @@ public class Node extends Observable {
 	public Node(int x, int y, Node parent) {
 		size = 50;
 		setLocation(new Point(x, y));
-		sourceLinks = new ArrayList<Link>();
-		targetLinks = new ArrayList<Link>();
-		children = new ArrayList<Node>();
+		sourceLinks = new ArrayList<>();
+		targetLinks = new ArrayList<>();
+		children = new ArrayList<>();
 		this.parent = parent;
 	}
 

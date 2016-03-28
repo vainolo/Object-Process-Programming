@@ -197,7 +197,7 @@ public abstract class OPPNodeImpl extends OPPElementImpl implements OPPNode {
    */
   public EList<OPPLink> getIncomingLinks() {
     if (incomingLinks == null) {
-      incomingLinks = new EObjectWithInverseResolvingEList<OPPLink>(OPPLink.class, this, OPPPackage.OPP_NODE__INCOMING_LINKS, OPPPackage.OPP_LINK__TARGET);
+      incomingLinks = new EObjectWithInverseResolvingEList<>(OPPLink.class, this, OPPPackage.OPP_NODE__INCOMING_LINKS, OPPPackage.OPP_LINK__TARGET);
     }
     return incomingLinks;
   }
@@ -209,7 +209,7 @@ public abstract class OPPNodeImpl extends OPPElementImpl implements OPPNode {
    */
   public EList<OPPLink> getOutgoingLinks() {
     if (outgoingLinks == null) {
-      outgoingLinks = new EObjectWithInverseResolvingEList<OPPLink>(OPPLink.class, this, OPPPackage.OPP_NODE__OUTGOING_LINKS, OPPPackage.OPP_LINK__SOURCE);
+      outgoingLinks = new EObjectWithInverseResolvingEList<>(OPPLink.class, this, OPPPackage.OPP_NODE__OUTGOING_LINKS, OPPPackage.OPP_LINK__SOURCE);
     }
     return outgoingLinks;
   }

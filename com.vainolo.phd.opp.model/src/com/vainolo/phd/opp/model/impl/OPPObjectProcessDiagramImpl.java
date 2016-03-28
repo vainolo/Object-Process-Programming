@@ -206,7 +206,7 @@ public class OPPObjectProcessDiagramImpl extends OPPContainerImpl implements OPP
    */
   public EList<OPPLink> getLinks() {
     if (links == null) {
-      links = new EObjectContainmentWithInverseEList<OPPLink>(OPPLink.class, this, OPPPackage.OPP_OBJECT_PROCESS_DIAGRAM__LINKS, OPPPackage.OPP_LINK__OPD);
+      links = new EObjectContainmentWithInverseEList<>(OPPLink.class, this, OPPPackage.OPP_OBJECT_PROCESS_DIAGRAM__LINKS, OPPPackage.OPP_LINK__OPD);
     }
     return links;
   }

@@ -74,7 +74,7 @@ public abstract class OPPContainerImpl extends OPPElementImpl implements OPPCont
    */
   public EList<OPPNode> getNodes() {
     if (nodes == null) {
-      nodes = new EObjectContainmentWithInverseEList<OPPNode>(OPPNode.class, this, OPPPackage.OPP_CONTAINER__NODES, OPPPackage.OPP_NODE__CONTAINER);
+      nodes = new EObjectContainmentWithInverseEList<>(OPPNode.class, this, OPPPackage.OPP_CONTAINER__NODES, OPPPackage.OPP_NODE__CONTAINER);
     }
     return nodes;
   }
