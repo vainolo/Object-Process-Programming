@@ -205,7 +205,7 @@ public class OPPProceduralLinkImpl extends OPPLinkImpl implements OPPProceduralL
   public String toString() {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (kind: ");
     result.append(kind);
     result.append(", subKinds: ");

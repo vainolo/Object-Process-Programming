@@ -262,7 +262,7 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
   public String toString() {
     if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
+    StringBuilder result = new StringBuilder(super.toString());
     result.append(" (parameter: ");
     result.append(parameter);
     result.append(", global: ");
