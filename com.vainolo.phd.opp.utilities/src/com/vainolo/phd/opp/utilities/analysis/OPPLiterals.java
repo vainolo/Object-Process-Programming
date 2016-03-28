@@ -11,6 +11,10 @@ import java.math.BigDecimal;
 import com.google.common.base.Preconditions;
 
 public class OPPLiterals {
+
+  private  OPPLiterals() {
+  }
+
   public static boolean isOPMNumberLiteral(String input) {
     return input.matches("^\\d.*");
   }

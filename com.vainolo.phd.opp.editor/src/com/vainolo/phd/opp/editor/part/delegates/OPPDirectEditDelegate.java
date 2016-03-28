@@ -14,6 +14,10 @@ import com.vainolo.phd.opp.editor.part.OPPNamedElementCellEditorLocator;
 import com.vainolo.phd.opp.editor.part.OPPNamedElementDirectEditManager;
 
 public class OPPDirectEditDelegate {
+
+  private OPPDirectEditDelegate() {
+  }
+
   public static void performDirectEditing(GraphicalEditPart editPart, SmartLabelFigure textFigure) {
     OPPNamedElementDirectEditManager manager;
     manager = new OPPNamedElementDirectEditManager(editPart, TextCellEditor.class,

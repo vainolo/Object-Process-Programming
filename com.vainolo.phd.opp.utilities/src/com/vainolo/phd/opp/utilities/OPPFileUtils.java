@@ -25,6 +25,9 @@ import com.vainolo.phd.opp.model.OPPThing;
 
 public class OPPFileUtils {
 
+  private OPPFileUtils() {
+  }
+
   public static OPPObjectProcessDiagram loadOPPFile(String uri) {
     OPPObjectProcessDiagram opd;
     ResourceSet resourceSet = new ResourceSetImpl();
