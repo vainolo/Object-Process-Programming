@@ -60,7 +60,7 @@ public class OPPInZoomedProcessIntanceProgramCounter {
 
   public List<OPPProcess> getNextProcesses(Collection<OPPProcess> P_waiting, Collection<OPPProcess> P_executing) {
     List<OPPProcess> nextPossibleProcess = getProcessesAtPC();
-    if (nextPossibleProcess.size() == 0)
+    if (nextPossibleProcess.isEmpty())
       return Collections.emptyList();
 
     for (OPPProcess waitingProcess : P_waiting) {

@@ -70,7 +70,7 @@ public class OPPInZoomedProcessArgumentHandler {
 
     // Fill up remaining parameters using the remaining arguments
     Iterator<String> remainingParameterNamesIterator = remainingParameterNames.iterator();
-    while (arguments.size() > 0 && remainingParameterNamesIterator.hasNext()) {
+    while (!arguments.isEmpty() && remainingParameterNamesIterator.hasNext()) {
       String parameterName = remainingParameterNamesIterator.next();
       OPPObjectInstance value = getArgumentValueFromHeapAndClearIfNecessary(arguments.remove(0));
       instance.setArgument(parameterName, value);
@@ -78,7 +78,7 @@ public class OPPInZoomedProcessArgumentHandler {
     }
 
     // In case there are left arguments, pass them as parameters with default names
-    if (arguments.size() > 0) {
+    if (!arguments.isEmpty()) {
       int argNumber = 0;
       for (OPPArgument argument : arguments) {
         OPPObjectInstance value = getArgumentValueFromHeapAndClearIfNecessary(argument);

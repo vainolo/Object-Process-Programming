@@ -54,7 +54,7 @@ public class OPPObjectExtensions {
    * Check if the {@link OPPObject} or one of its {@link OPPState}s has outgoing data links.
    */
   public boolean hasOutgoingDataLinks(OPPObject object) {
-    return findOutgoingDataLinks(object).size() > 0;
+    return !findOutgoingDataLinks(object).isEmpty();
   }
 
   /**
@@ -68,7 +68,7 @@ public class OPPObjectExtensions {
    * Check if the {@link OPPObject}, one of its {@link OPPState}s or one of its parts has outgoing procedural links.
    */
   public static boolean hasOutgoingProceduralLinksIncludingParts(OPPObject object) {
-    if (findOutgoingProceduralLinks(object).size() > 0) {
+    if (!findOutgoingProceduralLinks(object).isEmpty()) {
       return true;
     } else {
       for (OPPObject part : getParts(object)) {

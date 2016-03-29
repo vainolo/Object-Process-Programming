@@ -97,7 +97,7 @@ public class OPPStateEditPart extends OPPNodeEditPart {
       if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGrid.PROPERTY_GRID_ENABLED))) {
         helpers.add(new SnapToGrid(this));
       }
-      if (helpers.size() == 0) {
+      if (helpers.isEmpty()) {
         return null;
       } else {
         return new CompoundSnapToHelper(helpers.toArray(new SnapToHelper[0]));
