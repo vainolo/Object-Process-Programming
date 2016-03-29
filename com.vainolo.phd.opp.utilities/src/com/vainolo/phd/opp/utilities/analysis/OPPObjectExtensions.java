@@ -98,10 +98,8 @@ public class OPPObjectExtensions {
 
   public static boolean hasIncomingDataLinks(OPPObject parameter) {
     for (OPPLink link : parameter.getIncomingLinks()) {
-      if (link instanceof OPPProceduralLink) {
-        if (isDataLinkPred.test(link)) {
-          return true;
-        }
+      if (link instanceof OPPProceduralLink && isDataLinkPred.test(link)) {
+        return true;
       }
     }
     return false;

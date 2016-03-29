@@ -68,14 +68,10 @@ public class OPPOPLViewPart extends ViewPart {
 
       @Override
       public void partClosed(IWorkbenchPart part) {
-        if (IEditorPart.class.isInstance(part)) {
-          if (OPPGraphicalEditor.class.isInstance(part)) {
-            if (opd != null) {
-              opd.eAdapters().remove(adapter);
-              opd = null;
-              clear();
-            }
-          }
+        if (IEditorPart.class.isInstance(part) && OPPGraphicalEditor.class.isInstance(part) && opd != null) {
+          opd.eAdapters().remove(adapter);
+          opd = null;
+          clear();
         }
       }
 
