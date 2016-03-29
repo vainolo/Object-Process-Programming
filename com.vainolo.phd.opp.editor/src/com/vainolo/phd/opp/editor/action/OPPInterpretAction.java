@@ -35,11 +35,6 @@ public class OPPInterpretAction extends Action {
     final String processName = ((OPPGraphicalEditor) activeEditor).getOPD().getName();
     final IContainer container = ((IFileEditorInput) activeEditor.getEditorInput()).getFile().getParent();
 
-    (new Thread(new Runnable() {
-      @Override
-      public void run() {
-        OPPInterpreter.INSTANCE.interpret(processName, container);
-      }
-    })).start();
+    (new Thread(() -> OPPInterpreter.INSTANCE.interpret(processName, container))).start();
   }
 }
