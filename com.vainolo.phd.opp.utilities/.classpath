@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry exported="true" kind="lib" path="target/dependency/vertx-auth-common-3.2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/vertx-web-3.2.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="src" path="src/"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/guava-19.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/jgrapht-core-0.9.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/twitter4j-core-4.0.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/commons-logging-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/minimal-json-0.9.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/unirest-java-1.4.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/httpclient-4.3.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/httpcore-4.3.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/httpcore-nio-4.3.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/httpasyncclient-4.0.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/httpmime-4.3.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/commons-codec-1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/json-20151123.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/mockito-all-1.10.19.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/jackson-annotations-2.6.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/jackson-core-2.6.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/jackson-databind-2.6.1.jar"/>
@@ -12,22 +27,7 @@
 	<classpathentry exported="true" kind="lib" path="target/dependency/netty-handler-4.0.33.Final.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/netty-transport-4.0.33.Final.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/vertx-core-3.2.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/mockito-all-1.10.19.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/json-20151123.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/commons-codec-1.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/httpmime-4.3.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/httpasyncclient-4.0.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/httpcore-nio-4.3.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/httpcore-4.3.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/httpclient-4.3.6.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/unirest-java-1.4.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/minimal-json-0.9.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/commons-logging-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/twitter4j-core-4.0.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/jgrapht-core-0.9.1.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/guava-19.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/vertx-web-3.2.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/vertx-auth-common-3.2.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
