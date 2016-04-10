@@ -16,8 +16,11 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
 import org.eclipse.core.resources.IContainer;
+import org.eclipse.core.runtime.Path;
 
+import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagramKind;
+import com.vainolo.phd.opp.utilities.OPPFileUtils;
 import com.vainolo.phd.opp.utilities.OPPLogTarget;
 import com.vainolo.phd.opp.utilities.OPPLogger;
 
@@ -64,7 +67,11 @@ public enum OPPInterpreter {
 
     container = _container;
     logInfo("Interpreting OPD {0}.", opdName);
-    instance = OPPProcessInstanceFactory.createExecutableInstance(opdName);
+    OPPObjectProcessDiagram opd = OPPFileUtils.loadOPPFile(OPPInterpreter.container.getFile(new Path(opdName + ".opp")).getFullPath().toString());
+    if (opd.getKind() != OPPObjectProcessDiagramKind.COMPOUND)
+      return;
+
+    instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
 
     try {
       completionService.submit(instance);

@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPProceduralLinkImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPProceduralLinkImpl#getSubKinds <em>Sub Kinds</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

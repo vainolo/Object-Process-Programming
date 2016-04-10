@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#getNodes <em>Nodes</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#getName <em>Name</em>}</li>
@@ -44,7 +45,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#isCollection <em>Collection</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#isMain <em>Main</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

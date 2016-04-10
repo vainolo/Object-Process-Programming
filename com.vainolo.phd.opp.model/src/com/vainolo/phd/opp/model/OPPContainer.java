@@ -17,10 +17,10 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPContainer#getNodes <em>Nodes</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPContainer()
  * @model abstract="true"

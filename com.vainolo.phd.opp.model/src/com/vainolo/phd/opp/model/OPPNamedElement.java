@@ -17,11 +17,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPNamedElement#getName <em>Name</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPNamedElement#getAlignment <em>Alignment</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPNamedElement()
  * @model abstract="true"

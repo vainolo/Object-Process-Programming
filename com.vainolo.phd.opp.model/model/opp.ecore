@@ -116,6 +116,9 @@
     <eLiterals name="COMPOUND" value="1" literal="Compound"/>
     <eLiterals name="UNFOLDED" value="2" literal="Unfolded"/>
     <eLiterals name="SYSTEM" value="3" literal="System"/>
+    <eLiterals name="IN_ZOOMED" value="4" literal="In-Zoomed"/>
+    <eLiterals name="FREE_FORM" value="5" literal=""/>
+    <eLiterals name="TYPE" value="6" literal="Type"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="OPPVerticalAlignment">
     <eLiterals name="TOP" value="8" literal="Top"/>

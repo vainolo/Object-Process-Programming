@@ -16,12 +16,12 @@ package com.vainolo.phd.opp.model;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPThing#getDescription <em>Description</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPThing#isCollection <em>Collection</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPThing#isMain <em>Main</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPThing()
  * @model abstract="true"

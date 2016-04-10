@@ -17,10 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPElement#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPElement()
  * @model abstract="true"

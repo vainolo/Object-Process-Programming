@@ -997,6 +997,9 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
     addEEnumLiteral(oppObjectProcessDiagramKindEEnum, OPPObjectProcessDiagramKind.COMPOUND);
     addEEnumLiteral(oppObjectProcessDiagramKindEEnum, OPPObjectProcessDiagramKind.UNFOLDED);
     addEEnumLiteral(oppObjectProcessDiagramKindEEnum, OPPObjectProcessDiagramKind.SYSTEM);
+    addEEnumLiteral(oppObjectProcessDiagramKindEEnum, OPPObjectProcessDiagramKind.IN_ZOOMED);
+    addEEnumLiteral(oppObjectProcessDiagramKindEEnum, OPPObjectProcessDiagramKind.FREE_FORM);
+    addEEnumLiteral(oppObjectProcessDiagramKindEEnum, OPPObjectProcessDiagramKind.TYPE);
 
     initEEnum(oppVerticalAlignmentEEnum, OPPVerticalAlignment.class, "OPPVerticalAlignment");
     addEEnumLiteral(oppVerticalAlignmentEEnum, OPPVerticalAlignment.TOP);

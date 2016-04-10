@@ -17,6 +17,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPNode#getIncomingLinks <em>Incoming Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPNode#getOutgoingLinks <em>Outgoing Links</em>}</li>
@@ -27,7 +28,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link com.vainolo.phd.opp.model.OPPNode#getY <em>Y</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPNode#isManualSize <em>Manual Size</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPNode()
  * @model abstract="true"

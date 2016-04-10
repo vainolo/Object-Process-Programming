@@ -24,10 +24,10 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPElementImpl#getId <em>Id</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

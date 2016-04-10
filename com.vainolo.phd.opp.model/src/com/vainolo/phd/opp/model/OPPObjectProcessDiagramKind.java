@@ -52,7 +52,31 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
    * @generated
    * @ordered
    */
-  SYSTEM(3, "SYSTEM", "System");
+  SYSTEM(3, "SYSTEM", "System"), /**
+   * The '<em><b>IN ZOOMED</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #IN_ZOOMED_VALUE
+   * @generated
+   * @ordered
+   */
+  IN_ZOOMED(4, "IN_ZOOMED", "In-Zoomed"), /**
+   * The '<em><b>FREE FORM</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #FREE_FORM_VALUE
+   * @generated
+   * @ordered
+   */
+  FREE_FORM(5, "FREE_FORM", ""), /**
+   * The '<em><b>TYPE</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #TYPE_VALUE
+   * @generated
+   * @ordered
+   */
+  TYPE(6, "TYPE", "Type");
 
   /**
    * The '<em><b>COMPOUND</b></em>' literal value.
@@ -100,6 +124,51 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
   public static final int SYSTEM_VALUE = 3;
 
   /**
+   * The '<em><b>IN ZOOMED</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>IN ZOOMED</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #IN_ZOOMED
+   * @model literal="In-Zoomed"
+   * @generated
+   * @ordered
+   */
+  public static final int IN_ZOOMED_VALUE = 4;
+
+  /**
+   * The '<em><b>FREE FORM</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>FREE FORM</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #FREE_FORM
+   * @model literal=""
+   * @generated
+   * @ordered
+   */
+  public static final int FREE_FORM_VALUE = 5;
+
+  /**
+   * The '<em><b>TYPE</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>TYPE</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #TYPE
+   * @model literal="Type"
+   * @generated
+   * @ordered
+   */
+  public static final int TYPE_VALUE = 6;
+
+  /**
    * An array of all the '<em><b>Object Process Diagram Kind</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -110,6 +179,9 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
       COMPOUND,
       UNFOLDED,
       SYSTEM,
+      IN_ZOOMED,
+      FREE_FORM,
+      TYPE,
     };
 
   /**
@@ -124,6 +196,8 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
    * Returns the '<em><b>Object Process Diagram Kind</b></em>' literal with the specified literal value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @param literal the literal.
+   * @return the matching enumerator or <code>null</code>.
    * @generated
    */
   public static OPPObjectProcessDiagramKind get(String literal) {
@@ -140,6 +214,8 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
    * Returns the '<em><b>Object Process Diagram Kind</b></em>' literal with the specified name.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @param name the name.
+   * @return the matching enumerator or <code>null</code>.
    * @generated
    */
   public static OPPObjectProcessDiagramKind getByName(String name) {
@@ -156,6 +232,8 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
    * Returns the '<em><b>Object Process Diagram Kind</b></em>' literal with the specified integer value.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
+   * @param value the integer value.
+   * @return the matching enumerator or <code>null</code>.
    * @generated
    */
   public static OPPObjectProcessDiagramKind get(int value) {
@@ -163,6 +241,9 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
       case COMPOUND_VALUE: return COMPOUND;
       case UNFOLDED_VALUE: return UNFOLDED;
       case SYSTEM_VALUE: return SYSTEM;
+      case IN_ZOOMED_VALUE: return IN_ZOOMED;
+      case FREE_FORM_VALUE: return FREE_FORM;
+      case TYPE_VALUE: return TYPE;
     }
     return null;
   }

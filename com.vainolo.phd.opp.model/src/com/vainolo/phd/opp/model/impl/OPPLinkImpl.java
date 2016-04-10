@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPLinkImpl#getOpd <em>Opd</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPLinkImpl#getSource <em>Source</em>}</li>
@@ -44,7 +45,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPLinkImpl#getCenterDecoration <em>Center Decoration</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPLinkImpl#getBendpoints <em>Bendpoints</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

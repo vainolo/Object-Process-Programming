@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPNodeImpl#getIncomingLinks <em>Incoming Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPNodeImpl#getOutgoingLinks <em>Outgoing Links</em>}</li>
@@ -46,7 +47,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPNodeImpl#getY <em>Y</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPNodeImpl#isManualSize <em>Manual Size</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

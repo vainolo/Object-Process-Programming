@@ -23,12 +23,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#isParameter <em>Parameter</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#getInitialValue <em>Initial Value</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

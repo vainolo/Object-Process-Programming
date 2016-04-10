@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPLink#getOpd <em>Opd</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPLink#getSource <em>Source</em>}</li>
@@ -27,7 +28,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link com.vainolo.phd.opp.model.OPPLink#getCenterDecoration <em>Center Decoration</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPLink#getBendpoints <em>Bendpoints</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPLink()
  * @model

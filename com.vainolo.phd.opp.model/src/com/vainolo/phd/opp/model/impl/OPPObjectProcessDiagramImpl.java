@@ -36,6 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectProcessDiagramImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectProcessDiagramImpl#getAlignment <em>Alignment</em>}</li>
@@ -43,7 +44,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectProcessDiagramImpl#getLastKnownUsedId <em>Last Known Used Id</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectProcessDiagramImpl#getKind <em>Kind</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -17,12 +17,12 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPObjectProcessDiagram#getLinks <em>Links</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPObjectProcessDiagram#getLastKnownUsedId <em>Last Known Used Id</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPObjectProcessDiagram#getKind <em>Kind</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPObjectProcessDiagram()
  * @model

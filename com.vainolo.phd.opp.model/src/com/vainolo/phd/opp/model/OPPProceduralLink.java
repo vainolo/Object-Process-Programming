@@ -17,11 +17,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPProceduralLink#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPProceduralLink#getSubKinds <em>Sub Kinds</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPProceduralLink()
  * @model

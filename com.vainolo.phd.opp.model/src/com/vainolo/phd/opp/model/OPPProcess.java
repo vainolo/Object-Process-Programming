@@ -16,11 +16,11 @@ package com.vainolo.phd.opp.model;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPProcess#getKind <em>Kind</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPProcess#getOrder <em>Order</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPProcess()
  * @model

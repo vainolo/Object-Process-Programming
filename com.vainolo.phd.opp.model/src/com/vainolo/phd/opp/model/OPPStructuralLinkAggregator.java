@@ -16,10 +16,10 @@ package com.vainolo.phd.opp.model;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPStructuralLinkAggregator#getKind <em>Kind</em>}</li>
  * </ul>
- * </p>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPStructuralLinkAggregator()
  * @model
