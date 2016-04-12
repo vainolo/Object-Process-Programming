@@ -68,7 +68,7 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
    * @generated
    * @ordered
    */
-  FREE_FORM(5, "FREE_FORM", ""), /**
+  FREE_FORM(5, "FREE_FORM", "Free Form"), /**
    * The '<em><b>TYPE</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -147,7 +147,7 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
    * </p>
    * <!-- end-user-doc -->
    * @see #FREE_FORM
-   * @model literal=""
+   * @model literal="Free Form"
    * @generated
    * @ordered
    */

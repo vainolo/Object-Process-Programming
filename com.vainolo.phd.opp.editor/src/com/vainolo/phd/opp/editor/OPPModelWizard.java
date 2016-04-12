@@ -70,9 +70,9 @@ public class OPPModelWizard extends Wizard implements INewWizard {
         @Override
         protected void execute(final IProgressMonitor progressMonitor) {
           try {
-            OPPFileUtils.createOPPFile(modelFile, modelFile.getName().substring(0, modelFile.getName().length() - 4),
-                initialObjectCreationPage.getOPDKind(), false, true);
-          } catch(Exception exception) {
+            OPPFileUtils.createOPPFile(modelFile, modelFile.getName().substring(0, modelFile.getName().length() - 4), initialObjectCreationPage.getOPDKind(),
+                false, true);
+          } catch (Exception exception) {
             OPPEditorPlugin.INSTANCE.log(exception);
           } finally {
             progressMonitor.done();
@@ -85,7 +85,7 @@ public class OPPModelWizard extends Wizard implements INewWizard {
       IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
       IWorkbenchPage page = workbenchWindow.getActivePage();
       final IWorkbenchPart activePart = page.getActivePart();
-      if(activePart instanceof ISetSelectionTarget) {
+      if (activePart instanceof ISetSelectionTarget) {
         final ISelection targetSelection = new StructuredSelection(modelFile);
         getShell().getDisplay().asyncExec(new Runnable() {
           @Override
@@ -97,15 +97,14 @@ public class OPPModelWizard extends Wizard implements INewWizard {
 
       try {
         modelFile.getWorkspace().getRoot().refreshLocal(IResource.DEPTH_INFINITE, null);
-        page.openEditor(new FileEditorInput(modelFile),
-            workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
-      } catch(PartInitException exception) {
+        page.openEditor(new FileEditorInput(modelFile), workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
+      } catch (PartInitException exception) {
         MessageDialog.openError(workbenchWindow.getShell(), "Open Editor", exception.getMessage());
         return false;
       }
 
       return true;
-    } catch(Exception exception) {
+    } catch (Exception exception) {
       OPPEditorPlugin.INSTANCE.log(exception);
       return false;
     }
@@ -124,11 +123,10 @@ public class OPPModelWizard extends Wizard implements INewWizard {
 
     @Override
     protected boolean validatePage() {
-      if(super.validatePage()) {
+      if (super.validatePage()) {
         String extension = new Path(getFileName()).getFileExtension();
-        if(extension == null || !FILE_EXTENSIONS.contains(extension)) {
-          String key = FILE_EXTENSIONS.size() > 1 ? "The file name must end in "
-              : "The file name must have one of the following extensions: ";
+        if (extension == null || !FILE_EXTENSIONS.contains(extension)) {
+          String key = FILE_EXTENSIONS.size() > 1 ? "The file name must end in " : "The file name must have one of the following extensions: ";
           setErrorMessage(key + FORMATTED_FILE_EXTENSIONS);
           return false;
         }
@@ -181,10 +179,14 @@ public class OPPModelWizard extends Wizard implements INewWizard {
       data.grabExcessHorizontalSpace = true;
       opdKind.setLayoutData(data);
 
-      for(String objectName : new String[] { OPPObjectProcessDiagramKind.COMPOUND.getLiteral(),
-          OPPObjectProcessDiagramKind.UNFOLDED.getLiteral(), OPPObjectProcessDiagramKind.SYSTEM.getLiteral() }) {
-        opdKind.add(objectName);
-      }
+      for (OPPObjectProcessDiagramKind value : OPPObjectProcessDiagramKind.VALUES)
+        opdKind.add(value.getLiteral());
+
+      // for (String objectName : new String[] { OPPObjectProcessDiagramKind.COMPOUND.getLiteral(),
+      // OPPObjectProcessDiagramKind.UNFOLDED.getLiteral(),
+      // OPPObjectProcessDiagramKind.SYSTEM.getLiteral() }) {
+      // opdKind.add(objectName);
+      // }
 
       opdKind.select(0);
       setControl(composite);
@@ -197,8 +199,8 @@ public class OPPModelWizard extends Wizard implements INewWizard {
     @Override
     public void setVisible(boolean visible) {
       super.setVisible(visible);
-      if(visible) {
-        if(opdKind.getItemCount() == 1) {
+      if (visible) {
+        if (opdKind.getItemCount() == 1) {
           opdKind.clearSelection();
         } else {
           opdKind.setFocus();
@@ -208,32 +210,31 @@ public class OPPModelWizard extends Wizard implements INewWizard {
   }
 
   /**
-   * Create the wizard pages and initialize the filename to the first available
-   * default value.
+   * Create the wizard pages and initialize the filename to the first available default value.
    */
   @Override
   public void addPages() {
     newFileCreationPage = new OPMModelWizardNewFileCreationPage("Whatever", selection);
     newFileCreationPage.setTitle("OPP Model");
     newFileCreationPage.setDescription("Create a new OPP model");
-    newFileCreationPage.setFileName("My" + "." + FILE_EXTENSIONS.get(0));
+    newFileCreationPage.setFileName("Model" + "." + FILE_EXTENSIONS.get(0));
     addPage(newFileCreationPage);
 
-    if(selection != null && !selection.isEmpty()) {
+    if (selection != null && !selection.isEmpty()) {
       Object selectedElement = selection.iterator().next();
-      if(selectedElement instanceof IResource) {
+      if (selectedElement instanceof IResource) {
         IResource selectedResource = (IResource) selectedElement;
-        if(selectedResource.getType() == IResource.FILE) {
+        if (selectedResource.getType() == IResource.FILE) {
           selectedResource = selectedResource.getParent();
         }
 
-        if(selectedResource instanceof IFolder || selectedResource instanceof IProject) {
+        if (selectedResource instanceof IFolder || selectedResource instanceof IProject) {
           newFileCreationPage.setContainerFullPath(selectedResource.getFullPath());
 
-          String defaultModelBaseFilename = "My";
+          String defaultModelBaseFilename = "Model";
           String defaultModelFilenameExtension = FILE_EXTENSIONS.get(0);
           String modelFilename = defaultModelBaseFilename + "." + defaultModelFilenameExtension;
-          for(int i = 1; ((IContainer) selectedResource).findMember(modelFilename) != null; ++i) {
+          for (int i = 1; ((IContainer) selectedResource).findMember(modelFilename) != null; ++i) {
             modelFilename = defaultModelBaseFilename + i + "." + defaultModelFilenameExtension;
           }
           newFileCreationPage.setFileName(modelFilename);
