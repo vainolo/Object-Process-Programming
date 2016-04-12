@@ -104,5 +104,13 @@
          </view>
       </perspectiveExtension>
    </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <commonWizard
+            type="new"
+            wizardId="com.vainolo.phd.opp.editor.NewOPPDWizardID">
+         <enablement></enablement>
+      </commonWizard>
+   </extension>
 
 </plugin>

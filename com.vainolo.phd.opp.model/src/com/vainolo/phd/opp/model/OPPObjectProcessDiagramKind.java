@@ -53,14 +53,38 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
    * @ordered
    */
   SYSTEM(3, "SYSTEM", "System"), /**
-   * The '<em><b>IN ZOOMED</b></em>' literal object.
+   * The '<em><b>IN ZOOMED PROCESS</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #IN_ZOOMED_VALUE
+   * @see #IN_ZOOMED_PROCESS_VALUE
    * @generated
    * @ordered
    */
-  IN_ZOOMED(4, "IN_ZOOMED", "In-Zoomed"), /**
+  IN_ZOOMED_PROCESS(4, "IN_ZOOMED_PROCESS", "In-Zoomed Process"), /**
+   * The '<em><b>IN ZOOMED OBJECT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #IN_ZOOMED_OBJECT_VALUE
+   * @generated
+   * @ordered
+   */
+  IN_ZOOMED_OBJECT(5, "IN_ZOOMED_OBJECT", "In-Zoomed Object"), /**
+   * The '<em><b>UNFOLDED PROCESS</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #UNFOLDED_PROCESS_VALUE
+   * @generated
+   * @ordered
+   */
+  UNFOLDED_PROCESS(6, "UNFOLDED_PROCESS", "Unfolded Process"), /**
+   * The '<em><b>UNFOLDED OBJECT</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #UNFOLDED_OBJECT_VALUE
+   * @generated
+   * @ordered
+   */
+  UNFOLDED_OBJECT(7, "UNFOLDED_OBJECT", "Unfolded Object"), /**
    * The '<em><b>FREE FORM</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -68,15 +92,7 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
    * @generated
    * @ordered
    */
-  FREE_FORM(5, "FREE_FORM", "Free Form"), /**
-   * The '<em><b>TYPE</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #TYPE_VALUE
-   * @generated
-   * @ordered
-   */
-  TYPE(6, "TYPE", "Type");
+  FREE_FORM(8, "FREE_FORM", "Free Form");
 
   /**
    * The '<em><b>COMPOUND</b></em>' literal value.
@@ -124,19 +140,64 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
   public static final int SYSTEM_VALUE = 3;
 
   /**
-   * The '<em><b>IN ZOOMED</b></em>' literal value.
+   * The '<em><b>IN ZOOMED PROCESS</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>IN ZOOMED</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>IN ZOOMED PROCESS</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #IN_ZOOMED
-   * @model literal="In-Zoomed"
+   * @see #IN_ZOOMED_PROCESS
+   * @model literal="In-Zoomed Process"
    * @generated
    * @ordered
    */
-  public static final int IN_ZOOMED_VALUE = 4;
+  public static final int IN_ZOOMED_PROCESS_VALUE = 4;
+
+  /**
+   * The '<em><b>IN ZOOMED OBJECT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>IN ZOOMED OBJECT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #IN_ZOOMED_OBJECT
+   * @model literal="In-Zoomed Object"
+   * @generated
+   * @ordered
+   */
+  public static final int IN_ZOOMED_OBJECT_VALUE = 5;
+
+  /**
+   * The '<em><b>UNFOLDED PROCESS</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>UNFOLDED PROCESS</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #UNFOLDED_PROCESS
+   * @model literal="Unfolded Process"
+   * @generated
+   * @ordered
+   */
+  public static final int UNFOLDED_PROCESS_VALUE = 6;
+
+  /**
+   * The '<em><b>UNFOLDED OBJECT</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>UNFOLDED OBJECT</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #UNFOLDED_OBJECT
+   * @model literal="Unfolded Object"
+   * @generated
+   * @ordered
+   */
+  public static final int UNFOLDED_OBJECT_VALUE = 7;
 
   /**
    * The '<em><b>FREE FORM</b></em>' literal value.
@@ -151,22 +212,7 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
    * @generated
    * @ordered
    */
-  public static final int FREE_FORM_VALUE = 5;
-
-  /**
-   * The '<em><b>TYPE</b></em>' literal value.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>TYPE</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @see #TYPE
-   * @model literal="Type"
-   * @generated
-   * @ordered
-   */
-  public static final int TYPE_VALUE = 6;
+  public static final int FREE_FORM_VALUE = 8;
 
   /**
    * An array of all the '<em><b>Object Process Diagram Kind</b></em>' enumerators.
@@ -179,9 +225,11 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
       COMPOUND,
       UNFOLDED,
       SYSTEM,
-      IN_ZOOMED,
+      IN_ZOOMED_PROCESS,
+      IN_ZOOMED_OBJECT,
+      UNFOLDED_PROCESS,
+      UNFOLDED_OBJECT,
       FREE_FORM,
-      TYPE,
     };
 
   /**
@@ -241,9 +289,11 @@ public enum OPPObjectProcessDiagramKind implements Enumerator {
       case COMPOUND_VALUE: return COMPOUND;
       case UNFOLDED_VALUE: return UNFOLDED;
       case SYSTEM_VALUE: return SYSTEM;
-      case IN_ZOOMED_VALUE: return IN_ZOOMED;
+      case IN_ZOOMED_PROCESS_VALUE: return IN_ZOOMED_PROCESS;
+      case IN_ZOOMED_OBJECT_VALUE: return IN_ZOOMED_OBJECT;
+      case UNFOLDED_PROCESS_VALUE: return UNFOLDED_PROCESS;
+      case UNFOLDED_OBJECT_VALUE: return UNFOLDED_OBJECT;
       case FREE_FORM_VALUE: return FREE_FORM;
-      case TYPE_VALUE: return TYPE;
     }
     return null;
   }

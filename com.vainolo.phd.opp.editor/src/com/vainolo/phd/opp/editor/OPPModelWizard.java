@@ -182,12 +182,6 @@ public class OPPModelWizard extends Wizard implements INewWizard {
       for (OPPObjectProcessDiagramKind value : OPPObjectProcessDiagramKind.VALUES)
         opdKind.add(value.getLiteral());
 
-      // for (String objectName : new String[] { OPPObjectProcessDiagramKind.COMPOUND.getLiteral(),
-      // OPPObjectProcessDiagramKind.UNFOLDED.getLiteral(),
-      // OPPObjectProcessDiagramKind.SYSTEM.getLiteral() }) {
-      // opdKind.add(objectName);
-      // }
-
       opdKind.select(0);
       setControl(composite);
     }

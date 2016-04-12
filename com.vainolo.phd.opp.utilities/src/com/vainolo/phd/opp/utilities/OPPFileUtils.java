@@ -44,8 +44,7 @@ public class OPPFileUtils {
 
   public static void createOPPFile(IFile opdFile, String name, OPPObjectProcessDiagramKind kind, boolean isObject, boolean isProcess) throws IOException {
     if (opdFile.exists()) {
-      logInfo("Tried to create file that already exists.");
-      logInfo("Filename: " + opdFile.getFullPath());
+      logInfo("Tried to create file that already exists: " + opdFile.getFullPath());
       throw new IllegalArgumentException("Tried to create a file that already exists: " + opdFile.getName());
     }
 
@@ -66,11 +65,9 @@ public class OPPFileUtils {
 
     switch (kind) {
     case COMPOUND:
-      // createInitialOPPProcessNode(opd, name);
       setConstraintsForInZoomedThing(initialThing);
       break;
     case UNFOLDED:
-      // createInitialOPPObjectNode(opd, name);
       setConstraintsForUnfoldedThing(initialThing);
       break;
     case SYSTEM:
