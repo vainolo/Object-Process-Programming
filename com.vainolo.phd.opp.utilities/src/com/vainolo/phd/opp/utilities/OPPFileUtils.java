@@ -42,6 +42,46 @@ public class OPPFileUtils {
     return opd;
   }
 
+  public static void createOPDFile(IFile file, String OPDName, OPPObjectProcessDiagramKind kind) throws IOException {
+    if (file.exists()) {
+      logInfo("Tried to create file that already exists: " + file.getFullPath());
+      throw new IllegalArgumentException("Tried to create a file that already exists: " + file.getName());
+    }
+    final ResourceSet resourceSet = new ResourceSetImpl();
+    final Resource resource = resourceSet.createResource(URI.createURI(file.getLocationURI().toString()));
+    OPPObjectProcessDiagram opd = OPPFactory.eINSTANCE.createOPPObjectProcessDiagram();
+    opd.setId(0);
+    opd.setName(OPDName);
+    opd.setKind(kind);
+    resource.getContents().add(opd);
+
+    OPPThing initialThing = null;
+    switch (kind) {
+    case IN_ZOOMED_OBJECT:
+    case UNFOLDED_OBJECT:
+      initialThing = initializeThing(opd, OPPFactory.eINSTANCE.createOPPObject(), OPDName);
+      break;
+    case IN_ZOOMED_PROCESS:
+    case UNFOLDED_PROCESS:
+      initialThing = initializeThing(opd, OPPFactory.eINSTANCE.createOPPProcess(), OPDName);
+      break;
+    }
+
+    switch (kind) {
+    case IN_ZOOMED_OBJECT:
+    case IN_ZOOMED_PROCESS:
+      setConstraintsForInZoomedThing(initialThing);
+      initialThing.setManualSize(true);
+      break;
+    case UNFOLDED_OBJECT:
+    case UNFOLDED_PROCESS:
+      setConstraintsForUnfoldedThing(initialThing);
+      break;
+    }
+
+    resource.save(null);
+  }
+
   public static void createOPPFile(IFile opdFile, String name, OPPObjectProcessDiagramKind kind, boolean isObject, boolean isProcess) throws IOException {
     if (opdFile.exists()) {
       logInfo("Tried to create file that already exists: " + opdFile.getFullPath());

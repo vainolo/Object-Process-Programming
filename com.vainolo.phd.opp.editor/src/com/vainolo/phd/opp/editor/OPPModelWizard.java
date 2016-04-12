@@ -70,8 +70,21 @@ public class OPPModelWizard extends Wizard implements INewWizard {
         @Override
         protected void execute(final IProgressMonitor progressMonitor) {
           try {
-            OPPFileUtils.createOPPFile(modelFile, modelFile.getName().substring(0, modelFile.getName().length() - 4), initialObjectCreationPage.getOPDKind(),
-                false, true);
+            switch (initialObjectCreationPage.getOPDKind()) {
+            case COMPOUND:
+            case UNFOLDED:
+            case SYSTEM:
+              OPPFileUtils.createOPPFile(modelFile, modelFile.getName().substring(0, modelFile.getName().length() - 4), initialObjectCreationPage.getOPDKind(),
+                  false, true);
+              break;
+            case FREE_FORM:
+            case IN_ZOOMED_OBJECT:
+            case IN_ZOOMED_PROCESS:
+            case UNFOLDED_OBJECT:
+            case UNFOLDED_PROCESS:
+              OPPFileUtils.createOPDFile(modelFile, modelFile.getName().substring(0, modelFile.getName().length() - 4), initialObjectCreationPage.getOPDKind());
+              break;
+            }
           } catch (Exception exception) {
             OPPEditorPlugin.INSTANCE.log(exception);
           } finally {
