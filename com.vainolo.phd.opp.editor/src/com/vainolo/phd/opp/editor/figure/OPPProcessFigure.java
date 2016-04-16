@@ -55,6 +55,7 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
   }
 
   private void paintProcess(Rectangle r) {
+    shade1.setVisible(false);
     setConstraint(ellipse, new Rectangle(0, 0, r.width(), r.height()));
     setConstraint(shade1, new Rectangle(0, 0, r.width(), r.height()));
     ellipse.setConstraint(nameLabel, calculateInnerRectangle(r.width(), r.height()));
@@ -62,6 +63,7 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
   }
 
   private void paintProcessWithShadow(Rectangle r) {
+    shade1.setVisible(true);
     setConstraint(ellipse, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
     setConstraint(shade1, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
     ellipse.setConstraint(nameLabel, calculateInnerRectangle(r.width() - 5, r.height() - 10));

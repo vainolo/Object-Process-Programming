@@ -41,6 +41,9 @@ public class OPPProcessEditPart extends OPPThingEditPart {
     if (opd == null)
       return;
 
+    figure.setTooltipText(model.getDescription());
+    figure.setDashedBorder(model.isAbstract());
+
     if (opd.getKind() != OPPObjectProcessDiagramKind.COMPOUND || !model.isMain()) {
       figure.getNameFigure().setText(model.getName());
 
@@ -53,7 +56,6 @@ public class OPPProcessEditPart extends OPPThingEditPart {
       }
 
     }
-    figure.setTooltipText(model.getDescription());
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
 
     if (!model.isManualSize()) {

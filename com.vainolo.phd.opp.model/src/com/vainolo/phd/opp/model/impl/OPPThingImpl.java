@@ -42,8 +42,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#getName <em>Name</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#getAlignment <em>Alignment</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#isCollection <em>Collection</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#isMain <em>Main</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.impl.OPPThingImpl#isAbstract <em>Abstract</em>}</li>
  * </ul>
  *
  * @generated
@@ -120,26 +120,6 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
   protected String description = DESCRIPTION_EDEFAULT;
 
   /**
-   * The default value of the '{@link #isCollection() <em>Collection</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isCollection()
-   * @generated
-   * @ordered
-   */
-  protected static final boolean COLLECTION_EDEFAULT = false;
-
-  /**
-   * The cached value of the '{@link #isCollection() <em>Collection</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #isCollection()
-   * @generated
-   * @ordered
-   */
-  protected boolean collection = COLLECTION_EDEFAULT;
-
-  /**
    * The default value of the '{@link #isMain() <em>Main</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -158,6 +138,26 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
    * @ordered
    */
   protected boolean main = MAIN_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAbstract()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean ABSTRACT_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isAbstract() <em>Abstract</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isAbstract()
+   * @generated
+   * @ordered
+   */
+  protected boolean abstract_ = ABSTRACT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -258,27 +258,6 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
    * <!-- end-user-doc -->
    * @generated
    */
-  public boolean isCollection() {
-    return collection;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setCollection(boolean newCollection) {
-    boolean oldCollection = collection;
-    collection = newCollection;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_THING__COLLECTION, oldCollection, collection));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public boolean isMain() {
     return main;
   }
@@ -293,6 +272,27 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
     main = newMain;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_THING__MAIN, oldMain, main));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isAbstract() {
+    return abstract_;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setAbstract(boolean newAbstract) {
+    boolean oldAbstract = abstract_;
+    abstract_ = newAbstract;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_THING__ABSTRACT, oldAbstract, abstract_));
   }
 
   /**
@@ -340,10 +340,10 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
         return getAlignment();
       case OPPPackage.OPP_THING__DESCRIPTION:
         return getDescription();
-      case OPPPackage.OPP_THING__COLLECTION:
-        return isCollection();
       case OPPPackage.OPP_THING__MAIN:
         return isMain();
+      case OPPPackage.OPP_THING__ABSTRACT:
+        return isAbstract();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -370,11 +370,11 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
       case OPPPackage.OPP_THING__DESCRIPTION:
         setDescription((String)newValue);
         return;
-      case OPPPackage.OPP_THING__COLLECTION:
-        setCollection((Boolean)newValue);
-        return;
       case OPPPackage.OPP_THING__MAIN:
         setMain((Boolean)newValue);
+        return;
+      case OPPPackage.OPP_THING__ABSTRACT:
+        setAbstract((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -400,11 +400,11 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
       case OPPPackage.OPP_THING__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
-      case OPPPackage.OPP_THING__COLLECTION:
-        setCollection(COLLECTION_EDEFAULT);
-        return;
       case OPPPackage.OPP_THING__MAIN:
         setMain(MAIN_EDEFAULT);
+        return;
+      case OPPPackage.OPP_THING__ABSTRACT:
+        setAbstract(ABSTRACT_EDEFAULT);
         return;
     }
     super.eUnset(featureID);
@@ -426,10 +426,10 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
         return alignment != ALIGNMENT_EDEFAULT;
       case OPPPackage.OPP_THING__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-      case OPPPackage.OPP_THING__COLLECTION:
-        return collection != COLLECTION_EDEFAULT;
       case OPPPackage.OPP_THING__MAIN:
         return main != MAIN_EDEFAULT;
+      case OPPPackage.OPP_THING__ABSTRACT:
+        return abstract_ != ABSTRACT_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -496,10 +496,10 @@ public abstract class OPPThingImpl extends OPPNodeImpl implements OPPThing {
     result.append(alignment);
     result.append(", description: ");
     result.append(description);
-    result.append(", collection: ");
-    result.append(collection);
     result.append(", main: ");
     result.append(main);
+    result.append(", abstract: ");
+    result.append(abstract_);
     result.append(')');
     return result.toString();
   }

@@ -19,8 +19,8 @@ package com.vainolo.phd.opp.model;
  * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPThing#getDescription <em>Description</em>}</li>
- *   <li>{@link com.vainolo.phd.opp.model.OPPThing#isCollection <em>Collection</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPThing#isMain <em>Main</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.OPPThing#isAbstract <em>Abstract</em>}</li>
  * </ul>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPThing()
@@ -55,33 +55,6 @@ public interface OPPThing extends OPPNode, OPPContainer, OPPNamedElement {
   void setDescription(String value);
 
   /**
-   * Returns the value of the '<em><b>Collection</b></em>' attribute.
-   * The default value is <code>"false"</code>.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Collection</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Collection</em>' attribute.
-   * @see #setCollection(boolean)
-   * @see com.vainolo.phd.opp.model.OPPPackage#getOPPThing_Collection()
-   * @model default="false" required="true"
-   * @generated
-   */
-  boolean isCollection();
-
-  /**
-   * Sets the value of the '{@link com.vainolo.phd.opp.model.OPPThing#isCollection <em>Collection</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Collection</em>' attribute.
-   * @see #isCollection()
-   * @generated
-   */
-  void setCollection(boolean value);
-
-  /**
    * Returns the value of the '<em><b>Main</b></em>' attribute.
    * The default value is <code>"false"</code>.
    * <!-- begin-user-doc -->
@@ -107,5 +80,32 @@ public interface OPPThing extends OPPNode, OPPContainer, OPPNamedElement {
    * @generated
    */
   void setMain(boolean value);
+
+  /**
+   * Returns the value of the '<em><b>Abstract</b></em>' attribute.
+   * The default value is <code>"false"</code>.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Abstract</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Abstract</em>' attribute.
+   * @see #setAbstract(boolean)
+   * @see com.vainolo.phd.opp.model.OPPPackage#getOPPThing_Abstract()
+   * @model default="false"
+   * @generated
+   */
+  boolean isAbstract();
+
+  /**
+   * Sets the value of the '{@link com.vainolo.phd.opp.model.OPPThing#isAbstract <em>Abstract</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Abstract</em>' attribute.
+   * @see #isAbstract()
+   * @generated
+   */
+  void setAbstract(boolean value);
 
 } // OPPThing

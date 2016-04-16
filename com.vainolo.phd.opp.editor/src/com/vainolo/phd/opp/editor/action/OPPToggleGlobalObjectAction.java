@@ -28,7 +28,7 @@ public class OPPToggleGlobalObjectAction extends SelectionAction {
     super(part);
     request = new Request(TOGGLE_GLOBAL_OBJECT_REQUEST);
     setId(TOGGLE_GLOBALOBJECT_ID);
-    setText("Toggle Global Object");
+    setText("Toggle Global");
   }
 
   public Request getRequest() {

@@ -27,7 +27,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPProcessImpl#getKind <em>Kind</em>}</li>
- *   <li>{@link com.vainolo.phd.opp.model.impl.OPPProcessImpl#getOrder <em>Order</em>}</li>
  * </ul>
  *
  * @generated
@@ -52,26 +51,6 @@ public class OPPProcessImpl extends OPPThingImpl implements OPPProcess {
    * @ordered
    */
   protected OPPProcessKind kind = KIND_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getOrder() <em>Order</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOrder()
-   * @generated
-   * @ordered
-   */
-  protected static final int ORDER_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getOrder() <em>Order</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getOrder()
-   * @generated
-   * @ordered
-   */
-  protected int order = ORDER_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,34 +97,11 @@ public class OPPProcessImpl extends OPPThingImpl implements OPPProcess {
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getOrder() {
-    return order;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setOrder(int newOrder) {
-    int oldOrder = order;
-    order = newOrder;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_PROCESS__ORDER, oldOrder, order));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
       case OPPPackage.OPP_PROCESS__KIND:
         return getKind();
-      case OPPPackage.OPP_PROCESS__ORDER:
-        return getOrder();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -160,9 +116,6 @@ public class OPPProcessImpl extends OPPThingImpl implements OPPProcess {
     switch (featureID) {
       case OPPPackage.OPP_PROCESS__KIND:
         setKind((OPPProcessKind)newValue);
-        return;
-      case OPPPackage.OPP_PROCESS__ORDER:
-        setOrder((Integer)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -179,9 +132,6 @@ public class OPPProcessImpl extends OPPThingImpl implements OPPProcess {
       case OPPPackage.OPP_PROCESS__KIND:
         setKind(KIND_EDEFAULT);
         return;
-      case OPPPackage.OPP_PROCESS__ORDER:
-        setOrder(ORDER_EDEFAULT);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -196,8 +146,6 @@ public class OPPProcessImpl extends OPPThingImpl implements OPPProcess {
     switch (featureID) {
       case OPPPackage.OPP_PROCESS__KIND:
         return kind != KIND_EDEFAULT;
-      case OPPPackage.OPP_PROCESS__ORDER:
-        return order != ORDER_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -214,8 +162,6 @@ public class OPPProcessImpl extends OPPThingImpl implements OPPProcess {
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (kind: ");
     result.append(kind);
-    result.append(", order: ");
-    result.append(order);
     result.append(')');
     return result.toString();
   }

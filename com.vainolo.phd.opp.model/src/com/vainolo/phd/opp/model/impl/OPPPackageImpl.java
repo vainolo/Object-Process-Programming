@@ -454,7 +454,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getOPPThing_Collection() {
+  public EAttribute getOPPThing_Main() {
     return (EAttribute)oppThingEClass.getEStructuralFeatures().get(1);
   }
 
@@ -463,7 +463,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getOPPThing_Main() {
+  public EAttribute getOPPThing_Abstract() {
     return (EAttribute)oppThingEClass.getEStructuralFeatures().get(2);
   }
 
@@ -499,7 +499,7 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getOPPObject_Parameter() {
+  public EAttribute getOPPObject_Global() {
     return (EAttribute)oppObjectEClass.getEStructuralFeatures().get(0);
   }
 
@@ -508,17 +508,8 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getOPPObject_Global() {
-    return (EAttribute)oppObjectEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getOPPObject_InitialValue() {
-    return (EAttribute)oppObjectEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)oppObjectEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -537,15 +528,6 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
    */
   public EAttribute getOPPProcess_Kind() {
     return (EAttribute)oppProcessEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getOPPProcess_Order() {
-    return (EAttribute)oppProcessEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -810,20 +792,18 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
 
     oppThingEClass = createEClass(OPP_THING);
     createEAttribute(oppThingEClass, OPP_THING__DESCRIPTION);
-    createEAttribute(oppThingEClass, OPP_THING__COLLECTION);
     createEAttribute(oppThingEClass, OPP_THING__MAIN);
+    createEAttribute(oppThingEClass, OPP_THING__ABSTRACT);
 
     oppStateEClass = createEClass(OPP_STATE);
     createEAttribute(oppStateEClass, OPP_STATE__VALUE);
 
     oppObjectEClass = createEClass(OPP_OBJECT);
-    createEAttribute(oppObjectEClass, OPP_OBJECT__PARAMETER);
     createEAttribute(oppObjectEClass, OPP_OBJECT__GLOBAL);
     createEAttribute(oppObjectEClass, OPP_OBJECT__INITIAL_VALUE);
 
     oppProcessEClass = createEClass(OPP_PROCESS);
     createEAttribute(oppProcessEClass, OPP_PROCESS__KIND);
-    createEAttribute(oppProcessEClass, OPP_PROCESS__ORDER);
 
     oppStructuralLinkAggregatorEClass = createEClass(OPP_STRUCTURAL_LINK_AGGREGATOR);
     createEAttribute(oppStructuralLinkAggregatorEClass, OPP_STRUCTURAL_LINK_AGGREGATOR__KIND);
@@ -938,20 +918,18 @@ public class OPPPackageImpl extends EPackageImpl implements OPPPackage {
 
     initEClass(oppThingEClass, OPPThing.class, "OPPThing", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPPThing_Description(), ecorePackage.getEString(), "description", null, 0, 1, OPPThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getOPPThing_Collection(), ecorePackage.getEBoolean(), "collection", "false", 1, 1, OPPThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPThing_Main(), ecorePackage.getEBoolean(), "main", "false", 1, 1, OPPThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getOPPThing_Abstract(), ecorePackage.getEBoolean(), "abstract", "false", 0, 1, OPPThing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppStateEClass, OPPState.class, "OPPState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPPState_Value(), ecorePackage.getEBoolean(), "value", "false", 1, 1, OPPState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppObjectEClass, OPPObject.class, "OPPObject", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getOPPObject_Parameter(), ecorePackage.getEBoolean(), "parameter", "false", 1, 1, OPPObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPObject_Global(), ecorePackage.getEBoolean(), "global", null, 0, 1, OPPObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getOPPObject_InitialValue(), ecorePackage.getEString(), "initialValue", "", 0, 1, OPPObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppProcessEClass, OPPProcess.class, "OPPProcess", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPPProcess_Kind(), this.getOPPProcessKind(), "kind", "Compound", 1, 1, OPPProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getOPPProcess_Order(), ecorePackage.getEInt(), "order", null, 0, 1, OPPProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oppStructuralLinkAggregatorEClass, OPPStructuralLinkAggregator.class, "OPPStructuralLinkAggregator", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getOPPStructuralLinkAggregator_Kind(), this.getOPPStructuralLinkAggregatorKind(), "kind", null, 0, 1, OPPStructuralLinkAggregator.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -11,18 +11,18 @@ import org.eclipse.gef.commands.Command;
 import com.vainolo.phd.opp.editor.part.OPPThingEditPart;
 import com.vainolo.phd.opp.model.OPPThing;
 
-public class OPPToggleThingMultiplicityCommand extends Command {
+public class OPPToggleThingAbstractCommand extends Command {
 
   private OPPThingEditPart part;
 
-  public OPPToggleThingMultiplicityCommand(OPPThingEditPart part) {
+  public OPPToggleThingAbstractCommand(OPPThingEditPart part) {
     this.part = part;
   }
 
   @Override
   public void execute() {
     OPPThing model = (OPPThing) part.getModel();
-    model.setCollection(!model.isCollection());
+    model.setAbstract(!model.isAbstract());
   }
 
   @Override

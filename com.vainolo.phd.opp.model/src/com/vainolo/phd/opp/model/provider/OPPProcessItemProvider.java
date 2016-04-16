@@ -1,9 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 Arieh "Vainolo" Bibliowicz and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which is available at http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
 /**
  */
 package com.vainolo.phd.opp.model.provider;
@@ -52,7 +46,6 @@ public class OPPProcessItemProvider extends OPPThingItemProvider {
       super.getPropertyDescriptors(object);
 
       addKindPropertyDescriptor(object);
-      addOrderPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -75,28 +68,6 @@ public class OPPProcessItemProvider extends OPPThingItemProvider {
          false,
          false,
          ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
-         null,
-         null));
-  }
-
-  /**
-   * This adds a property descriptor for the Order feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addOrderPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_OPPProcess_order_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_OPPProcess_order_feature", "_UI_OPPProcess_type"),
-         OPPPackage.Literals.OPP_PROCESS__ORDER,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
          null,
          null));
   }
@@ -140,7 +111,6 @@ public class OPPProcessItemProvider extends OPPThingItemProvider {
 
     switch (notification.getFeatureID(OPPProcess.class)) {
       case OPPPackage.OPP_PROCESS__KIND:
-      case OPPPackage.OPP_PROCESS__ORDER:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

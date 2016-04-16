@@ -19,7 +19,6 @@ package com.vainolo.phd.opp.model;
  * </p>
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.OPPProcess#getKind <em>Kind</em>}</li>
- *   <li>{@link com.vainolo.phd.opp.model.OPPProcess#getOrder <em>Order</em>}</li>
  * </ul>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPProcess()
@@ -56,31 +55,5 @@ public interface OPPProcess extends OPPThing {
    * @generated
    */
   void setKind(OPPProcessKind value);
-
-  /**
-   * Returns the value of the '<em><b>Order</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Order</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Order</em>' attribute.
-   * @see #setOrder(int)
-   * @see com.vainolo.phd.opp.model.OPPPackage#getOPPProcess_Order()
-   * @model
-   * @generated
-   */
-  int getOrder();
-
-  /**
-   * Sets the value of the '{@link com.vainolo.phd.opp.model.OPPProcess#getOrder <em>Order</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Order</em>' attribute.
-   * @see #getOrder()
-   * @generated
-   */
-  void setOrder(int value);
 
 } // OPPProcess

@@ -1,9 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 Arieh "Vainolo" Bibliowicz and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which is available at http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
 /**
  */
 package com.vainolo.phd.opp.model.provider;
@@ -57,8 +51,8 @@ public class OPPThingItemProvider extends OPPNodeItemProvider {
       addNamePropertyDescriptor(object);
       addAlignmentPropertyDescriptor(object);
       addDescriptionPropertyDescriptor(object);
-      addCollectionPropertyDescriptor(object);
       addMainPropertyDescriptor(object);
+      addAbstractPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -130,28 +124,6 @@ public class OPPThingItemProvider extends OPPNodeItemProvider {
   }
 
   /**
-   * This adds a property descriptor for the Collection feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addCollectionPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_OPPThing_collection_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_OPPThing_collection_feature", "_UI_OPPThing_type"),
-         OPPPackage.Literals.OPP_THING__COLLECTION,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-         null,
-         null));
-  }
-
-  /**
    * This adds a property descriptor for the Main feature.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -165,6 +137,28 @@ public class OPPThingItemProvider extends OPPNodeItemProvider {
          getString("_UI_OPPThing_main_feature"),
          getString("_UI_PropertyDescriptor_description", "_UI_OPPThing_main_feature", "_UI_OPPThing_type"),
          OPPPackage.Literals.OPP_THING__MAIN,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
+   * This adds a property descriptor for the Abstract feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addAbstractPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPPThing_abstract_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPPThing_abstract_feature", "_UI_OPPThing_type"),
+         OPPPackage.Literals.OPP_THING__ABSTRACT,
          true,
          false,
          false,
@@ -233,8 +227,8 @@ public class OPPThingItemProvider extends OPPNodeItemProvider {
       case OPPPackage.OPP_THING__NAME:
       case OPPPackage.OPP_THING__ALIGNMENT:
       case OPPPackage.OPP_THING__DESCRIPTION:
-      case OPPPackage.OPP_THING__COLLECTION:
       case OPPPackage.OPP_THING__MAIN:
+      case OPPPackage.OPP_THING__ABSTRACT:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
       case OPPPackage.OPP_THING__NODES:

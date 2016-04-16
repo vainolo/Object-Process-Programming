@@ -15,19 +15,19 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.vainolo.phd.opp.editor.part.OPPThingEditPart;
 
-public class OPPToggleThingMultiplicityAction extends SelectionAction {
+public class OPPToggleThingAbstractAction extends SelectionAction {
 
-  public static final String TOGGLE_MULTIPLICITY_ID = "ToggleMultiplicity";
+  public static final String TOGGLE_ABSTRACT_ID = "ToggleAbstract";
 
-  public static final String TOGGLE_MULTIPLICITY_REQUEST = "ToggleMultiplicity";
+  public static final String TOGGLE_ABSTRACT_REQUEST = "ToggleAbstract";
 
   private final Request request;
 
-  public OPPToggleThingMultiplicityAction(IWorkbenchPart part) {
+  public OPPToggleThingAbstractAction(IWorkbenchPart part) {
     super(part);
-    request = new Request(TOGGLE_MULTIPLICITY_REQUEST);
-    setId(TOGGLE_MULTIPLICITY_ID);
-    setText("Toggle Thing Multiplicity");
+    request = new Request(TOGGLE_ABSTRACT_REQUEST);
+    setId(TOGGLE_ABSTRACT_ID);
+    setText("Toggle Abstract");
   }
 
   public Request getRequest() {
@@ -39,26 +39,19 @@ public class OPPToggleThingMultiplicityAction extends SelectionAction {
   public void run() {
     List<OPPThingEditPart> editParts = getSelectedObjects();
     CompoundCommand compoundCommand = new CompoundCommand();
-    for(OPPThingEditPart thingEditPart : editParts) {
+    for (OPPThingEditPart thingEditPart : editParts) {
       compoundCommand.add(thingEditPart.getCommand(getRequest()));
     }
     execute(compoundCommand);
   }
 
-  /**
-   * {@inheritDoc}
-   * <p>
-   * The action is enabled if all the selected entities on the editor are
-   * {@link OPPThingEditPart} instances
-   * </p>
-   */
   @Override
   protected boolean calculateEnabled() {
-    if(getSelectedObjects().isEmpty()) {
+    if (getSelectedObjects().isEmpty()) {
       return false;
     }
-    for(Object selectedObject : getSelectedObjects()) {
-      if(!OPPThingEditPart.class.isInstance(selectedObject)) {
+    for (Object selectedObject : getSelectedObjects()) {
+      if (!OPPThingEditPart.class.isInstance(selectedObject)) {
         return false;
       }
     }

@@ -474,22 +474,22 @@ public interface OPPPackage extends EPackage {
   int OPP_THING__DESCRIPTION = OPP_NODE_FEATURE_COUNT + 3;
 
   /**
-   * The feature id for the '<em><b>Collection</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OPP_THING__COLLECTION = OPP_NODE_FEATURE_COUNT + 4;
-
-  /**
    * The feature id for the '<em><b>Main</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_THING__MAIN = OPP_NODE_FEATURE_COUNT + 5;
+  int OPP_THING__MAIN = OPP_NODE_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Abstract</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_THING__ABSTRACT = OPP_NODE_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>Thing</em>' class.
@@ -755,15 +755,6 @@ public interface OPPPackage extends EPackage {
   int OPP_OBJECT__DESCRIPTION = OPP_THING__DESCRIPTION;
 
   /**
-   * The feature id for the '<em><b>Collection</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OPP_OBJECT__COLLECTION = OPP_THING__COLLECTION;
-
-  /**
    * The feature id for the '<em><b>Main</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -773,13 +764,13 @@ public interface OPPPackage extends EPackage {
   int OPP_OBJECT__MAIN = OPP_THING__MAIN;
 
   /**
-   * The feature id for the '<em><b>Parameter</b></em>' attribute.
+   * The feature id for the '<em><b>Abstract</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_OBJECT__PARAMETER = OPP_THING_FEATURE_COUNT + 0;
+  int OPP_OBJECT__ABSTRACT = OPP_THING__ABSTRACT;
 
   /**
    * The feature id for the '<em><b>Global</b></em>' attribute.
@@ -788,7 +779,7 @@ public interface OPPPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int OPP_OBJECT__GLOBAL = OPP_THING_FEATURE_COUNT + 1;
+  int OPP_OBJECT__GLOBAL = OPP_THING_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Initial Value</b></em>' attribute.
@@ -797,7 +788,7 @@ public interface OPPPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int OPP_OBJECT__INITIAL_VALUE = OPP_THING_FEATURE_COUNT + 2;
+  int OPP_OBJECT__INITIAL_VALUE = OPP_THING_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>Object</em>' class.
@@ -806,7 +797,7 @@ public interface OPPPackage extends EPackage {
    * @generated
    * @ordered
    */
-  int OPP_OBJECT_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 3;
+  int OPP_OBJECT_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link com.vainolo.phd.opp.model.impl.OPPProcessImpl <em>Process</em>}' class.
@@ -936,15 +927,6 @@ public interface OPPPackage extends EPackage {
   int OPP_PROCESS__DESCRIPTION = OPP_THING__DESCRIPTION;
 
   /**
-   * The feature id for the '<em><b>Collection</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OPP_PROCESS__COLLECTION = OPP_THING__COLLECTION;
-
-  /**
    * The feature id for the '<em><b>Main</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -952,6 +934,15 @@ public interface OPPPackage extends EPackage {
    * @ordered
    */
   int OPP_PROCESS__MAIN = OPP_THING__MAIN;
+
+  /**
+   * The feature id for the '<em><b>Abstract</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_PROCESS__ABSTRACT = OPP_THING__ABSTRACT;
 
   /**
    * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -963,22 +954,13 @@ public interface OPPPackage extends EPackage {
   int OPP_PROCESS__KIND = OPP_THING_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Order</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OPP_PROCESS__ORDER = OPP_THING_FEATURE_COUNT + 1;
-
-  /**
    * The number of structural features of the '<em>Process</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_PROCESS_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 2;
+  int OPP_PROCESS_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link com.vainolo.phd.opp.model.impl.OPPStructuralLinkAggregatorImpl <em>Structural Link Aggregator</em>}' class.
@@ -1831,17 +1813,6 @@ public interface OPPPackage extends EPackage {
   EAttribute getOPPThing_Description();
 
   /**
-   * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPThing#isCollection <em>Collection</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Collection</em>'.
-   * @see com.vainolo.phd.opp.model.OPPThing#isCollection()
-   * @see #getOPPThing()
-   * @generated
-   */
-  EAttribute getOPPThing_Collection();
-
-  /**
    * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPThing#isMain <em>Main</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1851,6 +1822,17 @@ public interface OPPPackage extends EPackage {
    * @generated
    */
   EAttribute getOPPThing_Main();
+
+  /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPThing#isAbstract <em>Abstract</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Abstract</em>'.
+   * @see com.vainolo.phd.opp.model.OPPThing#isAbstract()
+   * @see #getOPPThing()
+   * @generated
+   */
+  EAttribute getOPPThing_Abstract();
 
   /**
    * Returns the meta object for class '{@link com.vainolo.phd.opp.model.OPPState <em>State</em>}'.
@@ -1882,17 +1864,6 @@ public interface OPPPackage extends EPackage {
    * @generated
    */
   EClass getOPPObject();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPObject#isParameter <em>Parameter</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Parameter</em>'.
-   * @see com.vainolo.phd.opp.model.OPPObject#isParameter()
-   * @see #getOPPObject()
-   * @generated
-   */
-  EAttribute getOPPObject_Parameter();
 
   /**
    * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPObject#isGlobal <em>Global</em>}'.
@@ -1936,17 +1907,6 @@ public interface OPPPackage extends EPackage {
    * @generated
    */
   EAttribute getOPPProcess_Kind();
-
-  /**
-   * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPProcess#getOrder <em>Order</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Order</em>'.
-   * @see com.vainolo.phd.opp.model.OPPProcess#getOrder()
-   * @see #getOPPProcess()
-   * @generated
-   */
-  EAttribute getOPPProcess_Order();
 
   /**
    * Returns the meta object for class '{@link com.vainolo.phd.opp.model.OPPStructuralLinkAggregator <em>Structural Link Aggregator</em>}'.
@@ -2401,20 +2361,20 @@ public interface OPPPackage extends EPackage {
     EAttribute OPP_THING__DESCRIPTION = eINSTANCE.getOPPThing_Description();
 
     /**
-     * The meta object literal for the '<em><b>Collection</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute OPP_THING__COLLECTION = eINSTANCE.getOPPThing_Collection();
-
-    /**
      * The meta object literal for the '<em><b>Main</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute OPP_THING__MAIN = eINSTANCE.getOPPThing_Main();
+
+    /**
+     * The meta object literal for the '<em><b>Abstract</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPP_THING__ABSTRACT = eINSTANCE.getOPPThing_Abstract();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opp.model.impl.OPPStateImpl <em>State</em>}' class.
@@ -2443,14 +2403,6 @@ public interface OPPPackage extends EPackage {
      * @generated
      */
     EClass OPP_OBJECT = eINSTANCE.getOPPObject();
-
-    /**
-     * The meta object literal for the '<em><b>Parameter</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute OPP_OBJECT__PARAMETER = eINSTANCE.getOPPObject_Parameter();
 
     /**
      * The meta object literal for the '<em><b>Global</b></em>' attribute feature.
@@ -2485,14 +2437,6 @@ public interface OPPPackage extends EPackage {
      * @generated
      */
     EAttribute OPP_PROCESS__KIND = eINSTANCE.getOPPProcess_Kind();
-
-    /**
-     * The meta object literal for the '<em><b>Order</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute OPP_PROCESS__ORDER = eINSTANCE.getOPPProcess_Order();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opp.model.impl.OPPStructuralLinkAggregatorImpl <em>Structural Link Aggregator</em>}' class.

@@ -58,6 +58,7 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
   }
 
   private void paintObject(Rectangle r) {
+    shade1.setVisible(false);
     setConstraint(rectangle, new Rectangle(0, 0, r.width(), r.height()));
     setConstraint(shade1, new Rectangle(0, 0, r.width(), r.height()));
     Dimension nameDimensions = nameLabel.getPreferredSize();
@@ -69,6 +70,7 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
   }
 
   private void paintObjectWithShadow(Rectangle r) {
+    shade1.setVisible(true);
     setConstraint(rectangle, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
     setConstraint(shade1, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
     Dimension nameDimensions = nameLabel.getPreferredSize();
@@ -142,6 +144,10 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
   @Override
   public ConnectionAnchor getTargetConnectionAnchor() {
     return getConnectionAnchor();
+  }
+
+  public void setHasShadow(boolean hasShadow) {
+    this.hasShadow = hasShadow;
   }
 
   class ContentPane extends Figure {

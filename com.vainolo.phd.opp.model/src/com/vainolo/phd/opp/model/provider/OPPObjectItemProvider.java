@@ -1,9 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2015 Arieh "Vainolo" Bibliowicz and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which is available at http://www.eclipse.org/legal/epl-v10.html
- *******************************************************************************/
 /**
  */
 package com.vainolo.phd.opp.model.provider;
@@ -51,33 +45,10 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
     if (itemPropertyDescriptors == null) {
       super.getPropertyDescriptors(object);
 
-      addParameterPropertyDescriptor(object);
       addGlobalPropertyDescriptor(object);
       addInitialValuePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
-  }
-
-  /**
-   * This adds a property descriptor for the Parameter feature.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  protected void addParameterPropertyDescriptor(Object object) {
-    itemPropertyDescriptors.add
-      (createItemPropertyDescriptor
-        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-         getResourceLocator(),
-         getString("_UI_OPPObject_parameter_feature"),
-         getString("_UI_PropertyDescriptor_description", "_UI_OPPObject_parameter_feature", "_UI_OPPObject_type"),
-         OPPPackage.Literals.OPP_OBJECT__PARAMETER,
-         true,
-         false,
-         false,
-         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-         null,
-         null));
   }
 
   /**
@@ -162,7 +133,6 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
     updateChildren(notification);
 
     switch (notification.getFeatureID(OPPObject.class)) {
-      case OPPPackage.OPP_OBJECT__PARAMETER:
       case OPPPackage.OPP_OBJECT__GLOBAL:
       case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

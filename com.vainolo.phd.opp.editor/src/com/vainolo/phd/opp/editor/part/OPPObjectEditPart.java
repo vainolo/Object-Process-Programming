@@ -44,12 +44,12 @@ public class OPPObjectEditPart extends OPPThingEditPart {
     } else {
       figure.getNameFigure().setText(model.getName() + " = " + model.getInitialValue());
     }
-
     figure.setTooltipText(model.getDescription());
-
-    figure.setDashedBorder(model.isGlobal());
+    figure.setHasShadow(model.isGlobal());
+    figure.setDashedBorder(model.isAbstract());
 
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
+    parent.refresh();
     if (!model.isManualSize()) {
       Display.getCurrent().asyncExec(new Runnable() {
         @Override
