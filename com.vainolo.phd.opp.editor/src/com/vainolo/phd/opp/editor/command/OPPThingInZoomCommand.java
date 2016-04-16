@@ -19,6 +19,7 @@ import com.vainolo.phd.opp.model.OPPObjectProcessDiagramKind;
 import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPThing;
 import com.vainolo.phd.opp.utilities.OPPFileUtils;
+import com.vainolo.phd.opp.utilities.OPPLogger;
 import com.vainolo.phd.opp.editor.OPPEditorPlugin;
 import com.vainolo.phd.opp.editor.part.OPPThingEditPart;
 
@@ -47,8 +48,8 @@ public class OPPThingInZoomCommand extends Command {
       final IWorkbenchPage page = editorPart.getSite().getPage();
       page.openEditor(new FileEditorInput(newFile), editor.getId());
     } catch (Exception e) {
-      OPPEditorPlugin.INSTANCE.log("There was a problem creating or openning the OPM file.");
-      OPPEditorPlugin.INSTANCE.log(e);
+      OPPLogger.logSevere("There was a problem creating or openning the OPM file.");
+      OPPLogger.logSevere(e.getLocalizedMessage());
     }
   }
 

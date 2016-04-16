@@ -15,6 +15,7 @@ import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Display;
 
 import com.vainolo.phd.opp.model.OPPObject;
+import com.vainolo.phd.opp.utilities.OPPLogger;
 import com.vainolo.phd.opp.editor.figure.OPPObjectFigure;
 import com.vainolo.phd.opp.editor.figure.OPPThingFigure;
 import com.vainolo.phd.opp.editor.policy.OPPObjectEditPolicy;
@@ -29,8 +30,7 @@ public class OPPObjectEditPart extends OPPThingEditPart {
 
   @Override
   protected IFigure createFigure() {
-    OPPObject model = (OPPObject) getModel();
-    return new OPPObjectFigure(model.isCollection());
+    return new OPPObjectFigure();
   }
 
   @Override
@@ -39,7 +39,6 @@ public class OPPObjectEditPart extends OPPThingEditPart {
     OPPObject model = (OPPObject) getModel();
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
-    figure.setObjectKind(model.isCollection());
     if (model.getInitialValue() == null || model.getInitialValue().equals("")) {
       figure.getNameFigure().setText(model.getName());
     } else {
@@ -51,7 +50,6 @@ public class OPPObjectEditPart extends OPPThingEditPart {
     figure.setDashedBorder(model.isGlobal());
 
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
-
     if (!model.isManualSize()) {
       Display.getCurrent().asyncExec(new Runnable() {
         @Override

@@ -42,6 +42,7 @@ import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.ISetSelectionTarget;
 
 import com.vainolo.phd.opp.utilities.OPPFileUtils;
+import com.vainolo.phd.opp.utilities.OPPLogger;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagramKind;
 
 public class OPPModelWizard extends Wizard implements INewWizard {
@@ -86,7 +87,7 @@ public class OPPModelWizard extends Wizard implements INewWizard {
               break;
             }
           } catch (Exception exception) {
-            OPPEditorPlugin.INSTANCE.log(exception);
+            OPPLogger.logSevere(exception.getLocalizedMessage());
           } finally {
             progressMonitor.done();
           }
@@ -118,7 +119,7 @@ public class OPPModelWizard extends Wizard implements INewWizard {
 
       return true;
     } catch (Exception exception) {
-      OPPEditorPlugin.INSTANCE.log(exception);
+      OPPLogger.logSevere(exception.getLocalizedMessage());
       return false;
     }
   }

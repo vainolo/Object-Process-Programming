@@ -18,14 +18,31 @@ import org.eclipse.swt.SWT;
 import com.google.common.collect.Lists;
 
 public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFigure {
-  private final RectangleFigure borderFigure;
-  private final RectangleFigure shade1Figure;
-  private final RectangleFigure shade2Figure;
+  private final RectangleFigure rectangle;
+  private final RectangleFigure shade1;
 
   private final ContentPane contentPane;
   private ConnectionAnchor connectionAnchor;
-  private boolean collection;
+  private boolean hasShadow = false;
   private final SmartLabelFigure nameLabel;
+
+  public OPPObjectFigure() {
+    rectangle = createRectangleFigure();
+    rectangle.setLayoutManager(new XYLayout());
+    nameLabel = new SmartLabelFigure(OPPFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
+    nameLabel.setForegroundColor(OPPFigureConstants.LABEL_COLOR);
+    rectangle.add(nameLabel);
+
+    contentPane = new ContentPane();
+    contentPane.setLayoutManager(new XYLayout());
+    rectangle.add(contentPane);
+
+    shade1 = createRectangleFigure();
+    shade1.setBackgroundColor(ColorConstants.gray);
+    shade1.setFill(true);
+    add(shade1);
+    add(rectangle);
+  }
 
   private RectangleFigure createRectangleFigure() {
     RectangleFigure figure = new RectangleFigure();
@@ -35,95 +52,41 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
     return figure;
   }
 
-  public OPPObjectFigure(boolean collection) {
-    setLayoutManager(new XYLayout());
-
-    this.collection = collection;
-
-    borderFigure = createRectangleFigure();
-    borderFigure.setLayoutManager(new XYLayout());
-
-    nameLabel = new SmartLabelFigure(OPPFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
-    nameLabel.setForegroundColor(OPPFigureConstants.LABEL_COLOR);
-    borderFigure.add(nameLabel);
-
-    contentPane = new ContentPane();
-    borderFigure.add(contentPane);
-
-    shade2Figure = createRectangleFigure();
-    shade2Figure.setLayoutManager(new XYLayout());
-    add(shade2Figure);
-
-    shade1Figure = createRectangleFigure();
-    shade1Figure.setLayoutManager(new XYLayout());
-    add(shade1Figure);
-
-    add(borderFigure);
-  }
-
-  public void setObjectKind(boolean newCollection) {
-    if (collection && !newCollection) {
-      shade1Figure.setVisible(false);
-      shade2Figure.setVisible(false);
-    } else if (!collection && newCollection) {
-      shade1Figure.setVisible(true);
-      shade2Figure.setVisible(true);
-    }
-    this.collection = newCollection;
-  }
-
   @Override
   public IFigure getContentPane() {
     return contentPane;
   }
 
-  private void paintBorders(Rectangle r, int offset) {
-    setConstraint(borderFigure, new Rectangle(0, 0, r.width() - 2 * offset, r.height() - 2 * offset));
-    setConstraint(shade1Figure, new Rectangle(offset, offset, r.width() - 2 * offset, r.height() - 2 * offset));
-    setConstraint(shade2Figure, new Rectangle(2 * offset, 2 * offset, r.width() - 2 * offset, r.height() - 2 * offset));
+  private void paintObject(Rectangle r) {
+    setConstraint(rectangle, new Rectangle(0, 0, r.width(), r.height()));
+    setConstraint(shade1, new Rectangle(0, 0, r.width(), r.height()));
+    Dimension nameDimensions = nameLabel.getPreferredSize();
+    if (nameDimensions.width > r.width) {
+      nameDimensions = nameLabel.getPreferredSize(r.width, -1);
+    }
+    rectangle.setConstraint(nameLabel, new Rectangle(0, 5, r.width, nameDimensions.height));
+    rectangle.setConstraint(contentPane, new Rectangle(0, 0, r.width, r.height));
   }
 
-  private void paintNameAndContainer(Rectangle r, int offset) {
+  private void paintObjectWithShadow(Rectangle r) {
+    setConstraint(rectangle, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
+    setConstraint(shade1, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
     Dimension nameDimensions = nameLabel.getPreferredSize();
-    if (nameDimensions.width > r.width - 2 * offset) {
-      nameDimensions = nameLabel.getPreferredSize(r.width - 2 * offset, -1);
+    if (nameDimensions.width > r.width - 5) {
+      nameDimensions = nameLabel.getPreferredSize(r.width - 5, -1);
     }
-    if (!collection)
-      borderFigure.setConstraint(nameLabel, new Rectangle(0, 5, r.width, nameDimensions.height));
-    else
-      borderFigure.setConstraint(nameLabel, new Rectangle(0, 5, r.width - 2 * offset, nameDimensions.height));
-
-    borderFigure.setConstraint(contentPane, new Rectangle(0, 0, r.width - 2 * offset, r.height - 2 * offset));
+    rectangle.setConstraint(nameLabel, new Rectangle(0, 5, r.width - 5, nameDimensions.height));
+    rectangle.setConstraint(contentPane, new Rectangle(0, 0, r.width - 5, r.height));
   }
 
   @Override
   protected void paintFigure(Graphics graphics) {
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
-    if (!collection) {
-      paintBorders(r, 0);
-      paintNameAndContainer(r, 0);
-    } else {
-      paintBorders(r, 5);
-      paintNameAndContainer(r, 5);
-    }
-  }
-
-  public ConnectionAnchor getConnectionAnchor() {
-    if (connectionAnchor == null) {
-      connectionAnchor = new ChopboxAnchor(this);
-    }
-    return connectionAnchor;
-  }
-
-  @Override
-  public ConnectionAnchor getSourceConnectionAnchor() {
-    return getConnectionAnchor();
-  }
-
-  @Override
-  public ConnectionAnchor getTargetConnectionAnchor() {
-    return getConnectionAnchor();
+    if (hasShadow)
+      paintObjectWithShadow(r);
+    else
+      paintObject(r);
   }
 
   @Override
@@ -142,7 +105,10 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
     prefSize.width = max(smartLabelSize.width(), contentPaneSize.width());
     prefSize.height = max(smartLabelSize.height(), contentPaneSize.height());
 
-    return prefSize.expand(10, 10);
+    if (hasShadow)
+      return prefSize.expand(15, 15);
+    else
+      return prefSize.expand(10, 10);
 
   }
 
@@ -153,12 +119,29 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
 
   public void setDashedBorder(boolean dashed) {
     if (dashed) {
-      borderFigure.setLineStyle(SWT.LINE_CUSTOM);
-      borderFigure.setLineDash(OPPFigureConstants.GLOBAL_OBJECT_DASH);
+      rectangle.setLineStyle(SWT.LINE_CUSTOM);
+      rectangle.setLineDash(OPPFigureConstants.GLOBAL_OBJECT_DASH);
     } else {
-      borderFigure.setLineStyle(SWT.LINE_SOLID);
+      rectangle.setLineStyle(SWT.LINE_SOLID);
     }
 
+  }
+
+  public ConnectionAnchor getConnectionAnchor() {
+    if (connectionAnchor == null) {
+      connectionAnchor = new ChopboxAnchor(this);
+    }
+    return connectionAnchor;
+  }
+
+  @Override
+  public ConnectionAnchor getSourceConnectionAnchor() {
+    return getConnectionAnchor();
+  }
+
+  @Override
+  public ConnectionAnchor getTargetConnectionAnchor() {
+    return getConnectionAnchor();
   }
 
   class ContentPane extends Figure {

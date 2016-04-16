@@ -88,7 +88,6 @@ public class OPPProceduralLinkFigure extends PolylineConnection implements OPPNa
       bounds = super.getBounds();
       bounds.expand(30, 30);
     }
-    System.out.println(bounds);
     return bounds;
   }
 

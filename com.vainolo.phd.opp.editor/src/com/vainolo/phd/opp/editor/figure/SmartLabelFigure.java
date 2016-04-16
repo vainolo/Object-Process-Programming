@@ -14,6 +14,8 @@ import org.eclipse.draw2d.text.FlowPage;
 import org.eclipse.draw2d.text.ParagraphTextLayout;
 import org.eclipse.draw2d.text.TextFlow;
 
+import com.vainolo.phd.opp.utilities.OPPLogger;
+
 /**
  * A figure with a {@link TextFlow} that "smartly" calculates its preferred size, using a provided width to height
  * ratio.
@@ -70,7 +72,7 @@ public class SmartLabelFigure extends FlowPage {
       double area = lineDimensions.width() * lineDimensions.height();
       double width = Math.sqrt(area / ratio) * ratio;
       invalidate();
-      Dimension pSize = getPreferredSize((int) width, -1).getCopy();
+      Dimension pSize = textFlow.getPreferredSize((int) width, -1).getCopy();
       if (pSize.width < OPPFigureConstants.MINIMUM_NODE_SIZE)
         pSize.width = pSize.height;
       return pSize;

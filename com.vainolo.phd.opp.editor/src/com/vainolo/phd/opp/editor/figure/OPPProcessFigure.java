@@ -14,26 +14,25 @@ import org.eclipse.swt.SWT;
 public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementFigure {
   private final Ellipse ellipse;
   private final Ellipse shade1;
-  private final Ellipse shade2;
   private final IFigure contentPane;
   private ConnectionAnchor connectionAnchor;
-  private final SmartLabelFigure smartLabel;
-  private boolean isMultiple = false;
+  private final SmartLabelFigure nameLabel;
+  private boolean hasShadow = false;
 
   public OPPProcessFigure() {
     ellipse = createEllipseFigure();
     ellipse.setLayoutManager(new XYLayout());
-    smartLabel = new SmartLabelFigure(OPPFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
-    smartLabel.setForegroundColor(OPPFigureConstants.LABEL_COLOR);
-    ellipse.add(smartLabel);
+    nameLabel = new SmartLabelFigure(OPPFigureConstants.TEXT_WIDTH_TO_HEIGHT_RATIO);
+    nameLabel.setForegroundColor(OPPFigureConstants.LABEL_COLOR);
+    ellipse.add(nameLabel);
 
     contentPane = new Figure();
     contentPane.setLayoutManager(new XYLayout());
     ellipse.add(contentPane);
 
-    shade2 = createEllipseFigure();
-    add(shade2);
     shade1 = createEllipseFigure();
+    shade1.setBackgroundColor(ColorConstants.gray);
+    shade1.setFill(true);
     add(shade1);
     add(ellipse);
   }
@@ -55,30 +54,28 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
     ellipse.setLineWidth(width);
   }
 
-  private void paintSimpleProcess(Rectangle r) {
+  private void paintProcess(Rectangle r) {
     setConstraint(ellipse, new Rectangle(0, 0, r.width(), r.height()));
     setConstraint(shade1, new Rectangle(0, 0, r.width(), r.height()));
-    setConstraint(shade2, new Rectangle(0, 0, r.width(), r.height()));
-    ellipse.setConstraint(smartLabel, calculateInnerRectangle(r.width(), r.height()));
+    ellipse.setConstraint(nameLabel, calculateInnerRectangle(r.width(), r.height()));
     ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width(), r.height()));
   }
 
-  private void paintMultipleProcess(Rectangle r) {
-    setConstraint(ellipse, new Rectangle(0, 0, r.width() - 10, r.height() - 10));
-    setConstraint(shade1, new Rectangle(5, 5, r.width() - 10, r.height() - 10));
-    setConstraint(shade2, new Rectangle(10, 10, r.width() - 10, r.height() - 10));
-    ellipse.setConstraint(smartLabel, calculateInnerRectangle(r.width() - 10, r.height() - 10));
-    ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width() - 10, r.height() - 10));
+  private void paintProcessWithShadow(Rectangle r) {
+    setConstraint(ellipse, new Rectangle(0, 0, r.width() - 5, r.height() - 5));
+    setConstraint(shade1, new Rectangle(5, 5, r.width() - 5, r.height() - 5));
+    ellipse.setConstraint(nameLabel, calculateInnerRectangle(r.width() - 5, r.height() - 10));
+    ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width() - 5, r.height() - 10));
   }
 
   @Override
   protected void paintFigure(Graphics graphics) {
     super.paintFigure(graphics);
     Rectangle r = getBounds().getCopy();
-    if (isMultiple)
-      paintMultipleProcess(r);
+    if (hasShadow)
+      paintProcessWithShadow(r);
     else
-      paintSimpleProcess(r);
+      paintProcess(r);
   }
 
   private Rectangle calculateInnerRectangle(int width, int heigth) {
@@ -97,11 +94,6 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
     return dim;
   }
 
-  /**
-   * Creates an {@link EllipseAnchor} on the figure.
-   * 
-   * @return an {@link EllipseAnchor} on the figure.
-   */
   private ConnectionAnchor getConnectionAnchor() {
     if (connectionAnchor == null) {
       connectionAnchor = new EllipseAnchor(this);
@@ -121,17 +113,17 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
 
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
-    Dimension smartLabelSize = smartLabel.calculateSize();
+    Dimension smartLabelSize = nameLabel.calculateSize();
     return calculateEllipseDimensionBasedOnLabelSize(smartLabelSize);
   }
 
   @Override
   public SmartLabelFigure getNameFigure() {
-    return smartLabel;
+    return nameLabel;
   }
 
-  public void setMultiple(boolean multiple) {
-    this.isMultiple = multiple;
+  public void setHasShadow(boolean hasShadow) {
+    this.hasShadow = hasShadow;
   }
 
   @Override
@@ -145,5 +137,14 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
   @Override
   public void setBounds(Rectangle rect) {
     super.setBounds(rect);
+  }
+
+  public void setDashedBorder(boolean dashed) {
+    if (dashed) {
+      ellipse.setLineStyle(SWT.LINE_CUSTOM);
+      ellipse.setLineDash(OPPFigureConstants.GLOBAL_OBJECT_DASH);
+    } else {
+      ellipse.setLineStyle(SWT.LINE_SOLID);
+    }
   }
 }
