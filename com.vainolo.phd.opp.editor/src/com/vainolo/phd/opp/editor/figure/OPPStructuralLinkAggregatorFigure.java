@@ -15,6 +15,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.XYLayout;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.swt.SWT;
 
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregatorKind;
 
@@ -27,28 +28,17 @@ import com.vainolo.phd.opp.model.OPPStructuralLinkAggregatorKind;
  * 
  */
 public class OPPStructuralLinkAggregatorFigure extends Figure implements OPPNodeFigure {
-  /** The triangle used as figure. */
   private final OPPIsoscelesTriangle triangle;
-  /** Anchor created at the center-top of the figure, used for target anchors. */
   private ConnectionAnchor topAnchor;
-  /**
-   * Anchor created at the center-bottom of the figure, used for source anchors.
-   */
   private ConnectionAnchor bottomAnchor;
-  /** The kind of aggregator this figure represents. */
   OPPStructuralLinkAggregatorKind kind;
 
-  /**
-   * Create a new aggregator figure depending on the aggregator kind.
-   * 
-   * @param kind
-   *          the {@link OPMStructuralLinkAggregatorKind} of the figure.
-   */
   public OPPStructuralLinkAggregatorFigure(final OPPStructuralLinkAggregatorKind kind) {
     this.kind = kind;
     setLayoutManager(new XYLayout());
     triangle = new OPPIsoscelesTriangle();
     triangle.setBackgroundColor(ColorConstants.black);
+    triangle.setAntialias(SWT.ON);
     switch (kind) {
     case AGGREGATION:
       triangle.setFill(true);

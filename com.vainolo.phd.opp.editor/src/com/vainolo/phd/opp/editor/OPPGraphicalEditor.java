@@ -92,6 +92,9 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     getGraphicalViewer().setContextMenu(new OPPGraphicalEditorContextMenuProvider(getGraphicalViewer(), getActionRegistry()));
     configureKeyboardShortcuts();
 
+    // Snap enabled on startup
+    getGraphicalViewer().setProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED, true);
+
     // D&D
     getGraphicalViewer().addDropTargetListener(new TemplateTransferDropTargetListener(getGraphicalViewer()));
     getEditDomain().getPaletteViewer().addDragSourceListener(new TemplateTransferDragSourceListener(getEditDomain().getPaletteViewer()));
