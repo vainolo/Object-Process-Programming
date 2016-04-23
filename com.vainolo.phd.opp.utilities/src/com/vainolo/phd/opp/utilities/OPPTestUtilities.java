@@ -16,6 +16,10 @@ import com.vainolo.phd.opp.model.OPPProcess;
 import com.vainolo.phd.opp.model.OPPThing;
 
 public class OPPTestUtilities {
+
+  private OPPTestUtilities() {
+  }
+
   private static OPPNamedElement setName(OPPNamedElement namedElement, String name) {
     namedElement.setName(name);
     return namedElement;

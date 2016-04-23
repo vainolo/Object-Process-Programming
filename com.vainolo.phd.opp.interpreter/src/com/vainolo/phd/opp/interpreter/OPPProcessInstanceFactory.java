@@ -49,6 +49,9 @@ import com.vainolo.phd.opp.utilities.OPPFileUtils;
 
 public class OPPProcessInstanceFactory {
 
+  private OPPProcessInstanceFactory() {
+  }
+
   public static OPPProcessInstance createExecutableInstance(OPPObjectProcessDiagram opd) {
     switch (opd.getKind()) {
     case COMPOUND:

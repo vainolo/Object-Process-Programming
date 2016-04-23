@@ -17,6 +17,9 @@ import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
 
 public class OPPNodeExtensions {
 
+  private OPPNodeExtensions() {
+  }
+
   public static Collection<OPPLink> getIncomingStructuralLinks(OPPNode node) {
     return node.getIncomingLinks().stream().filter(l -> l instanceof OPPStructuralLinkPart).collect(Collectors.toList());
     // return Collections2.filter(node.getIncomingLinks(), IsOPPStructuralLink.INSTANCE);

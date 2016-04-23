@@ -15,4 +15,6 @@ public class OPPStrings {
   public static final String SKIP_PARAMETER = "Skipping instance of {0} because conditional parameter {1} is empty.";
   public static final String SKIP_PARAMETER_STATE = "Skipping instance of {0} because conditional parameter {1} is not in state {2}.";
 
+  private OPPStrings() {
+  }
 }

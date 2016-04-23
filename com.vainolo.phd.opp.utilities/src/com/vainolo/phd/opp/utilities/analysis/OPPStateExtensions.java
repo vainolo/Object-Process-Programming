@@ -19,6 +19,9 @@ public class OPPStateExtensions {
   private static Predicate<OPPLink> isAgentLink = new IsAgentLink();
   private static Predicate<OPPLink> isDataLink = new IsDataLink();
 
+  private OPPStateExtensions() {
+  }
+
   @SuppressWarnings({ "unchecked", "rawtypes" })
   public static Collection<OPPProceduralLink> findOutgoingProceduralLinks(OPPState state) {
     return (Collection) state.getOutgoingLinks().stream().filter(l -> l instanceof OPPProceduralLink).collect(Collectors.toList());
