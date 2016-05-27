@@ -59,7 +59,7 @@ public class OPPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
   @Override
   protected List<OPPNode> getModelChildren() {
     OPPObjectProcessDiagram opd = (OPPObjectProcessDiagram) getModel();
-    List<OPPNode> nodes = new ArrayList<OPPNode>(opd.getNodes());
+    List<OPPNode> nodes = new ArrayList<>(opd.getNodes());
     return nodes;
   }
 
@@ -86,7 +86,7 @@ public class OPPObjectProcessDiagramEditPart extends AbstractGraphicalEditPart {
   @Override
   public Object getAdapter(@SuppressWarnings("rawtypes") Class key) {
     if (key == SnapToHelper.class) {
-      List<SnapToHelper> helpers = new ArrayList<SnapToHelper>();
+      List<SnapToHelper> helpers = new ArrayList<>();
       if (Boolean.TRUE.equals(getViewer().getProperty(SnapToGeometry.PROPERTY_SNAP_ENABLED))) {
         helpers.add(new SnapToGeometry(this));
       }

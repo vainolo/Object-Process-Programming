@@ -84,7 +84,7 @@ public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
 
     Connection connection = getConnectionFigure();
     List<OPPPoint> modelConstraint = getModel().getBendpoints();
-    List<AbsoluteBendpoint> figureConstraint = new ArrayList<AbsoluteBendpoint>();
+    List<AbsoluteBendpoint> figureConstraint = new ArrayList<>();
     for (OPPPoint p : modelConstraint) {
       figureConstraint.add(new AbsoluteBendpoint(p.getX(), p.getY()));
     }

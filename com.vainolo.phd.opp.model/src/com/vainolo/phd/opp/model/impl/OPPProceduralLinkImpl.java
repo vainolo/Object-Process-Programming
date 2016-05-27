@@ -121,7 +121,7 @@ public class OPPProceduralLinkImpl extends OPPLinkImpl implements OPPProceduralL
    */
   public EList<String> getSubKinds() {
     if (subKinds == null) {
-      subKinds = new EDataTypeUniqueEList<String>(String.class, this, OPPPackage.OPP_PROCEDURAL_LINK__SUB_KINDS);
+      subKinds = new EDataTypeUniqueEList<>(String.class, this, OPPPackage.OPP_PROCEDURAL_LINK__SUB_KINDS);
     }
     return subKinds;
   }

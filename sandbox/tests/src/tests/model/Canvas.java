@@ -19,7 +19,7 @@ public class Canvas extends Observable {
 	
 	public List<Node> getNodes() {
 		if(nodes == null) {
-			nodes = new ArrayList<Node>();
+			nodes = new ArrayList<>();
 		}
 		return nodes; 
 	}

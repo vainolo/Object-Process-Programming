@@ -389,7 +389,7 @@ public class OPPLinkImpl extends OPPElementImpl implements OPPLink {
    */
   public EList<OPPPoint> getBendpoints() {
     if (bendpoints == null) {
-      bendpoints = new EObjectContainmentEList<OPPPoint>(OPPPoint.class, this, OPPPackage.OPP_LINK__BENDPOINTS);
+      bendpoints = new EObjectContainmentEList<>(OPPPoint.class, this, OPPPackage.OPP_LINK__BENDPOINTS);
     }
     return bendpoints;
   }

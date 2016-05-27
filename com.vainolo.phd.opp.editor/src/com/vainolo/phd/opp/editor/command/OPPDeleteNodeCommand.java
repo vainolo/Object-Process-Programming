@@ -42,9 +42,9 @@ public final class OPPDeleteNodeCommand extends Command {
    * structures.
    */
   private void detachLinks() {
-    links = new ArrayList<OPPLink>();
-    linkSources = new HashMap<OPPLink, OPPNode>();
-    linkTargets = new HashMap<OPPLink, OPPNode>();
+    links = new ArrayList<>();
+    linkSources = new HashMap<>();
+    linkTargets = new HashMap<>();
     links.addAll(node.getIncomingLinks());
     links.addAll(node.getOutgoingLinks());
     for (OPPLink link : links) {
