@@ -53,20 +53,17 @@ public class OPPObjectEditPart extends OPPThingEditPart {
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
 
     if (!model.isManualSize()) {
-      Display.getCurrent().asyncExec(new Runnable() {
-        @Override
-        public void run() {
-          try {
-            OPPObject model = (OPPObject) getModel();
-            OPPObjectFigure figure = (OPPObjectFigure) getFigure();
-            Dimension prefSize = figure.getPreferredSize();
-            if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
-              model.setWidth(figure.getPreferredSize().width);
-              model.setHeight(figure.getPreferredSize().height);
-            }
-          } catch (SWTException e) {
-            // most probably caused by an update when the editor is being closed.
+      Display.getCurrent().asyncExec(() -> {
+        try {
+          OPPObject model = (OPPObject) getModel();
+          OPPObjectFigure figure = (OPPObjectFigure) getFigure();
+          Dimension prefSize = figure.getPreferredSize();
+          if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
+            model.setWidth(figure.getPreferredSize().width);
+            model.setHeight(figure.getPreferredSize().height);
           }
+        } catch (SWTException e) {
+          // most probably caused by an update when the editor is being closed.
         }
       });
     }

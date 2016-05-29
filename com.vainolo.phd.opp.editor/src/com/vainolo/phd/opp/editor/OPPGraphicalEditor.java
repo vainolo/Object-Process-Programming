@@ -372,12 +372,9 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
       if (delta.getKind() == IResourceDelta.REMOVED) {
         if (delta.getResource().getType() == IResource.FILE) {
           if (delta.getResource().getFullPath().equals(opdFile.getFullPath())) {
-            getSite().getShell().getDisplay().asyncExec(new Runnable() {
-              @Override
-              public void run() {
-                if (!isDirty()) {
-                  getSite().getPage().closeEditor(OPPGraphicalEditor.this, false);
-                }
+            getSite().getShell().getDisplay().asyncExec(() -> {
+              if (!isDirty()) {
+                getSite().getPage().closeEditor(OPPGraphicalEditor.this, false);
               }
             });
           }

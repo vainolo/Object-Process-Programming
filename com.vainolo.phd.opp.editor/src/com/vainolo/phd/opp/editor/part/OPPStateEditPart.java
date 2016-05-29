@@ -66,19 +66,16 @@ public class OPPStateEditPart extends OPPNodeEditPart {
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
 
     if (!model.isManualSize()) {
-      Display.getCurrent().asyncExec(new Runnable() {
-        @Override
-        public void run() {
-          OPPState model = (OPPState) getModel();
-          OPPStateFigure figure = (OPPStateFigure) getFigure();
-          Dimension prefSize = figure.getPreferredSize();
-          if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
-            model.setWidth(figure.getPreferredSize().width);
-            model.setHeight(figure.getPreferredSize().height);
-          }
-          if (getParent() != null)
-            getParent().refresh();
+      Display.getCurrent().asyncExec(() -> {
+        OPPState model = (OPPState) getModel();
+        OPPStateFigure figure = (OPPStateFigure) getFigure();
+        Dimension prefSize = figure.getPreferredSize();
+        if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
+          model.setWidth(figure.getPreferredSize().width);
+          model.setHeight(figure.getPreferredSize().height);
         }
+        if (getParent() != null)
+          getParent().refresh();
       });
     }
   }

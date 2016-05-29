@@ -95,18 +95,14 @@ public class MyNodeEditPart extends AbstractGraphicalEditPart implements NodeEdi
       }
     });
 
-    installEditPolicy("moco", new ResizableEditPolicy() {
-      @Override
-      protected void showSelection() {
-        super.showSelection();
-        MyNodeEditPart me = (MyNodeEditPart) getHost();
-        if(getHost().getParent().getClass().equals(CanvasEditPart.class)) {
-          return;
-        }
-        MyNodeEditPart parent = (MyNodeEditPart) getHost().getParent();
-        parent.reorderChild(me, parent.getChildren().size() - 1);
+    installEditPolicy("moco", () -> {
+      super.showSelection();
+      MyNodeEditPart me = (MyNodeEditPart) getHost();
+      if(getHost().getParent().getClass().equals(CanvasEditPart.class)) {
+        return;
       }
-
+      MyNodeEditPart parent = (MyNodeEditPart) getHost().getParent();
+      parent.reorderChild(me, parent.getChildren().size() - 1);
     });
 
     // installEditPolicy(EditPolicy.LAYOUT_ROLE, new XYLayoutEditPolicy() {

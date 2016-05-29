@@ -39,28 +39,19 @@ public class OPPExecutionLogViewPart extends ViewPart implements OPPLogTarget {
 
   @Override
   public void clear() {
-    Display.getDefault().asyncExec(new Runnable() {
-
-      @Override
-      public void run() {
-        label.setText("");
-      }
-    });
+    Display.getDefault().asyncExec(()->label.setText(""));
   }
 
   @Override
   public void appendLine(String line) {
-    Display.getDefault().asyncExec(new Runnable() {
-
-      @Override
-      public void run() {
+    Display.getDefault().asyncExec(() -> {
         try {
           label.setText(label.getText() + line);
         } catch (Exception e) {
           e.printStackTrace();
         }
       }
-    });
+    );
   }
 
 }

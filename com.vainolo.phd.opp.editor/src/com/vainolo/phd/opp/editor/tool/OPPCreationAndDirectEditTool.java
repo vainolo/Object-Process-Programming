@@ -27,14 +27,11 @@ public class OPPCreationAndDirectEditTool extends CreationTool {
 
     final Object o = getCurrentViewer().getEditPartRegistry().get(model);
     if (o instanceof EditPart) {
-      Display.getCurrent().asyncExec(new Runnable() {
-        @Override
-        public void run() {
-          EditPart part = (EditPart) o;
-          Request request = new Request();
-          request.setType(REQ_OPEN);
-          part.performRequest(request);
-        }
+      Display.getCurrent().asyncExec(() -> {
+        EditPart part = (EditPart) o;
+        Request request = new Request();
+        request.setType(REQ_OPEN);
+        part.performRequest(request);
       });
     }
   }

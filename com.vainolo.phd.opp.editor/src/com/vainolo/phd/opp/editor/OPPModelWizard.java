@@ -87,12 +87,7 @@ public class OPPModelWizard extends Wizard implements INewWizard {
       final IWorkbenchPart activePart = page.getActivePart();
       if (activePart instanceof ISetSelectionTarget) {
         final ISelection targetSelection = new StructuredSelection(modelFile);
-        getShell().getDisplay().asyncExec(new Runnable() {
-          @Override
-          public void run() {
-            ((ISetSelectionTarget) activePart).selectReveal(targetSelection);
-          }
-        });
+        getShell().getDisplay().asyncExec(() -> ((ISetSelectionTarget) activePart).selectReveal(targetSelection));
       }
 
       try {
