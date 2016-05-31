@@ -7,9 +7,16 @@
 
 package com.vainolo.phd.opp.editor.policy;
 
+import java.util.List;
+
+import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditDomain;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -18,7 +25,9 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.editor.command.OPPCreateLinkCommand;
+import com.vainolo.phd.opp.editor.command.OPPLinkCreateBendpointCommand;
 import com.vainolo.phd.opp.editor.command.OPPLinkReconnectCommand;
 import com.vainolo.phd.opp.editor.command.OPPNodeCreateCommand;
 import com.vainolo.phd.opp.editor.factory.OPPIdManager;
@@ -26,6 +35,7 @@ import com.vainolo.phd.opp.editor.factory.OPPStructuralLinkPartFactory;
 import com.vainolo.phd.opp.editor.figure.OPPFigureConstants;
 import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opp.model.*;
+import com.vainolo.phd.opp.utilities.OPPLogger;
 import com.vainolo.phd.opp.utilities.analysis.OPPNodeExtensions;
 import com.vainolo.phd.opp.validation.OPPLinkValidator;
 
@@ -150,18 +160,81 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
       CompoundCommand cCommand = new CompoundCommand();
       OPPCreateLinkCommand linkCreateCommand = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(agrNode));
       cCommand.add(linkCreateCommand);
-      // cCommand.add(createInitialStructuralLinkBendpointComman(agrNode, tNode, linkCreateCommand.getLink()));
+
+      for (Point p : createInitialBendpointsForStructuralLinkSegment(agrNode, tNode)) {
+        OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
+        bpc.setLink(linkCreateCommand.getLink());
+        bpc.setLocation(p);
+        cCommand.add(bpc);
+      }
+
+      // OPPLinkCreateBendpointCommand bendpointCreateCommand = new OPPLinkCreateBendpointCommand();
+      // bendpointCreateCommand.setLink(linkCreateCommand.getLink());
+      // Point p = new Point();
+      // bendpointCreateCommand.setLocation(p);
+      // cCommand.add(bendpointCreateCommand);
+
       command = cCommand;
     } else {
       CompoundCommand cCommand = new CompoundCommand();
-      cCommand.add(createCreateAggregatorNodeCommand(sNode, tNode, agrNode));
-      cCommand.add(createCreateOPMLlinkCreateCommand(sNode, agrNode, OPPNodeExtensions.findOPD(sNode)));
-      cCommand.add(createCreateOPMLlinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(sNode)));
+      OPPNodeCreateCommand c1 = createCreateAggregatorNodeCommand(sNode, tNode, agrNode);
+      cCommand.add(c1);
+      OPPCreateLinkCommand c2 = createCreateOPMLlinkCreateCommand(sNode, agrNode, OPPNodeExtensions.findOPD(sNode));
+      cCommand.add(c2);
+      OPPCreateLinkCommand c3 = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(sNode));
+      cCommand.add(c3);
+
+      for (Point p : createInitialBendpointsForStructuralLinkSegment(sNode, agrNode)) {
+        OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
+        bpc.setLink(c2.getLink());
+        bpc.setLocation(p);
+        cCommand.add(bpc);
+      }
+
+      for (Point p : createInitialBendpointsForStructuralLinkSegment(agrNode, tNode)) {
+        OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
+        bpc.setLink(c3.getLink());
+        bpc.setLocation(p);
+        cCommand.add(bpc);
+      }
 
       command = cCommand;
     }
 
     return command;
+  }
+
+  public List<Point> createInitialBendpointsForStructuralLinkSegment(OPPNode source, OPPNode target) {
+    List<Point> bendpoints = Lists.newArrayList();
+    if (isNodeAboveNode(source, target)) {
+      Point center1 = getCenter(source), center2 = getCenter(target);
+      Point bp1 = new Point(center1.x, center1.y + (center2.y - center1.y) / 2);
+      Point bp2 = new Point(center2.x, center1.y + (center2.y - center1.y) / 2);
+      bendpoints.add(bp1);
+      bendpoints.add(bp2);
+    } else {
+      Point center1 = getCenter(source), center2 = getCenter(target);
+      Point bp1 = new Point(center1.x, source.getY() + source.getHeight() + 10);
+      Point bp2 = new Point((center1.x + center2.x) / 2, source.getY() + source.getHeight() + 10);
+      Point bp3 = new Point((center1.x + center2.x) / 2, target.getY() - 10);
+      Point bp4 = new Point(center2.x, target.getY() - 10);
+      bendpoints.add(bp1);
+      bendpoints.add(bp2);
+      bendpoints.add(bp3);
+      bendpoints.add(bp4);
+    }
+
+    return Lists.reverse(bendpoints);
+  }
+
+  public Point getCenter(OPPNode node) {
+    int x = node.getX() + node.getWidth() / 2;
+    int y = node.getY() + node.getHeight() / 2;
+    return new Point(x, y);
+  }
+
+  public boolean isNodeAboveNode(OPPNode node1, OPPNode node2) {
+    return node1.getY() + node1.getHeight() < node2.getY();
   }
 
   /**
@@ -214,6 +287,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
       aggrgLeftTopCorner.y = 0;
     }
     command.setConstraints(new Rectangle(aggrgLeftTopCorner, d));
+    aggregator.setConstraints(aggrgLeftTopCorner.x, aggrgLeftTopCorner.y, d.width, d.height);
 
     return command;
   }

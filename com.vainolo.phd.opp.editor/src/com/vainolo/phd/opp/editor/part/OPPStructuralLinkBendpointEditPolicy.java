@@ -8,6 +8,7 @@ package com.vainolo.phd.opp.editor.part;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.editpolicies.BendpointEditPolicy;
 import org.eclipse.gef.requests.BendpointRequest;
 
@@ -20,12 +21,14 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
 
   @Override
   protected Command getCreateBendpointCommand(BendpointRequest request) {
+    CompoundCommand cc = new CompoundCommand();
     OPPLinkCreateBendpointCommand command = new OPPLinkCreateBendpointCommand();
     Point p = request.getLocation();
     command.setLink((OPPLink) request.getSource().getModel());
     command.setLocation(p);
     command.setIndex(request.getIndex());
-    return command;
+    cc.add(command);
+    return cc;
   }
 
   @Override
@@ -40,10 +43,12 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
 
   @Override
   protected Command getMoveBendpointCommand(BendpointRequest request) {
+    CompoundCommand cc = new CompoundCommand();
     OPPLinkDeleteBendpointCommand command = new OPPLinkDeleteBendpointCommand();
     command.setLink((OPPLink) request.getSource().getModel());
     command.setIndex(request.getIndex());
-    return command;
+    cc.add(command);
+    return cc;
   }
 
 }
