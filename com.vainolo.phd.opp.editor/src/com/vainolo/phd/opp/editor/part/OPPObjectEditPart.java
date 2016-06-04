@@ -16,6 +16,8 @@ import org.eclipse.swt.widgets.Display;
 
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.utilities.OPPLogger;
+import com.ibm.icu.text.MessagePatternUtil.Node;
+import com.vainolo.phd.opp.editor.command.OPPNodeChangeConstraintCommand;
 import com.vainolo.phd.opp.editor.figure.OPPObjectFigure;
 import com.vainolo.phd.opp.editor.figure.OPPThingFigure;
 import com.vainolo.phd.opp.editor.policy.OPPObjectEditPolicy;
@@ -49,7 +51,7 @@ public class OPPObjectEditPart extends OPPThingEditPart {
     figure.setDashedBorder(model.isAbstract());
 
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
-    parent.refresh();
+    // parent.refresh();
     if (!model.isManualSize()) {
       Display.getCurrent().asyncExec(new Runnable() {
         @Override
@@ -59,8 +61,10 @@ public class OPPObjectEditPart extends OPPThingEditPart {
             OPPObjectFigure figure = (OPPObjectFigure) getFigure();
             Dimension prefSize = figure.getPreferredSize();
             if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
-              model.setWidth(figure.getPreferredSize().width);
-              model.setHeight(figure.getPreferredSize().height);
+              OPPNodeChangeConstraintCommand command = new OPPNodeChangeConstraintCommand();
+              command.setNode(model);
+              command.setNewConstraint(model.getX(), model.getY(), figure.getPreferredSize().width, figure.getPreferredSize().height);
+              getViewer().getEditDomain().getCommandStack().execute(command);
             }
           } catch (SWTException e) {
             // most probably caused by an update when the editor is being closed.

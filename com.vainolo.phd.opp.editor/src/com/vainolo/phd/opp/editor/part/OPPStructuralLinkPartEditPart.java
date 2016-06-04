@@ -14,25 +14,33 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.PolylineConnection;
 import org.eclipse.gef.EditPolicy;
 
-import com.vainolo.phd.opp.editor.figure.OPPStructuralLinkFigure;
+import com.vainolo.phd.opp.editor.figure.OPPStructuralLinkPartFigure;
+import com.vainolo.phd.opp.editor.policy.OPPStructuralLinkBendpointEditPolicy;
 import com.vainolo.phd.opp.model.OPPPoint;
 import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
+import com.vainolo.phd.opp.utilities.OPPLogger;
 
-public class OPPStructuralLinkEditPart extends OPPLinkEditPart {
+public class OPPStructuralLinkPartEditPart extends OPPLinkEditPart {
 
-  public OPPStructuralLinkEditPart() {
+  public OPPStructuralLinkPartEditPart() {
     super();
   }
 
   @Override
+  public void activate() {
+    // TODO Auto-generated method stub
+    super.activate();
+  }
+
+  @Override
   protected PolylineConnection createFigure() {
-    OPPStructuralLinkFigure figure = new OPPStructuralLinkFigure();
+    OPPStructuralLinkPartFigure figure = new OPPStructuralLinkPartFigure();
     return figure;
   }
 
   @Override
-  public OPPStructuralLinkFigure getFigure() {
-    return (OPPStructuralLinkFigure) super.getFigure();
+  public OPPStructuralLinkPartFigure getFigure() {
+    return (OPPStructuralLinkPartFigure) super.getFigure();
   }
 
   @Override

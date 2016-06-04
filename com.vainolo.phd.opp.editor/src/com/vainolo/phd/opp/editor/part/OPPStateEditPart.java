@@ -25,6 +25,7 @@ import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 import org.eclipse.swt.widgets.Display;
 
 import com.vainolo.phd.opp.model.OPPState;
+import com.vainolo.phd.opp.editor.command.OPPNodeChangeConstraintCommand;
 import com.vainolo.phd.opp.editor.figure.OPPNamedElementFigure;
 import com.vainolo.phd.opp.editor.figure.OPPStateFigure;
 import com.vainolo.phd.opp.editor.part.delegates.OPPDirectEditDelegate;
@@ -73,8 +74,11 @@ public class OPPStateEditPart extends OPPNodeEditPart {
           OPPStateFigure figure = (OPPStateFigure) getFigure();
           Dimension prefSize = figure.getPreferredSize();
           if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
-            model.setWidth(figure.getPreferredSize().width);
-            model.setHeight(figure.getPreferredSize().height);
+            OPPNodeChangeConstraintCommand command = new OPPNodeChangeConstraintCommand();
+            command.setNode(model);
+            command.setNewConstraint(model.getX(), model.getY(), figure.getPreferredSize().width, figure.getPreferredSize().height);
+            getViewer().getEditDomain().getCommandStack().execute(command);
+
           }
           if (getParent() != null)
             getParent().refresh();

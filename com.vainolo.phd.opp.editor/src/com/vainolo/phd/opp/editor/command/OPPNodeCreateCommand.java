@@ -22,7 +22,7 @@ import com.vainolo.phd.opp.model.OPPNode;
 public class OPPNodeCreateCommand extends Command {
 
   private OPPNode node;
-  private Rectangle constraints;
+  // private Rectangle constraints;
   private OPPContainer container;
 
   /**
@@ -30,31 +30,29 @@ public class OPPNodeCreateCommand extends Command {
    */
   @Override
   public boolean canExecute() {
-    return node != null && constraints != null && container != null;
+    return node != null && container != null; // && constraints != null ;
   }
 
   /**
-   * Set the constraints for the {@link OPPNode} and add it to the container
-   * {@link OPPObjectProcessDiagram}.
+   * Set the constraints for the {@link OPPNode} and add it to the container {@link OPPObjectProcessDiagram}.
    */
   @Override
   public void execute() {
-    node.setConstraints(constraints.x, constraints.y, constraints.width, constraints.height);
+    // node.setConstraints(constraints.x, constraints.y, constraints.width, constraints.height);
     node.setContainer(container);
   }
 
   /**
-   * Remove the {@link OPPNode} from the container
-   * {@link OPPObjectProcessDiagram}.
+   * Remove the {@link OPPNode} from the container {@link OPPObjectProcessDiagram}.
    */
   @Override
   public void undo() {
     node.setContainer(null);
   }
 
-  public void setConstraints(final Rectangle constraints) {
-    this.constraints = constraints;
-  }
+  // public void setConstraints(final Rectangle constraints) {
+  // this.constraints = constraints;
+  // }
 
   public void setContainer(final OPPContainer opd) {
     this.container = opd;

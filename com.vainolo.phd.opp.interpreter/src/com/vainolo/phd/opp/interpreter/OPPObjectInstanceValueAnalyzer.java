@@ -62,7 +62,12 @@ public class OPPObjectInstanceValueAnalyzer {
    * @return <code>true</code> if the value is a number, false otherwise.
    */
   public boolean isNumericalLiteral(String value) {
-    return value.matches("-?\\d+(\\.\\d+)?");
+    try {
+      Object number = new BigDecimal(value);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   /**
@@ -201,6 +206,8 @@ public class OPPObjectInstanceValueAnalyzer {
         return value.compareTo(number) == 1;
       case ">=":
         return value.compareTo(number) == 1 || value.compareTo(number) == 0;
+      case "!=":
+        return value.compareTo(number) != 0;
       }
 
     }

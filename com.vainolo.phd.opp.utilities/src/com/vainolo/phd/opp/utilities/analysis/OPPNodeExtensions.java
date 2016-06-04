@@ -10,21 +10,18 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 import com.vainolo.phd.opp.model.OPPContainer;
-import com.vainolo.phd.opp.model.OPPLink;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
 
 public class OPPNodeExtensions {
 
-  public static Collection<OPPLink> getIncomingStructuralLinks(OPPNode node) {
-    return node.getIncomingLinks().stream().filter(l -> l instanceof OPPStructuralLinkPart).collect(Collectors.toList());
-    // return Collections2.filter(node.getIncomingLinks(), IsOPPStructuralLink.INSTANCE);
+  public static Collection<OPPStructuralLinkPart> getIncomingStructuralLinks(OPPNode node) {
+    return (Collection) node.getIncomingLinks().stream().filter(l -> l instanceof OPPStructuralLinkPart).collect(Collectors.toList());
   }
 
-  public static Collection<OPPLink> getOutgoingStructuralLinks(OPPNode node) {
-    return node.getOutgoingLinks().stream().filter(l -> l instanceof OPPStructuralLinkPart).collect(Collectors.toList());
-    // return Collections2.filter(node.getOutgoingLinks(), IsOPPStructuralLink.INSTANCE);
+  public static Collection<OPPStructuralLinkPart> getOutgoingStructuralLinks(OPPNode node) {
+    return (Collection) node.getOutgoingLinks().stream().filter(l -> l instanceof OPPStructuralLinkPart).collect(Collectors.toList());
   }
 
   public static OPPObjectProcessDiagram findOPD(OPPNode node) {

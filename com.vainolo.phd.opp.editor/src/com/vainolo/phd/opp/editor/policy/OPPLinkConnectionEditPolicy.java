@@ -8,15 +8,10 @@
 package com.vainolo.phd.opp.editor.policy;
 
 import java.util.List;
+import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.*;
 
-import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.EditDomain;
-import org.eclipse.gef.EditPart;
-import org.eclipse.gef.GraphicalEditPart;
-import org.eclipse.gef.NodeEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -167,13 +162,6 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
         bpc.setLocation(p);
         cCommand.add(bpc);
       }
-
-      // OPPLinkCreateBendpointCommand bendpointCreateCommand = new OPPLinkCreateBendpointCommand();
-      // bendpointCreateCommand.setLink(linkCreateCommand.getLink());
-      // Point p = new Point();
-      // bendpointCreateCommand.setLocation(p);
-      // cCommand.add(bendpointCreateCommand);
-
       command = cCommand;
     } else {
       CompoundCommand cCommand = new CompoundCommand();
@@ -202,39 +190,6 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
     }
 
     return command;
-  }
-
-  public List<Point> createInitialBendpointsForStructuralLinkSegment(OPPNode source, OPPNode target) {
-    List<Point> bendpoints = Lists.newArrayList();
-    if (isNodeAboveNode(source, target)) {
-      Point center1 = getCenter(source), center2 = getCenter(target);
-      Point bp1 = new Point(center1.x, center1.y + (center2.y - center1.y) / 2);
-      Point bp2 = new Point(center2.x, center1.y + (center2.y - center1.y) / 2);
-      bendpoints.add(bp1);
-      bendpoints.add(bp2);
-    } else {
-      Point center1 = getCenter(source), center2 = getCenter(target);
-      Point bp1 = new Point(center1.x, source.getY() + source.getHeight() + 10);
-      Point bp2 = new Point((center1.x + center2.x) / 2, source.getY() + source.getHeight() + 10);
-      Point bp3 = new Point((center1.x + center2.x) / 2, target.getY() - 10);
-      Point bp4 = new Point(center2.x, target.getY() - 10);
-      bendpoints.add(bp1);
-      bendpoints.add(bp2);
-      bendpoints.add(bp3);
-      bendpoints.add(bp4);
-    }
-
-    return Lists.reverse(bendpoints);
-  }
-
-  public Point getCenter(OPPNode node) {
-    int x = node.getX() + node.getWidth() / 2;
-    int y = node.getY() + node.getHeight() / 2;
-    return new Point(x, y);
-  }
-
-  public boolean isNodeAboveNode(OPPNode node1, OPPNode node2) {
-    return node1.getY() + node1.getHeight() < node2.getY();
   }
 
   /**
@@ -286,7 +241,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
     if (aggrgLeftTopCorner.y < 0) {
       aggrgLeftTopCorner.y = 0;
     }
-    command.setConstraints(new Rectangle(aggrgLeftTopCorner, d));
+    // command.setConstraints(new Rectangle(aggrgLeftTopCorner, d));
     aggregator.setConstraints(aggrgLeftTopCorner.x, aggrgLeftTopCorner.y, d.width, d.height);
 
     return command;

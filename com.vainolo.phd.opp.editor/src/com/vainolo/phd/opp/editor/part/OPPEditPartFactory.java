@@ -26,7 +26,7 @@ public class OPPEditPartFactory implements EditPartFactory {
     } else if(model instanceof OPPProceduralLink) {
       part = new OPPProceduralLinkEditPart();
     } else if(model instanceof OPPStructuralLinkPart) {
-      part = new OPPStructuralLinkEditPart();
+      part = new OPPStructuralLinkPartEditPart();
     } else if(model instanceof OPPStructuralLinkAggregator) {
       part = new OPPStructuralLinkAggregatorEditPart();
     } else if(model instanceof OPPState) {

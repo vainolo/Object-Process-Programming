@@ -36,21 +36,10 @@ import com.vainolo.phd.opp.validation.OPPProceduralLinkValidator;
  */
 public class OPPProceduralLinkEditPart extends OPPLinkEditPart {
 
-  // private Label centerDecorationLabel;
-
   public OPPProceduralLinkEditPart() {
     super();
   }
 
-  /**
-   * Extend the connection created by {@link OPPLinkEditPart#createFigure()} by adding decorations depending on the link
-   * kind. An agent link is decorated at the target with black filled {@link OPPCircleDecoration}. An instrument link is
-   * decorated at the target with a white filled {@link OPPCircleDecoration}. A consumption or result link is decorated
-   * at the target with a {@link PolylineDecoration} (which is an arrow). An effect link link is decorated at the source
-   * and target with a {@link PolylineDecoration}.
-   * 
-   * @return a decorated {@link PolylineConnection} figure.
-   */
   @Override
   protected PolylineConnection createFigure() {
     OPPProceduralLink model = (OPPProceduralLink) getModel();

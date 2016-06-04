@@ -136,8 +136,8 @@ public class OPPObjectExtensions {
   }
 
   public static OPPObject findParent(OPPObject object) {
-    Collection<OPPLink> incomingStructuralLinks = OPPNodeExtensions.getIncomingStructuralLinks(object);
-    for (OPPLink link : incomingStructuralLinks) {
+    Collection<OPPStructuralLinkPart> incomingStructuralLinks = OPPNodeExtensions.getIncomingStructuralLinks(object);
+    for (OPPStructuralLinkPart link : incomingStructuralLinks) {
       OPPStructuralLinkAggregator source = (OPPStructuralLinkAggregator) link.getSource();
       if (source.getKind().equals(OPPStructuralLinkAggregatorKind.AGGREGATION)) {
         return (OPPObject) source.getIncomingLinks().iterator().next().getSource();

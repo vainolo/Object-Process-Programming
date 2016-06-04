@@ -17,6 +17,7 @@ import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IFileEditorInput;
 
+import com.vainolo.phd.opp.editor.command.OPPNodeChangeConstraintCommand;
 import com.vainolo.phd.opp.editor.figure.OPPFigureConstants;
 import com.vainolo.phd.opp.editor.figure.OPPProcessFigure;
 import com.vainolo.phd.opp.editor.figure.OPPThingFigure;
@@ -47,17 +48,17 @@ public class OPPProcessEditPart extends OPPThingEditPart {
     if (opd.getKind() != OPPObjectProcessDiagramKind.COMPOUND || !model.isMain()) {
       figure.getNameFigure().setText(model.getName());
 
-      final IFileEditorInput input = (IFileEditorInput) ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart().getEditorInput();
-      final IFile oppFile = input.getFile().getParent().getFile(new Path(model.getName() + ".opp"));
-      if (oppFile.exists()) {
-        figure.setBorderWidth(OPPFigureConstants.IN_ZOOMED_THING_BORDER_WIDTH);
-      } else {
-        figure.setBorderWidth(OPPFigureConstants.ENTITY_BORDER_WIDTH);
+      if (opd.getKind() != OPPObjectProcessDiagramKind.FREE_FORM) {
+        final IFileEditorInput input = (IFileEditorInput) ((DefaultEditDomain) getViewer().getEditDomain()).getEditorPart().getEditorInput();
+        final IFile oppFile = input.getFile().getParent().getFile(new Path(model.getName() + ".opp"));
+        if (oppFile.exists()) {
+          figure.setBorderWidth(OPPFigureConstants.IN_ZOOMED_THING_BORDER_WIDTH);
+        } else {
+          figure.setBorderWidth(OPPFigureConstants.ENTITY_BORDER_WIDTH);
+        }
       }
-
     }
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
-
     if (!model.isManualSize()) {
       Display.getCurrent().asyncExec(new Runnable() {
         @Override
@@ -69,8 +70,11 @@ public class OPPProcessEditPart extends OPPThingEditPart {
           Dimension prefSize = figure.getPreferredSize();
 
           if (prefSize.width != model.getWidth() || prefSize.height != model.getHeight()) {
-            model.setWidth(figure.getPreferredSize().width);
-            model.setHeight(figure.getPreferredSize().height);
+            OPPNodeChangeConstraintCommand command = new OPPNodeChangeConstraintCommand();
+            command.setNode(model);
+            command.setNewConstraint(model.getX(), model.getY(), figure.getPreferredSize().width, figure.getPreferredSize().height);
+            getViewer().getEditDomain().getCommandStack().execute(command);
+
           }
         }
       });
