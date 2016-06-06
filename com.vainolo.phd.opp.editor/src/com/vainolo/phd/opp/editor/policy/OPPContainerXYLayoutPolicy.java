@@ -7,6 +7,7 @@
 package com.vainolo.phd.opp.editor.policy;
 
 import java.util.Collection;
+
 import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.*;
 import java.util.List;
 
@@ -36,11 +37,6 @@ import com.vainolo.phd.opp.utilities.analysis.OPPLinkExtensions;
 import com.vainolo.phd.opp.utilities.analysis.OPPNodeExtensions;
 import com.vainolo.phd.opp.utilities.analysis.OPPProceduralLinkExtensions;
 
-import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.bottom;
-import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.getCenter;
-import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.isNodeAboveNode;
-import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.top;
-
 /**
  * This class describes the commands that can be used to change the layout and create new nodes inside the
  * {@link OPMContainer}. This policy should only be installed in edit parts whose model is an {@link OPPContainer}
@@ -68,8 +64,49 @@ public class OPPContainerXYLayoutPolicy extends XYLayoutEditPolicy {
 
     command.setNode(node);
     command.setNewConstraint(c.x, c.y, c.width, c.height);
-
     cc.add(command);
+
+    for (OPPStructuralLinkPart link : OPPNodeExtensions.getIncomingStructuralLinks(node)) {
+      int index = link.getBendpoints().size() - 2;
+      Point newPoint = pointFromOPPPoint(link.getBendpoints().get(index));
+      Point pbp = pointFromOPPPoint(link.getBendpoints().get(index - 1));
+
+      Point currPoint = new Point();
+      currPoint.x = newPoint.x + (c.x - node.getX());
+      currPoint.y = newPoint.y + (c.y - node.getY());
+      Point endpoint = getStructuralLinkEndpoint(c, newPoint);
+
+      OPPLogger.logInfo("" + currPoint + "; " + newPoint + "; " + endpoint);
+
+      if (isBetween(currPoint.x, c.x, c.x + c.width)) {
+        // above or below
+        if (endpoint.y == c.y || endpoint.y == c.y + c.height) {
+          // still above or below
+          cc.add(newMoveBendpointCommand(link, index, newPoint.setX(endpoint.x)));
+          cc.add(newMoveBendpointCommand(link, index + 1, endpoint));
+          cc.add(newMoveBendpointCommand(link, index - 1, pbp.setY(newPoint.y)));
+        } else {
+          cc.add(newMoveBendpointCommand(link, index, newPoint));
+          cc.add(newMoveBendpointCommand(link, index + 1, endpoint));
+          cc.add(newCreateBendpointCommand(link, index, (new Point()).setX(newPoint.x).setY(pbp.y)));
+          // }
+        }
+      } else {
+        // on the sides
+        if (endpoint.x == c.x || endpoint.x == c.x + c.width) {
+          OPPLogger.logInfo("here");
+          // still on the sides
+          cc.add(newMoveBendpointCommand(link, index, newPoint.setY(endpoint.y)));
+          cc.add(newMoveBendpointCommand(link, index + 1, endpoint));
+          cc.add(newMoveBendpointCommand(link, index - 1, pbp.setX(newPoint.x)));
+        } else {
+          cc.add(newMoveBendpointCommand(link, index, newPoint));
+          cc.add(newMoveBendpointCommand(link, index + 1, endpoint));
+          cc.add(newCreateBendpointCommand(link, index, pbp.setY(newPoint.y)));
+        }
+      }
+    }
+
     return cc;
   }
 

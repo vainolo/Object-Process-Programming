@@ -7,6 +7,9 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
+import com.vainolo.phd.opp.editor.command.OPPLinkCreateBendpointCommand;
+import com.vainolo.phd.opp.editor.command.OPPLinkDeleteBendpointCommand;
+import com.vainolo.phd.opp.editor.command.OPPLinkMoveBendpointCommand;
 import com.vainolo.phd.opp.model.*;
 
 import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.*;
@@ -36,6 +39,10 @@ public class OPPFigureUtils {
     return node.getY() + node.getHeight();
   }
 
+  public static int bottom(Rectangle r) {
+    return r.y + r.height;
+  }
+
   public static int top(OPPNode node) {
     return node.getY();
   }
@@ -48,8 +55,16 @@ public class OPPFigureUtils {
     return node.getX();
   }
 
+  public static int left(Rectangle rect) {
+    return rect.x;
+  }
+
   public static int right(OPPNode node) {
     return node.getX() + node.getWidth();
+  }
+
+  public static int right(Rectangle rect) {
+    return rect.x + rect.width;
   }
 
   public static OPPPoint oppPointFromPoint(Point point) {
@@ -101,5 +116,52 @@ public class OPPFigureUtils {
   public static List<Point> createInitialBendpointsForStructuralLinkSegment(OPPNode source, OPPNode target) {
     Rectangle targetRect = new Rectangle(target.getX(), target.getY(), target.getWidth(), target.getHeight());
     return createInitialBendpointsForStructuralLinkSegment(source, targetRect);
+  }
+
+  public static Point getStructuralLinkEndpoint(OPPNode node, Point ref) {
+    return getStructuralLinkEndpoint(rectangleFromOPPNode(node), ref);
+  }
+
+  public static Point getStructuralLinkEndpoint(Rectangle rect, Point ref) {
+    Point p = new Point();
+
+    if (ref.x < left(rect))
+      p.x = rect.x;
+    else if (ref.x > right(rect))
+      p.x = rect.x + rect.width;
+    else
+      p.x = ref.x;
+
+    if (ref.y < top(rect))
+      p.y = rect.y;
+    else if (ref.y > bottom(rect))
+      p.y = rect.y + rect.height;
+    else
+      p.y = ref.y;
+
+    return p;
+  }
+
+  public static OPPLinkMoveBendpointCommand newMoveBendpointCommand(OPPLink link, int index, Point p) {
+    OPPLinkMoveBendpointCommand mbc = new OPPLinkMoveBendpointCommand();
+    mbc.setLink(link);
+    mbc.setIndex(index);
+    mbc.setLocation(p);
+    return mbc;
+  }
+
+  public static OPPLinkCreateBendpointCommand newCreateBendpointCommand(OPPLink link, int index, Point p) {
+    OPPLinkCreateBendpointCommand cbc = new OPPLinkCreateBendpointCommand();
+    cbc.setLink(link);
+    cbc.setIndex(index);
+    cbc.setLocation(p);
+    return cbc;
+  }
+
+  public static OPPLinkDeleteBendpointCommand newDeleteBendpointCcommand(OPPLink link, int index) {
+    OPPLinkDeleteBendpointCommand dbc = new OPPLinkDeleteBendpointCommand();
+    dbc.setLink(link);
+    dbc.setIndex(index);
+    return dbc;
   }
 }

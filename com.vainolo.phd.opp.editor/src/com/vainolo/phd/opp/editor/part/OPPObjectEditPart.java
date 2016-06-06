@@ -51,7 +51,7 @@ public class OPPObjectEditPart extends OPPThingEditPart {
     figure.setDashedBorder(model.isAbstract());
 
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
-    // parent.refresh();
+
     if (!model.isManualSize()) {
       Display.getCurrent().asyncExec(new Runnable() {
         @Override
