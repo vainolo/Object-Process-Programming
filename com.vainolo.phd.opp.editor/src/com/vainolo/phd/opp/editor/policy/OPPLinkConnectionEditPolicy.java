@@ -7,8 +7,7 @@
 
 package com.vainolo.phd.opp.editor.policy;
 
-import java.util.List;
-import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.*;
+import static com.vainolo.phd.opp.editor.policy.OPPBendpointUtils.*;
 
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
@@ -20,7 +19,6 @@ import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.ReconnectRequest;
 
 import com.google.common.base.Preconditions;
-import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.editor.command.OPPCreateLinkCommand;
 import com.vainolo.phd.opp.editor.command.OPPLinkCreateBendpointCommand;
 import com.vainolo.phd.opp.editor.command.OPPLinkReconnectCommand;
@@ -30,7 +28,6 @@ import com.vainolo.phd.opp.editor.factory.OPPStructuralLinkPartFactory;
 import com.vainolo.phd.opp.editor.figure.OPPFigureConstants;
 import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
 import com.vainolo.phd.opp.model.*;
-import com.vainolo.phd.opp.utilities.OPPLogger;
 import com.vainolo.phd.opp.utilities.analysis.OPPNodeExtensions;
 import com.vainolo.phd.opp.validation.OPPLinkValidator;
 

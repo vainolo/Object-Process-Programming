@@ -9,6 +9,7 @@ package com.vainolo.phd.opp.editor.policy;
 import java.util.Collection;
 
 import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.*;
+import static com.vainolo.phd.opp.editor.policy.OPPBendpointUtils.*;
 import java.util.List;
 
 import org.eclipse.draw2d.geometry.Dimension;
@@ -57,54 +58,27 @@ public class OPPContainerXYLayoutPolicy extends XYLayoutEditPolicy {
     CompoundCommand cc = new CompoundCommand();
     OPPNodeChangeConstraintCommand command = new OPPNodeChangeConstraintCommand();
     OPPNode node = (OPPNode) child.getModel();
-    Rectangle c = (Rectangle) constraint;
+    Rectangle rect = (Rectangle) constraint;
 
-    if (node.getWidth() != c.width || node.getHeight() != c.height)
+    if (node.getWidth() != rect.width || node.getHeight() != rect.height)
       node.setManualSize(true);
 
     command.setNode(node);
-    command.setNewConstraint(c.x, c.y, c.width, c.height);
+    command.setNewConstraint(rect.x, rect.y, rect.width, rect.height);
     cc.add(command);
 
     for (OPPStructuralLinkPart link : OPPNodeExtensions.getIncomingStructuralLinks(node)) {
       int index = link.getBendpoints().size() - 2;
       Point newPoint = pointFromOPPPoint(link.getBendpoints().get(index));
-      Point pbp = pointFromOPPPoint(link.getBendpoints().get(index - 1));
-
-      Point currPoint = new Point();
-      currPoint.x = newPoint.x + (c.x - node.getX());
-      currPoint.y = newPoint.y + (c.y - node.getY());
-      Point endpoint = getStructuralLinkEndpoint(c, newPoint);
-
-      OPPLogger.logInfo("" + currPoint + "; " + newPoint + "; " + endpoint);
-
-      if (isBetween(currPoint.x, c.x, c.x + c.width)) {
-        // above or below
-        if (endpoint.y == c.y || endpoint.y == c.y + c.height) {
-          // still above or below
-          cc.add(newMoveBendpointCommand(link, index, newPoint.setX(endpoint.x)));
-          cc.add(newMoveBendpointCommand(link, index + 1, endpoint));
-          cc.add(newMoveBendpointCommand(link, index - 1, pbp.setY(newPoint.y)));
-        } else {
-          cc.add(newMoveBendpointCommand(link, index, newPoint));
-          cc.add(newMoveBendpointCommand(link, index + 1, endpoint));
-          cc.add(newCreateBendpointCommand(link, index, (new Point()).setX(newPoint.x).setY(pbp.y)));
-          // }
-        }
+      Point currPoint;
+      if (link.getBendpoints().size() == 3) {
+        currPoint = new Point(newPoint.x, newPoint.y + (rect.y - node.getY()));
       } else {
-        // on the sides
-        if (endpoint.x == c.x || endpoint.x == c.x + c.width) {
-          OPPLogger.logInfo("here");
-          // still on the sides
-          cc.add(newMoveBendpointCommand(link, index, newPoint.setY(endpoint.y)));
-          cc.add(newMoveBendpointCommand(link, index + 1, endpoint));
-          cc.add(newMoveBendpointCommand(link, index - 1, pbp.setX(newPoint.x)));
-        } else {
-          cc.add(newMoveBendpointCommand(link, index, newPoint));
-          cc.add(newMoveBendpointCommand(link, index + 1, endpoint));
-          cc.add(newCreateBendpointCommand(link, index, pbp.setY(newPoint.y)));
-        }
+        currPoint = new Point(newPoint.x + (rect.x - node.getX()), newPoint.y + (rect.y - node.getY()));
       }
+
+      Command c = getCommantToMoveLastBendpointBeforeTarget(link, rect, index, currPoint, newPoint);
+      cc.add(c);
     }
 
     return cc;
