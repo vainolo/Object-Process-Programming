@@ -8,6 +8,7 @@
 package com.vainolo.phd.opp.editor.part;
 
 import org.eclipse.draw2d.IFigure;
+
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.GraphicalEditPart;
@@ -15,8 +16,6 @@ import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Display;
 
 import com.vainolo.phd.opp.model.OPPObject;
-import com.vainolo.phd.opp.utilities.OPPLogger;
-import com.ibm.icu.text.MessagePatternUtil.Node;
 import com.vainolo.phd.opp.editor.command.OPPNodeChangeConstraintCommand;
 import com.vainolo.phd.opp.editor.figure.OPPObjectFigure;
 import com.vainolo.phd.opp.editor.figure.OPPThingFigure;
