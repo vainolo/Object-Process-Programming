@@ -21,8 +21,28 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
 
   @Override
   protected Command getCreateBendpointCommand(BendpointRequest request) {
-    return UnexecutableCommand.INSTANCE;
-    // CompoundCommand cc = new CompoundCommand();
+    OPPStructuralLinkPart link = (OPPStructuralLinkPart) request.getSource().getModel();
+    int index = request.getIndex();
+    Point prevPoint = pointFromOPPPoint(link.getBendpoints().get(index - 1));
+    Point nextPoint = pointFromOPPPoint(link.getBendpoints().get(index));
+    Point newPoint = request.getLocation();
+    CompoundCommand cc = new CompoundCommand();
+
+    if (prevPoint.x == nextPoint.x) { // vertical line
+      cc.add(newCreateBendpointCommand(link, index, (new Point()).setX(prevPoint.x).setY(middle(prevPoint.y, newPoint.y))));
+      cc.add(newCreateBendpointCommand(link, index + 1, (new Point()).setX(newPoint.x).setY(middle(prevPoint.y, newPoint.y))));
+      cc.add(newCreateBendpointCommand(link, index + 2, (new Point()).setX(newPoint.x).setY(middle(newPoint.y, nextPoint.y))));
+      cc.add(newCreateBendpointCommand(link, index + 3, (new Point()).setX(nextPoint.x).setY(middle(newPoint.y, nextPoint.y))));
+    } else { // horizontal line
+      cc.add(newCreateBendpointCommand(link, index, (new Point()).setX(middle(prevPoint.x, newPoint.x)).setY(prevPoint.y)));
+      cc.add(newCreateBendpointCommand(link, index + 1, (new Point()).setX(middle(prevPoint.x, newPoint.x)).setY(newPoint.y)));
+      cc.add(newCreateBendpointCommand(link, index + 2, (new Point()).setX(middle(newPoint.x, nextPoint.x)).setY(newPoint.y)));
+      cc.add(newCreateBendpointCommand(link, index + 3, (new Point()).setX(middle(newPoint.x, nextPoint.x)).setY(nextPoint.y)));
+    }
+
+    return cc;
+    // return UnexecutableCommand.INSTANCE;
+
     // OPPLinkCreateBendpointCommand command = new OPPLinkCreateBendpointCommand();
     // Point p = request.getLocation();
     // command.setLink((OPPLink) request.getSource().getModel());
@@ -48,7 +68,6 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
     OPPNode source = link.getSource(), target = link.getTarget();
     Point newPoint = request.getLocation();
     int index = request.getIndex();
-    Point currPoint = pointFromOPPPoint(link.getBendpoints().get(index));
     CompoundCommand cc = new CompoundCommand();
 
     if ((index == 0 || index == link.getBendpoints().size() - 1) || (link.getBendpoints().size() == 2))
