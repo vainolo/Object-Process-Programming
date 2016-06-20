@@ -94,4 +94,31 @@ public class OPPFigureUtils {
     return start <= point && point <= end;
   }
 
+  public static boolean isAbove(Rectangle rect, Point p) {
+    return p.y < rect.y;
+  }
+
+  public static boolean isBelow(Rectangle rect, Point p) {
+    return p.y > rect.y + rect.height;
+  }
+
+  public static boolean isAboveOrBelow(Rectangle rect, Point p) {
+    return isAbove(rect, p) || isBelow(rect, p);
+  }
+
+  public static boolean isLeft(Rectangle rect, Point p) {
+    return p.x < rect.x;
+  }
+
+  public static boolean isRight(Rectangle rect, Point p) {
+    return p.x > rect.x + rect.width;
+  }
+
+  public static boolean isLeftOrRight(Rectangle rect, Point p) {
+    return isLeft(rect, p) || isRight(rect, p);
+  }
+
+  public static int middle(int x1, int x2) {
+    return (x1 + x2) / 2;
+  }
 }

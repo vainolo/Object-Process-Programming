@@ -77,8 +77,8 @@ public class OPPContainerXYLayoutPolicy extends XYLayoutEditPolicy {
         currPoint = new Point(newPoint.x + (rect.x - node.getX()), newPoint.y + (rect.y - node.getY()));
       }
 
-      Command c = getCommantToMoveLastBendpointBeforeTarget(link, rect, index, currPoint, newPoint);
-      cc.add(c);
+      // Command c = getCommantToMoveLastBendpointBeforeTarget(link, rect, index, currPoint, newPoint);
+      // cc.add(c);
     }
 
     return cc;

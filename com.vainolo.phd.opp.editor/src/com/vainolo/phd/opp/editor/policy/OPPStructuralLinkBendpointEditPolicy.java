@@ -54,21 +54,21 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
     if ((index == 0 || index == link.getBendpoints().size() - 1) || (link.getBendpoints().size() == 2))
       return UnexecutableCommand.INSTANCE;
 
-    if (index == link.getBendpoints().size() - 2) { // "last" bendpoint
-      if (target instanceof OPPStructuralLinkAggregator) { // "first" part
-        return getCommanToMoveLastBendpointBeforeAggregator(link, index, newPoint);
-      } else if (target instanceof OPPThing) { // "second" part
-        return getCommantToMoveLastBendpointBeforeTarget(link, rectangleFromOPPNode(target), index, currPoint, newPoint);
+    if (index == 1) { // "first" bendpoint
+      if (source instanceof OPPThing) { // "first" part
+        return getCommandToMoveFirstBendpointAfterThing(link, newPoint); // HERE
+      } else if (source instanceof OPPStructuralLinkAggregator) { // "second" part
+        return getCommandToMoveFirstBendpointAfterAggregator(link, newPoint);
       } else {
         throw new IllegalStateException();
       }
     }
 
-    if (index == 1) { // "first" bendpoint
-      if (source instanceof OPPThing) { // "first" part
-        return getCommandToMoveFirstBendpointAfterThing(link, newPoint);
-      } else if (source instanceof OPPStructuralLinkAggregator) { // "second" part
-        return getCommandToMoveFirstBendpointAfterAggregator(link, newPoint);
+    if (index == link.getBendpoints().size() - 2) { // "last" bendpoint
+      if (target instanceof OPPStructuralLinkAggregator) { // "first" part
+        return getCommanToMoveLastBendpointBeforeAggregator(link, index, newPoint);
+      } else if (target instanceof OPPThing) { // "second" part
+        return getCommantToMoveLastBendpointBeforeTarget(link, newPoint);
       } else {
         throw new IllegalStateException();
       }
