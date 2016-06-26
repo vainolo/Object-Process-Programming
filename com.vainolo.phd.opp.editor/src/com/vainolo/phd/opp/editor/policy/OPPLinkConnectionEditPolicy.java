@@ -131,6 +131,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
    * @return a command that creates the links as stated above.
    */
   private Command handleOPMStructuralLinkRequest(CreateConnectionRequest request) {
+    OPPBendpointUtils bendpointUtils = new OPPBendpointUtils();
     Command command = null;
 
     OPPNode sNode = (OPPNode) request.getSourceEditPart().getModel();
@@ -153,7 +154,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
       OPPCreateLinkCommand linkCreateCommand = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(agrNode));
       cCommand.add(linkCreateCommand);
 
-      for (Point p : createInitialBendpointsForStructuralLinkSegment(agrNode, tNode)) {
+      for (Point p : bendpointUtils.createInitialBendpointsForStructuralLinkSegment(agrNode, tNode)) {
         OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
         bpc.setLink(linkCreateCommand.getLink());
         bpc.setLocation(p);
@@ -169,14 +170,14 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
       OPPCreateLinkCommand c3 = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(sNode));
       cCommand.add(c3);
 
-      for (Point p : createInitialBendpointsForStructuralLinkSegment(sNode, agrNode)) {
+      for (Point p : bendpointUtils.createInitialBendpointsForStructuralLinkSegment(sNode, agrNode)) {
         OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
         bpc.setLink(c2.getLink());
         bpc.setLocation(p);
         cCommand.add(bpc);
       }
 
-      for (Point p : createInitialBendpointsForStructuralLinkSegment(agrNode, tNode)) {
+      for (Point p : bendpointUtils.createInitialBendpointsForStructuralLinkSegment(agrNode, tNode)) {
         OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
         bpc.setLink(c3.getLink());
         bpc.setLocation(p);

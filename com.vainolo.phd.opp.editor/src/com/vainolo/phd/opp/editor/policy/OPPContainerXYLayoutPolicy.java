@@ -6,16 +6,8 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.editor.policy;
 
-import java.util.Collection;
-
-import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.*;
-import static com.vainolo.phd.opp.editor.policy.OPPBendpointUtils.*;
-import java.util.List;
-
 import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.gef.EditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
@@ -25,18 +17,11 @@ import org.eclipse.gef.editpolicies.XYLayoutEditPolicy;
 import org.eclipse.gef.requests.ChangeBoundsRequest;
 import org.eclipse.gef.requests.CreateRequest;
 
-import com.google.common.collect.Lists;
-import com.vainolo.phd.opp.editor.command.OPPLinkCreateBendpointCommand;
-import com.vainolo.phd.opp.editor.command.OPPLinkDeleteBendpointCommand;
 import com.vainolo.phd.opp.editor.command.OPPNodeChangeConstraintCommand;
 import com.vainolo.phd.opp.editor.command.OPPNodeCreateCommand;
 import com.vainolo.phd.opp.editor.part.OPPStructuralLinkAggregatorEditPart;
-import com.vainolo.phd.opp.editor.utils.OPPModelUtils;
 import com.vainolo.phd.opp.model.*;
-import com.vainolo.phd.opp.utilities.OPPLogger;
-import com.vainolo.phd.opp.utilities.analysis.OPPLinkExtensions;
 import com.vainolo.phd.opp.utilities.analysis.OPPNodeExtensions;
-import com.vainolo.phd.opp.utilities.analysis.OPPProceduralLinkExtensions;
 
 /**
  * This class describes the commands that can be used to change the layout and create new nodes inside the
@@ -67,38 +52,15 @@ public class OPPContainerXYLayoutPolicy extends XYLayoutEditPolicy {
     command.setNewConstraint(rect.x, rect.y, rect.width, rect.height);
     cc.add(command);
 
+    OPPBendpointUtils bpu = new OPPBendpointUtils();
     for (OPPStructuralLinkPart link : OPPNodeExtensions.getIncomingStructuralLinks(node)) {
-      int index = link.getBendpoints().size() - 2;
-      Point newPoint = pointFromOPPPoint(link.getBendpoints().get(index));
-      Point currPoint;
-      if (link.getBendpoints().size() == 3) {
-        currPoint = new Point(newPoint.x, newPoint.y + (rect.y - node.getY()));
-      } else {
-        currPoint = new Point(newPoint.x + (rect.x - node.getX()), newPoint.y + (rect.y - node.getY()));
-      }
-
-      // Command c = getCommantToMoveLastBendpointBeforeTarget(link, rect, index, currPoint, newPoint);
-      // cc.add(c);
+      cc.add(bpu.getCommandToMoveBendpointsAfterTargetHasMoved(link, rect));
+    }
+    for (OPPStructuralLinkPart link : OPPNodeExtensions.getOutgoingStructuralLinks(node)) {
+      cc.add(bpu.getCommandToMoveBendpointsAfterSourceHasMoved(link, rect));
     }
 
     return cc;
-  }
-
-  private void moveStructuralLinkBendpoint(OPPStructuralLinkPart link, Rectangle newNodeConstraints, CompoundCommand cc) {
-    List<OPPPoint> bendpoints = link.getBendpoints();
-    for (int i = 0; i < bendpoints.size(); i++) {
-      OPPLinkDeleteBendpointCommand dbc = new OPPLinkDeleteBendpointCommand();
-      dbc.setLink(link);
-      dbc.setIndex(0);
-      cc.add(dbc);
-    }
-
-    for (Point p : createInitialBendpointsForStructuralLinkSegment(link.getSource(), newNodeConstraints)) {
-      OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
-      bpc.setLink(link);
-      bpc.setLocation(p);
-      cc.add(bpc);
-    }
 
   }
 

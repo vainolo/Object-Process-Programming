@@ -6,8 +6,6 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.editor.policy;
 
-import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.*;
-import static com.vainolo.phd.opp.editor.policy.OPPBendpointUtils.*;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -19,37 +17,15 @@ import com.vainolo.phd.opp.model.*;
 
 public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
 
+  private OPPBendpointUtils bpu = new OPPBendpointUtils();
+
   @Override
   protected Command getCreateBendpointCommand(BendpointRequest request) {
     OPPStructuralLinkPart link = (OPPStructuralLinkPart) request.getSource().getModel();
     int index = request.getIndex();
-    Point prevPoint = pointFromOPPPoint(link.getBendpoints().get(index - 1));
-    Point nextPoint = pointFromOPPPoint(link.getBendpoints().get(index));
     Point newPoint = request.getLocation();
-    CompoundCommand cc = new CompoundCommand();
 
-    if (prevPoint.x == nextPoint.x) { // vertical line
-      cc.add(newCreateBendpointCommand(link, index, (new Point()).setX(prevPoint.x).setY(middle(prevPoint.y, newPoint.y))));
-      cc.add(newCreateBendpointCommand(link, index + 1, (new Point()).setX(newPoint.x).setY(middle(prevPoint.y, newPoint.y))));
-      cc.add(newCreateBendpointCommand(link, index + 2, (new Point()).setX(newPoint.x).setY(middle(newPoint.y, nextPoint.y))));
-      cc.add(newCreateBendpointCommand(link, index + 3, (new Point()).setX(nextPoint.x).setY(middle(newPoint.y, nextPoint.y))));
-    } else { // horizontal line
-      cc.add(newCreateBendpointCommand(link, index, (new Point()).setX(middle(prevPoint.x, newPoint.x)).setY(prevPoint.y)));
-      cc.add(newCreateBendpointCommand(link, index + 1, (new Point()).setX(middle(prevPoint.x, newPoint.x)).setY(newPoint.y)));
-      cc.add(newCreateBendpointCommand(link, index + 2, (new Point()).setX(middle(newPoint.x, nextPoint.x)).setY(newPoint.y)));
-      cc.add(newCreateBendpointCommand(link, index + 3, (new Point()).setX(middle(newPoint.x, nextPoint.x)).setY(nextPoint.y)));
-    }
-
-    return cc;
-    // return UnexecutableCommand.INSTANCE;
-
-    // OPPLinkCreateBendpointCommand command = new OPPLinkCreateBendpointCommand();
-    // Point p = request.getLocation();
-    // command.setLink((OPPLink) request.getSource().getModel());
-    // command.setLocation(p);
-    // command.setIndex(request.getIndex());
-    // cc.add(command);
-    // return cc;
+    return bpu.getCommandToCreateBendpoint(link, index, newPoint);
   }
 
   @Override
@@ -59,7 +35,7 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
     if (index <= 1 || index >= link.getBendpoints().size() - 2)
       return UnexecutableCommand.INSTANCE;
 
-    return getCommandToDeleteBendpoint(link, index);
+    return bpu.getCommandToDeleteBendpoint(link, index);
   }
 
   @Override
@@ -73,29 +49,39 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
     if ((index == 0 || index == link.getBendpoints().size() - 1) || (link.getBendpoints().size() == 2))
       return UnexecutableCommand.INSTANCE;
 
-    if (index == 1) { // "first" bendpoint
-      if (source instanceof OPPThing) { // "first" part
-        return getCommandToMoveFirstBendpointAfterThing(link, newPoint); // HERE
-      } else if (source instanceof OPPStructuralLinkAggregator) { // "second" part
-        return getCommandToMoveFirstBendpointAfterAggregator(link, newPoint);
-      } else {
-        throw new IllegalStateException();
-      }
+    if (bpu.isFirstBendpoint(index) && (source instanceof OPPStructuralLinkAggregator)) {
+      return bpu.getCommandToMoveFirstBendpointAfterAggregator(link, newPoint);
+    } else if (bpu.isLastBendpoint(index, link.getBendpoints()) && (target instanceof OPPStructuralLinkAggregator)) {
+      return bpu.getCommanToMoveLastBendpointBeforeAggregator(link, index, newPoint);
+    } else if (bpu.isFirstBendpoint(index) && (source instanceof OPPNode)) {
+      return bpu.getCommandToMoveFirstBendpointAfterThing(link, newPoint); // HERE
+    } else if (bpu.isLastBendpoint(index, link.getBendpoints()) && (target instanceof OPPNode)) {
+      return bpu.getCommantToMoveLastBendpointBeforeTarget(link, newPoint);
+    } else {
+      return bpu.getCommandToMoveInternalBendpoint(link, index, newPoint);
     }
 
-    if (index == link.getBendpoints().size() - 2) { // "last" bendpoint
-      if (target instanceof OPPStructuralLinkAggregator) { // "first" part
-        return getCommanToMoveLastBendpointBeforeAggregator(link, index, newPoint);
-      } else if (target instanceof OPPThing) { // "second" part
-        return getCommantToMoveLastBendpointBeforeTarget(link, newPoint);
-      } else {
-        throw new IllegalStateException();
-      }
-    }
-
-    if (index > 1 && index < link.getBendpoints().size() - 2)
-      return getCommandToMoveInternalBendpoint(link, index, newPoint);
-
-    return cc;
+    // if (index == 1) { // "first" bendpoint
+    // if (source instanceof OPPThing) { // "first" part
+    // } else if (source instanceof OPPStructuralLinkAggregator) { // "second" part
+    //
+    // } else {
+    // throw new IllegalStateException();
+    // }
+    // }
+    //
+    // if (index == link.getBendpoints().size() - 2) { // "last" bendpoint
+    // if (target instanceof OPPStructuralLinkAggregator) { // "first" part
+    // } else if (target instanceof OPPThing) { // "second" part
+    //
+    // } else {
+    // throw new IllegalStateException();
+    // }
+    // }
+    //
+    // if (index > 1 && index < link.getBendpoints().size() - 2)
+    // return bpu.getCommandToMoveInternalBendpoint(link, index, newPoint);
+    //
+    // return cc;
   }
 }

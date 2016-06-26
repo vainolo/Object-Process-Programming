@@ -15,6 +15,8 @@ public class OPPStructuralLinkPartFigure extends PolylineConnection {
     // setConnectionRouter(new ManhattanConnectionRouter());
     setConnectionRouter(new BendpointConnectionRouter());
     setLineWidth(OPPFigureConstants.CONNECTION_LINE_WIDTH);
+
+    setTolerance(10);
   }
 
 }
