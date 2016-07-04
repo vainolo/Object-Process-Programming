@@ -98,19 +98,9 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
 
   private ConnectionAnchor getConnectionAnchor() {
     if (connectionAnchor == null) {
-      connectionAnchor = new EllipseAnchor(this);
+      connectionAnchor = new OPPEllipseStructuralLinkAnchor(this);
     }
     return connectionAnchor;
-  }
-
-  @Override
-  public ConnectionAnchor getSourceConnectionAnchor() {
-    return getConnectionAnchor();
-  }
-
-  @Override
-  public ConnectionAnchor getTargetConnectionAnchor() {
-    return getConnectionAnchor();
   }
 
   @Override

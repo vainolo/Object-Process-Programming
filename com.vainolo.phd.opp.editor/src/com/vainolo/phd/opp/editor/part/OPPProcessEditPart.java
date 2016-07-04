@@ -9,15 +9,18 @@ package com.vainolo.phd.opp.editor.part;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.draw2d.ChopboxAnchor;
+import org.eclipse.draw2d.ConnectionAnchor;
+import org.eclipse.draw2d.EllipseAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.gef.DefaultEditDomain;
-import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.*;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IFileEditorInput;
 
 import com.vainolo.phd.opp.editor.command.OPPNodeChangeConstraintCommand;
+import com.vainolo.phd.opp.editor.figure.OPPEllipseStructuralLinkAnchor;
 import com.vainolo.phd.opp.editor.figure.OPPFigureConstants;
 import com.vainolo.phd.opp.editor.figure.OPPProcessFigure;
 import com.vainolo.phd.opp.editor.figure.OPPThingFigure;
@@ -31,6 +34,32 @@ public class OPPProcessEditPart extends OPPThingEditPart {
   @Override
   protected IFigure createFigure() {
     return new OPPProcessFigure();
+  }
+
+  @Override
+  public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
+    if (connection instanceof OPPStructuralLinkPartEditPart)
+      return new OPPEllipseStructuralLinkAnchor(getFigure());
+    else
+      return new EllipseAnchor(getFigure());
+  }
+
+  @Override
+  public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
+    if (connection instanceof OPPStructuralLinkPartEditPart)
+      return new OPPEllipseStructuralLinkAnchor(getFigure());
+    else
+      return new EllipseAnchor(getFigure());
+  }
+
+  @Override
+  public ConnectionAnchor getSourceConnectionAnchor(Request request) {
+    return new EllipseAnchor(getFigure());
+  }
+
+  @Override
+  public ConnectionAnchor getTargetConnectionAnchor(Request request) {
+    return new EllipseAnchor(getFigure());
   }
 
   @Override

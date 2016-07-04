@@ -56,28 +56,6 @@ public class OPPStateFigure extends Figure implements OPPNodeFigure, OPPNamedEle
     this.valueState = valueState;
   }
 
-  /**
-   * All connections to the figure use the same anchor: a {@link ChopboxAnchor}.
-   * 
-   * @return a {@link ChopboxAnchor} for the state.
-   */
-  private ConnectionAnchor getConnectionAnchor() {
-    if (connectionAnchor == null) {
-      connectionAnchor = new ChopboxAnchor(this);
-    }
-    return connectionAnchor;
-  }
-
-  @Override
-  public ConnectionAnchor getSourceConnectionAnchor() {
-    return getConnectionAnchor();
-  }
-
-  @Override
-  public ConnectionAnchor getTargetConnectionAnchor() {
-    return getConnectionAnchor();
-  }
-
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
     Dimension dim = smartLabel.calculateSize().expand(10, 5);

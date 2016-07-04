@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.eclipse.core.resources.*;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.draw2d.FigureCanvas;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor.PropertyValueWrapper;
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryContentProvider;
 import org.eclipse.gef.*;
@@ -28,7 +29,12 @@ import org.eclipse.gef.ui.properties.UndoablePropertySheetEntry;
 import org.eclipse.gef.ui.properties.UndoablePropertySheetPage;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorActionBarContributor;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
@@ -76,6 +82,13 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
     super.initializeGraphicalViewer();
     getGraphicalViewer().setContents(opd);
     getGraphicalControl().setFont(new Font(null, "Consolas", 10, SWT.NORMAL));
+    getGraphicalControl().addMouseMoveListener(new MouseMoveListener() {
+      @Override
+      public void mouseMove(MouseEvent e) {
+        OPPGraphicalEditorActionBarContributor a = (OPPGraphicalEditorActionBarContributor) getEditorSite().getActionBarContributor();
+        a.getActionBars().getStatusLineManager().setMessage(getCursorPosition().toString());
+      }
+    });
   }
 
   @Override
@@ -367,6 +380,15 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   public void dispose() {
     ResourcesPlugin.getWorkspace().removeResourceChangeListener(changeListener);
     super.dispose();
+  }
+
+  public Point getCursorPosition() {
+    Display display = Display.getDefault();
+    Point point = getGraphicalViewer().getControl().toControl(display.getCursorLocation());
+    FigureCanvas figureCanvas = (FigureCanvas) getGraphicalViewer().getControl();
+    org.eclipse.draw2d.geometry.Point location = figureCanvas.getViewport().getViewLocation();
+    point = new Point(point.x + location.x, point.y + location.y);
+    return point;
   }
 
   private class DeltaVisitor implements IResourceDeltaVisitor {

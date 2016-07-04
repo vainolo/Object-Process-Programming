@@ -15,9 +15,12 @@ import org.eclipse.gef.ui.actions.UndoRetargetAction;
 import org.eclipse.gef.ui.actions.ZoomComboContributionItem;
 import org.eclipse.gef.ui.actions.ZoomInRetargetAction;
 import org.eclipse.gef.ui.actions.ZoomOutRetargetAction;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.*;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.CoolBar;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.RetargetAction;
 
@@ -73,4 +76,8 @@ public class OPPGraphicalEditorActionBarContributor extends ActionBarContributor
     addGlobalActionKey(ActionFactory.SELECT_ALL.getId());
   }
 
+  @Override
+  public void contributeToStatusLine(IStatusLineManager statusLineManager) {
+    super.contributeToStatusLine(statusLineManager);
+  }
 }

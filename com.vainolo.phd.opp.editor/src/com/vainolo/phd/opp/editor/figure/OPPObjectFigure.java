@@ -129,23 +129,6 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
 
   }
 
-  public ConnectionAnchor getConnectionAnchor() {
-    if (connectionAnchor == null) {
-      connectionAnchor = new ChopboxAnchor(this);
-    }
-    return connectionAnchor;
-  }
-
-  @Override
-  public ConnectionAnchor getSourceConnectionAnchor() {
-    return getConnectionAnchor();
-  }
-
-  @Override
-  public ConnectionAnchor getTargetConnectionAnchor() {
-    return getConnectionAnchor();
-  }
-
   public void setHasShadow(boolean hasShadow) {
     this.hasShadow = hasShadow;
   }

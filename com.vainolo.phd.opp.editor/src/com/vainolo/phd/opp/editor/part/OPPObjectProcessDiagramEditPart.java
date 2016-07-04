@@ -15,7 +15,9 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.gef.*;
+import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.gef.editpolicies.AbstractEditPolicy;
 import org.eclipse.gef.editpolicies.SnapFeedbackPolicy;
 
 import com.vainolo.phd.opp.editor.figure.OPPObjectProcessDiagramFigure;

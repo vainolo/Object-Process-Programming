@@ -10,12 +10,14 @@ package com.vainolo.phd.opp.editor.part;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.draw2d.ChopboxAnchor;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.gef.*;
 import org.eclipse.gef.editparts.AbstractGraphicalEditPart;
+import org.eclipse.osgi.internal.loader.ModuleClassLoader.GenerationProtectionDomain;
 
 import com.vainolo.phd.opp.model.OPPContainer;
 import com.vainolo.phd.opp.model.OPPLink;
@@ -86,24 +88,32 @@ public abstract class OPPNodeEditPart extends AbstractGraphicalEditPart implemen
     }
   }
 
-  @Override
-  public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
-    return ((OPPNodeFigure) getFigure()).getSourceConnectionAnchor();
+  protected ConnectionAnchor getSourceConnectionAnchor() {
+    return new ChopboxAnchor(getFigure());
   }
 
   @Override
-  public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
-    return ((OPPNodeFigure) getFigure()).getTargetConnectionAnchor();
+  public ConnectionAnchor getSourceConnectionAnchor(ConnectionEditPart connection) {
+    return getSourceConnectionAnchor();
   }
 
   @Override
   public ConnectionAnchor getSourceConnectionAnchor(Request request) {
-    return ((OPPNodeFigure) getFigure()).getSourceConnectionAnchor();
+    return getSourceConnectionAnchor();
+  }
+
+  protected ConnectionAnchor getTargetConnectionAnchor() {
+    return new ChopboxAnchor(getFigure());
+  }
+
+  @Override
+  public ConnectionAnchor getTargetConnectionAnchor(ConnectionEditPart connection) {
+    return getTargetConnectionAnchor();
   }
 
   @Override
   public ConnectionAnchor getTargetConnectionAnchor(Request request) {
-    return ((OPPNodeFigure) getFigure()).getTargetConnectionAnchor();
+    return getTargetConnectionAnchor();
   }
 
   public class OPMNodeAdapter implements Adapter {
