@@ -90,8 +90,6 @@ public class OPPBendpointUtils {
   }
 
   public Command getCommandToDeleteBendpoint(OPPStructuralLinkPart link, int index) {
-    Preconditions.checkArgument(index > 1 && index < link.getBendpoints().size() - 2);
-
     CompoundCommand cc = new CompoundCommand();
     OPPPoint prevBendpoint = link.getBendpoints().get(index - 1);
     OPPPoint currBendpoint = link.getBendpoints().get(index);

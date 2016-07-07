@@ -7,6 +7,7 @@
 package com.vainolo.phd.opp.editor.policy;
 
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -32,7 +33,7 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
   protected Command getDeleteBendpointCommand(BendpointRequest request) {
     OPPStructuralLinkPart link = (OPPStructuralLinkPart) request.getSource().getModel();
     int index = request.getIndex();
-    if (index <= 1 || index >= link.getBendpoints().size() - 2)
+    if (index == 0 || index == link.getBendpoints().size() - 1)
       return UnexecutableCommand.INSTANCE;
 
     return bpu.getCommandToDeleteBendpoint(link, index);
@@ -60,28 +61,5 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
     } else {
       return bpu.getCommandToMoveInternalBendpoint(link, index, newPoint);
     }
-
-    // if (index == 1) { // "first" bendpoint
-    // if (source instanceof OPPThing) { // "first" part
-    // } else if (source instanceof OPPStructuralLinkAggregator) { // "second" part
-    //
-    // } else {
-    // throw new IllegalStateException();
-    // }
-    // }
-    //
-    // if (index == link.getBendpoints().size() - 2) { // "last" bendpoint
-    // if (target instanceof OPPStructuralLinkAggregator) { // "first" part
-    // } else if (target instanceof OPPThing) { // "second" part
-    //
-    // } else {
-    // throw new IllegalStateException();
-    // }
-    // }
-    //
-    // if (index > 1 && index < link.getBendpoints().size() - 2)
-    // return bpu.getCommandToMoveInternalBendpoint(link, index, newPoint);
-    //
-    // return cc;
   }
 }

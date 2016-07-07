@@ -196,7 +196,7 @@ public class OPPModelWizard extends Wizard implements INewWizard {
       for (OPPObjectProcessDiagramKind value : OPPObjectProcessDiagramKind.VALUES)
         opdKind.add(value.getLiteral());
 
-      opdKind.select(0);
+      opdKind.select(OPPObjectProcessDiagramKind.values().length - 1);
       setControl(composite);
     }
 

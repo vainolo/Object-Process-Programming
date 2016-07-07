@@ -18,7 +18,6 @@ import com.vainolo.phd.opp.editor.figure.OPPStructuralLinkPartFigure;
 import com.vainolo.phd.opp.editor.policy.OPPStructuralLinkBendpointEditPolicy;
 import com.vainolo.phd.opp.model.OPPPoint;
 import com.vainolo.phd.opp.model.OPPStructuralLinkPart;
-import com.vainolo.phd.opp.utilities.OPPLogger;
 
 public class OPPStructuralLinkPartEditPart extends OPPLinkEditPart {
 
@@ -65,5 +64,4 @@ public class OPPStructuralLinkPartEditPart extends OPPLinkEditPart {
     super.createEditPolicies();
     installEditPolicy(EditPolicy.CONNECTION_BENDPOINTS_ROLE, new OPPStructuralLinkBendpointEditPolicy());
   }
-
 }
