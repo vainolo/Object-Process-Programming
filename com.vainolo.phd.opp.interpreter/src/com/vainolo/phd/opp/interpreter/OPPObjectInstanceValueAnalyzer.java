@@ -160,7 +160,7 @@ public class OPPObjectInstanceValueAnalyzer {
   public OPPObjectInstance calculateOPMObjectValue(String value) {
     logFinest("Calculating value of {0}.", value);
     checkArgument((value != null) && (!"".equals(value)), "Value cannot be null or empty.");
-    OPPObjectInstance objectInstance = null;
+    OPPObjectInstance objectInstance;
     if (isStringLiteral(value)) {
       objectInstance = OPPObjectInstance.createFromValue(parseStringLiteral(value));
     } else if (isNumericalLiteral(value)) {

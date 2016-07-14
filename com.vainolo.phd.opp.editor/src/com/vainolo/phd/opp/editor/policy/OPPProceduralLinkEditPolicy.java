@@ -34,7 +34,7 @@ public class OPPProceduralLinkEditPolicy extends AbstractEditPolicy {
 
   @Override
   public Command getCommand(Request request) {
-    Command command = null;
+    Command command;
     if(request.getType().equals(OPPToggledProceduralLinkSubkindAction.TOGGLE_PROCEDURAL_LINK_SUBKIND_REQUEST)) {
       String subkind = (String) request.getExtendedData().get("subkind");
       OPPProceduralLink link = (OPPProceduralLink) getHost().getModel();

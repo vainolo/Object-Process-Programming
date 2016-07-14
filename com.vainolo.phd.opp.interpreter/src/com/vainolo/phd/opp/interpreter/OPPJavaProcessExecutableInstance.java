@@ -95,7 +95,7 @@ public class OPPJavaProcessExecutableInstance extends OPPAbstractProcessInstance
     Method method = null;
     try {
 
-      Class<?> cls = null;
+      Class<?> cls;
       Class<?>[] parameterClasses = null;
       cls = getClass(className);
 
