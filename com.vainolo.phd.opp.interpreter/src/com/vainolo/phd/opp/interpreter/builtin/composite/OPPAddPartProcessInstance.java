@@ -31,10 +31,8 @@ public class OPPAddPartProcessInstance extends OPPAbstractProcessInstance {
   public void setArgument(String name, OPPObjectInstance value) {
     // Modified since we need the original ID of the instance to be used as key, and this ID will be changed when a new
     // instance is created - so we transform the instance to a string that is used as the key.
-    if ("key".equals(name)) {
-      if (value.kind == InstanceKind.COMPOSITE) {
-        value = OPPObjectInstance.createFromValue(value.getId());
-      }
+    if ("key".equals(name) && value.kind == InstanceKind.COMPOSITE) {
+      value = OPPObjectInstance.createFromValue(value.getId());
     }
     super.setArgument(name, value);
   }

@@ -372,18 +372,16 @@ public class OPPGraphicalEditor extends GraphicalEditorWithFlyoutPalette {
   private class DeltaVisitor implements IResourceDeltaVisitor {
     @Override
     public boolean visit(IResourceDelta delta) throws CoreException {
-      if (delta.getKind() == IResourceDelta.REMOVED) {
-        if (delta.getResource().getType() == IResource.FILE) {
-          if (delta.getResource().getFullPath().equals(opdFile.getFullPath())) {
-            getSite().getShell().getDisplay().asyncExec(new Runnable() {
-              @Override
-              public void run() {
-                if (!isDirty()) {
-                  getSite().getPage().closeEditor(OPPGraphicalEditor.this, false);
-                }
+      if (delta.getKind() == IResourceDelta.REMOVED && delta.getResource().getType() == IResource.FILE) {
+        if (delta.getResource().getFullPath().equals(opdFile.getFullPath())) {
+          getSite().getShell().getDisplay().asyncExec(new Runnable() {
+            @Override
+            public void run() {
+              if (!isDirty()) {
+                getSite().getPage().closeEditor(OPPGraphicalEditor.this, false);
               }
-            });
-          }
+            }
+          });
         }
       }
       for (IResourceDelta child : delta.getAffectedChildren()) {
