@@ -102,7 +102,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
 
   private void calculateNextProcesses() {
     List<OPPProcess> nextProcesses = pc.getNextProcesses(P_waiting, P_executing.values());
-    if (nextProcesses.size() > 0) {
+    if (!nextProcesses.isEmpty()) {
       List<OPPProcess> P_skipped = nextProcesses.stream().filter(MUST_SKIP).collect(Collectors.toList());
       if (P_skipped.size() != nextProcesses.size()) {
         P_waiting.addAll(nextProcesses.stream().filter(MUST_SKIP.negate()).collect(Collectors.toSet()));
@@ -160,7 +160,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
         }
 
         Set<OPPProcess> invoked = findInvokedAndNotSkippedProcesses(executedProcess);
-        if (invoked.size() > 0) {
+        if (!invoked.isEmpty()) {
           executionMode = ExecutionMode.EVENT;
         }
 
@@ -170,7 +170,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
           executeReadyProcesses();
           break;
         case EVENT:
-          if (invoked.size() > 0) {
+          if (!invoked.isEmpty()) {
             P_ready.addAll(invoked);
             executeReadyProcesses();
           } else {
@@ -191,7 +191,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       }
     }
 
-    if (P_waiting.size() > 0)
+    if (!P_waiting.isEmpty())
       logInfo("Finished execution of {0} with {1} waiting processes.", getName(), P_waiting.size());
 
   }
