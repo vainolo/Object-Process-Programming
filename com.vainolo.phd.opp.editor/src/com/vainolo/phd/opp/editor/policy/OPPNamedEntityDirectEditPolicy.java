@@ -13,6 +13,7 @@ import org.eclipse.gef.requests.DirectEditRequest;
 
 import com.vainolo.phd.opp.editor.command.OPPNamedElementRenameCommand;
 import com.vainolo.phd.opp.editor.command.OPPObjectSetInitialValueCommand;
+import com.vainolo.phd.opp.editor.command.OPPObjectSetTypeCommand;
 import com.vainolo.phd.opp.editor.figure.OPPNamedElementFigure;
 import com.vainolo.phd.opp.model.OPPNamedElement;
 import com.vainolo.phd.opp.model.OPPObject;
@@ -29,17 +30,33 @@ public class OPPNamedEntityDirectEditPolicy extends DirectEditPolicy {
       renameCommand.setModel((OPPNamedElement) getHost().getModel());
       if (model instanceof OPPObject) {
         OPPObjectSetInitialValueCommand setInitialValueCommand = new OPPObjectSetInitialValueCommand();
+        OPPObjectSetTypeCommand setTypeCommand = new OPPObjectSetTypeCommand();
         setInitialValueCommand.setModel((OPPObject) getHost().getModel());
-        if (text.contains("=")) {
+        setTypeCommand.setModel((OPPObject) getHost().getModel());
+        String name = null, type = null, value = null;
+        if (text.contains(":")) {
+          String[] parts = text.split(":");
+          name = parts[0].trim();
+          if (parts[1].contains("=")) {
+            String[] parts2 = parts[1].split("=");
+            type = parts2[0].trim();
+            value = parts2[1].trim();
+          } else {
+            type = parts[1];
+          }
+        } else if (text.contains("=")) {
           String[] parts = text.split("=");
-          renameCommand.setNewName(parts[0].trim());
-          setInitialValueCommand.setNewInitialValue(parts[1].trim());
+          name = parts[0].trim();
+          value = parts[1].trim();
         } else {
-          renameCommand.setNewName(text);
-          setInitialValueCommand.setNewInitialValue("");
+          name = text;
         }
+        renameCommand.setNewName(name);
         CompoundCommand cc = new CompoundCommand();
         cc.add(renameCommand);
+        setTypeCommand.setNewType(type);
+        cc.add(setTypeCommand);
+        setInitialValueCommand.setNewInitialValue(value);
         cc.add(setInitialValueCommand);
         return cc;
       } else {

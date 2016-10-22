@@ -40,11 +40,14 @@ public class OPPObjectEditPart extends OPPThingEditPart {
     OPPObject model = (OPPObject) getModel();
     GraphicalEditPart parent = (GraphicalEditPart) getParent();
 
-    if (model.getInitialValue() == null || model.getInitialValue().equals("")) {
-      figure.getNameFigure().setText(model.getName());
-    } else {
-      figure.getNameFigure().setText(model.getName() + " = " + model.getInitialValue());
+    String displayName = model.getName();
+    if (model.getType() != null && !model.getType().equals("")) {
+      displayName += " : " + model.getType();
     }
+    if (model.getInitialValue() != null && !model.getInitialValue().equals("")) {
+      displayName += " = " + model.getInitialValue();
+    }
+    figure.getNameFigure().setText(displayName);
     figure.setTooltipText(model.getDescription());
     figure.setHasShadow(model.isGlobal());
     figure.setDashedBorder(model.isAbstract());

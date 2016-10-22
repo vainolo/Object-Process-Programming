@@ -47,6 +47,7 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
 
       addGlobalPropertyDescriptor(object);
       addInitialValuePropertyDescriptor(object);
+      addTypePropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -96,6 +97,28 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
   }
 
   /**
+   * This adds a property descriptor for the Type feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addTypePropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPPObject_type_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPPObject_type_feature", "_UI_OPPObject_type"),
+         OPPPackage.Literals.OPP_OBJECT__TYPE,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns OPPObject.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -135,6 +158,7 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
     switch (notification.getFeatureID(OPPObject.class)) {
       case OPPPackage.OPP_OBJECT__GLOBAL:
       case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
+      case OPPPackage.OPP_OBJECT__TYPE:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

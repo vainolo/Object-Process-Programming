@@ -90,26 +90,39 @@ public class OPPObjectInstanceValueAnalyzer {
     return value.startsWith("[");
   }
 
+  private boolean isCompoungLiteral(String value) {
+    return value.startsWith("{");
+  }
+
   /**
    * Check if the value is a collections. Collections can be initialized with a set of integer values that are specified
    * in the initializer. The first value of the collection must be less than or equal than the final value of the
    * collection. For example [1..5], [1..1], [5..19]
    */
-  public List<BigDecimal> parseCollectionLiteral(String literal) {
-    List<BigDecimal> collection = Lists.newArrayList();
+  public List<OPPObjectInstance> parseCollectionLiteral(String literal) {
+    List<OPPObjectInstance> collection = Lists.newArrayList();
     literal = literal.substring(1, literal.length() - 1);
-    String[] indices = literal.split("\\.\\.");
-    int start = Integer.parseInt(indices[0]);
-    int end = Integer.parseInt(indices[1]);
-    if (start <= end) {
-      for (int i = start; i <= end; i++) {
-        collection.add(new BigDecimal(i));
+
+    if (literal.matches("(-)?(\\d+)(\\.\\.)(\\d+)")) {
+      String[] indices = literal.split("\\.\\.");
+      int start = Integer.parseInt(indices[0]);
+      int end = Integer.parseInt(indices[1]);
+      if (start <= end) {
+        for (int i = start; i <= end; i++) {
+          collection.add(OPPObjectInstance.createFromValue(new BigDecimal(i)));
+        }
+      } else {
+        for (int i = start; i >= end; i--) {
+          collection.add(OPPObjectInstance.createFromValue(new BigDecimal(i)));
+        }
       }
     } else {
-      for (int i = start; i >= end; i--) {
-        collection.add(new BigDecimal(i));
+      String[] values = literal.split(",");
+      for (String value : values) {
+        collection.add(calculateOPMObjectValue(value));
       }
     }
+
     return collection;
   }
 
@@ -133,8 +146,8 @@ public class OPPObjectInstanceValueAnalyzer {
         objectInstance = OPPObjectInstance.createFromValue(parseNumericalLiteral(objectName));
       } else if (isCollectionLiteral(objectName)) {
         objectInstance = OPPObjectInstance.createCompositeInstance();
-        for (BigDecimal value : parseCollectionLiteral(objectName)) {
-          objectInstance.addLastPart(OPPObjectInstance.createFromValue(value));
+        for (OPPObjectInstance value : parseCollectionLiteral(objectName)) {
+          objectInstance.addLastPart(value);
         }
       }
     } else {
@@ -167,9 +180,11 @@ public class OPPObjectInstanceValueAnalyzer {
       objectInstance = OPPObjectInstance.createFromValue(parseNumericalLiteral(value));
     } else if (isCollectionLiteral(value)) {
       objectInstance = OPPObjectInstance.createCompositeInstance();
-      for (BigDecimal v : parseCollectionLiteral(value)) {
-        objectInstance.addLastPart(OPPObjectInstance.createFromValue(v));
+      for (OPPObjectInstance o : parseCollectionLiteral(value)) {
+        objectInstance.addLastPart(o);
       }
+    } else if (isCompoungLiteral(value)) {
+
     } else {
       logFiner("Assume this is a string with no enclosing quotes.");
       objectInstance = OPPObjectInstance.createFromValue(value);

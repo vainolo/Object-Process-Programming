@@ -69,7 +69,7 @@ public class OPPObjectInstanceTest {
     composite1.addPart("part1", instance1);
     composite1.addPart("part2", instance2);
 
-    assertEquals(InstanceKind.COMPOSITE, composite1.kind);
+    assertEquals("Complex Object", composite1.type);
     assertEquals(composite1.getAllParts().size(), 2);
     assertEquals(composite1.getPart("part1"), instance1);
     assertEquals(composite1.getPart("part2"), instance2);

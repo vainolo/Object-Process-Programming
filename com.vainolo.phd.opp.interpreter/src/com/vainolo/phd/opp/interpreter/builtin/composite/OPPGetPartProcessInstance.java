@@ -31,7 +31,7 @@ public class OPPGetPartProcessInstance extends OPPAbstractProcessInstance {
     // Modified since we need the original ID of the instance to be used as key, and this ID will be changed when a new
     // instance is created - so we transform the instance to a string that is used as the key.
     if ("key".equals(name)) {
-      if (value.kind == InstanceKind.COMPOSITE) {
+      if (value.type == "Complex Object") {
         value = OPPObjectInstance.createFromValue(value.getId());
       }
     }

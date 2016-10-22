@@ -11,9 +11,9 @@ import org.eclipse.gef.commands.Command;
 
 import com.vainolo.phd.opp.model.OPPObject;
 
-public class OPPObjectSetInitialValueCommand extends Command {
+public class OPPObjectSetTypeCommand extends Command {
 
-  private String oldInitialValue, newInitialValue;
+  private String oldType, newType;
   private OPPObject model;
 
   @Override
@@ -23,17 +23,17 @@ public class OPPObjectSetInitialValueCommand extends Command {
 
   @Override
   public void execute() {
-    oldInitialValue = model.getInitialValue();
-    model.setInitialValue(newInitialValue);
+    oldType = model.getType();
+    model.setType(newType);
   }
 
   @Override
   public void undo() {
-    model.setInitialValue(oldInitialValue);
+    model.setType(oldType);
   }
 
-  public void setNewInitialValue(String newInitialValue) {
-    this.newInitialValue = newInitialValue;
+  public void setNewType(String newType) {
+    this.newType = newType;
   }
 
   public void setModel(OPPObject model) {

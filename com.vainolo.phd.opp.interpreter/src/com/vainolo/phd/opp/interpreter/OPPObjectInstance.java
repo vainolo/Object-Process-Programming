@@ -32,11 +32,13 @@ public class OPPObjectInstance {
   private Object value = null;
   private SortedMap<Integer, OPPObjectInstance> compositeValues = Maps.newTreeMap();
   private BiMap<String, Integer> compositeKeyToIndexMapping = HashBiMap.create();
-  public final InstanceKind kind;
+  // public final InstanceKind kind;
+  public final String type;
   private UUID id;
 
-  private OPPObjectInstance(InstanceKind type) {
-    this.kind = type;
+  private OPPObjectInstance(InstanceKind kind, String type) {
+    // this.kind = kind;
+    this.type = type;
     this.id = UUID.randomUUID();
   }
 
@@ -46,26 +48,26 @@ public class OPPObjectInstance {
 
   // Creation
   public static OPPObjectInstance createCompositeInstance() {
-    return new OPPObjectInstance(InstanceKind.COMPOSITE);
+    return new OPPObjectInstance(InstanceKind.COMPOSITE, "Complex Object");
   }
 
   public static OPPObjectInstance createFromValue(BigDecimal decimalValue) {
     Preconditions.checkNotNull(decimalValue, "Value cannot be null.");
-    OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.NUMERICAL);
+    OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.NUMERICAL, "Number");
     instance.setValue(decimalValue);
     return instance;
   }
 
   public static OPPObjectInstance createFromValue(String stringValue) {
     Preconditions.checkNotNull(stringValue, "Value cannot be null.");
-    OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.STRING);
+    OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.STRING, "String");
     instance.setValue(stringValue);
     return instance;
   }
 
   public static OPPObjectInstance createFromValue(Object object) {
     Preconditions.checkNotNull(object);
-    OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.JAVA_OBJECT);
+    OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.JAVA_OBJECT, "Java Object");
     instance.setValue(object);
     return instance;
   }
@@ -73,23 +75,22 @@ public class OPPObjectInstance {
   public static OPPObjectInstance createFromExistingInstance(OPPObjectInstance existingInstance) {
     Preconditions.checkNotNull(existingInstance, "Existing instance cannot be null.");
     OPPObjectInstance newInstance = null;
-    switch (existingInstance.kind) {
-    case NUMERICAL:
+    switch (existingInstance.type) {
+    case "Number":
       newInstance = createFromValue(existingInstance.getNumericalValue());
       break;
-    case STRING:
+    case "String":
       newInstance = createFromValue(existingInstance.getStringValue());
       break;
-    case JAVA_OBJECT:
-      newInstance = createFromValue(existingInstance.getValue());
-      break;
-    case COMPOSITE:
+    case "Complex Object":
       newInstance = createCompositeInstance();
       for (Integer index : existingInstance.compositeValues.keySet()) {
         newInstance.compositeValues.put(index, existingInstance.compositeValues.get(index));
         newInstance.compositeKeyToIndexMapping.inverse().put(index, existingInstance.compositeKeyToIndexMapping.inverse().get(index));
       }
-    default:
+      break;
+    case "Java Object":
+      newInstance = createFromValue(existingInstance.getValue());
       break;
     }
 
@@ -111,9 +112,9 @@ public class OPPObjectInstance {
 
   public String getStringValue() {
     checkTypeForValueOnlyOperations();
-    if (InstanceKind.STRING.equals(kind)) {
+    if ("String".equals(type)) {
       return (String) getValue();
-    } else if (InstanceKind.NUMERICAL.equals(kind)) {
+    } else if ("Number".equals(type)) {
       return ((BigDecimal) getValue()).toString();
     } else {
       throw new IllegalStateException("Cannot fetch value of an instance that is not a value");
@@ -122,9 +123,9 @@ public class OPPObjectInstance {
 
   public BigDecimal getNumericalValue() {
     checkTypeForValueOnlyOperations();
-    if (InstanceKind.STRING.equals(kind)) {
+    if ("String".equals(type)) {
       return new BigDecimal(String.class.cast(getValue()));
-    } else if (InstanceKind.NUMERICAL.equals(kind)) {
+    } else if ("Number".equals(type)) {
       return BigDecimal.class.cast(getValue());
     } else {
       throw new IllegalStateException("Cannot fetch value of an instance that is not a value");
@@ -223,15 +224,15 @@ public class OPPObjectInstance {
     checkTypeForCompositeOnlyOperations();
     checkState(key != null, "Key cannot be null.");
     OPPObjectInstance part = null;
-    switch (key.kind) {
-    case STRING:
-    case NUMERICAL:
+    switch (key.type) {
+    case "String":
+    case "Number":
       part = removePart(key.getStringValue());
       break;
-    case COMPOSITE:
+    case "Complex Object":
       part = removePart(key.getId());
       break;
-    case JAVA_OBJECT:
+    case "Java Object":
       throw new OPPRuntimeException("Java object keys are not supported.");
     }
     return part;
@@ -265,9 +266,9 @@ public class OPPObjectInstance {
   // General
   @Override
   public String toString() {
-    if (InstanceKind.STRING.equals(kind) || InstanceKind.NUMERICAL.equals(kind)) {
+    if ("String".equals(type) || "Number".equals(type)) {
       return value.toString();
-    } else if (InstanceKind.COMPOSITE.equals(kind)) {
+    } else if ("Complex Object".equals(type)) {
       StringBuilder ret = new StringBuilder("{");
       for (Integer index : compositeValues.keySet()) {
         ret.append(compositeKeyToIndexMapping.inverse().get(index).toString() + ":" + compositeValues.get(index).toString() + ",");
@@ -283,11 +284,11 @@ public class OPPObjectInstance {
   }
 
   private void checkTypeForValueOnlyOperations() {
-    checkState(!InstanceKind.COMPOSITE.equals(kind), "Instance is a collection but operation is only valid for value instances.");
+    checkState(!"Complex Object".equals(type), "Instance is a collection but operation is only valid for value instances.");
   }
 
   private void checkTypeForCompositeOnlyOperations() {
-    checkState(InstanceKind.COMPOSITE.equals(kind), "Collection operations can only be applied to collection instances.");
+    checkState("Complex Object".equals(type), "Collection operations can only be applied to collection instances.");
   }
 
   public enum InstanceKind {
@@ -300,14 +301,14 @@ public class OPPObjectInstance {
       return false;
 
     OPPObjectInstance other = (OPPObjectInstance) obj;
-    if (this.kind != other.kind) {
+    if (this.type != other.type) {
       return false;
     } else {
-      if (this.kind == InstanceKind.NUMERICAL) {
+      if (this.type == "Number") {
         return (this.getNumericalValue().compareTo(other.getNumericalValue()) == 0);
-      } else if (this.kind == InstanceKind.STRING) {
+      } else if (type == "String") {
         return this.getStringValue().equals(other.getStringValue());
-      } else if (this.kind == InstanceKind.COMPOSITE) {
+      } else if (type == "Complex Object") {
         return this.id == other.id;
       }
     }
@@ -316,12 +317,12 @@ public class OPPObjectInstance {
 
   @Override
   public int hashCode() {
-    switch (kind) {
-    case COMPOSITE:
+    switch (type) {
+    case "Complex ObBject":
       return id.hashCode();
-    case STRING:
-    case NUMERICAL:
-    case JAVA_OBJECT:
+    case "String":
+    case "Number":
+    case "Java Object":
       return value.hashCode();
     }
 

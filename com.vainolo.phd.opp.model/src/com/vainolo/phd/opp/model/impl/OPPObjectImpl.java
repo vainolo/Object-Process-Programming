@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#getInitialValue <em>Initial Value</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#getType <em>Type</em>}</li>
  * </ul>
  *
  * @generated
@@ -71,6 +72,26 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
    * @ordered
    */
   protected String initialValue = INITIAL_VALUE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getType()
+   * @generated
+   * @ordered
+   */
+  protected static final String TYPE_EDEFAULT = "";
+
+  /**
+   * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getType()
+   * @generated
+   * @ordered
+   */
+  protected String type = TYPE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -138,6 +159,27 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getType() {
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setType(String newType) {
+    String oldType = type;
+    type = newType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_OBJECT__TYPE, oldType, type));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
@@ -145,6 +187,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
         return isGlobal();
       case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
         return getInitialValue();
+      case OPPPackage.OPP_OBJECT__TYPE:
+        return getType();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -162,6 +206,9 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
         return;
       case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
         setInitialValue((String)newValue);
+        return;
+      case OPPPackage.OPP_OBJECT__TYPE:
+        setType((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -181,6 +228,9 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
       case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
         setInitialValue(INITIAL_VALUE_EDEFAULT);
         return;
+      case OPPPackage.OPP_OBJECT__TYPE:
+        setType(TYPE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -197,6 +247,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
         return global != GLOBAL_EDEFAULT;
       case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
         return INITIAL_VALUE_EDEFAULT == null ? initialValue != null : !INITIAL_VALUE_EDEFAULT.equals(initialValue);
+      case OPPPackage.OPP_OBJECT__TYPE:
+        return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
     }
     return super.eIsSet(featureID);
   }
@@ -215,6 +267,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
     result.append(global);
     result.append(", initialValue: ");
     result.append(initialValue);
+    result.append(", type: ");
+    result.append(type);
     result.append(')');
     return result.toString();
   }

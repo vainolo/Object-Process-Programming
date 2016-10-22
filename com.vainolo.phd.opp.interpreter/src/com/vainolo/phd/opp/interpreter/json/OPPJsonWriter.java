@@ -14,7 +14,7 @@ import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
 public class OPPJsonWriter {
 
   public JsonObject write(OPPObjectInstance opmObjectInstance) {
-    Preconditions.checkState(opmObjectInstance.kind == InstanceKind.COMPOSITE);
+    Preconditions.checkState(opmObjectInstance.type == "Complex Object");
     JsonObject jsonObject = new JsonObject();
     for (String partName : opmObjectInstance.getAllPartIndexes()) {
       OPPObjectInstance partValue = opmObjectInstance.getPart(partName);
@@ -24,11 +24,11 @@ public class OPPJsonWriter {
   }
 
   private void addJSONElement(JsonObject jsonObject, String name, OPPObjectInstance opmObject) {
-    if (opmObject.kind == InstanceKind.STRING) {
+    if (opmObject.type == "String") {
       jsonObject.add(name, opmObject.getStringValue());
-    } else if (opmObject.kind == InstanceKind.NUMERICAL) {
+    } else if (opmObject.type == "Number") {
       jsonObject.add(name, opmObject.getNumericalValue().doubleValue());
-    } else if (opmObject.kind == InstanceKind.COMPOSITE) {
+    } else if (opmObject.type == "Complex Object") {
       jsonObject.add(name, write(opmObject));
     } else {
       throw new IllegalStateException();

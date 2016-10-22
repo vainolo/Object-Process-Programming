@@ -84,7 +84,7 @@ public class OPPInZoomedProcessInstanceHeapTest {
     assertEquals(part1, observer.changes.get(0).child);
     assertEquals(inst1.getNumericalValue(), observer.changes.get(0).childInstance.getNumericalValue());
     assertEquals(OPMHeapChangeType.VARIABLE_SET, observer.changes.get(1).changeType);
-    assertTrue(observer.changes.get(1).objectInstance.kind == InstanceKind.COMPOSITE);
+    assertTrue(observer.changes.get(1).objectInstance.type == "Complex Object");
     assertEquals(inst1.getNumericalValue(), observer.changes.get(0).objectInstance.getPart(part1.getName()).getNumericalValue());
   }
 

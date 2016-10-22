@@ -29,6 +29,7 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProce
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemovePartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.general.OPPCountProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleInputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleOutputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogInputProcessInstance;
@@ -93,92 +94,111 @@ public class OPPProcessInstanceFactory {
   }
 
   private static OPPProcessInstance createBuiltInProcess(String name) {
-    OPPProcessInstance processInstance = null;
 
-    // Input and Output
-    if (name.equalsIgnoreCase("Console Input")) {
-      processInstance = new OPPConsoleInputProcessInstance();
+    switch (name.toLowerCase()) {
+    // math
+    case "+":
+    case "adding":
+      return new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.ADD);
+    case "-":
+    case "subtracting":
+      return new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.SUBS);
+    case "*":
+    case "multiplying":
+      return new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.MULT);
+    case "/":
+    case "dividing":
+      return new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.DIV);
+    case "^":
+    case "power":
+      return new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.POW);
+
+    // Collections
+    case "count":
+    case "element counting":
+      return new OPPCountProcessInstance();
+
+    }
+
+    // Composite
+    if (name.equalsIgnoreCase("New Instance")) {
+      return new OPPNewInstanceProcessInstance();
+    } else if (name.equalsIgnoreCase("Add First Part")) {
+      return new OPPAddFirstPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Add Last Part")) {
+      return new OPPAddLastPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Add Part")) {
+      return new OPPAddPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Get First Part")) {
+      return new OPPGetFirstPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Get Last Part")) {
+      return new OPPGetLastPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Get Part")) {
+      return new OPPGetPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Remove First Part")) {
+      return new OPPRemoveFirstPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Remove Last Part")) {
+      return new OPPRemoveLastPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Remove Part")) {
+      return new OPPRemovePartProcessInstance();
+    } else if (name.equalsIgnoreCase("Has Part")) {
+      return new OPPHasPartProcessInstance();
+    } else if (name.equalsIgnoreCase("Has Part Value")) {
+      return new OPPHasPartValueProcessInstance();
+    } else if (name.equalsIgnoreCase("Has Parts")) {
+      return new OPPHasPartsProcessInstance();
+
+      // Input and Output
+    } else if (name.equalsIgnoreCase("Console Input")) {
+      return new OPPConsoleInputProcessInstance();
     } else if (name.equalsIgnoreCase("Console Output")) {
-      processInstance = new OPPConsoleOutputProcessInstance();
+      return new OPPConsoleOutputProcessInstance();
     } else if (name.equalsIgnoreCase("Dialog Input")) {
-      processInstance = new OPPDialogInputProcessInstance();
+      return new OPPDialogInputProcessInstance();
     } else if (name.equalsIgnoreCase("Dialog Output")) {
-      processInstance = new OPPDialogOutputProcessInstance();
+      return new OPPDialogOutputProcessInstance();
 
       // Math and Data
-    } else if (name.equals("a+b") || name.equals("+")) {
-      processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.ADD);
-    } else if (name.equals("a-b") || name.equals("-")) {
-      processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.SUBS);
-    } else if (name.equals("a*b") || name.equals("*")) {
-      processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.MULT);
-    } else if (name.equals("a/b") || name.equals("/")) {
-      processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.DIV);
-    } else if (name.equals("a^b") || name.equals("^")) {
-      processInstance = new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.POW);
+      // } else if (name.equals("a+b") || name.equals("+")) {
+      // } else if (name.equals("a-b") || name.equals("-")) {
+      // } else if (name.equals("a*b") || name.equals("*")) {
+      // } else if (name.equals("a/b") || name.equals("/")) {
+      // } else if (name.equals("a^b") || name.equals("^")) {
     } else if (name.equals("a<=b") || name.equals("<=")) {
-      processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN_OR_EQUAL);
+      return new OPPCompareProcessInstance(ComparisonType.LESS_THAN_OR_EQUAL);
     } else if (name.equals("a>=b") || name.equals(">=")) {
-      processInstance = new OPPCompareProcessInstance(ComparisonType.GREATER_THAN_OR_EQUAL);
+      return new OPPCompareProcessInstance(ComparisonType.GREATER_THAN_OR_EQUAL);
     } else if (name.equals("a>b") || name.equals(">")) {
-      processInstance = new OPPCompareProcessInstance(ComparisonType.GREATER_THAN);
+      return new OPPCompareProcessInstance(ComparisonType.GREATER_THAN);
     } else if (name.equals("a<b") || name.equals("<")) {
-      processInstance = new OPPCompareProcessInstance(ComparisonType.LESS_THAN);
+      return new OPPCompareProcessInstance(ComparisonType.LESS_THAN);
     } else if (name.equals("a==b") || name.equals("==")) {
-      processInstance = new OPPCompareProcessInstance(ComparisonType.EQUAL);
+      return new OPPCompareProcessInstance(ComparisonType.EQUAL);
     } else if (name.equals("log(a)") || name.equals("log")) {
-      processInstance = new OPPUnaryMathOpProcessInstance(OPPUnaryMathOpType.LOG);
+      return new OPPUnaryMathOpProcessInstance(OPPUnaryMathOpType.LOG);
     } else if (name.equals("-a") || name.equals("-")) {
-      processInstance = new OPPUnaryMathOpProcessInstance(OPPUnaryMathOpType.NEG);
+      return new OPPUnaryMathOpProcessInstance(OPPUnaryMathOpType.NEG);
     } else if (name.equals("sqrt(a)") || name.equals("sqrt")) {
-      processInstance = new OPPUnaryMathOpProcessInstance(OPPUnaryMathOpType.SQRT);
-
-      // Composite
-    } else if (name.equalsIgnoreCase("New Instance")) {
-      processInstance = new OPPNewInstanceProcessInstance();
-    } else if (name.equalsIgnoreCase("Add First Part")) {
-      processInstance = new OPPAddFirstPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Add Last Part")) {
-      processInstance = new OPPAddLastPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Add Part")) {
-      processInstance = new OPPAddPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Get First Part")) {
-      processInstance = new OPPGetFirstPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Get Last Part")) {
-      processInstance = new OPPGetLastPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Get Part")) {
-      processInstance = new OPPGetPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Remove First Part")) {
-      processInstance = new OPPRemoveFirstPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Remove Last Part")) {
-      processInstance = new OPPRemoveLastPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Remove Part")) {
-      processInstance = new OPPRemovePartProcessInstance();
-    } else if (name.equalsIgnoreCase("Has Part")) {
-      processInstance = new OPPHasPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Has Part Value")) {
-      processInstance = new OPPHasPartValueProcessInstance();
-    } else if (name.equalsIgnoreCase("Has Parts")) {
-      processInstance = new OPPHasPartsProcessInstance();
+      return new OPPUnaryMathOpProcessInstance(OPPUnaryMathOpType.SQRT);
 
       // Misc
     } else if (name.equalsIgnoreCase("Sleep")) {
-      processInstance = new OPPSleepProcessInstance();
+      return new OPPSleepProcessInstance();
     } else if (name.equalsIgnoreCase("Call Web API")) {
-      processInstance = new OPPCallWebAPIProcessInstance();
+      return new OPPCallWebAPIProcessInstance();
     } else if (name.equalsIgnoreCase("Initialize Twitter Client")) {
-      processInstance = new OPPInitializeTwitterClientProcessInstance();
+      return new OPPInitializeTwitterClientProcessInstance();
     } else if (name.equalsIgnoreCase("Search Twitter")) {
-      processInstance = new OPPSearchTwitter();
+      return new OPPSearchTwitter();
     } else if (name.equalsIgnoreCase("Get Date")) {
-      processInstance = new OPPGetDateProcessInstance();
+      return new OPPGetDateProcessInstance();
     } else if (name.equalsIgnoreCase("Copy Object")) {
-      processInstance = new OPPCopyObjectProcessInstance();
+      return new OPPCopyObjectProcessInstance();
     } else if (name.equalsIgnoreCase("Read Text File")) {
-      processInstance = new OPPReadTextFileProcessInstance();
+      return new OPPReadTextFileProcessInstance();
     } else if (name.equalsIgnoreCase("Transform JSON String To Object")) {
-      processInstance = new OPPTransformJSONStringToObjectProcessInstance();
+      return new OPPTransformJSONStringToObjectProcessInstance();
     }
-    return processInstance;
+    return null;
   }
 }
