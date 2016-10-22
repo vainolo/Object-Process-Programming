@@ -61,13 +61,6 @@ public class OPPLinkValidatorTest {
   }
 
   @Test
-  public void testValidateSource_ProcessSource_AgentLink() {
-    link = createProceduralLink(OPPProceduralLinkKind.AGENT);
-    boolean result = validator.validateAddSource(process, link);
-    assertFalse(result);
-  }
-
-  @Test
   public void testValidateTarget_DataLink_ObjectTarget() {
     link = createProceduralLink(OPPProceduralLinkKind.CONS_RES);
     boolean result = validator.validateAddTarget(link, object);

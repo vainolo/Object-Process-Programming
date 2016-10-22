@@ -63,67 +63,19 @@ public class OPPInZoomedProcessIntanceProgramCounter {
     if (nextPossibleProcess.size() == 0)
       return Collections.emptyList();
 
+    OPPProcess firstPossibleProcess = nextPossibleProcess.get(0);
     for (OPPProcess waitingProcess : P_waiting) {
-      if (nextPossibleProcess.get(0).getY() > (waitingProcess.getY() + waitingProcess.getHeight()))
+      if (firstPossibleProcess.getY() > (waitingProcess.getY() + waitingProcess.getHeight()))
         return Collections.emptyList();
     }
 
     for (OPPProcess executingProcess : P_executing) {
-      if (nextPossibleProcess.get(0).getY() > (executingProcess.getY() + executingProcess.getHeight()))
+      if (firstPossibleProcess.getY() > (executingProcess.getY() + executingProcess.getHeight()))
         return Collections.emptyList();
     }
 
     return nextPossibleProcess;
   }
-
-  // private List<OPPProcess> getFirstProcessesBelowPC() {
-  // List<OPPProcess> processes = Lists.newArrayList();
-  // boolean found = false;
-  // int foundY = 0;
-  // for (OPPProcess process : sortedProcesses) {
-  // if (!found && (process.getY() > pcTop)) {
-  // processes.add(process);
-  // found = true;
-  // foundY = process.getY();
-  // } else if (found && (process.getY() == foundY)) {
-  // processes.add(process);
-  // } else {
-  // break;
-  // }
-  // }
-  //
-  // return processes;
-  // }
-
-  // public OPPProcess getNextProcesses() {
-  // List<OPPProcess> nextProcesses = Lists.newArrayList();
-  // OPPProcess currentProcess = null;
-  // int i;
-  // for (i = 0; i < sortedProcesses.size(); i++) {
-  // currentProcess = sortedProcesses.get(i);
-  // if (currentProcess.getY() >= pcTop) {
-  // break;
-  // }
-  // }
-  // if (currentProcess == null)
-  // return nextProcesses;
-  //
-  // nextProcesses.add(currentProcess);
-  // int maxBottom = currentProcess.getY() + currentProcess.getHeight();
-  // int j = i + 1;
-  // for (; j < sortedProcesses.size(); j++) {
-  // currentProcess = sortedProcesses.get(j);
-  // if (currentProcess.getY() < maxBottom) {
-  // nextProcesses.add(currentProcess);
-  // if (maxBottom > currentProcess.getY() + currentProcess.getHeight())
-  // maxBottom = currentProcess.getY() + currentProcess.getHeight();
-  // } else {
-  // break;
-  // }
-  // }
-  //
-  // return nextProcesses;
-  // }
 
   public void setPC(int pc) {
     checkArgument(pc >= 0, "Tried to set a negative PC.");

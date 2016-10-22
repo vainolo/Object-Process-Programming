@@ -58,8 +58,8 @@ public class OPPStateFigure extends Figure implements OPPNodeFigure, OPPNamedEle
 
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
-    Dimension dim = smartLabel.calculateSize().expand(10, 5);
-    return dim.expand(10, 10);
+    return smartLabel.calculateSize().expand(25, 15);
+    // return dim.expand(15, 10);
   }
 
   @Override

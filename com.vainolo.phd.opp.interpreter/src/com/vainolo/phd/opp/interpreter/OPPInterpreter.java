@@ -68,8 +68,10 @@ public enum OPPInterpreter {
     container = _container;
     logInfo("Interpreting OPD {0}.", opdName);
     OPPObjectProcessDiagram opd = OPPFileUtils.loadOPPFile(OPPInterpreter.container.getFile(new Path(opdName + ".opp")).getFullPath().toString());
-    if (opd.getKind() != OPPObjectProcessDiagramKind.COMPOUND)
+    if (opd.getKind() != OPPObjectProcessDiagramKind.COMPOUND) {
+      logInfo("Process is not compund, returning.");
       return;
+    }
 
     instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
 

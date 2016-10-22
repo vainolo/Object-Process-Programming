@@ -7,7 +7,7 @@
 	<classpathentry exported="true" kind="lib" path="target/dependency/jgrapht-core-0.9.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/twitter4j-core-4.0.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/commons-logging-1.2.jar"/>
-	<classpathentry exported="true" kind="lib" path="target/dependency/minimal-json-0.9.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="target/dependency/minimal-json-0.9.4.jar" sourcepath="target/dependency/minimal-json-0.9.4.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/unirest-java-1.4.7.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/httpclient-4.3.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="target/dependency/httpcore-4.3.3.jar"/>

@@ -4,41 +4,32 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which is available at http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package com.vainolo.phd.opp.interpreter.builtin;
+package com.vainolo.phd.opp.interpreter.builtin.io;
 
 import java.util.List;
 
-import com.eclipsesource.json.JsonObject;
+import javax.swing.JOptionPane;
+
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
-import com.vainolo.phd.opp.interpreter.json.OPPJsonWriter;
 
-public class OPPWriteOPMObjectInstanceToJSON extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPDialogOutputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   protected void executing() {
-    OPPJsonWriter writer = new OPPJsonWriter();
-    OPPObjectInstance opmObjectInstance = getArgument("object");
-    JsonObject jsonObject = writer.write(opmObjectInstance);
-    setArgument("json", OPPObjectInstance.createFromValue(jsonObject.toString()));
+    Object text = getArgument("output");
+    JOptionPane.showMessageDialog(null, text);
   }
 
   @Override
   public String getName() {
-    return "Write JSON";
+    return "Dialog Output";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("object"));
+    return Lists.newArrayList(new OPPParameter("output"));
   }
-
-  @Override
-  public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("json"));
-  }
-
 }

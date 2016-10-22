@@ -37,6 +37,7 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessExecutionResult;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstanceFactory;
+import com.vainolo.phd.opp.interpreter.OPPRuntimeException;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap.OPMHeapObserver;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
@@ -130,6 +131,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     P_waiting = Lists.newArrayList();
     P_ready = Sets.newHashSet();
     P_executing = Maps.newHashMap();
+    OPPProcess p_inv = null;
 
     ExecutionMode executionMode = ExecutionMode.NATURAL_ORDER;
 
@@ -160,8 +162,12 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
         }
 
         Set<OPPProcess> invoked = findInvokedAndNotSkippedProcesses(executedProcess);
-        if (invoked.size() > 0) {
+        if (invoked.size() == 1) {
           executionMode = ExecutionMode.EVENT;
+          p_inv = invoked.iterator().next();
+        } else if (invoked.size() > 1) {
+          logWarning("Cannot activate more than one event at a time");
+          throw new OPPRuntimeException("Cannot activate more than one event at a time.");
         }
 
         switch (executionMode) {
@@ -176,7 +182,7 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
           } else {
             if (P_executing.size() == 0) {
               executionMode = ExecutionMode.NATURAL_ORDER;
-              pc.setPC(executedProcess.getY() + executedProcess.getHeight());
+              pc.setPC(p_inv.getY() + p_inv.getHeight());
               pc.setPC(pc.getNextPC());
               calculateNextProcesses();
               executeReadyProcesses();
@@ -225,7 +231,8 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
         invokedProcesses.addAll(findProcessesToInvokeAfterObjectHasChanged(changedObject));
     }
     for (OPPProceduralLink outgoingAgentLink : OPPProcessExtensions.findOutgoingAgentLinks(executedProcess)) {
-      if (outgoingAgentLink.getCenterDecoration().contains("e")) {
+      if (outgoingAgentLink.getSubKinds().contains("e")) {
+        // if (outgoingAgentLink.getCenterDecoration().contains("e")) {
         invokedProcesses.add((OPPProcess) outgoingAgentLink.getTarget());
       }
     }

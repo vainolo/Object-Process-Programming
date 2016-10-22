@@ -108,9 +108,9 @@ public class OPPObjectFigure extends OPPThingFigure implements OPPNamedElementFi
     prefSize.height = max(smartLabelSize.height(), contentPaneSize.height());
 
     if (hasShadow)
-      return prefSize.expand(15, 15);
+      return prefSize.expand(25, 15);
     else
-      return prefSize.expand(10, 10);
+      return prefSize.expand(20, 10);
 
   }
 

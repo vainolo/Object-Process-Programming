@@ -145,7 +145,7 @@ public class OPPObjectInstance {
     }
     int newKey = firstKey - 1;
     compositeValues.put(newKey, value);
-    compositeKeyToIndexMapping.put("" + UUID.randomUUID().getLeastSignificantBits(), newKey);
+    compositeKeyToIndexMapping.put(value.getId(), newKey);
   }
 
   public void addLastPart(OPPObjectInstance value) {
@@ -157,7 +157,7 @@ public class OPPObjectInstance {
     }
     int newKey = lastKey + 1;
     compositeValues.put(newKey, value);
-    compositeKeyToIndexMapping.put(UUID.randomUUID().toString(), newKey);
+    compositeKeyToIndexMapping.put(value.getId(), newKey);
   }
 
   public void addPart(String name, OPPObjectInstance value) {

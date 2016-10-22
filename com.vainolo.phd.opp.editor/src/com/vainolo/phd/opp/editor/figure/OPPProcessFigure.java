@@ -58,6 +58,10 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
     shade1.setVisible(false);
     setConstraint(ellipse, new Rectangle(0, 0, r.width(), r.height()));
     setConstraint(shade1, new Rectangle(0, 0, r.width(), r.height()));
+    Dimension labelSize = nameLabel.getSize();
+    int w = (r.width() - labelSize.width) / 2;
+    int h = (r.height() - labelSize.height) / 2;
+    // ellipse.setConstraint(nameLabel, new Rectangle(w, h, labelSize.width, labelSize.height));
     ellipse.setConstraint(nameLabel, calculateInnerRectangle(r.width(), r.height()));
     ellipse.setConstraint(contentPane, new Rectangle(0, 0, r.width(), r.height()));
   }
@@ -106,7 +110,7 @@ public class OPPProcessFigure extends OPPThingFigure implements OPPNamedElementF
   @Override
   public Dimension getPreferredSize(int wHint, int hHint) {
     Dimension smartLabelSize = nameLabel.calculateSize();
-    return calculateEllipseDimensionBasedOnLabelSize(smartLabelSize);
+    return calculateEllipseDimensionBasedOnLabelSize(smartLabelSize).expand(10, 5);
   }
 
   @Override

@@ -75,9 +75,10 @@ public class OPPContainerXYLayoutPolicy extends XYLayoutEditPolicy {
     Rectangle constraints = (Rectangle) getConstraintFor(request);
     if (constraints.getSize().isEmpty()) {
       constraints.setSize(DEFAULT_THING_DIMENSION);
+    } else {
+      node.setManualSize(true);
     }
 
-    // command.setConstraints(constraints);
     node.setConstraints(constraints.x, constraints.y, constraints.width, constraints.height);
     command.setContainer(model);
     command.setNode(node);

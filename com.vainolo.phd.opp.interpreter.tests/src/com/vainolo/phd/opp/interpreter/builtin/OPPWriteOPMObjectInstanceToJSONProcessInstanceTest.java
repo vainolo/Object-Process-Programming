@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import com.eclipsesource.json.JsonObject;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
-import com.vainolo.phd.opp.interpreter.builtin.OPPWriteOPMObjectInstanceToJSON;
+import com.vainolo.phd.opp.interpreter.builtin.io.OPPWriteOPMObjectInstanceToJSON;
 
 /**
  * 
