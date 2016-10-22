@@ -34,7 +34,12 @@ public class OPPNamedEntityDirectEditPolicy extends DirectEditPolicy {
         setInitialValueCommand.setModel((OPPObject) getHost().getModel());
         setTypeCommand.setModel((OPPObject) getHost().getModel());
         String name = null, type = null, value = null;
-        if (text.contains(":")) {
+
+        boolean ignoreType = false;
+        if (text.contains(":") && text.contains("=") && (text.indexOf("=") < text.indexOf(":")))
+          ignoreType = true;
+
+        if (!ignoreType && text.contains(":")) {
           String[] parts = text.split(":");
           name = parts[0].trim();
           if (parts[1].contains("=")) {

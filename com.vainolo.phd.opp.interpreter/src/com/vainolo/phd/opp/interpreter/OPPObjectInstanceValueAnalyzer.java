@@ -12,7 +12,11 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
 import com.google.common.collect.Lists;
+import com.vainolo.phd.opp.interpreter.json.OPPJsonReader;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPState;
 import com.vainolo.phd.opp.utilities.analysis.OPPObjectExtensions;
@@ -126,40 +130,40 @@ public class OPPObjectInstanceValueAnalyzer {
     return collection;
   }
 
-  /**
-   * Calculate the value of an {@link OPPObjectInstance} based on the {@link OPMObject} that represents it. The value
-   * can be either a number, a string a state or a collection initializer.
-   * 
-   * @param object
-   *          that has a constant value
-   * @param analyzer
-   * @return the value of the {@link OPPObjectInstance}
-   */
-  public OPPObjectInstance calculateOPMObjectValue(OPPObject object) {
-    OPPObjectInstance objectInstance = null;
-
-    String objectName = object.getName();
-    if (objectName != null && !"".equals(objectName)) {
-      if (isStringLiteral(objectName)) {
-        objectInstance = OPPObjectInstance.createFromValue(parseStringLiteral(objectName));
-      } else if (isNumericalLiteral(objectName)) {
-        objectInstance = OPPObjectInstance.createFromValue(parseNumericalLiteral(objectName));
-      } else if (isCollectionLiteral(objectName)) {
-        objectInstance = OPPObjectInstance.createCompositeInstance();
-        for (OPPObjectInstance value : parseCollectionLiteral(objectName)) {
-          objectInstance.addLastPart(value);
-        }
-      }
-    } else {
-      Collection<OPPState> states = OPPObjectExtensions.getStates(object);
-      for (OPPState state : states) {
-        if (state.isValue()) {
-          objectInstance = OPPObjectInstance.createFromValue(state.getName());
-        }
-      }
-    }
-    return objectInstance;
-  }
+  // /**
+  // * Calculate the value of an {@link OPPObjectInstance} based on the {@link OPMObject} that represents it. The value
+  // * can be either a number, a string a state or a collection initializer.
+  // *
+  // * @param object
+  // * that has a constant value
+  // * @param analyzer
+  // * @return the value of the {@link OPPObjectInstance}
+  // */
+  // public OPPObjectInstance calculateOPMObjectValue(OPPObject object) {
+  // OPPObjectInstance objectInstance = null;
+  //
+  // String objectName = object.getName();
+  // if (objectName != null && !"".equals(objectName)) {
+  // if (isStringLiteral(objectName)) {
+  // objectInstance = OPPObjectInstance.createFromValue(parseStringLiteral(objectName));
+  // } else if (isNumericalLiteral(objectName)) {
+  // objectInstance = OPPObjectInstance.createFromValue(parseNumericalLiteral(objectName));
+  // } else if (isCollectionLiteral(objectName)) {
+  // objectInstance = OPPObjectInstance.createCompositeInstance();
+  // for (OPPObjectInstance value : parseCollectionLiteral(objectName)) {
+  // objectInstance.addLastPart(value);
+  // }
+  // }
+  // } else {
+  // Collection<OPPState> states = OPPObjectExtensions.getStates(object);
+  // for (OPPState state : states) {
+  // if (state.isValue()) {
+  // objectInstance = OPPObjectInstance.createFromValue(state.getName());
+  // }
+  // }
+  // }
+  // return objectInstance;
+  // }
 
   /**
    * Calculate the value of an {@link OPPObjectInstance} based on a {@link String}. that represents it. The value can be
@@ -172,7 +176,8 @@ public class OPPObjectInstanceValueAnalyzer {
    */
   public OPPObjectInstance calculateOPMObjectValue(String value) {
     logFinest("Calculating value of {0}.", value);
-    checkArgument((value != null) && (!"".equals(value)), "Value cannot be null or empty.");
+    if (value == null)
+      return null;
     OPPObjectInstance objectInstance = null;
     if (isStringLiteral(value)) {
       objectInstance = OPPObjectInstance.createFromValue(parseStringLiteral(value));
@@ -184,7 +189,9 @@ public class OPPObjectInstanceValueAnalyzer {
         objectInstance.addLastPart(o);
       }
     } else if (isCompoungLiteral(value)) {
-
+      OPPJsonReader reader = new OPPJsonReader();
+      JsonValue jsonObject = Json.parse(value);
+      objectInstance = reader.read(jsonObject.asObject());
     } else {
       logFiner("Assume this is a string with no enclosing quotes.");
       objectInstance = OPPObjectInstance.createFromValue(value);

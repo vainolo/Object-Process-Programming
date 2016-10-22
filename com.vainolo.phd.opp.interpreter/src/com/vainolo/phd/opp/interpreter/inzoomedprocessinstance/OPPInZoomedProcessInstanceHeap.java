@@ -218,7 +218,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
     if (object.getInitialValue() != null && !object.getInitialValue().equals("")) {
       objectValue = valueAnalyzer.calculateOPMObjectValue(object.getInitialValue());
     } else {
-      objectValue = valueAnalyzer.calculateOPMObjectValue(object);
+      objectValue = valueAnalyzer.calculateOPMObjectValue(object.getName());
     }
     if (objectValue != null) {
       setVariable(object, objectValue);
