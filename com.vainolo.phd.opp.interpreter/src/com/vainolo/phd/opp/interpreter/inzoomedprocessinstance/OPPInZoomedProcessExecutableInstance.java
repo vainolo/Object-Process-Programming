@@ -118,12 +118,19 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
     P_waiting.removeAll(P_ready);
   }
 
-  private void executeReadyProcesses() {
+  private boolean executeReadyProcesses() {
+    for (OPPProcess process : P_ready) {
+      if (process.getName().equals("Process Stopping") || process.getName().equals("Stop Process")) {
+        return true;
+      }
+    }
+
     for (OPPProcess process : P_ready) {
       OPPProcessInstance readyInstance = createAndExecuteInstance(process);
       P_executing.put(readyInstance, process);
     }
     P_ready.clear();
+    return false;
   }
 
   @Override
@@ -170,25 +177,31 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
           throw new OPPRuntimeException("Cannot activate more than one event at a time.");
         }
 
+        boolean stop = false;
         switch (executionMode) {
         case NATURAL_ORDER:
           calculateNextProcesses();
-          executeReadyProcesses();
+          stop = executeReadyProcesses();
           break;
         case EVENT:
           if (invoked.size() > 0) {
             P_ready.addAll(invoked);
-            executeReadyProcesses();
+            stop = executeReadyProcesses();
           } else {
             if (P_executing.size() == 0) {
               executionMode = ExecutionMode.NATURAL_ORDER;
               pc.setPC(p_inv.getY() + p_inv.getHeight());
               pc.setPC(pc.getNextPC());
               calculateNextProcesses();
-              executeReadyProcesses();
+              stop = executeReadyProcesses();
             }
           }
           break;
+        }
+
+        if (stop) {
+          logInfo("Invoked stop process instance. Returning.");
+          return;
         }
 
       } catch (InterruptedException e) {
