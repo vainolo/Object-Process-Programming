@@ -139,7 +139,7 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
       postExecution();
     } catch (Exception e) {
       logSevere("Exception while executing process {0}.", getName());
-      logSevere("Exception: {0}.", e.getMessage());
+      logSevere("Exception: {0}", e);
       e.printStackTrace();
       throw new OPPRuntimeException(e);
     }

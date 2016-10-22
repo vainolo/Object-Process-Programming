@@ -192,24 +192,26 @@ public class OPPObjectInstanceValueAnalyzer {
     if (isNumericalLiteral(stateName)) {
       return parseNumericalLiteral(stateName).equals(value);
     } else {
-      // state name is a numerical logical expression
-      // supported expressions are: x < NUM, x <= NUM, x > NUM, x >= NUM. Spaces
-      // are MANDATORY
-      String[] split = stateName.split(" ");
-      BigDecimal number = new BigDecimal(split[2]);
-      switch (split[1]) {
-      case "<":
-        return value.compareTo(number) == -1;
-      case "<=":
+      // state name is a numerical logical expression supported expressions are: x < NUM, x <= NUM, x > NUM, x >= NUM
+      if (stateName.contains("<=")) {
+        BigDecimal number = new BigDecimal(stateName.split("<=")[1]);
         return value.compareTo(number) == -1 || value.compareTo(number) == 0;
-      case ">":
-        return value.compareTo(number) == 1;
-      case ">=":
+      } else if (stateName.contains("<")) {
+        BigDecimal number = new BigDecimal(stateName.split("<")[1]);
+        return value.compareTo(number) == -1;
+      } else if (stateName.contains(">=")) {
+        BigDecimal number = new BigDecimal(stateName.split(">=")[1]);
         return value.compareTo(number) == 1 || value.compareTo(number) == 0;
-      case "!=":
+      } else if (stateName.contains(">")) {
+        BigDecimal number = new BigDecimal(stateName.split(">")[1]);
+        return value.compareTo(number) == 1;
+      } else if (stateName.contains("==")) {
+        BigDecimal number = new BigDecimal(stateName.split("==")[1]);
+        return value.compareTo(number) == 0;
+      } else if (stateName.contains("!=")) {
+        BigDecimal number = new BigDecimal(stateName.split("!=")[1]);
         return value.compareTo(number) != 0;
       }
-
     }
     return false;
   }
