@@ -334,7 +334,7 @@ public class OPPObjectInstance {
   }
 
   private void checkTypeForValueOnlyOperations() {
-    checkState(!"Complex Object".equals(type) && !"List".equals(type), "Instance is a collection but operation is only valid for value instances.");
+    checkState(!"Complex Object".equals(type), "Instance is a collection but operation is only valid for value instances.");
   }
 
   private void checkTypeForCompositeOnlyOperations() {

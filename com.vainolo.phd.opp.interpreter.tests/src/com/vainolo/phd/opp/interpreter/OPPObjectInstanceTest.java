@@ -100,14 +100,6 @@ public class OPPObjectInstanceTest {
     instance1.addPart("name", instance2);
   }
 
-  @Test
-  public void test_CompoundInstanceToString() {
-    instance1 = OPPObjectInstance.createFromValue(number1);
-    composite1.addPart("part1", instance1);
-    assertEquals("{part1:" + instance1.toString() + "}", composite1.toString());
-
-  }
-
   // Collection instance tests
   @Test
   public void test_CreateCollectionAddInstanceAndGetFirstElement() {

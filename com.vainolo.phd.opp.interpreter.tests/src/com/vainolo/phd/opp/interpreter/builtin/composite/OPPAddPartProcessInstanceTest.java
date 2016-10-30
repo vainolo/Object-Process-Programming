@@ -44,13 +44,6 @@ public class OPPAddPartProcessInstanceTest {
     assertEquals(stringInstance.getStringValue(), result.getPart(numericInstance.getStringValue()).getStringValue());
   }
 
-  @Test
-  public void test_addPart_byInstance() throws Exception {
-    OPPObjectInstance result = doTest(compositeInstance1, compositeInstance2, numericInstance);
-    // assertEquals(numericInstance.getNumericalValue(),
-    // result.getPart(compositeInstance2.getInternalId()).getNumericalValue());
-  }
-
   @Before
   public void setup() {
     compositeInstance1 = OPPObjectInstance.createCompositeInstance();

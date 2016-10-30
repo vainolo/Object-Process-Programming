@@ -94,49 +94,6 @@ public class OPPInZoomedProcessExecutableInstanceTest {
     assertEquals(20.4, BigDecimal.class.cast(instance.getArgument("c").getValue()).doubleValue(), 0.01);
   }
 
-  @Test
-  public void test_execute_AddTwoNumber_ArgumentInference() throws Exception {
-    OPPObjectProcessDiagram opd = createInZoomedOPD("Adding Two Numbers with Argument Inference");
-    OPPProcess inZoomedProcess = createProcess("Adding Two Numbers with Argument Inference", OPPProcessKind.COMPOUND);
-    opd.getNodes().add(inZoomedProcess);
-
-    OPPProcess addProcess = createProcess("+", OPPProcessKind.BUILT_IN);
-    inZoomedProcess.getNodes().add(addProcess);
-
-    OPPObject one = createObject("1");
-    inZoomedProcess.getNodes().add(one);
-    OPPObject two = createObject("2");
-    inZoomedProcess.getNodes().add(two);
-
-    OPPObject a = createObject("a");
-    inZoomedProcess.getNodes().add(a);
-    OPPObject b = createObject("b");
-    inZoomedProcess.getNodes().add(b);
-    OPPObject c = createObject("c");
-    opd.getNodes().add(c);
-
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, one, a));
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, two, b));
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, a, addProcess));
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, b, addProcess));
-    opd.getLinks().add(createProceduralLink(null, OPPProceduralLinkKind.CONS_RES, addProcess, c));
-
-    OPPProcessInstance instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
-    instance.call();
-    assertEquals(3.0, ((BigDecimal) instance.getArgument("c").getValue()).doubleValue(), 0.01);
-
-    instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
-    c.setName("C");
-    instance.call();
-    assertEquals(3.0, ((BigDecimal) instance.getArgument("C").getValue()).doubleValue(), 0.01);
-
-    instance = OPPProcessInstanceFactory.createExecutableInstance(opd);
-    a.setName("A");
-    instance.call();
-    assertEquals(3.0, ((BigDecimal) instance.getArgument("C").getValue()).doubleValue(), 0.01);
-
-  }
-
   @Before
   public void setUp() {
 
