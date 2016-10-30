@@ -33,7 +33,7 @@ public class OPPAddPartProcessInstance extends OPPAbstractProcessInstance {
     // instance is created - so we transform the instance to a string that is used as the key.
     if ("key".equals(name)) {
       if ("Complex Object".equals(value.type)) {
-        value = OPPObjectInstance.createFromValue(value.getId());
+        // value = OPPObjectInstance.createFromValue(value.getInternalId());
       }
     }
     super.setArgument(name, value);

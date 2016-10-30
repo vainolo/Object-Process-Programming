@@ -24,12 +24,15 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetPartProcessInstan
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartValueProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartsProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.composite.OPPNewInstanceProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.OPPObjectCreatingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemovePartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.general.OPPCountProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPElementAddingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPElementFetchingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPElementRemovingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleInputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleOutputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogInputProcessInstance;
@@ -96,6 +99,11 @@ public class OPPProcessInstanceFactory {
   private static OPPProcessInstance createBuiltInProcess(String name) {
 
     switch (name.toLowerCase()) {
+    // runtime
+    case "object creating":
+    case "create object":
+      return new OPPObjectCreatingProcessInstance();
+
     // math
     case "+":
     case "adding":
@@ -114,15 +122,23 @@ public class OPPProcessInstanceFactory {
       return new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.POW);
 
     // Collections
-    case "count":
     case "element counting":
+    case "count":
       return new OPPCountProcessInstance();
-
+    case "element adding":
+    case "add element":
+      return new OPPElementAddingProcessInstance();
+    case "element fetching":
+    case "fetch element":
+      return new OPPElementFetchingProcessInstance();
+    case "element removing":
+    case "remove element":
+      return new OPPElementRemovingProcessInstance();
     }
 
     // Composite
     if (name.equalsIgnoreCase("New Instance")) {
-      return new OPPNewInstanceProcessInstance();
+
     } else if (name.equalsIgnoreCase("Add First Part")) {
       return new OPPAddFirstPartProcessInstance();
     } else if (name.equalsIgnoreCase("Add Last Part")) {

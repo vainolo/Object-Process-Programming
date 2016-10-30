@@ -14,23 +14,20 @@ import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 
-public class OPPNewInstanceProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
-  private static final String INSTANCE_PARAM_NAME = "instance";
-  private static final OPPParameter INSTANCE_PARAM = new OPPParameter(INSTANCE_PARAM_NAME);
-  private static final List<OPPParameter> OUTPUT_PARAMS = Lists.newArrayList(INSTANCE_PARAM);
+public class OPPObjectCreatingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   public void executing() {
-    setArgument(INSTANCE_PARAM_NAME, OPPObjectInstance.createCompositeInstance());
+    setArgument("object", OPPObjectInstance.createCompositeInstance());
   }
 
   @Override
   public String getName() {
-    return "New Instance";
+    return "Object Creating";
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return OUTPUT_PARAMS;
+    return Lists.newArrayList(new OPPParameter("object"));
   }
 }

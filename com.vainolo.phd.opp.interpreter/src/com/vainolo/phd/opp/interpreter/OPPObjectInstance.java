@@ -32,23 +32,40 @@ public class OPPObjectInstance {
   private Object value = null;
   private SortedMap<Integer, OPPObjectInstance> compositeValues = Maps.newTreeMap();
   private BiMap<String, Integer> compositeKeyToIndexMapping = HashBiMap.create();
-  // public final InstanceKind kind;
+  public final InstanceKind kind;
   public final String type;
-  private UUID id;
+  private UUID internalId;
 
   private OPPObjectInstance(InstanceKind kind, String type) {
-    // this.kind = kind;
+    this.kind = kind;
     this.type = type;
-    this.id = UUID.randomUUID();
+    this.internalId = UUID.randomUUID();
+  }
+
+  private String getInternalId() {
+    return internalId.toString();
   }
 
   public String getId() {
-    return id.toString();
+    switch (type) {
+    case "Number":
+    case "String":
+      return getStringValue();
+    case "List":
+    case "Complex Object":
+      return getInternalId();
+    default:
+      throw new IllegalStateException();
+    }
   }
 
   // Creation
   public static OPPObjectInstance createCompositeInstance() {
     return new OPPObjectInstance(InstanceKind.COMPOSITE, "Complex Object");
+  }
+
+  public static OPPObjectInstance createListInstance() {
+    return new OPPObjectInstance(InstanceKind.COMPOSITE, "List");
   }
 
   public static OPPObjectInstance createFromValue(BigDecimal decimalValue) {
@@ -83,6 +100,7 @@ public class OPPObjectInstance {
       newInstance = createFromValue(existingInstance.getStringValue());
       break;
     case "Complex Object":
+    case "List":
       newInstance = createCompositeInstance();
       for (Integer index : existingInstance.compositeValues.keySet()) {
         newInstance.compositeValues.put(index, existingInstance.compositeValues.get(index));
@@ -146,7 +164,7 @@ public class OPPObjectInstance {
     }
     int newKey = firstKey - 1;
     compositeValues.put(newKey, value);
-    compositeKeyToIndexMapping.put(value.getId(), newKey);
+    compositeKeyToIndexMapping.put(value.getInternalId(), newKey);
   }
 
   public void addLastPart(OPPObjectInstance value) {
@@ -158,7 +176,7 @@ public class OPPObjectInstance {
     }
     int newKey = lastKey + 1;
     compositeValues.put(newKey, value);
-    compositeKeyToIndexMapping.put(value.getId(), newKey);
+    compositeKeyToIndexMapping.put(value.getInternalId(), newKey);
   }
 
   public void addPart(String name, OPPObjectInstance value) {
@@ -230,7 +248,8 @@ public class OPPObjectInstance {
       part = removePart(key.getStringValue());
       break;
     case "Complex Object":
-      part = removePart(key.getId());
+    case "List":
+      part = removePart(key.getInternalId());
       break;
     case "Java Object":
       throw new OPPRuntimeException("Java object keys are not supported.");
@@ -245,6 +264,27 @@ public class OPPObjectInstance {
     OPPObjectInstance part = compositeValues.remove(index);
     compositeKeyToIndexMapping.remove(key);
     return part;
+  }
+
+  public boolean removePartById(String id) {
+    checkTypeForCompositeOnlyOperations();
+    checkState((id != null) && (!"".equals(id)), "Key cannot be null or empty.");
+    Integer foundKey = null;
+    for (Integer key : compositeValues.keySet()) {
+      OPPObjectInstance value = compositeValues.get(key);
+      if (value.getId().equals(id)) {
+        foundKey = key;
+        break;
+      }
+    }
+    if (foundKey != null) {
+      compositeKeyToIndexMapping.inverse().remove(foundKey);
+      compositeValues.remove(foundKey);
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
   public OPPObjectInstance removeFirstPart() {
@@ -268,10 +308,20 @@ public class OPPObjectInstance {
   public String toString() {
     if ("String".equals(type) || "Number".equals(type)) {
       return value.toString();
+    } else if ("List".equals(type)) {
+      StringBuilder ret = new StringBuilder("[");
+      for (Integer index : compositeValues.keySet()) {
+        ret.append(compositeValues.get(index).toString() + ",");
+      }
+      if (ret.length() > 2)
+        ret.replace(ret.length() - 1, ret.length(), "]");
+      else
+        ret.append("]");
+      return ret.toString();
     } else if ("Complex Object".equals(type)) {
       StringBuilder ret = new StringBuilder("{");
       for (Integer index : compositeValues.keySet()) {
-        ret.append(compositeKeyToIndexMapping.inverse().get(index).toString() + ":" + compositeValues.get(index).toString() + ",");
+        ret.append("\"" + compositeKeyToIndexMapping.inverse().get(index).toString() + "\" :" + compositeValues.get(index).toString() + ",");
       }
       if (ret.length() > 2)
         ret.replace(ret.length() - 1, ret.length(), "}");
@@ -284,11 +334,11 @@ public class OPPObjectInstance {
   }
 
   private void checkTypeForValueOnlyOperations() {
-    checkState(!"Complex Object".equals(type), "Instance is a collection but operation is only valid for value instances.");
+    checkState(!"Complex Object".equals(type) && !"List".equals(type), "Instance is a collection but operation is only valid for value instances.");
   }
 
   private void checkTypeForCompositeOnlyOperations() {
-    checkState("Complex Object".equals(type), "Collection operations can only be applied to collection instances.");
+    checkState("Complex Object".equals(type) || "List".equals(type), "Collection operations can only be applied to collection instances.");
   }
 
   public enum InstanceKind {
@@ -308,8 +358,8 @@ public class OPPObjectInstance {
         return (this.getNumericalValue().compareTo(other.getNumericalValue()) == 0);
       } else if (type == "String") {
         return this.getStringValue().equals(other.getStringValue());
-      } else if (type == "Complex Object") {
-        return this.id == other.id;
+      } else if (type == "Complex Object" || type == "List") {
+        return this.internalId == other.internalId;
       }
     }
     return false;
@@ -319,7 +369,8 @@ public class OPPObjectInstance {
   public int hashCode() {
     switch (type) {
     case "Complex ObBject":
-      return id.hashCode();
+    case "List":
+      return internalId.hashCode();
     case "String":
     case "Number":
     case "Java Object":
