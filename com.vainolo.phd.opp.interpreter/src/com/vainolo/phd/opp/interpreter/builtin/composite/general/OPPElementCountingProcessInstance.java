@@ -14,7 +14,7 @@ import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 
-public class OPPCountProcessInstance extends OPPAbstractProcessInstance {
+public class OPPElementCountingProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
@@ -26,7 +26,7 @@ public class OPPCountProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   public String getName() {
-    return "Add First Part";
+    return "Element Counting";
   }
 
   @Override

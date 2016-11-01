@@ -1,4 +1,4 @@
-package com.vainolo.phd.opp.interpreter.builtin.composite.list;
+package com.vainolo.phd.opp.interpreter.builtin.composite.general;
 
 import java.util.Collection;
 import java.util.List;

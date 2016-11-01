@@ -112,6 +112,7 @@ public class OPPInZoomedProcessArgumentHandler {
         if (instance.getArgument(argument.getObject().getName()) != null) {
           copyArgumentValueToHeap(argument, instance.getArgument(argument.getObject().getName()));
           anonymousResultsIterator.remove();
+          outgoingParametersNames.remove(argument.getObject().getName());
         }
       }
     }

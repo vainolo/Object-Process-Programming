@@ -332,6 +332,16 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
           return false;
         }
       }
+
+      for (OPPProceduralLink link : OPPProcessExtensions.findIncomingAgentLinks(process)) {
+        if (link.getTargetDecoration() != null && link.getTargetDecoration().contains("e"))
+          continue;
+        if (!isLinkSourceReady(link)) {
+          logFine(PROCESS_NOT_READY, process.getName(), OPPLinkExtensions.getSourceObject(link).getName());
+          return false;
+        }
+      }
+
       return true;
     }
   }

@@ -100,8 +100,14 @@ public class OPPObjectInstance {
       newInstance = createFromValue(existingInstance.getStringValue());
       break;
     case "Complex Object":
-    case "List":
       newInstance = createCompositeInstance();
+      for (Integer index : existingInstance.compositeValues.keySet()) {
+        newInstance.compositeValues.put(index, existingInstance.compositeValues.get(index));
+        newInstance.compositeKeyToIndexMapping.inverse().put(index, existingInstance.compositeKeyToIndexMapping.inverse().get(index));
+      }
+      break;
+    case "List":
+      newInstance = createListInstance();
       for (Integer index : existingInstance.compositeValues.keySet()) {
         newInstance.compositeValues.put(index, existingInstance.compositeValues.get(index));
         newInstance.compositeKeyToIndexMapping.inverse().put(index, existingInstance.compositeKeyToIndexMapping.inverse().get(index));
@@ -289,6 +295,9 @@ public class OPPObjectInstance {
 
   public OPPObjectInstance removeFirstPart() {
     checkTypeForCompositeOnlyOperations();
+    if (compositeValues.size() == 0)
+      return null;
+
     Integer firstIndex = compositeValues.firstKey();
     OPPObjectInstance firstInstance = compositeValues.remove(firstIndex);
     compositeKeyToIndexMapping.inverse().remove(firstIndex);
@@ -306,8 +315,9 @@ public class OPPObjectInstance {
   // General
   @Override
   public String toString() {
+    String retVal = "(" + type + ")";
     if ("String".equals(type) || "Number".equals(type)) {
-      return value.toString();
+      return retVal + value.toString();
     } else if ("List".equals(type)) {
       StringBuilder ret = new StringBuilder("[");
       for (Integer index : compositeValues.keySet()) {
@@ -317,7 +327,7 @@ public class OPPObjectInstance {
         ret.replace(ret.length() - 1, ret.length(), "]");
       else
         ret.append("]");
-      return ret.toString();
+      return retVal + ret.toString();
     } else if ("Complex Object".equals(type)) {
       StringBuilder ret = new StringBuilder("{");
       for (Integer index : compositeValues.keySet()) {
@@ -327,9 +337,9 @@ public class OPPObjectInstance {
         ret.replace(ret.length() - 1, ret.length(), "}");
       else
         ret.append("}");
-      return ret.toString();
+      return retVal + ret.toString();
     } else {
-      return super.toString();
+      return retVal + super.toString();
     }
   }
 

@@ -29,10 +29,13 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProce
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemovePartProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.composite.general.OPPCountProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPElementAddingProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPElementFetchingProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPElementRemovingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.general.OPPElementCountingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.general.OPPElementAddingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.general.OPPElementFetchingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.general.OPPElementRemovingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPFirstElementAddingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPFirstElementFetchingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPFirstElementRemovingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleInputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleOutputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogInputProcessInstance;
@@ -124,7 +127,7 @@ public class OPPProcessInstanceFactory {
     // Collections
     case "element counting":
     case "count":
-      return new OPPCountProcessInstance();
+      return new OPPElementCountingProcessInstance();
     case "element adding":
     case "add element":
       return new OPPElementAddingProcessInstance();
@@ -134,6 +137,18 @@ public class OPPProcessInstanceFactory {
     case "element removing":
     case "remove element":
       return new OPPElementRemovingProcessInstance();
+
+    // List
+    case "first element adding":
+    case "add first":
+      return new OPPFirstElementAddingProcessInstance();
+    case "first element fetching":
+    case "get first":
+      return new OPPFirstElementFetchingProcessInstance();
+    case "first element removing":
+    case "remove first":
+      return new OPPFirstElementRemovingProcessInstance();
+
     }
 
     // Composite
