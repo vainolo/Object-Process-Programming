@@ -10,8 +10,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPTransformJSONStringToObjectProcessInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 /**
  * 

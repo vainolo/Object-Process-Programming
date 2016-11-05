@@ -12,8 +12,8 @@ import java.util.Random;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance.InstanceKind;
 
 import static org.junit.Assert.*;
 
@@ -58,7 +58,7 @@ public class OPPObjectInstanceTest {
   @Test
   public void test_getStringValueFromNumericalInstance() {
     instance1 = OPPObjectInstance.createFromValue(number1);
-    assertEquals(number1.toString(), instance1.toString());
+    assertEquals(number1.toString(), instance1.getStringValue());
   }
 
   // Compound instance tests

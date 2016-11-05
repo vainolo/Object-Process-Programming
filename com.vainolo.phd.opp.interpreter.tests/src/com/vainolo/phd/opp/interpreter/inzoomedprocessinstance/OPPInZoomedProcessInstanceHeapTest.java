@@ -17,11 +17,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap.OPMHeapChange;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap.OPMHeapChangeType;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance.InstanceKind;
 import com.vainolo.phd.opp.model.OPPFactory;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPStructuralLinkAggregator;

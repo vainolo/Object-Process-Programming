@@ -13,9 +13,9 @@ import java.math.BigDecimal;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstanceFactory;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 import com.vainolo.phd.opp.model.OPPFactory;
 import com.vainolo.phd.opp.model.OPPNode;
 import com.vainolo.phd.opp.model.OPPObject;

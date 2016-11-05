@@ -5,34 +5,34 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPElementRemovingProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance collection = getArgument("collection");
-    OPPObjectInstance id = getArgument("id");
-
-    Collection<OPPObjectInstance> parts = collection.getAllParts();
-    OPPObjectInstance element = null;
-    OPPObjectInstance newCollection = null;
-    for (OPPObjectInstance part : parts) {
-      if (part.getId().equals(id.getStringValue())) {
-        element = part;
-        newCollection = OPPObjectInstance.createFromExistingInstance(collection);
-        newCollection.removePartById(part.getId());
-      }
-    }
-
-    if (element != null) {
-      setArgument("new collection", newCollection);
-      setArgument("element", element);
-      setArgument("removed?", OPPObjectInstance.createFromValue("yes"));
-    } else {
-      setArgument("removed?", OPPObjectInstance.createFromValue("no"));
-    }
+    // OPPObjectInstance collection = getArgument("collection");
+    // OPPObjectInstance id = getArgument("id");
+    //
+    // Collection<OPPObjectInstance> parts = collection.getAllParts();
+    // OPPObjectInstance element = null;
+    // OPPObjectInstance newCollection = null;
+    // for (OPPObjectInstance part : parts) {
+    // if (part.getId().equals(id.getStringValue())) {
+    // element = part;
+    // newCollection = OPPObjectInstance.createFromExistingInstance(collection);
+    // newCollection.removePartById(part.getId());
+    // }
+    // }
+    //
+    // if (element != null) {
+    // setArgument("new collection", newCollection);
+    // setArgument("element", element);
+    // setArgument("removed?", OPPObjectInstance.createFromValue("yes"));
+    // } else {
+    // setArgument("removed?", OPPObjectInstance.createFromValue("no"));
+    // }
   }
 
   @Override

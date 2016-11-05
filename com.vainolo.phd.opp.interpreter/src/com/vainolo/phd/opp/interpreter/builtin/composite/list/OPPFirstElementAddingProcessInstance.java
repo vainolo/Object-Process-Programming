@@ -4,17 +4,18 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
+import com.vainolo.phd.opp.interpreter.types.OPPListObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPFirstElementAddingProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance list = getArgument("list");
+    OPPListObjectInstance list = (OPPListObjectInstance) getArgument("list");
     OPPObjectInstance element = getArgument("element");
-    OPPObjectInstance newList = OPPObjectInstance.createFromExistingInstance(list);
-    newList.addFirstPart(element);
+    OPPListObjectInstance newList = (OPPListObjectInstance) OPPObjectInstance.createFromExistingInstance(list);
+    newList.addFirst(element);
     setArgument("new list", newList);
   }
 

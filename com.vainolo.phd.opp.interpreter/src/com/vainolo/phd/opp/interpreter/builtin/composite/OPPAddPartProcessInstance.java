@@ -10,33 +10,34 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance.InstanceKind;
 
 public class OPPAddPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance object = getArgument("object");
-    OPPObjectInstance key = getArgument("key");
-    OPPObjectInstance part = getArgument("part");
-    if (object == null)
-      object = OPPObjectInstance.createCompositeInstance();
-    object.addPart(key.getStringValue(), part);
-    setArgument("new object", object);
+    // OPPObjectInstance object = getArgument("object");
+    // OPPObjectInstance key = getArgument("key");
+    // OPPObjectInstance part = getArgument("part");
+    // if (object == null)
+    // object = OPPObjectInstance.createCompositeInstance();
+    // object.addPart(key.getStringValue(), part);
+    // setArgument("new object", object);
   }
 
   @Override
   public void setArgument(String name, OPPObjectInstance value) {
-    // Modified since we need the original ID of the instance to be used as key, and this ID will be changed when a new
-    // instance is created - so we transform the instance to a string that is used as the key.
-    if ("key".equals(name)) {
-      if ("Complex Object".equals(value.type)) {
-        // value = OPPObjectInstance.createFromValue(value.getInternalId());
-      }
-    }
-    super.setArgument(name, value);
+    // // Modified since we need the original ID of the instance to be used as key, and this ID will be changed when a
+    // new
+    // // instance is created - so we transform the instance to a string that is used as the key.
+    // if ("key".equals(name)) {
+    // if ("Complex Object".equals(value.type)) {
+    // // value = OPPObjectInstance.createFromValue(value.getInternalId());
+    // }
+    // }
+    // super.setArgument(name, value);
   }
 
   @Override

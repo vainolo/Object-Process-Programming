@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPProcessExecutionResult.OPMProcessExecutionResultType;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 /**
  * Default implementation of {@link OPPProcessInstance} interface to be used by subclasses.

@@ -14,10 +14,10 @@ import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.json.OPPJsonReader;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPTransformJSONStringToObjectProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
@@ -26,15 +26,8 @@ public class OPPTransformJSONStringToObjectProcessInstance extends OPPAbstractPr
     OPPJsonReader reader = new OPPJsonReader();
     try {
       String json = getArgument("json").getStringValue();
-      if (json.startsWith("{")) {
-        JsonObject jsonObject = JsonObject.readFrom(json);
-        OPPObjectInstance opmObjectInstance = reader.read(jsonObject);
-        setArgument("object", opmObjectInstance);
-      } else if (json.startsWith("[")) {
-        JsonArray jsonArray = JsonArray.readFrom(json);
-        OPPObjectInstance opmObjectInstance = reader.read(jsonArray);
-        setArgument("object", opmObjectInstance);
-      }
+      JsonObject jsonObject = JsonObject.readFrom(json);
+      OPPObjectInstance opmObjectInstance = reader.readJson(jsonObject);
     } catch (Exception e) {
       e.printStackTrace();
       logSevere(e.getLocalizedMessage());

@@ -11,16 +11,17 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
+import com.vainolo.phd.opp.interpreter.types.OPPCollectionObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPElementCountingProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance collection = getArgument("collection");
+    OPPCollectionObjectInstance collection = (OPPCollectionObjectInstance) getArgument("collection");
 
-    BigDecimal count = new BigDecimal(collection.getAllParts().size());
+    BigDecimal count = new BigDecimal(collection.count());
     setArgument("count", OPPObjectInstance.createFromValue(count));
   }
 

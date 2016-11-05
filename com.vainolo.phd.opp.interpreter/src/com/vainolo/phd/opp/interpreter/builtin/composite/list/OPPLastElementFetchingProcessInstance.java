@@ -8,12 +8,12 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.types.OPPListObjectInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPFirstElementFetchingProcessInstance extends OPPAbstractProcessInstance {
+public class OPPLastElementFetchingProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
     OPPListObjectInstance list = (OPPListObjectInstance) getArgument("list");
-    OPPObjectInstance element = list.getFirst();
+    OPPObjectInstance element = list.getLast();
     if (element != null) {
       setArgument("element", element);
       setArgument("fetched?", OPPObjectInstance.createFromValue("yes"));
@@ -24,7 +24,7 @@ public class OPPFirstElementFetchingProcessInstance extends OPPAbstractProcessIn
 
   @Override
   public String getName() {
-    return "First Element Fetching";
+    return "Last Element Fetching";
   }
 
   @Override

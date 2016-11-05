@@ -6,34 +6,36 @@ import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.types.OPPListObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPNumberObjectInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPFirstElementFetchingProcessInstance extends OPPAbstractProcessInstance {
+public class OPPLocationElementFetchingProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
     OPPListObjectInstance list = (OPPListObjectInstance) getArgument("list");
-    OPPObjectInstance element = list.getFirst();
-    if (element != null) {
-      setArgument("element", element);
-      setArgument("fetched?", OPPObjectInstance.createFromValue("yes"));
-    } else {
+    int location = getArgument("location").getNumericalValue().intValue();
+
+    if (location < 1 || location > list.count()) {
       setArgument("fetched?", OPPObjectInstance.createFromValue("no"));
+    } else {
+      setArgument("fetched?", OPPObjectInstance.createFromValue("yes"));
+      setArgument("element", list.get(location));
     }
   }
 
   @Override
   public String getName() {
-    return "First Element Fetching";
+    return "Location Element Fetching";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("list"));
+    return Lists.newArrayList(new OPPParameter("list"), new OPPParameter("location"), new OPPParameter("location"));
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("element"), new OPPParameter("fetched?"));
+    return Lists.newArrayList(new OPPParameter("fetched?"), new OPPParameter("element"));
   }
 }

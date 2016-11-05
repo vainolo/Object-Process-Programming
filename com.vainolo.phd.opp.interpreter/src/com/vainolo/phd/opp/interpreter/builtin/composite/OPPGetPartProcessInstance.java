@@ -10,31 +10,31 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance.InstanceKind;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance.InstanceKind;
 
 public class OPPGetPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance object = getArgument("object");
-    OPPObjectInstance key = getArgument("key");
-    if (object.containsPart(key.getStringValue())) {
-      OPPObjectInstance part = object.getPart(key.getStringValue());
-      setArgument("part", part);
-    }
+    // OPPObjectInstance object = getArgument("object");
+    // OPPObjectInstance key = getArgument("key");
+    // if (object.containsPart(key.getStringValue())) {
+    // OPPObjectInstance part = object.getPart(key.getStringValue());
+    // setArgument("part", part);
+    // }
   }
 
   @Override
   public void setArgument(String name, OPPObjectInstance value) {
     // Modified since we need the original ID of the instance to be used as key, and this ID will be changed when a new
     // instance is created - so we transform the instance to a string that is used as the key.
-    if ("key".equals(name)) {
-      if (value.type == "Complex Object") {
-        // value = OPPObjectInstance.createFromValue(value.getInternalId());
-      }
-    }
+    // if ("key".equals(name)) {
+    // if (value.type == "Complex Object") {
+    // // value = OPPObjectInstance.createFromValue(value.getInternalId());
+    // }
+    // }
     super.setArgument(name, value);
   }
 

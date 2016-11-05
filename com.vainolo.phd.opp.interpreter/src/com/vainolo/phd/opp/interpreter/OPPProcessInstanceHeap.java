@@ -11,6 +11,7 @@ import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPProcessInstanceHeap {
 

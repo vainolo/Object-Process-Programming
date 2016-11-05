@@ -14,8 +14,9 @@ import twitter4j.Status;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
+import com.vainolo.phd.opp.interpreter.types.OPPListObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 import com.vainolo.phd.opp.utilities.OPPLogger;
 
 public class OPPSearchTwitter extends OPPAbstractProcessInstance {
@@ -30,9 +31,9 @@ public class OPPSearchTwitter extends OPPAbstractProcessInstance {
       OPPLogger.logInfo("@" + status.getUser().getScreenName() + ":" + status.getText());
     }
 
-    OPPObjectInstance tweets = OPPObjectInstance.createCompositeInstance();
+    OPPListObjectInstance tweets = OPPObjectInstance.createListInstance();
     for (Status status : result.getTweets()) {
-      tweets.addLastPart(OPPObjectInstance.createFromValue(status.getText()));
+      tweets.addLast(OPPObjectInstance.createFromValue(status.getText()));
     }
     setArgument("Tweets", tweets);
   }

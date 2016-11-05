@@ -13,10 +13,10 @@ import javax.swing.JOptionPane;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPDialogInputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 

@@ -10,8 +10,8 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPAddFirstPartProcessInstance extends OPPAbstractProcessInstance {
   private static final String PROCESS_NAME = "Add First Part";
@@ -26,12 +26,12 @@ public class OPPAddFirstPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance object = getArgument(OBJECT_PARAM_NAME);
-    OPPObjectInstance part = getArgument(PART_PARAM_NAME);
-    if (object == null)
-      object = OPPObjectInstance.createCompositeInstance();
-    object.addFirstPart(part);
-    setArgument(NEW_OBJECT_PARAM_NAME, object);
+    // OPPObjectInstance object = getArgument(OBJECT_PARAM_NAME);
+    // OPPObjectInstance part = getArgument(PART_PARAM_NAME);
+    // if (object == null)
+    // object = OPPObjectInstance.createCompositeInstance();
+    // object.addFirstPart(part);
+    // setArgument(NEW_OBJECT_PARAM_NAME, object);
   }
 
   @Override

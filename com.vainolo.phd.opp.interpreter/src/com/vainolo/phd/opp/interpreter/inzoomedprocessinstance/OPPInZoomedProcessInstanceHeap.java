@@ -21,10 +21,11 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.vainolo.phd.opp.interpreter.OPPInterpreter;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstanceHeap;
 import com.vainolo.phd.opp.interpreter.OPPRuntimeException;
+import com.vainolo.phd.opp.interpreter.types.OPPComplexObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPObjectProcessDiagram;
 import com.vainolo.phd.opp.model.OPPProceduralLink;
@@ -88,12 +89,12 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
 
   private void setPartVariable(OPPObject object, OPPObjectInstance value) {
     OPPObject parentObject = OPPObjectExtensions.findParent(object);
-    OPPObjectInstance parentValue = getVariable(parentObject);
+    OPPComplexObjectInstance parentValue = (OPPComplexObjectInstance) getVariable(parentObject);
     if (parentValue == null) {
       parentValue = OPPObjectInstance.createCompositeInstance();
     }
     setVariable(parentObject, parentValue);
-    parentValue = getVariable(parentObject);
+    parentValue = (OPPComplexObjectInstance) getVariable(parentObject);
     parentValue.addPart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
     logFinest("Setting part variable {0} with value {1}.", object.getName(), value.toString());
     observable.notifyObservers(new OPMHeapChange(parentObject, parentValue, object, getVariable(object)));
@@ -127,7 +128,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   }
 
   private OPPObjectInstance getPartVariable(OPPObject object) {
-    OPPObjectInstance parent = getVariable(OPPObjectExtensions.findParent(object));
+    OPPComplexObjectInstance parent = (OPPComplexObjectInstance) getVariable(OPPObjectExtensions.findParent(object));
     OPPObjectInstance value;
     if (parent == null) {
       logFinest("Parent of {0} doesn't exist, so part doesn't exist either.", object.getName());
@@ -161,7 +162,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
   }
 
   private void clearPartVariable(OPPObject object) {
-    OPPObjectInstance parent = getVariable(OPPObjectExtensions.findParent(object));
+    OPPComplexObjectInstance parent = (OPPComplexObjectInstance) getVariable(OPPObjectExtensions.findParent(object));
     if (parent == null) {
       logSevere("Tried clearing a variable which is part of another object, but parent object doesn't exist.", object.getName());
       throw new OPPRuntimeException("Tried clearing a variable which is part of another object, but parent object doesn't exist.");

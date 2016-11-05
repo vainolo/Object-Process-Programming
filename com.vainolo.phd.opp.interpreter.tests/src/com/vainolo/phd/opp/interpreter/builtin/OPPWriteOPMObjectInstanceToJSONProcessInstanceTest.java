@@ -13,8 +13,8 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.eclipsesource.json.JsonObject;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPWriteOPMObjectInstanceToJSON;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 /**
  * 

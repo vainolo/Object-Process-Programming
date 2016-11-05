@@ -16,8 +16,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Lists;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPObjectInstanceValueAnalyzerTests {
 

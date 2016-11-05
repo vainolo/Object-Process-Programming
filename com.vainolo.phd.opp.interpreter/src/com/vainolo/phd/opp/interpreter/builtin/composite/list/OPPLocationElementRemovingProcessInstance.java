@@ -6,37 +6,40 @@ import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.types.OPPListObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPNumberObjectInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPFirstElementRemovingProcessInstance extends OPPAbstractProcessInstance {
+public class OPPLocationElementRemovingProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
     OPPListObjectInstance list = (OPPListObjectInstance) getArgument("list");
+    int location = getArgument("location").getNumericalValue().intValue();
     OPPListObjectInstance newList = (OPPListObjectInstance) OPPObjectInstance.createFromExistingInstance(list);
-    OPPObjectInstance element = newList.removeFirst();
 
-    setArgument("new list", newList);
-    if (element != null) {
-      setArgument("element", element);
-      setArgument("removed?", OPPObjectInstance.createFromValue("yes"));
-    } else {
+    if (location < 1 || location > list.count()) {
       setArgument("removed?", OPPObjectInstance.createFromValue("no"));
+      setArgument("new list", newList);
+    } else {
+      setArgument("removed?", OPPObjectInstance.createFromValue("yes"));
+      setArgument("element", list.get(location));
+      newList.remove(location);
+      setArgument("new list", newList);
     }
   }
 
   @Override
   public String getName() {
-    return "First Element Removing";
+    return "Location Element Removing";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("list"));
+    return Lists.newArrayList(new OPPParameter("list"), new OPPParameter("location"));
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("element"), new OPPParameter("removed?"), new OPPParameter("new list"));
+    return Lists.newArrayList(new OPPParameter("removed?"), new OPPParameter("element"), new OPPParameter("new list"));
   }
 }

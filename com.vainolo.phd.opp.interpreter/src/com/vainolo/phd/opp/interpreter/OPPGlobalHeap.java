@@ -9,6 +9,7 @@ package com.vainolo.phd.opp.interpreter;
 import java.util.Map;
 
 import com.google.common.collect.Maps;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPGlobalHeap extends OPPProcessInstanceHeap {
   private Map<String, OPPObjectInstance> variables;

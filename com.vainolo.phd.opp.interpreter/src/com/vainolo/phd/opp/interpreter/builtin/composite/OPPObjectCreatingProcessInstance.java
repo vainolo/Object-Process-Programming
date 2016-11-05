@@ -10,10 +10,10 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPRuntimeException;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPObjectCreatingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
@@ -24,11 +24,11 @@ public class OPPObjectCreatingProcessInstance extends OPPAbstractProcessInstance
     if (type == null) {
       newObject = OPPObjectInstance.createCompositeInstance();
     } else {
-      switch (type.getStringValue()) {
-      case "List":
+      switch (type.getStringValue().toLowerCase()) {
+      case "list":
         newObject = OPPObjectInstance.createListInstance();
         break;
-      case "Complex Object":
+      case "complex object":
         newObject = OPPObjectInstance.createCompositeInstance();
         break;
       default:

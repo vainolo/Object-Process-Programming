@@ -17,6 +17,8 @@ import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.json.OPPJsonReader;
+import com.vainolo.phd.opp.interpreter.types.OPPListObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 import com.vainolo.phd.opp.model.OPPObject;
 import com.vainolo.phd.opp.model.OPPState;
 import com.vainolo.phd.opp.utilities.analysis.OPPObjectExtensions;
@@ -86,15 +88,15 @@ public class OPPObjectInstanceValueAnalyzer {
   }
 
   /**
-   * Check if the literal is a collections. Collections can be initialized with a set of integer values that are
-   * specified in the initializer. The first value of the collection must be less than or equal than the final value of
-   * the collection. For example [1..5], [1..1], [5..19]
+   * Check if the literal is a list. Lists can be initialized with a set of integer values that are specified in the
+   * initializer. The first value of the list must be less than or equal than the final value of the list. For example
+   * [1..5], [1..1], [5..19]
    */
-  public boolean isCollectionLiteral(String value) {
+  public boolean isListLiteral(String value) {
     return value.startsWith("[");
   }
 
-  private boolean isCompoungLiteral(String value) {
+  private boolean isComplexLiteral(String value) {
     return value.startsWith("{");
   }
 
@@ -183,15 +185,15 @@ public class OPPObjectInstanceValueAnalyzer {
       objectInstance = OPPObjectInstance.createFromValue(parseStringLiteral(value));
     } else if (isNumericalLiteral(value)) {
       objectInstance = OPPObjectInstance.createFromValue(parseNumericalLiteral(value));
-    } else if (isCollectionLiteral(value)) {
+    } else if (isListLiteral(value)) {
       objectInstance = OPPObjectInstance.createCompositeInstance();
       for (OPPObjectInstance o : parseCollectionLiteral(value)) {
-        objectInstance.addLastPart(o);
+        ((OPPListObjectInstance) objectInstance).addLast(o);
       }
-    } else if (isCompoungLiteral(value)) {
+    } else if (isComplexLiteral(value) || isListLiteral(value)) {
       OPPJsonReader reader = new OPPJsonReader();
       JsonValue jsonObject = Json.parse(value);
-      objectInstance = reader.read(jsonObject.asObject());
+      objectInstance = reader.readJson(jsonObject.asObject());
     } else {
       logFiner("Assume this is a string with no enclosing quotes.");
       objectInstance = OPPObjectInstance.createFromValue(value);

@@ -10,19 +10,19 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPAddLastPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance object = getArgument("object");
-    OPPObjectInstance part = getArgument("part");
-    if (object == null)
-      object = OPPObjectInstance.createCompositeInstance();
-    object.addLastPart(part);
-    setArgument("new object", object);
+    // OPPObjectInstance object = getArgument("object");
+    // OPPObjectInstance part = getArgument("part");
+    // if (object == null)
+    // object = OPPObjectInstance.createCompositeInstance();
+    // object.addLastPart(part);
+    // setArgument("new object", object);
   }
 
   @Override

@@ -9,6 +9,8 @@ package com.vainolo.phd.opp.interpreter;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
+
 /**
  * 
  * @author Arieh 'Vainolo' Bibliowicz

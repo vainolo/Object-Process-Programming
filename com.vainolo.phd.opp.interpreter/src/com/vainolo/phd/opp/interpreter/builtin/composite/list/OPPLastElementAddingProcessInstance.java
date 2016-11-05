@@ -8,32 +8,29 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.types.OPPListObjectInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPFirstElementFetchingProcessInstance extends OPPAbstractProcessInstance {
+public class OPPLastElementAddingProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
     OPPListObjectInstance list = (OPPListObjectInstance) getArgument("list");
-    OPPObjectInstance element = list.getFirst();
-    if (element != null) {
-      setArgument("element", element);
-      setArgument("fetched?", OPPObjectInstance.createFromValue("yes"));
-    } else {
-      setArgument("fetched?", OPPObjectInstance.createFromValue("no"));
-    }
+    OPPObjectInstance element = getArgument("element");
+    OPPListObjectInstance newList = (OPPListObjectInstance) OPPObjectInstance.createFromExistingInstance(list);
+    newList.addLast(element);
+    setArgument("new list", newList);
   }
 
   @Override
   public String getName() {
-    return "First Element Fetching";
+    return "Last Element Adding";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("list"));
+    return Lists.newArrayList(new OPPParameter("list"), new OPPParameter("element"));
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("element"), new OPPParameter("fetched?"));
+    return Lists.newArrayList(new OPPParameter("new list"));
   }
 }

@@ -36,6 +36,12 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.general.OPPElementRemov
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPFirstElementAddingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPFirstElementFetchingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPFirstElementRemovingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLastElementAddingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLastElementFetchingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLastElementRemovingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementAddingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementFetchingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementRemovingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleInputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleOutputProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogInputProcessInstance;
@@ -128,15 +134,15 @@ public class OPPProcessInstanceFactory {
     case "element counting":
     case "count":
       return new OPPElementCountingProcessInstance();
-    case "element adding":
-    case "add element":
-      return new OPPElementAddingProcessInstance();
-    case "element fetching":
-    case "fetch element":
-      return new OPPElementFetchingProcessInstance();
-    case "element removing":
-    case "remove element":
-      return new OPPElementRemovingProcessInstance();
+    // case "element adding":
+    // case "add element":
+    // return new OPPElementAddingProcessInstance();
+    // case "element fetching":
+    // case "fetch element":
+    // return new OPPElementFetchingProcessInstance();
+    // case "element removing":
+    // case "remove element":
+    // return new OPPElementRemovingProcessInstance();
 
     // List
     case "first element adding":
@@ -148,7 +154,24 @@ public class OPPProcessInstanceFactory {
     case "first element removing":
     case "remove first":
       return new OPPFirstElementRemovingProcessInstance();
-
+    case "location element adding":
+    case "add element":
+      return new OPPLocationElementAddingProcessInstance();
+    case "location element fetching":
+    case "fetch element":
+      return new OPPLocationElementFetchingProcessInstance();
+    case "location element removing":
+    case "remove element":
+      return new OPPLocationElementRemovingProcessInstance();
+    case "last element adding":
+    case "add last":
+      return new OPPLastElementAddingProcessInstance();
+    case "last element fetching":
+    case "fetch last":
+      return new OPPLastElementFetchingProcessInstance();
+    case "last element removing":
+    case "remove last":
+      return new OPPLastElementRemovingProcessInstance();
     }
 
     // Composite

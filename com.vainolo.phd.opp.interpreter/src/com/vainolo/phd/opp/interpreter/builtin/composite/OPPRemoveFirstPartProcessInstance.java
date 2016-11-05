@@ -10,19 +10,19 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPRemoveFirstPartProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
-    OPPObjectInstance composite = getArgument("object");
-    if (composite.getAllPartIndexes().size() > 0) {
-      OPPObjectInstance object = composite.removeFirstPart();
-      setArgument("part", object);
-    }
-    setArgument("new object", composite);
+    // OPPObjectInstance composite = getArgument("object");
+    // if (composite.getAllPartIndexes().size() > 0) {
+    // OPPObjectInstance object = composite.removeFirstPart();
+    // setArgument("part", object);
+    // }
+    // setArgument("new object", composite);
   }
 
   @Override

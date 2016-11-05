@@ -12,9 +12,9 @@ import com.eclipsesource.json.JsonObject;
 import com.google.common.collect.Lists;
 import com.mashape.unirest.http.Unirest;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
-import com.vainolo.phd.opp.interpreter.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.json.OPPJsonReader;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPCallWebAPIProcessInstance extends OPPAbstractProcessInstance {
 
@@ -26,7 +26,7 @@ public class OPPCallWebAPIProcessInstance extends OPPAbstractProcessInstance {
     String response = Unirest.get(url.getStringValue()).asJson().getBody().toString();
     JsonObject json = JsonObject.readFrom(response);
     OPPJsonReader reader = new OPPJsonReader();
-    OPPObjectInstance result = reader.read(json);
+    OPPObjectInstance result = reader.readJson(json);
     setArgument("result", result);
   }
 
