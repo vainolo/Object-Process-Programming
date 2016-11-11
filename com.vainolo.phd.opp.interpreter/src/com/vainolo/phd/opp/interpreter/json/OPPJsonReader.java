@@ -62,7 +62,7 @@ public class OPPJsonReader {
     Iterator<Member> it = jsonObject.iterator();
     while (it.hasNext()) {
       Member member = it.next();
-      object.addPart(member.getName(), read(member.getValue()));
+      object.setPart(member.getName(), read(member.getValue()));
     }
     return object;
   }

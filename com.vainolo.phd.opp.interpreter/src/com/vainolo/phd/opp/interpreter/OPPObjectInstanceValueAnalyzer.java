@@ -186,17 +186,17 @@ public class OPPObjectInstanceValueAnalyzer {
     } else if (isNumericalLiteral(value)) {
       objectInstance = OPPObjectInstance.createFromValue(parseNumericalLiteral(value));
     } else if (isListLiteral(value)) {
-      objectInstance = OPPObjectInstance.createCompositeInstance();
+      objectInstance = OPPObjectInstance.createListInstance();
       for (OPPObjectInstance o : parseCollectionLiteral(value)) {
         ((OPPListObjectInstance) objectInstance).addLast(o);
       }
-    } else if (isComplexLiteral(value) || isListLiteral(value)) {
+    } else if (isComplexLiteral(value)) {
       OPPJsonReader reader = new OPPJsonReader();
       JsonValue jsonObject = Json.parse(value);
       objectInstance = reader.readJson(jsonObject.asObject());
-    } else {
-      logFiner("Assume this is a string with no enclosing quotes.");
-      objectInstance = OPPObjectInstance.createFromValue(value);
+      // } else {
+      // logFiner("Assume this is a string with no enclosing quotes.");
+      // objectInstance = OPPObjectInstance.createFromValue(value);
     }
     logFinest("Value of {0} is {1}.", value, objectInstance);
     return objectInstance;

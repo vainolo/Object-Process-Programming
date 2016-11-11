@@ -8,6 +8,7 @@ package com.vainolo.phd.opp.interpreter;
 
 import static com.vainolo.phd.opp.utilities.OPPLogger.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -150,5 +151,13 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
   @Override
   public String toString() {
     return getName() + "@" + Integer.toHexString(hashCode());
+  }
+
+  protected List<OPPParameter> createParameterList(String... parameterNames) {
+    List<OPPParameter> parametersList = Lists.newArrayList();
+    for (String parameterName : parameterNames) {
+      parametersList.add(new OPPParameter(parameterName));
+    }
+    return parametersList;
   }
 }

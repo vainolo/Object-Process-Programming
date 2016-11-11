@@ -16,8 +16,12 @@ public class OPPComplexObjectInstance extends OPPObjectInstance implements OPPCo
     super(InstanceKind.COMPOSITE);
   }
 
-  public OPPObjectInstance addPart(String key, OPPObjectInstance element) {
+  public OPPObjectInstance setPart(String key, OPPObjectInstance element) {
     return map.put(key, element);
+  }
+
+  public boolean containsPart(String key) {
+    return map.containsKey(key);
   }
 
   public OPPObjectInstance getPart(String key) {
@@ -58,7 +62,7 @@ public class OPPComplexObjectInstance extends OPPObjectInstance implements OPPCo
 
   @Override
   public String toString() {
-    StringBuilder ret = new StringBuilder("(" + kind + ")");
+    StringBuilder ret = new StringBuilder(); // "(" + kind + ")");
     ret.append("{");
     for (String name : getPartNames()) {
       ret.append("\"").append(name).append("\":").append(getPart(name)).append(",");

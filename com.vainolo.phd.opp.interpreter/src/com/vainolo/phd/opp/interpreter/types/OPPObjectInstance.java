@@ -98,8 +98,8 @@ public abstract class OPPObjectInstance {
     case COMPOSITE:
       OPPComplexObjectInstance existingCompositeInstance = (OPPComplexObjectInstance) existingInstance;
       OPPComplexObjectInstance newComplexInstance = createCompositeInstance();
-      for (String partName : newComplexInstance.getPartNames()) {
-        newComplexInstance.addPart(partName, existingCompositeInstance.getPart(partName));
+      for (String partName : existingCompositeInstance.getPartNames()) {
+        newComplexInstance.setPart(partName, existingCompositeInstance.getPart(partName));
       }
       newInstance = newComplexInstance;
       break;

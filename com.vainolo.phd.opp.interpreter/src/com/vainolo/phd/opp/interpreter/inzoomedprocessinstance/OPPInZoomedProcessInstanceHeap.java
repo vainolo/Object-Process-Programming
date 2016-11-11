@@ -95,7 +95,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
     }
     setVariable(parentObject, parentValue);
     parentValue = (OPPComplexObjectInstance) getVariable(parentObject);
-    parentValue.addPart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
+    parentValue.setPart(object.getName(), OPPObjectInstance.createFromExistingInstance(value));
     logFinest("Setting part variable {0} with value {1}.", object.getName(), value.toString());
     observable.notifyObservers(new OPMHeapChange(parentObject, parentValue, object, getVariable(object)));
   }
