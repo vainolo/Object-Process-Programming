@@ -35,26 +35,34 @@ public class OPPNamedEntityDirectEditPolicy extends DirectEditPolicy {
         setTypeCommand.setModel((OPPObject) getHost().getModel());
         String name = null, type = null, value = null;
 
-        boolean ignoreType = false;
+        boolean ignoreType = false, ignoreAll = false;
         if (text.contains(":") && text.contains("=") && (text.indexOf("=") < text.indexOf(":")))
           ignoreType = true;
+        if (text.contains(":") && text.contains("{") && (text.indexOf("{") < text.indexOf(":")))
+          ignoreType = true;
+        if (text.startsWith("\""))
+          ignoreAll = true;
 
-        if (!ignoreType && text.contains(":")) {
-          String[] parts = text.split(":");
-          name = parts[0].trim();
-          if (parts[1].contains("=")) {
-            String[] parts2 = parts[1].split("=");
-            type = parts2[0].trim();
-            value = parts2[1].trim();
-          } else {
-            type = parts[1];
-          }
-        } else if (text.contains("=")) {
-          String[] parts = text.split("=");
-          name = parts[0].trim();
-          value = parts[1].trim();
-        } else {
+        if (ignoreAll) {
           name = text;
+        } else {
+          if (!ignoreType && text.contains(":")) {
+            String[] parts = text.split(":");
+            name = parts[0].trim();
+            if (parts[1].contains("=")) {
+              String[] parts2 = parts[1].split("=");
+              type = parts2[0].trim();
+              value = parts2[1].trim();
+            } else {
+              type = parts[1];
+            }
+          } else if (text.contains("=")) {
+            String[] parts = text.split("=");
+            name = parts[0].trim();
+            value = parts[1].trim();
+          } else {
+            name = text;
+          }
         }
         renameCommand.setNewName(name);
         CompoundCommand cc = new CompoundCommand();

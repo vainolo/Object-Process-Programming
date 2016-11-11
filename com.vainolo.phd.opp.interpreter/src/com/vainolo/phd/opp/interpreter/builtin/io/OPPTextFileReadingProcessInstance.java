@@ -20,32 +20,35 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPReadTextFileProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPTextFileReadingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   protected void executing() {
-    String filename = getArgument("filename").getStringValue();
-    String path = OPPInterpreter.container.getFile(new Path(filename)).getLocation().toString(); // .getFullPath().toString();
+    String filename = getArgument("file name").getStringValue();
     try {
-      String contents = new String(Files.readAllBytes(Paths.get(path)));
-      setArgument("file contents", OPPObjectInstance.createFromValue(contents));
+      String contents = new String(Files.readAllBytes(Paths.get(filename)));
+      setArgument("input", OPPObjectInstance.createFromValue(contents));
+      setArgument("file error?", OPPObjectInstance.createFromValue("no"));
+      setArgument("parse error?", OPPObjectInstance.createFromValue("no"));
     } catch (IOException e) {
       e.printStackTrace();
+      setArgument("file error?", OPPObjectInstance.createFromValue("yes"));
+      setArgument("parse error?", OPPObjectInstance.createFromValue("no"));
     }
   }
 
   @Override
   public String getName() {
-    return "Read Text File";
+    return "Text File Reading";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("filename"));
+    return Lists.newArrayList(new OPPParameter("file name"));
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("file contents"));
+    return createParameterList("file error?", "parse error?", "input");
   }
 }

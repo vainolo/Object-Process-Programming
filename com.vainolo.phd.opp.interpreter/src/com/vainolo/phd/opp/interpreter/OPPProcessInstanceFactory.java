@@ -46,7 +46,8 @@ import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleReadingProcessInstan
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleWritingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogTextReadingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogTextWritingProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.io.OPPReadTextFileProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.io.OPPTextFileReadingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.io.OPPTextFileWritingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPTransformJSONStringToObjectProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.math.OPPBinaryMathOpProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.math.OPPBinaryMathOpProcessInstance.OPPBinaryMathOpType;
@@ -188,6 +189,12 @@ public class OPPProcessInstanceFactory {
     case "dialog text writing":
     case "dialog output":
       return new OPPDialogTextWritingProcessInstance();
+    case "text file reading":
+    case "read text file":
+      return new OPPTextFileReadingProcessInstance();
+    case "text file writing":
+    case "write text file":
+      return new OPPTextFileWritingProcessInstance();
 
     }
 
@@ -266,7 +273,7 @@ public class OPPProcessInstanceFactory {
     } else if (name.equalsIgnoreCase("Copy Object")) {
       return new OPPCopyObjectProcessInstance();
     } else if (name.equalsIgnoreCase("Read Text File")) {
-      return new OPPReadTextFileProcessInstance();
+      return new OPPTextFileReadingProcessInstance();
     } else if (name.equalsIgnoreCase("Transform JSON String To Object")) {
       return new OPPTransformJSONStringToObjectProcessInstance();
     }
