@@ -19,24 +19,17 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPConsoleInputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
-  private static final String PROCESS_NAME = "Console Input";
-  private static final String PROMPT_PARAM_NAME = "prompt";
-  private static final OPPParameter PROMPT_PARAM = new OPPParameter(PROMPT_PARAM_NAME);
-  private static final String INPUT_PARAM_NAME = "input";
-  private static final OPPParameter INPUT_PARAM = new OPPParameter(INPUT_PARAM_NAME);
-  private static final List<OPPParameter> INCOMING_PARAMS = Lists.newArrayList(PROMPT_PARAM);
-  private static final List<OPPParameter> OUTGOIN_PARAMS = Lists.newArrayList(INPUT_PARAM);
+public class OPPConsoleReadingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
 
-  public OPPConsoleInputProcessInstance() {
+  public OPPConsoleReadingProcessInstance() {
     this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
   }
 
   @Override
   protected void executing() {
-    OPPObjectInstance prompt = getArgument(PROMPT_PARAM_NAME);
+    OPPObjectInstance prompt = getArgument("prompt");
     if (prompt != null)
       System.out.println(prompt);
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -44,27 +37,36 @@ public class OPPConsoleInputProcessInstance extends OPPAbstractProcessInstance i
     try {
       input = br.readLine();
       if (input != null) {
+
+        if (!input.matches("(\\[.*)|(\\{.*)|([0-9].*)|(\".*)")) {
+          input = "\"" + input + "\"";
+        }
+
         OPPObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
-        setArgument(INPUT_PARAM_NAME, instance);
+        if (instance != null) {
+          setArgument("input", instance);
+          setArgument("parse error?", OPPObjectInstance.createFromValue("no"));
+        } else {
+          setArgument("parse error?", OPPObjectInstance.createFromValue("yes"));
+        }
       }
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }
 
   @Override
   public String getName() {
-    return PROCESS_NAME;
+    return "Console Reading";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return INCOMING_PARAMS;
+    return createParameterList("prompt");
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return OUTGOIN_PARAMS;
+    return createParameterList("input", "parse error?");
   }
 }

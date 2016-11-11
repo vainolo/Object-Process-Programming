@@ -18,11 +18,11 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPDialogInputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPDialogTextReadingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   private OPPObjectInstanceValueAnalyzer valueAnalyzer;
 
-  public OPPDialogInputProcessInstance() {
+  public OPPDialogTextReadingProcessInstance() {
     this.valueAnalyzer = new OPPObjectInstanceValueAnalyzer();
   }
 
@@ -36,22 +36,34 @@ public class OPPDialogInputProcessInstance extends OPPAbstractProcessInstance im
     javax.swing.UIManager.put("TextField.font", new Font("Segoe UI", Font.PLAIN, 25));
     String input = JOptionPane.showInputDialog(prompt.getStringValue());
 
-    OPPObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
-    setArgument("input", instance);
+    if (input != null) {
+
+      if (!input.matches("(\\[.*)|(\\{.*)|([0-9].*)|(\".*)")) {
+        input = "\"" + input + "\"";
+      }
+
+      OPPObjectInstance instance = valueAnalyzer.calculateOPMObjectValue(input);
+      if (instance != null) {
+        setArgument("input", instance);
+        setArgument("parse error?", OPPObjectInstance.createFromValue("no"));
+      } else {
+        setArgument("parse error?", OPPObjectInstance.createFromValue("yes"));
+      }
+    }
   }
 
   @Override
   public String getName() {
-    return "Dialog Input";
+    return "Dialog Text Reading";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("prompt"));
+    return createParameterList("prompt");
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("input"));
+    return createParameterList("input", "parse error?");
   }
 }

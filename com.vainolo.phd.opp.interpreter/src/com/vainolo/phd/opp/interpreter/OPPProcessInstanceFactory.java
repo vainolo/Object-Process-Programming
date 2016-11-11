@@ -42,10 +42,10 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLastElementRemo
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementAddingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementFetchingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementRemovingProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleInputProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleOutputProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogInputProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogOutputProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleReadingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleWritingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogTextReadingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogTextWritingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPReadTextFileProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPTransformJSONStringToObjectProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.math.OPPBinaryMathOpProcessInstance;
@@ -175,6 +175,20 @@ public class OPPProcessInstanceFactory {
     case "remove part":
       return new OPPPartRemovingProcessInstance();
 
+    // IO
+    case "console reading":
+    case "console input":
+      return new OPPConsoleReadingProcessInstance();
+    case "console writing":
+    case "console output":
+      return new OPPConsoleWritingProcessInstance();
+    case "dialog text reading":
+    case "dialog input":
+      return new OPPDialogTextReadingProcessInstance();
+    case "dialog text writing":
+    case "dialog output":
+      return new OPPDialogTextWritingProcessInstance();
+
     }
 
     // Composite
@@ -207,13 +221,13 @@ public class OPPProcessInstanceFactory {
 
       // Input and Output
     } else if (name.equalsIgnoreCase("Console Input")) {
-      return new OPPConsoleInputProcessInstance();
+      return new OPPConsoleReadingProcessInstance();
     } else if (name.equalsIgnoreCase("Console Output")) {
-      return new OPPConsoleOutputProcessInstance();
+      return new OPPConsoleWritingProcessInstance();
     } else if (name.equalsIgnoreCase("Dialog Input")) {
-      return new OPPDialogInputProcessInstance();
+      return new OPPDialogTextReadingProcessInstance();
     } else if (name.equalsIgnoreCase("Dialog Output")) {
-      return new OPPDialogOutputProcessInstance();
+      return new OPPDialogTextWritingProcessInstance();
 
       // Math and Data
       // } else if (name.equals("a+b") || name.equals("+")) {

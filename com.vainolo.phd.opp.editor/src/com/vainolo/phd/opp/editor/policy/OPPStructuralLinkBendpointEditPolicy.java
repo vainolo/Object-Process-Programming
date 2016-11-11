@@ -6,7 +6,10 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.editor.policy;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -44,6 +47,9 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
     OPPStructuralLinkPart link = (OPPStructuralLinkPart) request.getSource().getModel();
     OPPNode source = link.getSource(), target = link.getTarget();
     Point newPoint = request.getLocation();
+
+    IFigure translator = ((GraphicalEditPart) (request.getSource().getSource())).getFigure();
+
     int index = request.getIndex();
     CompoundCommand cc = new CompoundCommand();
 
@@ -55,9 +61,9 @@ public class OPPStructuralLinkBendpointEditPolicy extends BendpointEditPolicy {
     } else if (bpu.isLastBendpoint(index, link.getBendpoints()) && (target instanceof OPPStructuralLinkAggregator)) {
       return bpu.getCommanToMoveLastBendpointBeforeAggregator(link, index, newPoint);
     } else if (bpu.isFirstBendpoint(index) && (source instanceof OPPNode)) {
-      return bpu.getCommandToMoveFirstBendpointAfterThing(link, newPoint); // HERE
+      return bpu.getCommandToMoveFirstBendpointAfterThing(link, newPoint, translator);
     } else if (bpu.isLastBendpoint(index, link.getBendpoints()) && (target instanceof OPPNode)) {
-      return bpu.getCommantToMoveLastBendpointBeforeTarget(link, newPoint);
+      return bpu.getCommantToMoveLastBendpointBeforeTarget(link, newPoint, translator);
     } else {
       return bpu.getCommandToMoveInternalBendpoint(link, index, newPoint);
     }

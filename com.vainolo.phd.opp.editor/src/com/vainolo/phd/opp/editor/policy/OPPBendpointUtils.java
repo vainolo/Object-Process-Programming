@@ -2,9 +2,11 @@ package com.vainolo.phd.opp.editor.policy;
 
 import java.util.List;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -14,13 +16,14 @@ import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.editor.command.OPPLinkCreateBendpointCommand;
 import com.vainolo.phd.opp.editor.command.OPPLinkDeleteBendpointCommand;
 import com.vainolo.phd.opp.editor.command.OPPLinkMoveBendpointCommand;
+import com.vainolo.phd.opp.editor.part.OPPStructuralLinkPartEditPart;
 import com.vainolo.phd.opp.model.*;
 
 import static com.vainolo.phd.opp.editor.figure.OPPFigureUtils.*;
 
 public class OPPBendpointUtils {
 
-  public List<Point> createInitialBendpointsForStructuralLinkSegment(OPPNode source, Rectangle target) {
+  public List<Point> createInitialBendpointsForStructuralLinkSegment(Rectangle source, Rectangle target) {
     List<Point> bendpoints = Lists.newArrayList();
     Point sourceCenter = getCenter(source), targetCenter = getCenter(target);
     bendpoints.add(new Point(sourceCenter.x, bottom(source)));
@@ -28,13 +31,17 @@ public class OPPBendpointUtils {
       bendpoints.add(new Point(sourceCenter.x, bottom(source) + (top(target) - bottom(source)) / 2));
       bendpoints.add(new Point(targetCenter.x, bottom(source) + (top(target) - bottom(source)) / 2));
     } else {
-      bendpoints.add(new Point(sourceCenter.x, source.getY() + source.getHeight() + 10));
-      bendpoints.add(new Point((sourceCenter.x + targetCenter.x) / 2, source.getY() + source.getHeight() + 10));
+      bendpoints.add(new Point(sourceCenter.x, source.y() + source.height() + 10));
+      bendpoints.add(new Point((sourceCenter.x + targetCenter.x) / 2, source.y() + source.height() + 10));
       bendpoints.add(new Point((sourceCenter.x + targetCenter.x) / 2, target.y - 10));
       bendpoints.add(new Point(targetCenter.x, target.y - 10));
     }
     bendpoints.add(new Point(targetCenter.x, top(target)));
     return Lists.reverse(bendpoints);
+  }
+
+  public List<Point> createInitialBendpointsForStructuralLinkSegment(OPPNode source, Rectangle target) {
+    return createInitialBendpointsForStructuralLinkSegment(new Rectangle(source.getX(), source.getY(), source.getWidth(), source.getHeight()), target);
   }
 
   public List<Point> createInitialBendpointsForStructuralLinkSegment(OPPNode source, OPPNode target) {
@@ -182,29 +189,30 @@ public class OPPBendpointUtils {
     return cc;
   }
 
-  public Command getCommandToMoveFirstBendpointAfterThing(OPPStructuralLinkPart link, Point newPoint) {
+  public Command getCommandToMoveFirstBendpointAfterThing(OPPStructuralLinkPart link, Point newPoint, IFigure translator) {
     CompoundCommand cc = new CompoundCommand();
 
     List<OPPPoint> bendpoints = link.getBendpoints();
     Point currPoint = pointFromOPPPoint(bendpoints.get(1));
     Point nextPoint = pointFromOPPPoint(bendpoints.get(2));
-    Point newTarget = getStructuralLinkEndpoint(link.getSource(), newPoint);
-    Rectangle rect = rectangleFromOPPNode(link.getSource());
+    Rectangle sourceRect = rectangleFromOPPNode(link.getSource());
+    translator.translateToAbsolute(sourceRect);
+    Point newSource = getStructuralLinkEndpoint(sourceRect, newPoint);
 
-    cc.add(newMoveBendpointCommand(link, 0, newTarget));
-    if (isAboveOrBelow(rect, currPoint) && isAboveOrBelow(rect, newPoint)) {
+    cc.add(newMoveBendpointCommand(link, 0, newSource));
+    if (isAboveOrBelow(sourceRect, currPoint) && isAboveOrBelow(sourceRect, newPoint)) {
       cc.add(newMoveBendpointCommand(link, 1, newPoint));
       cc.add(newMoveBendpointCommand(link, 2, nextPoint.setY(newPoint.y)));
-      if (!(isBetween(newPoint.x, rect.x, rect.x + rect.width))) {
-        cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(newPoint.x).setY(middle(newPoint.y, newTarget.y))));
-        cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(newTarget.x).setY(middle(newPoint.y, newTarget.y))));
+      if (!(isBetween(newPoint.x, sourceRect.x, sourceRect.x + sourceRect.width))) {
+        cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(newPoint.x).setY(middle(newPoint.y, newSource.y))));
+        cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(newSource.x).setY(middle(newPoint.y, newSource.y))));
       }
-    } else if (isLeftOrRight(rect, currPoint) && isLeftOrRight(rect, newPoint)) {
+    } else if (isLeftOrRight(sourceRect, currPoint) && isLeftOrRight(sourceRect, newPoint)) {
       cc.add(newMoveBendpointCommand(link, 1, newPoint));
       cc.add(newMoveBendpointCommand(link, 2, nextPoint.setX(newPoint.x)));
-      if (!(isBetween(newPoint.y, rect.y, rect.y + rect.height))) {
-        cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(middle(newPoint.x, newTarget.x)).setY(newPoint.y)));
-        cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(middle(newPoint.x, newTarget.x)).setY(newTarget.y)));
+      if (!(isBetween(newPoint.y, sourceRect.y, sourceRect.y + sourceRect.height))) {
+        cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(middle(newPoint.x, newSource.x)).setY(newPoint.y)));
+        cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(middle(newPoint.x, newSource.x)).setY(newSource.y)));
       }
     } else { // move from vertical to horizontal or from horizontal to vertical
       if (bendpoints.size() % 2 == 0) { // currently vertical
@@ -213,7 +221,7 @@ public class OPPBendpointUtils {
       } else { // currently horizontal
         if (bendpoints.size() == 3) {
           cc.add(newMoveBendpointCommand(link, 1, currPoint.setY(newPoint.y)));
-          cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(newTarget.x).setY(newPoint.y)));
+          cc.add(newCreateBendpointCommand(link, 1, (new Point()).setX(newSource.x).setY(newPoint.y)));
         } else {
           cc.add(newMoveBendpointCommand(link, 2, nextPoint.setX(newPoint.x)));
           cc.add(newDeleteBendpointCcommand(link, 1));
@@ -223,15 +231,17 @@ public class OPPBendpointUtils {
     return cc;
   }
 
-  public Command getCommantToMoveLastBendpointBeforeTarget(OPPStructuralLinkPart link, Point newPoint) {
+  public Command getCommantToMoveLastBendpointBeforeTarget(OPPStructuralLinkPart link, Point newPoint, IFigure translator) {
     CompoundCommand cc = new CompoundCommand();
 
     List<OPPPoint> bendpoints = link.getBendpoints();
     int lastIndex = bendpoints.size() - 1;
     Point currPoint = pointFromOPPPoint(bendpoints.get(lastIndex - 1));
     Point prevPoint = pointFromOPPPoint(bendpoints.get(lastIndex - 2));
-    Point newTarget = getStructuralLinkEndpoint(link.getTarget(), newPoint);
+
     Rectangle rect = rectangleFromOPPNode(link.getTarget());
+    translator.translateToAbsolute(rect);
+    Point newTarget = getStructuralLinkEndpoint(rect, newPoint);
 
     cc.add(newMoveBendpointCommand(link, lastIndex, newTarget));
     if (isAboveOrBelow(rect, currPoint) && isAboveOrBelow(rect, newPoint)) {
@@ -279,17 +289,18 @@ public class OPPBendpointUtils {
     return cc;
   }
 
-  public Command getCommandToMoveBendpointsAfterTargetHasMoved(OPPStructuralLinkPart link, Rectangle rect) {
+  public Command getCommandToMoveBendpointsAfterTargetHasMoved(OPPStructuralLinkPart link, Rectangle rect, IFigure translator) {
     if (link.getTarget() instanceof OPPStructuralLinkAggregator)
       return getCommandToMoveBendpointsAfterTargetAggregatorHasMoved(link, rect);
     else
-      return getCommandToMoveBendpointsAfterTargetThingHasMoved(link, rect);
+      return getCommandToMoveBendpointsAfterTargetThingHasMoved(link, rect, translator);
   }
 
-  private Command getCommandToMoveBendpointsAfterTargetThingHasMoved(OPPStructuralLinkPart link, Rectangle rect) {
+  private Command getCommandToMoveBendpointsAfterTargetThingHasMoved(OPPStructuralLinkPart link, Rectangle rect, IFigure translator) {
     CompoundCommand cc = new CompoundCommand();
     List<OPPPoint> bendpoints = link.getBendpoints();
     Rectangle target = rectangleFromOPPNode(link.getTarget());
+    translator.translateToAbsolute(target);
     Point currLastPoint = pointFromOPPPoint(bendpoints.get(bendpoints.size() - 2));
     Point newEndPoint = getStructuralLinkEndpoint(rect, currLastPoint);
 
@@ -370,6 +381,9 @@ public class OPPBendpointUtils {
     cc.add(newMoveBendpointCommand(link, 0, new Point(rect.x + rect.width / 2, rect.y + rect.height)));
     cc.add(newMoveBendpointCommand(link, 1, nextPoint.setX(rect.x + rect.width / 2)));
     if (link.getBendpoints().size() == 2) {
+      // Rectangle lRect = new Rectangle(link.getTarget().getX(), link.getTarget().getY(), link.getTarget().getWidth(),
+      // link.getTarget().getHeight());
+      // translator.translateToAbsolute(lRect);
       if (!isBetween(middle(rect.x, rect.x + rect.height), left(link.getTarget()), right(link.getTarget()))) {
         cc.add(newCreateBendpointCommand(link, 2, getStructuralLinkEndpoint(link.getTarget(), nextPoint)));
       }

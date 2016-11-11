@@ -15,21 +15,21 @@ import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 
-public class OPPDialogOutputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPDialogTextWritingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   protected void executing() {
-    Object text = getArgument("output");
+    Object text = getArgument("object");
     JOptionPane.showMessageDialog(null, text.toString());
   }
 
   @Override
   public String getName() {
-    return "Dialog Output";
+    return "Dialog Text Writing";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("output"));
+    return Lists.newArrayList(new OPPParameter("object"));
   }
 }

@@ -6,9 +6,11 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.editor.policy;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.Request;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
@@ -52,9 +54,12 @@ public class OPPContainerXYLayoutPolicy extends XYLayoutEditPolicy {
     command.setNewConstraint(rect.x, rect.y, rect.width, rect.height);
     cc.add(command);
 
+    IFigure translator = ((GraphicalEditPart) child).getFigure();
+    translator.translateToAbsolute(rect);
+
     OPPBendpointUtils bpu = new OPPBendpointUtils();
     for (OPPStructuralLinkPart link : OPPNodeExtensions.getIncomingStructuralLinks(node)) {
-      cc.add(bpu.getCommandToMoveBendpointsAfterTargetHasMoved(link, rect));
+      cc.add(bpu.getCommandToMoveBendpointsAfterTargetHasMoved(link, rect, translator));
     }
     for (OPPStructuralLinkPart link : OPPNodeExtensions.getOutgoingStructuralLinks(node)) {
       cc.add(bpu.getCommandToMoveBendpointsAfterSourceHasMoved(link, rect));

@@ -194,9 +194,9 @@ public class OPPObjectInstanceValueAnalyzer {
       OPPJsonReader reader = new OPPJsonReader();
       JsonValue jsonObject = Json.parse(value);
       objectInstance = reader.readJson(jsonObject.asObject());
-      // } else {
-      // logFiner("Assume this is a string with no enclosing quotes.");
-      // objectInstance = OPPObjectInstance.createFromValue(value);
+    } else {
+      logFinest("Value of {0} could not be calculated.");
+      return null;
     }
     logFinest("Value of {0} is {1}.", value, objectInstance);
     return objectInstance;

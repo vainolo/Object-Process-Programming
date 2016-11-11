@@ -13,21 +13,21 @@ import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 
-public class OPPConsoleOutputProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPConsoleWritingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   protected void executing() {
-    Object text = getArgument("output");
+    Object text = getArgument("object");
     System.out.println(text);
   }
 
   @Override
   public String getName() {
-    return "Console Output";
+    return "Console Writing";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("output"));
+    return Lists.newArrayList(new OPPParameter("object"));
   }
 }

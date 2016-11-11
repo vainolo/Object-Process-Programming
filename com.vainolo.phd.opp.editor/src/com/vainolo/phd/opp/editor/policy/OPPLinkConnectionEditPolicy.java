@@ -9,8 +9,12 @@ package com.vainolo.phd.opp.editor.policy;
 
 import static com.vainolo.phd.opp.editor.policy.OPPBendpointUtils.*;
 
+import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.draw2d.geometry.Point;
+import org.eclipse.draw2d.geometry.Rectangle;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CompoundCommand;
 import org.eclipse.gef.commands.UnexecutableCommand;
@@ -151,10 +155,15 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
 
     if (aggregatorFound) {
       CompoundCommand cCommand = new CompoundCommand();
-      OPPCreateLinkCommand linkCreateCommand = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(agrNode));
+      OPPCreateLinkCommand linkCreateCommand = createCreateOPMLinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(agrNode));
       cCommand.add(linkCreateCommand);
 
-      for (Point p : bendpointUtils.createInitialBendpointsForStructuralLinkSegment(agrNode, tNode)) {
+      Rectangle tRect = new Rectangle(tNode.getX(), tNode.getY(), tNode.getWidth(), tNode.getHeight());
+      Rectangle agrRect = new Rectangle(agrNode.getX(), agrNode.getY(), agrNode.getWidth(), agrNode.getHeight());
+      IFigure f = ((GraphicalEditPart) request.getTargetEditPart()).getFigure();
+      f.translateToAbsolute(agrRect);
+      f.translateToAbsolute(tRect);
+      for (Point p : bendpointUtils.createInitialBendpointsForStructuralLinkSegment(agrRect, tRect)) {
         OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
         bpc.setLink(linkCreateCommand.getLink());
         bpc.setLocation(p);
@@ -165,19 +174,28 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
       CompoundCommand cCommand = new CompoundCommand();
       OPPNodeCreateCommand c1 = createCreateAggregatorNodeCommand(sNode, tNode, agrNode);
       cCommand.add(c1);
-      OPPCreateLinkCommand c2 = createCreateOPMLlinkCreateCommand(sNode, agrNode, OPPNodeExtensions.findOPD(sNode));
+      OPPCreateLinkCommand c2 = createCreateOPMLinkCreateCommand(sNode, agrNode, OPPNodeExtensions.findOPD(sNode));
       cCommand.add(c2);
-      OPPCreateLinkCommand c3 = createCreateOPMLlinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(sNode));
+      OPPCreateLinkCommand c3 = createCreateOPMLinkCreateCommand(agrNode, tNode, OPPNodeExtensions.findOPD(sNode));
       cCommand.add(c3);
 
-      for (Point p : bendpointUtils.createInitialBendpointsForStructuralLinkSegment(sNode, agrNode)) {
+      Rectangle sRect = new Rectangle(sNode.getX(), sNode.getY(), sNode.getWidth(), sNode.getHeight());
+      Rectangle agrRect = new Rectangle(agrNode.getX(), agrNode.getY(), agrNode.getWidth(), agrNode.getHeight());
+      Rectangle tRect = new Rectangle(tNode.getX(), tNode.getY(), tNode.getWidth(), tNode.getHeight());
+
+      IFigure f = ((GraphicalEditPart) request.getTargetEditPart()).getFigure();
+      f.translateToAbsolute(sRect);
+      f.translateToAbsolute(agrRect);
+      f.translateToAbsolute(tRect);
+
+      for (Point p : bendpointUtils.createInitialBendpointsForStructuralLinkSegment(sRect, agrRect)) {
         OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
         bpc.setLink(c2.getLink());
         bpc.setLocation(p);
         cCommand.add(bpc);
       }
 
-      for (Point p : bendpointUtils.createInitialBendpointsForStructuralLinkSegment(agrNode, tNode)) {
+      for (Point p : bendpointUtils.createInitialBendpointsForStructuralLinkSegment(agrRect, tRect)) {
         OPPLinkCreateBendpointCommand bpc = new OPPLinkCreateBendpointCommand();
         bpc.setLink(c3.getLink());
         bpc.setLocation(p);
@@ -199,7 +217,7 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
    *          the target of the link.
    * @return
    */
-  private OPPCreateLinkCommand createCreateOPMLlinkCreateCommand(OPPNode source, OPPNode target, OPPObjectProcessDiagram opd) {
+  private OPPCreateLinkCommand createCreateOPMLinkCreateCommand(OPPNode source, OPPNode target, OPPObjectProcessDiagram opd) {
     OPPCreateLinkCommand command = new OPPCreateLinkCommand();
     command.setSource(source);
     command.setTarget(target);
@@ -223,6 +241,8 @@ public class OPPLinkConnectionEditPolicy extends GraphicalNodeEditPolicy {
    */
   public OPPNodeCreateCommand createCreateAggregatorNodeCommand(OPPNode source, OPPNode target, OPPNode aggregator) {
     OPPNodeCreateCommand command = new OPPNodeCreateCommand();
+    GraphicalEditPart host = (GraphicalEditPart) getHost();
+
     command.setNode(aggregator);
     command.setContainer(source.getContainer());
 

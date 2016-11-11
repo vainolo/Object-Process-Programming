@@ -31,8 +31,12 @@ public class OPPFigureUtils {
     return node1.getY() + node1.getHeight() + 10 < node2.getY();
   }
 
-  public static boolean isNodeAboveNode(OPPNode node1, Rectangle newNodeConstraints) {
-    return node1.getY() + node1.getHeight() + 10 < newNodeConstraints.y;
+  public static boolean isNodeAboveNode(OPPNode node1, Rectangle node2) {
+    return node1.getY() + node1.getHeight() + 10 < node2.y;
+  }
+
+  public static boolean isNodeAboveNode(Rectangle node1, Rectangle node2) {
+    return node1.y() + node1.height() + 10 < node2.y;
   }
 
   public static int bottom(OPPNode node) {
