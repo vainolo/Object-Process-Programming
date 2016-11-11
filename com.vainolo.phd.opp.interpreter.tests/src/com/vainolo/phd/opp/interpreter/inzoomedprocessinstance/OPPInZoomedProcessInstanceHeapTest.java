@@ -20,6 +20,7 @@ import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap.OPMHeapChange;
 import com.vainolo.phd.opp.interpreter.inzoomedprocessinstance.OPPInZoomedProcessInstanceHeap.OPMHeapChangeType;
+import com.vainolo.phd.opp.interpreter.types.OPPComplexObjectInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance.InstanceKind;
 import com.vainolo.phd.opp.model.OPPFactory;
@@ -65,7 +66,7 @@ public class OPPInZoomedProcessInstanceHeapTest {
 
     OPPObjectInstance instance1 = heap.getVariable(obj1);
     assertNotNull(instance1);
-    OPPObjectInstance instance2 = instance1.getPart(part1.getName());
+    OPPObjectInstance instance2 = ((OPPComplexObjectInstance) instance1).getPart(part1.getName());
     assertNotNull(instance2);
     assertEquals(inst1.getNumericalValue(), instance2.getNumericalValue());
   }
@@ -84,8 +85,8 @@ public class OPPInZoomedProcessInstanceHeapTest {
     assertEquals(part1, observer.changes.get(0).child);
     assertEquals(inst1.getNumericalValue(), observer.changes.get(0).childInstance.getNumericalValue());
     assertEquals(OPMHeapChangeType.VARIABLE_SET, observer.changes.get(1).changeType);
-    assertTrue(observer.changes.get(1).objectInstance.type == "Complex Object");
-    assertEquals(inst1.getNumericalValue(), observer.changes.get(0).objectInstance.getPart(part1.getName()).getNumericalValue());
+    assertTrue(observer.changes.get(1).objectInstance.kind == InstanceKind.COMPOSITE);
+    assertEquals(inst1.getNumericalValue(), ((OPPComplexObjectInstance) observer.changes.get(0).objectInstance).getPart(part1.getName()).getNumericalValue());
   }
 
   @Test
@@ -97,27 +98,27 @@ public class OPPInZoomedProcessInstanceHeapTest {
     heap.setVariable(obj1, compInst1);
 
     assertNotNull(heap.getVariable(obj1));
-    assertEquals(heap.getVariable(obj1).getAllParts().size(), 0);
+    assertEquals(((OPPComplexObjectInstance) heap.getVariable(obj1)).count(), 0);
 
     heap.setVariable(part1, inst1);
 
     assertNotNull(heap.getVariable(part1));
-    assertNotNull(heap.getVariable(obj1).getPart(part1.getName()));
-    assertEquals(1, heap.getVariable(obj1).getAllParts().size());
+    assertNotNull(((OPPComplexObjectInstance) heap.getVariable(obj1)).getPart(part1.getName()));
+    assertEquals(1, ((OPPComplexObjectInstance) heap.getVariable(obj1)).count());
 
     heap.setVariable(part2, compInst2);
 
     assertNotNull(heap.getVariable(part2));
-    assertNotNull(heap.getVariable(obj1).getPart(part2.getName()));
-    assertNotNull(heap.getVariable(obj1).getPart(part1.getName()));
-    assertEquals(2, heap.getVariable(obj1).getAllParts().size());
+    assertNotNull(((OPPComplexObjectInstance) heap.getVariable(obj1)).getPart(part2.getName()));
+    assertNotNull(((OPPComplexObjectInstance) heap.getVariable(obj1)).getPart(part1.getName()));
+    assertEquals(2, ((OPPComplexObjectInstance) heap.getVariable(obj1)).count());
 
     heap.setVariable(part11, inst3);
 
     assertNotNull(heap.getVariable(part11));
-    assertNotNull(heap.getVariable(obj1).getPart(part2.getName()).getPart(part11.getName()));
-    assertEquals(2, heap.getVariable(obj1).getAllParts().size());
-    assertEquals(1, heap.getVariable(part2).getAllParts().size());
+    assertNotNull(((OPPComplexObjectInstance) ((OPPComplexObjectInstance) heap.getVariable(obj1)).getPart(part2.getName())).getPart(part11.getName()));
+    assertEquals(2, ((OPPComplexObjectInstance) heap.getVariable(obj1)).count());
+    assertEquals(1, ((OPPComplexObjectInstance) heap.getVariable(part2)).count());
   }
 
   @Before

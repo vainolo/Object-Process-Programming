@@ -61,61 +61,6 @@ public class OPPObjectInstanceTest {
     assertEquals(number1.toString(), instance1.getStringValue());
   }
 
-  // Compound instance tests
-  @Test
-  public void test_AddPartsToCompoundInstance() {
-    instance1 = OPPObjectInstance.createFromValue(state1);
-    instance2 = OPPObjectInstance.createFromValue(string1);
-    composite1.addPart("part1", instance1);
-    composite1.addPart("part2", instance2);
-
-    assertEquals("Complex Object", composite1.type);
-    assertEquals(composite1.getAllParts().size(), 2);
-    assertEquals(composite1.getPart("part1"), instance1);
-    assertEquals(composite1.getPart("part2"), instance2);
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void test_GetValueFromCompountInstance_ExpectException() {
-    composite1.getValue();
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void test_GetPartsFromValueInstance_ExpectException() {
-    instance1 = OPPObjectInstance.createFromValue(number1);
-    instance1.getAllParts();
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void test_AddPartToValueInstance_ExpectException() {
-    instance1 = OPPObjectInstance.createFromValue(number1);
-    instance2 = OPPObjectInstance.createFromValue(number1);
-    instance1.addPart("name", instance2);
-  }
-
-  @Test(expected = IllegalStateException.class)
-  public void test_AddPartToStateInstance_ExpectException() {
-    instance1 = OPPObjectInstance.createFromValue(state1);
-    instance2 = OPPObjectInstance.createFromValue(number1);
-    instance1.addPart("name", instance2);
-  }
-
-  // Collection instance tests
-  @Test
-  public void test_CreateCollectionAddInstanceAndGetFirstElement() {
-    instance1 = OPPObjectInstance.createCompositeInstance();
-    instance2 = OPPObjectInstance.createFromValue(number1);
-    instance1.addLastPart(instance2);
-    assertEquals(instance2.getValue(), instance1.getFirstPart().getValue());
-  }
-
-  public void test_CreateCollectionAddInstanceAndGetLastElement() {
-    instance1 = OPPObjectInstance.createCompositeInstance();
-    instance2 = OPPObjectInstance.createFromValue(number1);
-    instance1.addLastPart(instance2);
-    assertEquals(instance2.getValue(), instance1.getLastPart().getValue());
-  }
-
   @Before
   public void setUp() {
     Random r = new Random();

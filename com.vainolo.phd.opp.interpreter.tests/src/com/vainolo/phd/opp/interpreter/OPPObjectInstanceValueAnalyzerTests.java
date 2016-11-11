@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
+import com.vainolo.phd.opp.interpreter.types.OPPComplexObjectInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPObjectInstanceValueAnalyzerTests {
@@ -54,25 +55,25 @@ public class OPPObjectInstanceValueAnalyzerTests {
 
     array = "[1..5]";
     instance = valueAnalyzer.calculateOPMObjectValue(array);
-    assertEquals(5, instance.getAllParts().size());
-    List<OPPObjectInstance> collectionElements = Lists.newArrayList(instance.getAllParts());
-    for(int i = 1; i <= 5; i++) {
+    assertEquals(5, ((OPPComplexObjectInstance) instance).count());
+    List<OPPObjectInstance> collectionElements = Lists.newArrayList(((OPPComplexObjectInstance) instance).getAllParts());
+    for (int i = 1; i <= 5; i++) {
       assertEquals(i, collectionElements.get(i - 1).getNumericalValue().intValue());
     }
 
     array = "[25..76]";
     instance = valueAnalyzer.calculateOPMObjectValue(array);
-    assertEquals(52, instance.getAllParts().size());
-    collectionElements = Lists.newArrayList(instance.getAllParts());
-    for(int i = 25; i <= 76; i++) {
+    assertEquals(52, ((OPPComplexObjectInstance) instance).count());
+    collectionElements = Lists.newArrayList(((OPPComplexObjectInstance) instance).getAllParts());
+    for (int i = 25; i <= 76; i++) {
       assertEquals(i, collectionElements.get(i - 25).getNumericalValue().intValue());
     }
 
     array = "[15..10]";
     instance = valueAnalyzer.calculateOPMObjectValue(array);
-    assertEquals(6, instance.getAllParts().size());
-    collectionElements = Lists.newArrayList(instance.getAllParts());
-    for(int i = 15; i >= 10; i--) {
+    assertEquals(6, ((OPPComplexObjectInstance) instance).count());
+    collectionElements = Lists.newArrayList(((OPPComplexObjectInstance) instance).getAllParts());
+    for (int i = 15; i >= 10; i--) {
       assertEquals(i, collectionElements.get(15 - i).getNumericalValue().intValue());
     }
   }

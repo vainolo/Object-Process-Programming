@@ -1,6 +1,8 @@
 package com.vainolo.phd.opp.interpreter.types;
 
 import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,6 +35,10 @@ public class OPPComplexObjectInstance extends OPPObjectInstance implements OPPCo
 
   public Set<String> getPartNames() {
     return map.keySet();
+  }
+
+  public Collection<OPPObjectInstance> getAllParts() {
+    return Collections.unmodifiableCollection(map.values());
   }
 
   @Override
