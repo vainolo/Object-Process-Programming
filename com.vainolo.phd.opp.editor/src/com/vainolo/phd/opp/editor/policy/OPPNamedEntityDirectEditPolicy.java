@@ -64,6 +64,13 @@ public class OPPNamedEntityDirectEditPolicy extends DirectEditPolicy {
             name = text;
           }
         }
+        if (name != null)
+          name = name.trim();
+        if (type != null)
+          type = type.trim();
+        if (value != null)
+          value = value.trim();
+
         renameCommand.setNewName(name);
         CompoundCommand cc = new CompoundCommand();
         cc.add(renameCommand);

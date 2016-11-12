@@ -29,6 +29,8 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProce
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemovePartProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.complex.OPPAllPartNamesFetchingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.composite.complex.OPPAllPartsFetchingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.complex.OPPPartAddingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.complex.OPPPartFetchingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.complex.OPPPartRemovingProcessInstance;
@@ -175,6 +177,12 @@ public class OPPProcessInstanceFactory {
     case "part removing":
     case "remove part":
       return new OPPPartRemovingProcessInstance();
+    case "all parts fetching":
+    case "fetch parts":
+      return new OPPAllPartsFetchingProcessInstance();
+    case "all part names fetching":
+    case "fetch part names":
+      return new OPPAllPartNamesFetchingProcessInstance();
 
     // IO
     case "console reading":
@@ -199,50 +207,44 @@ public class OPPProcessInstanceFactory {
     }
 
     // Composite
-    if (name.equalsIgnoreCase("New Instance")) {
+    // if (name.equalsIgnoreCase("New Instance")) {
+    //
+    // } else if (name.equalsIgnoreCase("Add First Part")) {
+    // return new OPPAddFirstPartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Add Last Part")) {
+    // return new OPPAddLastPartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Add Part")) {
+    // return new OPPAddPartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Get First Part")) {
+    // return new OPPGetFirstPartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Get Last Part")) {
+    // return new OPPGetLastPartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Get Part")) {
+    // return new OPPGetPartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Remove First Part")) {
+    // return new OPPRemoveFirstPartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Remove Last Part")) {
+    // return new OPPRemoveLastPartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Remove Part")) {
+    // return new OPPRemovePartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Has Part")) {
+    // return new OPPHasPartProcessInstance();
+    // } else if (name.equalsIgnoreCase("Has Part Value")) {
+    // return new OPPHasPartValueProcessInstance();
+    // } else if (name.equalsIgnoreCase("Has Parts")) {
+    // return new OPPHasPartsProcessInstance();
+    //
+    // // Input and Output
+    // } else if (name.equalsIgnoreCase("Console Input")) {
+    // return new OPPConsoleReadingProcessInstance();
+    // } else if (name.equalsIgnoreCase("Console Output")) {
+    // return new OPPConsoleWritingProcessInstance();
+    // } else if (name.equalsIgnoreCase("Dialog Input")) {
+    // return new OPPDialogTextReadingProcessInstance();
+    // } else if (name.equalsIgnoreCase("Dialog Output")) {
+    // return new OPPDialogTextWritingProcessInstance();
 
-    } else if (name.equalsIgnoreCase("Add First Part")) {
-      return new OPPAddFirstPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Add Last Part")) {
-      return new OPPAddLastPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Add Part")) {
-      return new OPPAddPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Get First Part")) {
-      return new OPPGetFirstPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Get Last Part")) {
-      return new OPPGetLastPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Get Part")) {
-      return new OPPGetPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Remove First Part")) {
-      return new OPPRemoveFirstPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Remove Last Part")) {
-      return new OPPRemoveLastPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Remove Part")) {
-      return new OPPRemovePartProcessInstance();
-    } else if (name.equalsIgnoreCase("Has Part")) {
-      return new OPPHasPartProcessInstance();
-    } else if (name.equalsIgnoreCase("Has Part Value")) {
-      return new OPPHasPartValueProcessInstance();
-    } else if (name.equalsIgnoreCase("Has Parts")) {
-      return new OPPHasPartsProcessInstance();
-
-      // Input and Output
-    } else if (name.equalsIgnoreCase("Console Input")) {
-      return new OPPConsoleReadingProcessInstance();
-    } else if (name.equalsIgnoreCase("Console Output")) {
-      return new OPPConsoleWritingProcessInstance();
-    } else if (name.equalsIgnoreCase("Dialog Input")) {
-      return new OPPDialogTextReadingProcessInstance();
-    } else if (name.equalsIgnoreCase("Dialog Output")) {
-      return new OPPDialogTextWritingProcessInstance();
-
-      // Math and Data
-      // } else if (name.equals("a+b") || name.equals("+")) {
-      // } else if (name.equals("a-b") || name.equals("-")) {
-      // } else if (name.equals("a*b") || name.equals("*")) {
-      // } else if (name.equals("a/b") || name.equals("/")) {
-      // } else if (name.equals("a^b") || name.equals("^")) {
-    } else if (name.equals("a<=b") || name.equals("<=")) {
+    if (name.equals("a<=b") || name.equals("<=")) {
       return new OPPCompareProcessInstance(ComparisonType.LESS_THAN_OR_EQUAL);
     } else if (name.equals("a>=b") || name.equals(">=")) {
       return new OPPCompareProcessInstance(ComparisonType.GREATER_THAN_OR_EQUAL);
@@ -272,8 +274,8 @@ public class OPPProcessInstanceFactory {
       return new OPPGetDateProcessInstance();
     } else if (name.equalsIgnoreCase("Copy Object")) {
       return new OPPCopyObjectProcessInstance();
-    } else if (name.equalsIgnoreCase("Read Text File")) {
-      return new OPPTextFileReadingProcessInstance();
+      // } else if (name.equalsIgnoreCase("Read Text File")) {
+      // return new OPPTextFileReadingProcessInstance();
     } else if (name.equalsIgnoreCase("Transform JSON String To Object")) {
       return new OPPTransformJSONStringToObjectProcessInstance();
     }

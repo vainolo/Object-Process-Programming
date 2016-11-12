@@ -16,7 +16,7 @@ public class OPPPartAddingProcessInstance extends OPPAbstractProcessInstance {
   protected void executing() throws Exception {
     OPPComplexObjectInstance object = (OPPComplexObjectInstance) getArgument("object");
     OPPObjectInstance part = getArgument("part");
-    OPPObjectInstance partName = getArgument("part name");
+    OPPObjectInstance partName = getArgument("name");
 
     if (object.containsPart(partName.getStringValue())) {
       setArgument("replaced?", OPPObjectInstance.createFromValue("yes"));
@@ -36,7 +36,7 @@ public class OPPPartAddingProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return createParameterList("object", "part", "part name");
+    return createParameterList("object", "part", "name");
   }
 
   @Override

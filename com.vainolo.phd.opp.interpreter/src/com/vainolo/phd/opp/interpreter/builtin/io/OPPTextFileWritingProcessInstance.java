@@ -6,16 +6,12 @@
  *******************************************************************************/
 package com.vainolo.phd.opp.interpreter.builtin.io;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 
 import org.eclipse.core.runtime.Path;
 
-import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPInterpreter;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
@@ -26,8 +22,7 @@ public class OPPTextFileWritingProcessInstance extends OPPAbstractProcessInstanc
 
   @Override
   protected void executing() {
-    String filename = getArgument("file name").getStringValue();
-    String path = OPPInterpreter.container.getFile(new Path(filename)).getLocation().toString(); // .getFullPath().toString();
+    String filename = OPPInterpreter.container.getFile(new Path(getArgument("file name").getStringValue())).getRawLocation().toString();
     OPPObjectInstance object = getArgument("object");
     try {
       PrintWriter writer = new PrintWriter(filename, "UTF-8");

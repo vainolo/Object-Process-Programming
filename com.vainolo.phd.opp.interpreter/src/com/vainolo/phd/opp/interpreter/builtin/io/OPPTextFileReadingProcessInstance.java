@@ -27,7 +27,6 @@ public class OPPTextFileReadingProcessInstance extends OPPAbstractProcessInstanc
   @Override
   protected void executing() {
     OPPObjectInstanceValueAnalyzer analyzer = new OPPObjectInstanceValueAnalyzer();
-
     String filename = OPPInterpreter.container.getFile(new Path(getArgument("file name").getStringValue())).getRawLocation().toString();
     try {
       String contents = new String(Files.readAllBytes(Paths.get(filename)));
