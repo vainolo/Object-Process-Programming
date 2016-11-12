@@ -193,10 +193,10 @@ public class OPPModelWizard extends Wizard implements INewWizard {
       data.grabExcessHorizontalSpace = true;
       opdKind.setLayoutData(data);
 
-      for (OPPObjectProcessDiagramKind value : OPPObjectProcessDiagramKind.VALUES)
-        opdKind.add(value.getLiteral());
+      for (int i = 1; i <= OPPObjectProcessDiagramKind.values().length; i++)
+        opdKind.add(OPPObjectProcessDiagramKind.get(i).getLiteral());
+      opdKind.select(OPPObjectProcessDiagramKind.COMPOUND_VALUE - 1);
 
-      opdKind.select(OPPObjectProcessDiagramKind.values().length - 1);
       setControl(composite);
     }
 

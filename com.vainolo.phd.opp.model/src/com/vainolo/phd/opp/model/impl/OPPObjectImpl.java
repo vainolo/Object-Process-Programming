@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#isGlobal <em>Global</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#getInitialValue <em>Initial Value</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#getType <em>Type</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.impl.OPPObjectImpl#isConstant <em>Constant</em>}</li>
  * </ul>
  *
  * @generated
@@ -92,6 +93,26 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
    * @ordered
    */
   protected String type = TYPE_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #isConstant() <em>Constant</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isConstant()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean CONSTANT_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isConstant() <em>Constant</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isConstant()
+   * @generated
+   * @ordered
+   */
+  protected boolean constant = CONSTANT_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -180,6 +201,27 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
    * <!-- end-user-doc -->
    * @generated
    */
+  public boolean isConstant() {
+    return constant;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setConstant(boolean newConstant) {
+    boolean oldConstant = constant;
+    constant = newConstant;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, OPPPackage.OPP_OBJECT__CONSTANT, oldConstant, constant));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType) {
     switch (featureID) {
@@ -189,6 +231,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
         return getInitialValue();
       case OPPPackage.OPP_OBJECT__TYPE:
         return getType();
+      case OPPPackage.OPP_OBJECT__CONSTANT:
+        return isConstant();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -209,6 +253,9 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
         return;
       case OPPPackage.OPP_OBJECT__TYPE:
         setType((String)newValue);
+        return;
+      case OPPPackage.OPP_OBJECT__CONSTANT:
+        setConstant((Boolean)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -231,6 +278,9 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
       case OPPPackage.OPP_OBJECT__TYPE:
         setType(TYPE_EDEFAULT);
         return;
+      case OPPPackage.OPP_OBJECT__CONSTANT:
+        setConstant(CONSTANT_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -249,6 +299,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
         return INITIAL_VALUE_EDEFAULT == null ? initialValue != null : !INITIAL_VALUE_EDEFAULT.equals(initialValue);
       case OPPPackage.OPP_OBJECT__TYPE:
         return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+      case OPPPackage.OPP_OBJECT__CONSTANT:
+        return constant != CONSTANT_EDEFAULT;
     }
     return super.eIsSet(featureID);
   }
@@ -269,6 +321,8 @@ public class OPPObjectImpl extends OPPThingImpl implements OPPObject {
     result.append(initialValue);
     result.append(", type: ");
     result.append(type);
+    result.append(", constant: ");
+    result.append(constant);
     result.append(')');
     return result.toString();
   }

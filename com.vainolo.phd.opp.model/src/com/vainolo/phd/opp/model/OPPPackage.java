@@ -800,13 +800,22 @@ public interface OPPPackage extends EPackage {
   int OPP_OBJECT__TYPE = OPP_THING_FEATURE_COUNT + 2;
 
   /**
+   * The feature id for the '<em><b>Constant</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPP_OBJECT__CONSTANT = OPP_THING_FEATURE_COUNT + 3;
+
+  /**
    * The number of structural features of the '<em>Object</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OPP_OBJECT_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 3;
+  int OPP_OBJECT_FEATURE_COUNT = OPP_THING_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link com.vainolo.phd.opp.model.impl.OPPProcessImpl <em>Process</em>}' class.
@@ -1908,6 +1917,17 @@ public interface OPPPackage extends EPackage {
   EAttribute getOPPObject_Type();
 
   /**
+   * Returns the meta object for the attribute '{@link com.vainolo.phd.opp.model.OPPObject#isConstant <em>Constant</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Constant</em>'.
+   * @see com.vainolo.phd.opp.model.OPPObject#isConstant()
+   * @see #getOPPObject()
+   * @generated
+   */
+  EAttribute getOPPObject_Constant();
+
+  /**
    * Returns the meta object for class '{@link com.vainolo.phd.opp.model.OPPProcess <em>Process</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2447,6 +2467,14 @@ public interface OPPPackage extends EPackage {
      * @generated
      */
     EAttribute OPP_OBJECT__TYPE = eINSTANCE.getOPPObject_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Constant</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OPP_OBJECT__CONSTANT = eINSTANCE.getOPPObject_Constant();
 
     /**
      * The meta object literal for the '{@link com.vainolo.phd.opp.model.impl.OPPProcessImpl <em>Process</em>}' class.

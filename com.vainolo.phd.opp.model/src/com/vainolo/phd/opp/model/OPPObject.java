@@ -21,6 +21,7 @@ package com.vainolo.phd.opp.model;
  *   <li>{@link com.vainolo.phd.opp.model.OPPObject#isGlobal <em>Global</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPObject#getInitialValue <em>Initial Value</em>}</li>
  *   <li>{@link com.vainolo.phd.opp.model.OPPObject#getType <em>Type</em>}</li>
+ *   <li>{@link com.vainolo.phd.opp.model.OPPObject#isConstant <em>Constant</em>}</li>
  * </ul>
  *
  * @see com.vainolo.phd.opp.model.OPPPackage#getOPPObject()
@@ -30,6 +31,7 @@ package com.vainolo.phd.opp.model;
 public interface OPPObject extends OPPThing {
   /**
    * Returns the value of the '<em><b>Global</b></em>' attribute.
+   * The default value is <code>"false"</code>.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Global</em>' attribute isn't clear,
@@ -39,7 +41,7 @@ public interface OPPObject extends OPPThing {
    * @return the value of the '<em>Global</em>' attribute.
    * @see #setGlobal(boolean)
    * @see com.vainolo.phd.opp.model.OPPPackage#getOPPObject_Global()
-   * @model
+   * @model default="false"
    * @generated
    */
   boolean isGlobal();
@@ -107,5 +109,32 @@ public interface OPPObject extends OPPThing {
    * @generated
    */
   void setType(String value);
+
+  /**
+   * Returns the value of the '<em><b>Constant</b></em>' attribute.
+   * The default value is <code>"false"</code>.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Constant</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Constant</em>' attribute.
+   * @see #setConstant(boolean)
+   * @see com.vainolo.phd.opp.model.OPPPackage#getOPPObject_Constant()
+   * @model default="false"
+   * @generated
+   */
+  boolean isConstant();
+
+  /**
+   * Sets the value of the '{@link com.vainolo.phd.opp.model.OPPObject#isConstant <em>Constant</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Constant</em>' attribute.
+   * @see #isConstant()
+   * @generated
+   */
+  void setConstant(boolean value);
 
 } // OPPObject

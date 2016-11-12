@@ -48,6 +48,7 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
       addGlobalPropertyDescriptor(object);
       addInitialValuePropertyDescriptor(object);
       addTypePropertyDescriptor(object);
+      addConstantPropertyDescriptor(object);
     }
     return itemPropertyDescriptors;
   }
@@ -119,6 +120,28 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
   }
 
   /**
+   * This adds a property descriptor for the Constant feature.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected void addConstantPropertyDescriptor(Object object) {
+    itemPropertyDescriptors.add
+      (createItemPropertyDescriptor
+        (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+         getResourceLocator(),
+         getString("_UI_OPPObject_constant_feature"),
+         getString("_UI_PropertyDescriptor_description", "_UI_OPPObject_constant_feature", "_UI_OPPObject_type"),
+         OPPPackage.Literals.OPP_OBJECT__CONSTANT,
+         true,
+         false,
+         false,
+         ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
+         null,
+         null));
+  }
+
+  /**
    * This returns OPPObject.gif.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -159,6 +182,7 @@ public class OPPObjectItemProvider extends OPPThingItemProvider {
       case OPPPackage.OPP_OBJECT__GLOBAL:
       case OPPPackage.OPP_OBJECT__INITIAL_VALUE:
       case OPPPackage.OPP_OBJECT__TYPE:
+      case OPPPackage.OPP_OBJECT__CONSTANT:
         fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
         return;
     }

@@ -50,7 +50,7 @@ public class OPPObjectEditPart extends OPPThingEditPart {
     figure.getNameFigure().setText(displayName);
     figure.setTooltipText(model.getDescription());
     figure.setHasShadow(model.isGlobal());
-    figure.setDashedBorder(model.isAbstract());
+    figure.setDashedBorder(model.isConstant());
 
     parent.setLayoutConstraint(this, figure, new Rectangle(model.getX(), model.getY(), model.getWidth(), model.getHeight()));
 

@@ -72,6 +72,10 @@ public class OPPGraphicalEditorContextMenuProvider extends ContextMenuProvider {
     if (action.isEnabled())
       menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
 
+    action = getActionRegistry().getAction(OPPToggleConstantObjectAction.TOGGLE_CONSTANTOBJECT_ID);
+    if (action.isEnabled())
+      menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
+
     action = getActionRegistry().getAction(OPPToggleThingAbstractAction.TOGGLE_ABSTRACT_ID);
     if (action.isEnabled())
       menu.appendToGroup(GEFActionConstants.GROUP_EDIT, action);
