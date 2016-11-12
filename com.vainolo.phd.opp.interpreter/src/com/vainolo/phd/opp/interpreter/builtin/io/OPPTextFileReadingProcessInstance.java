@@ -7,6 +7,7 @@
 package com.vainolo.phd.opp.interpreter.builtin.io;
 
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -16,6 +17,7 @@ import org.eclipse.core.runtime.Path;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPInterpreter;
+import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
@@ -24,10 +26,13 @@ public class OPPTextFileReadingProcessInstance extends OPPAbstractProcessInstanc
 
   @Override
   protected void executing() {
-    String filename = getArgument("file name").getStringValue();
+    OPPObjectInstanceValueAnalyzer analyzer = new OPPObjectInstanceValueAnalyzer();
+
+    String filename = OPPInterpreter.container.getFile(new Path(getArgument("file name").getStringValue())).getRawLocation().toString();
     try {
       String contents = new String(Files.readAllBytes(Paths.get(filename)));
-      setArgument("input", OPPObjectInstance.createFromValue(contents));
+      OPPObjectInstance object = analyzer.calculateOPMObjectValue(contents);
+      setArgument("input", object);
       setArgument("file error?", OPPObjectInstance.createFromValue("no"));
       setArgument("parse error?", OPPObjectInstance.createFromValue("no"));
     } catch (IOException e) {

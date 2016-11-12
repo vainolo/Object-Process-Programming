@@ -78,13 +78,6 @@ public abstract class OPPObjectInstance {
     return new OPPStringObjectInstance(stringValue);
   }
 
-  // public static OPPObjectInstance createFromValue(Object object) {
-  // Preconditions.checkNotNull(object);
-  // OPPObjectInstance instance = new OPPObjectInstance(InstanceKind.JAVA_OBJECT);
-  // instance.setValue(object);
-  // return instance;
-  // }
-
   public static OPPObjectInstance createFromExistingInstance(OPPObjectInstance existingInstance) {
     Preconditions.checkNotNull(existingInstance, "Existing instance cannot be null.");
     OPPObjectInstance newInstance = null;
