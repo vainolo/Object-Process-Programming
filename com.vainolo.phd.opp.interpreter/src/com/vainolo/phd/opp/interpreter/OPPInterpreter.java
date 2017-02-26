@@ -54,7 +54,7 @@ public enum OPPInterpreter {
    */
   public void interpret(String opdName, final IContainer _container) {
     stopped = false;
-    executor = Executors.newCachedThreadPool();
+    executor = Executors.newSingleThreadExecutor(); // Executors.newCachedThreadPool();
     completionService = new ExecutorCompletionService<>(executor);
     globalHeap = new OPPGlobalHeap();
 

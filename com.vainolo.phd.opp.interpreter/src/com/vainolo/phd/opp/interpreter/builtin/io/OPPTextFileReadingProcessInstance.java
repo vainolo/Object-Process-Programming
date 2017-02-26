@@ -14,12 +14,15 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Path;
 
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonValue;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPInterpreter;
 import com.vainolo.phd.opp.interpreter.OPPObjectInstanceValueAnalyzer;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
+import com.vainolo.phd.opp.interpreter.json.OPPJsonReader;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPTextFileReadingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
@@ -30,7 +33,10 @@ public class OPPTextFileReadingProcessInstance extends OPPAbstractProcessInstanc
     String filename = OPPInterpreter.container.getFile(new Path(getArgument("file name").getStringValue())).getRawLocation().toString();
     try {
       String contents = new String(Files.readAllBytes(Paths.get(filename)));
-      OPPObjectInstance object = analyzer.calculateOPMObjectValue(contents);
+      JsonValue value = Json.parse(contents);
+      // OPPObjectInstance object = analyzer.calculateOPMObjectValue(contents);
+      OPPJsonReader reader = new OPPJsonReader();
+      OPPObjectInstance object = reader.read(value);
       setArgument("input", object);
       setArgument("file error?", OPPObjectInstance.createFromValue("no"));
       setArgument("parse error?", OPPObjectInstance.createFromValue("no"));

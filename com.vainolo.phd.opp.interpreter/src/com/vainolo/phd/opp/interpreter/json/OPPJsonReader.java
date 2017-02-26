@@ -40,7 +40,7 @@ public class OPPJsonReader {
     // return instance;
   }
 
-  private OPPObjectInstance read(JsonValue value) {
+  public OPPObjectInstance read(JsonValue value) {
     logFinest("Reading " + value.toString());
     if (value.isArray()) {
       return read(value.asArray());

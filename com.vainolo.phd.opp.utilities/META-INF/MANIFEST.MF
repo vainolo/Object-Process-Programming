@@ -38,10 +38,16 @@ Bundle-ClassPath: .,
  target/dependency/netty-transport-4.0.33.Final.jar,
  target/dependency/vertx-core-3.2.0.jar,
  target/dependency/vertx-web-3.2.0.jar,
- target/dependency/vertx-auth-common-3.2.0.jar
+ target/dependency/vertx-auth-common-3.2.0.jar,
+ target/dependency/bsh-classpath-2.0b4.jar,
+ target/dependency/bsh-core-2.0b4.jar,
+ target/dependency/bsh-util-2.0b4.jar
 Import-Package: org.eclipse.core.resources,
  org.eclipse.draw2d.geometry
-Export-Package: com.eclipsesource.json,
+Export-Package: bsh,
+ bsh.classpath,
+ bsh.util,
+ com.eclipsesource.json,
  com.fasterxml.jackson.annotation,
  com.fasterxml.jackson.core,
  com.fasterxml.jackson.core.base,

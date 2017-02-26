@@ -165,7 +165,7 @@ public class OPPInZoomedProcessInstanceHeap extends OPPProcessInstanceHeap {
     OPPComplexObjectInstance parent = (OPPComplexObjectInstance) getVariable(OPPObjectExtensions.findParent(object));
     if (parent == null) {
       logSevere("Tried clearing a variable which is part of another object, but parent object doesn't exist.", object.getName());
-      throw new OPPRuntimeException("Tried clearing a variable which is part of another object, but parent object doesn't exist.");
+      throw new OPPRuntimeException("Tried clearing a variable (" + object.getName() + ") which is part of another object, but parent object doesn't exist.");
     } else {
       logFinest("Clearing part variable {0}.", object.getName());
       parent.removePart(object.getName());

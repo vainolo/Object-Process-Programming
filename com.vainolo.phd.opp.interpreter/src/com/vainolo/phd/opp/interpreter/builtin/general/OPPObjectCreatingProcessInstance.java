@@ -4,7 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which is available at http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package com.vainolo.phd.opp.interpreter.builtin.composite;
+package com.vainolo.phd.opp.interpreter.builtin.general;
 
 import java.util.List;
 

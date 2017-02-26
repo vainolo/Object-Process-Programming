@@ -4,37 +4,44 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which is available at http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package com.vainolo.phd.opp.interpreter.builtin;
+package com.vainolo.phd.opp.interpreter.builtin.string;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.eclipsesource.json.JsonObject;
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
+import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
+import com.vainolo.phd.opp.interpreter.json.OPPJsonWriter;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPStringObjectInstance;
 
-/**
- * Process instance that handles basic binary math operations
- */
-public class OPPCopyObjectProcessInstance extends OPPAbstractProcessInstance {
+public class OPPStringComparingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+
   @Override
-  public void executing() {
-    OPPObjectInstance object = getArgument("object");
-    setArgument("copy", OPPObjectInstance.createFromExistingInstance(object));
+  protected void executing() {
+    String a = ((OPPStringObjectInstance) getArgument("a")).getDisplayValue();
+    String b = ((OPPStringObjectInstance) getArgument("b")).getDisplayValue();
+
+    BigDecimal c = new BigDecimal(a.compareTo(b));
+    setArgument("c", OPPObjectInstance.createFromValue(c));
   }
 
   @Override
   public String getName() {
-    return "Copy Object";
+    return "String Comparing";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("object"));
+    return createParameterList("a", "b");
   }
 
   @Override
   public List<OPPParameter> getOutgoingParameters() {
-    return Lists.newArrayList(new OPPParameter("copy"));
+    return createParameterList("c");
   }
+
 }

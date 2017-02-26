@@ -4,31 +4,42 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which is available at http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package com.vainolo.phd.opp.interpreter.builtin.io;
+package com.vainolo.phd.opp.interpreter.builtin.math;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
-import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
-import com.vainolo.phd.opp.interpreter.types.OPPStringObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPConsoleWritingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
+public class OPPComparingProcessInstance extends OPPAbstractProcessInstance {
+
+  public OPPComparingProcessInstance() {
+  }
 
   @Override
-  protected void executing() {
-    Object text = getArgument("object");
-    System.out.println(text);
+  public void executing() {
+    BigDecimal a = getArgument("a").getNumericalValue();
+    BigDecimal b = getArgument("b").getNumericalValue();
+    BigDecimal c = new BigDecimal(a.compareTo(b));
+    setArgument("c", OPPObjectInstance.createFromValue(c));
   }
 
   @Override
   public String getName() {
-    return "Console Writing";
+    return "Comparing";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("object"));
+    return Lists.newArrayList(new OPPParameter("a"), new OPPParameter("b"));
   }
+
+  @Override
+  public List<OPPParameter> getOutgoingParameters() {
+    return Lists.newArrayList(new OPPParameter("c"));
+  }
+
 }

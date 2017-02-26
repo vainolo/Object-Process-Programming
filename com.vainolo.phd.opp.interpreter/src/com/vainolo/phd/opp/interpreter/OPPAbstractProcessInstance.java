@@ -97,10 +97,10 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
     if (name == null)
       name = "";
     else {
-      if (!getAllParameterNames().contains(name)) {
-        logSevere("Process {0} does not have a parameter named {1}.", getName(), name);
-        throw new OPPRuntimeException("Process " + getName() + " does not have a parameter named " + name + ".");
-      }
+      // if (!getAllParameterNames().contains(name)) {
+      // logSevere("Process {0} does not have a parameter named {1}.", getName(), name);
+      // throw new OPPRuntimeException("Process " + getName() + " does not have a parameter named " + name + ".");
+      // }
     }
     getHeap().setArgument(name.toLowerCase(), value);
   }
@@ -110,10 +110,10 @@ public abstract class OPPAbstractProcessInstance implements OPPProcessInstance {
     if (name == null)
       name = "";
     else {
-      if (!getAllParameterNames().contains(name)) {
-        logSevere("Process {1} does not have a parameter named {2}.", getName(), name);
-        throw new OPPRuntimeException("Process " + getName() + " does not have a parameter named " + name + ".");
-      }
+      // if (!getAllParameterNames().contains(name)) {
+      // logSevere("Process {1} does not have a parameter named {2}.", getName(), name);
+      // throw new OPPRuntimeException("Process " + getName() + " does not have a parameter named " + name + ".");
+      // }
     }
     return getHeap().getArgument(name.toLowerCase());
   }

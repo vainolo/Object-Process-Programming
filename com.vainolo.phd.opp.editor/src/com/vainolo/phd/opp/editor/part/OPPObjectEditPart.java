@@ -42,10 +42,10 @@ public class OPPObjectEditPart extends OPPThingEditPart {
 
     String displayName = model.getName();
     if (model.getType() != null && !model.getType().equals("")) {
-      displayName += " :" + model.getType();
+      displayName += ":" + model.getType();
     }
     if (model.getInitialValue() != null && !model.getInitialValue().equals("")) {
-      displayName += " =" + model.getInitialValue();
+      displayName += "=" + model.getInitialValue();
     }
     figure.getNameFigure().setText(displayName);
     figure.setTooltipText(model.getDescription());

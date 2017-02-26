@@ -18,12 +18,14 @@ import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.json.OPPJsonReader;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPCallWebAPIProcessInstance extends OPPAbstractProcessInstance {
+public class OPPCallWebAPIWithBasicAuthProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   protected void executing() throws Exception {
     OPPObjectInstance url = getArgument("url");
-    String response = Unirest.get(url.getStringValue()).asJson().getBody().toString();
+    OPPObjectInstance username = getArgument("username");
+    OPPObjectInstance password = getArgument("password");
+    String response = Unirest.get(url.getStringValue()).basicAuth(username.getStringValue(), password.getStringValue()).asJson().getBody().toString();
     JsonValue value = Json.parse(response);
     OPPJsonReader reader = new OPPJsonReader();
     OPPObjectInstance result = reader.read(value);
@@ -32,7 +34,7 @@ public class OPPCallWebAPIProcessInstance extends OPPAbstractProcessInstance {
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
-    return Lists.newArrayList(new OPPParameter("url"));
+    return createParameterList("url", "username", "password");
   }
 
   @Override

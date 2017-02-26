@@ -12,7 +12,6 @@ import org.eclipse.core.runtime.Path;
 
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPConceptualProcess;
-import com.vainolo.phd.opp.interpreter.builtin.OPPCopyObjectProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPGetDateProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPSleepProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.OPPCompareProcessInstance.ComparisonType;
@@ -24,7 +23,6 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.OPPGetPartProcessInstan
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartValueProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPHasPartsProcessInstance;
-import com.vainolo.phd.opp.interpreter.builtin.composite.OPPObjectCreatingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveFirstPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPRemoveLastPartProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.OPPAddPartProcessInstance;
@@ -44,6 +42,8 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLastElementRemo
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementAddingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementFetchingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementRemovingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.general.OPPObjectCopyingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.general.OPPObjectCreatingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleReadingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleWritingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogTextReadingProcessInstance;
@@ -53,7 +53,10 @@ import com.vainolo.phd.opp.interpreter.builtin.io.OPPTextFileWritingProcessInsta
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPTransformJSONStringToObjectProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.math.OPPBinaryMathOpProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.math.OPPBinaryMathOpProcessInstance.OPPBinaryMathOpType;
+import com.vainolo.phd.opp.interpreter.builtin.math.OPPComparingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.math.OPPUnaryMathOpProcessInstance.OPPUnaryMathOpType;
+import com.vainolo.phd.opp.interpreter.builtin.string.OPPStringComparingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.string.OPPConcatenatingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.math.OPPUnaryMathOpProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.twitter.OPPInitializeTwitterClientProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.twitter.OPPSearchTwitter;
@@ -115,6 +118,9 @@ public class OPPProcessInstanceFactory {
     case "object creating":
     case "create object":
       return new OPPObjectCreatingProcessInstance();
+    case "object copying":
+    case "copy":
+      return new OPPObjectCopyingProcessInstance();
 
     // math
     case "+":
@@ -132,6 +138,17 @@ public class OPPProcessInstanceFactory {
     case "^":
     case "power":
       return new OPPBinaryMathOpProcessInstance(OPPBinaryMathOpType.POW);
+    case "number comparing":
+    case "number compare":
+      return new OPPComparingProcessInstance();
+
+    // Strings
+    case "concatenating":
+    case "concatenate":
+      return new OPPConcatenatingProcessInstance();
+    case "string comparing":
+    case "string compare":
+      return new OPPStringComparingProcessInstance();
 
     // Collections
     case "element counting":
@@ -206,44 +223,6 @@ public class OPPProcessInstanceFactory {
 
     }
 
-    // Composite
-    // if (name.equalsIgnoreCase("New Instance")) {
-    //
-    // } else if (name.equalsIgnoreCase("Add First Part")) {
-    // return new OPPAddFirstPartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Add Last Part")) {
-    // return new OPPAddLastPartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Add Part")) {
-    // return new OPPAddPartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Get First Part")) {
-    // return new OPPGetFirstPartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Get Last Part")) {
-    // return new OPPGetLastPartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Get Part")) {
-    // return new OPPGetPartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Remove First Part")) {
-    // return new OPPRemoveFirstPartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Remove Last Part")) {
-    // return new OPPRemoveLastPartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Remove Part")) {
-    // return new OPPRemovePartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Has Part")) {
-    // return new OPPHasPartProcessInstance();
-    // } else if (name.equalsIgnoreCase("Has Part Value")) {
-    // return new OPPHasPartValueProcessInstance();
-    // } else if (name.equalsIgnoreCase("Has Parts")) {
-    // return new OPPHasPartsProcessInstance();
-    //
-    // // Input and Output
-    // } else if (name.equalsIgnoreCase("Console Input")) {
-    // return new OPPConsoleReadingProcessInstance();
-    // } else if (name.equalsIgnoreCase("Console Output")) {
-    // return new OPPConsoleWritingProcessInstance();
-    // } else if (name.equalsIgnoreCase("Dialog Input")) {
-    // return new OPPDialogTextReadingProcessInstance();
-    // } else if (name.equalsIgnoreCase("Dialog Output")) {
-    // return new OPPDialogTextWritingProcessInstance();
-
     if (name.equals("a<=b") || name.equals("<=")) {
       return new OPPCompareProcessInstance(ComparisonType.LESS_THAN_OR_EQUAL);
     } else if (name.equals("a>=b") || name.equals(">=")) {
@@ -270,10 +249,10 @@ public class OPPProcessInstanceFactory {
       return new OPPInitializeTwitterClientProcessInstance();
     } else if (name.equalsIgnoreCase("Search Twitter")) {
       return new OPPSearchTwitter();
-    } else if (name.equalsIgnoreCase("Get Date")) {
+    } else if (name.equalsIgnoreCase("Get Date") || name.equalsIgnoreCase("Date Fetching")) {
       return new OPPGetDateProcessInstance();
     } else if (name.equalsIgnoreCase("Copy Object")) {
-      return new OPPCopyObjectProcessInstance();
+      return new OPPObjectCopyingProcessInstance();
       // } else if (name.equalsIgnoreCase("Read Text File")) {
       // return new OPPTextFileReadingProcessInstance();
     } else if (name.equalsIgnoreCase("Transform JSON String To Object")) {

@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
+import com.eclipsesource.json.JsonObject;
 import com.google.common.collect.Maps;
+import com.vainolo.phd.opp.interpreter.json.OPPJsonWriter;
 
 public class OPPComplexObjectInstance extends OPPObjectInstance implements OPPCollectionObjectInstance {
 
@@ -52,7 +54,10 @@ public class OPPComplexObjectInstance extends OPPObjectInstance implements OPPCo
 
   @Override
   public String getStringValue() {
-    throw new UnsupportedOperationException("Cannot get string value for a complex object");
+    OPPJsonWriter writer = new OPPJsonWriter();
+    JsonObject out = writer.write(this);
+    return out.toString();
+    // throw new UnsupportedOperationException("Cannot get string value for a complex object");
   }
 
   @Override

@@ -210,9 +210,10 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       }
     }
 
-    if (P_waiting.size() > 0)
+    if (P_waiting.size() > 0) {
       logInfo("Finished execution of {0} with {1} waiting processes.", getName(), P_waiting.size());
-
+      OPPInterpreter.INSTANCE.stopExecution();
+    }
   }
 
   private boolean shouldReturn() {
@@ -334,7 +335,8 @@ public class OPPInZoomedProcessExecutableInstance extends OPPAbstractProcessInst
       }
 
       for (OPPProceduralLink link : OPPProcessExtensions.findIncomingAgentLinks(process)) {
-        if (link.getTargetDecoration() != null && link.getTargetDecoration().contains("e"))
+        if (link.getSubKinds().contains("e"))
+          // if (link.getTargetDecoration() != null && link.getTargetDecoration().contains("e"))
           continue;
         if (!isLinkSourceReady(link)) {
           logFine(PROCESS_NOT_READY, process.getName(), OPPLinkExtensions.getSourceObject(link).getName());

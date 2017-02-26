@@ -291,7 +291,7 @@ public class OPPBendpointUtils {
 
   public Command getCommandToMoveBendpointsAfterTargetHasMoved(OPPStructuralLinkPart link, Rectangle rect, IFigure translator) {
     if (link.getTarget() instanceof OPPStructuralLinkAggregator)
-      return getCommandToMoveBendpointsAfterTargetAggregatorHasMoved(link, rect);
+      return getCommandToMoveBendpointsAfterTargetAggregatorHasMoved(link, rect, translator);
     else
       return getCommandToMoveBendpointsAfterTargetThingHasMoved(link, rect, translator);
   }
@@ -326,14 +326,18 @@ public class OPPBendpointUtils {
     return cc;
   }
 
-  private Command getCommandToMoveBendpointsAfterTargetAggregatorHasMoved(OPPStructuralLinkPart link, Rectangle rect) {
+  private Command getCommandToMoveBendpointsAfterTargetAggregatorHasMoved(OPPStructuralLinkPart link, Rectangle rect, IFigure translator) {
     CompoundCommand cc = new CompoundCommand();
+    rect = rect.getCopy();
     Point prevPoint = pointFromOPPPoint(link.getBendpoints().get(link.getBendpoints().size() - 2));
     cc.add(newMoveBendpointCommand(link, link.getBendpoints().size() - 1, new Point(rect.x + rect.width / 2, rect.y)));
     cc.add(newMoveBendpointCommand(link, link.getBendpoints().size() - 2, prevPoint.setX(rect.x + rect.width / 2)));
+
     if (link.getBendpoints().size() == 2) {
-      if (!isBetween(middle(rect.x, rect.x + rect.width), left(link.getSource()), right(link.getSource()))) {
-        cc.add(newCreateBendpointCommand(link, 0, getStructuralLinkEndpoint(link.getSource(), prevPoint)));
+      Rectangle linkSource = rectangleFromOPPNode(link.getSource());
+      translator.translateToAbsolute(linkSource);
+      if (!isBetween(middle(rect.x, rect.x + rect.width), left(linkSource), right(linkSource))) {
+        cc.add(newCreateBendpointCommand(link, 0, getStructuralLinkEndpoint(linkSource, prevPoint)));
       }
     }
     return cc;

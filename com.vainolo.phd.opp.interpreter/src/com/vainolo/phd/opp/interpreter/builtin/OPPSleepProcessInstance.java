@@ -26,7 +26,7 @@ public class OPPSleepProcessInstance extends OPPAbstractProcessInstance implemen
 
   @Override
   protected void executing() {
-    double time = (double) getArgument("time").getValue();
+    double time = getArgument("time").getNumericalValue().doubleValue();
     logInfo("Sleeping for " + time + " seconds.");
     try {
       Thread.sleep((int) time * 1000);

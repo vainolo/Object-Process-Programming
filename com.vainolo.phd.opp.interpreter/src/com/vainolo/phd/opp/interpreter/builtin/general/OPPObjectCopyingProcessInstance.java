@@ -4,31 +4,37 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which is available at http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package com.vainolo.phd.opp.interpreter.builtin.io;
+package com.vainolo.phd.opp.interpreter.builtin.general;
 
 import java.util.List;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
-import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
-import com.vainolo.phd.opp.interpreter.types.OPPStringObjectInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
-public class OPPConsoleWritingProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
-
+/**
+ * Process instance that handles basic binary math operations
+ */
+public class OPPObjectCopyingProcessInstance extends OPPAbstractProcessInstance {
   @Override
-  protected void executing() {
-    Object text = getArgument("object");
-    System.out.println(text);
+  public void executing() {
+    OPPObjectInstance object = getArgument("object");
+    setArgument("copy", OPPObjectInstance.createFromExistingInstance(object));
   }
 
   @Override
   public String getName() {
-    return "Console Writing";
+    return "Object Copying";
   }
 
   @Override
   public List<OPPParameter> getIncomingParameters() {
     return Lists.newArrayList(new OPPParameter("object"));
+  }
+
+  @Override
+  public List<OPPParameter> getOutgoingParameters() {
+    return Lists.newArrayList(new OPPParameter("copy"));
   }
 }

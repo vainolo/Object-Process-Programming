@@ -39,6 +39,15 @@ public class OPPOPDExtensions {
       if (OPPObjectExtensions.hasIncomingDataLinks(parameter)) {
         outgoingParameters.add(parameter);
       }
+
+      // HACK!!!
+      Collection<OPPObject> parts = OPPObjectExtensions.getParts(parameter);
+      if (parts.size() > 0) {
+        for (OPPObject part : parts) {
+          if (OPPObjectExtensions.hasIncomingDataLinks(part))
+            outgoingParameters.add(parameter);
+        }
+      }
     }
     return outgoingParameters;
   }

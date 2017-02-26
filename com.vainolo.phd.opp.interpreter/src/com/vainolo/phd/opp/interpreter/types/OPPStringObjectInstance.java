@@ -30,4 +30,8 @@ public class OPPStringObjectInstance extends OPPObjectInstance {
   public String toString() {
     return "\"" + value + "\"";
   }
+
+  public String getDisplayValue() {
+    return value.replaceAll("\\\\n", "\n");
+  }
 }

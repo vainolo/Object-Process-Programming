@@ -7,18 +7,25 @@
 package com.vainolo.phd.opp.interpreter.builtin;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import com.google.common.collect.Lists;
 import com.vainolo.phd.opp.interpreter.OPPAbstractProcessInstance;
 import com.vainolo.phd.opp.interpreter.OPPParameter;
 import com.vainolo.phd.opp.interpreter.OPPProcessInstance;
+import com.vainolo.phd.opp.interpreter.types.OPPComplexObjectInstance;
 import com.vainolo.phd.opp.interpreter.types.OPPObjectInstance;
 
 public class OPPGetDateProcessInstance extends OPPAbstractProcessInstance implements OPPProcessInstance {
 
   @Override
   protected void executing() {
-    setArgument("date", OPPObjectInstance.createFromValue(new BigDecimal(System.currentTimeMillis())));
+    LocalDate date = LocalDate.now();
+    OPPComplexObjectInstance oppDate = OPPObjectInstance.createCompositeInstance();
+    oppDate.setPart("day", OPPObjectInstance.createFromValue(new BigDecimal(date.getDayOfMonth())));
+    oppDate.setPart("month", OPPObjectInstance.createFromValue(new BigDecimal(date.getMonthValue())));
+    oppDate.setPart("year", OPPObjectInstance.createFromValue(new BigDecimal(date.getYear())));
+    setArgument("date", oppDate);
   }
 
   @Override
