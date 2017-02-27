@@ -36,20 +36,27 @@ public class OPPOPDExtensions {
   public static Collection<OPPObject> findOutgoingParameters(OPPObjectProcessDiagram opd) {
     Collection<OPPObject> outgoingParameters = Lists.newArrayList();
     for (OPPObject parameter : getParameters(opd)) {
-      if (OPPObjectExtensions.hasIncomingDataLinks(parameter)) {
-        outgoingParameters.add(parameter);
-      }
-
-      // HACK!!!
-      Collection<OPPObject> parts = OPPObjectExtensions.getParts(parameter);
-      if (parts.size() > 0) {
-        for (OPPObject part : parts) {
-          if (OPPObjectExtensions.hasIncomingDataLinks(part))
-            outgoingParameters.add(parameter);
-        }
-      }
+      OPPObject outgoing = findOutoingParametersRecursive(parameter, parameter);
+      if (outgoing != null)
+        outgoingParameters.add(outgoing);
     }
     return outgoingParameters;
+  }
+
+  public static OPPObject findOutoingParametersRecursive(OPPObject parameter, OPPObject currentObject) {
+    if (OPPObjectExtensions.hasIncomingDataLinks(currentObject)) {
+      return parameter;
+    }
+
+    Collection<OPPObject> parts = OPPObjectExtensions.getParts(currentObject);
+    if (parts.size() > 0) {
+      for (OPPObject part : parts) {
+        OPPObject outgoing = findOutoingParametersRecursive(parameter, part);
+        if (outgoing != null)
+          return parameter;
+      }
+    }
+    return null;
   }
 
   public static OPPProcess getInZoomedProcess(OPPObjectProcessDiagram opd) {

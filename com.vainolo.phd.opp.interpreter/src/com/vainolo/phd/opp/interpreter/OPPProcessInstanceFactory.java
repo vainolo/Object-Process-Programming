@@ -44,6 +44,7 @@ import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElement
 import com.vainolo.phd.opp.interpreter.builtin.composite.list.OPPLocationElementRemovingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.general.OPPObjectCopyingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.general.OPPObjectCreatingProcessInstance;
+import com.vainolo.phd.opp.interpreter.builtin.general.OPPRandomProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleReadingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPConsoleWritingProcessInstance;
 import com.vainolo.phd.opp.interpreter.builtin.io.OPPDialogTextReadingProcessInstance;
@@ -257,6 +258,8 @@ public class OPPProcessInstanceFactory {
       // return new OPPTextFileReadingProcessInstance();
     } else if (name.equalsIgnoreCase("Transform JSON String To Object")) {
       return new OPPTransformJSONStringToObjectProcessInstance();
+    } else if (name.equalsIgnoreCase("Random")) {
+      return new OPPRandomProcessInstance();
     }
     return null;
   }
